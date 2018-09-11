@@ -1,0 +1,21 @@
+Package: textrecipes
+Title: Extra recipes for Text Processing
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Emil",
+           family = "Hvitfeldt",
+           role = c("aut", "cre"),
+           email = "emilhhvitfeldt@gmail.com")
+Description: Converting text to numerical features requires specifically
+    created procedures. These procedures are collected here as steps.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/EmilHvitfeldt/textrecipes
+BugReports: https://github.com/EmilHvitfeldt/textrecipes/issues
+Depends: 
+    recipes (>= 0.1.3)
+Suggests: 
+    covr,
+    testthat
+RoxygenNote: 6.1.0

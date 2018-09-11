@@ -1,0 +1,7 @@
+^data-raw$
+^codecov\.yml$
+^\.travis\.yml$
+^README\.Rmd$
+^LICENSE\.md$
+^textrecipes\.Rproj$
+^\.Rproj\.user$
