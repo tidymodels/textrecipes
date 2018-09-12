@@ -19,3 +19,8 @@ Suggests:
     covr,
     testthat
 RoxygenNote: 6.1.0
+Imports: 
+    rlang,
+    tokenizers,
+    dplyr,
+    tibble
