@@ -77,6 +77,7 @@ prep.step_tokenize <- function(x, info = NULL, ...) {
 }
 
 #' @export
+#' @importFrom tibble as_tibble
 #' @importFrom recipes bake prep
 bake.step_tokenize <- function(object, newdata, ...) {
   col_names <- object$columns
@@ -85,6 +86,7 @@ bake.step_tokenize <- function(object, newdata, ...) {
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- token_fun(newdata[, col_names[i]], col_names[i])
   }
+  as_tibble(newdata)
 }
 
 
