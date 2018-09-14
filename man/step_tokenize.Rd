@@ -37,25 +37,27 @@ subsequent operations}
 \value{
 An updated version of `recipe` with the new step added
  to the sequence of existing steps (if any).
-library(recipes)
-
-data(okc_text)
-
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0) %>%
-  prep(training = okc_text, retain = TRUE)
-
-juice(okc_rec, essay0) %>% 
-  slice(1:2)
-
-juice(okc_rec) %>% 
-  slice(2) %>% 
-  pull(essay0)
 }
 \description{
 `step_tokenize` creates a *specification* of a recipe step that
  will convert a character predictor into a list of its tokenized
  parts.
+}
+\examples{
+library(recipes)
+
+data(okc_text)
+
+okc_rec <- recipe(~ ., data = okc_text) \%>\%
+  step_tokenize(essay0) \%>\%
+  prep(training = okc_text, retain = TRUE)
+
+juice(okc_rec, essay0) \%>\% 
+  slice(1:2)
+
+juice(okc_rec) \%>\% 
+  slice(2) \%>\% 
+  pull(essay0) 
 }
 \concept{preprocessing encoding}
 \keyword{datagen}
