@@ -15,8 +15,13 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param options A list of options for [tokenizers::tokenize_words]
-#'  which can not be `x`.
+#' @param options A list of options passed to the tokenizer.
+#' @param token Unit for tokenizing. Built-in options from the 
+#'  [tokenizers] package are "words" (default), "characters",
+#'  "character_shingles", "ngrams", "skip_ngrams", "sentences", 
+#'  "lines", "paragraphs", "regex", "tweets" (tokenization by 
+#'  word that preserves usernames, hashtags, and URLS ),  "ptb" 
+#'  (Penn Treebank), "skip_ngrams" and  "word_stems".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -37,12 +42,20 @@
 #'   step_tokenize(essay0) %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
-#' juice(okc_rec, essay0) %>% 
+#' juice(okc_rec, essay0) %>%
 #'   slice(1:2)
 #' 
-#' juice(okc_rec) %>% 
-#'   slice(2) %>% 
-#'   pull(essay0) 
+#' juice(okc_rec) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
+#'   
+#' okc_rec_chars <- recipe(~ ., data = okc_text) %>%
+#'   step_tokenize(essay0, token = "characters") %>%
+#'   prep(training = okc_text, retain = TRUE)
+#' 
+#' juice(okc_rec_chars) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
@@ -55,6 +68,7 @@ step_tokenize <-
            trained = FALSE,
            columns = NULL,
            options = list(),
+           token = "words",
            skip = FALSE
   ) {
     add_step(
@@ -65,6 +79,7 @@ step_tokenize <-
         trained = trained,
         columns = columns,
         options = options,
+        token = token,
         skip = skip
       )
     )
@@ -76,6 +91,7 @@ step_tokenize_new <-
            trained = FALSE,
            columns = NULL,
            options = NULL,
+           token = NULL,
            skip = FALSE) {
     step(
       subclass = "tokenize",
@@ -84,6 +100,7 @@ step_tokenize_new <-
       trained = trained,
       columns = columns,
       options = options,
+      token = token,
       skip = skip
     )
   }
@@ -102,6 +119,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     options = x$options,
+    token = x$token,
     skip = x$skip
   )
 }
@@ -116,27 +134,55 @@ bake.step_tokenize <- function(object, newdata, ...) {
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- tokenizer_fun(newdata[, col_names[i]], 
                                              col_names[i],
-                                             options = object$options)
+                                             options = object$options,
+                                             token = object$token)
   }
   as_tibble(newdata)
 }
 
 #' @importFrom rlang expr
-tokenizer_fun <- function(data, name, options, ...) {
+tokenizer_fun <- function(data, name, options, token, ...) {
   check_type(data[, name], quant = FALSE)
   
   data <- factor_to_text(data, name)
   
-  token <- expr(
-    tokenizers::tokenize_words(
+  token_fun <- expr(
+    tokenizers_switch(token)(
       x = data[, 1, drop = TRUE]
     )
   )
   
   if (length(options) > 0)
-    token <- mod_call_args(token, args = options)
+    token_fun <- mod_call_args(token_fun, args = options)
   
-  out <- tibble::tibble(eval(token))
+  out <- tibble::tibble(eval(token_fun))
   names(out) <- name
   out
+}
+
+tokenizers_switch <- function(name) {
+  possible_tokenizers <- 
+    c("characters", "character_shingle", "lines", "ngrams",
+      "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
+      "tweets", "words", "word_stems")
+  
+  if(!(name %in% possible_tokenizers)) 
+    stop("token should be one of the supported ",
+         paste0("'", possible_tokenizers, "'", collapse = ", "),
+         call. = FALSE)
+  
+  switch(name,
+         characters = tokenizers::tokenize_characters,
+         character_shingle = tokenizers::tokenize_character_shingles,
+         lines = tokenizers::tokenize_lines,
+         ngrams = tokenizers::tokenize_ngrams,
+         paragraphs = tokenizers::tokenize_paragraphs,
+         ptb = tokenizers::tokenize_ptb,
+         regex = tokenizers::tokenize_regex,
+         sentences = tokenizers::tokenize_sentences,
+         skip_ngrams = tokenizers::tokenize_skip_ngrams,
+         tweets = tokenizers::tokenize_tweets,
+         words = tokenizers::tokenize_words,
+         word_stems = tokenizers::tokenize_word_stems
+  )
 }

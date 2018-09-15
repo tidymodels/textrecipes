@@ -29,3 +29,17 @@ test_that("tokenization is done correctly", {
       pull(essay0)
   )
 })
+
+test_that("tokenization works with other built in tokenizers", {
+  okc_rec <- okc_rec %>%
+    step_tokenize(essay0, token = "characters") %>%
+    prep(training = okc_text, retain = TRUE)
+  
+  expect_equal(
+    tokenizers::tokenize_characters(okc_text$essay0[1]),
+    juice(okc_rec) %>% 
+      slice(1) %>% 
+      pull(essay0)
+  )
+})
+

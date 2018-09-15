@@ -37,15 +37,15 @@ numeric for future analysis to work.
 
 | Step               | Input       | Output      | Status  |
 | ------------------ | ----------- | ----------- | ------- |
-| `step_tokenize`    | Character   | list-column | Working |
-| `step_untokenize`  | list-column | Character   | TODO    |
+| `step_tokenize`    | character   | list-column | Working |
+| `step_untokenize`  | list-column | character   | TODO    |
 | `step_stem`        | list-column | list-column | TODO    |
 | `step_stopwords`   | list-column | list-column | TODO    |
 | `step_topwords`    | list-column | list-column | TODO    |
 | `step_tfidf`       | list-column | numeric     | TODO    |
 | `step_tf`          | list-column | numeric     | TODO    |
 | `step_featurehash` | list-column | numeric     | TODO    |
-| `step_word2vec`    | Character   | numeric     | TODO    |
+| `step_word2vec`    | character   | numeric     | TODO    |
 
 This means that valid sequences includes
 

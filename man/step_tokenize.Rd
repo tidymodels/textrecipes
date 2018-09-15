@@ -5,7 +5,7 @@
 \title{Tokenization of character variables}
 \usage{
 step_tokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, options = list(), skip = FALSE)
+  columns = NULL, options = list(), token = "words", skip = FALSE)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -26,8 +26,14 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{options}{A list of options for [tokenizers::tokenize_words]
-which can not be `x`.}
+\item{options}{A list of options passed to the tokenizer.}
+
+\item{token}{Unit for tokenizing. Built-in options from the 
+[tokenizers] package are "words" (default), "characters",
+"character_shingles", "ngrams", "skip_ngrams", "sentences", 
+"lines", "paragraphs", "regex", "tweets" (tokenization by 
+word that preserves usernames, hashtags, and URLS ),  "ptb" 
+(Penn Treebank), "skip_ngrams" and  "word_stems".}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
