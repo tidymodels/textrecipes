@@ -6,7 +6,6 @@ library(textrecipes)
 data(okc_text)
 okc_rec <- recipe(~ ., data = okc_text)
 
-
 test_that("output is list when length is 1", {
   data <- tibble(a = rep("a", 20))
   
@@ -55,4 +54,3 @@ test_that("tokenization works with custom tokenizer", {
       pull(essay0)
   )
 })
-

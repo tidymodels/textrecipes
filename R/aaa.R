@@ -30,3 +30,14 @@ mod_call_args <- function(cl, args, removals = NULL) {
       cl[[i]] <- args[[i]]
     cl
 }
+
+check_list <- function (dat) {
+
+  all_good <- vapply(dat, is.list, logical(1))
+  label <- "numeric"
+
+  if (!all(all_good)) 
+    stop("All columns selected for the step should be a list-column", 
+         call. = FALSE)
+  invisible(all_good)
+}

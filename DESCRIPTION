@@ -24,4 +24,5 @@ Imports:
     rlang,
     tokenizers,
     dplyr,
-    tibble
+    tibble,
+    purrr
