@@ -38,8 +38,8 @@ numeric for future analysis to work.
 | Step               | Input       | Output      | Status  |
 | ------------------ | ----------- | ----------- | ------- |
 | `step_tokenize`    | character   | list-column | Working |
-| `step_untokenize`  | list-column | character   | TODO    |
-| `step_stem`        | list-column | list-column | TODO    |
+| `step_untokenize`  | list-column | character   | Working |
+| `step_stem`        | list-column | list-column | Working |
 | `step_stopwords`   | list-column | list-column | TODO    |
 | `step_topwords`    | list-column | list-column | TODO    |
 | `step_tfidf`       | list-column | numeric     | TODO    |

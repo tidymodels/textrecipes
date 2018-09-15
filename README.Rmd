@@ -41,7 +41,7 @@ install_github("emilhvitfeldt/textrecipes")
 |--------------------|-------------|-------------|---------|
 | `step_tokenize`    | character   | list-column | Working |
 | `step_untokenize`  | list-column | character   | Working |
-| `step_stem`        | list-column | list-column | TODO    |
+| `step_stem`        | list-column | list-column | Working |
 | `step_stopwords`   | list-column | list-column | TODO    |
 | `step_topwords`    | list-column | list-column | TODO    |
 | `step_tfidf`       | list-column | numeric     | TODO    |

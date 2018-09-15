@@ -25,4 +25,5 @@ Imports:
     tokenizers,
     dplyr,
     tibble,
-    purrr
+    purrr,
+    SnowballC
