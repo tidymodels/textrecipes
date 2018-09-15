@@ -32,3 +32,43 @@ install_github("emilhvitfeldt/textrecipes")
 ```
 
 ## Example
+
+## Type chart
+
+**textrecipes** includes a little departure in design from **recipes** in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
+
+| Step     |      Input  |  Output | Status |
+|----------|---------------|-------|-------|
+| `step_tokenize` | Character | list-column | Working |
+| `step_untokenize` | list-column | Character | TODO |
+| `step_stem` | list-column | list-column | TODO |
+| `step_stopwords` | list-column | list-column | TODO |
+| `step_topwords` | list-column | list-column | TODO |
+| `step_tfidf` | list-column | numeric | TODO |
+| `step_tf` | list-column | numeric | TODO |
+| `step_featurehash` | list-column | numeric | TODO |
+| `step_word2vec` | Character | numeric | TODO |
+
+This means that valid sequences includes
+
+```{r, eval=FALSE}
+recipe(~ ., data = data) %>%
+  step_tokenize(text) %>%
+  step_stem(text) %>%
+  step_stopwords(text) %>%
+  step_topwords(text) %>%
+  step_tfidf(text)
+
+# or
+
+recipe(~ ., data = data) %>%
+  step_tokenize(text) %>%
+  step_stem(text) %>%
+  step_tfidf(text)
+
+# or
+
+recipe(~ ., data = data) %>%
+  step_word2vec(text)
+```
+
