@@ -5,7 +5,7 @@
 \title{Tokenization of character variables}
 \usage{
 step_tokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, skip = FALSE)
+  columns = NULL, options = list(), skip = FALSE)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -25,6 +25,9 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
+
+\item{options}{A list of options for [tokenizers::tokenize_words]
+which can not be `x`.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all

@@ -15,6 +15,8 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
+#' @param options A list of options for [tokenizers::tokenize_words]
+#'  which can not be `x`.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -44,13 +46,15 @@
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check
+#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
+#' @importFrom recipes check_type
 step_tokenize <-
   function(recipe,
            ...,
            role = NA,
            trained = FALSE,
            columns = NULL,
+           options = list(),
            skip = FALSE
   ) {
     add_step(
@@ -60,6 +64,7 @@ step_tokenize <-
         role = role,
         trained = trained,
         columns = columns,
+        options = options,
         skip = skip
       )
     )
@@ -70,6 +75,7 @@ step_tokenize_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           options = NULL,
            skip = FALSE) {
     step(
       subclass = "tokenize",
@@ -77,19 +83,25 @@ step_tokenize_new <-
       role = role,
       trained = trained,
       columns = columns,
+      options = options,
       skip = skip
     )
   }
 
 #' @export
-prep.step_tokenize <- function(x, info = NULL, ...) {
+prep.step_tokenize <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
+  
+  training <- factor_to_text(training, col_names)
+  
+  check_type(training[, col_names], quant = FALSE)
   
   step_tokenize_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
+    options = x$options,
     skip = x$skip
   )
 }
@@ -102,14 +114,29 @@ bake.step_tokenize <- function(object, newdata, ...) {
   # for backward compat
   
   for (i in seq_along(col_names)) {
-    newdata[, col_names[i]] <- token_fun(newdata[, col_names[i]], col_names[i])
+    newdata[, col_names[i]] <- tokenizer_fun(newdata[, col_names[i]], 
+                                             col_names[i],
+                                             options = object$options)
   }
   as_tibble(newdata)
 }
 
-
-token_fun <- function(data, name) {
-  out <- tibble::tibble(tokenizers::tokenize_words(dplyr::pull(data, 1)))
+#' @importFrom rlang expr
+tokenizer_fun <- function(data, name, options, ...) {
+  check_type(data[, name], quant = FALSE)
+  
+  data <- factor_to_text(data, name)
+  
+  token <- expr(
+    tokenizers::tokenize_words(
+      x = data[, 1, drop = TRUE]
+    )
+  )
+  
+  if (length(options) > 0)
+    token <- mod_call_args(token, args = options)
+  
+  out <- tibble::tibble(eval(token))
   names(out) <- name
   out
 }
