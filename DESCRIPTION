@@ -14,11 +14,12 @@ LazyData: true
 URL: https://github.com/EmilHvitfeldt/textrecipes
 BugReports: https://github.com/EmilHvitfeldt/textrecipes/issues
 Depends: 
+    R (>= 2.10),
     recipes (>= 0.1.3)
 Suggests: 
     covr,
     testthat
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.0.9000
 Imports: 
     rlang,
     tokenizers,
