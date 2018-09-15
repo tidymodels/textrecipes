@@ -22,6 +22,9 @@
 #'  "lines", "paragraphs", "regex", "tweets" (tokenization by 
 #'  word that preserves usernames, hashtags, and URLS ),  "ptb" 
 #'  (Penn Treebank), "skip_ngrams" and  "word_stems".
+#' @param custom.token User supplied tokenizer. use of this argument
+#'  will overwrite the token argument. Must take a character vector
+#'  as input and output a list of character vectors. 
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -69,6 +72,7 @@ step_tokenize <-
            columns = NULL,
            options = list(),
            token = "words",
+           custom.token = NULL,
            skip = FALSE
   ) {
     add_step(
@@ -80,6 +84,7 @@ step_tokenize <-
         columns = columns,
         options = options,
         token = token,
+        custom.token = custom.token,
         skip = skip
       )
     )
@@ -92,6 +97,7 @@ step_tokenize_new <-
            columns = NULL,
            options = NULL,
            token = NULL,
+           custom.token = NULL,
            skip = FALSE) {
     step(
       subclass = "tokenize",
@@ -101,6 +107,7 @@ step_tokenize_new <-
       columns = columns,
       options = options,
       token = token,
+      custom.token = custom.token,
       skip = skip
     )
   }
@@ -120,6 +127,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     columns = col_names,
     options = x$options,
     token = x$token,
+    custom.token = x$custom.token,
     skip = x$skip
   )
 }
@@ -131,11 +139,17 @@ bake.step_tokenize <- function(object, newdata, ...) {
   col_names <- object$columns
   # for backward compat
   
+  if(!is.null(object$custom.token)) {
+    tokenizer <- object$custom.token
+  } else {
+    tokenizer <- tokenizers_switch(object$token)
+  }
+
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- tokenizer_fun(newdata[, col_names[i]], 
                                              col_names[i],
                                              options = object$options,
-                                             token = object$token)
+                                             token = tokenizer)
   }
   as_tibble(newdata)
 }
@@ -146,16 +160,16 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   
   data <- factor_to_text(data, name)
   
-  token_fun <- expr(
-    tokenizers_switch(token)(
+  token_expr <- expr(
+    token(
       x = data[, 1, drop = TRUE]
     )
   )
-  
+    
   if (length(options) > 0)
-    token_fun <- mod_call_args(token_fun, args = options)
+    token_expr <- mod_call_args(token_expr, args = options)
   
-  out <- tibble::tibble(eval(token_fun))
+  out <- tibble::tibble(eval(token_expr))
   names(out) <- name
   out
 }

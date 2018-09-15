@@ -5,7 +5,8 @@
 \title{Tokenization of character variables}
 \usage{
 step_tokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, options = list(), token = "words", skip = FALSE)
+  columns = NULL, options = list(), token = "words",
+  custom.token = NULL, skip = FALSE)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -35,6 +36,10 @@ encoding. This is `NULL` until the step is trained by
 word that preserves usernames, hashtags, and URLS ),  "ptb" 
 (Penn Treebank), "skip_ngrams" and  "word_stems".}
 
+\item{custom.token}{User supplied tokenizer. use of this argument
+will overwrite the token argument. Must take a character vector
+as input and output a list of character vectors.}
+
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
 operations are baked when [recipes::prep.recipe()] is run, some
@@ -61,12 +66,20 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
   prep(training = okc_text, retain = TRUE)
 
-juice(okc_rec, essay0) \%>\% 
+juice(okc_rec, essay0) \%>\%
   slice(1:2)
 
-juice(okc_rec) \%>\% 
-  slice(2) \%>\% 
-  pull(essay0) 
+juice(okc_rec) \%>\%
+  slice(2) \%>\%
+  pull(essay0)
+  
+okc_rec_chars <- recipe(~ ., data = okc_text) \%>\%
+  step_tokenize(essay0, token = "characters") \%>\%
+  prep(training = okc_text, retain = TRUE)
+
+juice(okc_rec_chars) \%>\%
+  slice(2) \%>\%
+  pull(essay0)
 }
 \concept{preprocessing encoding}
 \keyword{datagen}
