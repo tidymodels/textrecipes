@@ -139,11 +139,8 @@ bake.step_tokenize <- function(object, newdata, ...) {
   col_names <- object$columns
   # for backward compat
   
-  if(!is.null(object$custom.token)) {
-    tokenizer <- object$custom.token
-  } else {
-    tokenizer <- tokenizers_switch(object$token)
-  }
+  tokenizer <- null_switch(object$custom.token, 
+                           tokenizers_switch(object$token))
 
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- tokenizer_fun(newdata[, col_names[i]], 

@@ -150,7 +150,8 @@ bake.step_stopwords <- function(object, newdata, ...) {
   
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- tibble(
-      map(newdata[, col_names[i], drop = TRUE], stopwords_fun, object$language, object$stopword_source, object$keep, object$custom_stopword_source)
+      map(newdata[, col_names[i], drop = TRUE], stopwords_fun, object$language, 
+          object$stopword_source, object$keep, object$custom_stopword_source)
     )
   }
   newdata <- factor_to_text(newdata, col_names)
@@ -160,13 +161,12 @@ bake.step_stopwords <- function(object, newdata, ...) {
 
 #' @importFrom purrr keep
 #' @importFrom stopwords stopwords
-stopwords_fun <- function(x, language, stopword_source, keep, custom_stopword_source) {
-  if(!is.null(custom_stopword_source)) {
-    stopword_list = custom_stopword_source
-  }
-  else {
-    stopword_list = stopwords(language = language, source = stopword_source)
-  }
+stopwords_fun <- function(x, language, stopword_source, keep, 
+                          custom_stopword_source) {
+  
+  stopword_list <- null_switch(custom_stopword_source, 
+                               stopwords(language = language, 
+                                         source = stopword_source))
   
   if(!keep) {
     return(keep(x, !(x %in% stopword_list)))

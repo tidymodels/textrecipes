@@ -41,3 +41,13 @@ check_list <- function (dat) {
          call. = FALSE)
   invisible(all_good)
 }
+
+# If first argument is null don't use it and use the second argument instead
+# Is used to have one argument overwrite another argument 
+null_switch <- function(x, y) {
+  if(is.null(x)) {
+    y
+  } else {
+    x
+  }
+}
