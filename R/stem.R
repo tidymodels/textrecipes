@@ -1,7 +1,7 @@
-#' Untokenization of list-column variables
+#' Stemming of list-column variables
 #'
 #' `step_stem` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a character predictor.
+#'  will convert a list of its tokenized parts into a list with its tokenized parts stemmed.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
