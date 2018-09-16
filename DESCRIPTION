@@ -26,4 +26,5 @@ Imports:
     dplyr,
     tibble,
     purrr,
-    SnowballC
+    SnowballC,
+    stopwords

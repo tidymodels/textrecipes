@@ -1,12 +1,12 @@
-#' Stemming of list-column variables
+#' Filtering of stopwords from a list-column variable
 #'
-#' `step_stem` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a list with its tokenized parts stemmed.
+#' `step_stopwords` creates a *specification* of a recipe step that
+#'  will filter a list of its tokenized parts for stopwords(keep or remove).
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_stem`, this indicates the variables to be encoded
+#'  For `step_stopwords`, this indicates the variables to be encoded
 #'  into a list column. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
@@ -15,8 +15,13 @@
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
 #' @param options A list of options passed to the stemmer
-#' @param stemmer a character to select stemming method. Defaults
-#'  to "SnowballC".
+#' @param language A character to indicate the langauge of stopwords 
+#'  by ISO 639-1 coding scheme.
+#' @param keep A logical. Specifies whether to keep the stopwords or discard them.
+#' @param stopword_source A character to indicate the stopwords source as listed 
+#'  in `stopwords::stopwords_getsources`
+#' @param custom_stopword_source A character vector to indicate a custom list of words 
+#'  that cater to the users specific problem.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -35,7 +40,7 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_stem(essay0) %>%
+#'   step_stopwords(essay0) %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
 #' juice(okc_rec, essay0) %>% 
@@ -44,68 +49,94 @@
 #' juice(okc_rec) %>% 
 #'   slice(2) %>% 
 #'   pull(essay0) 
+#'   
+#' # With a custom stopwords list
+#' 
+#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#'   step_tokenize(essay0) %>%
+#'   step_stopwords(essay0, custom_stopword_source = c("twice", "upon")) %>%
+#'   prep(traimomg = okc_text, retain = TRUE)
+#'   
+#' juice(okc_rec) %>%
+#'   slice(2) %>%
+#'   pull(essay0) 
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
-step_stem <-
+step_stopwords <-
   function(recipe,
            ...,
            role = NA,
            trained = FALSE,
            columns = NULL,
            options = list(),
-           stemmer = "SnowballC",
+           language = "en",
+           keep = FALSE,
+           stopword_source = "snowball",
+           custom_stopword_source = NULL,
            skip = FALSE
   ) {
     add_step(
       recipe,
-      step_stem_new(
+      step_stopwords_new(
         terms = ellipse_check(...),
         role = role,
         trained = trained,
-        options = options,
-        stemmer = stemmer,
         columns = columns,
+        options = options,
+        language = language,
+        keep = keep,
+        stopword_source = stopword_source,
+        custom_stopword_source = custom_stopword_source,
         skip = skip
       )
     )
   }
 
-step_stem_new <-
+step_stopwords_new <-
   function(terms = NULL,
            role = NA,
            trained = FALSE,
            columns = NULL,
            options = NULL,
-           stemmer = NULL,
+           language = NULL,
+           keep = NULL,
+           stopword_source = NULL,
+           custom_stopword_source = NULL,
            skip = FALSE) {
     step(
-      subclass = "stem",
+      subclass = "stopwords",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
       options = options,
-      stemmer = stemmer,
+      language = language,
+      keep = keep,
+      stopword_source = stopword_source,
+      custom_stopword_source = custom_stopword_source,
       skip = skip
     )
   }
 
 #' @export
-prep.step_stem <- function(x, training, info = NULL, ...) {
+prep.step_stopwords <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
   
   check_list(training[, col_names])
   
-  step_stem_new(
+  step_stopwords_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
     options = x$options,
-    stemmer = x$stemmer,
+    language = x$language,
+    keep = x$keep,
+    stopword_source = x$stopword_source,
+    custom_stopword_source = x$custom_stopword_source,
     skip = x$skip
   )
 }
@@ -114,33 +145,33 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
-bake.step_stem <- function(object, newdata, ...) {
+bake.step_stopwords <- function(object, newdata, ...) {
   col_names <- object$columns
-  # for backward compat
   
   for (i in seq_along(col_names)) {
-
-    stemmed_text <- map(newdata[, col_names[i], drop = TRUE], 
-                        stem_fun(object$stemmer))
-    
-    newdata[, col_names[i]] <- tibble(stemmed_text)
+    newdata[, col_names[i]] <- tibble(
+      map(newdata[, col_names[i], drop = TRUE], stopwords_fun, object$language, object$stopword_source, object$keep, object$custom_stopword_source)
+    )
   }
-  
   newdata <- factor_to_text(newdata, col_names)
   
   as_tibble(newdata)
 }
 
-stem_fun <- function(name) {
-  possible_stemmers <- 
-    c("SnowballC")
+#' @importFrom purrr keep
+#' @importFrom stopwords stopwords
+stopwords_fun <- function(x, language, stopword_source, keep, custom_stopword_source) {
+  if(!is.null(custom_stopword_source)) {
+    stopword_list = custom_stopword_source
+  }
+  else {
+    stopword_list = stopwords(language = language, source = stopword_source)
+  }
   
-  if(!(name %in% possible_stemmers)) 
-    stop("stemmer should be one of the supported ",
-         paste0("'", possible_stemmers, "'", collapse = ", "),
-         call. = FALSE)
-  
-  switch(name,
-         SnowballC = SnowballC::wordStem
-  )
+  if(!keep) {
+    return(keep(x, !(x %in% stopword_list)))
+  }
+  else {
+    return(keep(x, x %in% stopword_list))
+  }
 }
