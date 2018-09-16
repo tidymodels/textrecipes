@@ -39,15 +39,17 @@ install_github("emilhvitfeldt/textrecipes")
 
 | Step               | Input       | Output      | Status  |
 |--------------------|-------------|-------------|---------|
-| `step_tokenize`    | character   | list-column | Working |
-| `step_untokenize`  | list-column | character   | Working |
-| `step_stem`        | list-column | list-column | Working |
-| `step_stopwords`   | list-column | list-column | TODO    |
+| `step_tokenize`    | character   | list-column | working |
+| `step_untokenize`  | list-column | character   | working |
+| `step_stem`        | list-column | list-column | working |
+| `step_stopwords`   | list-column | list-column | working |
 | `step_topwords`    | list-column | list-column | TODO    |
 | `step_tfidf`       | list-column | numeric     | TODO    |
 | `step_tf`          | list-column | numeric     | TODO    |
 | `step_featurehash` | list-column | numeric     | TODO    |
 | `step_word2vec`    | character   | numeric     | TODO    |
+
+(TODO = Yet to be implemented, bug = correnctly not working, working = the step works but still not finished i.e. missing document/tests/arguemnts, done = finished)
 
 This means that valid sequences includes
 
