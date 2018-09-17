@@ -1,12 +1,13 @@
-#' Filtering of stopwords from a list-column variable
+#' Filter the tokens based on term frequency
 #'
-#' `step_stopwords` creates a *specification* of a recipe step that
-#'  will filter a list of its tokenized parts for stopwords(keep or remove).
+#' `step_textfilter` creates a *specification* of a recipe step that
+#'  will convert a list of its tokenized parts into a list where the 
+#'  tokens are filtered based on frequency.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_stopwords`, this indicates the variables to be encoded
+#'  For `step_textfilter`, this indicates the variables to be encoded
 #'  into a list column. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
@@ -14,14 +15,16 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param options A list of options passed to the stemmer
-#' @param language A character to indicate the langauge of stopwords 
-#'  by ISO 639-1 coding scheme.
-#' @param keep A logical. Specifies whether to keep the stopwords or discard them.
-#' @param stopword_source A character to indicate the stopwords source as listed 
-#'  in `stopwords::stopwords_getsources`
-#' @param custom_stopword_source A character vector to indicate a custom list of words 
-#'  that cater to the users specific problem.
+#' @param max.tf An integer. Maximal number of times a word can appear
+#'  before getting removed.
+#' @param min.tf An integer. Minimum number of times a word can appear
+#'  before getting removed.
+#' @param procentage A logical. Should max.tf and min.tf be interpreded 
+#'  as a procentage instead of count.
+#' @param max.words An integer. Will only keep the top max.words words
+#'  after filtering done by max.tf and min.tf.
+#' @param res The words that will be keep will be stored here once 
+#'  this preprocessing step has be trained by [prep.recipe()].
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -40,7 +43,7 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_stopwords(essay0) %>%
+#'   step_textfilter(essay0, max.words = 10) %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
 #' juice(okc_rec, essay0) %>% 
@@ -49,94 +52,91 @@
 #' juice(okc_rec) %>% 
 #'   slice(2) %>% 
 #'   pull(essay0) 
-#'   
-#' # With a custom stopwords list
-#' 
-#' okc_rec <- recipe(~ ., data = okc_text) %>%
-#'   step_tokenize(essay0) %>%
-#'   step_stopwords(essay0, custom_stopword_source = c("twice", "upon")) %>%
-#'   prep(traimomg = okc_text, retain = TRUE)
-#'   
-#' juice(okc_rec) %>%
-#'   slice(2) %>%
-#'   pull(essay0) 
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
-step_stopwords <-
+step_textfilter <-
   function(recipe,
            ...,
            role = NA,
            trained = FALSE,
            columns = NULL,
-           options = list(),
-           language = "en",
-           keep = FALSE,
-           stopword_source = "snowball",
-           custom_stopword_source = NULL,
+           max.tf = Inf,
+           min.tf = 0,
+           procentage = FALSE,
+           max.words = NULL,
+           res = NULL,
            skip = FALSE
   ) {
     add_step(
       recipe,
-      step_stopwords_new(
+      step_textfilter_new(
         terms = ellipse_check(...),
         role = role,
         trained = trained,
         columns = columns,
-        options = options,
-        language = language,
-        keep = keep,
-        stopword_source = stopword_source,
-        custom_stopword_source = custom_stopword_source,
+        max.tf = max.tf,
+        min.tf = min.tf,
+        procentage = procentage,
+        max.words = max.words,
+        res = res,
         skip = skip
       )
     )
   }
 
-step_stopwords_new <-
+step_textfilter_new <-
   function(terms = NULL,
            role = NA,
            trained = FALSE,
            columns = NULL,
-           options = NULL,
-           language = NULL,
-           keep = NULL,
-           stopword_source = NULL,
-           custom_stopword_source = NULL,
+           max.tf = NULL,
+           min.tf = NULL,
+           procentage = NULL,
+           max.words = NULL,
+           res = NULL,
            skip = FALSE) {
     step(
-      subclass = "stopwords",
+      subclass = "textfilter",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
-      options = options,
-      language = language,
-      keep = keep,
-      stopword_source = stopword_source,
-      custom_stopword_source = custom_stopword_source,
+      max.tf = max.tf,
+      min.tf = min.tf,
+      procentage = procentage,
+      max.words = max.words,
+      res = res,
       skip = skip
     )
   }
 
 #' @export
-prep.step_stopwords <- function(x, training, info = NULL, ...) {
+prep.step_textfilter <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
   
   check_list(training[, col_names])
   
-  step_stopwords_new(
+  retain_words <- list()
+  
+  for (i in seq_along(col_names)) {
+    retain_words[[i]] <- textfilter_fun(training[, col_names[i], drop = TRUE],
+                                        x$max.tf, x$min.tf, x$max.words,
+                                        x$procentage)
+  }
+  
+  step_textfilter_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    options = x$options,
-    language = x$language,
-    keep = x$keep,
-    stopword_source = x$stopword_source,
-    custom_stopword_source = x$custom_stopword_source,
+    max.tf = x$max.tf,
+    min.tf = x$min.tf,
+    procentage = x$procentage,
+    max.words = x$max.words,
+    res = retain_words,
     skip = x$skip
   )
 }
@@ -145,20 +145,33 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
-bake.step_stopwords <- function(object, newdata, ...) {
+bake.step_textfilter <- function(object, newdata, ...) {
   col_names <- object$columns
-  
-  stopword_list <- null_switch(object$custom_stopword_source, 
-                               stopwords(language = object$language, 
-                                         source = object$stopword_source))
+  # for backward compat
   
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- 
       word_tbl_filter(newdata[, col_names[i], drop = TRUE], 
-                      stopword_list, 
-                      object$keep)
+                      object$res[[i]], 
+                      TRUE)
   }
   newdata <- factor_to_text(newdata, col_names)
   
   as_tibble(newdata)
 }
+
+textfilter_fun <- function(data, max_tf, min_tf, max_features, procentage) {
+  tf <- table(unlist(data))
+  
+  if(procentage)
+    tf <- tf / sum(tf)
+  
+  ids <- tf < max_tf & tf > min_tf
+  
+  if(is.null(max_features)) {
+    names(sort(tf[ids], decreasing = TRUE))
+  } else {
+    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
+  }
+}
+

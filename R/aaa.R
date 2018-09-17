@@ -43,7 +43,7 @@ null_switch <- function(x, y) {
   }
 }
 
-# Takes a list of character vectors and keeps (for keep = TRUE) the words
+# Takes a vector of character vectors and keeps (for keep = TRUE) the words
 # or removes (for keep = FALSE) the words
 #' @importFrom purrr keep
 #' @importFrom stopwords stopwords
@@ -55,4 +55,11 @@ word_list_filter <- function(x, words, keep) {
   else {
     return(keep(x, x %in% words))
   }
+}
+# same as word_list_filter but takes an list as input and returns a tibble with
+# list-column.
+word_tbl_filter <- function(x, words, keep) {
+  tibble(
+    map(x, word_list_filter, words, keep)
+  )
 }
