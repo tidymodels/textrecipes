@@ -15,6 +15,12 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
+#' @param tf.weight A character determine the weighting scheme for
+#'  the term frequency calculations. Must be one of "binary", 
+#'  "raw count", "term frequency", "log normalization" or
+#'  "double normalization". Defaults to "raw count".
+#' @param K A numeric weight used if `tf.weight` is set to
+#'  "double normalization". Defaults to 0.5.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
@@ -60,6 +66,8 @@ step_tfidf <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           tf.weight = "raw count",
+           K = 0.5,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE
@@ -72,6 +80,8 @@ step_tfidf <-
         trained = trained,
         res = res,
         columns = columns,
+        tf.weight = tf.weight,
+        K = K,
         prefix = prefix,
         skip = skip
       )
@@ -83,6 +93,8 @@ step_tfidf_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           tf.weight = NULL,
+           K = NULL,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
@@ -92,6 +104,8 @@ step_tfidf_new <-
       role = role,
       trained = trained,
       columns = columns,
+      tf.weight = tf.weight,
+      K = K,
       res = res,
       prefix = prefix,
       skip = skip
@@ -115,6 +129,8 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
+    tf.weight = x$tf.weight,
+    K = x$K,
     res = token_list,
     prefix = x$prefix,
     skip = x$skip
@@ -134,7 +150,9 @@ bake.step_tfidf <- function(object, newdata, ...) {
     
     tfidf_text <- tfidf_function(newdata[, col_names[i], drop = TRUE],
                            object$res[[i]],
-                           paste0(object$prefix, "-", col_names[i]))
+                           paste0(object$prefix, "-", col_names[i]),
+                           object$tf.weight,
+                           object$K)
     
     newdata <- bind_cols(newdata, tfidf_text)
     
@@ -145,11 +163,11 @@ bake.step_tfidf <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tfidf_function <- function(data, names, labels) {
+tfidf_function <- function(data, names, labels, weights, K) {
   
   counts <- list_to_count_matrix(data, names)
   
-  tf <- counts / rowSums(counts)
+  tf <- tf_weight(counts, weights, K)
   
   N <- length(data)
   idf <- log(N / (colSums(counts > 0) + 1))

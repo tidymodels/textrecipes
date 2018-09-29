@@ -21,7 +21,7 @@ test_that("step_tfidf works as intended", {
   counts <- lapply(tokenized_factor, tabulate, 26) %>% 
     purrr::reduce(rbind) %>% 
     unname()
-  tf <- counts / rowSums(counts)
+  tf <- counts
   N <- nrow(counts)
   idf <- log(N / (colSums(counts > 0) + 1))
   

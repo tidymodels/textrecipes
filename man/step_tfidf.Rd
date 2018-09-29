@@ -5,7 +5,8 @@
 \title{Term frequency–inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  res = NULL, prefix = "tfidf", skip = FALSE)
+  tf.weight = "raw count", K = 0.5, res = NULL, prefix = "tfidf",
+  skip = FALSE)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -25,6 +26,14 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
+
+\item{tf.weight}{A character determine the weighting scheme for
+the term frequency calculations. Must be one of "binary", 
+"raw count", "term frequency", "log normalization" or
+"double normalization". Defaults to "raw count".}
+
+\item{K}{A numeric weight used if `tf.weight` is set to
+"double normalization". Defaults to 0.5.}
 
 \item{res}{The words that will be used to calculate the term 
 frequency will be stored here once this preprocessing step has 

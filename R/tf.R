@@ -15,6 +15,12 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
+#' @param tf.weight A character determine the weighting scheme for
+#'  the term frequency calculations. Must be one of "binary", 
+#'  "raw count", "term frequency", "log normalization" or
+#'  "double normalization". Defaults to "raw count".
+#' @param K A numeric weight used if `tf.weight` is set to
+#'  "double normalization". Defaults to 0.5.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
@@ -26,7 +32,7 @@
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -60,6 +66,8 @@ step_tf <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           tf.weight = "raw count",
+           K = 0.5,
            res = NULL,
            prefix = "tf",
            skip = FALSE
@@ -72,6 +80,8 @@ step_tf <-
         trained = trained,
         res = res,
         columns = columns,
+        tf.weight = tf.weight,
+        K = K,
         prefix = prefix,
         skip = skip
       )
@@ -83,6 +93,8 @@ step_tf_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           tf.weight = NULL,
+           K = NULL,
            res = NULL,
            prefix = "tf",
            skip = FALSE) {
@@ -92,6 +104,8 @@ step_tf_new <-
       role = role,
       trained = trained,
       columns = columns,
+      tf.weight = tf.weight,
+      K = K,
       res = res,
       prefix = prefix,
       skip = skip
@@ -115,6 +129,8 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
+    tf.weight = x$tf.weight,
+    K = x$K,
     res = token_list,
     prefix = x$prefix,
     skip = x$skip
@@ -134,7 +150,9 @@ bake.step_tf <- function(object, newdata, ...) {
     
     tf_text <- tf_function(newdata[, col_names[i], drop = TRUE],
                            object$res[[i]],
-                           paste0(object$prefix, "-", col_names[i]))
+                           paste0(object$prefix, "-", col_names[i]),
+                           object$tf.weight,
+                           object$K)
     
     newdata <- bind_cols(newdata, tf_text)
     
@@ -145,10 +163,30 @@ bake.step_tf <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tf_function <- function(data, names, labels) {
+tf_function <- function(data, names, labels, weights, K) {
   
   counts <- list_to_count_matrix(data, names)
   
+  tf <- tf_weight(counts, weights, K)
   colnames(counts) <- paste0(labels, "-", names)
   as_tibble(counts)
+}
+
+tf_weight <- function(x, scheme, K) {
+  if(scheme == "binary")
+    return(x > 0)
+  
+  if(scheme == "raw count")
+    return(x)
+  
+  if(scheme == "term frequency")
+    return(x / rowSums(x))
+  
+  if(scheme == "log normalization")
+    return(log(1 + x))
+  
+  if(scheme == "double normalization") {
+    max_ftd <- apply(x, 1, max)
+    return(K + K * x / max_ftd)
+  }
 }

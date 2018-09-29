@@ -5,7 +5,8 @@
 \title{Term frequency of tokens}
 \usage{
 step_tf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  res = NULL, prefix = "tf", skip = FALSE)
+  tf.weight = "raw count", K = 0.5, res = NULL, prefix = "tf",
+  skip = FALSE)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -26,6 +27,14 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
+\item{tf.weight}{A character determine the weighting scheme for
+the term frequency calculations. Must be one of "binary", 
+"raw count", "term frequency", "log normalization" or
+"double normalization". Defaults to "raw count".}
+
+\item{K}{A numeric weight used if `tf.weight` is set to
+"double normalization". Defaults to 0.5.}
+
 \item{res}{The words that will be used to calculate the term 
 frequency will be stored here once this preprocessing step has 
 be trained by [prep.recipe()].}
@@ -39,7 +48,7 @@ operations are baked when [recipes::prep.recipe()] is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
-subsequent operations}
+subsequent operations.}
 }
 \value{
 An updated version of `recipe` with the new step added
