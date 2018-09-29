@@ -41,9 +41,9 @@ numeric for future analysis to work.
 | `step_untokenize`  | list-column | character   | working |
 | `step_stem`        | list-column | list-column | working |
 | `step_stopwords`   | list-column | list-column | working |
-| `step_topwords`    | list-column | list-column | TODO    |
-| `step_tfidf`       | list-column | numeric     | TODO    |
-| `step_tf`          | list-column | numeric     | TODO    |
+| `step_textfilter`  | list-column | list-column | working |
+| `step_tfidf`       | list-column | numeric     | working |
+| `step_tf`          | list-column | numeric     | working |
 | `step_featurehash` | list-column | numeric     | TODO    |
 | `step_word2vec`    | character   | numeric     | TODO    |
 
