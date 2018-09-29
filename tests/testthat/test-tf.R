@@ -9,8 +9,6 @@ data_tf <- tibble(text = purrr::map_chr(1:100,
                                                 collapse = " ")))
 data_rec <- recipe(~ ., data = data_tf)
 
-
-
 test_that("step_tf works as intended", {
    data_preped <- data_rec %>%
      step_tokenize(text) %>%
