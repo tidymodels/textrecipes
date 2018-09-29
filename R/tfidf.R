@@ -146,20 +146,16 @@ bake.step_tfidf <- function(object, newdata, ...) {
 }
 
 tfidf_function <- function(data, names, labels) {
-  n_words <- length(names)
   
-  counts <- purrr::map(data, ~ tabulate(factor(.x, names), n_words)) %>%
-    unlist() %>%
-    matrix(ncol = n_words, byrow = TRUE) 
+  counts <- list_to_count_matrix(data, names)
   
   tf <- counts / rowSums(counts)
   
   N <- length(data)
   idf <- log(N / (colSums(counts > 0) + 1))
   
-  tfidf <- t(t(tf) * idf) %>%
-    as_tibble()
+  tfidf <- t(t(tf) * idf)
   
   colnames(tfidf) <- paste0(labels, "-", names)
-  tfidf
+  as_tibble(tfidf)
 }

@@ -146,13 +146,9 @@ bake.step_tf <- function(object, newdata, ...) {
 }
 
 tf_function <- function(data, names, labels) {
-  n_words <- length(names)
   
-  counts <- purrr::map(data, ~ tabulate(factor(.x, names), n_words)) %>%
-    unlist() %>%
-    matrix(ncol = n_words, byrow = TRUE) %>%
-    as_tibble()
+  counts <- list_to_count_matrix(data, names)
   
   colnames(counts) <- paste0(labels, "-", names)
-  counts
+  as_tibble(counts)
 }

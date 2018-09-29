@@ -63,3 +63,12 @@ word_tbl_filter <- function(x, words, keep) {
     map(x, word_list_filter, words, keep)
   )
 }
+
+# Takes a list of tokens and calculate the token count matrix
+list_to_count_matrix <- function(x, values) {
+  n_words <- length(values)
+  
+  purrr::map(x, ~ tabulate(factor(.x, values), n_words)) %>%
+    unlist() %>%
+    matrix(ncol = n_words, byrow = TRUE)
+}
