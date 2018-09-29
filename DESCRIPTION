@@ -27,4 +27,5 @@ Imports:
     tibble,
     purrr,
     SnowballC,
-    stopwords
+    stopwords,
+    magrittr
