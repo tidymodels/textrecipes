@@ -1,8 +1,8 @@
 #' Term frequency of tokens
 #'
 #' `step_tf` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a list with 
-#'  its tokenized parts stemmed.
+#'  will convert a list of its tokenized parts into multiple 
+#'  variables containing the term counts.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.

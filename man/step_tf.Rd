@@ -47,8 +47,8 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_tf` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into a list with 
- its tokenized parts stemmed.
+ will convert a list of its tokenized parts into multiple 
+ variables containing the term counts.
 }
 \details{
 The new components will have names that begin with `prefix`, then
