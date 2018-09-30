@@ -15,12 +15,19 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param tf.weight A character determine the weighting scheme for
+#' @param tf.weight A character determining the weighting scheme for
 #'  the term frequency calculations. Must be one of "binary", 
 #'  "raw count", "term frequency", "log normalization" or
 #'  "double normalization". Defaults to "raw count".
 #' @param K A numeric weight used if `tf.weight` is set to
 #'  "double normalization". Defaults to 0.5.
+#' @param idf.weight A character determining the weighting scheme
+#'  for the inverse document frequency calculations. Must be one of
+#'  "unary", "idf", "idf smooth", "idf max" or "probabilistic idf".
+#'  Defaults to "idf".
+#' @param idf.adjustment Numeric added to the denominator of inverse
+#'  document frequency calculation to avoid division-by-zero. Defaults
+#'  to 1.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
@@ -68,6 +75,8 @@ step_tfidf <-
            columns = NULL,
            tf.weight = "raw count",
            K = 0.5,
+           idf.weight = "idf",
+           idf.adjustment = 1,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE
@@ -82,6 +91,8 @@ step_tfidf <-
         columns = columns,
         tf.weight = tf.weight,
         K = K,
+        idf.weight = idf.weight,
+        idf.adjustment = idf.adjustment,
         prefix = prefix,
         skip = skip
       )
@@ -95,6 +106,8 @@ step_tfidf_new <-
            columns = NULL,
            tf.weight = NULL,
            K = NULL,
+           idf.weight = NULL,
+           idf.adjustment = NULL,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
@@ -106,6 +119,8 @@ step_tfidf_new <-
       columns = columns,
       tf.weight = tf.weight,
       K = K,
+      idf.weight = idf.weight,
+      idf.adjustment = idf.adjustment,
       res = res,
       prefix = prefix,
       skip = skip
@@ -131,6 +146,8 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     columns = col_names,
     tf.weight = x$tf.weight,
     K = x$K,
+    idf.weight = x$idf.weight,
+    idf.adjustment = x$idf.adjustment,
     res = token_list,
     prefix = x$prefix,
     skip = x$skip
@@ -152,7 +169,9 @@ bake.step_tfidf <- function(object, newdata, ...) {
                            object$res[[i]],
                            paste0(object$prefix, "-", col_names[i]),
                            object$tf.weight,
-                           object$K)
+                           object$K,
+                           object$idf.weight,
+                           object$idf.adjustment)
     
     newdata <- bind_cols(newdata, tfidf_text)
     
@@ -163,17 +182,44 @@ bake.step_tfidf <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tfidf_function <- function(data, names, labels, weights, K) {
+tfidf_function <- function(data, names, labels, tf.weights, K, idf.weight,
+                           adjustment) {
   
   counts <- list_to_count_matrix(data, names)
   
-  tf <- tf_weight(counts, weights, K)
+  tf <- tf_weight(counts, tf.weights, K)
   
-  N <- length(data)
-  idf <- log(N / (colSums(counts > 0) + 1))
+  idf <- idf_weight(counts, idf.weight, adjustment)
   
   tfidf <- t(t(tf) * idf)
   
   colnames(tfidf) <- paste0(labels, "-", names)
   as_tibble(tfidf)
+}
+
+idf_weight <- function(x, scheme, adjustment) {
+  if(scheme == "unary")
+    return(1)
+  
+  if(scheme == "idf") {
+    N <- nrow(x)
+    return(log(N / (colSums(x > 0) + adjustment)))
+  }
+    
+  if(scheme == "idf smooth") {
+    N <- nrow(x)
+    return(log(1 + N / (colSums(x > 0) + adjustment)))
+  }
+    
+  if(scheme == "idf max") {
+    nt <- colSums(x > 0)
+    return(log(max(nt) / (nt + adjustment)))
+  }
+    
+  if(scheme == "probabilistic idf") {
+    N <- nrow(x)
+    nt <- colSums(x > 0)
+    return(log((N - nt) / (nt + adjustment)))
+  }
+    
 }

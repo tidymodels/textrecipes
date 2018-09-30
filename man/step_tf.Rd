@@ -27,7 +27,7 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{tf.weight}{A character determine the weighting scheme for
+\item{tf.weight}{A character determining the weighting scheme for
 the term frequency calculations. Must be one of "binary", 
 "raw count", "term frequency", "log normalization" or
 "double normalization". Defaults to "raw count".}
