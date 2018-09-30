@@ -162,3 +162,11 @@ bake.step_stopwords <- function(object, newdata, ...) {
   
   as_tibble(newdata)
 }
+
+#' @importFrom recipes printer
+print.step_stopwords <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Stop word removal for ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}

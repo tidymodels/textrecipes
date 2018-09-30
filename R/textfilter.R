@@ -175,3 +175,10 @@ textfilter_fun <- function(data, max_tf, min_tf, max_features, procentage) {
   }
 }
 
+#' @importFrom recipes printer
+print.step_textfilter <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Text filtering for ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}

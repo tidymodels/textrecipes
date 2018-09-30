@@ -4,10 +4,10 @@ library(recipes)
 library(textrecipes)
 
 data(okc_text)
-okc_rec <- recipe(~ ., data = okc_text)
+rec <- recipe(~ ., data = okc_text)
 
 test_that("stopwords are removed correctly", {
-  okc_rec <- okc_rec %>%
+  rec <- rec %>%
     step_tokenize(essay0) %>%
     step_stopwords(essay0) %>%
     prep(training = okc_text, retain = TRUE)
@@ -16,7 +16,7 @@ test_that("stopwords are removed correctly", {
   
   expect_equal(
     token_words[!is.element(token_words, stopwords::stopwords())],
-    juice(okc_rec) %>% 
+    juice(rec) %>% 
       slice(1) %>% 
       pull(essay0) %>%
       unlist()
@@ -24,7 +24,7 @@ test_that("stopwords are removed correctly", {
 })
 
 test_that("stopwords are kept correctly", {
-  okc_rec <- okc_rec %>%
+  rec <- rec %>%
     step_tokenize(essay0) %>%
     step_stopwords(essay0, keep = TRUE) %>%
     prep(training = okc_text, retain = TRUE)
@@ -33,7 +33,7 @@ test_that("stopwords are kept correctly", {
   
   expect_equal(
     token_words[is.element(token_words, stopwords::stopwords())],
-    juice(okc_rec) %>% 
+    juice(rec) %>% 
       slice(1) %>% 
       pull(essay0) %>%
       unlist()
@@ -43,7 +43,7 @@ test_that("stopwords are kept correctly", {
 test_that("custom stopwords are supported", {
   custom_stopwords <- c("dead", "babies", "candy")
   
-  okc_rec <- okc_rec %>%
+  rec <- rec %>%
     step_tokenize(essay0) %>%
     step_stopwords(essay0, custom_stopword_source = custom_stopwords) %>%
     prep(training = okc_text, retain = TRUE)
@@ -52,9 +52,17 @@ test_that("custom stopwords are supported", {
   
   expect_equal(
     token_words[!is.element(token_words, custom_stopwords)],
-    juice(okc_rec) %>% 
+    juice(rec) %>% 
       slice(1) %>% 
       pull(essay0) %>%
       unlist()
   )
+})
+
+test_that('printing', {
+  rec <- rec %>%
+    step_tokenize(essay0) %>%
+    step_stopwords(essay0)
+  expect_output(print(rec))
+  expect_output(prep(rec, training = okc_text, verbose = TRUE))
 })

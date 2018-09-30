@@ -45,7 +45,8 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_stem` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into a list with its tokenized parts stemmed.
+ will convert a list of its tokenized parts into a list with its
+ tokenized parts stemmed.
 }
 \examples{
 library(recipes)

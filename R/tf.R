@@ -190,3 +190,11 @@ tf_weight <- function(x, scheme, K) {
     return(K + K * x / max_ftd)
   }
 }
+
+#' @importFrom recipes printer
+print.step_tf <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Term frequency with ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}

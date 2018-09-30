@@ -176,3 +176,11 @@ char_to_matrix <- function(x, algo, n) {
     unlist() %>%
     matrix(ncol = n, byrow = TRUE)
 }
+
+#' @importFrom recipes printer
+print.step_hashing <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Feature hashing with ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}

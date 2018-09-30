@@ -114,3 +114,11 @@ bake.step_untokenize <- function(object, newdata, ...) {
   
   as_tibble(newdata)
 }
+
+#' @importFrom recipes printer
+print.step_untokenize <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Untokenization for ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}

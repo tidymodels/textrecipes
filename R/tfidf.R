@@ -1,8 +1,8 @@
-#'  Term frequency–inverse document frequency of tokens
+#'  Term frequency-inverse document frequency of tokens
 #'
 #' `step_tfidf` creates a *specification* of a recipe step that
 #'  will convert a list of its tokenized parts into multiple variables
-#'  containing the Term frequency–inverse document frequency of tokens.
+#'  containing the Term frequency-inverse document frequency of tokens.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -166,12 +166,12 @@ bake.step_tfidf <- function(object, newdata, ...) {
   for (i in seq_along(col_names)) {
     
     tfidf_text <- tfidf_function(newdata[, col_names[i], drop = TRUE],
-                           object$res[[i]],
-                           paste0(object$prefix, "-", col_names[i]),
-                           object$tf.weight,
-                           object$K,
-                           object$idf.weight,
-                           object$idf.adjustment)
+                                 object$res[[i]],
+                                 paste0(object$prefix, "-", col_names[i]),
+                                 object$tf.weight,
+                                 object$K,
+                                 object$idf.weight,
+                                 object$idf.adjustment)
     
     newdata <- bind_cols(newdata, tfidf_text)
     
@@ -205,21 +205,28 @@ idf_weight <- function(x, scheme, adjustment) {
     N <- nrow(x)
     return(log(N / (colSums(x > 0) + adjustment)))
   }
-    
+  
   if(scheme == "idf smooth") {
     N <- nrow(x)
     return(log(1 + N / (colSums(x > 0) + adjustment)))
   }
-    
+  
   if(scheme == "idf max") {
     nt <- colSums(x > 0)
     return(log(max(nt) / (nt + adjustment)))
   }
-    
+  
   if(scheme == "probabilistic idf") {
     N <- nrow(x)
     nt <- colSums(x > 0)
     return(log((N - nt) / (nt + adjustment)))
   }
-    
+}
+
+#' @importFrom recipes printer
+print.step_tfidf <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Term frequency-inverse document frequency with ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tfidf.R
 \name{step_tfidf}
 \alias{step_tfidf}
-\title{Term frequency–inverse document frequency of tokens}
+\title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
   tf.weight = "raw count", K = 0.5, idf.weight = "idf",
@@ -66,7 +66,7 @@ An updated version of `recipe` with the new step added
 \description{
 `step_tfidf` creates a *specification* of a recipe step that
  will convert a list of its tokenized parts into multiple variables
- containing the Term frequency–inverse document frequency of tokens.
+ containing the Term frequency-inverse document frequency of tokens.
 }
 \details{
 The new components will have names that begin with `prefix`, then

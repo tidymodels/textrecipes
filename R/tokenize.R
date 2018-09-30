@@ -197,3 +197,11 @@ tokenizers_switch <- function(name) {
          word_stems = tokenizers::tokenize_word_stems
   )
 }
+
+#' @importFrom recipes printer
+print.step_tokenize <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Tokenization for ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}

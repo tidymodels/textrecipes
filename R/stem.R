@@ -1,7 +1,8 @@
 #' Stemming of list-column variables
 #'
 #' `step_stem` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a list with its tokenized parts stemmed.
+#'  will convert a list of its tokenized parts into a list with its
+#'  tokenized parts stemmed.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -143,4 +144,12 @@ stem_fun <- function(name) {
   switch(name,
          SnowballC = SnowballC::wordStem
   )
+}
+
+#' @importFrom recipes printer
+print.step_stem <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Stemming for ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
 }
