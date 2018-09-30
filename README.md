@@ -44,7 +44,7 @@ numeric for future analysis to work.
 | `step_textfilter`  | list-column | list-column | working |
 | `step_tfidf`       | list-column | numeric     | working |
 | `step_tf`          | list-column | numeric     | working |
-| `step_featurehash` | list-column | numeric     | TODO    |
+| `step_featurehash` | list-column | numeric     | working |
 | `step_word2vec`    | character   | numeric     | TODO    |
 
 (TODO = Yet to be implemented, bug = correnctly not working, working =

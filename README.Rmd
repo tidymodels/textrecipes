@@ -46,7 +46,7 @@ install_github("emilhvitfeldt/textrecipes")
 | `step_textfilter`  | list-column | list-column | working |
 | `step_tfidf`       | list-column | numeric     | working |
 | `step_tf`          | list-column | numeric     | working |
-| `step_featurehash` | list-column | numeric     | TODO    |
+| `step_featurehash` | list-column | numeric     | working |
 | `step_word2vec`    | character   | numeric     | TODO    |
 
 (TODO = Yet to be implemented, bug = correnctly not working, working = the step works but still not finished i.e. missing document/tests/arguemnts, done = finished)

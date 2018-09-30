@@ -28,4 +28,6 @@ Imports:
     purrr,
     SnowballC,
     stopwords,
-    magrittr
+    magrittr,
+    digest,
+    stringr
