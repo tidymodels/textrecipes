@@ -33,6 +33,29 @@ install_github("emilhvitfeldt/textrecipes")
 
 ## Example
 
+In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 500 most used words. We will be conduction this preprosession on the variable `essay0`.
+
+```{r}
+library(recipes)
+library(textrecipes)
+ 
+data(okc_text)
+
+example_data <- okc_text[, 1]
+
+okc_rec <- recipe(~ ., data = example_data) %>%
+  step_tokenize(essay0) %>% # Tokenizes to words by default
+  step_stopwords(essay0) %>% # Uses the english snowball list by default
+  step_textfilter(essay0, max.words = 500) %>%
+  step_tfidf(essay0, tf.weight = "term frequency", idf.weight = "idf")
+   
+okc_obj <- okc_rec %>%
+  prep(training = example_data, retain = TRUE)
+   
+bake(okc_obj, example_data)
+```
+
+
 ## Type chart
 
 **textrecipes** includes a little departure in design from **recipes** in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
