@@ -2,11 +2,14 @@
 % Please edit documentation in R/textfilter.R
 \name{step_textfilter}
 \alias{step_textfilter}
+\alias{tidy.step_textfilter}
 \title{Filter the tokens based on term frequency}
 \usage{
 step_textfilter(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, max.tf = Inf, min.tf = 0, procentage = FALSE,
   max.words = NULL, res = NULL, skip = FALSE)
+
+\method{tidy}{step_textfilter}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -49,6 +52,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations}
+
+\item{x}{A `step_textfilter` object.}
 }
 \value{
 An updated version of `recipe` with the new step added
@@ -66,15 +71,20 @@ data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
-  step_textfilter(essay0, max.words = 10) \%>\%
+  step_textfilter(essay0, max.words = 10) 
+  
+okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
 
-juice(okc_rec, essay0) \%>\% 
+juice(okc_obj, essay0) \%>\% 
   slice(1:2)
 
-juice(okc_rec) \%>\% 
+juice(okc_obj) \%>\% 
   slice(2) \%>\% 
-  pull(essay0) 
+  pull(essay0)
+
+tidy(okc_rec, number = 2)
+tidy(okc_obj, number = 2)
 }
 \concept{preprocessing encoding}
 \keyword{datagen}

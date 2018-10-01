@@ -40,24 +40,29 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_stopwords(essay0) %>%
+#'   step_stopwords(essay0) 
+#'   
+#' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
-#' juice(okc_rec, essay0) %>% 
+#' juice(okc_obj, essay0) %>% 
 #'   slice(1:2)
 #' 
-#' juice(okc_rec) %>% 
+#' juice(okc_obj) %>% 
 #'   slice(2) %>% 
 #'   pull(essay0) 
 #'   
+#' tidy(okc_rec, number = 2)
+#' tidy(okc_obj, number = 2)
 #' # With a custom stopwords list
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_stopwords(essay0, custom_stopword_source = c("twice", "upon")) %>%
+#'   step_stopwords(essay0, custom_stopword_source = c("twice", "upon"))
+#' okc_obj <- okc_rec %>%
 #'   prep(traimomg = okc_text, retain = TRUE)
 #'   
-#' juice(okc_rec) %>%
+#' juice(okc_obj) %>%
 #'   slice(2) %>%
 #'   pull(essay0) 
 #' @keywords datagen 
@@ -169,4 +174,22 @@ print.step_stopwords <-
     cat("Stop word removal for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
+  }
+
+#' @rdname step_stopwords
+#' @param x A `step_stopwords` object.
+#' @importFrom rlang na_chr na_lgl
+#' @export
+tidy.step_stopwords <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  value = x$stopword_source,
+                  keep = x$keep)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  value = na_chr,
+                  keep = na_lgl)
+  }
+  res
 }

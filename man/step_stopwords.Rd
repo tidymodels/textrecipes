@@ -2,12 +2,15 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
+\alias{tidy.step_stopwords}
 \title{Filtering of stopwords from a list-column variable}
 \usage{
 step_stopwords(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, options = list(), language = "en", keep = FALSE,
   stopword_source = "snowball", custom_stopword_source = NULL,
   skip = FALSE)
+
+\method{tidy}{step_stopwords}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -48,6 +51,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations}
+
+\item{x}{A `step_stopwords` object.}
 }
 \value{
 An updated version of `recipe` with the new step added
@@ -64,24 +69,29 @@ data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
-  step_stopwords(essay0) \%>\%
+  step_stopwords(essay0) 
+  
+okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
 
-juice(okc_rec, essay0) \%>\% 
+juice(okc_obj, essay0) \%>\% 
   slice(1:2)
 
-juice(okc_rec) \%>\% 
+juice(okc_obj) \%>\% 
   slice(2) \%>\% 
   pull(essay0) 
   
+tidy(okc_rec, number = 2)
+tidy(okc_obj, number = 2)
 # With a custom stopwords list
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
-  step_stopwords(essay0, custom_stopword_source = c("twice", "upon")) \%>\%
+  step_stopwords(essay0, custom_stopword_source = c("twice", "upon"))
+okc_obj <- okc_rec \%>\%
   prep(traimomg = okc_text, retain = TRUE)
   
-juice(okc_rec) \%>\%
+juice(okc_obj) \%>\%
   slice(2) \%>\%
   pull(essay0) 
 }

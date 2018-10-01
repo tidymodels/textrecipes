@@ -2,11 +2,14 @@
 % Please edit documentation in R/hashing.R
 \name{step_hashing}
 \alias{step_hashing}
+\alias{tidy.step_hashing}
 \title{Term frequency of tokens}
 \usage{
 step_hashing(recipe, ..., role = NA, trained = FALSE, columns = NULL,
   algorithm = "murmur32", num = 1024, prefix = "hashing",
   skip = FALSE)
+
+\method{tidy}{step_hashing}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -44,6 +47,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations.}
+
+\item{x}{A `step_hashing` object.}
 }
 \value{
 An updated version of `recipe` with the new step added
@@ -58,8 +63,8 @@ An updated version of `recipe` with the new step added
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
 `-`. The variable names are padded with zeros. For example,
-if `num < 10`, their names will be `PC1` - `PC9`.
-If `num = 101`, the names would be `PC001` - `PC101`.
+if `num < 10`, their names will be `hashing1` - `hashing9`.
+If `num = 101`, the names would be `hashing001` - `hashing101`.
 }
 \examples{
 library(recipes)
@@ -68,11 +73,16 @@ data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
-  step_textfilter(essay0, max.words = 100) \%>\%
-  step_hashing(essay0) \%>\%
+  step_textfilter(essay0, max.words = 10) \%>\%
+  step_hashing(essay0)
+  
+okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
   
-bake(okc_rec, okc_text)
+bake(okc_obj, okc_text)
+
+tidy(okc_rec, number = 2)
+tidy(okc_obj, number = 2)
 }
 \concept{preprocessing encoding}
 \keyword{datagen}

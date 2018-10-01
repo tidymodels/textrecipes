@@ -2,11 +2,14 @@
 % Please edit documentation in R/tfidf.R
 \name{step_tfidf}
 \alias{step_tfidf}
+\alias{tidy.step_tfidf}
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
   tf.weight = "raw count", K = 0.5, idf.weight = "idf",
   idf.adjustment = 1, res = NULL, prefix = "tfidf", skip = FALSE)
+
+\method{tidy}{step_tfidf}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -58,6 +61,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations}
+
+\item{x}{A `step_tfidf` object.}
 }
 \value{
 An updated version of `recipe` with the new step added
@@ -81,11 +86,15 @@ data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
-  step_textfilter(essay0, max.words = 100) \%>\%
-  step_tfidf(essay0) \%>\%
+  step_tfidf(essay0)
+  
+okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
   
-bake(okc_rec, okc_text)
+bake(okc_obj, okc_text)
+
+tidy(okc_rec, number = 2)
+tidy(okc_obj, number = 2)
 }
 \concept{preprocessing encoding}
 \keyword{datagen}

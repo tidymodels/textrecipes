@@ -44,11 +44,15 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_textfilter(essay0, max.words = 100) %>%
-#'   step_tf(essay0) %>%
+#'   step_tf(essay0)
+#'   
+#' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
 #'   
-#' bake(okc_rec, okc_text)
+#' bake(okc_obj, okc_text)
+#' 
+#' tidy(okc_rec, number = 2)
+#' tidy(okc_obj, number = 2)
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
@@ -197,4 +201,20 @@ print.step_tf <-
     cat("Term frequency with ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
+  }
+
+#' @rdname step_tf
+#' @param x A `step_tf` object.
+#' @importFrom rlang na_chr na_int
+#' @export
+tidy.step_tf <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  value = x$tf.weight)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  value = na_chr)
+  }
+  res
 }

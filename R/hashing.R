@@ -40,11 +40,16 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_textfilter(essay0, max.words = 100) %>%
-#'   step_hashing(essay0) %>%
+#'   step_textfilter(essay0, max.words = 10) %>%
+#'   step_hashing(essay0)
+#'   
+#' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
 #'   
-#' bake(okc_rec, okc_text)
+#' bake(okc_obj, okc_text)
+#' 
+#' tidy(okc_rec, number = 2)
+#' tidy(okc_obj, number = 2)
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
@@ -52,8 +57,8 @@
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
 #' `-`. The variable names are padded with zeros. For example,
-#' if `num < 10`, their names will be `PC1` - `PC9`.
-#' If `num = 101`, the names would be `PC001` - `PC101`.
+#' if `num < 10`, their names will be `hashing1` - `hashing9`.
+#' If `num = 101`, the names would be `hashing001` - `hashing101`.
 #' 
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
@@ -183,4 +188,24 @@ print.step_hashing <-
     cat("Feature hashing with ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
+  }
+
+#' @rdname step_hashing
+#' @param x A `step_hashing` object.
+#' @importFrom rlang na_chr na_int
+#' @importFrom broom tidy
+#' @importFrom recipes is_trained
+#' @export
+tidy.step_hashing <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  value = x$algorithm,
+                  length = x$num)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  value = na_chr,
+                  length = na_int)
+  }
+  res
 }

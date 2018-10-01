@@ -2,11 +2,14 @@
 % Please edit documentation in R/tokenize.R
 \name{step_tokenize}
 \alias{step_tokenize}
+\alias{tidy.step_tokenize}
 \title{Tokenization of character variables}
 \usage{
 step_tokenize(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, options = list(), token = "words",
   custom.token = NULL, skip = FALSE)
+
+\method{tidy}{step_tokenize}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the
@@ -47,6 +50,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations}
+
+\item{x}{A `step_tokenize` object.}
 }
 \value{
 An updated version of `recipe` with the new step added
@@ -63,21 +68,26 @@ library(recipes)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
+  step_tokenize(essay0) 
+  
+okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
 
-juice(okc_rec, essay0) \%>\%
+juice(okc_obj, essay0) \%>\%
   slice(1:2)
 
-juice(okc_rec) \%>\%
+juice(okc_obj) \%>\%
   slice(2) \%>\%
   pull(essay0)
   
-okc_rec_chars <- recipe(~ ., data = okc_text) \%>\%
+tidy(okc_rec, number = 1)
+tidy(okc_obj, number = 1)
+
+okc_obj_chars <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0, token = "characters") \%>\%
   prep(training = okc_text, retain = TRUE)
 
-juice(okc_rec_chars) \%>\%
+juice(okc_obj_chars) \%>\%
   slice(2) \%>\%
   pull(essay0)
 }

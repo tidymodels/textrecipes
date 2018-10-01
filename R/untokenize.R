@@ -32,15 +32,20 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_untokenize(essay0) %>%
+#'   step_untokenize(essay0) 
+#'   
+#' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
-#' juice(okc_rec, essay0) %>% 
+#' juice(okc_obj, essay0) %>% 
 #'   slice(1:2)
 #' 
-#' juice(okc_rec) %>% 
+#' juice(okc_obj) %>% 
 #'   slice(2) %>% 
 #'   pull(essay0) 
+#'   
+#' tidy(okc_rec, number = 2)
+#' tidy(okc_obj, number = 2)
 #' @keywords datagen 
 #' @concept preprocessing encoding
 #' @export
@@ -121,4 +126,20 @@ print.step_untokenize <-
     cat("Untokenization for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
+  }
+
+#' @rdname step_untokenize
+#' @param x A `step_untokenize` object.
+#' @importFrom rlang na_chr na_int
+#' @export
+tidy.step_untokenize <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  value = "untokenize")
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  value = na_chr)
+  }
+  res
 }

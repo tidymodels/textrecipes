@@ -42,21 +42,26 @@
 #' data(okc_text)
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
-#'   step_tokenize(essay0) %>%
+#'   step_tokenize(essay0) 
+#'   
+#' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
-#' juice(okc_rec, essay0) %>%
+#' juice(okc_obj, essay0) %>%
 #'   slice(1:2)
 #' 
-#' juice(okc_rec) %>%
+#' juice(okc_obj) %>%
 #'   slice(2) %>%
 #'   pull(essay0)
 #'   
-#' okc_rec_chars <- recipe(~ ., data = okc_text) %>%
+#' tidy(okc_rec, number = 1)
+#' tidy(okc_obj, number = 1)
+#' 
+#' okc_obj_chars <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0, token = "characters") %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
-#' juice(okc_rec_chars) %>%
+#' juice(okc_obj_chars) %>%
 #'   slice(2) %>%
 #'   pull(essay0)
 #' @keywords datagen 
@@ -204,4 +209,19 @@ print.step_tokenize <-
     cat("Tokenization for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
+  }
+
+#' @rdname step_tokenize
+#' @param x A `step_tokenize` object.
+#' @export
+tidy.step_tokenize <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  value = x$token)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  value = na_chr)
+  }
+  res
 }
