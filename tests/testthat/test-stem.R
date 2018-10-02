@@ -23,8 +23,8 @@ test_that("stemming is done correctly", {
       unlist()
   )
   
-  expect_equal(dim(tidy(rec)), c(2, 5))
-  expect_equal(dim(tidy(obj)), c(2, 5))
+  expect_equal(dim(tidy(rec, 2)), c(1, 2))
+  expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
 test_that('printing', {

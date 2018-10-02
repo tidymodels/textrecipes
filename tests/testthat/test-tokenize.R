@@ -28,8 +28,8 @@ test_that("tokenization is done correctly", {
     juice(obj) %>% slice(1) %>% pull(essay0)
   )
   
-  expect_equal(dim(tidy(rec)), c(1, 5))
-  expect_equal(dim(tidy(obj)), c(1, 5))
+  expect_equal(dim(tidy(rec, 1)), c(1, 2))
+  expect_equal(dim(tidy(obj, 1)), c(1, 2))
 })
 
 test_that("step throws an error if unavaliable tokenizer is picked", {

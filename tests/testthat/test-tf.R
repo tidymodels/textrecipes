@@ -26,8 +26,8 @@ test_that("step_tf works as intended", {
      lapply(tokenized_factor, tabulate, 26) %>% purrr::reduce(rbind) %>% unname()
      )
    
-   expect_equal(dim(tidy(rec)), c(2, 5))
-   expect_equal(dim(tidy(obj)), c(2, 5))
+   expect_equal(dim(tidy(rec, 2)), c(1, 2))
+   expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
 test_that('printing', {

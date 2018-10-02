@@ -18,8 +18,8 @@ test_that("output is not a list", {
   
   expect_true(is.factor(juice(obj, a)[, 1, drop = TRUE]))
   
-  expect_equal(dim(tidy(rec)), c(2, 5))
-  expect_equal(dim(tidy(obj)), c(2, 5))
+  expect_equal(dim(tidy(rec, 2)), c(1, 2))
+  expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
 test_that('printing', {

@@ -42,8 +42,8 @@ test_that("tokenfilter removes words correctly", {
     purrr::keep(words, words %in% kept_words)
   )
   
-  expect_equal(dim(tidy(rec)), c(2, 5))
-  expect_equal(dim(tidy(obj)), c(2, 5))
+  expect_equal(dim(tidy(rec, 2)), c(1, 2))
+  expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
 test_that('printing', {

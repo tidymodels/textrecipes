@@ -24,8 +24,8 @@ test_that("stopwords are removed correctly", {
       unlist()
   )
   
-  expect_equal(dim(tidy(rec)), c(2, 5))
-  expect_equal(dim(tidy(obj)), c(2, 5))
+  expect_equal(dim(tidy(rec, 2)), c(1, 3))
+  expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
 test_that("stopwords are kept correctly", {

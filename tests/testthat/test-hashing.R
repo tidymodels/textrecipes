@@ -24,8 +24,8 @@ test_that("hashing gives integer outputs", {
       all()
     )
   
-  expect_equal(dim(tidy(rec)), c(3, 5))
-  expect_equal(dim(tidy(obj)), c(3, 5))
+  expect_equal(dim(tidy(rec, 3)), c(1, 3))
+  expect_equal(dim(tidy(obj, 3)), c(1, 3))
 })
 
 test_that("hashing output width changes accordingly with num", {
