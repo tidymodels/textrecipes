@@ -121,6 +121,7 @@ bake.step_untokenize <- function(object, newdata, ...) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_untokenize <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Untokenization for ", sep = "")

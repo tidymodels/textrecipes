@@ -228,6 +228,7 @@ idf_weight <- function(x, scheme, adjustment) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_tfidf <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Term frequency-inverse document frequency with ", sep = "")

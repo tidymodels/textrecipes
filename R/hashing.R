@@ -183,6 +183,7 @@ char_to_matrix <- function(x, algo, n) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_hashing <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Feature hashing with ", sep = "")

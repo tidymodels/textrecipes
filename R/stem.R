@@ -152,6 +152,7 @@ stem_fun <- function(name) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_stem <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Stemming for ", sep = "")

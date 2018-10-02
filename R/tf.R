@@ -196,6 +196,7 @@ tf_weight <- function(x, scheme, K) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_tf <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Term frequency with ", sep = "")

@@ -169,6 +169,7 @@ bake.step_stopwords <- function(object, newdata, ...) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_stopwords <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Stop word removal for ", sep = "")

@@ -204,6 +204,7 @@ tokenizers_switch <- function(name) {
 }
 
 #' @importFrom recipes printer
+#' @export
 print.step_tokenize <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Tokenization for ", sep = "")
