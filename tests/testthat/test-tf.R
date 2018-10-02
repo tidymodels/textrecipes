@@ -10,9 +10,11 @@ data_tf <- tibble(text = purrr::map_chr(1:100,
 rec <- recipe(~ ., data = data_tf)
 
 test_that("step_tf works as intended", {
-   data_preped <- rec %>%
+   rec <- rec %>%
      step_tokenize(text) %>%
-     step_tf(text) %>%
+     step_tf(text) 
+   
+   obj <- rec %>%
      prep(training = data_tf, retain = TRUE)
    
    # Reference calcutation
@@ -20,9 +22,12 @@ test_that("step_tf works as intended", {
    tokenized_factor <- lapply(tokenized, factor, letters)
    
    expect_equal(
-     juice(data_preped) %>% as.matrix() %>% unname(),
+     juice(obj) %>% as.matrix() %>% unname(),
      lapply(tokenized_factor, tabulate, 26) %>% purrr::reduce(rbind) %>% unname()
      )
+   
+   expect_equal(dim(tidy(rec)), c(2, 5))
+   expect_equal(dim(tidy(obj)), c(2, 5))
 })
 
 test_that('printing', {

@@ -9,12 +9,17 @@ rec <- recipe(~ ., data = okc_text)
 test_that("output is not a list", {
   data <- tibble(a = rep("a", 20))
   
-  data_rec <- recipe(~ ., data = data) %>%
+  rec <- recipe(~ ., data = data) %>%
     step_tokenize(a) %>%
-    step_untokenize(a) %>%
+    step_untokenize(a) 
+  
+  obj <- rec %>%
     prep(training = data, retain = TRUE)
   
-  expect_true(is.factor(juice(data_rec, a)[, 1, drop = TRUE]))
+  expect_true(is.factor(juice(obj, a)[, 1, drop = TRUE]))
+  
+  expect_equal(dim(tidy(rec)), c(2, 5))
+  expect_equal(dim(tidy(obj)), c(2, 5))
 })
 
 test_that('printing', {

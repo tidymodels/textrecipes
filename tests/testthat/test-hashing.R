@@ -11,16 +11,21 @@ test_that("hashing gives integer outputs", {
     step_tokenize(essay0) %>%
     # This step is to speed up calculations for faster test
     step_tokenfilter(essay0, max.words = 20) %>%
-    step_hashing(essay0) %>%
+    step_hashing(essay0) 
+  
+  obj <- rec %>%
     prep(training = okc_text, retain = TRUE)
     
   expect_true(
-    juice(rec) %>%
+    juice(obj) %>%
       select(contains("hashing")) %>%
       lapply(is.integer) %>%
       unlist() %>%
       all()
     )
+  
+  expect_equal(dim(tidy(rec)), c(3, 5))
+  expect_equal(dim(tidy(obj)), c(3, 5))
 })
 
 test_that("hashing output width changes accordingly with num", {

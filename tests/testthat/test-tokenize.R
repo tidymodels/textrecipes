@@ -18,13 +18,18 @@ test_that("output is list when length is 1 or 0", {
 
 test_that("tokenization is done correctly", {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
+    step_tokenize(essay0) 
+  
+  obj <- rec %>%
     prep(training = okc_text, retain = TRUE)
   
   expect_equal(
     tokenizers::tokenize_words(okc_text$essay0[1]),
-    juice(rec) %>% slice(1) %>% pull(essay0)
+    juice(obj) %>% slice(1) %>% pull(essay0)
   )
+  
+  expect_equal(dim(tidy(rec)), c(1, 5))
+  expect_equal(dim(tidy(obj)), c(1, 5))
 })
 
 test_that("step throws an error if unavaliable tokenizer is picked", {

@@ -25,7 +25,9 @@ test_that("tokenfilter does nothing if argument are untouched", {
 test_that("tokenfilter removes words correctly", {
   rec <- rec %>%
     step_tokenize(essay0) %>%
-    step_tokenfilter(essay0, max.tf = 50, min.tf = 5, max.words = 100) %>%
+    step_tokenfilter(essay0, max.tf = 50, min.tf = 5, max.words = 100) 
+  
+  obj <- rec %>%
     prep(training = okc_text, retain = TRUE)
   
   all_words <- tokenizers::tokenize_words(okc_text$essay0) %>% unlist()
@@ -36,9 +38,12 @@ test_that("tokenfilter removes words correctly", {
   words <- tokenizers::tokenize_words(okc_text$essay0[1])[[1]]
   
   expect_equal(
-    juice(rec) %>% slice(1) %>% pull(essay0) %>% unlist(),
+    juice(obj) %>% slice(1) %>% pull(essay0) %>% unlist(),
     purrr::keep(words, words %in% kept_words)
   )
+  
+  expect_equal(dim(tidy(rec)), c(2, 5))
+  expect_equal(dim(tidy(obj)), c(2, 5))
 })
 
 test_that('printing', {

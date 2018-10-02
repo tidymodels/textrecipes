@@ -10,9 +10,11 @@ data_tf <- tibble(text = purrr::map_chr(1:100,
 rec <- recipe(~ ., data = data_tf)
 
 test_that("step_tfidf works as intended", {
-  data_preped <- rec %>%
+  rec <- rec %>%
     step_tokenize(text) %>%
-    step_tfidf(text) %>%
+    step_tfidf(text) 
+  
+  obj <- rec %>%
     prep(training = data_tf, retain = TRUE)
   
   # Reference calcutation
@@ -26,9 +28,12 @@ test_that("step_tfidf works as intended", {
   idf <- log(N / (colSums(counts > 0) + 1))
   
   expect_equal(
-    juice(data_preped) %>% as.matrix() %>% unname(),
+    juice(obj) %>% as.matrix() %>% unname(),
     t(t(tf) * idf)
   )
+  
+  expect_equal(dim(tidy(rec)), c(2, 5))
+  expect_equal(dim(tidy(obj)), c(2, 5))
 })
 
 test_that('printing', {
