@@ -69,3 +69,10 @@ test_that("arguments are passed using options argument", {
     juice(rec) %>% slice(1) %>% pull(essay0)
   )
 })
+
+test_that('printing', {
+  rec <- rec %>%
+    step_tokenize(essay0)
+  expect_output(print(rec))
+  expect_output(prep(rec, training = okc_text, verbose = TRUE))
+})
