@@ -1,13 +1,13 @@
 #' Filter the tokens based on term frequency
 #'
-#' `step_textfilter` creates a *specification* of a recipe step that
+#' `step_tokenfilter` creates a *specification* of a recipe step that
 #'  will convert a list of its tokenized parts into a list where the 
 #'  tokens are filtered based on frequency.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_textfilter`, this indicates the variables to be encoded
+#'  For `step_tokenfilter`, this indicates the variables to be encoded
 #'  into a list column. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
@@ -43,7 +43,7 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_textfilter(essay0, max.words = 10) 
+#'   step_tokenfilter(essay0, max.words = 10) 
 #'   
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
@@ -62,7 +62,7 @@
 #' @export
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
-step_textfilter <-
+step_tokenfilter <-
   function(recipe,
            ...,
            role = NA,
@@ -77,7 +77,7 @@ step_textfilter <-
   ) {
     add_step(
       recipe,
-      step_textfilter_new(
+      step_tokenfilter_new(
         terms = ellipse_check(...),
         role = role,
         trained = trained,
@@ -92,7 +92,7 @@ step_textfilter <-
     )
   }
 
-step_textfilter_new <-
+step_tokenfilter_new <-
   function(terms = NULL,
            role = NA,
            trained = FALSE,
@@ -104,7 +104,7 @@ step_textfilter_new <-
            res = NULL,
            skip = FALSE) {
     step(
-      subclass = "textfilter",
+      subclass = "tokenfilter",
       terms = terms,
       role = role,
       trained = trained,
@@ -119,7 +119,7 @@ step_textfilter_new <-
   }
 
 #' @export
-prep.step_textfilter <- function(x, training, info = NULL, ...) {
+prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
   
   check_list(training[, col_names])
@@ -127,12 +127,12 @@ prep.step_textfilter <- function(x, training, info = NULL, ...) {
   retain_words <- list()
   
   for (i in seq_along(col_names)) {
-    retain_words[[i]] <- textfilter_fun(training[, col_names[i], drop = TRUE],
+    retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
                                         x$max.tf, x$min.tf, x$max.words,
                                         x$procentage)
   }
   
-  step_textfilter_new(
+  step_tokenfilter_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
@@ -150,7 +150,7 @@ prep.step_textfilter <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
-bake.step_textfilter <- function(object, newdata, ...) {
+bake.step_tokenfilter <- function(object, newdata, ...) {
   col_names <- object$columns
   # for backward compat
   
@@ -165,7 +165,7 @@ bake.step_textfilter <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-textfilter_fun <- function(data, max_tf, min_tf, max_features, procentage) {
+tokenfilter_fun <- function(data, max_tf, min_tf, max_features, procentage) {
   tf <- table(unlist(data))
   
   if(procentage)
@@ -182,18 +182,18 @@ textfilter_fun <- function(data, max_tf, min_tf, max_features, procentage) {
 
 #' @importFrom recipes printer
 #' @export
-print.step_textfilter <-
+print.step_tokenfilter <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Text filtering for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
   }
 
-#' @rdname step_textfilter
-#' @param x A `step_textfilter` object.
+#' @rdname step_tokenfilter
+#' @param x A `step_tokenfilter` object.
 #' @importFrom rlang na_int
 #' @export
-tidy.step_textfilter <- function(x, ...) {
+tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
                   value = x$max.words)

@@ -1,4 +1,4 @@
-context("test-textfilter")
+context("test-tokenfilter")
 
 library(recipes)
 library(textrecipes)
@@ -6,14 +6,14 @@ library(textrecipes)
 data(okc_text)
 rec <- recipe(~ ., data = okc_text)
 
-test_that("textfilter does nothing if argument are untouched", {
+test_that("tokenfilter does nothing if argument are untouched", {
   rec_ref <- rec %>%
     step_tokenize(essay0) %>%
     prep(training = okc_text, retain = TRUE)
   
   rec_test <- rec %>%
     step_tokenize(essay0) %>%
-    step_textfilter(essay0) %>%
+    step_tokenfilter(essay0) %>%
     prep(training = okc_text, retain = TRUE)
   
   expect_equal(
@@ -22,10 +22,10 @@ test_that("textfilter does nothing if argument are untouched", {
   )
 })
 
-test_that("textfilter removes words correctly", {
+test_that("tokenfilter removes words correctly", {
   rec <- rec %>%
     step_tokenize(essay0) %>%
-    step_textfilter(essay0, max.tf = 50, min.tf = 5, max.words = 100) %>%
+    step_tokenfilter(essay0, max.tf = 50, min.tf = 5, max.words = 100) %>%
     prep(training = okc_text, retain = TRUE)
   
   all_words <- tokenizers::tokenize_words(okc_text$essay0) %>% unlist()
@@ -44,7 +44,7 @@ test_that("textfilter removes words correctly", {
 test_that('printing', {
   rec <- rec %>%
     step_tokenize(essay0) %>%
-    step_textfilter(essay0)
+    step_tokenfilter(essay0)
   expect_output(print(rec))
   expect_output(prep(rec, training = okc_text, verbose = TRUE))
 })

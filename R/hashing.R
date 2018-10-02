@@ -40,7 +40,7 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_textfilter(essay0, max.words = 10) %>%
+#'   step_tokenfilter(essay0, max.words = 10) %>%
 #'   step_hashing(essay0)
 #'   
 #' okc_obj <- okc_rec %>%

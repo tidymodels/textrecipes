@@ -58,7 +58,7 @@ example_data <- okc_text[, 1]
 okc_rec <- recipe(~ ., data = example_data) %>%
   step_tokenize(essay0) %>% # Tokenizes to words by default
   step_stopwords(essay0) %>% # Uses the english snowball list by default
-  step_textfilter(essay0, max.words = 500) %>%
+  step_tokenfilter(essay0, max.words = 500) %>%
   step_tfidf(essay0, tf.weight = "term frequency", idf.weight = "idf")
    
 okc_obj <- okc_rec %>%
@@ -145,7 +145,7 @@ numeric for future analysis to work.
 | `step_untokenize`  | list-column | character   | working |
 | `step_stem`        | list-column | list-column | working |
 | `step_stopwords`   | list-column | list-column | working |
-| `step_textfilter`  | list-column | list-column | working |
+| `step_tokenfilter` | list-column | list-column | working |
 | `step_tfidf`       | list-column | numeric     | working |
 | `step_tf`          | list-column | numeric     | working |
 | `step_featurehash` | list-column | numeric     | working |
