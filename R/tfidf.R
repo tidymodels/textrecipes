@@ -83,8 +83,23 @@ step_tfidf <-
            idf.adjustment = 1,
            res = NULL,
            prefix = "tfidf",
-           skip = FALSE
-  ) {
+           skip = FALSE) {
+    
+    if(!(tf.weight %in% tf_funs) | length(tf.weight) != 1)
+      stop("`tf.weight` should be one of: ",
+           paste0("'", tf_funs, "'", collapse = ", "),
+           call. = FALSE)
+    
+    if(!(idf.weight %in% idf_funs) | length(idf.weight) != 1)
+      stop("`idf.weight` should be one of: ",
+           paste0("'", idf_funs, "'", collapse = ", "),
+           call. = FALSE)
+    
+    if(idf.adjustment < 0 | is.na(idf.adjustment))
+      stop("`idf.adjustment` must be a positive number.",
+           call. = FALSE)
+    
+    
     add_step(
       recipe,
       step_tfidf_new(
@@ -102,6 +117,8 @@ step_tfidf <-
       )
     )
   }
+
+idf_funs <- c("unary", "idf", "idf smooth", "idf max", "probabilistic idf")
 
 step_tfidf_new <-
   function(terms = NULL,

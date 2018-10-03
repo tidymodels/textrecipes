@@ -74,8 +74,13 @@ step_tf <-
            K = 0.5,
            res = NULL,
            prefix = "tf",
-           skip = FALSE
-  ) {
+           skip = FALSE) {
+    
+    if(!(tf.weight %in% tf_funs) | length(tf.weight) != 1)
+      stop("`tf.weight` should be one of: ",
+           paste0("'", tf_funs, "'", collapse = ", "),
+           call. = FALSE)
+    
     add_step(
       recipe,
       step_tf_new(
@@ -91,6 +96,9 @@ step_tf <-
       )
     )
   }
+
+tf_funs <- c("binary", "raw count", "term frequency", "log normalization",
+             "double normalization")
 
 step_tf_new <-
   function(terms = NULL,

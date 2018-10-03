@@ -71,8 +71,17 @@ step_hashing <-
            algorithm = "murmur32",
            num = 1024,
            prefix = "hashing",
-           skip = FALSE
-  ) {
+           skip = FALSE) {
+    
+    if(!(algorithm %in% hash_funs) | length(algorithm) != 1)
+      stop("`algorithm` should be one of: ",
+           paste0("'", hash_funs, "'", collapse = ", "),
+           call. = FALSE)
+    
+    if(num < 1 | num > 4096 | length(num) != 1 | is.na(num))
+      stop("`num` should be an integer between 1 and 4096.",
+           call. = FALSE)
+    
     add_step(
       recipe,
       step_hashing_new(
@@ -87,6 +96,9 @@ step_hashing <-
       )
     )
   }
+
+hash_funs <- c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32", 
+               "xxhash64", "murmur32")
 
 step_hashing_new <-
   function(terms = NULL,
