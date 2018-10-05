@@ -1,8 +1,8 @@
 #' Term frequency of tokens
 #'
 #' `step_hashing` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into multiple 
-#'  variables using the hashing trick.
+#'  will convert a list of tokens into multiple variables using the 
+#'  hashing trick.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -21,7 +21,7 @@
 #' @param num An integer, the number of variables to output.
 #'  Defaults to 1024.
 #' @param prefix A character string that will be the prefix to the
-#'  resulting new variables. See notes below
+#'  resulting new variables. See notes below.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -50,15 +50,30 @@
 #' 
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
 #' @details
+#' Feature hashing, or the hashing trick, is a transformation of a 
+#' text variable into a new set of numerical variables. This is done by
+#' applying a hashing function over the tokens and using the hash values
+#' as feature indices. This allows for a low memory representation of the
+#' text. 
+#' 
+#' The argument `num` controls the number of indices that the hashing 
+#' function will map to. This is the tuning parameter for this 
+#' transformation. Since the hashing function can map two different tokens
+#' to the same index, will a higher value of `num` result in a lower 
+#' chance of collision.
+#' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
 #' `-`. The variable names are padded with zeros. For example,
 #' if `num < 10`, their names will be `hashing1` - `hashing9`.
-#' If `num = 101`, the names would be `hashing001` - `hashing101`.
+#' If `num = 101`, their names will be `hashing001` - `hashing101`.
+#' 
+#' @references Kilian Weinberger; Anirban Dasgupta; John Langford; 
+#'  Alex Smola; Josh Attenberg (2009).
+#'  
+#' @seealso [step_tf()] [step_tfidf()] [step_tokenize()]
 #' 
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type

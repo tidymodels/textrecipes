@@ -51,7 +51,7 @@ operations are baked when [recipes::prep.recipe()] is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
-subsequent operations}
+subsequent operations.}
 
 \item{x}{A `step_tokenfilter` object.}
 }
@@ -61,8 +61,19 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_tokenfilter` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into a list where the 
- tokens are filtered based on frequency.
+ will convert a list of tokens into a list where the tokens are filtered
+ based on frequency.
+}
+\details{
+This step allow you to limit the tokens you are looking at by filtering
+on their occurance in the corpus. You are able to exclude tokens if they
+appear too many times or too fews times in the data. It can be specified
+as counts using `max.tf` and `min.tf` or as procentages by setting
+`procentage` as `TRUE`. In addition one can filter to only use the top
+`max.words` used tokens.
+
+It is advised to filter before using [step_tf] or [step_tfidf] to limit
+the number of variables created.
 }
 \examples{
 library(recipes)
@@ -86,5 +97,6 @@ juice(okc_obj) \%>\%
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
-\concept{preprocessing encoding}
-\keyword{datagen}
+\seealso{
+[step_untokenize()]
+}

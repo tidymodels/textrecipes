@@ -1,8 +1,8 @@
 #' Term frequency of tokens
 #'
 #' `step_tf` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into multiple 
-#'  variables containing the term counts.
+#'  will convert a list of tokens into multiple variables containing
+#'  the token counts.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -53,15 +53,29 @@
 #' 
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
 #' @details
+#' Term frequency is a weight of how many times each token appear in each 
+#' observation. There are different ways to calculate the weight and this 
+#' step can do it in a couple of ways. Setting the argument `tf.weight` to
+#' "binary" will result in a set of binary variables denoting if a token
+#' is present in the observation. "raw count" will count the times a token
+#' is present in the observation. "term frequency" will devide the count
+#' with the total number of words in the document to limit the effect 
+#' of the document length as longer documents tends to have the word present
+#' more times but not necessarily at a higher procentage. "log normalization"
+#' takes the log of 1 plus the count, adding 1 is done to avoid taking log of
+#' 0. Finally "double normalization" is the raw frequency divided by the raw 
+#' frequency of the most occurring term in the document. This is then 
+#' multiplied by `K` and `K` is added tot he result. This is again done to 
+#' prevent a bias towards longer documents.
+#' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
 #' `-`. The new variables will be created alphabetically according to
 #' token.
 #' 
+#' @seealso [step_hashing()] [step_tfidf()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
 step_tf <-

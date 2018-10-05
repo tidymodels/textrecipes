@@ -32,3 +32,5 @@ Imports:
     magrittr,
     digest,
     stringr
+Remotes:
+    tidymodels/recipes

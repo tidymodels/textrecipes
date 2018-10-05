@@ -40,7 +40,7 @@ the term frequency calculations. Must be one of "binary",
 
 \item{idf.weight}{A character determining the weighting scheme
 for the inverse document frequency calculations. Must be one of
-"unary", "idf", "idf smooth", "idf max" or "probabilistic idf".
+"unary", "idf", "idf smooth" or "idf max".
 Defaults to "idf".}
 
 \item{idf.adjustment}{Numeric added to the denominator of inverse
@@ -70,10 +70,44 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_tfidf` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into multiple variables
- containing the Term frequency-inverse document frequency of tokens.
+ will convert a list of tokens into multiple variables containing
+ the Term frequency-inverse document frequency of tokens.
 }
 \details{
+Term frequency-inverse document frequency is the product of two statistics.
+The term frequency (TF) and the inverse document frequency (IDF). 
+
+Term frequency is a weight of how many times each token appear in each 
+observation. There are different ways to calculate the weight and this 
+step can do it in a couple of ways. Setting the argument `tf.weight` to
+"binary" will result in a set of binary variables denoting if a token
+is present in the observation. "raw count" will count the times a token
+is present in the observation. "term frequency" will devide the count
+with the total number of words in the document to limit the effect 
+of the document length as longer documents tends to have the word present
+more times but not necessarily at a higher procentage. "log normalization"
+takes the log of 1 plus the count, adding 1 is done to avoid taking log of
+0. Finally "double normalization" is the raw frequency divided by the raw 
+frequency of the most occurring term in the document. This is then 
+multiplied by `K` and `K` is added tot he result. This is again done to 
+prevent a bias towards longer documents.
+
+Inverse document frequency is a measure of how much information a word
+gives, in other words, how common or rare is the word across all the 
+observations. If a word appears in all the observations it might not
+give us that much insight, but if it only appear in some it might help
+us differentiate the observations. 
+
+Setting the argument `idf.weight` to "unary" will result in a IDF of 1,
+thus simplifying this step to `step_tf`. "idf" is calculated by deviding
+the number of observations with how many observatiuons the token appear 
+in and taking the log of that. This will result in a devide-by-zero error
+if a token doesn't appear in the data so an adjustment is done by adding 
+`idf.adjustment` to the count of appearences. "idf smooth" is done by 
+taking the log of 1 plus "idf". "idf max" is done in a similar way to
+"idf" but instead of looking at the number of observations, we look at the
+maximum number of observations a term appeared.
+
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
 `-`. The new variables will be created alphabetically according to
@@ -96,5 +130,6 @@ bake(okc_obj, okc_text)
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
-\concept{preprocessing encoding}
-\keyword{datagen}
+\seealso{
+[step_hashing()] [step_tf()] [step_tokenize()]
+}

@@ -1,7 +1,7 @@
 #' Filtering of stopwords from a list-column variable
 #'
 #' `step_stopwords` creates a *specification* of a recipe step that
-#'  will filter a list of its tokenized parts for stopwords(keep or remove).
+#'  will filter a list of tokens for stopwords(keep or remove).
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -17,18 +17,19 @@
 #' @param options A list of options passed to the stemmer
 #' @param language A character to indicate the langauge of stopwords 
 #'  by ISO 639-1 coding scheme.
-#' @param keep A logical. Specifies whether to keep the stopwords or discard them.
-#' @param stopword_source A character to indicate the stopwords source as listed 
-#'  in `stopwords::stopwords_getsources`
-#' @param custom_stopword_source A character vector to indicate a custom list of words 
-#'  that cater to the users specific problem.
+#' @param keep A logical. Specifies whether to keep the stopwords or discard
+#'  them.
+#' @param stopword_source A character to indicate the stopwords source as 
+#'  listed in `stopwords::stopwords_getsources`.
+#' @param custom_stopword_source A character vector to indicate a custom 
+#'  list of words that cater to the users specific problem.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -65,9 +66,18 @@
 #' juice(okc_obj) %>%
 #'   slice(2) %>%
 #'   pull(essay0) 
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
+#' @details
+#' Stop words are words which sometimes are remove before natural language
+#' processing tasks. While stop words usually refers to the most common 
+#' words in the laguange there is no universal stop word list. 
+#' 
+#' The argument `custom_stopword_source` allows you to pass a character vector
+#' to filter against. With the `keep` argument one can specify to keep the 
+#' words instead of removing thus allowing you to select words with a 
+#' combination of these two arguments.
+#' 
+#' @seealso [step_stem()] [step_tokenfilter()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
 step_stopwords <-

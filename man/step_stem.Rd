@@ -50,8 +50,17 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_stem` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into a list with its
- tokenized parts stemmed.
+ will convert a list of tokens into a list of stemmed tokens.
+}
+\details{
+Words tend to have different forms depending on context, such as
+organize, organizes, and organizing. In many situations it is beneficial
+to have these words condensed into one to allow for a smaller pool of 
+words. Stemming is the act of choping off the end of words using a set
+ of heristics.
+
+Note that the steming will only be done at the end of the string and 
+will therefore not work reliably on ngrams or sentences.
 }
 \examples{
 library(recipes)
@@ -75,5 +84,6 @@ juice(okc_obj) \%>\%
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
-\concept{preprocessing encoding}
-\keyword{datagen}
+\seealso{
+[step_stopwords()] [step_tokenfilter()] [step_tokenize()]
+}

@@ -1,8 +1,7 @@
 #' Tokenization of character variables
 #'
 #' `step_tokenize` creates a *specification* of a recipe step that
-#'  will convert a character predictor into a list of its tokenized
-#'  parts.
+#'  will convert a character predictor into a list of tokens.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -64,9 +63,19 @@
 #' juice(okc_obj_chars) %>%
 #'   slice(2) %>%
 #'   pull(essay0)
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
+#' @details 
+#' Tokenization is the act of splitting a character string into smaller parts
+#' to be further analysed. This step uses the `tokenizers` package which 
+#' includes heuristics to split the text into paragraphs tokens, word tokens
+#' amough others. `textrecipes` keeps the tokens in a list-column and other
+#' steps will do their tasks on those list-columns before transforming them
+#' back to numeric.
+#' 
+#' Working will `textrecipes` will always start by calling `step_tokenize`
+#' followed by modifying and filtering steps.
+#'
+#' @seealso [step_untokenize]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
 step_tokenize <-

@@ -1,8 +1,7 @@
 #' Stemming of list-column variables
 #'
 #' `step_stem` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a list with its
-#'  tokenized parts stemmed.
+#'  will convert a list of tokens into a list of stemmed tokens.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -50,9 +49,18 @@
 #'   
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
+#' @details
+#' Words tend to have different forms depending on context, such as
+#' organize, organizes, and organizing. In many situations it is beneficial
+#' to have these words condensed into one to allow for a smaller pool of 
+#' words. Stemming is the act of choping off the end of words using a set
+#'  of heristics.
+#' 
+#' Note that the steming will only be done at the end of the string and 
+#' will therefore not work reliably on ngrams or sentences.
+#' 
+#' @seealso [step_stopwords()] [step_tokenfilter()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
 step_stem <-

@@ -1,8 +1,8 @@
 #' Filter the tokens based on term frequency
 #'
 #' `step_tokenfilter` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a list where the 
-#'  tokens are filtered based on frequency.
+#'  will convert a list of tokens into a list where the tokens are filtered
+#'  based on frequency.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -31,7 +31,7 @@
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -57,9 +57,19 @@
 #' 
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
+#' @details
+#' This step allow you to limit the tokens you are looking at by filtering
+#' on their occurance in the corpus. You are able to exclude tokens if they
+#' appear too many times or too fews times in the data. It can be specified
+#' as counts using `max.tf` and `min.tf` or as procentages by setting
+#' `procentage` as `TRUE`. In addition one can filter to only use the top
+#' `max.words` used tokens.
+#' 
+#' It is advised to filter before using [step_tf] or [step_tfidf] to limit
+#' the number of variables created.
+#' 
+#' @seealso [step_untokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
 step_tokenfilter <-
@@ -73,8 +83,12 @@ step_tokenfilter <-
            procentage = FALSE,
            max.words = NULL,
            res = NULL,
-           skip = FALSE
-  ) {
+           skip = FALSE) {
+    
+    if(procentage &&(max.tf > 1 | max.tf < 0 | min.tf > 1 | min.tf < 0))
+      stop("`max.tf` and `min.tf` should be in the interval [0, 1].",
+           call. = FALSE)
+      
     add_step(
       recipe,
       step_tokenfilter_new(

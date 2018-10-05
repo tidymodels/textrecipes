@@ -45,7 +45,11 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_untokenize` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into a character predictor.
+ will convert a list of tokens into a character predictor.
+}
+\details{
+This steps will turn a tokenized list-column back into a character
+vector.
 }
 \examples{
 library(recipes)
@@ -69,5 +73,3 @@ juice(okc_obj) \%>\%
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
-\concept{preprocessing encoding}
-\keyword{datagen}

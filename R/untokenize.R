@@ -1,7 +1,7 @@
 #' Untokenization of list-column variables
 #'
 #' `step_untokenize` creates a *specification* of a recipe step that
-#'  will convert a list of its tokenized parts into a character predictor.
+#'  will convert a list of tokens into a character predictor.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -46,9 +46,11 @@
 #'   
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
-#' @keywords datagen 
-#' @concept preprocessing encoding
 #' @export
+#' @details
+#' This steps will turn a tokenized list-column back into a character
+#' vector.
+#' 
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
 step_untokenize <-

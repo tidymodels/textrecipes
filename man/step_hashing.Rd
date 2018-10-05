@@ -38,7 +38,7 @@ Must be one of "md5", "sha1", "crc32", "sha256", "sha512",
 Defaults to 1024.}
 
 \item{prefix}{A character string that will be the prefix to the
-resulting new variables. See notes below}
+resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
@@ -56,15 +56,27 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_hashing` creates a *specification* of a recipe step that
- will convert a list of its tokenized parts into multiple 
- variables using the hashing trick.
+ will convert a list of tokens into multiple variables using the 
+ hashing trick.
 }
 \details{
+Feature hashing, or the hashing trick, is a transformation of a 
+text variable into a new set of numerical variables. This is done by
+applying a hashing function over the tokens and using the hash values
+as feature indices. This allows for a low memory representation of the
+text. 
+
+The argument `num` controls the number of indices that the hashing 
+function will map to. This is the tuning parameter for this 
+transformation. Since the hashing function can map two different tokens
+to the same index, will a higher value of `num` result in a lower 
+chance of collision.
+
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
 `-`. The variable names are padded with zeros. For example,
 if `num < 10`, their names will be `hashing1` - `hashing9`.
-If `num = 101`, the names would be `hashing001` - `hashing101`.
+If `num = 101`, their names will be `hashing001` - `hashing101`.
 }
 \examples{
 library(recipes)
@@ -84,5 +96,10 @@ bake(okc_obj, okc_text)
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
-\concept{preprocessing encoding}
-\keyword{datagen}
+\references{
+Kilian Weinberger; Anirban Dasgupta; John Langford; 
+ Alex Smola; Josh Attenberg (2009).
+}
+\seealso{
+[step_tf()] [step_tfidf()] [step_tokenize()]
+}

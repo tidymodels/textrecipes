@@ -36,13 +36,14 @@ encoding. This is `NULL` until the step is trained by
 \item{language}{A character to indicate the langauge of stopwords 
 by ISO 639-1 coding scheme.}
 
-\item{keep}{A logical. Specifies whether to keep the stopwords or discard them.}
+\item{keep}{A logical. Specifies whether to keep the stopwords or discard
+them.}
 
-\item{stopword_source}{A character to indicate the stopwords source as listed 
-in `stopwords::stopwords_getsources`}
+\item{stopword_source}{A character to indicate the stopwords source as 
+listed in `stopwords::stopwords_getsources`.}
 
-\item{custom_stopword_source}{A character vector to indicate a custom list of words 
-that cater to the users specific problem.}
+\item{custom_stopword_source}{A character vector to indicate a custom 
+list of words that cater to the users specific problem.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
@@ -50,7 +51,7 @@ operations are baked when [recipes::prep.recipe()] is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
-subsequent operations}
+subsequent operations.}
 
 \item{x}{A `step_stopwords` object.}
 }
@@ -60,7 +61,17 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_stopwords` creates a *specification* of a recipe step that
- will filter a list of its tokenized parts for stopwords(keep or remove).
+ will filter a list of tokens for stopwords(keep or remove).
+}
+\details{
+Stop words are words which sometimes are remove before natural language
+processing tasks. While stop words usually refers to the most common 
+words in the laguange there is no universal stop word list. 
+
+The argument `custom_stopword_source` allows you to pass a character vector
+to filter against. With the `keep` argument one can specify to keep the 
+words instead of removing thus allowing you to select words with a 
+combination of these two arguments.
 }
 \examples{
 library(recipes)
@@ -95,5 +106,6 @@ juice(okc_obj) \%>\%
   slice(2) \%>\%
   pull(essay0) 
 }
-\concept{preprocessing encoding}
-\keyword{datagen}
+\seealso{
+[step_stem()] [step_tokenfilter()] [step_tokenize()]
+}

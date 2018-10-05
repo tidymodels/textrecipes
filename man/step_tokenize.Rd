@@ -59,8 +59,18 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_tokenize` creates a *specification* of a recipe step that
- will convert a character predictor into a list of its tokenized
- parts.
+ will convert a character predictor into a list of tokens.
+}
+\details{
+Tokenization is the act of splitting a character string into smaller parts
+to be further analysed. This step uses the `tokenizers` package which 
+includes heuristics to split the text into paragraphs tokens, word tokens
+amough others. `textrecipes` keeps the tokens in a list-column and other
+steps will do their tasks on those list-columns before transforming them
+back to numeric.
+
+Working will `textrecipes` will always start by calling `step_tokenize`
+followed by modifying and filtering steps.
 }
 \examples{
 library(recipes)
@@ -91,5 +101,6 @@ juice(okc_obj_chars) \%>\%
   slice(2) \%>\%
   pull(essay0)
 }
-\concept{preprocessing encoding}
-\keyword{datagen}
+\seealso{
+[step_untokenize]
+}
