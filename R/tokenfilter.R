@@ -22,7 +22,7 @@
 #' @param procentage A logical. Should max.tf and min.tf be interpreded 
 #'  as a procentage instead of count.
 #' @param max.words An integer. Will only keep the top max.words words
-#'  after filtering done by max.tf and min.tf.
+#'  after filtering done by max.tf and min.tf. Defaults to 100.
 #' @param res The words that will be keep will be stored here once 
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @param skip A logical. Should the step be skipped when the
@@ -43,7 +43,7 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_tokenfilter(essay0, max.words = 10) 
+#'   step_tokenfilter(essay0) 
 #'   
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
@@ -81,7 +81,7 @@ step_tokenfilter <-
            max.tf = Inf,
            min.tf = 0,
            procentage = FALSE,
-           max.words = NULL,
+           max.words = 100,
            res = NULL,
            skip = FALSE) {
     

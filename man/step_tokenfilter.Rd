@@ -7,7 +7,7 @@
 \usage{
 step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, max.tf = Inf, min.tf = 0, procentage = FALSE,
-  max.words = NULL, res = NULL, skip = FALSE)
+  max.words = 100, res = NULL, skip = FALSE)
 
 \method{tidy}{step_tokenfilter}(x, ...)
 }
@@ -40,7 +40,7 @@ before getting removed.}
 as a procentage instead of count.}
 
 \item{max.words}{An integer. Will only keep the top max.words words
-after filtering done by max.tf and min.tf.}
+after filtering done by max.tf and min.tf. Defaults to 100.}
 
 \item{res}{The words that will be keep will be stored here once 
 this preprocessing step has be trained by [prep.recipe()].}
@@ -82,7 +82,7 @@ data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
-  step_tokenfilter(essay0, max.words = 10) 
+  step_tokenfilter(essay0) 
   
 okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
