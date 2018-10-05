@@ -14,6 +14,8 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
+#' @param sep a character to determine how the tokens should be seperated
+#'  when pasted together. Defaults to `" "`.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -59,6 +61,7 @@ step_untokenize <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           sep = " ",
            skip = FALSE
   ) {
     add_step(
@@ -68,6 +71,7 @@ step_untokenize <-
         role = role,
         trained = trained,
         columns = columns,
+        sep = sep,
         skip = skip
       )
     )
@@ -78,6 +82,7 @@ step_untokenize_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           sep = NULL,
            skip = FALSE) {
     step(
       subclass = "untokenize",
@@ -85,6 +90,7 @@ step_untokenize_new <-
       role = role,
       trained = trained,
       columns = columns,
+      sep = sep,
       skip = skip
     )
   }
@@ -100,6 +106,7 @@ prep.step_untokenize <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
+    sep = x$sep,
     skip = x$skip
   )
 }
@@ -114,7 +121,7 @@ bake.step_untokenize <- function(object, newdata, ...) {
   
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- map_chr(newdata[, col_names[i], drop = TRUE], 
-                                       paste, collapse = " ")
+                                       paste, collapse = object$sep)
   }
   
   newdata <- factor_to_text(newdata, col_names)
@@ -138,7 +145,7 @@ print.step_untokenize <-
 tidy.step_untokenize <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = "untokenize")
+                  value = x$sep)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,

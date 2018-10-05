@@ -6,7 +6,7 @@
 \title{Untokenization of list-column variables}
 \usage{
 step_untokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, skip = FALSE)
+  columns = NULL, sep = " ", skip = FALSE)
 
 \method{tidy}{step_untokenize}(x, ...)
 }
@@ -28,6 +28,9 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
+
+\item{sep}{a character to determine how the tokens should be seperated
+when pasted together. Defaults to `" "`.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
