@@ -86,7 +86,7 @@ step_tokenfilter <-
            res = NULL,
            skip = FALSE) {
     
-    if(percentage &&(max > 1 | max < 0 | min > 1 | min < 0))
+    if(percentage && (max > 1 | max < 0 | min > 1 | min < 0))
       stop("`max` and `min` should be in the interval [0, 1].",
            call. = FALSE)
       
@@ -184,12 +184,13 @@ bake.step_tokenfilter <- function(object, newdata, ...) {
 }
 
 tokenfilter_fun <- function(data, max, min, max_features, percentage) {
+
   tf <- table(unlist(data))
 
   if(percentage)
     tf <- tf / sum(tf)
   
-  ids <- tf < max & tf > min
+  ids <- tf <= max & tf >= min
   
   if(is.infinite(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
