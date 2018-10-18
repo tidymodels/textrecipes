@@ -167,7 +167,7 @@ bake.step_texthash <- function(object, newdata, ...) {
   for (i in seq_along(col_names)) {
     
     tf_text <- hashing_function(newdata[, col_names[i], drop = TRUE],
-                                paste0(col_names[i], "-",  
+                                paste0(col_names[i], "_",  
                                        names0(object$num_terms, object$prefix)),
                                 object$algorithm,
                                 object$num_terms)
