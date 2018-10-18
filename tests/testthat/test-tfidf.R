@@ -3,11 +3,13 @@ context("test-tfidf")
 library(recipes)
 library(textrecipes)
 
-set.seed(1)
-data_tf <- tibble(text = purrr::map_chr(1:100, 
-                                        ~ paste(sample(letters, 10, TRUE), 
-                                                collapse = " ")))
-rec <- recipe(~ ., data = data_tf)
+test_data <- tibble(text = c("I would not eat them here or there.",
+                             "I would not eat them anywhere.",
+                             "I would not eat green eggs and ham.",
+                             "I do not like them, Sam-I-am.")
+)
+
+rec <- recipe(~ ., data = test_data)
 
 test_that("step_tfidf works as intended", {
   rec <- rec %>%
@@ -15,25 +17,69 @@ test_that("step_tfidf works as intended", {
     step_tfidf(text) 
   
   obj <- rec %>%
-    prep(training = data_tf, retain = TRUE)
+    prep(training = test_data, retain = TRUE)
   
-  # Reference calcutation
-  tokenized <- tokenizers::tokenize_characters(as.list(unlist(data_tf)))
-  tokenized_factor <- lapply(tokenized, factor, letters)
-  counts <- lapply(tokenized_factor, tabulate, 26) %>% 
-    purrr::reduce(rbind) %>% 
-    unname()
-  tf <- counts
-  N <- nrow(counts)
-  idf <- log(N / (colSums(counts > 0) + 1))
+  rec_answer <- unname(juice(obj))
+  
+  manual_answer <- unname(tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)),
+                                 and =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 anywhere = c(0 / 8, 1 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 do =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)),
+                                 eat =      c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(4 / (3 + 0.5)),
+                                 eggs =     c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 green =    c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 ham =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 here =     c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 i =        c(1 / 8, 1 / 6, 1 / 8, 2 / 8) * log(4 / (4 + 0.5)),
+                                 like =     c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)),
+                                 not =      c(1 / 8, 1 / 6, 1 / 8, 1 / 8) * log(4 / (4 + 0.5)),
+                                 or =       c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 sam =      c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)), 
+                                 them =     c(1 / 8, 1 / 6, 0 / 8, 1 / 8) * log(4 / (3 + 0.5)),
+                                 there =    c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
+                                 would =    c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(4 / (3 + 0.5))))
   
   expect_equal(
-    juice(obj) %>% as.matrix() %>% unname(),
-    t(t(tf) * idf)
+    as.matrix(rec_answer),
+    as.matrix(manual_answer)
   )
   
   expect_equal(dim(tidy(rec, 2)), c(1, 3))
   expect_equal(dim(tidy(obj, 2)), c(1, 3))
+})
+
+test_that("step_tfidf works with other weighting schemes", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, weight_scheme = "idf smooth") 
+  
+  obj <- rec %>%
+    prep(training = test_data, retain = TRUE)
+  
+  rec_answer <- unname(juice(obj))
+  
+  manual_answer <- unname(tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 and =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 anywhere = c(0 / 8, 1 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 do =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 eat =      c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (3 + 0.5)),
+                                 eggs =     c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 green =    c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 ham =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 here =     c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 i =        c(1 / 8, 1 / 6, 1 / 8, 2 / 8) * log(1 + 4 / (4 + 0.5)),
+                                 like =     c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 not =      c(1 / 8, 1 / 6, 1 / 8, 1 / 8) * log(1 + 4 / (4 + 0.5)),
+                                 or =       c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 sam =      c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)), 
+                                 them =     c(1 / 8, 1 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (3 + 0.5)),
+                                 there =    c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
+                                 would =    c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (3 + 0.5))))
+  
+  expect_equal(
+    as.matrix(rec_answer),
+    as.matrix(manual_answer)
+  )
 })
 
 test_that('printing', {
@@ -41,5 +87,5 @@ test_that('printing', {
     step_tokenize(text) %>%
     step_tfidf(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = data_tf, verbose = TRUE))
+  expect_output(prep(rec, training = test_data, verbose = TRUE))
 })

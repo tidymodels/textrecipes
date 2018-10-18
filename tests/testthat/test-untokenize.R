@@ -3,8 +3,13 @@ context("test-untokenize")
 library(recipes)
 library(textrecipes)
 
-data(okc_text)
-rec <- recipe(~ ., data = okc_text)
+test_data <- tibble(text = c("I would not eat them here or there.",
+                             "I would not eat them anywhere.",
+                             "I would not eat green eggs and ham.",
+                             "I do not like them, Sam-I-am.")
+)
+
+rec <- recipe(~ ., data = test_data)
 
 test_that("output is not a list", {
   data <- tibble(a = rep("a", 20))
@@ -22,10 +27,44 @@ test_that("output is not a list", {
   expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
+test_that("working as intended", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_untokenize(text)
+
+  obj <- rec %>%
+    prep(training = test_data, retain = TRUE)
+  
+  expect_equal(
+    juice(obj) %>% pull(text) %>% as.character(),
+    c("i would not eat them here or there",
+      "i would not eat them anywhere",
+      "i would not eat green eggs and ham",
+      "i do not like them sam i am")
+  )
+})
+
+test_that("working as intended", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_untokenize(text, sep = "-")
+  
+  obj <- rec %>%
+    prep(training = test_data, retain = TRUE)
+  
+  expect_equal(
+    juice(obj) %>% pull(text) %>% as.character(),
+    c("i-would-not-eat-them-here-or-there",
+      "i-would-not-eat-them-anywhere",
+      "i-would-not-eat-green-eggs-and-ham",
+      "i-do-not-like-them-sam-i-am")
+  )
+})
+
 test_that('printing', {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_untokenize(essay0)
+    step_tokenize(text) %>%
+    step_untokenize(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = okc_text, verbose = TRUE))
+  expect_output(prep(rec, training = test_data, verbose = TRUE))
 })

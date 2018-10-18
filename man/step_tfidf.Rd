@@ -7,8 +7,8 @@
 \usage{
 step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
   weight_scheme_tf = "term frequency", weight = 0.5,
-  weight_scheme = "idf", Laplace = 1, res = NULL, prefix = "tfidf",
-  skip = FALSE)
+  weight_scheme = "idf", Laplace = 0.5, res = NULL,
+  prefix = "tfidf", skip = FALSE)
 
 \method{tidy}{step_tfidf}(x, ...)
 }

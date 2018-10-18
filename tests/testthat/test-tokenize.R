@@ -1,10 +1,15 @@
 context("test-tokenize")
 
-library(recipes)
 library(textrecipes)
+library(recipes)
 
-data(okc_text)
-rec <- recipe(~ ., data = okc_text)
+test_data <- tibble(text = c("I would not eat them here or there.",
+                             "I would not eat them anywhere.",
+                             "I would not eat green eggs and ham.",
+                             "I do not like them, Sam-I-am.")
+                    )
+
+rec <- recipe(~ ., data = test_data)
 
 test_that("output is list when length is 1 or 0", {
   data <- tibble(a = rep(c("a", ""), 20))
@@ -18,66 +23,72 @@ test_that("output is list when length is 1 or 0", {
 
 test_that("tokenization is done correctly", {
   rec <- rec %>%
-    step_tokenize(essay0) 
+    step_tokenize(text) 
   
   obj <- rec %>%
-    prep(training = okc_text, retain = TRUE)
+    prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    tokenizers::tokenize_words(okc_text$essay0[1]),
-    juice(obj) %>% slice(1) %>% pull(essay0)
+    list(c("i", "would", "not", "eat", "them", "here", "or", "there"),
+         c("i", "would", "not", "eat", "them", "anywhere"),
+         c("i", "would", "not", "eat", "green", "eggs", "and", "ham"),
+         c("i", "do", "not", "like", "them", "sam", "i", "am")),
+    juice(obj) %>% pull(text)
   )
   
-  expect_equal(dim(tidy(rec, 1)), c(1, 2))
-  expect_equal(dim(tidy(obj, 1)), c(1, 2))
+  expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(1, 2))
+  expect_equal(dim(recipes:::tidy.recipe(obj, 1)), c(1, 2))
 })
 
 test_that("step throws an error if unavaliable tokenizer is picked", {
   expect_error(
     rec %>%
-      step_tokenize(essay0, token = "wrong") %>%
-      prep(training = okc_text, retain = TRUE)
+      step_tokenize(text, token = "wrong") %>%
+      prep(training = test_data, retain = TRUE)
   )
 })
 
 test_that("tokenization works with other built-in tokenizers", {
   rec <- rec %>%
-    step_tokenize(essay0, token = "characters") %>%
-    prep(training = okc_text, retain = TRUE)
+    step_tokenize(text, token = "characters") %>%
+    prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    tokenizers::tokenize_characters(okc_text$essay0[1]),
-    juice(rec) %>% slice(1) %>% pull(essay0)
+    tokenizers::tokenize_characters(test_data$text[1]),
+    juice(rec) %>% slice(1) %>% pull(text)
   )
 })
 
 test_that("tokenization works with custom tokenizer", {
   rec <- rec %>%
-    step_tokenize(essay0, custom_token = tokenizers::tokenize_characters) %>%
-    prep(training = okc_text, retain = TRUE)
+    step_tokenize(text, custom_token = tokenizers::tokenize_characters) %>%
+    prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    tokenizers::tokenize_characters(okc_text$essay0[1]),
+    tokenizers::tokenize_characters(test_data$text[1]),
     juice(rec) %>% 
       slice(1) %>% 
-      pull(essay0)
+      pull(text)
   )
 })
 
 test_that("arguments are passed using options argument", {
   rec <- rec %>%
-    step_tokenize(essay0, options = list(lowercase = FALSE)) %>%
-    prep(training = okc_text, retain = TRUE)
+    step_tokenize(text, options = list(lowercase = FALSE)) %>%
+    prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    tokenizers::tokenize_words(okc_text$essay0[1], lowercase = FALSE),
-    juice(rec) %>% slice(1) %>% pull(essay0)
+    list(c("I", "would", "not", "eat", "them", "here", "or", "there"),
+         c("I", "would", "not", "eat", "them", "anywhere"),
+         c("I", "would", "not", "eat", "green", "eggs", "and", "ham"),
+         c("I", "do", "not", "like", "them", "Sam", "I", "am")),
+    juice(rec) %>% pull(text)
   )
 })
 
 test_that('printing', {
   rec <- rec %>%
-    step_tokenize(essay0)
+    step_tokenize(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = okc_text, verbose = TRUE))
+  expect_output(prep(rec, training = test_data, verbose = TRUE))
 })

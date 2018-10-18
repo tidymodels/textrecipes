@@ -3,23 +3,28 @@ context("test-stem")
 library(recipes)
 library(textrecipes)
 
-data(okc_text)
-rec <- recipe(~ ., data = okc_text)
+test_data <- tibble(text = c("I would not eat them here or there.",
+                             "I would not eat them anywhere.",
+                             "I would not eat green eggs and ham.",
+                             "I do not like them, Sam-I-am.")
+)
+
+rec <- recipe(~ ., data = test_data)
 
 test_that("stemming is done correctly", {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_stem(essay0) 
+    step_tokenize(text) %>%
+    step_stem(text) 
   
   obj <- rec %>%
-    prep(training = okc_text, retain = TRUE)
+    prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    tokenizers::tokenize_words(okc_text$essay0[1])[[1]] %>%
+    tokenizers::tokenize_words(test_data$text[1])[[1]] %>%
       SnowballC::wordStem(),
     juice(obj) %>% 
       slice(1) %>% 
-      pull(essay0) %>%
+      pull(text) %>%
       unlist()
   )
   
@@ -29,8 +34,8 @@ test_that("stemming is done correctly", {
 
 test_that('printing', {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_stem(essay0)
+    step_tokenize(text) %>%
+    step_stem(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = okc_text, verbose = TRUE))
+  expect_output(prep(rec, training = test_data, verbose = TRUE))
 })

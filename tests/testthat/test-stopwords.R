@@ -3,24 +3,29 @@ context("test-stopwords")
 library(recipes)
 library(textrecipes)
 
-data(okc_text)
-rec <- recipe(~ ., data = okc_text)
+test_data <- tibble(text = c("I would not eat them here or there.",
+                             "I would not eat them anywhere.",
+                             "I would not eat green eggs and ham.",
+                             "I do not like them, Sam-I-am.")
+)
+
+rec <- recipe(~ ., data = test_data)
 
 test_that("stopwords are removed correctly", {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_stopwords(essay0) 
+    step_tokenize(text) %>%
+    step_stopwords(text) 
   
   obj <- rec %>%
-    prep(training = okc_text, retain = TRUE)
+    prep(training = test_data, retain = TRUE)
   
-  token_words <- tokenizers::tokenize_words(okc_text$essay0[1])[[1]]
+  token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
   
   expect_equal(
     token_words[!is.element(token_words, stopwords::stopwords())],
     juice(obj) %>% 
       slice(1) %>% 
-      pull(essay0) %>%
+      pull(text) %>%
       unlist()
   )
   
@@ -30,44 +35,45 @@ test_that("stopwords are removed correctly", {
 
 test_that("stopwords are kept correctly", {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_stopwords(essay0, keep = TRUE) %>%
-    prep(training = okc_text, retain = TRUE)
+    step_tokenize(text) %>%
+    step_stopwords(text, keep = TRUE) %>%
+    prep(training = test_data, retain = TRUE)
   
-  token_words <- tokenizers::tokenize_words(okc_text$essay0[1])[[1]]
+  token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
   
   expect_equal(
     token_words[is.element(token_words, stopwords::stopwords())],
     juice(rec) %>% 
       slice(1) %>% 
-      pull(essay0) %>%
+      pull(text) %>%
       unlist()
   )
 })
 
 test_that("custom stopwords are supported", {
-  custom_stopwords <- c("dead", "babies", "candy")
+  custom_stopwords <- c("i", "not")
   
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_stopwords(essay0, custom_stopword_source = custom_stopwords) %>%
-    prep(training = okc_text, retain = TRUE)
+    step_tokenize(text) %>%
+    step_stopwords(text, custom_stopword_source = custom_stopwords) %>%
+    prep(training = test_data, retain = TRUE)
   
-  token_words <- tokenizers::tokenize_words(okc_text$essay0[1])[[1]]
+  token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
   
   expect_equal(
-    token_words[!is.element(token_words, custom_stopwords)],
+    list(c("would", "eat", "them", "here", "or", "there"),
+        c("would", "eat", "them", "anywhere"),
+        c("would", "eat", "green", "eggs", "and", "ham"),
+        c("do", "like", "them", "sam", "am")),
     juice(rec) %>% 
-      slice(1) %>% 
-      pull(essay0) %>%
-      unlist()
+      pull(text)
   )
 })
 
 test_that('printing', {
   rec <- rec %>%
-    step_tokenize(essay0) %>%
-    step_stopwords(essay0)
+    step_tokenize(text) %>%
+    step_stopwords(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = okc_text, verbose = TRUE))
+  expect_output(prep(rec, training = test_data, verbose = TRUE))
 })
