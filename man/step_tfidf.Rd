@@ -6,7 +6,7 @@
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  weight_scheme_tf = "raw count", weight = 0.5,
+  weight_scheme_tf = "term frequency", weight = 0.5,
   weight_scheme = "idf", Laplace = 1, res = NULL, prefix = "tfidf",
   skip = FALSE)
 
@@ -34,7 +34,7 @@ encoding. This is `NULL` until the step is trained by
 \item{weight_scheme_tf}{A character determining the weighting scheme for
 the term frequency calculations. Must be one of "binary", 
 "raw count", "term frequency", "log normalization" or
-"double normalization". Defaults to "raw count".}
+"double normalization". Defaults to "term frequency".}
 
 \item{weight}{A numeric weight used if `weight_scheme_tf` is set to
 "double normalization". Defaults to 0.5.}

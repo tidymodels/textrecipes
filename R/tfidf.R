@@ -18,7 +18,7 @@
 #' @param weight_scheme_tf A character determining the weighting scheme for
 #'  the term frequency calculations. Must be one of "binary", 
 #'  "raw count", "term frequency", "log normalization" or
-#'  "double normalization". Defaults to "raw count".
+#'  "double normalization". Defaults to "term frequency".
 #' @param weight A numeric weight used if `weight_scheme_tf` is set to
 #'  "double normalization". Defaults to 0.5.
 #' @param weight_scheme A character determining the weighting scheme
@@ -110,10 +110,10 @@ step_tfidf <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           weight_scheme_tf = "raw count",
+           weight_scheme_tf = "term frequency",
            weight = 0.5,
            weight_scheme = "idf",
-           Laplace = 1,
+           Laplace = 0.5,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
