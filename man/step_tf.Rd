@@ -6,8 +6,8 @@
 \title{Term frequency of tokens}
 \usage{
 step_tf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  tf_weight = "raw count", K = 0.5, res = NULL, prefix = "tf",
-  skip = FALSE)
+  weight_scheme = "raw count", weight = 0.5, res = NULL,
+  prefix = "tf", skip = FALSE)
 
 \method{tidy}{step_tf}(x, ...)
 }
@@ -30,12 +30,12 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{tf_weight}{A character determining the weighting scheme for
+\item{weight_scheme}{A character determining the weighting scheme for
 the term frequency calculations. Must be one of "binary", 
 "raw count", "term frequency", "log normalization" or
 "double normalization". Defaults to "raw count".}
 
-\item{K}{A numeric weight used if `tf_weight` is set to
+\item{weight}{A numeric weight used if `weight_scheme` is set to
 "double normalization". Defaults to 0.5.}
 
 \item{res}{The words that will be used to calculate the term 
@@ -67,7 +67,7 @@ An updated version of `recipe` with the new step added
 \details{
 Term frequency is a weight of how many times each token appear in each 
 observation. There are different ways to calculate the weight and this 
-step can do it in a couple of ways. Setting the argument `tf_weight` to
+step can do it in a couple of ways. Setting the argument `weight_scheme` to
 "binary" will result in a set of binary variables denoting if a token
 is present in the observation. "raw count" will count the times a token
 is present in the observation. "term frequency" will devide the count
@@ -77,7 +77,7 @@ more times but not necessarily at a higher procentage. "log normalization"
 takes the log of 1 plus the count, adding 1 is done to avoid taking log of
 0. Finally "double normalization" is the raw frequency divided by the raw 
 frequency of the most occurring term in the document. This is then 
-multiplied by `K` and `K` is added tot he result. This is again done to 
+multiplied by `weight` and `weight` is added tot he result. This is again done to 
 prevent a bias towards longer documents.
 
 The new components will have names that begin with `prefix`, then

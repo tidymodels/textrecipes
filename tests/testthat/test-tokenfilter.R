@@ -9,7 +9,7 @@ rec <- recipe(~ ., data = okc_text)
 test_that("tokenfilter removes words correctly", {
   rec <- rec %>%
     step_tokenize(essay0) %>%
-    step_tokenfilter(essay0, max_tf = 50, min_tf = 5, max_words = 100) 
+    step_tokenfilter(essay0, max = 50, min = 5, max_tokens = 100) 
   
   obj <- rec %>%
     prep(training = okc_text, retain = TRUE)

@@ -15,14 +15,14 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param max_tf An integer. Maximal number of times a word can appear
+#' @param max An integer. Maximal number of times a word can appear
 #'  before getting removed.
-#' @param min_tf An integer. Minimum number of times a word can appear
+#' @param min An integer. Minimum number of times a word can appear
 #'  before getting removed.
-#' @param procentage A logical. Should max_tf and min_tf be interpreded 
-#'  as a procentage instead of count.
-#' @param max_words An integer. Will only keep the top max_words words
-#'  after filtering done by max_tf and min_tf. Defaults to 100.
+#' @param percentage A logical. Should max and min be interpreded 
+#'  as a percentage instead of count.
+#' @param max_tokens An integer. Will only keep the top max_tokens tokens
+#'  after filtering done by max and min. Defaults to 100.
 #' @param res The words that will be keep will be stored here once 
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @param skip A logical. Should the step be skipped when the
@@ -62,9 +62,9 @@
 #' This step allow you to limit the tokens you are looking at by filtering
 #' on their occurance in the corpus. You are able to exclude tokens if they
 #' appear too many times or too fews times in the data. It can be specified
-#' as counts using `max_tf` and `min_tf` or as procentages by setting
-#' `procentage` as `TRUE`. In addition one can filter to only use the top
-#' `max_words` used tokens.
+#' as counts using `max` and `min` or as percentages by setting
+#' `percentage` as `TRUE`. In addition one can filter to only use the top
+#' `max_tokens` used tokens.
 #' 
 #' It is advised to filter before using [step_tf] or [step_tfidf] to limit
 #' the number of variables created.
@@ -78,15 +78,15 @@ step_tokenfilter <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           max_tf = Inf,
-           min_tf = 0,
-           procentage = FALSE,
-           max_words = 100,
+           max = Inf,
+           min = 0,
+           percentage = FALSE,
+           max_tokens = 100,
            res = NULL,
            skip = FALSE) {
     
-    if(procentage &&(max_tf > 1 | max_tf < 0 | min_tf > 1 | min_tf < 0))
-      stop("`max_tf` and `min_tf` should be in the interval [0, 1].",
+    if(percentage &&(max > 1 | max < 0 | min > 1 | min < 0))
+      stop("`max` and `min` should be in the interval [0, 1].",
            call. = FALSE)
       
     add_step(
@@ -96,10 +96,10 @@ step_tokenfilter <-
         role = role,
         trained = trained,
         columns = columns,
-        max_tf = max_tf,
-        min_tf = min_tf,
-        procentage = procentage,
-        max_words = max_words,
+        max = max,
+        min = min,
+        percentage = percentage,
+        max_tokens = max_tokens,
         res = res,
         skip = skip
       )
@@ -111,10 +111,10 @@ step_tokenfilter_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           max_tf = NULL,
-           min_tf = NULL,
-           procentage = NULL,
-           max_words = NULL,
+           max = NULL,
+           min = NULL,
+           percentage = NULL,
+           max_tokens = NULL,
            res = NULL,
            skip = FALSE) {
     step(
@@ -123,10 +123,10 @@ step_tokenfilter_new <-
       role = role,
       trained = trained,
       columns = columns,
-      max_tf = max_tf,
-      min_tf = min_tf,
-      procentage = procentage,
-      max_words = max_words,
+      max = max,
+      min = min,
+      percentage = percentage,
+      max_tokens = max_tokens,
       res = res,
       skip = skip
     )
@@ -142,8 +142,8 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   
   for (i in seq_along(col_names)) {
     retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
-                                        x$max_tf, x$min_tf, x$max_words,
-                                        x$procentage)
+                                        x$max, x$min, x$max_tokens,
+                                        x$percentage)
   }
   
   step_tokenfilter_new(
@@ -151,10 +151,10 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    max_tf = x$max_tf,
-    min_tf = x$min_tf,
-    procentage = x$procentage,
-    max_words = x$max_words,
+    max = x$max,
+    min = x$min,
+    percentage = x$percentage,
+    max_tokens = x$max_tokens,
     res = retain_words,
     skip = x$skip
   )
@@ -179,13 +179,13 @@ bake.step_tokenfilter <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tokenfilter_fun <- function(data, max_tf, min_tf, max_features, procentage) {
+tokenfilter_fun <- function(data, max, min, max_features, percentage) {
   tf <- table(unlist(data))
   
-  if(procentage)
+  if(percentage)
     tf <- tf / sum(tf)
   
-  ids <- tf < max_tf & tf > min_tf
+  ids <- tf < max & tf > min
   
   if(is.null(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
@@ -210,7 +210,7 @@ print.step_tokenfilter <-
 tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = x$max_words)
+                  value = x$max_tokens)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,

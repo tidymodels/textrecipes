@@ -6,8 +6,8 @@
 \title{Filter the tokens based on term frequency}
 \usage{
 step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, max_tf = Inf, min_tf = 0, procentage = FALSE,
-  max_words = 100, res = NULL, skip = FALSE)
+  columns = NULL, max = Inf, min = 0, percentage = FALSE,
+  max_tokens = 100, res = NULL, skip = FALSE)
 
 \method{tidy}{step_tokenfilter}(x, ...)
 }
@@ -30,17 +30,17 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{max_tf}{An integer. Maximal number of times a word can appear
+\item{max}{An integer. Maximal number of times a word can appear
 before getting removed.}
 
-\item{min_tf}{An integer. Minimum number of times a word can appear
+\item{min}{An integer. Minimum number of times a word can appear
 before getting removed.}
 
-\item{procentage}{A logical. Should max_tf and min_tf be interpreded 
-as a procentage instead of count.}
+\item{percentage}{A logical. Should max and min be interpreded 
+as a percentage instead of count.}
 
-\item{max_words}{An integer. Will only keep the top max_words words
-after filtering done by max_tf and min_tf. Defaults to 100.}
+\item{max_tokens}{An integer. Will only keep the top max_tokens tokens
+after filtering done by max and min. Defaults to 100.}
 
 \item{res}{The words that will be keep will be stored here once 
 this preprocessing step has be trained by [prep.recipe()].}
@@ -68,9 +68,9 @@ An updated version of `recipe` with the new step added
 This step allow you to limit the tokens you are looking at by filtering
 on their occurance in the corpus. You are able to exclude tokens if they
 appear too many times or too fews times in the data. It can be specified
-as counts using `max_tf` and `min_tf` or as procentages by setting
-`procentage` as `TRUE`. In addition one can filter to only use the top
-`max_words` used tokens.
+as counts using `max` and `min` or as percentages by setting
+`percentage` as `TRUE`. In addition one can filter to only use the top
+`max_tokens` used tokens.
 
 It is advised to filter before using [step_tf] or [step_tfidf] to limit
 the number of variables created.
