@@ -176,7 +176,7 @@ bake.step_tf <- function(object, newdata, ...) {
     
     tf_text <- tf_function(newdata[, col_names[i], drop = TRUE],
                            object$res[[i]],
-                           paste0(object$prefix, "-", col_names[i]),
+                           paste0(object$prefix, "_", col_names[i]),
                            object$weight_scheme,
                            object$weight)
     
@@ -194,7 +194,7 @@ tf_function <- function(data, names, labels, weights, weight) {
   counts <- list_to_count_matrix(data, names)
   
   tf <- tf_weight(counts, weights, weight)
-  colnames(counts) <- paste0(labels, "-", names)
+  colnames(counts) <- paste0(labels, "_", names)
   as_tibble(counts)
 }
 
