@@ -11,7 +11,7 @@ test_that("hashing gives integer outputs", {
     step_tokenize(essay0) %>%
     # This step is to speed up calculations for faster test
     step_tokenfilter(essay0, max_tokens = 20) %>%
-    step_hashing(essay0) 
+    step_texthash(essay0) 
   
   obj <- rec %>%
     prep(training = okc_text, retain = TRUE)
@@ -28,17 +28,17 @@ test_that("hashing gives integer outputs", {
   expect_equal(dim(tidy(obj, 3)), c(1, 3))
 })
 
-test_that("hashing output width changes accordingly with num", {
+test_that("hashing output width changes accordingly with num_terms", {
   rec <- rec %>%
     step_tokenize(essay0) %>%
     # This step is to speed up calculations for faster test
     step_tokenfilter(essay0, max_tokens = 20) %>%
-    step_hashing(essay0, num = 256) %>%
+    step_texthash(essay0, num_terms = 256) %>%
     prep(training = okc_text, retain = TRUE)
   
   expect_equal(
     juice(rec) %>%
-      select(contains("hashing")) %>%
+      select(contains("hash")) %>%
       ncol(),
     256
   )
@@ -49,7 +49,7 @@ test_that('printing', {
     step_tokenize(essay0) %>%
     # This step is to speed up calculations for faster test
     step_tokenfilter(essay0, max_tokens = 20) %>%
-    step_hashing(essay0)
+    step_texthash(essay0)
   expect_output(print(rec))
   expect_output(prep(rec, training = okc_text, verbose = TRUE))
 })

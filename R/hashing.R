@@ -1,13 +1,13 @@
 #' Term frequency of tokens
 #'
-#' `step_hashing` creates a *specification* of a recipe step that
+#' `step_texthash` creates a *specification* of a recipe step that
 #'  will convert a list of tokens into multiple variables using the 
 #'  hashing trick.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_hashing`, this indicates the variables to be encoded
+#'  For `step_texthash`, this indicates the variables to be encoded
 #'  into a list column. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
@@ -18,7 +18,7 @@
 #' @param algorithm A character determining the hashing algorithm. 
 #'  Must be one of "md5", "sha1", "crc32", "sha256", "sha512",
 #'  "xxhash32", "xxhash64" or "murmur32". Defaults to "murmur32".
-#' @param num An integer, the number of variables to output.
+#' @param num_terms An integer, the number of variables to output.
 #'  Defaults to 1024.
 #' @param prefix A character string that will be the prefix to the
 #'  resulting new variables. See notes below.
@@ -41,7 +41,7 @@
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
 #'   step_tokenfilter(essay0, max_tokens = 10) %>%
-#'   step_hashing(essay0)
+#'   step_texthash(essay0)
 #'   
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
@@ -58,17 +58,17 @@
 #' as feature indices. This allows for a low memory representation of the
 #' text. 
 #' 
-#' The argument `num` controls the number of indices that the hashing 
+#' The argument `num_terms` controls the number of indices that the hashing 
 #' function will map to. This is the tuning parameter for this 
 #' transformation. Since the hashing function can map two different tokens
-#' to the same index, will a higher value of `num` result in a lower 
+#' to the same index, will a higher value of `num_terms` result in a lower 
 #' chance of collision.
 #' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
 #' `-`. The variable names are padded with zeros. For example,
-#' if `num < 10`, their names will be `hashing1` - `hashing9`.
-#' If `num = 101`, their names will be `hashing001` - `hashing101`.
+#' if `num_terms < 10`, their names will be `hash1` - `hash9`.
+#' If `num_terms = 101`, their names will be `hash001` - `hash101`.
 #' 
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; 
 #'  Alex Smola; Josh Attenberg (2009).
@@ -77,15 +77,15 @@
 #' 
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type
-step_hashing <-
+step_texthash <-
   function(recipe,
            ...,
            role = NA,
            trained = FALSE,
            columns = NULL,
            algorithm = "murmur32",
-           num = 1024,
-           prefix = "hashing",
+           num_terms = 1024,
+           prefix = "hash",
            skip = FALSE) {
     
     if(!(algorithm %in% hash_funs) | length(algorithm) != 1)
@@ -93,19 +93,19 @@ step_hashing <-
            paste0("'", hash_funs, "'", collapse = ", "),
            call. = FALSE)
     
-    if(num < 1 | num > 4096 | length(num) != 1 | is.na(num))
-      stop("`num` should be an integer between 1 and 4096.",
+    if(num_terms < 1 | num_terms > 4096 | length(num_terms) != 1 | is.na(num_terms))
+      stop("`num_terms` should be an integer between 1 and 4096.",
            call. = FALSE)
     
     add_step(
       recipe,
-      step_hashing_new(
+      step_texthash_new(
         terms = ellipse_check(...),
         role = role,
         trained = trained,
         columns = columns,
         algorithm = algorithm,
-        num = num,
+        num_terms = num_terms,
         prefix = prefix,
         skip = skip
       )
@@ -115,41 +115,41 @@ step_hashing <-
 hash_funs <- c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32", 
                "xxhash64", "murmur32")
 
-step_hashing_new <-
+step_texthash_new <-
   function(terms = NULL,
            role = NA,
            trained = FALSE,
            columns = NULL,
            algorithm = NULL,
-           num = NULL,
-           prefix = "hashing",
+           num_terms = NULL,
+           prefix = "texthash",
            skip = FALSE) {
     step(
-      subclass = "hashing",
+      subclass = "texthash",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
       algorithm = algorithm,
-      num = num,
+      num_terms = num_terms,
       prefix = prefix,
       skip = skip
     )
   }
 
 #' @export
-prep.step_hashing <- function(x, training, info = NULL, ...) {
+prep.step_texthash <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
   
   check_list(training[, col_names])
   
-  step_hashing_new(
+  step_texthash_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
     algorithm = x$algorithm,
-    num = x$num,
+    num_terms = x$num_terms,
     prefix = x$prefix,
     skip = x$skip
   )
@@ -160,7 +160,7 @@ prep.step_hashing <- function(x, training, info = NULL, ...) {
 #' @importFrom recipes bake prep names0
 #' @importFrom purrr map
 #' @importFrom dplyr bind_cols
-bake.step_hashing <- function(object, newdata, ...) {
+bake.step_texthash <- function(object, newdata, ...) {
   col_names <- object$columns
   # for backward compat
   
@@ -168,9 +168,9 @@ bake.step_hashing <- function(object, newdata, ...) {
     
     tf_text <- hashing_function(newdata[, col_names[i], drop = TRUE],
                                 paste0(col_names[i], "-",  
-                                       names0(object$num, object$prefix)),
+                                       names0(object$num_terms, object$prefix)),
                                 object$algorithm,
-                                object$num)
+                                object$num_terms)
     
     newdata <- bind_cols(newdata, tf_text)
     
@@ -200,7 +200,6 @@ char_to_vec <- function(x, algo, n) {
   purrr::map_int(x, ~ char_to_int(.x, algo) %% as.integer(n) + 1L)
 }
 
-
 char_to_matrix <- function(x, algo, n) {
   list_out <- lapply(x, char_to_vec, algo, n) 
 
@@ -211,24 +210,24 @@ char_to_matrix <- function(x, algo, n) {
 
 #' @importFrom recipes printer
 #' @export
-print.step_hashing <-
+print.step_texthash <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Feature hashing with ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
   }
 
-#' @rdname step_hashing
-#' @param x A `step_hashing` object.
+#' @rdname step_texthash
+#' @param x A `step_texthash` object.
 #' @importFrom rlang na_chr na_int
 #' @importFrom generics tidy
 #' @importFrom recipes is_trained
 #' @export
-tidy.step_hashing <- function(x, ...) {
+tidy.step_texthash <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
                   value = x$algorithm,
-                  length = x$num)
+                  length = x$num_terms)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
