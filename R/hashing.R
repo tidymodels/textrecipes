@@ -40,7 +40,7 @@
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_tokenfilter(essay0, max.words = 10) %>%
+#'   step_tokenfilter(essay0, max_words = 10) %>%
 #'   step_hashing(essay0)
 #'   
 #' okc_obj <- okc_rec %>%
@@ -221,7 +221,7 @@ print.step_hashing <-
 #' @rdname step_hashing
 #' @param x A `step_hashing` object.
 #' @importFrom rlang na_chr na_int
-#' @importFrom broom tidy
+#' @importFrom generics tidy
 #' @importFrom recipes is_trained
 #' @export
 tidy.step_hashing <- function(x, ...) {

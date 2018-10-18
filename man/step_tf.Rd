@@ -6,7 +6,7 @@
 \title{Term frequency of tokens}
 \usage{
 step_tf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  tf.weight = "raw count", K = 0.5, res = NULL, prefix = "tf",
+  tf_weight = "raw count", K = 0.5, res = NULL, prefix = "tf",
   skip = FALSE)
 
 \method{tidy}{step_tf}(x, ...)
@@ -30,12 +30,12 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{tf.weight}{A character determining the weighting scheme for
+\item{tf_weight}{A character determining the weighting scheme for
 the term frequency calculations. Must be one of "binary", 
 "raw count", "term frequency", "log normalization" or
 "double normalization". Defaults to "raw count".}
 
-\item{K}{A numeric weight used if `tf.weight` is set to
+\item{K}{A numeric weight used if `tf_weight` is set to
 "double normalization". Defaults to 0.5.}
 
 \item{res}{The words that will be used to calculate the term 
@@ -67,7 +67,7 @@ An updated version of `recipe` with the new step added
 \details{
 Term frequency is a weight of how many times each token appear in each 
 observation. There are different ways to calculate the weight and this 
-step can do it in a couple of ways. Setting the argument `tf.weight` to
+step can do it in a couple of ways. Setting the argument `tf_weight` to
 "binary" will result in a set of binary variables denoting if a token
 is present in the observation. "raw count" will count the times a token
 is present in the observation. "term frequency" will devide the count

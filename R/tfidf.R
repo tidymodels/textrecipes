@@ -15,17 +15,17 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param tf.weight A character determining the weighting scheme for
+#' @param tf_weight A character determining the weighting scheme for
 #'  the term frequency calculations. Must be one of "binary", 
 #'  "raw count", "term frequency", "log normalization" or
 #'  "double normalization". Defaults to "raw count".
-#' @param K A numeric weight used if `tf.weight` is set to
+#' @param K A numeric weight used if `tf_weight` is set to
 #'  "double normalization". Defaults to 0.5.
-#' @param idf.weight A character determining the weighting scheme
+#' @param idf_weight A character determining the weighting scheme
 #'  for the inverse document frequency calculations. Must be one of
 #'  "unary", "idf", "idf smooth" or "idf max".
 #'  Defaults to "idf".
-#' @param idf.adjustment Numeric added to the denominator of inverse
+#' @param idf_adjustment Numeric added to the denominator of inverse
 #'  document frequency calculation to avoid division-by-zero. Defaults
 #'  to 1.
 #' @param res The words that will be used to calculate the term 
@@ -67,7 +67,7 @@
 #' 
 #' Term frequency is a weight of how many times each token appear in each 
 #' observation. There are different ways to calculate the weight and this 
-#' step can do it in a couple of ways. Setting the argument `tf.weight` to
+#' step can do it in a couple of ways. Setting the argument `tf_weight` to
 #' "binary" will result in a set of binary variables denoting if a token
 #' is present in the observation. "raw count" will count the times a token
 #' is present in the observation. "term frequency" will devide the count
@@ -86,12 +86,12 @@
 #' give us that much insight, but if it only appear in some it might help
 #' us differentiate the observations. 
 #' 
-#' Setting the argument `idf.weight` to "unary" will result in a IDF of 1,
+#' Setting the argument `idf_weight` to "unary" will result in a IDF of 1,
 #' thus simplifying this step to `step_tf`. "idf" is calculated by deviding
 #' the number of observations with how many observatiuons the token appear 
 #' in and taking the log of that. This will result in a devide-by-zero error
 #' if a token doesn't appear in the data so an adjustment is done by adding 
-#' `idf.adjustment` to the count of appearences. "idf smooth" is done by 
+#' `idf_adjustment` to the count of appearences. "idf smooth" is done by 
 #' taking the log of 1 plus "idf". "idf max" is done in a similar way to
 #' "idf" but instead of looking at the number of observations, we look at the
 #' maximum number of observations a term appeared.
@@ -110,26 +110,26 @@ step_tfidf <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           tf.weight = "raw count",
+           tf_weight = "raw count",
            K = 0.5,
-           idf.weight = "idf",
-           idf.adjustment = 1,
+           idf_weight = "idf",
+           idf_adjustment = 1,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
     
-    if(!(tf.weight %in% tf_funs) | length(tf.weight) != 1)
-      stop("`tf.weight` should be one of: ",
+    if(!(tf_weight %in% tf_funs) | length(tf_weight) != 1)
+      stop("`tf_weight` should be one of: ",
            paste0("'", tf_funs, "'", collapse = ", "),
            call. = FALSE)
     
-    if(!(idf.weight %in% idf_funs) | length(idf.weight) != 1)
-      stop("`idf.weight` should be one of: ",
+    if(!(idf_weight %in% idf_funs) | length(idf_weight) != 1)
+      stop("`idf_weight` should be one of: ",
            paste0("'", idf_funs, "'", collapse = ", "),
            call. = FALSE)
     
-    if(idf.adjustment < 0 | is.na(idf.adjustment))
-      stop("`idf.adjustment` must be a positive number.",
+    if(idf_adjustment < 0 | is.na(idf_adjustment))
+      stop("`idf_adjustment` must be a positive number.",
            call. = FALSE)
     
     add_step(
@@ -140,10 +140,10 @@ step_tfidf <-
         trained = trained,
         res = res,
         columns = columns,
-        tf.weight = tf.weight,
+        tf_weight = tf_weight,
         K = K,
-        idf.weight = idf.weight,
-        idf.adjustment = idf.adjustment,
+        idf_weight = idf_weight,
+        idf_adjustment = idf_adjustment,
         prefix = prefix,
         skip = skip
       )
@@ -157,10 +157,10 @@ step_tfidf_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           tf.weight = NULL,
+           tf_weight = NULL,
            K = NULL,
-           idf.weight = NULL,
-           idf.adjustment = NULL,
+           idf_weight = NULL,
+           idf_adjustment = NULL,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
@@ -170,10 +170,10 @@ step_tfidf_new <-
       role = role,
       trained = trained,
       columns = columns,
-      tf.weight = tf.weight,
+      tf_weight = tf_weight,
       K = K,
-      idf.weight = idf.weight,
-      idf.adjustment = idf.adjustment,
+      idf_weight = idf_weight,
+      idf_adjustment = idf_adjustment,
       res = res,
       prefix = prefix,
       skip = skip
@@ -197,10 +197,10 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    tf.weight = x$tf.weight,
+    tf_weight = x$tf_weight,
     K = x$K,
-    idf.weight = x$idf.weight,
-    idf.adjustment = x$idf.adjustment,
+    idf_weight = x$idf_weight,
+    idf_adjustment = x$idf_adjustment,
     res = token_list,
     prefix = x$prefix,
     skip = x$skip
@@ -221,10 +221,10 @@ bake.step_tfidf <- function(object, newdata, ...) {
     tfidf_text <- tfidf_function(newdata[, col_names[i], drop = TRUE],
                                  object$res[[i]],
                                  paste0(object$prefix, "-", col_names[i]),
-                                 object$tf.weight,
+                                 object$tf_weight,
                                  object$K,
-                                 object$idf.weight,
-                                 object$idf.adjustment)
+                                 object$idf_weight,
+                                 object$idf_adjustment)
     
     newdata <- bind_cols(newdata, tfidf_text)
     
@@ -235,14 +235,14 @@ bake.step_tfidf <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tfidf_function <- function(data, names, labels, tf.weights, K, idf.weight,
+tfidf_function <- function(data, names, labels, tf_weights, K, idf_weight,
                            adjustment) {
   
   counts <- list_to_count_matrix(data, names)
   
-  tf <- tf_weight(counts, tf.weights, K)
+  tf <- tf_weight(counts, tf_weights, K)
   
-  idf <- idf_weight(counts, idf.weight, adjustment)
+  idf <- idf_weight(counts, idf_weight, adjustment)
   
   tfidf <- t(t(tf) * idf)
   
@@ -286,8 +286,8 @@ print.step_tfidf <-
 tidy.step_tfidf <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = x$idf.weight,
-                  tf = x$tf.weight)
+                  value = x$idf_weight,
+                  tf = x$tf_weight)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,

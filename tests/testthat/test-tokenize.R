@@ -53,7 +53,7 @@ test_that("tokenization works with other built-in tokenizers", {
 
 test_that("tokenization works with custom tokenizer", {
   rec <- rec %>%
-    step_tokenize(essay0, custom.token = tokenizers::tokenize_characters) %>%
+    step_tokenize(essay0, custom_token = tokenizers::tokenize_characters) %>%
     prep(training = okc_text, retain = TRUE)
   
   expect_equal(

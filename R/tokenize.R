@@ -21,7 +21,7 @@
 #'  "lines", "paragraphs", "regex", "tweets" (tokenization by 
 #'  word that preserves usernames, hashtags, and URLS ),  "ptb" 
 #'  (Penn Treebank), "skip_ngrams" and  "word_stems".
-#' @param custom.token User supplied tokenizer. use of this argument
+#' @param custom_token User supplied tokenizer. use of this argument
 #'  will overwrite the token argument. Must take a character vector
 #'  as input and output a list of character vectors. 
 #' @param skip A logical. Should the step be skipped when the
@@ -86,7 +86,7 @@ step_tokenize <-
            columns = NULL,
            options = list(),
            token = "words",
-           custom.token = NULL,
+           custom_token = NULL,
            skip = FALSE
   ) {
     add_step(
@@ -98,7 +98,7 @@ step_tokenize <-
         columns = columns,
         options = options,
         token = token,
-        custom.token = custom.token,
+        custom_token = custom_token,
         skip = skip
       )
     )
@@ -111,7 +111,7 @@ step_tokenize_new <-
            columns = NULL,
            options = NULL,
            token = NULL,
-           custom.token = NULL,
+           custom_token = NULL,
            skip = FALSE) {
     step(
       subclass = "tokenize",
@@ -121,7 +121,7 @@ step_tokenize_new <-
       columns = columns,
       options = options,
       token = token,
-      custom.token = custom.token,
+      custom_token = custom_token,
       skip = skip
     )
   }
@@ -141,7 +141,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     columns = col_names,
     options = x$options,
     token = x$token,
-    custom.token = x$custom.token,
+    custom_token = x$custom_token,
     skip = x$skip
   )
 }
@@ -153,7 +153,7 @@ bake.step_tokenize <- function(object, newdata, ...) {
   col_names <- object$columns
   # for backward compat
   
-  tokenizer <- null_switch(object$custom.token, 
+  tokenizer <- null_switch(object$custom_token, 
                            tokenizers_switch(object$token))
 
   for (i in seq_along(col_names)) {

@@ -15,14 +15,14 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param max.tf An integer. Maximal number of times a word can appear
+#' @param max_tf An integer. Maximal number of times a word can appear
 #'  before getting removed.
-#' @param min.tf An integer. Minimum number of times a word can appear
+#' @param min_tf An integer. Minimum number of times a word can appear
 #'  before getting removed.
-#' @param procentage A logical. Should max.tf and min.tf be interpreded 
+#' @param procentage A logical. Should max_tf and min_tf be interpreded 
 #'  as a procentage instead of count.
-#' @param max.words An integer. Will only keep the top max.words words
-#'  after filtering done by max.tf and min.tf. Defaults to 100.
+#' @param max_words An integer. Will only keep the top max_words words
+#'  after filtering done by max_tf and min_tf. Defaults to 100.
 #' @param res The words that will be keep will be stored here once 
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @param skip A logical. Should the step be skipped when the
@@ -62,9 +62,9 @@
 #' This step allow you to limit the tokens you are looking at by filtering
 #' on their occurance in the corpus. You are able to exclude tokens if they
 #' appear too many times or too fews times in the data. It can be specified
-#' as counts using `max.tf` and `min.tf` or as procentages by setting
+#' as counts using `max_tf` and `min_tf` or as procentages by setting
 #' `procentage` as `TRUE`. In addition one can filter to only use the top
-#' `max.words` used tokens.
+#' `max_words` used tokens.
 #' 
 #' It is advised to filter before using [step_tf] or [step_tfidf] to limit
 #' the number of variables created.
@@ -78,15 +78,15 @@ step_tokenfilter <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           max.tf = Inf,
-           min.tf = 0,
+           max_tf = Inf,
+           min_tf = 0,
            procentage = FALSE,
-           max.words = 100,
+           max_words = 100,
            res = NULL,
            skip = FALSE) {
     
-    if(procentage &&(max.tf > 1 | max.tf < 0 | min.tf > 1 | min.tf < 0))
-      stop("`max.tf` and `min.tf` should be in the interval [0, 1].",
+    if(procentage &&(max_tf > 1 | max_tf < 0 | min_tf > 1 | min_tf < 0))
+      stop("`max_tf` and `min_tf` should be in the interval [0, 1].",
            call. = FALSE)
       
     add_step(
@@ -96,10 +96,10 @@ step_tokenfilter <-
         role = role,
         trained = trained,
         columns = columns,
-        max.tf = max.tf,
-        min.tf = min.tf,
+        max_tf = max_tf,
+        min_tf = min_tf,
         procentage = procentage,
-        max.words = max.words,
+        max_words = max_words,
         res = res,
         skip = skip
       )
@@ -111,10 +111,10 @@ step_tokenfilter_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           max.tf = NULL,
-           min.tf = NULL,
+           max_tf = NULL,
+           min_tf = NULL,
            procentage = NULL,
-           max.words = NULL,
+           max_words = NULL,
            res = NULL,
            skip = FALSE) {
     step(
@@ -123,10 +123,10 @@ step_tokenfilter_new <-
       role = role,
       trained = trained,
       columns = columns,
-      max.tf = max.tf,
-      min.tf = min.tf,
+      max_tf = max_tf,
+      min_tf = min_tf,
       procentage = procentage,
-      max.words = max.words,
+      max_words = max_words,
       res = res,
       skip = skip
     )
@@ -142,7 +142,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   
   for (i in seq_along(col_names)) {
     retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
-                                        x$max.tf, x$min.tf, x$max.words,
+                                        x$max_tf, x$min_tf, x$max_words,
                                         x$procentage)
   }
   
@@ -151,10 +151,10 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    max.tf = x$max.tf,
-    min.tf = x$min.tf,
+    max_tf = x$max_tf,
+    min_tf = x$min_tf,
     procentage = x$procentage,
-    max.words = x$max.words,
+    max_words = x$max_words,
     res = retain_words,
     skip = x$skip
   )
@@ -210,7 +210,7 @@ print.step_tokenfilter <-
 tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = x$max.words)
+                  value = x$max_words)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,

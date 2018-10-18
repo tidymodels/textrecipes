@@ -7,7 +7,7 @@
 \usage{
 step_tokenize(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, options = list(), token = "words",
-  custom.token = NULL, skip = FALSE)
+  custom_token = NULL, skip = FALSE)
 
 \method{tidy}{step_tokenize}(x, ...)
 }
@@ -39,7 +39,7 @@ encoding. This is `NULL` until the step is trained by
 word that preserves usernames, hashtags, and URLS ),  "ptb" 
 (Penn Treebank), "skip_ngrams" and  "word_stems".}
 
-\item{custom.token}{User supplied tokenizer. use of this argument
+\item{custom_token}{User supplied tokenizer. use of this argument
 will overwrite the token argument. Must take a character vector
 as input and output a list of character vectors.}
 

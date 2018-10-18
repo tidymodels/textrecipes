@@ -6,8 +6,8 @@
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  tf.weight = "raw count", K = 0.5, idf.weight = "idf",
-  idf.adjustment = 1, res = NULL, prefix = "tfidf", skip = FALSE)
+  tf_weight = "raw count", K = 0.5, idf_weight = "idf",
+  idf_adjustment = 1, res = NULL, prefix = "tfidf", skip = FALSE)
 
 \method{tidy}{step_tfidf}(x, ...)
 }
@@ -30,20 +30,20 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{tf.weight}{A character determining the weighting scheme for
+\item{tf_weight}{A character determining the weighting scheme for
 the term frequency calculations. Must be one of "binary", 
 "raw count", "term frequency", "log normalization" or
 "double normalization". Defaults to "raw count".}
 
-\item{K}{A numeric weight used if `tf.weight` is set to
+\item{K}{A numeric weight used if `tf_weight` is set to
 "double normalization". Defaults to 0.5.}
 
-\item{idf.weight}{A character determining the weighting scheme
+\item{idf_weight}{A character determining the weighting scheme
 for the inverse document frequency calculations. Must be one of
 "unary", "idf", "idf smooth" or "idf max".
 Defaults to "idf".}
 
-\item{idf.adjustment}{Numeric added to the denominator of inverse
+\item{idf_adjustment}{Numeric added to the denominator of inverse
 document frequency calculation to avoid division-by-zero. Defaults
 to 1.}
 
@@ -79,7 +79,7 @@ The term frequency (TF) and the inverse document frequency (IDF).
 
 Term frequency is a weight of how many times each token appear in each 
 observation. There are different ways to calculate the weight and this 
-step can do it in a couple of ways. Setting the argument `tf.weight` to
+step can do it in a couple of ways. Setting the argument `tf_weight` to
 "binary" will result in a set of binary variables denoting if a token
 is present in the observation. "raw count" will count the times a token
 is present in the observation. "term frequency" will devide the count
@@ -98,12 +98,12 @@ observations. If a word appears in all the observations it might not
 give us that much insight, but if it only appear in some it might help
 us differentiate the observations. 
 
-Setting the argument `idf.weight` to "unary" will result in a IDF of 1,
+Setting the argument `idf_weight` to "unary" will result in a IDF of 1,
 thus simplifying this step to `step_tf`. "idf" is calculated by deviding
 the number of observations with how many observatiuons the token appear 
 in and taking the log of that. This will result in a devide-by-zero error
 if a token doesn't appear in the data so an adjustment is done by adding 
-`idf.adjustment` to the count of appearences. "idf smooth" is done by 
+`idf_adjustment` to the count of appearences. "idf smooth" is done by 
 taking the log of 1 plus "idf". "idf max" is done in a similar way to
 "idf" but instead of looking at the number of observations, we look at the
 maximum number of observations a term appeared.

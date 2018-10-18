@@ -15,11 +15,11 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param tf.weight A character determining the weighting scheme for
+#' @param tf_weight A character determining the weighting scheme for
 #'  the term frequency calculations. Must be one of "binary", 
 #'  "raw count", "term frequency", "log normalization" or
 #'  "double normalization". Defaults to "raw count".
-#' @param K A numeric weight used if `tf.weight` is set to
+#' @param K A numeric weight used if `tf_weight` is set to
 #'  "double normalization". Defaults to 0.5.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
@@ -57,7 +57,7 @@
 #' @details
 #' Term frequency is a weight of how many times each token appear in each 
 #' observation. There are different ways to calculate the weight and this 
-#' step can do it in a couple of ways. Setting the argument `tf.weight` to
+#' step can do it in a couple of ways. Setting the argument `tf_weight` to
 #' "binary" will result in a set of binary variables denoting if a token
 #' is present in the observation. "raw count" will count the times a token
 #' is present in the observation. "term frequency" will devide the count
@@ -84,14 +84,14 @@ step_tf <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           tf.weight = "raw count",
+           tf_weight = "raw count",
            K = 0.5,
            res = NULL,
            prefix = "tf",
            skip = FALSE) {
     
-    if(!(tf.weight %in% tf_funs) | length(tf.weight) != 1)
-      stop("`tf.weight` should be one of: ",
+    if(!(tf_weight %in% tf_funs) | length(tf_weight) != 1)
+      stop("`tf_weight` should be one of: ",
            paste0("'", tf_funs, "'", collapse = ", "),
            call. = FALSE)
     
@@ -103,7 +103,7 @@ step_tf <-
         trained = trained,
         res = res,
         columns = columns,
-        tf.weight = tf.weight,
+        tf_weight = tf_weight,
         K = K,
         prefix = prefix,
         skip = skip
@@ -119,7 +119,7 @@ step_tf_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           tf.weight = NULL,
+           tf_weight = NULL,
            K = NULL,
            res = NULL,
            prefix = "tf",
@@ -130,7 +130,7 @@ step_tf_new <-
       role = role,
       trained = trained,
       columns = columns,
-      tf.weight = tf.weight,
+      tf_weight = tf_weight,
       K = K,
       res = res,
       prefix = prefix,
@@ -155,7 +155,7 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    tf.weight = x$tf.weight,
+    tf_weight = x$tf_weight,
     K = x$K,
     res = token_list,
     prefix = x$prefix,
@@ -177,7 +177,7 @@ bake.step_tf <- function(object, newdata, ...) {
     tf_text <- tf_function(newdata[, col_names[i], drop = TRUE],
                            object$res[[i]],
                            paste0(object$prefix, "-", col_names[i]),
-                           object$tf.weight,
+                           object$tf_weight,
                            object$K)
     
     newdata <- bind_cols(newdata, tf_text)
@@ -233,7 +233,7 @@ print.step_tf <-
 tidy.step_tf <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = x$tf.weight)
+                  value = x$tf_weight)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
