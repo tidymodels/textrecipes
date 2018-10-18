@@ -194,8 +194,8 @@ tf_function <- function(data, names, labels, weights, weight) {
   counts <- list_to_count_matrix(data, names)
   
   tf <- tf_weight(counts, weights, weight)
-  colnames(counts) <- paste0(labels, "_", names)
-  as_tibble(counts)
+  colnames(tf) <- paste0(labels, "_", names)
+  as_tibble(tf)
 }
 
 tf_weight <- function(x, scheme, weight) {
