@@ -6,6 +6,22 @@ library(textrecipes)
 data(okc_text)
 rec <- recipe(~ ., data = okc_text)
 
+test_that("tokenfilter does nothing if argument are untouched", {
+  rec_ref <- rec %>%
+    step_tokenize(essay0) %>%
+    prep(training = okc_text, retain = TRUE)
+  
+  rec_test <- rec %>%
+    step_tokenize(essay0) %>%
+    step_tokenfilter(essay0) %>%
+    prep(training = okc_text, retain = TRUE)
+  
+  expect_equal(
+    juice(rec_ref) %>% pull(essay0),
+    juice(rec_test) %>% pull(essay0)
+  )
+})
+
 test_that("tokenfilter removes words correctly", {
   rec <- rec %>%
     step_tokenize(essay0) %>%

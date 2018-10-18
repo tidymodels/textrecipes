@@ -22,7 +22,8 @@
 #' @param percentage A logical. Should max and min be interpreded 
 #'  as a percentage instead of count.
 #' @param max_tokens An integer. Will only keep the top max_tokens tokens
-#'  after filtering done by max and min. Defaults to 100.
+#'  after filtering done by max and min. Defaults to Inf meaning all
+#'  words in training will be used.
 #' @param res The words that will be keep will be stored here once 
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @param skip A logical. Should the step be skipped when the
@@ -81,7 +82,7 @@ step_tokenfilter <-
            max = Inf,
            min = 0,
            percentage = FALSE,
-           max_tokens = 100,
+           max_tokens = Inf,
            res = NULL,
            skip = FALSE) {
     
@@ -139,11 +140,14 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   check_list(training[, col_names])
   
   retain_words <- list()
+  n_words <- list()
   
   for (i in seq_along(col_names)) {
     retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
                                         x$max, x$min, x$max_tokens,
                                         x$percentage)
+    
+    n_words[[i]] <- length(table(unlist(training[, col_names[i], drop = TRUE])))
   }
   
   step_tokenfilter_new(
@@ -154,7 +158,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     max = x$max,
     min = x$min,
     percentage = x$percentage,
-    max_tokens = x$max_tokens,
+    max_tokens = n_words,
     res = retain_words,
     skip = x$skip
   )
@@ -181,13 +185,13 @@ bake.step_tokenfilter <- function(object, newdata, ...) {
 
 tokenfilter_fun <- function(data, max, min, max_features, percentage) {
   tf <- table(unlist(data))
-  
+
   if(percentage)
     tf <- tf / sum(tf)
   
   ids <- tf < max & tf > min
   
-  if(is.null(max_features)) {
+  if(is.infinite(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
   } else {
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])

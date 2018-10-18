@@ -7,7 +7,7 @@
 \usage{
 step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, max = Inf, min = 0, percentage = FALSE,
-  max_tokens = 100, res = NULL, skip = FALSE)
+  max_tokens = Inf, res = NULL, skip = FALSE)
 
 \method{tidy}{step_tokenfilter}(x, ...)
 }
@@ -40,7 +40,8 @@ before getting removed.}
 as a percentage instead of count.}
 
 \item{max_tokens}{An integer. Will only keep the top max_tokens tokens
-after filtering done by max and min. Defaults to 100.}
+after filtering done by max and min. Defaults to Inf meaning all
+words in training will be used.}
 
 \item{res}{The words that will be keep will be stored here once 
 this preprocessing step has be trained by [prep.recipe()].}
