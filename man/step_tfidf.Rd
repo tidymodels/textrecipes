@@ -5,8 +5,8 @@
 \alias{tidy.step_tfidf}
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
-step_tfidf(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  weight_scheme_tf = "term frequency", weight = 0.5,
+step_tfidf(recipe, ..., role = "predictor", trained = FALSE,
+  columns = NULL, weight_scheme_tf = "term frequency", weight = 0.5,
   weight_scheme = "idf", Laplace = 0.5, res = NULL,
   prefix = "tfidf", skip = FALSE)
 
@@ -21,8 +21,10 @@ For `step_tfidf`, this indicates the variables to be encoded
 into a list column. See [recipes::selections()] for more
 details. For the `tidy` method, these are not currently used.}
 
-\item{role}{Not used by this step since no new variables are
-created.}
+\item{role}{For model terms created by this step, what analysis
+role should they be assigned?. By default, the function assumes
+that the new columns created by the original variables will be 
+used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
 baked.}
