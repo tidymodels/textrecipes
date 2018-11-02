@@ -160,12 +160,13 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
+#' @importFrom rlang %||%
 bake.step_stopwords <- function(object, newdata, ...) {
   col_names <- object$columns
   
-  stopword_list <- null_switch(object$custom_stopword_source, 
+  stopword_list <- object$custom_stopword_source %||%
                                stopwords(language = object$language, 
-                                         source = object$stopword_source))
+                                         source = object$stopword_source)
   
   for (i in seq_along(col_names)) {
     newdata[, col_names[i]] <- 
