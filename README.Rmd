@@ -35,22 +35,22 @@ install_github("emilhvitfeldt/textrecipes")
 
 In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 500 most used words. We will be conduction this preprosession on the variable `essay0`.
 
-```{r}
+```{r, message=FALSE}
 library(recipes)
 library(textrecipes)
- 
-data(okc_text)
 
+data(okc_text)
 example_data <- okc_text[, 1]
 
 okc_rec <- recipe(~ ., data = example_data) %>%
   step_tokenize(essay0) %>% # Tokenizes to words by default
   step_stopwords(essay0) %>% # Uses the english snowball list by default
-  step_tokenfilter(essay0, max.words = 500) %>%
-  step_tfidf(essay0, tf.weight = "term frequency", idf.weight = "idf")
+  step_tokenfilter(essay0, max_tokens = 500) %>%
+  step_tfidf(essay0, weight_scheme_tf = "term frequency", 
+             weight_scheme = "idf")
    
 okc_obj <- okc_rec %>%
-  prep(training = example_data, retain = TRUE)
+  prep(training = example_data)
    
 bake(okc_obj, example_data)
 ```
@@ -62,11 +62,11 @@ bake(okc_obj, example_data)
 
 | Step               | Input       | Output      | Status  |
 |--------------------|-------------|-------------|---------|
-| `step_tokenize`    | character   | list-column | working |
-| `step_untokenize`  | list-column | character   | working |
-| `step_stem`        | list-column | list-column | working |
-| `step_stopwords`   | list-column | list-column | working |
-| `step_tokenfilter` | list-column | list-column | working |
+| `step_tokenize`    | character   | list-column | Done    |
+| `step_untokenize`  | list-column | character   | Done    |
+| `step_stem`        | list-column | list-column | Done    |
+| `step_stopwords`   | list-column | list-column | Done    |
+| `step_tokenfilter` | list-column | list-column | Done    |
 | `step_tfidf`       | list-column | numeric     | working |
 | `step_tf`          | list-column | numeric     | working |
 | `step_texthash`    | list-column | numeric     | working |
@@ -82,7 +82,7 @@ recipe(~ ., data = data) %>%
   step_stem(text) %>%
   step_stopwords(text) %>%
   step_topwords(text) %>%
-  step_tfidf(text)
+  step_tf(text)
 
 # or
 
@@ -90,10 +90,5 @@ recipe(~ ., data = data) %>%
   step_tokenize(text) %>%
   step_stem(text) %>%
   step_tfidf(text)
-
-# or
-
-recipe(~ ., data = data) %>%
-  step_word2vec(text)
 ```
 

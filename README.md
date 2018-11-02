@@ -34,40 +34,20 @@ be conduction this preprosession on the variable `essay0`.
 
 ``` r
 library(recipes)
-#> Loading required package: dplyr
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-#> 
-#> Attaching package: 'recipes'
-#> The following object is masked from 'package:stats':
-#> 
-#>     step
 library(textrecipes)
-#> Loading required package: broom
-#> 
-#> Attaching package: 'broom'
-#> The following object is masked from 'package:recipes':
-#> 
-#>     tidy
- 
-data(okc_text)
 
+data(okc_text)
 example_data <- okc_text[, 1]
 
 okc_rec <- recipe(~ ., data = example_data) %>%
   step_tokenize(essay0) %>% # Tokenizes to words by default
   step_stopwords(essay0) %>% # Uses the english snowball list by default
-  step_tokenfilter(essay0, max.words = 500) %>%
-  step_tfidf(essay0, tf.weight = "term frequency", idf.weight = "idf")
+  step_tokenfilter(essay0, max_tokens = 500) %>%
+  step_tfidf(essay0, weight_scheme_tf = "term frequency", 
+             weight_scheme = "idf")
    
 okc_obj <- okc_rec %>%
-  prep(training = example_data, retain = TRUE)
+  prep(training = example_data)
    
 bake(okc_obj, example_data)
 #> # A tibble: 750 x 500
@@ -79,10 +59,10 @@ bake(okc_obj, example_data)
 #>  4           0                0                0                     0
 #>  5           0                0                0                     0
 #>  6           0                0                0                     0
-#>  7           0                0.0364           0.0349                0
+#>  7           0                0.0367           0.0352                0
 #>  8           0                0                0                     0
 #>  9           0                0                0                     0
-#> 10           0.0196           0.0224           0                     0
+#> 10           0.0197           0.0226           0                     0
 #> # ... with 740 more rows, and 496 more variables: `tfidf-essay0-5` <dbl>,
 #> #   `tfidf-essay0-able` <dbl>, `tfidf-essay0-active` <dbl>,
 #> #   `tfidf-essay0-activities` <dbl>, `tfidf-essay0-actually` <dbl>,
@@ -146,11 +126,11 @@ numeric for future analysis to work.
 
 | Step               | Input       | Output      | Status  |
 | ------------------ | ----------- | ----------- | ------- |
-| `step_tokenize`    | character   | list-column | working |
-| `step_untokenize`  | list-column | character   | working |
-| `step_stem`        | list-column | list-column | working |
-| `step_stopwords`   | list-column | list-column | working |
-| `step_tokenfilter` | list-column | list-column | working |
+| `step_tokenize`    | character   | list-column | Done    |
+| `step_untokenize`  | list-column | character   | Done    |
+| `step_stem`        | list-column | list-column | Done    |
+| `step_stopwords`   | list-column | list-column | Done    |
+| `step_tokenfilter` | list-column | list-column | Done    |
 | `step_tfidf`       | list-column | numeric     | working |
 | `step_tf`          | list-column | numeric     | working |
 | `step_texthash`    | list-column | numeric     | working |
@@ -168,7 +148,7 @@ recipe(~ ., data = data) %>%
   step_stem(text) %>%
   step_stopwords(text) %>%
   step_topwords(text) %>%
-  step_tfidf(text)
+  step_tf(text)
 
 # or
 
@@ -176,9 +156,4 @@ recipe(~ ., data = data) %>%
   step_tokenize(text) %>%
   step_stem(text) %>%
   step_tfidf(text)
-
-# or
-
-recipe(~ ., data = data) %>%
-  step_word2vec(text)
 ```
