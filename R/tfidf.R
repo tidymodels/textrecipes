@@ -17,19 +17,6 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param weight_scheme_tf A character determining the weighting scheme for
-#'  the term frequency calculations. Must be one of "binary", 
-#'  "raw count", "term frequency", "log normalization" or
-#'  "double normalization". Defaults to "term frequency".
-#' @param weight A numeric weight used if `weight_scheme_tf` is set to
-#'  "double normalization". Defaults to 0.5.
-#' @param weight_scheme A character determining the weighting scheme
-#'  for the inverse document frequency calculations. Must be one of
-#'  "unary", "idf", "idf smooth" or "idf max".
-#'  Defaults to "idf".
-#' @param Laplace Numeric added to the denominator of inverse
-#'  document frequency calculation to avoid division-by-zero. Defaults
-#'  to 1.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
@@ -88,16 +75,6 @@
 #' give us that much insight, but if it only appear in some it might help
 #' us differentiate the observations. 
 #' 
-#' Setting the argument `weight_scheme` to "unary" will result in a IDF of 1,
-#' thus simplifying this step to `step_tf`. "idf" is calculated by deviding
-#' the number of observations with how many observatiuons the token appear 
-#' in and taking the log of that. This will result in a devide-by-zero error
-#' if a token doesn't appear in the data so an adjustment is done by adding 
-#' `Laplace` to the count of appearences. "idf smooth" is done by 
-#' taking the log of 1 plus "idf". "idf max" is done in a similar way to
-#' "idf" but instead of looking at the number of observations, we look at the
-#' maximum number of observations a term appeared.
-#' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
 #' `-`. The new variables will be created alphabetically according to
@@ -112,27 +89,9 @@ step_tfidf <-
            role = "predictor",
            trained = FALSE,
            columns = NULL,
-           weight_scheme_tf = "term frequency",
-           weight = 0.5,
-           weight_scheme = "idf",
-           Laplace = 0.5,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
-    
-    if(!(weight_scheme_tf %in% tf_funs) | length(weight_scheme_tf) != 1)
-      stop("`weight_scheme_tf` should be one of: ",
-           paste0("'", tf_funs, "'", collapse = ", "),
-           call. = FALSE)
-    
-    if(!(weight_scheme %in% idf_funs) | length(weight_scheme) != 1)
-      stop("`weight_scheme` should be one of: ",
-           paste0("'", idf_funs, "'", collapse = ", "),
-           call. = FALSE)
-    
-    if(Laplace < 0 | is.na(Laplace))
-      stop("`Laplace` must be a positive number.",
-           call. = FALSE)
     
     add_step(
       recipe,
@@ -142,27 +101,17 @@ step_tfidf <-
         trained = trained,
         res = res,
         columns = columns,
-        weight_scheme_tf = weight_scheme_tf,
-        weight = weight,
-        weight_scheme = weight_scheme,
-        Laplace = Laplace,
         prefix = prefix,
         skip = skip
       )
     )
   }
 
-idf_funs <- c("unary", "idf", "idf smooth", "idf max")
-
 step_tfidf_new <-
   function(terms = NULL,
            role = NA,
            trained = FALSE,
            columns = NULL,
-           weight_scheme_tf = NULL,
-           weight = NULL,
-           weight_scheme = NULL,
-           Laplace = NULL,
            res = NULL,
            prefix = "tfidf",
            skip = FALSE) {
@@ -172,10 +121,6 @@ step_tfidf_new <-
       role = role,
       trained = trained,
       columns = columns,
-      weight_scheme_tf = weight_scheme_tf,
-      weight = weight,
-      weight_scheme = weight_scheme,
-      Laplace = Laplace,
       res = res,
       prefix = prefix,
       skip = skip
@@ -199,10 +144,6 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    weight_scheme_tf = x$weight_scheme_tf,
-    weight = x$weight,
-    weight_scheme = x$weight_scheme,
-    Laplace = x$Laplace,
     res = token_list,
     prefix = x$prefix,
     skip = x$skip
@@ -222,11 +163,7 @@ bake.step_tfidf <- function(object, newdata, ...) {
     
     tfidf_text <- tfidf_function(newdata[, col_names[i], drop = TRUE],
                                  object$res[[i]],
-                                 paste0(object$prefix, "-", col_names[i]),
-                                 object$weight_scheme_tf,
-                                 object$weight,
-                                 object$weight_scheme,
-                                 object$Laplace)
+                                 paste0(object$prefix, "_", col_names[i]))
     
     newdata <- bind_cols(newdata, tfidf_text)
     
@@ -237,39 +174,21 @@ bake.step_tfidf <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tfidf_function <- function(data, names, labels, tf_weights, weight, idf_weights,
-                           Laplace) {
+tfidf_function <- function(data, names, labels) {
   
-  counts <- list_to_count_matrix(data, names)
+  counts <- list_to_dtm(data, names)
   
-  tf <- tf_weight(counts, tf_weights, weight)
+  tfidf <- dtm_to_tfidf(counts)
   
-  idf <- idf_weight(counts, idf_weights, Laplace)
-  
-  tfidf <- t(t(tf) * idf)
-  
-  colnames(tfidf) <- paste0(labels, "-", names)
+  colnames(tfidf) <- paste0(labels, "_", names)
   as_tibble(tfidf)
 }
 
-idf_weight <- function(x, scheme, Laplace) {
-  if(scheme == "unary")
-    return(1)
-  
-  if(scheme == "idf") {
-    N <- nrow(x)
-    return(log(N / (colSums(x > 0) + Laplace)))
-  }
-  
-  if(scheme == "idf smooth") {
-    N <- nrow(x)
-    return(log(1 + N / (colSums(x > 0) + Laplace)))
-  }
-  
-  if(scheme == "idf max") {
-    nt <- colSums(x > 0)
-    return(log(max(nt) / (nt + Laplace)))
-  }
+
+#' @importFrom text2vec TfIdf
+dtm_to_tfidf <- function(x) {
+  model_tfidf <- TfIdf$new()
+  as.matrix(model_tfidf$fit_transform(x))
 }
 
 #' @importFrom recipes printer
@@ -287,14 +206,10 @@ print.step_tfidf <-
 #' @export
 tidy.step_tfidf <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms,
-                  value = x$weight_scheme,
-                  tf = x$weight_scheme_tf)
+    res <- tibble(terms = x$terms)
   } else {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names,
-                  value = na_chr,
-                  tf = na_chr)
+    res <- tibble(terms = term_names)
   }
   res
 }

@@ -21,65 +21,31 @@ test_that("step_tfidf works as intended", {
   
   rec_answer <- unname(juice(obj))
   
-  manual_answer <- unname(tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)),
-                                 and =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 anywhere = c(0 / 8, 1 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 do =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)),
-                                 eat =      c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(4 / (3 + 0.5)),
-                                 eggs =     c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 green =    c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 ham =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 here =     c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 i =        c(1 / 8, 1 / 6, 1 / 8, 2 / 8) * log(4 / (4 + 0.5)),
-                                 like =     c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)),
-                                 not =      c(1 / 8, 1 / 6, 1 / 8, 1 / 8) * log(4 / (4 + 0.5)),
-                                 or =       c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 sam =      c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 0.5)), 
-                                 them =     c(1 / 8, 1 / 6, 0 / 8, 1 / 8) * log(4 / (3 + 0.5)),
-                                 there =    c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 0.5)),
-                                 would =    c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(4 / (3 + 0.5))))
+  manual_answer <- unname(tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 1)),
+                                 and =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 anywhere = c(0 / 8, 1 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 do =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 1)),
+                                 eat =      c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(4 / (3 + 1)),
+                                 eggs =     c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 green =    c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 ham =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 here =     c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 i =        c(1 / 8, 1 / 6, 1 / 8, 2 / 8) * log(4 / (4 + 1)),
+                                 like =     c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 1)),
+                                 not =      c(1 / 8, 1 / 6, 1 / 8, 1 / 8) * log(4 / (4 + 1)),
+                                 or =       c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 sam =      c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(4 / (1 + 1)), 
+                                 them =     c(1 / 8, 1 / 6, 0 / 8, 1 / 8) * log(4 / (3 + 1)),
+                                 there =    c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(4 / (1 + 1)),
+                                 would =    c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(4 / (3 + 1))))
   
   expect_equal(
     as.matrix(rec_answer),
     as.matrix(manual_answer)
   )
   
-  expect_equal(dim(tidy(rec, 2)), c(1, 3))
-  expect_equal(dim(tidy(obj, 2)), c(1, 3))
-})
-
-test_that("step_tfidf works with other weighting schemes", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, weight_scheme = "idf smooth") 
-  
-  obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
-  
-  rec_answer <- unname(juice(obj))
-  
-  manual_answer <- unname(tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 and =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 anywhere = c(0 / 8, 1 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 do =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 eat =      c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (3 + 0.5)),
-                                 eggs =     c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 green =    c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 ham =      c(0 / 8, 0 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 here =     c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 i =        c(1 / 8, 1 / 6, 1 / 8, 2 / 8) * log(1 + 4 / (4 + 0.5)),
-                                 like =     c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 not =      c(1 / 8, 1 / 6, 1 / 8, 1 / 8) * log(1 + 4 / (4 + 0.5)),
-                                 or =       c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 sam =      c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (1 + 0.5)), 
-                                 them =     c(1 / 8, 1 / 6, 0 / 8, 1 / 8) * log(1 + 4 / (3 + 0.5)),
-                                 there =    c(1 / 8, 0 / 6, 0 / 8, 0 / 8) * log(1 + 4 / (1 + 0.5)),
-                                 would =    c(1 / 8, 1 / 6, 1 / 8, 0 / 8) * log(1 + 4 / (3 + 0.5))))
-  
-  expect_equal(
-    as.matrix(rec_answer),
-    as.matrix(manual_answer)
-  )
+  expect_equal(dim(tidy(rec, 2)), c(1, 1))
+  expect_equal(dim(tidy(obj, 2)), c(1, 1))
 })
 
 test_that('printing', {

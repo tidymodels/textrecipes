@@ -55,10 +55,10 @@ word_tbl_filter <- function(x, words, keep) {
 }
 
 # Takes a list of tokens and calculate the token count matrix
-list_to_count_matrix <- function(x, values) {
-  n_words <- length(values)
+#' @importFrom text2vec itoken create_dtm vocab_vectorizer create_vocabulary
+list_to_dtm <- function(x, values) {
   
-  purrr::map(x, ~ tabulate(factor(.x, values), n_words)) %>%
-    unlist() %>%
-    matrix(ncol = n_words, byrow = TRUE)
+  it <- itoken(x, progress = FALSE)
+  vectorizer <- vocab_vectorizer(create_vocabulary(values))
+  create_dtm(it, vectorizer)
 }

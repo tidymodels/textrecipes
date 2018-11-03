@@ -193,7 +193,7 @@ bake.step_tf <- function(object, newdata, ...) {
 
 tf_function <- function(data, names, labels, weights, weight) {
   
-  counts <- list_to_count_matrix(data, names)
+  counts <- as.matrix(list_to_dtm(data, names))
   
   tf <- tf_weight(counts, weights, weight)
   colnames(tf) <- paste0(labels, "_", names)

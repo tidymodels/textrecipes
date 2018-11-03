@@ -31,7 +31,8 @@ Imports:
     stopwords,
     magrittr,
     digest,
-    stringr
+    stringr,
+    text2vec
 Remotes:
     tidymodels/recipes,
     r-lib/generics

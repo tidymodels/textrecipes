@@ -6,9 +6,7 @@
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, weight_scheme_tf = "term frequency", weight = 0.5,
-  weight_scheme = "idf", Laplace = 0.5, res = NULL,
-  prefix = "tfidf", skip = FALSE)
+  columns = NULL, res = NULL, prefix = "tfidf", skip = FALSE)
 
 \method{tidy}{step_tfidf}(x, ...)
 }
@@ -32,23 +30,6 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
-
-\item{weight_scheme_tf}{A character determining the weighting scheme for
-the term frequency calculations. Must be one of "binary", 
-"raw count", "term frequency", "log normalization" or
-"double normalization". Defaults to "term frequency".}
-
-\item{weight}{A numeric weight used if `weight_scheme_tf` is set to
-"double normalization". Defaults to 0.5.}
-
-\item{weight_scheme}{A character determining the weighting scheme
-for the inverse document frequency calculations. Must be one of
-"unary", "idf", "idf smooth" or "idf max".
-Defaults to "idf".}
-
-\item{Laplace}{Numeric added to the denominator of inverse
-document frequency calculation to avoid division-by-zero. Defaults
-to 1.}
 
 \item{res}{The words that will be used to calculate the term 
 frequency will be stored here once this preprocessing step has 
@@ -100,16 +81,6 @@ gives, in other words, how common or rare is the word across all the
 observations. If a word appears in all the observations it might not
 give us that much insight, but if it only appear in some it might help
 us differentiate the observations. 
-
-Setting the argument `weight_scheme` to "unary" will result in a IDF of 1,
-thus simplifying this step to `step_tf`. "idf" is calculated by deviding
-the number of observations with how many observatiuons the token appear 
-in and taking the log of that. This will result in a devide-by-zero error
-if a token doesn't appear in the data so an adjustment is done by adding 
-`Laplace` to the count of appearences. "idf smooth" is done by 
-taking the log of 1 plus "idf". "idf max" is done in a similar way to
-"idf" but instead of looking at the number of observations, we look at the
-maximum number of observations a term appeared.
 
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
