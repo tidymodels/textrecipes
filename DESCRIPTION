@@ -10,6 +10,7 @@ Description: Converting text to numerical features requires specifically
     created procedures. These procedures are collected here as steps.
 License: MIT + file LICENSE
 Encoding: UTF-8
+SystemRequirements: GNU make, C++11
 LazyData: true
 URL: https://github.com/EmilHvitfeldt/textrecipes
 BugReports: https://github.com/EmilHvitfeldt/textrecipes/issues
