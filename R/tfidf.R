@@ -20,6 +20,14 @@
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
+#' @param smooth_idf TRUE smooth IDF weights by adding one to document
+#'  frequencies, as if an extra document was seen containing every term
+#'  in the collection exactly once. This prevents division by zero.
+#' @param norm A character, defines the type of normalization to apply to 
+#'  term vectors. "l1" by default, i.e., scale by the number of words in the
+#'  document. Must be one of c("l1", "l2", "none").
+#' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e., 
+#'  replace the term frequency with 1 + log(TF). Defaults to FALSE.
 #' @param prefix A character string that will be the prefix to the
 #'  resulting new variables. See notes below
 #' @param skip A logical. Should the step be skipped when the
@@ -55,25 +63,16 @@
 #' The term frequency (TF) and the inverse document frequency (IDF). 
 #' 
 #' Term frequency is a weight of how many times each token appear in each 
-#' observation. There are different ways to calculate the weight and this 
-#' step can do it in a couple of ways. Setting the argument `weight_scheme_tf` to
-#' "binary" will result in a set of binary variables denoting if a token
-#' is present in the observation. "raw count" will count the times a token
-#' is present in the observation. "term frequency" will devide the count
-#' with the total number of words in the document to limit the effect 
-#' of the document length as longer documents tends to have the word present
-#' more times but not necessarily at a higher procentage. "log normalization"
-#' takes the log of 1 plus the count, adding 1 is done to avoid taking log of
-#' 0. Finally "double normalization" is the raw frequency divided by the raw 
-#' frequency of the most occurring term in the document. This is then 
-#' multiplied by `weight` and `weight` is added tot he result. This is again done to 
-#' prevent a bias towards longer documents.
+#' observation.
 #' 
 #' Inverse document frequency is a measure of how much information a word
 #' gives, in other words, how common or rare is the word across all the 
 #' observations. If a word appears in all the observations it might not
 #' give us that much insight, but if it only appear in some it might help
 #' us differentiate the observations. 
+#' 
+#' The IDF is defined as follows: idf = log(# documents in the corpus) / 
+#' (# documents where the term appears + 1)
 #' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
@@ -90,6 +89,9 @@ step_tfidf <-
            trained = FALSE,
            columns = NULL,
            res = NULL,
+           smooth_idf = TRUE,
+           norm = "l1",
+           sublinear_tf = FALSE,
            prefix = "tfidf",
            skip = FALSE) {
     
@@ -100,6 +102,9 @@ step_tfidf <-
         role = role,
         trained = trained,
         res = res,
+        smooth_idf = smooth_idf,
+        norm = norm,
+        sublinear_tf = sublinear_tf,
         columns = columns,
         prefix = prefix,
         skip = skip
@@ -113,6 +118,9 @@ step_tfidf_new <-
            trained = FALSE,
            columns = NULL,
            res = NULL,
+           smooth_idf = NULL,
+           norm = NULL,
+           sublinear_tf = NULL,
            prefix = "tfidf",
            skip = FALSE) {
     step(
@@ -122,6 +130,9 @@ step_tfidf_new <-
       trained = trained,
       columns = columns,
       res = res,
+      smooth_idf = smooth_idf,
+      norm = norm,
+      sublinear_tf = sublinear_tf,
       prefix = prefix,
       skip = skip
     )
@@ -145,6 +156,9 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     res = token_list,
+    smooth_idf =x$smooth_idf,
+    norm = x$norm,
+    sublinear_tf = x$sublinear_tf,
     prefix = x$prefix,
     skip = x$skip
   )
@@ -163,7 +177,10 @@ bake.step_tfidf <- function(object, newdata, ...) {
     
     tfidf_text <- tfidf_function(newdata[, col_names[i], drop = TRUE],
                                  object$res[[i]],
-                                 paste0(object$prefix, "_", col_names[i]))
+                                 paste0(object$prefix, "_", col_names[i]),
+                                 object$smooth_idf,
+                                 object$norm,
+                                 object$sublinear_tf)
     
     newdata <- bind_cols(newdata, tfidf_text)
     
@@ -174,11 +191,12 @@ bake.step_tfidf <- function(object, newdata, ...) {
   as_tibble(newdata)
 }
 
-tfidf_function <- function(data, names, labels) {
+tfidf_function <- function(data, names, labels, smooth_idf, norm,
+                           sublinear_tf) {
   
   counts <- list_to_dtm(data, names)
   
-  tfidf <- dtm_to_tfidf(counts)
+  tfidf <- dtm_to_tfidf(counts, smooth_idf, norm, sublinear_tf)
   
   colnames(tfidf) <- paste0(labels, "_", names)
   as_tibble(tfidf)
@@ -186,8 +204,10 @@ tfidf_function <- function(data, names, labels) {
 
 
 #' @importFrom text2vec TfIdf
-dtm_to_tfidf <- function(x) {
-  model_tfidf <- TfIdf$new()
+dtm_to_tfidf <- function(x, smooth_idf, norm, sublinear_tf) {
+  model_tfidf <- TfIdf$new(smooth_idf = smooth_idf,
+                           norm = norm,
+                           sublinear_tf = sublinear_tf)
   as.matrix(model_tfidf$fit_transform(x))
 }
 

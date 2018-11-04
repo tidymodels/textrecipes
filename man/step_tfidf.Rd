@@ -6,7 +6,8 @@
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, res = NULL, prefix = "tfidf", skip = FALSE)
+  columns = NULL, res = NULL, smooth_idf = TRUE, norm = "l1",
+  sublinear_tf = FALSE, prefix = "tfidf", skip = FALSE)
 
 \method{tidy}{step_tfidf}(x, ...)
 }
@@ -35,6 +36,17 @@ encoding. This is `NULL` until the step is trained by
 frequency will be stored here once this preprocessing step has 
 be trained by [prep.recipe()].}
 
+\item{smooth_idf}{TRUE smooth IDF weights by adding one to document
+frequencies, as if an extra document was seen containing every term
+in the collection exactly once. This prevents division by zero.}
+
+\item{norm}{A character, defines the type of normalization to apply to 
+term vectors. "l1" by default, i.e., scale by the number of words in the
+document. Must be one of c("l1", "l2", "none").}
+
+\item{sublinear_tf}{A logical, apply sublinear term-frequency scaling, i.e., 
+replace the term frequency with 1 + log(TF). Defaults to FALSE.}
+
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below}
 
@@ -62,25 +74,16 @@ Term frequency-inverse document frequency is the product of two statistics.
 The term frequency (TF) and the inverse document frequency (IDF). 
 
 Term frequency is a weight of how many times each token appear in each 
-observation. There are different ways to calculate the weight and this 
-step can do it in a couple of ways. Setting the argument `weight_scheme_tf` to
-"binary" will result in a set of binary variables denoting if a token
-is present in the observation. "raw count" will count the times a token
-is present in the observation. "term frequency" will devide the count
-with the total number of words in the document to limit the effect 
-of the document length as longer documents tends to have the word present
-more times but not necessarily at a higher procentage. "log normalization"
-takes the log of 1 plus the count, adding 1 is done to avoid taking log of
-0. Finally "double normalization" is the raw frequency divided by the raw 
-frequency of the most occurring term in the document. This is then 
-multiplied by `weight` and `weight` is added tot he result. This is again done to 
-prevent a bias towards longer documents.
+observation.
 
 Inverse document frequency is a measure of how much information a word
 gives, in other words, how common or rare is the word across all the 
 observations. If a word appears in all the observations it might not
 give us that much insight, but if it only appear in some it might help
 us differentiate the observations. 
+
+The IDF is defined as follows: idf = log(# documents in the corpus) / 
+(# documents where the term appears + 1)
 
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
