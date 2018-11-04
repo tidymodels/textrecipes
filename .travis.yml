@@ -3,7 +3,6 @@
 language: R
 sudo: false
 cache: packages
-warnings_are_errors: false
 
 r:
 - 3.1
@@ -17,6 +16,27 @@ matrix:
     - r: 3.1
 
 warnings_are_errors: false
+
+env:
+  - _R_CHECK_FORCE_SUGGESTS_=true
+  
+compiler:
+  - gcc-4.9
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.9
+    - g++-4.9
+    - gfortran-4.9
+before_install:
+  - echo "options(repos = c(CRAN = 'https://cran.rstudio.com'))" > ~/.Rprofile
+  - mkdir ~/.R
+  - echo "CXX11=g++-4.9" > ~/.R/Makevars
+  - echo "CXX=g++-4.9" >> ~/.R/Makevars
+  - echo "CXX1X=g++-4.9" >> ~/.R/Makevars
 
 after_success:
   - Rscript -e 'covr::codecov()'
