@@ -81,6 +81,17 @@ test_that("tokenfilter removes words correctly using max_tokens", {
   )
 })
 
+test_that("tokenfilter throws warning when max_tokens > words", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_tokenfilter(text, max_tokens = 10000)
+  
+  expect_warning(
+    rec %>%
+      prep(training = test_data, retain = TRUE)
+  )
+})
+
 test_that('printing', {
   rec <- rec %>%
     step_tokenize(text) %>%

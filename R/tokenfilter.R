@@ -195,6 +195,11 @@ tokenfilter_fun <- function(data, max, min, max_features, percentage) {
   if(is.infinite(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
   } else {
+    if(max_features > sum(ids)) {
+      warning(paste0("max_features was set to '", max_features,
+                     "', but only ", sum(ids), " was available and selected."))
+      max_features <- sum(ids)
+    }
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
   }
 }
