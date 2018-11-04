@@ -6,8 +6,8 @@
 \title{Term frequency of tokens}
 \usage{
 step_texthash(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, algorithm = "murmur32", num_terms = 1024,
-  prefix = "hash", skip = FALSE)
+  columns = NULL, signed = TRUE, num_terms = 1024, prefix = "hash",
+  skip = FALSE)
 
 \method{tidy}{step_texthash}(x, ...)
 }
@@ -30,9 +30,8 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{algorithm}{A character determining the hashing algorithm. 
-Must be one of "md5", "sha1", "crc32", "sha256", "sha512",
-"xxhash32", "xxhash64" or "murmur32". Defaults to "murmur32".}
+\item{signed}{A logical, indicating whether to use a signed 
+hash-function to reduce collisions when hashing. Defaults to TRUE.}
 
 \item{num_terms}{An integer, the number of variables to output.
 Defaults to 1024.}
@@ -64,7 +63,7 @@ Feature hashing, or the hashing trick, is a transformation of a
 text variable into a new set of numerical variables. This is done by
 applying a hashing function over the tokens and using the hash values
 as feature indices. This allows for a low memory representation of the
-text. 
+text. This implementation is done using the MurmurHash3 method. 
 
 The argument `num_terms` controls the number of indices that the hashing 
 function will map to. This is the tuning parameter for this 

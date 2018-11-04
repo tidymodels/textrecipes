@@ -15,9 +15,8 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param algorithm A character determining the hashing algorithm. 
-#'  Must be one of "md5", "sha1", "crc32", "sha256", "sha512",
-#'  "xxhash32", "xxhash64" or "murmur32". Defaults to "murmur32".
+#' @param signed A logical, indicating whether to use a signed 
+#' hash-function to reduce collisions when hashing. Defaults to TRUE.
 #' @param num_terms An integer, the number of variables to output.
 #'  Defaults to 1024.
 #' @param prefix A character string that will be the prefix to the
@@ -56,7 +55,7 @@
 #' text variable into a new set of numerical variables. This is done by
 #' applying a hashing function over the tokens and using the hash values
 #' as feature indices. This allows for a low memory representation of the
-#' text. 
+#' text. This implementation is done using the MurmurHash3 method. 
 #' 
 #' The argument `num_terms` controls the number of indices that the hashing 
 #' function will map to. This is the tuning parameter for this 
@@ -83,19 +82,10 @@ step_texthash <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           algorithm = "murmur32",
+           signed = TRUE,
            num_terms = 1024,
            prefix = "hash",
            skip = FALSE) {
-    
-    if(!(algorithm %in% hash_funs) | length(algorithm) != 1)
-      stop("`algorithm` should be one of: ",
-           paste0("'", hash_funs, "'", collapse = ", "),
-           call. = FALSE)
-    
-    if(num_terms < 1 | num_terms > 4096 | length(num_terms) != 1 | is.na(num_terms))
-      stop("`num_terms` should be an integer between 1 and 4096.",
-           call. = FALSE)
     
     add_step(
       recipe,
@@ -104,7 +94,7 @@ step_texthash <-
         role = role,
         trained = trained,
         columns = columns,
-        algorithm = algorithm,
+        signed = signed,
         num_terms = num_terms,
         prefix = prefix,
         skip = skip
@@ -120,7 +110,7 @@ step_texthash_new <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           algorithm = NULL,
+           signed = NULL,
            num_terms = NULL,
            prefix = "texthash",
            skip = FALSE) {
@@ -130,7 +120,7 @@ step_texthash_new <-
       role = role,
       trained = trained,
       columns = columns,
-      algorithm = algorithm,
+      signed = signed,
       num_terms = num_terms,
       prefix = prefix,
       skip = skip
@@ -148,7 +138,7 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    algorithm = x$algorithm,
+    signed = x$signed,
     num_terms = x$num_terms,
     prefix = x$prefix,
     skip = x$skip
@@ -169,7 +159,7 @@ bake.step_texthash <- function(object, newdata, ...) {
     tf_text <- hashing_function(newdata[, col_names[i], drop = TRUE],
                                 paste0(col_names[i], "_",  
                                        names0(object$num_terms, object$prefix)),
-                                object$algorithm,
+                                object$signed,
                                 object$num_terms)
     
     newdata <- bind_cols(newdata, tf_text)
@@ -183,29 +173,19 @@ bake.step_texthash <- function(object, newdata, ...) {
 
 hashing_function <- function(data, labels, algo, n) {
   
-  counts <- char_to_matrix(data, algo, n)
+  counts <- list_to_hash(data, n)
 
   colnames(counts) <- labels
   as_tibble(counts)
 }
 
-#' @importFrom digest digest
-#' @importFrom stringr str_sub
-char_to_int <- function(x, algo) {
-  hashed <- digest(x, algo)
-  strtoi(str_sub(hashed, -3, -1), 16)
-}
-
-char_to_vec <- function(x, algo, n) {
-  purrr::map_int(x, ~ char_to_int(.x, algo) %% as.integer(n) + 1L)
-}
-
-char_to_matrix <- function(x, algo, n) {
-  list_out <- lapply(x, char_to_vec, algo, n) 
-
-  purrr::map(list_out, ~ tabulate(.x, n)) %>%
-    unlist() %>%
-    matrix(ncol = n, byrow = TRUE)
+# Takes a list of tokens and calculate the hashed token count matrix
+#' @importFrom text2vec itoken create_dtm hash_vectorizer create_vocabulary
+list_to_hash <- function(x, n) {
+  
+  it <- itoken(x, progress = FALSE)
+  vectorizer <- hash_vectorizer(hash_size = n)
+  as.matrix(create_dtm(it, vectorizer))
 }
 
 #' @importFrom recipes printer
@@ -219,19 +199,19 @@ print.step_texthash <-
 
 #' @rdname step_texthash
 #' @param x A `step_texthash` object.
-#' @importFrom rlang na_chr na_int
+#' @importFrom rlang na_lgl na_int
 #' @importFrom generics tidy
 #' @importFrom recipes is_trained
 #' @export
 tidy.step_texthash <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = x$algorithm,
+                  value = x$signed,
                   length = x$num_terms)
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
-                  value = na_chr,
+                  value = na_lgl,
                   length = na_int)
   }
   res

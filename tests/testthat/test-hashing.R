@@ -11,7 +11,7 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 
 rec <- recipe(~ ., data = test_data)
 
-test_that("hashing gives integer outputs", {
+test_that("hashing gives double outputs", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text) 
@@ -22,7 +22,7 @@ test_that("hashing gives integer outputs", {
   expect_true(
     juice(obj) %>%
       select(contains("hash")) %>%
-      lapply(is.integer) %>%
+      lapply(is.double) %>%
       unlist() %>%
       all()
     )

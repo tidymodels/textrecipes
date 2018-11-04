@@ -31,7 +31,6 @@ Imports:
     SnowballC,
     stopwords,
     magrittr,
-    digest,
     stringr,
     text2vec
 Remotes:
