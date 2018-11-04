@@ -30,6 +30,7 @@
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
 #'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -79,7 +80,7 @@
 #' 
 #' @seealso [step_stem()] [step_tokenfilter()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_stopwords <-
   function(recipe,
            ...,
@@ -91,7 +92,8 @@ step_stopwords <-
            keep = FALSE,
            stopword_source = "snowball",
            custom_stopword_source = NULL,
-           skip = FALSE
+           skip = FALSE,
+           id = rand_id("stopwords")
   ) {
     add_step(
       recipe,
@@ -105,22 +107,15 @@ step_stopwords <-
         keep = keep,
         stopword_source = stopword_source,
         custom_stopword_source = custom_stopword_source,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
 
 step_stopwords_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           options = NULL,
-           language = NULL,
-           keep = NULL,
-           stopword_source = NULL,
-           custom_stopword_source = NULL,
-           skip = FALSE) {
+  function(terms, role, trained, columns, options, language, keep,
+           stopword_source, custom_stopword_source, skip, id) {
     step(
       subclass = "stopwords",
       terms = terms,
@@ -132,7 +127,8 @@ step_stopwords_new <-
       keep = keep,
       stopword_source = stopword_source,
       custom_stopword_source = custom_stopword_source,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -152,7 +148,8 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
     keep = x$keep,
     stopword_source = x$stopword_source,
     custom_stopword_source = x$custom_stopword_source,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -203,5 +200,6 @@ tidy.step_stopwords <- function(x, ...) {
                   value = na_chr,
                   keep = na_lgl)
   }
+  res$id <- x$id
   res
 }

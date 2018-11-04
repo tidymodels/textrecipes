@@ -6,7 +6,8 @@
 \title{Untokenization of list-column variables}
 \usage{
 step_untokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, sep = " ", skip = FALSE)
+  columns = NULL, sep = " ", skip = FALSE,
+  id = rand_id("untokenize"))
 
 \method{tidy}{step_untokenize}(x, ...)
 }
@@ -38,7 +39,9 @@ operations are baked when [recipes::prep.recipe()] is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
-subsequent operations}
+subsequent operations.}
+
+\item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A `step_untokenize` object.}
 }

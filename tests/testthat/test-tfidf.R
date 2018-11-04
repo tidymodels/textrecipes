@@ -44,8 +44,8 @@ test_that("step_tfidf works as intended", {
     as.matrix(manual_answer)
   )
   
-  expect_equal(dim(tidy(rec, 2)), c(1, 1))
-  expect_equal(dim(tidy(obj, 2)), c(1, 1))
+  expect_equal(dim(tidy(rec, 2)), c(1, 2))
+  expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
 test_that('printing', {

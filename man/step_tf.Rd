@@ -7,7 +7,7 @@
 \usage{
 step_tf(recipe, ..., role = "predictor", trained = FALSE,
   columns = NULL, weight_scheme = "raw count", weight = 0.5,
-  res = NULL, prefix = "tf", skip = FALSE)
+  res = NULL, prefix = "tf", skip = FALSE, id = rand_id("tf"))
 
 \method{tidy}{step_tf}(x, ...)
 }
@@ -54,6 +54,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations.}
+
+\item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A `step_tf` object.}
 }

@@ -8,7 +8,7 @@
 step_stopwords(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, options = list(), language = "en", keep = FALSE,
   stopword_source = "snowball", custom_stopword_source = NULL,
-  skip = FALSE)
+  skip = FALSE, id = rand_id("stopwords"))
 
 \method{tidy}{step_stopwords}(x, ...)
 }
@@ -52,6 +52,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations.}
+
+\item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A `step_stopwords` object.}
 }

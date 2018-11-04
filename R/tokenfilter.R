@@ -33,6 +33,7 @@
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
 #'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -72,7 +73,7 @@
 #' 
 #' @seealso [step_untokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_tokenfilter <-
   function(recipe,
            ...,
@@ -84,7 +85,9 @@ step_tokenfilter <-
            percentage = FALSE,
            max_tokens = Inf,
            res = NULL,
-           skip = FALSE) {
+           skip = FALSE,
+           id = rand_id("tokenfilter")
+  ) {
     
     if(percentage && (max > 1 | max < 0 | min > 1 | min < 0))
       stop("`max` and `min` should be in the interval [0, 1].",
@@ -102,22 +105,15 @@ step_tokenfilter <-
         percentage = percentage,
         max_tokens = max_tokens,
         res = res,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
 
 step_tokenfilter_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           max = NULL,
-           min = NULL,
-           percentage = NULL,
-           max_tokens = NULL,
-           res = NULL,
-           skip = FALSE) {
+  function(terms, role, trained, columns, max, min, percentage, max_tokens,
+           res, skip, id) {
     step(
       subclass = "tokenfilter",
       terms = terms,
@@ -129,7 +125,8 @@ step_tokenfilter_new <-
       percentage = percentage,
       max_tokens = max_tokens,
       res = res,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -160,7 +157,8 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     percentage = x$percentage,
     max_tokens = n_words,
     res = retain_words,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -226,5 +224,6 @@ tidy.step_tokenfilter <- function(x, ...) {
     res <- tibble(terms = term_names,
                   value = na_int)
   }
+  res$id <- x$id
   res
 }

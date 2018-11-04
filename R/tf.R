@@ -35,6 +35,7 @@
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
 #'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -79,7 +80,7 @@
 #' 
 #' @seealso [step_hashing()] [step_tfidf()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_tf <-
   function(recipe,
            ...,
@@ -90,7 +91,9 @@ step_tf <-
            weight = 0.5,
            res = NULL,
            prefix = "tf",
-           skip = FALSE) {
+           skip = FALSE,
+           id = rand_id("tf")
+  ) {
     
     if(!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1)
       stop("`weight_scheme` should be one of: ",
@@ -108,7 +111,8 @@ step_tf <-
         weight_scheme = weight_scheme,
         weight = weight,
         prefix = prefix,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
@@ -117,15 +121,8 @@ tf_funs <- c("binary", "raw count", "term frequency", "log normalization",
              "double normalization")
 
 step_tf_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           weight_scheme = NULL,
-           weight = NULL,
-           res = NULL,
-           prefix = "tf",
-           skip = FALSE) {
+  function(terms, role, trained, columns, weight_scheme, weight, res,
+           prefix, skip, id) {
     step(
       subclass = "tf",
       terms = terms,
@@ -136,7 +133,8 @@ step_tf_new <-
       weight = weight,
       res = res,
       prefix = prefix,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -161,7 +159,8 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
     weight = x$weight,
     res = token_list,
     prefix = x$prefix,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -241,5 +240,6 @@ tidy.step_tf <- function(x, ...) {
     res <- tibble(terms = term_names,
                   value = na_chr)
   }
+  res$id <- x$id
   res
 }

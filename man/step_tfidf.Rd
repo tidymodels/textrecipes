@@ -7,7 +7,8 @@
 \usage{
 step_tfidf(recipe, ..., role = "predictor", trained = FALSE,
   columns = NULL, res = NULL, smooth_idf = TRUE, norm = "l1",
-  sublinear_tf = FALSE, prefix = "tfidf", skip = FALSE)
+  sublinear_tf = FALSE, prefix = "tfidf", skip = FALSE,
+  id = rand_id("tfidf"))
 
 \method{tidy}{step_tfidf}(x, ...)
 }
@@ -48,7 +49,7 @@ document. Must be one of c("l1", "l2", "none").}
 replace the term frequency with 1 + log(TF). Defaults to FALSE.}
 
 \item{prefix}{A character string that will be the prefix to the
-resulting new variables. See notes below}
+resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
@@ -56,7 +57,9 @@ operations are baked when [recipes::prep.recipe()] is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
-subsequent operations}
+subsequent operations.}
+
+\item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A `step_tfidf` object.}
 }

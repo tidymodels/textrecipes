@@ -22,7 +22,8 @@
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -54,7 +55,7 @@
 #' vector.
 #' 
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_untokenize <-
   function(recipe,
            ...,
@@ -62,7 +63,8 @@ step_untokenize <-
            trained = FALSE,
            columns = NULL,
            sep = " ",
-           skip = FALSE
+           skip = FALSE,
+           id = rand_id("untokenize")
   ) {
     add_step(
       recipe,
@@ -72,18 +74,14 @@ step_untokenize <-
         trained = trained,
         columns = columns,
         sep = sep,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
 
 step_untokenize_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           sep = NULL,
-           skip = FALSE) {
+  function(terms, role, trained, columns, sep, skip, id) {
     step(
       subclass = "untokenize",
       terms = terms,
@@ -91,7 +89,8 @@ step_untokenize_new <-
       trained = trained,
       columns = columns,
       sep = sep,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -107,7 +106,8 @@ prep.step_untokenize <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     sep = x$sep,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -151,5 +151,6 @@ tidy.step_untokenize <- function(x, ...) {
     res <- tibble(terms = term_names,
                   value = na_chr)
   }
+  res$id <- x$id
   res
 }

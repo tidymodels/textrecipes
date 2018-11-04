@@ -28,6 +28,7 @@
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
 #'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -75,7 +76,7 @@
 #' @seealso [step_tf()] [step_tfidf()] [step_tokenize()]
 #' 
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_texthash <-
   function(recipe,
            ...,
@@ -85,7 +86,8 @@ step_texthash <-
            signed = TRUE,
            num_terms = 1024,
            prefix = "hash",
-           skip = FALSE) {
+           skip = FALSE,
+           id = rand_id("texthash")) {
     
     add_step(
       recipe,
@@ -97,7 +99,8 @@ step_texthash <-
         signed = signed,
         num_terms = num_terms,
         prefix = prefix,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
@@ -106,14 +109,8 @@ hash_funs <- c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
                "xxhash64", "murmur32")
 
 step_texthash_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           signed = NULL,
-           num_terms = NULL,
-           prefix = "texthash",
-           skip = FALSE) {
+  function(terms, role, trained, columns, signed, num_terms, prefix, skip, 
+           id) {
     step(
       subclass = "texthash",
       terms = terms,
@@ -123,7 +120,8 @@ step_texthash_new <-
       signed = signed,
       num_terms = num_terms,
       prefix = prefix,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -141,7 +139,8 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
     signed = x$signed,
     num_terms = x$num_terms,
     prefix = x$prefix,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -214,5 +213,6 @@ tidy.step_texthash <- function(x, ...) {
                   value = na_lgl,
                   length = na_int)
   }
+  res$id <- x$id
   res
 }

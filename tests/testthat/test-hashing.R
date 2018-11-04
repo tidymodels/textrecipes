@@ -27,8 +27,8 @@ test_that("hashing gives double outputs", {
       all()
     )
   
-  expect_equal(dim(tidy(rec, 2)), c(1, 3))
-  expect_equal(dim(tidy(obj, 2)), c(1, 3))
+  expect_equal(dim(tidy(rec, 2)), c(1, 4))
+  expect_equal(dim(tidy(obj, 2)), c(1, 4))
 })
 
 test_that("hashing output width changes accordingly with num_terms", {

@@ -23,7 +23,8 @@
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -62,7 +63,7 @@
 #' 
 #' @seealso [step_stopwords()] [step_tokenfilter()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_stem <-
   function(recipe,
            ...,
@@ -71,7 +72,8 @@ step_stem <-
            columns = NULL,
            options = list(),
            stemmer = "SnowballC",
-           skip = FALSE
+           skip = FALSE,
+           id = rand_id("stem")
   ) {
     add_step(
       recipe,
@@ -82,19 +84,14 @@ step_stem <-
         options = options,
         stemmer = stemmer,
         columns = columns,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
 
 step_stem_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           options = NULL,
-           stemmer = NULL,
-           skip = FALSE) {
+  function(terms, role, trained, columns, options, stemmer, skip, id) {
     step(
       subclass = "stem",
       terms = terms,
@@ -103,7 +100,8 @@ step_stem_new <-
       columns = columns,
       options = options,
       stemmer = stemmer,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -120,7 +118,8 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
     columns = col_names,
     options = x$options,
     stemmer = x$stemmer,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -181,5 +180,6 @@ tidy.step_stem <- function(x, ...) {
     res <- tibble(terms = term_names,
                   value = na_chr)
   }
+  res$id <- x$id
   res
 }

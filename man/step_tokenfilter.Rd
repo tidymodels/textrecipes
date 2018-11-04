@@ -7,7 +7,8 @@
 \usage{
 step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, max = Inf, min = 0, percentage = FALSE,
-  max_tokens = Inf, res = NULL, skip = FALSE)
+  max_tokens = Inf, res = NULL, skip = FALSE,
+  id = rand_id("tokenfilter"))
 
 \method{tidy}{step_tokenfilter}(x, ...)
 }
@@ -53,6 +54,8 @@ operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using `skip = TRUE` as it may affect the computations for
 subsequent operations.}
+
+\item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A `step_tokenfilter` object.}
 }

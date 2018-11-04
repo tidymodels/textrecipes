@@ -30,7 +30,8 @@
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -77,7 +78,7 @@
 #'
 #' @seealso [step_untokenize]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_tokenize <-
   function(recipe,
            ...,
@@ -87,7 +88,8 @@ step_tokenize <-
            options = list(),
            token = "words",
            custom_token = NULL,
-           skip = FALSE
+           skip = FALSE,
+           id = rand_id("tokenize")
   ) {
     add_step(
       recipe,
@@ -99,20 +101,15 @@ step_tokenize <-
         options = options,
         token = token,
         custom_token = custom_token,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
 
 step_tokenize_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           options = NULL,
-           token = NULL,
-           custom_token = NULL,
-           skip = FALSE) {
+  function(terms, role, trained, columns, options, token, custom_token,
+           skip, id) {
     step(
       subclass = "tokenize",
       terms = terms,
@@ -122,7 +119,8 @@ step_tokenize_new <-
       options = options,
       token = token,
       custom_token = custom_token,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -142,7 +140,8 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     options = x$options,
     token = x$token,
     custom_token = x$custom_token,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -234,5 +233,6 @@ tidy.step_tokenize <- function(x, ...) {
     res <- tibble(terms = term_names,
                   value = na_chr)
   }
+  res$id <- x$id
   res
 }

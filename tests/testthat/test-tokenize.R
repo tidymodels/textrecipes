@@ -36,8 +36,8 @@ test_that("tokenization is done correctly", {
     juice(obj) %>% pull(text)
   )
   
-  expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(1, 2))
-  expect_equal(dim(recipes:::tidy.recipe(obj, 1)), c(1, 2))
+  expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(1, 3))
+  expect_equal(dim(recipes:::tidy.recipe(obj, 1)), c(1, 3))
 })
 
 test_that("step throws an error if unavaliable tokenizer is picked", {

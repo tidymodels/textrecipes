@@ -29,14 +29,15 @@
 #' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e., 
 #'  replace the term frequency with 1 + log(TF). Defaults to FALSE.
 #' @param prefix A character string that will be the prefix to the
-#'  resulting new variables. See notes below
+#'  resulting new variables. See notes below.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
 #'  operations may not be able to be conducted on new data (e.g.
 #'  processing the outcome variable(s)). Care should be taken when
 #'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations
+#'  subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
@@ -81,7 +82,7 @@
 #' 
 #' @seealso [step_hashing()] [step_tf()] [step_tokenize()]
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type
+#' @importFrom recipes check_type rand_id
 step_tfidf <-
   function(recipe,
            ...,
@@ -93,7 +94,8 @@ step_tfidf <-
            norm = "l1",
            sublinear_tf = FALSE,
            prefix = "tfidf",
-           skip = FALSE) {
+           skip = FALSE,
+           id = rand_id("tfidf")) {
     
     add_step(
       recipe,
@@ -107,22 +109,15 @@ step_tfidf <-
         sublinear_tf = sublinear_tf,
         columns = columns,
         prefix = prefix,
-        skip = skip
+        skip = skip,
+        id = id
       )
     )
   }
 
 step_tfidf_new <-
-  function(terms = NULL,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           res = NULL,
-           smooth_idf = NULL,
-           norm = NULL,
-           sublinear_tf = NULL,
-           prefix = "tfidf",
-           skip = FALSE) {
+  function(terms, role, trained, columns, res, smooth_idf, norm, 
+           sublinear_tf, prefix, skip, id) {
     step(
       subclass = "tfidf",
       terms = terms,
@@ -134,7 +129,8 @@ step_tfidf_new <-
       norm = norm,
       sublinear_tf = sublinear_tf,
       prefix = prefix,
-      skip = skip
+      skip = skip,
+      id = id
     )
   }
 
@@ -160,7 +156,8 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     norm = x$norm,
     sublinear_tf = x$sublinear_tf,
     prefix = x$prefix,
-    skip = x$skip
+    skip = x$skip,
+    id = x$id
   )
 }
 
@@ -231,5 +228,6 @@ tidy.step_tfidf <- function(x, ...) {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names)
   }
+  res$id <- x$id
   res
 }
