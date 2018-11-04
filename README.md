@@ -37,83 +37,37 @@ library(recipes)
 library(textrecipes)
 
 data(okc_text)
-example_data <- okc_text[, 1]
 
-okc_rec <- recipe(~ ., data = example_data) %>%
-  step_tokenize(essay0) %>% # Tokenizes to words by default
-  step_stopwords(essay0) %>% # Uses the english snowball list by default
-  step_tokenfilter(essay0, max_tokens = 500) %>%
-  step_tfidf(essay0, weight_scheme_tf = "term frequency", 
-             weight_scheme = "idf")
+okc_rec <- recipe(~ ., data = okc_text) %>%
+  add_role(contains("essay"), new_role = "textual") %>%
+  step_tokenize(has_role("textual")) %>% # Tokenizes to words by default
+  step_stopwords(has_role("textual")) %>% # Uses the english snowball list by default
+  step_tokenfilter(has_role("textual"), max_tokens = 100) %>%
+  step_tfidf(has_role("textual"))
+#> Warning: Changing role(s) for essay0, essay1, essay2, essay3, essay4,
+#> essay5, essay6, essay7, essay8, essay9
    
 okc_obj <- okc_rec %>%
-  prep(training = example_data)
+  prep(training = okc_text)
    
-bake(okc_obj, example_data)
-#> # A tibble: 750 x 500
-#>    `tfidf-essay0-2` `tfidf-essay0-2… `tfidf-essay0-3` `tfidf-essay0-4`
-#>               <dbl>            <dbl>            <dbl>            <dbl>
-#>  1           0                0                0                     0
-#>  2           0                0                0                     0
-#>  3           0                0                0                     0
-#>  4           0                0                0                     0
-#>  5           0                0                0                     0
-#>  6           0                0                0                     0
-#>  7           0                0.0367           0.0352                0
-#>  8           0                0                0                     0
-#>  9           0                0                0                     0
-#> 10           0.0197           0.0226           0                     0
-#> # ... with 740 more rows, and 496 more variables: `tfidf-essay0-5` <dbl>,
-#> #   `tfidf-essay0-able` <dbl>, `tfidf-essay0-active` <dbl>,
-#> #   `tfidf-essay0-activities` <dbl>, `tfidf-essay0-actually` <dbl>,
-#> #   `tfidf-essay0-admit` <dbl>, `tfidf-essay0-adventure` <dbl>,
-#> #   `tfidf-essay0-adventures` <dbl>, `tfidf-essay0-adventurous` <dbl>,
-#> #   `tfidf-essay0-afraid` <dbl>, `tfidf-essay0-age` <dbl>,
-#> #   `tfidf-essay0-ago` <dbl>, `tfidf-essay0-almost` <dbl>,
-#> #   `tfidf-essay0-along` <dbl>, `tfidf-essay0-also` <dbl>,
-#> #   `tfidf-essay0-although` <dbl>, `tfidf-essay0-always` <dbl>,
-#> #   `tfidf-essay0-amazing` <dbl>, `tfidf-essay0-american` <dbl>,
-#> #   `tfidf-essay0-amp` <dbl>, `tfidf-essay0-animals` <dbl>,
-#> #   `tfidf-essay0-another` <dbl>, `tfidf-essay0-anyone` <dbl>,
-#> #   `tfidf-essay0-anything` <dbl>, `tfidf-essay0-appreciate` <dbl>,
-#> #   `tfidf-essay0-area` <dbl>, `tfidf-essay0-around` <dbl>,
-#> #   `tfidf-essay0-art` <dbl>, `tfidf-essay0-artist` <dbl>,
-#> #   `tfidf-essay0-artistic` <dbl>, `tfidf-essay0-ask` <dbl>,
-#> #   `tfidf-essay0-athletic` <dbl>, `tfidf-essay0-attracted` <dbl>,
-#> #   `tfidf-essay0-away` <dbl>, `tfidf-essay0-awesome` <dbl>,
-#> #   `tfidf-essay0-back` <dbl>, `tfidf-essay0-bad` <dbl>,
-#> #   `tfidf-essay0-balance` <dbl>, `tfidf-essay0-bar` <dbl>,
-#> #   `tfidf-essay0-bay` <dbl>, `tfidf-essay0-beach` <dbl>,
-#> #   `tfidf-essay0-beautiful` <dbl>, `tfidf-essay0-beauty` <dbl>,
-#> #   `tfidf-essay0-become` <dbl>, `tfidf-essay0-beer` <dbl>,
-#> #   `tfidf-essay0-believe` <dbl>, `tfidf-essay0-berkeley` <dbl>,
-#> #   `tfidf-essay0-best` <dbl>, `tfidf-essay0-better` <dbl>,
-#> #   `tfidf-essay0-big` <dbl>, `tfidf-essay0-bike` <dbl>,
-#> #   `tfidf-essay0-bit` <dbl>, `tfidf-essay0-body` <dbl>,
-#> #   `tfidf-essay0-book` <dbl>, `tfidf-essay0-books` <dbl>,
-#> #   `tfidf-essay0-born` <dbl>, `tfidf-essay0-br` <dbl>,
-#> #   `tfidf-essay0-business` <dbl>, `tfidf-essay0-california` <dbl>,
-#> #   `tfidf-essay0-call` <dbl>, `tfidf-essay0-came` <dbl>,
-#> #   `tfidf-essay0-camping` <dbl>, `tfidf-essay0-can` <dbl>,
-#> #   `tfidf-essay0-car` <dbl>, `tfidf-essay0-care` <dbl>,
-#> #   `tfidf-essay0-career` <dbl>, `tfidf-essay0-caring` <dbl>,
-#> #   `tfidf-essay0-cat` <dbl>, `tfidf-essay0-challenge` <dbl>,
-#> #   `tfidf-essay0-change` <dbl>, `tfidf-essay0-check` <dbl>,
-#> #   `tfidf-essay0-chill` <dbl>, `tfidf-essay0-city` <dbl>,
-#> #   `tfidf-essay0-class` <dbl>, `tfidf-essay0-climbing` <dbl>,
-#> #   `tfidf-essay0-close` <dbl>, `tfidf-essay0-coast` <dbl>,
-#> #   `tfidf-essay0-coffee` <dbl>, `tfidf-essay0-college` <dbl>,
-#> #   `tfidf-essay0-come` <dbl>, `tfidf-essay0-comes` <dbl>,
-#> #   `tfidf-essay0-comfortable` <dbl>, `tfidf-essay0-community` <dbl>,
-#> #   `tfidf-essay0-company` <dbl>, `tfidf-essay0-computer` <dbl>,
-#> #   `tfidf-essay0-concerts` <dbl>, `tfidf-essay0-consider` <dbl>,
-#> #   `tfidf-essay0-conversation` <dbl>, `tfidf-essay0-cook` <dbl>,
-#> #   `tfidf-essay0-cooking` <dbl>, `tfidf-essay0-cool` <dbl>,
-#> #   `tfidf-essay0-country` <dbl>, `tfidf-essay0-couple` <dbl>,
-#> #   `tfidf-essay0-crazy` <dbl>, `tfidf-essay0-creative` <dbl>,
-#> #   `tfidf-essay0-culture` <dbl>, `tfidf-essay0-curious` <dbl>,
-#> #   `tfidf-essay0-currently` <dbl>, `tfidf-essay0-cute` <dbl>,
-#> #   `tfidf-essay0-dance` <dbl>, …
+str(bake(okc_obj, okc_text), list.len = 15)
+#> Classes 'tbl_df', 'tbl' and 'data.frame':    750 obs. of  1000 variables:
+#>  $ tfidf_essay0_also         : num  0 0 0.0213 0.1888 0 ...
+#>  $ tfidf_essay0_always       : num  0 0 0 0 0 ...
+#>  $ tfidf_essay0_amp          : num  0.457 0.567 0 0 0 ...
+#>  $ tfidf_essay0_anything     : num  0 0 0.108 0 0 ...
+#>  $ tfidf_essay0_area         : num  0 0 0 0 0 ...
+#>  $ tfidf_essay0_around       : num  0 0 0.0327 0 0 ...
+#>  $ tfidf_essay0_art          : num  0 0 0 0 0 ...
+#>  $ tfidf_essay0_back         : num  0 0 0 0 0 ...
+#>  $ tfidf_essay0_bay          : num  0 0 0 0 0 ...
+#>  $ tfidf_essay0_believe      : num  0 0 0 0 0.302 ...
+#>  $ tfidf_essay0_big          : num  0.0747 0 0 0 0 ...
+#>  $ tfidf_essay0_bit          : num  0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_essay0_br           : num  0.0573 0.2665 0.0573 0 0 ...
+#>  $ tfidf_essay0_can          : num  0.0406 0 0.0203 0 0 ...
+#>  $ tfidf_essay0_city         : num  0 0 0 0 0 0 0 0 0 0 ...
+#>   [list output truncated]
 ```
 
 ## Type chart
@@ -124,17 +78,17 @@ list columns. To avoind confusion here is a table of steps with their
 expected input and output respectively. Notice how you need to end with
 numeric for future analysis to work.
 
-| Step               | Input       | Output      | Status  |
-| ------------------ | ----------- | ----------- | ------- |
-| `step_tokenize`    | character   | list-column | Done    |
-| `step_untokenize`  | list-column | character   | Done    |
-| `step_stem`        | list-column | list-column | Done    |
-| `step_stopwords`   | list-column | list-column | Done    |
-| `step_tokenfilter` | list-column | list-column | Done    |
-| `step_tfidf`       | list-column | numeric     | working |
-| `step_tf`          | list-column | numeric     | working |
-| `step_texthash`    | list-column | numeric     | working |
-| `step_word2vec`    | character   | numeric     | TODO    |
+| Step               | Input       | Output      | Status |
+| ------------------ | ----------- | ----------- | ------ |
+| `step_tokenize`    | character   | list-column | Done   |
+| `step_untokenize`  | list-column | character   | Done   |
+| `step_stem`        | list-column | list-column | Done   |
+| `step_stopwords`   | list-column | list-column | Done   |
+| `step_tokenfilter` | list-column | list-column | Done   |
+| `step_tfidf`       | list-column | numeric     | Done   |
+| `step_tf`          | list-column | numeric     | Done   |
+| `step_texthash`    | list-column | numeric     | Done   |
+| `step_word2vec`    | character   | numeric     | TODO   |
 
 (TODO = Yet to be implemented, bug = correnctly not working, working =
 the step works but still not finished i.e. missing
