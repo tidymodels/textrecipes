@@ -1,0 +1,108 @@
+---
+title: "Cookbook - Using more complex recipes involving text"
+author: "Emil Hvitfeldt"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cookbook - Using more complex recipes involving text}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Working to get textual data converted into numerical can be done in many different ways. The steps included in `textrecipes` should hopefully give you the flexibility to perform most of your desired text preprocessing tasks. This vignette will showcase examples that combine multiple steps.  
+
+This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be `dplyr`, `recipes` and `textrecipes`. Examples will be performed on the `okc_text` data-set which is packaged with `textrecipes`.
+
+```{r, message=FALSE}
+library(dplyr)
+library(recipes)
+library(textrecipes)
+data("okc_text")
+```
+
+## Counting select words
+
+Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments `custom_stopword_source` and `keep = TRUE` in `step_stopwords`. 
+
+```{r}
+words <- c("you", "i", "sad", "happy")
+
+okc_rec <- recipe(~ ., data = okc_text) %>%
+  step_tokenize(essay0) %>%
+  step_stopwords(essay0, custom_stopword_source = words, keep = TRUE) %>% 
+  step_tf(essay0)
+
+okc_obj <- okc_rec %>%
+  prep(training = okc_text)
+   
+bake(okc_obj, okc_text) %>%
+  select(starts_with("tf_essay0"))
+```
+
+## Removing words in addition to the stop words list
+
+You might know of certain words you don't want included which isn't a part of the stop word list of choice. This can easily be done by applying the `step_stopwords` step twice, once for the stop words and once for your special words.
+
+```{r}
+words <- c("sad", "happy")
+
+okc_rec <- recipe(~ ., data = okc_text) %>%
+  step_tokenize(essay0) %>%
+  step_stopwords(essay0) %>% 
+  step_stopwords(essay0, custom_stopword_source = words) %>% 
+  step_tfidf(essay0)
+
+okc_obj <- okc_rec %>%
+  prep(training = okc_text)
+   
+bake(okc_obj, okc_text) %>%
+  select(starts_with("tfidf_essay0"))
+```
+
+## Letter distributions
+
+Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the `step_stopwords` step.
+
+```{r}
+okc_rec <- recipe(~ ., data = okc_text) %>%
+  step_tokenize(essay0, token = "characters") %>%
+  step_stopwords(essay0, custom_stopword_source = letters, keep = TRUE) %>%
+  step_tf(essay0)
+
+okc_obj <- okc_rec %>%
+  prep(training = okc_text)
+   
+bake(okc_obj, okc_text) %>%
+  select(starts_with("tf_essay0"))
+```
+
+## TF-IDF of ngrams of stemmed tokens
+
+Sometimes fairly complicated computations. Here we would like the term frequency inverse document frequency (TF-IDF) of the most common 500 ngrams done on stemmed tokens. It is quite a handful and would seldom be included as a option in most other libraries. But the modularity of `textrecipes` makes this task fairly easy.  
+
+First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using `step_untokenize` so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.
+
+```{r}
+okc_rec <- recipe(~ ., data = okc_text) %>%
+  step_tokenize(essay0, token = "words") %>%
+  step_stem(essay0) %>%
+  step_untokenize(essay0) %>%
+  step_tokenize(essay0, token = "ngrams") %>%
+  step_tokenfilter(essay0, max_tokens = 500) %>%
+  step_tfidf(essay0)
+
+okc_obj <- okc_rec %>%
+  prep(training = okc_text)
+   
+bake(okc_obj, okc_text) %>%
+  select(starts_with("tfidf_essay0"))
+```
+
+
