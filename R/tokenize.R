@@ -149,7 +149,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble
 #' @importFrom recipes bake prep
 #' @importFrom rlang %||%
-bake.step_tokenize <- function(object, newdata, ...) {
+bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
@@ -157,12 +157,12 @@ bake.step_tokenize <- function(object, newdata, ...) {
                            tokenizers_switch(object$token)
 
   for (i in seq_along(col_names)) {
-    newdata[, col_names[i]] <- tokenizer_fun(newdata[, col_names[i]], 
-                                             col_names[i],
-                                             options = object$options,
-                                             token = tokenizer)
+    new_data[, col_names[i]] <- tokenizer_fun(new_data[, col_names[i]], 
+                                              col_names[i],
+                                              options = object$options,
+                                              token = tokenizer)
   }
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 #' @importFrom rlang expr

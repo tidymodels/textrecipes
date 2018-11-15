@@ -115,18 +115,18 @@ prep.step_untokenize <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map_chr
-bake.step_untokenize <- function(object, newdata, ...) {
+bake.step_untokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
   for (i in seq_along(col_names)) {
-    newdata[, col_names[i]] <- map_chr(newdata[, col_names[i], drop = TRUE], 
-                                       paste, collapse = object$sep)
+    new_data[, col_names[i]] <- map_chr(new_data[, col_names[i], drop = TRUE], 
+                                        paste, collapse = object$sep)
   }
   
-  newdata <- factor_to_text(newdata, col_names)
+  new_data <- factor_to_text(new_data, col_names)
   
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 #' @importFrom recipes printer

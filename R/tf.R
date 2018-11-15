@@ -169,25 +169,25 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
 #' @importFrom dplyr bind_cols
-bake.step_tf <- function(object, newdata, ...) {
+bake.step_tf <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
   for (i in seq_along(col_names)) {
     
-    tf_text <- tf_function(newdata[, col_names[i], drop = TRUE],
+    tf_text <- tf_function(new_data[, col_names[i], drop = TRUE],
                            object$res[[i]],
                            paste0(object$prefix, "_", col_names[i]),
                            object$weight_scheme,
                            object$weight)
     
-    newdata <- bind_cols(newdata, tf_text)
+    new_data <- bind_cols(new_data, tf_text)
     
-    newdata <-
-      newdata[, !(colnames(newdata) %in% col_names[i]), drop = FALSE]
+    new_data <-
+      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
   }
   
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 tf_function <- function(data, names, labels, weights, weight) {

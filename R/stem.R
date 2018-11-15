@@ -127,21 +127,21 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
-bake.step_stem <- function(object, newdata, ...) {
+bake.step_stem <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
   for (i in seq_along(col_names)) {
 
-    stemmed_text <- map(newdata[, col_names[i], drop = TRUE], 
+    stemmed_text <- map(new_data[, col_names[i], drop = TRUE], 
                         stem_fun(object$stemmer))
     
-    newdata[, col_names[i]] <- tibble(stemmed_text)
+    new_data[, col_names[i]] <- tibble(stemmed_text)
   }
   
-  newdata <- factor_to_text(newdata, col_names)
+  new_data <- factor_to_text(new_data, col_names)
   
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 stem_fun <- function(name) {

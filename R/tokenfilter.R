@@ -166,19 +166,19 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
-bake.step_tokenfilter <- function(object, newdata, ...) {
+bake.step_tokenfilter <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
   for (i in seq_along(col_names)) {
-    newdata[, col_names[i]] <- 
-      word_tbl_filter(newdata[, col_names[i], drop = TRUE], 
+    new_data[, col_names[i]] <- 
+      word_tbl_filter(new_data[, col_names[i], drop = TRUE], 
                       object$res[[i]], 
                       TRUE)
   }
-  newdata <- factor_to_text(newdata, col_names)
+  new_data <- factor_to_text(new_data, col_names)
   
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 tokenfilter_fun <- function(data, max, min, max_features, percentage) {
