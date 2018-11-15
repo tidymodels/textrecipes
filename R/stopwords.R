@@ -158,7 +158,7 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
 #' @importFrom rlang %||%
-bake.step_stopwords <- function(object, newdata, ...) {
+bake.step_stopwords <- function(object, new_data, ...) {
   col_names <- object$columns
   
   stopword_list <- object$custom_stopword_source %||%
@@ -166,14 +166,14 @@ bake.step_stopwords <- function(object, newdata, ...) {
                                          source = object$stopword_source)
   
   for (i in seq_along(col_names)) {
-    newdata[, col_names[i]] <- 
-      word_tbl_filter(newdata[, col_names[i], drop = TRUE], 
+    new_data[, col_names[i]] <- 
+      word_tbl_filter(new_data[, col_names[i], drop = TRUE], 
                       stopword_list, 
                       object$keep)
   }
-  newdata <- factor_to_text(newdata, col_names)
+  new_data <- factor_to_text(new_data, col_names)
   
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 #' @importFrom recipes printer

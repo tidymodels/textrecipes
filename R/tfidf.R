@@ -166,26 +166,26 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
 #' @importFrom recipes bake prep
 #' @importFrom purrr map
 #' @importFrom dplyr bind_cols
-bake.step_tfidf <- function(object, newdata, ...) {
+bake.step_tfidf <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
   for (i in seq_along(col_names)) {
     
-    tfidf_text <- tfidf_function(newdata[, col_names[i], drop = TRUE],
+    tfidf_text <- tfidf_function(new_data[, col_names[i], drop = TRUE],
                                  object$res[[i]],
                                  paste0(object$prefix, "_", col_names[i]),
                                  object$smooth_idf,
                                  object$norm,
                                  object$sublinear_tf)
     
-    newdata <- bind_cols(newdata, tfidf_text)
+    new_data <- bind_cols(new_data, tfidf_text)
     
-    newdata <-
-      newdata[, !(colnames(newdata) %in% col_names[i]), drop = FALSE]
+    new_data <-
+      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
   }
   
-  as_tibble(newdata)
+  as_tibble(new_data)
 }
 
 tfidf_function <- function(data, names, labels, smooth_idf, norm,
