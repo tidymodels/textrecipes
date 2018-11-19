@@ -5,3 +5,5 @@
 ^LICENSE\.md$
 ^textrecipes\.Rproj$
 ^\.Rproj\.user$
+^docs$
+^_pkgdown\.yml$
