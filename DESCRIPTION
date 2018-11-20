@@ -36,6 +36,5 @@ Imports:
     stringr,
     text2vec
 Remotes:
-    tidymodels/recipes,
-    r-lib/generics
+    tidymodels/recipes
 VignetteBuilder: knitr

@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 [![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](http://cran.rstudio.com/package=textrecipes)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
+## Introduction
+
 **textrecipes** contains extra steps for the [`recipes`](http://cran.rstudio.com/package=recipes) package for preprocessing text data. 
 
 ## Installation
@@ -28,7 +30,7 @@ textrecipes is not avaliable from [CRAN](https://CRAN.R-project.org) yet. But th
 
 ```{r installation, eval=FALSE}
 require("devtools")
-install_github("emilhvitfeldt/textrecipes")
+install_github("tidymodels/textrecipes")
 ```
 
 ## Example
