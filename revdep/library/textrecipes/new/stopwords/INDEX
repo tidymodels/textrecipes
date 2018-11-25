@@ -1,0 +1,12 @@
+data_stopwords_misc     miscellaneous stopword lists
+data_stopwords_smart    stopword lists from the SMART system
+data_stopwords_snowball
+                        snowball stopword list
+data_stopwords_stopwordsiso
+                        multilingual stopwords from
+                        https://github.com/stopwords-iso/stopwords-iso
+stopwords               Collection of stopwords in multiple languages
+stopwords-package       stopwords: one-stop shopping for stopwords in R
+stopwords_getlanguages
+                        list available stopwords country codes
+stopwords_getsources    list available stopwords sources

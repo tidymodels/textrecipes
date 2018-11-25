@@ -1,0 +1,6 @@
+irlba	irlba
+partial_eigen	partial_eigen
+prcomp_irlba	prcomp_irlba
+ssvd	ssvd
+summary.irlba_prcomp	summary.irlba_prcomp
+svdr	svdr

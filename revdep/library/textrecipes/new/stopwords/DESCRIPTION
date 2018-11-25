@@ -1,0 +1,26 @@
+Package: stopwords
+Type: Package
+Title: Multilingual Stopword Lists
+Version: 0.9.0
+Authors@R: c(person("Kenneth", "Benoit", email = "kbenoit@lse.ac.uk", role = "aut"),
+    person("David", "Muhr", email = "muhrdavid+github@gmail.com", role = c("aut", "cre")), 
+    person("Kohei", "Watanabe", email = "watanabe.kohei@gmail.com", role = "aut"))
+Description: Provides multiple sources of stopwords, for use in text analysis and natural language processing.
+License: MIT + file LICENSE
+Depends: R (>= 2.10)
+Imports: ISOcodes
+Suggests: quanteda, testthat, covr
+URL: https://github.com/davnn/stopwords
+BugReports: https://github.com/davnn/stopwords/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2017-12-14 11:34:57 UTC; rstudio
+Author: Kenneth Benoit [aut],
+  David Muhr [aut, cre],
+  Kohei Watanabe [aut]
+Maintainer: David Muhr <muhrdavid+github@gmail.com>
+Repository: RSPM
+Date/Publication: 2017-12-14 14:16:27 UTC
+Built: R 3.5.0; ; 2018-11-15 13:52:34 UTC; unix

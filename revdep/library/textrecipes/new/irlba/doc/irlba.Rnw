@@ -1,0 +1,466 @@
+% \VignetteIndexEntry{irlba Manual}
+% \VignetteDepends{irlba}
+% \VignettePackage{irlba}
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage[pdftex]{graphicx}
+\usepackage{color}
+\usepackage{xspace}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage[
+     colorlinks=true,
+     linkcolor=blue,
+     citecolor=blue,
+     urlcolor=blue]
+     {hyperref}
+\usepackage{lscape}
+\usepackage{Sweave}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{mdwlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% define new colors for use
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{darkred}{rgb}{0.6,0.0,0}
+\definecolor{lightbrown}{rgb}{1,0.9,0.8}
+\definecolor{brown}{rgb}{0.6,0.3,0.3}
+\definecolor{darkblue}{rgb}{0,0,0.8}
+\definecolor{darkmagenta}{rgb}{0.5,0,0.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\bld}[1]{\mbox{\boldmath $#1$}}
+\newcommand{\shell}[1]{\mbox{$#1$}}
+\renewcommand{\vec}[1]{\mbox{\bf {#1}}}
+\newcommand{\ReallySmallSpacing}{\renewcommand{\baselinestretch}{.6}\Large\normalsize}
+\newcommand{\SmallSpacing}{\renewcommand{\baselinestretch}{1.1}\Large\normalsize}
+\def\tm{\leavevmode\hbox{$\rm {}^{TM}$}}
+
+\newcommand{\R}{{\mathbf R}}
+\newcommand{\brho}{{\color{blue}{\rho}}}
+\newcommand{\Ra}{{\mathcal R}}
+\newcommand{\PP}{{\mathbf P}}
+\newcommand{\N}{{\mathbf N}}
+\newcommand{\K}{{\mathcal K}}
+
+
+
+\setlength{\oddsidemargin}{-.25 truein}
+\setlength{\evensidemargin}{0truein}
+\setlength{\topmargin}{-0.2truein}
+\setlength{\textwidth}{7 truein}
+\setlength{\textheight}{8.5 truein}
+\setlength{\parindent}{0.20truein}
+\setlength{\parskip}{0.10truein}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\lhead{}
+\chead{The {\tt irlba} Package}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{The {\tt irlba} Package}
+\author{Bryan W. Lewis \\ 
+blewis@illposed.net,
+\\[6pt]
+adapted from the work of:\\
+Jim Baglama (University of Rhode Island)\\
+and Lothar Reichel (Kent State University).
+}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+
+\section{Introduction}
+
+The {\tt irlba} package provides a fast way to compute partial singular value
+decompositions (SVD) of large sparse or dense matrices. Recent additions to the
+package can also compute fast partial symmetric eigenvalue decompositions and
+principal components. The package is an R implementation of the {\it augmented
+implicitly restarted Lanczos bidiagonalization algorithm} of Jim Baglama and
+Lothar Reichel\footnote{Augmented Implicitly Restarted Lanczos
+Bidiagonalization Methods, J. Baglama and L. Reichel, SIAM J. Sci. Comput.
+2005.}.  Source code is maintained at
+\href{https://github.com/bwlewis/irlba}{https://github.com/bwlewis/irlba}.
+
+The {\tt irlba} package works with real- and complex-valued dense R matrices
+and real-valued sparse matrices from the {\tt Matrix} package. It provides
+several easy ways to define custom matrix arithmetic that works with other
+matrix classes including {\tt big.matrix} from the {\tt bigmemory} package and
+others.  The {\tt irlba} is both faster and more memory efficient than the
+usual R {\tt svd} function for computing a few of the largest singular vectors
+and corresponding singular values of a matrix. It takes advantage of available
+high-performance linear algebra libraries if R is compiled to use them. In
+particular, the package uses the same BLAS and LAPACK libraries that R uses
+(see
+\href{https://cran.r-project.org/doc/manuals/R-admin.html#BLAS}{https://cran.r-project.org/doc/manuals/R-admin.html\#BLAS}),
+or the CHOLMOD library from R's Matrix package for sparse matrix problems.
+
+A whirlwind summary of the algorithm follows, along with a few basic examples.
+A much more detailed description and discussion of the algorithm may be found
+in the cited Baglama-Reichel reference.
+
+
+\section{Partial Singular Value Decomposition}
+
+Let $A\in\R^{\ell\times n}$ and assume $\ell\ge n$. These notes simplify the
+presentation by considering only real-valued matrices and assuming without
+losing generality that there are at least as many rows as columns (the
+method works more generally). A singular
+value decomposition of $A$ can be expressed as:
+
+\[
+A = \sum_{j=1}^n \sigma_j u_j v_j^T,
+\phantom{xxxxxxxx}
+v_j^Tv_k = u_j^Tu_k = 
+\left\{
+\begin{array}{ll}
+1 & \mbox{if}\phantom{x}  j=k,\\
+0 & \mbox{o.w.,}\\
+\end{array}
+\right.
+\]
+where $u_j\in\R^\ell $, $v_j\in\R^n $,
+$j=1,2,\ldots, n$, and
+$ \sigma_1 \ge \sigma_2 \ge \cdots \ge \sigma_n \ge 0 $.
+
+Let $1 \le k<n$. A rank $k$ partial SVD of $A$ is defined as:
+\begin{eqnarray*}
+A_k &:=& \sum_{j=1}^k \sigma_j u_j v_j^T.\\
+\end{eqnarray*}
+
+
+
+The following simple example shows how to use {\tt irlba} to compute the five
+largest singular values and corresponding singular vectors of a
+$5000\times5000$ matrix. We compare to the usual R {\tt svd} function and
+report timings for our test machine, a 4-CPU core, 3.0\, GHz AMD  A10-7850K
+personal computer with 16\,GB RAM, using R version 3.3.1 using the high
+performance AMD ACML core math library BLAS and LAPACK.
+\lstset{columns=flexible, basicstyle={\ttfamily\slshape}}
+\begin{lstlisting}
+> library('irlba')
+> set.seed(1)
+> A <- matrix(rnorm(5000*5000), 5000)
+> t1 <- proc.time()
+> L <- irlba(A, 5)
+> print(proc.time() - t1)
+   user  system elapsed
+ 17.440   0.192   4.417
+> gc()
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  1096734  58.6    1770749  94.6  1442291  77.1
+Vcells 26685618 203.6   62229965 474.8 52110704 397.6
+
+\end{lstlisting}
+Compare with the standard {\tt svd} function:\newpage
+\begin{lstlisting}
+> t1 <- proc.time()
+> S <- svd(A, nu=5, nv=5)
+> print(proc.time() - t1)
+   user  system elapsed
+277.092  11.552  74.425
+> gc()
+           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells  1097441  58.7    1770749   94.6   1442291   77.1
+Vcells 26741910 204.1  169891972 1296.2 176827295 1349.1
+\end{lstlisting}
+The {\tt irlba} method uses about 1/20 elapsed time as the
+{\tt svd} method in this example and less than one third the peak memory.
+The defalut tolerance value yields the following relative error
+in the estimated singular values:
+\begin{lstlisting}
+> sqrt (crossprod(S$d[1:5]-L$d)/crossprod(S$d[1:5]))
+            [,1]
+[1,] 4.352641e-10
+\end{lstlisting}
+
+\subsection{Convergence tolerance}
+
+IRLBA is an iterative method that estimates a few singular values
+and associated singular vectors. A sketch of the algorithm is outlined
+in Section \ref{sketch} below. The R {\tt tol} and {\tt svtol} arguments control
+when the algorithm converges with {\tt tol} specifying
+subspace convergence, and {\tt svtol} specifying convergence of estimated
+singular values.
+
+Subspace convergence occurs when the algorithm iterations find
+estimated singular vectors that satisfy
+\[
+\|AV_k - US_k\| < \mbox{tol} \cdot \|A\|,
+\]
+where $\|\cdot\|$ means spectral matrix norm, $A$ is the matrix, $V_k$ and $U_k$
+are the {\it estimated} right and left $k$ singular vectors computed by the
+algorithm, and $\|A\|$ is the {\it estimated} spectral norm of the matrix defined
+by the largest singular value computed by the algorithm. Using R notation,
+the algorithm stops when
+\begin{lstlisting}
+L <- irlba(A, k, tol)
+svd(A %*% L$v - L$u %*% diag(L$d))$d[1] < tol * L$d[1]
+\end{lstlisting}
+It's possible to encounter problems that fail to converge before
+the maximum number of algorithm iterations specified by the {\tt maxit}
+argument.
+
+When the largest singular values are clustered together it can be hard to
+detect subspace convergence. More recent versions of the IRLBA implementation
+include the {\tt svtol} argument that specifies a maximum for the relative
+change in each estimated singular value from one iteration to the next.
+
+The convergence tolerance values together help improve correct subspace
+detection in difficult settings when the singular values are clustered.
+But in the worst cases, block methods can perform better as shown in
+the documentation for the {\tt svdr} method.
+
+Also see the related {\tt rsvd} function by N. Benjamin Erichson,
+\href{https://cran.r-project.org/package=rsvd}{https://cran.r-project.org/package=rsvd}.
+
+
+\subsection{Differences with {\tt svd}}
+The {\tt irlba} function is designed to compute a {\it partial} singular
+value decomposition. It is largely compatible with the usual R {\tt svd}
+function but there are some differences. In particular:
+\begin{enumerate}
+\item The {\tt irlba} function only computes the number of singular values
+corresponding to the maximum of the desired singular vectors,
+{\tt max(nu, nv)}. For example, if 5
+singular vectors are desired ({\tt nu=nv=5}), then only the five corresponding
+singular values are computed. The standard R {\tt svd} function always
+returns the {\it total} set of singular values for the matrix, regardless of how
+many singular vectors are specified.
+\item The {\tt irlba} function is an iterative method that continues until
+either a tolerance or maximum number of iterations is reached.
+Problems with difficult convergence properties are not likely to be
+encountered, but the method will fail with an error after the iteration limit
+is reached in those cases.
+\end{enumerate}
+Watch out especially for the first difference noted above!
+
+
+\subsection{Principal Components}
+
+Version 2.1.0 of the package introduces optional arguments and {\tt prcomp}-like
+function syntax for efficiently computing partial SVDs of matrices after
+centering and scaling their columns and other adjustments.
+Use the following arguments to the {\tt irlba} function, or the new
+{\tt irlba\_prcomp} function for PCA:
+\begin{itemize}
+\item {\tt center}: if {\tt center} is a numeric vector with length equal to
+     the number of columns of the matrix, then each column of the matrix has the
+     corresponding value from {\tt center} subtracted from it.
+\item {\tt scale}: if 'scale' is a numeric vector with length
+     equal to the number of columns of the matrix, then each column is
+     divided by the corresponding value from {\tt scale}.
+\end{itemize}
+Both centering and scaling options are performed implicitly in the algorithm
+and, for instance, do not affect sparsity of the input matrix or increase
+storage requirements.
+The following
+example compares the output of the usual {\tt prcomp} function with
+output from {\tt irlba}.
+Note that in general, singular vectors and principal component vectors
+are only unique up to sign!
+
+\begin{lstlisting}
+>      set.seed(1)
+>      x  <- matrix(rnorm(200), nrow=20)
+>      p1 <- prcomp_irlba(x, n=3)
+>      summary(p1)
+Importance of components%s:
+                          PC1    PC2    PC3
+Standard deviation     1.5411 1.2513 1.1916
+Proportion of Variance 0.2806 0.1850 0.1678
+Cumulative Proportion  0.2806 0.4656 0.6334
+
+>      # Compare with
+>      p2 <- prcomp(x, tol=0.7)
+>      summary(p2)
+Importance of components:
+                          PC1    PC2    PC3
+Standard deviation     1.5411 1.2513 1.1916
+Proportion of Variance 0.2806 0.1850 0.1678
+Cumulative Proportion  0.2806 0.4656 0.6334
+\end{lstlisting}
+Alternatively, you can compute principal components directly using the
+singular value decomposition and the {\tt center} option:
+\begin{lstlisting}
+> p3 <- svd(scale(x, center=colMeans(x), scale=FALSE))
+> p4 <- irlba(x, 3, center=colMeans(x))
+
+> # compare with prcomp
+> sqrt(crossprod(p1$rotation[,1] - p3$v[,1]))
+             [,1]
+[1,] 9.773228e-13
+> sqrt(crossprod(p1$rotation[,1] + p4$v[,1]))
+             [,1]
+[1,] 1.652423e-12
+\end{lstlisting}
+
+
+\subsection{Truncated symmetric eigenvalue decomposition}
+
+Use the {\tt partial\_eigen} function to estimate a subset of the largest (most
+positive) eigenvalues and corresponding eigenvectors of a symmetric dense or
+sparse real-valued matrix. The function is particularly well-suited to
+estimating the largest eigenvalues and corresponding eigenvectors of symmetric
+positive semi-definite matrices of the form $A^T A$.
+
+
+
+\subsection{User-Defined Matrix Multiplication}
+
+The {\tt irlba} function only uses matrix vector products with the input data
+matrix to compute its solution. It's easy to use R's native object model to
+define custom matrix classes with user-defined matrix multiplication functions.
+Such functions can be used to support special matrix objects, out of core
+computation of large problems, or matrix-free operators.
+
+Here is a simple example that defines a matrix product that scales the
+columns of the matrix to have unit norm (cf the {\tt scale} option).
+
+\begin{lstlisting}
+> A <- matrix(runif(400), nrow=20)
+> col_scale <- sqrt(apply(A, 2, crossprod))
+> setClass("scaled_matrix", contains="matrix", slots=c(scale="numeric"))
+> setMethod("%*%", signature(x="scaled_matrix", y="numeric"),
++       function(x ,y) x@.Data %*% (y / x@scale))
+> setMethod("%*%", signature(x="numeric", y="scaled_matrix"),
++       function(x ,y) (x %*% y@.Data) / y@scale)
+> a <- new("scaled_matrix", A, scale=col_scale)
+> irlba(a, 3)$d
+
+[1] 3.9298391 0.9565016 0.8266859
+
+# Compare with
+> svd(sweep(A, 2, col_scale, FUN=`/`))$d[1:3]
+
+[1] 3.9298391 0.9565016 0.8266859
+\end{lstlisting}
+
+See the following link for an example that uses large-scale out of core computation:
+\href{https://bwlewis.github.io/1000_genomes_examples/PCA_whole_genome.html}{http://bwlewis.github.io/1000\_genomes\_examples/PCA\_whole\_genome.html}
+
+NOTE! The reference R algorithm implementation is used whenever user-defined
+matrix multiplication is specified (instead of the faster C code path).
+
+
+\section{A Quick Summary of the IRLBA Method}\label{sketch}
+\subsection{Partial Lanczos Bidiagonalization}
+
+Start with a given vector $p_1$. Compute $m$ steps of the Lanczos process:
+
+\begin{eqnarray*}
+A P_m &=& Q_m B_m \\
+A^T Q_m &=& P_m B_m^T + r_m e_m^T,\\
+\end{eqnarray*}
+
+$B_m\in\R^{m\times m}, P_m \in \R^{n\times m}, $ 
+$Q_m \in \R^{\ell \times m},$ 
+
+$P_m^TP_m=Q_m^TQ_m=I_m, $ 
+
+$r_m\in\R^n,  P_m^Tr_m=0,$
+
+$P_m = [p_1, p_2, \ldots, p_m]$.
+
+\subsection{Approximating Partial SVD with A Partial Lanczos bidiagonalization}
+\begin{eqnarray*}
+A^TA P_m &=& A^TQ_m B_m \\
+         &=& P_m {\color{blue}{B_m^TB_m}} + r_m e_m^TB_m,\\
+\end{eqnarray*}
+\begin{eqnarray*}
+AA^T Q_m &=& AP_m B_m^T + Ar_m e_m^T,\\
+&=& Q_m{\color{blue}{B_mB_m^T}} + Ar_me_m^T.
+\end{eqnarray*}
+
+Compute the SVD of $B_m$:
+\[
+B_m = \sum_{j=1}^m\sigma^B_ju^B_j\left(v_j^B\right)^T.
+\] 
+\\[6pt]
+\[
+\left(\mbox{i.e., }  B_mv_j^B = \sigma_j^Bu_j^B,  \mbox{ and }  
+B_m^Tu_j^b = \sigma_j^Bv_j^B.\right)
+\]
+
+Define:
+$
+\tilde{\sigma_j} := \sigma_j^B, \phantom{xxx}
+\tilde{u}_j := Q_m u_j^B, \phantom{xxx}
+\tilde{v}_j := P_m v_j^B.
+$
+
+Then:
+\begin{eqnarray*}
+A\tilde{v}_j &=& AP_mv_j^B \\
+&=& Q_mB_mv_j^B \\
+&=& \sigma^B_jQ_mu_j^B \\
+&=& \tilde{\sigma}_j \tilde{u}_j,
+\end{eqnarray*}
+and
+\begin{eqnarray*}
+A^T\tilde{u}_j &=& A^TQ_mu_j^B \\
+&=& P_mB^T_mu_j^B + r_me_m^Tu_j^B \\
+&=& \sigma^B_jP_mv_j^B + r_me_m^Tu_j^B\\
+&=& \tilde{\sigma}_j \tilde{v}_j + {\color{red} {r_me_m^Tu_j^B}}.
+\end{eqnarray*}
+The part in red above represents the error with respect to the exact SVD.
+The IRLBA strategy is to iteratively reduce the norm of that error term
+by augmenting and restarting.
+
+Here is the overall method:
+\begin{enumerate}
+\item Compute the Lanczos process up to step $m$.
+\item Compute $k<m$ approximate singular vectors.
+\item Orthogonalize against the approximate singular vectors to get a new 
+      starting vector.
+\item Continue the Lanczos process with the new starting vector 
+      for $m$ more steps.
+\item Check for convergence tolerance and exit if met.
+\item GOTO 1.
+\end{enumerate}
+
+
+\subsection{Sketch of the augmented process...}
+\begin{eqnarray*}
+\bar{P}_{k+1} &:=& [\tilde{v}_1, \tilde{v}_2, \ldots, \tilde{v}_k, p_{m+1}],\\
+A\bar{P}_{k+1} &=& [\tilde{\sigma}_1\tilde{u}_1, \tilde{\sigma}_1\tilde{u}_2, \ldots, \tilde{\sigma}_k\tilde{u}_k, Ap_{m+1}]
+\end{eqnarray*}
+
+Orthogonalize $Ap_{m+1}$ against $\{\tilde{u}_j\}_{j=1}^k$:   
+$
+Ap_{m+1} = \sum_{j=1}^k {\color{blue}{\rho_j}}\tilde{u}_j + {\color{blue}{r_k}}.
+$
+\begin{eqnarray*}
+\bar{Q}_{k+1} &:=& [\tilde{u}_1, \tilde{u}_2, \ldots, \tilde{u}_k, 
+{\color{blue}{r_k}}/\|{\color{blue}{r_k}}\|],\\
+\bar{B}_{k+1} &:=&
+\left[
+\begin{array}{ccccc}
+\tilde{\sigma}_1 & & & \brho_1 \\
+& \tilde{\sigma}_2 & & \brho_2 \\
+& & \ddots & \brho_k \\
+& & & \|\color{blue}{r_k}\|
+\end{array}
+\right].
+\end{eqnarray*}
+\[
+A\bar{P}_{k+1} = \bar{Q}_{k+1}\bar{B}_{k+1}.
+\]
+
+
+
+
+\end{document}

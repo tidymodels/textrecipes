@@ -1,0 +1,6 @@
+exportPattern("^[^\\.]")
+S3method(resetOptions, default)
+S3method(resetOptions, character)
+
+S3method(updateOptions, default)
+S3method(updateOptions, character)

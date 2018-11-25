@@ -1,0 +1,23 @@
+Package: mlapi
+Type: Package
+Title: Abstract Classes for Building 'scikit-learn' Like API
+Version: 0.1.0
+Author: Dmitriy Selivanov
+Maintainer: Dmitriy Selivanov <selivanov.dmitriy@gmail.com>
+Description: Provides 'R6' abstract classes for building machine learning models 
+    with 'scikit-learn' like API. <http://scikit-learn.org/> is a popular module 
+    for 'Python' programming language which design became de facto a standard 
+    in industry for machine learning tasks.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: methods
+Imports: R6 (>= 2.2.1), Matrix (>= 1.1)
+Suggests: knitr
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2017-12-17 12:09:39 UTC; dmitry
+Repository: RSPM
+Date/Publication: 2017-12-17 17:22:37 UTC
+Built: R 3.5.0; ; 2018-11-25 21:09:14 UTC; unix

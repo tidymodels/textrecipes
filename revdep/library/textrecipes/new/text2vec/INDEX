@@ -1,0 +1,36 @@
+BNS                     BNS
+Collocations            Collocations model.
+GlobalVectors           Creates Global Vectors word-embeddings model.
+LatentDirichletAllocation
+                        Creates Latent Dirichlet Allocation model.
+LatentSemanticAnalysis
+                        Latent Semantic Analysis model
+RelaxedWordMoversDistance
+                        Creates model which can be used for calculation
+                        of "relaxed word movers distance".
+TfIdf                   TfIdf
+as.lda_c                Converts document-term matrix sparse matrix to
+                        'lda_c' format
+check_analogy_accuracy
+                        Checks accuracy of word embeddings on the
+                        analogy task
+create_dtm              Document-term matrix construction
+create_tcm              Term-co-occurence matrix construction
+create_vocabulary       Creates a vocabulary of unique terms
+distances               Pairwise Distance Matrix Computation
+glove                   Fit a GloVe word-embedded model
+ifiles                  Creates iterator over text files from the disk
+itoken                  Iterators (and parallel iterators) over input
+                        objects
+movie_review            IMDB movie reviews
+normalize               Matrix normalization
+perplexity              Perplexity of a topic model
+prepare_analogy_questions
+                        Prepares list of analogy questions
+prune_vocabulary        Prune vocabulary
+similarities            Pairwise Similarity Matrix Computation
+split_into              Split a vector for parallel processing
+text2vec                text2vec
+tokenizers              Simple tokenization functions for string
+                        splitting
+vectorizers             Vocabulary and hash vectorizers

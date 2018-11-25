@@ -1,0 +1,11 @@
+futile.options-package	futile.options-package
+futile.options	futile.options-package
+options.manager	OptionsManager
+OptionsManager	OptionsManager
+reset.options	OptionsManager
+resetOptions	OptionsManager
+resetOptions.character	OptionsManager
+resetOptions.default	OptionsManager
+updateOptions	OptionsManager
+updateOptions.character	OptionsManager
+updateOptions.default	OptionsManager

@@ -1,0 +1,6 @@
+%as%                    Define functions and type constructors in
+                        lambda.r
+%isa%                   Functions for duck typing
+UseFunction             Primary dispatcher for functional programming
+describe                Introspection for lambda.r
+lambda.r-package        Modeling Data with Functional Programming

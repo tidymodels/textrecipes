@@ -7,3 +7,4 @@
 ^\.Rproj\.user$
 ^docs$
 ^_pkgdown\.yml$
+^revdep$

@@ -1,0 +1,10 @@
+stopwords-package	stopwords-package
+data_stopwords_misc	data_stopwords_misc
+data_stopwords_smart	data_stopwords_smart
+data_stopwords_snowball	data_stopwords_snowball
+data_stopwords_stopwordsiso	data_stopwords_stopwordsiso
+lookup_iso_639_1	lookup_iso_639_1
+stopwords	stopwords
+stopwords_getlanguages	stopwords_getlanguages
+stopwords_getsources	stopwords_getsources
+stopwords_options	stopwords_options

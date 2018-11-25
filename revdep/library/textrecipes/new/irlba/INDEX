@@ -1,0 +1,12 @@
+irlba                   Find a few approximate singular values and
+                        corresponding singular vectors of a matrix.
+partial_eigen           Find a few approximate largest eigenvalues and
+                        corresponding eigenvectors of a symmetric
+                        matrix.
+prcomp_irlba            Principal Components Analysis
+ssvd                    Sparse regularized low-rank matrix
+                        approximation.
+summary.irlba_prcomp    Summary method for truncated pca objects
+                        computed by 'prcomp_irlba'.
+svdr                    Find a few approximate largest singular values
+                        and corresponding singular vectors of a matrix.

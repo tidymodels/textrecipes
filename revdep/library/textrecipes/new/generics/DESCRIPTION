@@ -1,0 +1,30 @@
+Package: generics
+Version: 0.0.1
+Title: Common S3 Generics not Provided by Base R Methods Related to
+        Model Fitting
+Description: In order to reduce potential package dependencies and conflicts, 
+    generics provides a number of commonly used S3 generics.
+Authors@R: c(
+    person("Max", "Kuhn", , "max@rstudio.com", c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
+    person("Davis", "Vaughan", , "davis@rstudio.com", "aut"),
+    person("RStudio", role = "cph"))
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0.9000
+URL: https://github.com/r-lib/generics
+BugReports: https://github.com/r-lib/generics
+Depends: R (>= 3.1)
+Suggests: covr, pkgload, testthat, tibble
+Imports: methods
+NeedsCompilation: no
+Packaged: 2018-10-16 20:32:15 UTC; max
+Author: Max Kuhn [aut, cre],
+  Hadley Wickham [aut],
+  Davis Vaughan [aut],
+  RStudio [cph]
+Maintainer: Max Kuhn <max@rstudio.com>
+Repository: RSPM
+Date/Publication: 2018-10-26 14:30:03 UTC
+Built: R 3.5.0; ; 2018-11-25 21:08:38 UTC; unix

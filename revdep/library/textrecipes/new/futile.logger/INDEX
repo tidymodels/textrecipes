@@ -1,0 +1,11 @@
+flog.appender           Manage appenders for loggers
+flog.carp               Always return the log message
+flog.layout             Manage layouts within the 'futile.logger'
+                        sub-system
+flog.logger             Manage loggers
+flog.remove             Remove a logger
+flog.threshold          Get and set the threshold for a logger
+ftry                    Wrap a try block in futile.logger
+futile.logger-package   A Logging Utility for R
+logger.options          Constants for 'futile.logger'
+scat                    Print formatted messages

@@ -1,0 +1,32 @@
+Package: sparsepp
+Type: Package
+Title: 'Rcpp' Interface to 'sparsepp'
+Version: 1.22
+Date: 2018-09-19
+Authors@R: c(
+  person("Gregory", "Popovitch", role = c("aut", "cph"), email = "greg7mdp@gmail.com"),
+  person("Google Inc", role = c("aut", "cph")),
+  person("Dmitriy", "Selivanov", role = "cre", email = "selivanov.dmitriy@gmail.com")
+  )
+Description: Provides interface to 'sparsepp' - fast, memory efficient hash map. 
+    It is derived from Google's excellent 'sparsehash' implementation.
+    We believe 'sparsepp' provides an unparalleled combination of performance and memory usage, 
+    and will outperform your compiler's unordered_map on both counts. 
+    Only Google's 'dense_hash_map' is consistently faster, at the cost of much greater 
+    memory usage (especially when the final size of the map is not known in advance).
+License: BSD_3_clause + file LICENSE
+Encoding: UTF-8
+URL: https://github.com/greg7mdp/sparsepp,
+        https://github.com/dselivanov/r-sparsepp
+BugReports: https://github.com/dselivanov/r-sparsepp/issues
+Suggests: Rcpp
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2018-09-22 16:08:38 UTC; dmitry
+Author: Gregory Popovitch [aut, cph],
+  Google Inc [aut, cph],
+  Dmitriy Selivanov [cre]
+Maintainer: Dmitriy Selivanov <selivanov.dmitriy@gmail.com>
+Repository: RSPM
+Date/Publication: 2018-09-22 16:30:03 UTC
+Built: R 3.5.0; ; 2018-11-25 21:08:48 UTC; unix

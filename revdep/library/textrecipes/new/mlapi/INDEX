@@ -1,0 +1,15 @@
+fit                     Fits model to data
+fit_transform           Fit model to the data, then transforms data
+mlapiDecomposition      Base abstract class for all decompositions
+mlapiEstimation         Base abstract class for all
+                        classification/regression models
+mlapiEstimationOnline   Base abstract class for all
+                        classification/regression models which can be
+                        *trained incremendally* (online)
+mlapiTransformation     Base abstract class for all transformations
+mlapiTransformationOnline
+                        Base abstract class for all transformations
+                        which can be *trained incremendally* (online)
+predict                 Makes predictions on new data using pre-trained
+                        model
+transform               Transforms new data using pre-trained model

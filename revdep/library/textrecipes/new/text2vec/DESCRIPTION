@@ -1,0 +1,39 @@
+Package: text2vec
+Type: Package
+Version: 0.5.1
+Date: 2018-01-10
+Title: Modern Text Mining Framework for R
+License: GPL (>= 2) | file LICENSE
+Description: Fast and memory-friendly tools for text vectorization, topic
+    modeling (LDA, LSA), word embeddings (GloVe), similarities. This package
+    provides a source-agnostic streaming API, which allows researchers to perform
+    analysis of collections of documents which are larger than available RAM. All
+    core functions are parallelized to benefit from multicore machines.
+Authors@R: c(person("Dmitriy", "Selivanov", role = c("aut", "cre", "cph"),
+    email = "selivanov.dmitriy@gmail.com"), 
+    person("Qing", "Wang", role = c("aut", "cph"),
+    email = "selivanov.dmitriy@gmail.com", 
+    comment = "Author of the WaprLDA C++ code"))
+Maintainer: Dmitriy Selivanov <selivanov.dmitriy@gmail.com>
+Encoding: UTF-8
+SystemRequirements: GNU make, C++11
+Depends: R (>= 3.2.0), methods
+Imports: Matrix (>= 1.1), Rcpp (>= 0.11), RcppParallel (>= 4.3.14),
+        digest (>= 0.6.8), foreach(>= 1.4.3), data.table(>= 1.9.6),
+        irlba (>= 2.2.1), R6 (>= 2.1.2), futile.logger (>= 1.4.3),
+        stringi (>= 1.1.5), mlapi (>= 0.1.0)
+LinkingTo: Rcpp, RcppParallel, digest, sparsepp (>= 0.2.0)
+Suggests: doParallel, testthat, covr, knitr, rmarkdown, glmnet,
+        parallel, tokenizers, magrittr
+URL: http://text2vec.org
+BugReports: https://github.com/dselivanov/text2vec/issues
+VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 6.0.1
+NeedsCompilation: yes
+Packaged: 2018-01-11 08:21:10 UTC; dmitry
+Author: Dmitriy Selivanov [aut, cre, cph],
+  Qing Wang [aut, cph] (Author of the WaprLDA C++ code)
+Repository: RSPM
+Date/Publication: 2018-01-11 21:57:23 UTC
+Built: R 3.5.0; x86_64-pc-linux-gnu; 2018-11-25 21:09:22 UTC; unix
