@@ -47,6 +47,21 @@ test_that("step_tf works as intended", {
    expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
+test_that("step_tf works with vocabulary argument", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, vocabulary = letters) 
+  
+  obj <- rec %>%
+    prep(training = test_data, retain = TRUE)
+  
+  expect_length(
+    juice(obj),
+    26
+  )
+})
+
+
 test_that("step_tf works with other weighting schemes", {
   rec <- rec %>%
     step_tokenize(text) %>%

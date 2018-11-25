@@ -7,7 +7,8 @@
 \usage{
 step_tf(recipe, ..., role = "predictor", trained = FALSE,
   columns = NULL, weight_scheme = "raw count", weight = 0.5,
-  res = NULL, prefix = "tf", skip = FALSE, id = rand_id("tf"))
+  vocabulary = NULL, res = NULL, prefix = "tf", skip = FALSE,
+  id = rand_id("tf"))
 
 \method{tidy}{step_tf}(x, ...)
 }
@@ -39,6 +40,8 @@ the term frequency calculations. Must be one of "binary",
 
 \item{weight}{A numeric weight used if `weight_scheme` is set to
 "double normalization". Defaults to 0.5.}
+
+\item{vocabulary}{A character vector of strings to be considered.}
 
 \item{res}{The words that will be used to calculate the term 
 frequency will be stored here once this preprocessing step has 
