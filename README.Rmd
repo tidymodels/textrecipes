@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 ```
 # textrecipes
 
-[![Travis build status](https://travis-ci.org/EmilHvitfeldt/textrecipes.svg?branch=master)](https://travis-ci.org/EmilHvitfeldt/textrecipes)
-[![Coverage status](https://codecov.io/gh/EmilHvitfeldt/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/EmilHvitfeldt/textrecipes?branch=master)
+[![Travis build status](https://travis-ci.org/tidymodels/textrecipes.svg?branch=master)](https://travis-ci.org/tidymodels/textrecipes)
+[![Coverage status](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/textrecipes)](http://cran.r-project.org/web/packages/textrecipes)
 [![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](http://cran.rstudio.com/package=textrecipes)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -35,7 +35,7 @@ install_github("tidymodels/textrecipes")
 
 ## Example
 
-In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 500 most used words. We will be conduction this preprosession on the variable `essay0`.
+In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 100 most used words. We will be conduction this preprosession on the variable `essay0` and `essay1`.
 
 ```{r, message=FALSE}
 library(recipes)
@@ -44,11 +44,10 @@ library(textrecipes)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) %>%
-  add_role(contains("essay"), new_role = "textual") %>%
-  step_tokenize(has_role("textual")) %>% # Tokenizes to words by default
-  step_stopwords(has_role("textual")) %>% # Uses the english snowball list by default
-  step_tokenfilter(has_role("textual"), max_tokens = 100) %>%
-  step_tfidf(has_role("textual"))
+  step_tokenize(essay0, essay1) %>% # Tokenizes to words by default
+  step_stopwords(essay0, essay1) %>% # Uses the english snowball list by default
+  step_tokenfilter(essay0, essay1, max_tokens = 100) %>%
+  step_tfidf(essay0, essay1)
    
 okc_obj <- okc_rec %>%
   prep(training = okc_text)
@@ -61,17 +60,16 @@ str(bake(okc_obj, okc_text), list.len = 15)
 
 **textrecipes** includes a little departure in design from **recipes** in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
 
-| Step               | Input       | Output      | Status  |
-|--------------------|-------------|-------------|---------|
-| `step_tokenize`    | character   | list-column | Done    |
-| `step_untokenize`  | list-column | character   | Done    |
-| `step_stem`        | list-column | list-column | Done    |
-| `step_stopwords`   | list-column | list-column | Done    |
-| `step_tokenfilter` | list-column | list-column | Done    |
-| `step_tfidf`       | list-column | numeric     | Done    |
-| `step_tf`          | list-column | numeric     | Done    |
-| `step_texthash`    | list-column | numeric     | Done    |
-| `step_word2vec`    | character   | numeric     | TODO    |
+| Step               | Input       | Output      |
+|--------------------|-------------|-------------|
+| `step_tokenize`    | character   | list-column |
+| `step_untokenize`  | list-column | character   |
+| `step_stem`        | list-column | list-column |
+| `step_stopwords`   | list-column | list-column |
+| `step_tokenfilter` | list-column | list-column |
+| `step_tfidf`       | list-column | numeric     |
+| `step_tf`          | list-column | numeric     |
+| `step_texthash`    | list-column | numeric     |
 
 (TODO = Yet to be implemented, bug = correnctly not working, working = the step works but still not finished i.e. missing document/tests/arguemnts, done = finished)
 
