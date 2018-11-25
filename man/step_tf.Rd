@@ -93,6 +93,7 @@ the name of the variable, followed by the tokens all seperated by
 token.
 }
 \examples{
+\dontrun{
 library(recipes)
 
 data(okc_text)
@@ -108,6 +109,7 @@ bake(okc_obj, okc_text)
 
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+}
 }
 \seealso{
 [step_hashing()] [step_tfidf()] [step_tokenize()]
