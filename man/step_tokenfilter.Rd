@@ -6,8 +6,8 @@
 \title{Filter the tokens based on term frequency}
 \usage{
 step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, max = Inf, min = 0, percentage = FALSE,
-  max_tokens = Inf, res = NULL, skip = FALSE,
+  columns = NULL, max_times = Inf, min_times = 0,
+  percentage = FALSE, max_tokens = Inf, res = NULL, skip = FALSE,
   id = rand_id("tokenfilter"))
 
 \method{tidy}{step_tokenfilter}(x, ...)
@@ -31,17 +31,17 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{max}{An integer. Maximal number of times a word can appear
+\item{max_times}{An integer. Maximal number of times a word can appear
 before getting removed.}
 
-\item{min}{An integer. Minimum number of times a word can appear
+\item{min_times}{An integer. Minimum number of times a word can appear
 before getting removed.}
 
-\item{percentage}{A logical. Should max and min be interpreded 
+\item{percentage}{A logical. Should max_times and min_times be interpreded 
 as a percentage instead of count.}
 
 \item{max_tokens}{An integer. Will only keep the top max_tokens tokens
-after filtering done by max and min. Defaults to Inf meaning all
+after filtering done by max_times and min_times. Defaults to Inf meaning all
 words in training will be used.}
 
 \item{res}{The words that will be keep will be stored here once 
@@ -72,7 +72,7 @@ An updated version of `recipe` with the new step added
 This step allow you to limit the tokens you are looking at by filtering
 on their occurance in the corpus. You are able to exclude tokens if they
 appear too many times or too fews times in the data. It can be specified
-as counts using `max` and `min` or as percentages by setting
+as counts using `max_times` and `min_times` or as percentages by setting
 `percentage` as `TRUE`. In addition one can filter to only use the top
 `max_tokens` used tokens.
 
