@@ -1,1 +1,3 @@
-# textrecipes 0.0.0.9000
+# textrecipes 0.0.1
+ 
+First CRAN version
