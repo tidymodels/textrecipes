@@ -1,3 +1,5 @@
+^cran-comments\.md$
+^CRAN-RELEASE$
 ^data-raw$
 ^codecov\.yml$
 ^\.travis\.yml$
