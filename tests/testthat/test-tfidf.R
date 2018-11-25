@@ -48,6 +48,20 @@ test_that("step_tfidf works as intended", {
   expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
+test_that("step_tfidf works with vocabulary argument", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, vocabulary = letters) 
+  
+  obj <- rec %>%
+    prep(training = test_data, retain = TRUE)
+  
+  expect_length(
+    juice(obj),
+    26
+  )
+})
+
 test_that('printing', {
   rec <- rec %>%
     step_tokenize(text) %>%

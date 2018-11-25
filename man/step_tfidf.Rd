@@ -6,9 +6,9 @@
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, res = NULL, smooth_idf = TRUE, norm = "l1",
-  sublinear_tf = FALSE, prefix = "tfidf", skip = FALSE,
-  id = rand_id("tfidf"))
+  columns = NULL, vocabulary = NULL, res = NULL, smooth_idf = TRUE,
+  norm = "l1", sublinear_tf = FALSE, prefix = "tfidf",
+  skip = FALSE, id = rand_id("tfidf"))
 
 \method{tidy}{step_tfidf}(x, ...)
 }
@@ -32,6 +32,8 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
+
+\item{vocabulary}{A character vector of strings to be considered.}
 
 \item{res}{The words that will be used to calculate the term 
 frequency will be stored here once this preprocessing step has 
