@@ -1,5 +1,5 @@
 Package: textrecipes
-Title: Extra recipes for Text Processing
+Title: Extra Recipes for Text Processing
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Emil",
