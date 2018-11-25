@@ -27,10 +27,10 @@ test_that("tokenfilter does nothing if argument are untouched", {
   )
 })
 
-test_that("tokenfilter removes words correctly using min and max", {
+test_that("tokenfilter removes words correctly using min_times and max_times", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_tokenfilter(text, max = 3, min = 2)
+    step_tokenfilter(text, max_times = 3, min_times = 2)
   
   obj <- rec %>%
     prep(training = test_data, retain = TRUE)
@@ -47,10 +47,10 @@ test_that("tokenfilter removes words correctly using min and max", {
   expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
-test_that("tokenfilter removes words correctly using min, max and procentage", {
+test_that("tokenfilter removes words correctly using min_times, max_times and procentage", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_tokenfilter(text, max = 0.04, min = 0, percentage = TRUE)
+    step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
   
   obj <- rec %>%
     prep(training = test_data, retain = TRUE)

@@ -23,6 +23,7 @@
 #'  "double normalization". Defaults to "raw count".
 #' @param weight A numeric weight used if `weight_scheme` is set to
 #'  "double normalization". Defaults to 0.5.
+#' @param vocabulary A character vector of strings to be considered.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
@@ -89,6 +90,7 @@ step_tf <-
            columns = NULL,
            weight_scheme = "raw count",
            weight = 0.5,
+           vocabulary = NULL,
            res = NULL,
            prefix = "tf",
            skip = FALSE,
@@ -110,6 +112,7 @@ step_tf <-
         columns = columns,
         weight_scheme = weight_scheme,
         weight = weight,
+        vocabulary = vocabulary,
         prefix = prefix,
         skip = skip,
         id = id
@@ -121,8 +124,8 @@ tf_funs <- c("binary", "raw count", "term frequency", "log normalization",
              "double normalization")
 
 step_tf_new <-
-  function(terms, role, trained, columns, weight_scheme, weight, res,
-           prefix, skip, id) {
+  function(terms, role, trained, columns, weight_scheme, weight, vocabulary,
+           res, prefix, skip, id) {
     step(
       subclass = "tf",
       terms = terms,
@@ -131,6 +134,7 @@ step_tf_new <-
       columns = columns,
       weight_scheme = weight_scheme,
       weight = weight,
+      vocabulary = vocabulary,
       res = res,
       prefix = prefix,
       skip = skip,
@@ -147,7 +151,8 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
   token_list <- list()
   
   for (i in seq_along(col_names)) {
-    token_list[[i]] <- sort(unique(unlist(training[, col_names[i], drop = TRUE])))
+    token_list[[i]] <- x$vocabulary %||% 
+      sort(unique(unlist(training[, col_names[i], drop = TRUE])))
   }
   
   step_tf_new(
@@ -157,6 +162,7 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
     columns = col_names,
     weight_scheme = x$weight_scheme,
     weight = x$weight,
+    vocabulary = x$vocabulary,
     res = token_list,
     prefix = x$prefix,
     skip = x$skip,

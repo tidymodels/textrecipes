@@ -6,7 +6,7 @@
 \title{Filtering of stopwords from a list-column variable}
 \usage{
 step_stopwords(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, options = list(), language = "en", keep = FALSE,
+  columns = NULL, language = "en", keep = FALSE,
   stopword_source = "snowball", custom_stopword_source = NULL,
   skip = FALSE, id = rand_id("stopwords"))
 
@@ -30,8 +30,6 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
-
-\item{options}{A list of options passed to the stemmer}
 
 \item{language}{A character to indicate the langauge of stopwords 
 by ISO 639-1 coding scheme.}

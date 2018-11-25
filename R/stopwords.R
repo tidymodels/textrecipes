@@ -14,7 +14,6 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param options A list of options passed to the stemmer
 #' @param language A character to indicate the langauge of stopwords 
 #'  by ISO 639-1 coding scheme.
 #' @param keep A logical. Specifies whether to keep the stopwords or discard
@@ -87,7 +86,6 @@ step_stopwords <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           options = list(),
            language = "en",
            keep = FALSE,
            stopword_source = "snowball",
@@ -102,7 +100,6 @@ step_stopwords <-
         role = role,
         trained = trained,
         columns = columns,
-        options = options,
         language = language,
         keep = keep,
         stopword_source = stopword_source,
@@ -114,7 +111,7 @@ step_stopwords <-
   }
 
 step_stopwords_new <-
-  function(terms, role, trained, columns, options, language, keep,
+  function(terms, role, trained, columns, language, keep,
            stopword_source, custom_stopword_source, skip, id) {
     step(
       subclass = "stopwords",
@@ -122,7 +119,6 @@ step_stopwords_new <-
       role = role,
       trained = trained,
       columns = columns,
-      options = options,
       language = language,
       keep = keep,
       stopword_source = stopword_source,
@@ -143,7 +139,6 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    options = x$options,
     language = x$language,
     keep = x$keep,
     stopword_source = x$stopword_source,

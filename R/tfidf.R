@@ -17,6 +17,7 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
+#' @param vocabulary A character vector of strings to be considered.
 #' @param res The words that will be used to calculate the term 
 #'  frequency will be stored here once this preprocessing step has 
 #'  be trained by [prep.recipe()].
@@ -89,6 +90,7 @@ step_tfidf <-
            role = "predictor",
            trained = FALSE,
            columns = NULL,
+           vocabulary = NULL,
            res = NULL,
            smooth_idf = TRUE,
            norm = "l1",
@@ -103,6 +105,7 @@ step_tfidf <-
         terms = ellipse_check(...),
         role = role,
         trained = trained,
+        vocabulary = vocabulary,
         res = res,
         smooth_idf = smooth_idf,
         norm = norm,
@@ -116,7 +119,7 @@ step_tfidf <-
   }
 
 step_tfidf_new <-
-  function(terms, role, trained, columns, res, smooth_idf, norm, 
+  function(terms, role, trained, columns, vocabulary, res, smooth_idf, norm, 
            sublinear_tf, prefix, skip, id) {
     step(
       subclass = "tfidf",
@@ -124,6 +127,7 @@ step_tfidf_new <-
       role = role,
       trained = trained,
       columns = columns,
+      vocabulary = vocabulary,
       res = res,
       smooth_idf = smooth_idf,
       norm = norm,
@@ -143,7 +147,8 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
   token_list <- list()
   
   for (i in seq_along(col_names)) {
-    token_list[[i]] <- sort(unique(unlist(training[, col_names[i], drop = TRUE])))
+    token_list[[i]] <- x$vocabulary %||% 
+      sort(unique(unlist(training[, col_names[i], drop = TRUE])))
   }
   
   step_tfidf_new(
@@ -151,6 +156,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
+    vocabulary = x$vocabulary,
     res = token_list,
     smooth_idf =x$smooth_idf,
     norm = x$norm,
