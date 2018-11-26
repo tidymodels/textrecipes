@@ -12,8 +12,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 SystemRequirements: GNU make, C++11
 LazyData: true
-URL: https://github.com/EmilHvitfeldt/textrecipes
-BugReports: https://github.com/EmilHvitfeldt/textrecipes/issues
+URL: https://github.com/tidymodels/textrecipes
+BugReports: https://github.com/tidymodels/textrecipes/issues
 Depends: 
     R (>= 2.10),
     recipes (>= 0.1.4)

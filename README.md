@@ -7,14 +7,12 @@
 status](https://travis-ci.org/tidymodels/textrecipes.svg?branch=master)](https://travis-ci.org/tidymodels/textrecipes)
 [![Coverage
 status](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/textrecipes)](http://cran.r-project.org/web/packages/textrecipes)
-[![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](http://cran.rstudio.com/package=textrecipes)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 ## Introduction
 
 **textrecipes** contains extra steps for the
-[`recipes`](http://cran.rstudio.com/package=recipes) package for
+[`recipes`](https://CRAN.R-project.org/package=recipes) package for
 preprocessing text data.
 
 ## Installation
