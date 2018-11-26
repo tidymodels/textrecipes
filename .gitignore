@@ -3,5 +3,6 @@ inst/doc
 .Rhistory
 .RData
 .Ruserdata
+docs
 revdep/checks.noindex
 revdep/library.noindex
