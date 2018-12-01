@@ -1,4 +1,0 @@
-useDynLib(SnowballC)
-
-export(wordStem, getStemLanguages)
-

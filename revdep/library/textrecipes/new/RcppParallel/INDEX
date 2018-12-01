@@ -1,6 +1,0 @@
-RcppParallel-package    Parallel programming tools for Rcpp
-RcppParallel.package.skeleton
-                        Create a skeleton for a new package depending
-                        on RcppParallel
-RcppParallelLibs        Compilation flags for RcppParallel
-setThreadOptions        Thread options for RcppParallel

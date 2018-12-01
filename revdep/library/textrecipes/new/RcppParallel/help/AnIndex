@@ -1,8 +1,0 @@
-RcppParallel-package	RcppParallel-package
-CxxFlags	RcppParallelFlags
-defaultNumThreads	setThreadOptions
-LdFlags	RcppParallelFlags
-RcppParallel	RcppParallel-package
-RcppParallel.package.skeleton	RcppParallel.package.skeleton
-RcppParallelLibs	RcppParallelFlags
-setThreadOptions	setThreadOptions

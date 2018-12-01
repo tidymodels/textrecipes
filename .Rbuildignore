@@ -10,3 +10,6 @@
 ^docs$
 ^_pkgdown\.yml$
 ^revdep$
+^textrecipes\.Rcheck$
+^textrecipes.*\.tar\.gz$
+^textrecipes.*\.tgz$
