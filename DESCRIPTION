@@ -1,5 +1,5 @@
 Package: textrecipes
-Title: Extra Recipes for Text Processing
+Title: Extra 'Recipes' for Text Processing
 Version: 0.0.1
 Authors@R: 
     person(given = "Emil",
@@ -7,7 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "emilhhvitfeldt@gmail.com")
 Description: Converting text to numerical features requires specifically
-    created procedures. These procedures are collected here as steps.
+    created procedures, which are implemented as steps according to the 
+    'recipes' package. These steps allows for tokenization, filtering,
+    counting (tf and tfidf) and feature hashing.
 License: MIT + file LICENSE
 Encoding: UTF-8
 SystemRequirements: GNU make, C++11
