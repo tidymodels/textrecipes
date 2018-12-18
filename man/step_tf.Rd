@@ -93,7 +93,7 @@ the name of the variable, followed by the tokens all seperated by
 token.
 }
 \examples{
-\dontrun{
+\donttest{
 library(recipes)
 
 data(okc_text)
