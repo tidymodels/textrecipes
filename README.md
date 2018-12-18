@@ -1,36 +1,29 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+textrecipes
+===========
 
-# textrecipes
+[![Travis build status](https://travis-ci.org/tidymodels/textrecipes.svg?branch=master)](https://travis-ci.org/tidymodels/textrecipes) [![Coverage status](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/textrecipes)](http://cran.r-project.org/web/packages/textrecipes) [![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](http://cran.rstudio.com/package=textrecipes) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-[![Travis build
-status](https://travis-ci.org/tidymodels/textrecipes.svg?branch=master)](https://travis-ci.org/tidymodels/textrecipes)
-[![Coverage
-status](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master)
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+Introduction
+------------
 
-## Introduction
+**textrecipes** contains extra steps for the [`recipes`](https://CRAN.R-project.org/package=recipes) package for preprocessing text data.
 
-**textrecipes** contains extra steps for the
-[`recipes`](https://CRAN.R-project.org/package=recipes) package for
-preprocessing text data.
+Installation
+------------
 
-## Installation
-
-textrecipes is not avaliable from [CRAN](https://CRAN.R-project.org)
-yet. But the development version can be downloaded with:
+textrecipes is not avaliable from [CRAN](https://CRAN.R-project.org) yet. But the development version can be downloaded with:
 
 ``` r
 require("devtools")
 install_github("tidymodels/textrecipes")
 ```
 
-## Example
+Example
+-------
 
-In the following example we will go through the steps needed to convert
-a character variable to the TF-IDF of its tokenized words after removing
-stopwords and limeting ourself to only the 100 most used words. We will
-be conduction this preprosession on the variable `essay0` and `essay1`.
+In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 100 most used words. We will be conduction this preprosession on the variable `essay0` and `essay1`.
 
 ``` r
 library(recipes)
@@ -67,16 +60,13 @@ str(bake(okc_obj, okc_text), list.len = 15)
 #>   [list output truncated]
 ```
 
-## Type chart
+Type chart
+----------
 
-**textrecipes** includes a little departure in design from **recipes**
-in the sense that it allows some input and output to be in the form of
-list columns. To avoind confusion here is a table of steps with their
-expected input and output respectively. Notice how you need to end with
-numeric for future analysis to work.
+**textrecipes** includes a little departure in design from **recipes** in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
 
 | Step               | Input       | Output      |
-| ------------------ | ----------- | ----------- |
+|--------------------|-------------|-------------|
 | `step_tokenize`    | character   | list-column |
 | `step_untokenize`  | list-column | character   |
 | `step_stem`        | list-column | list-column |
@@ -85,10 +75,6 @@ numeric for future analysis to work.
 | `step_tfidf`       | list-column | numeric     |
 | `step_tf`          | list-column | numeric     |
 | `step_texthash`    | list-column | numeric     |
-
-(TODO = Yet to be implemented, bug = correnctly not working, working =
-the step works but still not finished i.e. missing
-document/tests/arguemnts, done = finished)
 
 This means that valid sequences includes
 
