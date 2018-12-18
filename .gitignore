@@ -9,3 +9,4 @@ textrecipes*.tar.gz
 textrecipes*.tgz
 revdep/checks.noindex
 revdep/library.noindex
+.DS_Store
