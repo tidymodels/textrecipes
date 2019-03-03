@@ -86,7 +86,7 @@ test_that("arguments are passed using options argument", {
   )
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text)
   expect_output(print(rec))

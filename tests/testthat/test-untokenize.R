@@ -61,7 +61,7 @@ test_that("working as intended", {
   )
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_untokenize(text)

@@ -95,7 +95,7 @@ test_that("step_tf works with other weighting schemes", {
   )
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tf(text)

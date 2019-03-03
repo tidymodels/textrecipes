@@ -99,7 +99,7 @@ step_tf <-
            id = rand_id("tf")
   ) {
     
-    if(!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1)
+    if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1)
       stop("`weight_scheme` should be one of: ",
            paste0("'", tf_funs, "'", collapse = ", "),
            call. = FALSE)
@@ -208,19 +208,19 @@ tf_function <- function(data, names, labels, weights, weight) {
 }
 
 tf_weight <- function(x, scheme, weight) {
-  if(scheme == "binary")
+  if (scheme == "binary")
     return(x > 0)
   
-  if(scheme == "raw count")
+  if (scheme == "raw count")
     return(x)
   
-  if(scheme == "term frequency")
+  if (scheme == "term frequency")
     return(x / rowSums(x))
   
-  if(scheme == "log normalization")
+  if (scheme == "log normalization")
     return(log(1 + x))
   
-  if(scheme == "double normalization") {
+  if (scheme == "double normalization") {
     max_ftd <- apply(x, 1, max)
     return(weight + weight * x / max_ftd)
   }

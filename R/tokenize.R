@@ -191,7 +191,7 @@ tokenizers_switch <- function(name) {
       "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
       "tweets", "words", "word_stems")
   
-  if(!(name %in% possible_tokenizers)) 
+  if (!(name %in% possible_tokenizers)) 
     stop("token should be one of the supported ",
          paste0("'", possible_tokenizers, "'", collapse = ", "),
          call. = FALSE)

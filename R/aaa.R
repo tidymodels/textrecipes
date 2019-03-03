@@ -3,7 +3,7 @@
 # characters variables unchanged.
 factor_to_text <- function(data, names) {
   for (i in seq_along(names)) {
-    if(is.factor(data[, names[i], drop = TRUE]))
+    if (is.factor(data[, names[i], drop = TRUE]))
       data[, names[i]] <- as.character.factor(data[, names[i], drop = TRUE])
   }
   data
@@ -25,10 +25,9 @@ mod_call_args <- function(cl, args, removals = NULL) {
 check_list <- function (dat) {
 
   all_good <- vapply(dat, is.list, logical(1))
-  label <- "numeric"
 
   if (!all(all_good)) 
-    stop("All columns selected for the step should be a list-column", 
+    stop("All columns selected for the step should be a list-column",
          call. = FALSE)
   invisible(all_good)
 }
@@ -38,8 +37,8 @@ check_list <- function (dat) {
 #' @importFrom purrr keep
 #' @importFrom stopwords stopwords
 word_list_filter <- function(x, words, keep) {
-  
-  if(!keep) {
+
+  if (!keep) {
     return(keep(x, !(x %in% words)))
   }
   else {
@@ -57,7 +56,7 @@ word_tbl_filter <- function(x, words, keep) {
 # Takes a list of tokens and calculate the token count matrix
 #' @importFrom text2vec itoken create_dtm vocab_vectorizer create_vocabulary
 list_to_dtm <- function(x, values) {
-  
+
   it <- itoken(x, progress = FALSE)
   vectorizer <- vocab_vectorizer(create_vocabulary(values))
   create_dtm(it, vectorizer)

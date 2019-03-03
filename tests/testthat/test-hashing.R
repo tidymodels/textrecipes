@@ -45,7 +45,7 @@ test_that("hashing output width changes accordingly with num_terms", {
   )
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text)

@@ -148,7 +148,7 @@ stem_fun <- function(name) {
   possible_stemmers <- 
     c("SnowballC")
   
-  if(!(name %in% possible_stemmers)) 
+  if (!(name %in% possible_stemmers)) 
     stop("stemmer should be one of the supported ",
          paste0("'", possible_stemmers, "'", collapse = ", "),
          call. = FALSE)

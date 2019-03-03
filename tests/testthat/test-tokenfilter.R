@@ -47,7 +47,7 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
   expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
-test_that("tokenfilter removes words correctly using min_times, max_times and procentage", {
+test_that("removes words correctly with min_times, max_times and procentage", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
@@ -92,7 +92,7 @@ test_that("tokenfilter throws warning when max_tokens > words", {
   )
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tokenfilter(text)

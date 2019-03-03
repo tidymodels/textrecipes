@@ -70,7 +70,7 @@ test_that("custom stopwords are supported", {
   )
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stopwords(text)

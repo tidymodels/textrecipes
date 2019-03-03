@@ -22,4 +22,3 @@
 #' data(okc_text)
 #' str(okc_text)
 NULL
-

@@ -88,7 +88,7 @@ step_texthash <-
            prefix = "hash",
            skip = FALSE,
            id = rand_id("texthash")) {
-    
+
     add_step(
       recipe,
       step_texthash_new(
@@ -105,11 +105,11 @@ step_texthash <-
     )
   }
 
-hash_funs <- c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32", 
+hash_funs <- c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
                "xxhash64", "murmur32")
 
 step_texthash_new <-
-  function(terms, role, trained, columns, signed, num_terms, prefix, skip, 
+  function(terms, role, trained, columns, signed, num_terms, prefix, skip,
            id) {
     step(
       subclass = "texthash",
@@ -128,9 +128,9 @@ step_texthash_new <-
 #' @export
 prep.step_texthash <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   step_texthash_new(
     terms = x$terms,
     role = x$role,
@@ -152,26 +152,26 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
 bake.step_texthash <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   for (i in seq_along(col_names)) {
-    
+
     tf_text <- hashing_function(new_data[, col_names[i], drop = TRUE],
-                                paste0(col_names[i], "_",  
+                                paste0(col_names[i], "_",
                                        names0(object$num_terms, object$prefix)),
                                 object$signed,
                                 object$num_terms)
-    
+
     new_data <- bind_cols(new_data, tf_text)
-    
+
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
   }
-  
+
   as_tibble(new_data)
 }
 
 hashing_function <- function(data, labels, algo, n) {
-  
+
   counts <- list_to_hash(data, n)
 
   colnames(counts) <- labels

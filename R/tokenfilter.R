@@ -89,7 +89,8 @@ step_tokenfilter <-
            id = rand_id("tokenfilter")
   ) {
     
-    if(percentage && (max_times > 1 | max_times < 0 | min_times > 1 | min_times < 0))
+    if (percentage && (max_times > 1 | max_times < 0 | 
+                      min_times > 1 | min_times < 0))
       stop("`max_times` and `min_times` should be in the interval [0, 1].",
            call. = FALSE)
       
@@ -112,8 +113,8 @@ step_tokenfilter <-
   }
 
 step_tokenfilter_new <-
-  function(terms, role, trained, columns, max_times, min_times, percentage, max_tokens,
-           res, skip, id) {
+  function(terms, role, trained, columns, max_times, min_times, percentage, 
+           max_tokens, res, skip, id) {
     step(
       subclass = "tokenfilter",
       terms = terms,
@@ -181,19 +182,20 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-tokenfilter_fun <- function(data, max_times, min_times, max_features, percentage) {
+tokenfilter_fun <- function(data, max_times, min_times, max_features, 
+                            percentage) {
 
   tf <- table(unlist(data))
 
-  if(percentage)
+  if (percentage)
     tf <- tf / sum(tf)
   
   ids <- tf <= max_times & tf >= min_times
   
-  if(is.infinite(max_features)) {
+  if (is.infinite(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
   } else {
-    if(max_features > sum(ids)) {
+    if (max_features > sum(ids)) {
       warning(paste0("max_features was set to '", max_features,
                      "', but only ", sum(ids), " was available and selected."))
       max_features <- sum(ids)

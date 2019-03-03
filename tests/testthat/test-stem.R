@@ -32,7 +32,7 @@ test_that("stemming is done correctly", {
   expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
-test_that('printing', {
+test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stem(text)
