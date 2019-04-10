@@ -56,7 +56,7 @@
 #' organize, organizes, and organizing. In many situations it is beneficial
 #' to have these words condensed into one to allow for a smaller pool of 
 #' words. Stemming is the act of choping off the end of words using a set
-#'  of heristics.
+#'  of heuristics.
 #' 
 #' Note that the steming will only be done at the end of the string and 
 #' will therefore not work reliably on ngrams or sentences.
@@ -146,7 +146,7 @@ bake.step_stem <- function(object, new_data, ...) {
 
 stem_fun <- function(name) {
   possible_stemmers <- 
-    c("SnowballC")
+    c("SnowballC", "rslp")
   
   if (!(name %in% possible_stemmers)) 
     stop("stemmer should be one of the supported ",
@@ -154,7 +154,8 @@ stem_fun <- function(name) {
          call. = FALSE)
   
   switch(name,
-         SnowballC = SnowballC::wordStem
+         SnowballC = SnowballC::wordStem,
+         rslp = rslp::rslp
   )
 }
 
@@ -162,7 +163,7 @@ stem_fun <- function(name) {
 #' @export
 print.step_stem <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Stemming for ", sep = "")
+    cat("Stemming with for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
   }
