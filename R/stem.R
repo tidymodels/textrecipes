@@ -14,9 +14,9 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param options A list of options passed to the stemmer
-#' @param stemmer a character to select stemming method. Defaults
-#'  to "SnowballC".
+#' @param options A list of options passed to the stemmer function.
+#' @param custom_stemmer A custom stemming function. If none is provided
+#'  it will default to "SnowballC".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -50,6 +50,24 @@
 #'   
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
+#' 
+#' # Using custom stemmer. Here a custom stemmer that removes the last letter
+#' # if it is a s.
+#' remove_s <- function(x) gsub("s$", "", x)
+#' 
+#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#'   step_tokenize(essay0) %>%
+#'   step_stem(essay0, custom_stemmer = remove_s)
+#'   
+#' okc_obj <- okc_rec %>%
+#'   prep(training = okc_text, retain = TRUE)
+#' 
+#' juice(okc_obj, essay0) %>% 
+#'   slice(1:2)
+#' 
+#' juice(okc_obj) %>% 
+#'   slice(2) %>% 
+#'   pull(essay0) 
 #' @export
 #' @details
 #' Words tend to have different forms depending on context, such as
@@ -71,7 +89,7 @@ step_stem <-
            trained = FALSE,
            columns = NULL,
            options = list(),
-           stemmer = "SnowballC",
+           custom_stemmer = NULL,
            skip = FALSE,
            id = rand_id("stem")
   ) {
@@ -82,7 +100,7 @@ step_stem <-
         role = role,
         trained = trained,
         options = options,
-        stemmer = stemmer,
+        custom_stemmer = custom_stemmer,
         columns = columns,
         skip = skip,
         id = id
@@ -91,7 +109,7 @@ step_stem <-
   }
 
 step_stem_new <-
-  function(terms, role, trained, columns, options, stemmer, skip, id) {
+  function(terms, role, trained, columns, options, custom_stemmer, skip, id) {
     step(
       subclass = "stem",
       terms = terms,
@@ -99,7 +117,7 @@ step_stem_new <-
       trained = trained,
       columns = columns,
       options = options,
-      stemmer = stemmer,
+      custom_stemmer = custom_stemmer,
       skip = skip,
       id = id
     )
@@ -117,7 +135,7 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     options = x$options,
-    stemmer = x$stemmer,
+    custom_stemmer = x$custom_stemmer,
     skip = x$skip,
     id = x$id
   )
@@ -131,10 +149,13 @@ bake.step_stem <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
+  stem_fun <- object$custom_stemmer %||%
+    SnowballC::wordStem
+  
   for (i in seq_along(col_names)) {
 
     stemmed_text <- map(new_data[, col_names[i], drop = TRUE], 
-                        stem_fun(object$stemmer))
+                        stem_fun)
     
     new_data[, col_names[i]] <- tibble(stemmed_text)
   }
@@ -142,20 +163,6 @@ bake.step_stem <- function(object, new_data, ...) {
   new_data <- factor_to_text(new_data, col_names)
   
   as_tibble(new_data)
-}
-
-stem_fun <- function(name) {
-  possible_stemmers <- 
-    c("SnowballC")
-  
-  if (!(name %in% possible_stemmers)) 
-    stop("stemmer should be one of the supported ",
-         paste0("'", possible_stemmers, "'", collapse = ", "),
-         call. = FALSE)
-  
-  switch(name,
-         SnowballC = SnowballC::wordStem
-  )
 }
 
 #' @importFrom recipes printer
@@ -174,7 +181,7 @@ print.step_stem <-
 tidy.step_stem <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(terms = x$terms,
-                  value = x$stemmer)
+                  is_custom_stemmer = is.null(x$custom_stemmer))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,

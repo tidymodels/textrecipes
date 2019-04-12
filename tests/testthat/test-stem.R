@@ -32,6 +32,30 @@ test_that("stemming is done correctly", {
   expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
+test_that("custom stemmer works", {
+  custom_stem_fun <- function(x) substr(x, 1, 2)
+  
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_stem(text, custom_stemmer = custom_stem_fun) 
+  
+  obj <- rec %>%
+    prep(training = test_data, retain = TRUE)
+  
+  expect_equal(
+    tokenizers::tokenize_words(test_data$text[1])[[1]] %>%
+      custom_stem_fun(),
+    juice(obj) %>% 
+      slice(1) %>% 
+      pull(text) %>%
+      unlist()
+  )
+  
+  expect_equal(dim(tidy(rec, 2)), c(1, 3))
+  expect_equal(dim(tidy(obj, 2)), c(1, 3))
+})
+
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%

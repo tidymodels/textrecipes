@@ -6,7 +6,7 @@
 \title{Stemming of list-column variables}
 \usage{
 step_stem(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  options = list(), stemmer = "SnowballC", skip = FALSE,
+  options = list(), custom_stemmer = NULL, skip = FALSE,
   id = rand_id("stem"))
 
 \method{tidy}{step_stem}(x, ...)
@@ -30,10 +30,10 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{options}{A list of options passed to the stemmer}
+\item{options}{A list of options passed to the stemmer function.}
 
-\item{stemmer}{a character to select stemming method. Defaults
-to "SnowballC".}
+\item{custom_stemmer}{A custom stemming function. If none is provided
+it will default to "SnowballC".}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by [recipes::bake.recipe()]? While all
@@ -86,6 +86,24 @@ juice(okc_obj) \%>\%
   
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+
+# Using custom stemmer. Here a custom stemmer that removes the last letter
+# if it is a s.
+remove_s <- function(x) gsub("s$", "", x)
+
+okc_rec <- recipe(~ ., data = okc_text) \%>\%
+  step_tokenize(essay0) \%>\%
+  step_stem(essay0, custom_stemmer = remove_s)
+  
+okc_obj <- okc_rec \%>\%
+  prep(training = okc_text, retain = TRUE)
+
+juice(okc_obj, essay0) \%>\% 
+  slice(1:2)
+
+juice(okc_obj) \%>\% 
+  slice(2) \%>\% 
+  pull(essay0) 
 }
 \seealso{
 [step_stopwords()] [step_tokenfilter()] [step_tokenize()]
