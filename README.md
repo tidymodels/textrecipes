@@ -13,7 +13,7 @@ Introduction
 Installation
 ------------
 
-textrecipes is not avaliable from [CRAN](https://CRAN.R-project.org) yet. But the development version can be downloaded with:
+textrecipes is not available from [CRAN](https://CRAN.R-project.org) yet. But the development version can be downloaded with:
 
 ``` r
 require("devtools")
@@ -23,7 +23,7 @@ install_github("tidymodels/textrecipes")
 Example
 -------
 
-In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 100 most used words. We will be conduction this preprosession on the variable `essay0` and `essay1`.
+In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limiting ourself to only the 100 most used words. We will be conduction this preprocessing on the variable `essay0` and `essay1`.
 
 ``` r
 library(recipes)
@@ -63,7 +63,7 @@ str(bake(okc_obj, okc_text), list.len = 15)
 Type chart
 ----------
 
-**textrecipes** includes a little departure in design from **recipes** in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
+**textrecipes** includes a little departure in design from **recipes** in the sense that it allows some input and output to be in the form of list columns. To avoid confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
 
 | Step               | Input       | Output      |
 |--------------------|-------------|-------------|
