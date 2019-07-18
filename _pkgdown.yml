@@ -9,3 +9,18 @@ development:
 
 home:
   strip_header: true
+
+reference:
+  - title: Step Functions - character to list-column
+    contents:
+    - step_tokenize
+  - title: Step Functions - list-column to character
+    - step_untokenize
+  - title: Step Functions - list-column to list-column
+    - step_stem
+    - step_stopwords
+    - step_tokenfilter
+  - title: Step Functions - list-column to numeric
+    - step_tfidf
+    - step_tf
+    - step_texthash
