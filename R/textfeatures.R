@@ -175,7 +175,7 @@ tidy.step_textfeature <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = rep(term_names, each = length(x$extract_functions)), 
-                  functions = rep(names(x$extract_functions)), length(x$terms))
+                  functions = rep(names(x$extract_functions), length(x$terms)))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
