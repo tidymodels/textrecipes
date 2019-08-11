@@ -17,6 +17,7 @@
 #' @param extract_functions A named list of feature extracting functions. 
 #'  default to [count_functions] from the textfeatures package. See 
 #'  details for more information.
+#' @param prefix A prefix for generated column names, default to "textfeature".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -80,6 +81,7 @@ step_textfeature <-
            trained = FALSE,
            columns = NULL,
            extract_functions = count_functions,
+           prefix = "textfeature",
            skip = FALSE,
            id = rand_id("textfeature")
   ) {
@@ -91,6 +93,7 @@ step_textfeature <-
         trained = trained,
         columns = columns,
         extract_functions = extract_functions,
+        prefix = prefix,
         skip = skip,
         id = id
       )
@@ -98,7 +101,7 @@ step_textfeature <-
   }
 
 step_textfeature_new <-
-  function(terms, role, trained, columns, extract_functions,
+  function(terms, role, trained, columns, extract_functions, prefix,
            skip, id) {
     step(
       subclass = "textfeature",
@@ -107,6 +110,7 @@ step_textfeature_new <-
       trained = trained,
       columns = columns,
       extract_functions = extract_functions,
+      prefix = prefix,
       skip = skip,
       id = id
     )
@@ -128,6 +132,7 @@ prep.step_textfeature <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     extract_functions = x$extract_functions,
+    prefix = x$prefix,
     skip = x$skip,
     id = x$id
   )
@@ -147,7 +152,8 @@ bake.step_textfeature <- function(object, new_data, ...) {
     tf_text <- map_dfc(object$extract_functions, 
                        ~ .x(new_data[, col_names[i], drop = TRUE]))
     
-    colnames(tf_text) <- paste(col_names[i], colnames(tf_text), sep = "_")
+    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text), 
+                               sep = "_")
     
     new_data <- bind_cols(new_data, tf_text)
     
