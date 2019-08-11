@@ -56,17 +56,13 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_sequence_onehot` creates a *specification* of a recipe step that
- will convert a character predictor into a list of tokens.
+ will take a string and do one hot encoding for each character by position.
 }
 \details{
-This step will take a character column and returns a number of numeric 
-columns equal to the number of functions in the list passed to the 
-`extract_functions` argument. The default is a list of functions from the 
-sequence_onehots package.
-
-All the functions passed to `extract_functions` must take a character vector
-as input and return a numeric vector of the same length, otherwise an error 
-will be thrown.
+The string will be capped by the length argument, strings shorter then length
+will be padded with empty characters. The encoding will assign a integer to 
+each character in the key, and will encode accordingly. Characters not in the
+key will be encoded as 0.
 }
 \examples{
 library(recipes)
