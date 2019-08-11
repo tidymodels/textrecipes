@@ -83,17 +83,18 @@ of list columns. To avoind confusion, here is a table of steps with
 their expected input and output respectively. Notice how you need to end
 with numeric for future analysis to work.
 
-| Step                | Input       | Output      |
-| ------------------- | ----------- | ----------- |
-| `step_tokenize`     | character   | list-column |
-| `step_untokenize`   | list-column | character   |
-| `step_stem`         | list-column | list-column |
-| `step_stopwords`    | list-column | list-column |
-| `step_tokenfilter`  | list-column | list-column |
-| `step_tfidf`        | list-column | numeric     |
-| `step_tf`           | list-column | numeric     |
-| `step_texthash`     | list-column | numeric     |
-| `step_textfeatures` | character   | numeric     |
+| Step                     | Input       | Output      |
+| ------------------------ | ----------- | ----------- |
+| `step_tokenize()`        | character   | list-column |
+| `step_untokenize()`      | list-column | character   |
+| `step_stem()`            | list-column | list-column |
+| `step_stopwords()`       | list-column | list-column |
+| `step_tokenfilter()`     | list-column | list-column |
+| `step_tfidf()`           | list-column | numeric     |
+| `step_tf()`              | list-column | numeric     |
+| `step_texthash()`        | list-column | numeric     |
+| `step_textfeatures()`    | character   | numeric     |
+| `step_sequence_onehot()` | character   | numeric     |
 
 This means that valid sequences includes
 
