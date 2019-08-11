@@ -30,3 +30,4 @@ reference:
   - title: Step Functions - character to numeric
     contents:
     - step_textfeature
+    - step_sequence_onehot

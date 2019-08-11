@@ -1,5 +1,3 @@
-context("test-stem")
-
 library(recipes)
 library(textrecipes)
 

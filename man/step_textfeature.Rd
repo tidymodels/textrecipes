@@ -54,7 +54,7 @@ An updated version of `recipe` with the new step added
 }
 \description{
 `step_textfeature` creates a *specification* of a recipe step that
- will convert a character predictor into a list of tokens.
+ will extract a number of numeric features of a text column.
 }
 \details{
 This step will take a character column and returns a number of numeric 
@@ -81,8 +81,7 @@ juice(okc_obj) \%>\%
   slice(1:2)
 
 juice(okc_obj) \%>\%
-  slice(2) \%>\%
-  pull(essay0_n_words)
+  pull(textfeature_essay0_n_words)
   
 tidy(okc_rec, number = 1)
 tidy(okc_obj, number = 1)
