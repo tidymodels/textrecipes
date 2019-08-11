@@ -1,12 +1,12 @@
 #'  Generate the basic set of text features
 #'
-#' `step_textfeature` creates a *specification* of a recipe step that
-#'  will extract a number of numeric features of a text column.
+#' `step_sequence_onehot` creates a *specification* of a recipe step that
+#'  will convert a character predictor into a list of tokens.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_textfeature`, this indicates the variables to be encoded
+#'  For `step_sequence_onehot`, this indicates the variables to be encoded
 #'  into a list column. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
@@ -14,10 +14,11 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param extract_functions A named list of feature extracting functions. 
-#'  default to [count_functions] from the textfeatures package. See 
-#'  details for more information.
-#' @param prefix A prefix for generated column names, default to "textfeature".
+#' @param length A numeric, number of characters to keep before discarding. 
+#'  Defaults to 100.
+#' @param key A character vector, characters to be mapped to integers. characters 
+#'  not in the key will be encoded as 0. Defaults to `letters`.
+#' @param prefix A prefix for generated column names, default to "seq1hot".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -36,35 +37,22 @@
 #' data(okc_text)
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
-#'   step_textfeature(essay0) 
+#'   step_sequence_onehot(essay0) 
 #'   
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
 #' 
-#' juice(okc_obj) %>%
-#'   slice(1:2)
-#' 
-#' juice(okc_obj) %>%
-#'   pull(textfeature_essay0_n_words)
+#' juice(okc_obj)
 #'   
 #' tidy(okc_rec, number = 1)
 #' tidy(okc_obj, number = 1)
-#' 
-#' # Using custom extraction functions
-#' nchar_round_10 <- function(x) round(nchar(x) / 10) * 10
-#' 
-#' recipe(~ ., data = okc_text) %>%
-#'   step_textfeature(essay0, 
-#'                    extract_functions = list(nchar10 = nchar_round_10)) %>%
-#'   prep(training = okc_text) %>%
-#'   juice()
 #' 
 #' @export
 #' @details 
 #' This step will take a character column and returns a number of numeric 
 #' columns equal to the number of functions in the list passed to the 
 #' `extract_functions` argument. The default is a list of functions from the 
-#' textfeatures package.
+#' sequence_onehots package.
 #' 
 #' All the functions passed to `extract_functions` must take a character vector
 #' as input and return a numeric vector of the same length, otherwise an error 
@@ -72,26 +60,27 @@
 #'
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type rand_id
-#' @importFrom textfeatures count_functions
-step_textfeature <-
+step_sequence_onehot <-
   function(recipe,
            ...,
            role = NA,
            trained = FALSE,
            columns = NULL,
-           extract_functions = count_functions,
-           prefix = "textfeature",
+           length = 100,
+           key = letters,
+           prefix = "seq1hot",
            skip = FALSE,
-           id = rand_id("textfeature")
+           id = rand_id("sequence_onehot")
   ) {
     add_step(
       recipe,
-      step_textfeature_new(
+      step_sequence_onehot_new(
         terms = ellipse_check(...),
         role = role,
         trained = trained,
         columns = columns,
-        extract_functions = extract_functions,
+        length = length,
+        key = key,
         prefix = prefix,
         skip = skip,
         id = id
@@ -99,16 +88,17 @@ step_textfeature <-
     )
   }
 
-step_textfeature_new <-
-  function(terms, role, trained, columns, extract_functions, prefix,
+step_sequence_onehot_new <-
+  function(terms, role, trained, columns, length, key, prefix,
            skip, id) {
     step(
-      subclass = "textfeature",
+      subclass = "sequence_onehot",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
-      extract_functions = extract_functions,
+      length = length,
+      key = key,
       prefix = prefix,
       skip = skip,
       id = id
@@ -116,21 +106,22 @@ step_textfeature_new <-
   }
 
 #' @export
-prep.step_textfeature <- function(x, training, info = NULL, ...) {
+prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
   
   training <- factor_to_text(training, col_names)
   
   check_type(training[, col_names], quant = FALSE)
   
-  purrr::walk(x$extract_functions, validate_string2num)
+  encoded_key <- char_key(x$key)
   
-  step_textfeature_new(
+  step_sequence_onehot_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    extract_functions = x$extract_functions,
+    length = x$length,
+    key = encoded_key,
     prefix = x$prefix,
     skip = x$skip,
     id = x$id
@@ -141,20 +132,23 @@ prep.step_textfeature <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble
 #' @importFrom recipes bake prep
 #' @importFrom purrr map_dfc
-bake.step_textfeature <- function(object, new_data, ...) {
+bake.step_sequence_onehot <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-
+  
   new_data <- factor_to_text(new_data, col_names)
   
   for (i in seq_along(col_names)) {
-    tf_text <- map_dfc(object$extract_functions, 
-                       ~ .x(new_data[, col_names[i], drop = TRUE]))
+    out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
+                                      key = object$key, length = object$length)
     
-    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text), 
-                               sep = "_")
     
-    new_data <- bind_cols(new_data, tf_text)
+    colnames(out_text) <- paste(sep = "_",
+                                object$prefix, 
+                                col_names[i], 
+                                seq_len(ncol(out_text)))
+    
+    new_data <- bind_cols(new_data, as_tibble(out_text))
     
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
@@ -165,46 +159,52 @@ bake.step_textfeature <- function(object, new_data, ...) {
 
 #' @importFrom recipes printer
 #' @export
-print.step_textfeature <-
+print.step_sequence_onehot <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Text feature extraction for ", sep = "")
+    cat("Sequence 1 hot encoding for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
   }
 
-#' @rdname step_textfeature
-#' @param x A `step_textfeature` object.
+#' @rdname step_sequence_onehot
+#' @param x A `step_sequence_onehot` object.
 #' @importFrom recipes sel2char
 #' @export
-tidy.step_textfeature <- function(x, ...) {
+tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = rep(term_names, each = length(x$extract_functions)), 
-                  functions = rep(names(x$extract_functions), length(x$terms)))
+    res <- tibble(terms = rep(term_names, each = length(x$key)), 
+                  key = rep(names(x$key), length(x$terms)))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
-                  functions = NA_character_)
+                  key = NA_character_)
   }
   res$id <- x$id
   res
 }
 
-validate_string2num <- function(fun) {
-  string <- c("This is a test string", "with", "3 elements")
-  
-  out <- fun(string)
-  if (!(is.numeric(out) | is.logical(out))) {
-    stop(deparse(substitute(fun)), " must return a numeric.")
+pad_string <- function(x, n) {
+  len_x <- length(x)
+  if (len_x == n) {
+    return(x)
   }
-  
-  if (length(string) != length(out)) {
-    stop(deparse(substitute(fun)), " must return the same length output as its input.")
-  }
+  c(x, character(n - len_x))
 }
 
-#' Counting functions from textfeatures
-#' @name count_functions
-#' @export
-#' @importFrom textfeatures count_functions
-NULL
+char_key <- function(x) {
+  out <- seq_along(x)
+  names(out) <- x
+  out
+}
+
+string2encoded_matrix <- function(x, key, length) {
+  x <- stringr::str_sub(x, 1, length)
+  x <- stringr::str_split(x, "")
+  x <- lapply(x, pad_string, n = length)
+  x <- lapply(x, function(x) key[x])
+  df <- do.call(rbind, x)
+  df[is.na(df)] <- 0
+  
+  df
+}
