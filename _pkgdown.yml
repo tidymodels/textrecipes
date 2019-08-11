@@ -27,3 +27,6 @@ reference:
     - step_tfidf
     - step_tf
     - step_texthash
+  - title: Step Functions - character to numeric
+    contents:
+    - step_textfeature

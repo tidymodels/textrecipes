@@ -21,7 +21,7 @@ Depends:
     recipes (>= 0.1.4)
 Suggests: 
     covr,
-    testthat,
+    testthat (>= 2.1.0),
     knitr,
     rmarkdown
 RoxygenNote: 6.1.1
@@ -36,5 +36,8 @@ Imports:
     stopwords,
     magrittr,
     stringr,
-    text2vec
+    text2vec,
+    textfeatures (>= 0.3.2)
 VignetteBuilder: knitr
+Remotes: 
+    mkearney/textfeatures
