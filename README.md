@@ -90,6 +90,7 @@ with numeric for future analysis to work.
 | `step_stem()`            | list-column | list-column |
 | `step_stopwords()`       | list-column | list-column |
 | `step_tokenfilter()`     | list-column | list-column |
+| `step_tokenmerge()`      | list-column | list-column |
 | `step_tfidf()`           | list-column | numeric     |
 | `step_tf()`              | list-column | numeric     |
 | `step_texthash()`        | list-column | numeric     |
