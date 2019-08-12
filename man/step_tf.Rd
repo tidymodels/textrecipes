@@ -72,6 +72,11 @@ An updated version of `recipe` with the new step added
  the token counts.
 }
 \details{
+It is strongly advised to use [step_tokenfilter] before using [step_tf] to 
+limit the number of variables created, otherwise you might run into memmory
+issues. A good strategy is to start with a low token count and go up 
+according to how much RAM you want to use.
+
 Term frequency is a weight of how many times each token appear in each 
 observation. There are different ways to calculate the weight and this 
 step can do it in a couple of ways. Setting the argument `weight_scheme` to

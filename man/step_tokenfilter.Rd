@@ -7,7 +7,7 @@
 \usage{
 step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
   columns = NULL, max_times = Inf, min_times = 0,
-  percentage = FALSE, max_tokens = Inf, res = NULL, skip = FALSE,
+  percentage = FALSE, max_tokens = 100, res = NULL, skip = FALSE,
   id = rand_id("tokenfilter"))
 
 \method{tidy}{step_tokenfilter}(x, ...)
@@ -41,8 +41,7 @@ before getting removed.}
 as a percentage instead of count.}
 
 \item{max_tokens}{An integer. Will only keep the top max_tokens tokens
-after filtering done by max_times and min_times. Defaults to Inf meaning all
-words in training will be used.}
+after filtering done by max_times and min_times. Defaults to 100.}
 
 \item{res}{The words that will be keep will be stored here once 
 this preprocessing step has be trained by [prep.recipe()].}
@@ -74,10 +73,13 @@ on their occurance in the corpus. You are able to exclude tokens if they
 appear too many times or too fews times in the data. It can be specified
 as counts using `max_times` and `min_times` or as percentages by setting
 `percentage` as `TRUE`. In addition one can filter to only use the top
-`max_tokens` used tokens.
+`max_tokens` used tokens. If `max_tokens` is set to `Inf` then all the tokens
+will be used. This will generally lead to very large datasets when then 
+tokens are words or trigrams. A good strategy is to start with a low token 
+count and go up according to how much RAM you want to use.
 
-It is advised to filter before using [step_tf] or [step_tfidf] to limit
-the number of variables created.
+It is strongly advised to filter before using [step_tf] or [step_tfidf] to 
+limit the number of variables created.
 }
 \examples{
 library(recipes)
