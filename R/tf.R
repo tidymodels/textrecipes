@@ -73,8 +73,8 @@
 #' takes the log of 1 plus the count, adding 1 is done to avoid taking log of
 #' 0. Finally "double normalization" is the raw frequency divided by the raw 
 #' frequency of the most occurring term in the document. This is then 
-#' multiplied by `weight` and `weight` is added tot he result. This is again done to 
-#' prevent a bias towards longer documents.
+#' multiplied by `weight` and `weight` is added to the result. This is again 
+#' done to prevent a bias towards longer documents.
 #' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
