@@ -72,6 +72,11 @@ An updated version of `recipe` with the new step added
  the token counts.
 }
 \details{
+It is strongly advised to use [step_tokenfilter] before using [step_tf] to 
+limit the number of variables created, otherwise you might run into memmory
+issues. A good strategy is to start with a low token count and go up 
+according to how much RAM you want to use.
+
 Term frequency is a weight of how many times each token appear in each 
 observation. There are different ways to calculate the weight and this 
 step can do it in a couple of ways. Setting the argument `weight_scheme` to
@@ -84,8 +89,8 @@ more times but not necessarily at a higher procentage. "log normalization"
 takes the log of 1 plus the count, adding 1 is done to avoid taking log of
 0. Finally "double normalization" is the raw frequency divided by the raw 
 frequency of the most occurring term in the document. This is then 
-multiplied by `weight` and `weight` is added tot he result. This is again done to 
-prevent a bias towards longer documents.
+multiplied by `weight` and `weight` is added to the result. This is again 
+done to prevent a bias towards longer documents.
 
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
