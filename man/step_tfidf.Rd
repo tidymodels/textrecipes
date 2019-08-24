@@ -75,6 +75,11 @@ An updated version of `recipe` with the new step added
  the Term frequency-inverse document frequency of tokens.
 }
 \details{
+It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to 
+limit the number of variables created, otherwise you might run into memmory
+issues. A good strategy is to start with a low token count and go up 
+according to how much RAM you want to use.
+
 Term frequency-inverse document frequency is the product of two statistics.
 The term frequency (TF) and the inverse document frequency (IDF). 
 

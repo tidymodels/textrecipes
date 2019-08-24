@@ -4,6 +4,7 @@
 * `step_textfeatures()` have been added, allows for multiple numerical features to be pulled from text.
 * `step_sequence_onehot()` have been added, allows for one hot encoding of sequences of fixed width.
 * `step_word2vec()` have been added, calculates word2vec dimensions.
+* `step_tokenmerge()` have been added, combines multiple list columns into one list-columns.
 
 # textrecipes 0.0.1
  
