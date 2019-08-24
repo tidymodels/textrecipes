@@ -40,4 +40,4 @@ Imports:
     textfeatures (>= 0.3.2)
 VignetteBuilder: knitr
 Remotes: 
-    mkearney/textfeatures
+    EmilHvitfeldt/textfeatures@word-dims-export
