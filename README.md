@@ -3,13 +3,17 @@
 
 # textrecipes
 
+<!-- badges: start -->
+
 [![Travis build
 status](https://travis-ci.org/tidymodels/textrecipes.svg?branch=master)](https://travis-ci.org/tidymodels/textrecipes)
 [![Coverage
 status](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/textrecipes)](http://cran.r-project.org/web/packages/textrecipes)
 [![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](http://cran.rstudio.com/package=textrecipes)
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
 
 ## Introduction
 
@@ -96,6 +100,7 @@ with numeric for future analysis to work.
 | `step_texthash()`        | list-column | numeric     |
 | `step_textfeature()`     | character   | numeric     |
 | `step_sequence_onehot()` | character   | numeric     |
+| `step_text2vec()`        | character   | numeric     |
 
 This means that valid sequences includes
 

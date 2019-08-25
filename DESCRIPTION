@@ -6,25 +6,16 @@ Authors@R:
            family = "Hvitfeldt",
            role = c("aut", "cre"),
            email = "emilhhvitfeldt@gmail.com")
-Description: Converting text to numerical features requires specifically
-    created procedures, which are implemented as steps according to the 
-    'recipes' package. These steps allows for tokenization, filtering,
-    counting (tf and tfidf) and feature hashing.
+Description: Converting text to numerical features requires
+    specifically created procedures, which are implemented as steps
+    according to the 'recipes' package. These steps allows for
+    tokenization, filtering, counting (tf and tfidf) and feature hashing.
 License: MIT + file LICENSE
-Encoding: UTF-8
-SystemRequirements: GNU make, C++11
-LazyData: true
 URL: https://github.com/tidymodels/textrecipes
 BugReports: https://github.com/tidymodels/textrecipes/issues
 Depends: 
     R (>= 2.10),
     recipes (>= 0.1.4)
-Suggests: 
-    covr,
-    testthat (>= 2.1.0),
-    knitr,
-    rmarkdown
-RoxygenNote: 6.1.1
 Imports: 
     generics,
     rlang,
@@ -37,7 +28,20 @@ Imports:
     magrittr,
     stringr,
     text2vec,
-    textfeatures (>= 0.3.2)
-VignetteBuilder: knitr
+    textfeatures (>= 0.3.2),
+    lifecycle
+Suggests: 
+    covr,
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
+RdMacros: 
+    lifecycle
 Remotes: 
     EmilHvitfeldt/textfeatures@word-dims-export
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+SystemRequirements: GNU make, C++11
