@@ -14,11 +14,11 @@ rec <- recipe(~ ., data = test_data)
 test_that("hashing gives double outputs", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_texthash(text) 
-  
+    step_texthash(text)
+
   obj <- rec %>%
     prep(training = test_data, retain = TRUE)
-    
+
   expect_true(
     juice(obj) %>%
       select(contains("hash")) %>%
@@ -36,7 +36,7 @@ test_that("hashing output width changes accordingly with num_terms", {
     step_tokenize(text) %>%
     step_texthash(text, num_terms = 256) %>%
     prep(training = test_data, retain = TRUE)
-  
+
   expect_equal(
     juice(rec) %>%
       select(contains("hash")) %>%

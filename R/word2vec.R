@@ -13,13 +13,13 @@
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be 
+#'  that the new columns created by the original variables will be
 #'  used as predictors in a model.
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param lda_models A WarpLDA model object from the text2vec package. If left 
-#' to NULL, the default, will it train its model based on the training data. 
+#' @param lda_models A WarpLDA model object from the text2vec package. If left
+#' to NULL, the default, will it train its model based on the training data.
 #' Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
 #' @param prefix A prefix for generated column names, default to "word2vec".
@@ -38,28 +38,28 @@
 #' @source \url{https://arxiv.org/abs/1301.3781}
 #' @examples
 #' library(recipes)
-#' 
+#'
 #' data(okc_text)
-#' 
+#'
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
-#'   step_word2vec(essay0) 
-#'   
+#'   step_word2vec(essay0)
+#'
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
-#' 
+#'
 #' juice(okc_obj) %>%
 #'   slice(1:2)
 
 #' tidy(okc_rec, number = 1)
 #' tidy(okc_obj, number = 1)
-#' 
+#'
 #' # Changing the number of topics.
 #' recipe(~ ., data = okc_text) %>%
 #'   step_word2vec(essay0, essay1, num_topics = 20) %>%
 #'   prep() %>%
 #'   juice() %>%
 #'   slice(1:2)
-#' 
+#'
 #' # Supplying A pre-trained LDA model trained using text2vec
 #' library(text2vec)
 #' tokens <- word_tokenizer(tolower(okc_text$essay5))
@@ -67,16 +67,16 @@
 #' v <- create_vocabulary(it)
 #' dtm <- create_dtm(it, vocab_vectorizer(v))
 #' lda_model <- LDA$new(n_topics = 15)
-#' 
+#'
 #' recipe(~ ., data = okc_text) %>%
 #'   step_word2vec(essay0, essay1, lda_models = lda_model) %>%
 #'   prep() %>%
 #'   juice() %>%
 #'   slice(1:2)
-#' 
+#'
 #' @export
 #'
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
+#' @importFrom recipes add_step step terms_select sel2char ellipse_check
 #' @importFrom recipes check_type rand_id
 step_word2vec <-
   function(recipe,
@@ -127,17 +127,18 @@ step_word2vec_new <-
 #' @importFrom textfeatures word_dims word_dims_newtext
 prep.step_word2vec <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], quant = FALSE)
-  
+
   model_list <- list()
-  
+
   for (i in seq_along(col_names)) {
     ddd <- utils::capture.output(
-      model_list[[i]] <- x$lda_models %||% 
-        attr(word_dims(training[, col_names[i], drop = TRUE], n = x$num_topics), "dict")
+      model_list[[i]] <- x$lda_models %||%
+        attr(word_dims(training[, col_names[i], drop = TRUE], n = x$num_topics),
+             "dict")
     )
   }
 
@@ -161,24 +162,24 @@ prep.step_word2vec <- function(x, training, info = NULL, ...) {
 bake.step_word2vec <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   new_data <- factor_to_text(new_data, col_names)
-  
+
   for (i in seq_along(col_names)) {
     ddd <- utils::capture.output(
-      tf_text <- word_dims_newtext(object$lda_models[[i]], 
+      tf_text <- word_dims_newtext(object$lda_models[[i]],
                                    new_data[, col_names[i], drop = TRUE])
     )
     attr(tf_text, "dict") <- NULL
-    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text), 
+    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text),
                                sep = "_")
-    
+
     new_data <- bind_cols(new_data, tf_text)
-    
+
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
   }
-  
+
   as_tibble(new_data)
 }
 
@@ -198,7 +199,7 @@ print.step_word2vec <-
 tidy.step_word2vec <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names, 
+    res <- tibble(terms = term_names,
                   num_topics = x$num_topics)
   } else {
     term_names <- sel2char(x$terms)

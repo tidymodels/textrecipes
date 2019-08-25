@@ -25,7 +25,7 @@ details. For the `tidy` method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
@@ -35,8 +35,8 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{lda_models}{A WarpLDA model object from the text2vec package. If left 
-to NULL, the default, will it train its model based on the training data. 
+\item{lda_models}{A WarpLDA model object from the text2vec package. If left
+to NULL, the default, will it train its model based on the training data.
 Look at the examples for how to fit a WarpLDA model.}
 
 \item{num_topics}{integer desired number of latent topics.}
@@ -70,8 +70,8 @@ library(recipes)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_word2vec(essay0) 
-  
+  step_word2vec(essay0)
+
 okc_obj <- okc_rec \%>\%
   prep(training = okc_text, retain = TRUE)
 

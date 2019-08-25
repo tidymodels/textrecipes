@@ -46,4 +46,3 @@ test_that("it complains when the selected column isn't a list-column", {
     prep(rec, training = test_data, retain = TRUE)
   )
 })
-

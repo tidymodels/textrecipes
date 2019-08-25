@@ -120,13 +120,13 @@ step_textfeature_new <-
 #' @export
 prep.step_textfeature <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], quant = FALSE)
-  
+
   purrr::walk(x$extract_functions, validate_string2num)
-  
+
   step_textfeature_new(
     terms = x$terms,
     role = x$role,
@@ -148,20 +148,19 @@ bake.step_textfeature <- function(object, new_data, ...) {
   # for backward compat
 
   new_data <- factor_to_text(new_data, col_names)
-  
+
   for (i in seq_along(col_names)) {
-    tf_text <- map_dfc(object$extract_functions, 
+    tf_text <- map_dfc(object$extract_functions,
                        ~ .x(new_data[, col_names[i], drop = TRUE]))
-    
-    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text), 
+
+    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text),
                                sep = "_")
-    
+
     new_data <- bind_cols(new_data, tf_text)
-    
+
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
   }
-  
   as_tibble(new_data)
 }
 
@@ -172,7 +171,7 @@ print.step_textfeature <-
     cat("Text feature extraction for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
-  }
+}
 
 #' @rdname step_textfeature
 #' @param x A `step_textfeature` object.
@@ -181,7 +180,7 @@ print.step_textfeature <-
 tidy.step_textfeature <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = rep(term_names, each = length(x$extract_functions)), 
+    res <- tibble(terms = rep(term_names, each = length(x$extract_functions)),
                   functions = rep(names(x$extract_functions), length(x$terms)))
   } else {
     term_names <- sel2char(x$terms)
@@ -194,14 +193,15 @@ tidy.step_textfeature <- function(x, ...) {
 
 validate_string2num <- function(fun) {
   string <- c("This is a test string", "with", "3 elements")
-  
+
   out <- fun(string)
   if (!(is.numeric(out) | is.logical(out))) {
     stop(deparse(substitute(fun)), " must return a numeric.")
   }
-  
+
   if (length(string) != length(out)) {
-    stop(deparse(substitute(fun)), " must return the same length output as its input.")
+    stop(deparse(substitute(fun)),
+         " must return the same length output as its input.")
   }
 }
 

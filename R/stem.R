@@ -126,9 +126,9 @@ step_stem_new <-
 #' @export
 prep.step_stem <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   step_stem_new(
     terms = x$terms,
     role = x$role,
@@ -148,20 +148,17 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
 bake.step_stem <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   stem_fun <- object$custom_stemmer %||%
     SnowballC::wordStem
-  
-  for (i in seq_along(col_names)) {
 
-    stemmed_text <- map(new_data[, col_names[i], drop = TRUE], 
+  for (i in seq_along(col_names)) {
+    stemmed_text <- map(new_data[, col_names[i], drop = TRUE],
                         stem_fun)
-    
+
     new_data[, col_names[i]] <- tibble(stemmed_text)
   }
-  
   new_data <- factor_to_text(new_data, col_names)
-  
   as_tibble(new_data)
 }
 
@@ -172,7 +169,7 @@ print.step_stem <-
     cat("Stemming for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
-  }
+}
 
 #' @rdname step_stem
 #' @param x A `step_stem` object.

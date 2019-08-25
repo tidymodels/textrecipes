@@ -93,9 +93,9 @@ step_tokenmerge_new <-
 #' @export
 prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   step_tokenmerge_new(
     terms = x$terms,
     role = x$role,
@@ -114,15 +114,15 @@ prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
 bake.step_tokenmerge <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  new_col <- 
+  new_col <-
     tibble(pmap(as.list(unname(new_data[, col_names, drop = FALSE])), c))
   names(new_col) <- object$prefix
-  
+
   new_data <- bind_cols(new_data, new_col)
-  
+
   new_data <-
     new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
-  
+
   as_tibble(new_data)
 }
 
@@ -133,7 +133,7 @@ print.step_tokenmerge <-
     cat("Merging tokens for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
-  }
+}
 
 #' @rdname step_tokenmerge
 #' @param x A `step_tokenmerge` object.

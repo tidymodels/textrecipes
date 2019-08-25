@@ -127,11 +127,11 @@ step_tokenize_new <-
 #' @export
 prep.step_tokenize <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], quant = FALSE)
-  
+
   step_tokenize_new(
     terms = x$terms,
     role = x$role,
@@ -152,12 +152,12 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   tokenizer <- object$custom_token %||%
                            tokenizers_switch(object$token)
 
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- tokenizer_fun(new_data[, col_names[i]], 
+    new_data[, col_names[i]] <- tokenizer_fun(new_data[, col_names[i]],
                                               col_names[i],
                                               options = object$options,
                                               token = tokenizer)
@@ -168,34 +168,34 @@ bake.step_tokenize <- function(object, new_data, ...) {
 #' @importFrom rlang expr
 tokenizer_fun <- function(data, name, options, token, ...) {
   check_type(data[, name], quant = FALSE)
-  
+
   data <- factor_to_text(data, name)
-  
+
   token_expr <- expr(
     token(
       x = data[, 1, drop = TRUE]
     )
   )
-    
+
   if (length(options) > 0)
     token_expr <- mod_call_args(token_expr, args = options)
-  
+
   out <- tibble::tibble(eval(token_expr))
   names(out) <- name
   out
 }
 
 tokenizers_switch <- function(name) {
-  possible_tokenizers <- 
+  possible_tokenizers <-
     c("characters", "character_shingle", "lines", "ngrams",
       "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
       "tweets", "words", "word_stems")
-  
-  if (!(name %in% possible_tokenizers)) 
+
+  if (!(name %in% possible_tokenizers))
     stop("token should be one of the supported ",
          paste0("'", possible_tokenizers, "'", collapse = ", "),
          call. = FALSE)
-  
+
   switch(name,
          characters = tokenizers::tokenize_characters,
          character_shingle = tokenizers::tokenize_character_shingles,

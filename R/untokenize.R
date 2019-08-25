@@ -30,31 +30,31 @@
 #'  to the sequence of existing steps (if any).
 #' @examples
 #' library(recipes)
-#' 
+#'
 #' data(okc_text)
-#' 
+#'
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_untokenize(essay0) 
-#'   
+#'   step_untokenize(essay0)
+#'
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
-#' 
-#' juice(okc_obj, essay0) %>% 
+#'
+#' juice(okc_obj, essay0) %>%
 #'   slice(1:2)
-#' 
-#' juice(okc_obj) %>% 
-#'   slice(2) %>% 
-#'   pull(essay0) 
-#'   
+#'
+#' juice(okc_obj) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
+#'
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
 #' @export
 #' @details
 #' This steps will turn a tokenized list-column back into a character
 #' vector.
-#' 
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
+#'
+#' @importFrom recipes add_step step terms_select sel2char ellipse_check
 #' @importFrom recipes check_type rand_id
 step_untokenize <-
   function(recipe,
@@ -97,9 +97,9 @@ step_untokenize_new <-
 #' @export
 prep.step_untokenize <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   step_untokenize_new(
     terms = x$terms,
     role = x$role,
@@ -118,14 +118,14 @@ prep.step_untokenize <- function(x, training, info = NULL, ...) {
 bake.step_untokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- map_chr(new_data[, col_names[i], drop = TRUE], 
+    new_data[, col_names[i]] <- map_chr(new_data[, col_names[i], drop = TRUE],
                                         paste, collapse = object$sep)
   }
-  
+
   new_data <- factor_to_text(new_data, col_names)
-  
+
   as_tibble(new_data)
 }
 

@@ -90,12 +90,12 @@ step_tokenfilter <-
            skip = FALSE,
            id = rand_id("tokenfilter")
   ) {
-    
-    if (percentage && (max_times > 1 | max_times < 0 | 
+
+    if (percentage && (max_times > 1 | max_times < 0 |
                       min_times > 1 | min_times < 0))
       stop("`max_times` and `min_times` should be in the interval [0, 1].",
            call. = FALSE)
-      
+
     add_step(
       recipe,
       step_tokenfilter_new(
@@ -115,7 +115,7 @@ step_tokenfilter <-
   }
 
 step_tokenfilter_new <-
-  function(terms, role, trained, columns, max_times, min_times, percentage, 
+  function(terms, role, trained, columns, max_times, min_times, percentage,
            max_tokens, res, skip, id) {
     step(
       subclass = "tokenfilter",
@@ -136,20 +136,20 @@ step_tokenfilter_new <-
 #' @export
 prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   retain_words <- list()
   n_words <- list()
-  
+
   for (i in seq_along(col_names)) {
     retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
                                         x$max_times, x$min_times, x$max_tokens,
                                         x$percentage)
-    
+
     n_words[[i]] <- length(table(unlist(training[, col_names[i], drop = TRUE])))
   }
-  
+
   step_tokenfilter_new(
     terms = x$terms,
     role = x$role,
@@ -172,28 +172,27 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
 bake.step_tokenfilter <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- 
-      word_tbl_filter(new_data[, col_names[i], drop = TRUE], 
-                      object$res[[i]], 
+    new_data[, col_names[i]] <-
+      word_tbl_filter(new_data[, col_names[i], drop = TRUE],
+                      object$res[[i]],
                       TRUE)
   }
   new_data <- factor_to_text(new_data, col_names)
-  
+
   as_tibble(new_data)
 }
 
-tokenfilter_fun <- function(data, max_times, min_times, max_features, 
+tokenfilter_fun <- function(data, max_times, min_times, max_features,
                             percentage) {
-
   tf <- table(unlist(data))
 
   if (percentage)
     tf <- tf / sum(tf)
-  
+
   ids <- tf <= max_times & tf >= min_times
-  
+
   if (is.infinite(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
   } else {

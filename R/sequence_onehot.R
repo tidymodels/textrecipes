@@ -106,13 +106,13 @@ step_sequence_onehot_new <-
 #' @export
 prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], quant = FALSE)
-  
+
   encoded_key <- char_key(x$key)
-  
+
   step_sequence_onehot_new(
     terms = x$terms,
     role = x$role,
@@ -133,25 +133,23 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
 bake.step_sequence_onehot <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   new_data <- factor_to_text(new_data, col_names)
-  
+
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
                                       key = object$key, length = object$length)
-    
-    
+
     colnames(out_text) <- paste(sep = "_",
-                                object$prefix, 
-                                col_names[i], 
+                                object$prefix,
+                                col_names[i],
                                 seq_len(ncol(out_text)))
-    
+
     new_data <- bind_cols(new_data, as_tibble(out_text))
-    
+
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
   }
-  
   as_tibble(new_data)
 }
 
@@ -162,7 +160,7 @@ print.step_sequence_onehot <-
     cat("Sequence 1 hot encoding for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
-  }
+}
 
 #' @rdname step_sequence_onehot
 #' @param x A `step_sequence_onehot` object.
@@ -171,7 +169,7 @@ print.step_sequence_onehot <-
 tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = rep(term_names, each = length(x$key)), 
+    res <- tibble(terms = rep(term_names, each = length(x$key)),
                   key = rep(names(x$key), length(x$terms)))
   } else {
     term_names <- sel2char(x$terms)
@@ -203,6 +201,5 @@ string2encoded_matrix <- function(x, key, length) {
   x <- lapply(x, function(x) key[x])
   df <- do.call(rbind, x)
   df[is.na(df)] <- 0
-  
   df
 }

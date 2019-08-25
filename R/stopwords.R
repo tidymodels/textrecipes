@@ -131,9 +131,9 @@ step_stopwords_new <-
 #' @export
 prep.step_stopwords <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   step_stopwords_new(
     terms = x$terms,
     role = x$role,
@@ -155,19 +155,19 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
 #' @importFrom rlang %||%
 bake.step_stopwords <- function(object, new_data, ...) {
   col_names <- object$columns
-  
+
   stopword_list <- object$custom_stopword_source %||%
-                               stopwords(language = object$language, 
+                               stopwords(language = object$language,
                                          source = object$stopword_source)
-  
+
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- 
-      word_tbl_filter(new_data[, col_names[i], drop = TRUE], 
-                      stopword_list, 
+    new_data[, col_names[i]] <-
+      word_tbl_filter(new_data[, col_names[i], drop = TRUE],
+                      stopword_list,
                       object$keep)
   }
   new_data <- factor_to_text(new_data, col_names)
-  
+
   as_tibble(new_data)
 }
 
@@ -178,7 +178,7 @@ print.step_stopwords <-
     cat("Stop word removal for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
-  }
+}
 
 #' @rdname step_stopwords
 #' @param x A `step_stopwords` object.

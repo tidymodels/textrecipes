@@ -26,7 +26,7 @@ check_list <- function (dat) {
 
   all_good <- vapply(dat, is.list, logical(1))
 
-  if (!all(all_good)) 
+  if (!all(all_good))
     stop("All columns selected for the step should be a list-column",
          call. = FALSE)
   invisible(all_good)
@@ -47,6 +47,7 @@ word_list_filter <- function(x, words, keep) {
 }
 # same as word_list_filter but takes an list as input and returns a tibble with
 # list-column.
+#' @importFrom purrr map
 word_tbl_filter <- function(x, words, keep) {
   tibble(
     map(x, word_list_filter, words, keep)

@@ -183,7 +183,6 @@ hashing_function <- function(data, labels, algo, n) {
 # Takes a list of tokens and calculate the hashed token count matrix
 #' @importFrom text2vec itoken create_dtm hash_vectorizer create_vocabulary
 list_to_hash <- function(x, n) {
-  
   it <- itoken(x, progress = FALSE)
   vectorizer <- hash_vectorizer(hash_size = n)
   as.matrix(create_dtm(it, vectorizer))
