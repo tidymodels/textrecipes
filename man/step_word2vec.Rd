@@ -4,6 +4,9 @@
 \alias{step_word2vec}
 \alias{tidy.step_word2vec}
 \title{Calculates word2vec dimension estimates}
+\source{
+\url{https://arxiv.org/abs/1301.3781}
+}
 \usage{
 step_word2vec(recipe, ..., role = "predictor", trained = FALSE,
   columns = NULL, lda_models = NULL, num_topics = 10,

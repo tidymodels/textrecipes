@@ -35,6 +35,7 @@
 #'  baked.
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
+#' @source \url{https://arxiv.org/abs/1301.3781}
 #' @examples
 #' library(recipes)
 #' 
