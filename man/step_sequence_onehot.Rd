@@ -4,6 +4,9 @@
 \alias{step_sequence_onehot}
 \alias{tidy.step_sequence_onehot}
 \title{Generate the basic set of text features}
+\source{
+\url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
+}
 \usage{
 step_sequence_onehot(recipe, ..., role = "predictor", trained = FALSE,
   columns = NULL, length = 100, key = letters, prefix = "seq1hot",

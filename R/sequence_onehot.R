@@ -56,6 +56,7 @@
 #' each character in the key, and will encode accordingly. Characters not in the
 #' key will be encoded as 0.
 #'
+#' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type rand_id
 step_sequence_onehot <-
