@@ -5,7 +5,8 @@ Authors@R:
     person(given = "Emil",
            family = "Hvitfeldt",
            role = c("aut", "cre"),
-           email = "emilhhvitfeldt@gmail.com")
+           email = "emilhhvitfeldt@gmail.com",
+           comment = c(ORCID = "0000-0002-0679-1945"))
 Description: Converting text to numerical features requires
     specifically created procedures, which are implemented as steps
     according to the 'recipes' package. These steps allows for
