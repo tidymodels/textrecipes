@@ -172,9 +172,9 @@ bake.step_texthash <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-hashing_function <- function(data, labels, algo, n) {
+hashing_function <- function(data, labels, signed, n) {
 
-  counts <- list_to_hash(data, n)
+  counts <- list_to_hash(data, n, signed)
 
   colnames(counts) <- labels
   as_tibble(counts)
@@ -182,9 +182,9 @@ hashing_function <- function(data, labels, algo, n) {
 
 # Takes a list of tokens and calculate the hashed token count matrix
 #' @importFrom text2vec itoken create_dtm hash_vectorizer create_vocabulary
-list_to_hash <- function(x, n) {
+list_to_hash <- function(x, n, signed) {
   it <- itoken(x, progress = FALSE)
-  vectorizer <- hash_vectorizer(hash_size = n)
+  vectorizer <- hash_vectorizer(hash_size = n, signed_hash = signed)
   as.matrix(create_dtm(it, vectorizer))
 }
 

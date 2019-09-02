@@ -5,6 +5,7 @@
 * `step_sequence_onehot()` have been added, allows for one hot encoding of sequences of fixed width.
 * `step_word2vec()` have been added, calculates word2vec dimensions.
 * `step_tokenmerge()` have been added, combines multiple list columns into one list-columns.
+* `step_texthash()` now correctly accepts `signed` argument.
 
 # textrecipes 0.0.1
  
