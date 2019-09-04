@@ -29,7 +29,7 @@ Imports:
     magrittr,
     stringr,
     text2vec,
-    textfeatures (>= 0.3.2),
+    textfeatures (>= 0.3.3),
     lifecycle
 Suggests: 
     covr,
@@ -40,8 +40,6 @@ VignetteBuilder:
     knitr
 RdMacros: 
     lifecycle
-Remotes: 
-    EmilHvitfeldt/textfeatures@word-dims-export
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
