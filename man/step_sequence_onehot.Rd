@@ -9,7 +9,7 @@
 }
 \usage{
 step_sequence_onehot(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, string_length = 100, key = letters,
+  columns = NULL, string_length = 100, integer_key = letters,
   prefix = "seq1hot", skip = FALSE, id = rand_id("sequence_onehot"))
 
 \method{tidy}{step_sequence_onehot}(x, ...)
@@ -35,11 +35,12 @@ baked.}
 encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].}
 
-\item{string_length}{A numeric, number of characters to keep before discarding. 
-Defaults to 100.}
+\item{string_length}{A numeric, number of characters to keep before 
+discarding. Defaults to 100.}
 
-\item{key}{A character vector, characters to be mapped to integers. characters 
-not in the key will be encoded as 0. Defaults to `letters`.}
+\item{integer_key}{A character vector, characters to be mapped to integers. 
+Characters not in the integer_key will be encoded as 0. Defaults to 
+`letters`.}
 
 \item{prefix}{A prefix for generated column names, default to "seq1hot".}
 
@@ -64,10 +65,10 @@ An updated version of `recipe` with the new step added
  will take a string and do one hot encoding for each character by position.
 }
 \details{
-The string will be capped by the string_length argument, strings shorter then string_length
-will be padded with empty characters. The encoding will assign a integer to 
-each character in the key, and will encode accordingly. Characters not in the
-key will be encoded as 0.
+The string will be capped by the string_length argument, strings shorter then 
+string_length will be padded with empty characters. The encoding will assign 
+a integer to each character in the integer_key, and will encode accordingly. 
+Characters not in the integer_key will be encoded as 0.
 }
 \examples{
 library(recipes)
