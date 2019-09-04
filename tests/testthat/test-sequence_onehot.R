@@ -13,7 +13,7 @@ test_that("sequence encoding is done correctly", {
   seq_length <- max(nchar(test_data$text))
   
   rec <- rec %>%
-    step_sequence_onehot(text, length = seq_length)
+    step_sequence_onehot(text, string_length = seq_length)
   
   obj <- rec %>%
     prep(training = test_data, retain = TRUE)
@@ -32,7 +32,7 @@ test_that("sequence encoding is done correctly", {
 test_that("custom extraction functions work works", {
 
   rec <- rec %>%
-    step_sequence_onehot(text, key = "I", length = 10)
+    step_sequence_onehot(text, integer_key = "I", string_length = 10)
   
   obj <- rec %>%
     prep(training = test_data, retain = TRUE)

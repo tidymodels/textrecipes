@@ -16,10 +16,11 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param length A numeric, number of characters to keep before discarding. 
-#'  Defaults to 100.
-#' @param key A character vector, characters to be mapped to integers. characters 
-#'  not in the key will be encoded as 0. Defaults to `letters`.
+#' @param string_length A numeric, number of characters to keep before 
+#'      discarding. Defaults to 100.
+#' @param integer_key A character vector, characters to be mapped to integers. 
+#'  Characters not in the integer_key will be encoded as 0. Defaults to 
+#'  `letters`.
 #' @param prefix A prefix for generated column names, default to "seq1hot".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
@@ -51,10 +52,10 @@
 #' 
 #' @export
 #' @details 
-#' The string will be capped by the length argument, strings shorter then length
-#' will be padded with empty characters. The encoding will assign a integer to 
-#' each character in the key, and will encode accordingly. Characters not in the
-#' key will be encoded as 0.
+#' The string will be capped by the string_length argument, strings shorter then 
+#' string_length will be padded with empty characters. The encoding will assign 
+#' a integer to each character in the integer_key, and will encode accordingly. 
+#' Characters not in the integer_key will be encoded as 0.
 #'
 #' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
@@ -65,8 +66,8 @@ step_sequence_onehot <-
            role = "predictor",
            trained = FALSE,
            columns = NULL,
-           length = 100,
-           key = letters,
+           string_length = 100,
+           integer_key = letters,
            prefix = "seq1hot",
            skip = FALSE,
            id = rand_id("sequence_onehot")
@@ -78,8 +79,8 @@ step_sequence_onehot <-
         role = role,
         trained = trained,
         columns = columns,
-        length = length,
-        key = key,
+        string_length = string_length,
+        integer_key = integer_key,
         prefix = prefix,
         skip = skip,
         id = id
@@ -88,7 +89,7 @@ step_sequence_onehot <-
   }
 
 step_sequence_onehot_new <-
-  function(terms, role, trained, columns, length, key, prefix,
+  function(terms, role, trained, columns, string_length, integer_key, prefix,
            skip, id) {
     step(
       subclass = "sequence_onehot",
@@ -96,8 +97,8 @@ step_sequence_onehot_new <-
       role = role,
       trained = trained,
       columns = columns,
-      length = length,
-      key = key,
+      string_length = string_length,
+      integer_key = integer_key,
       prefix = prefix,
       skip = skip,
       id = id
@@ -112,15 +113,15 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
 
   check_type(training[, col_names], quant = FALSE)
 
-  encoded_key <- char_key(x$key)
+  encoded_key <- char_key(x$integer_key)
 
   step_sequence_onehot_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    length = x$length,
-    key = encoded_key,
+    string_length = x$string_length,
+    integer_key = encoded_key,
     prefix = x$prefix,
     skip = x$skip,
     id = x$id
@@ -139,7 +140,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
-                                      key = object$key, length = object$length)
+                                      integer_key = object$integer_key, string_length = object$string_length)
 
     colnames(out_text) <- paste(sep = "_",
                                 object$prefix,
@@ -170,12 +171,12 @@ print.step_sequence_onehot <-
 tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = rep(term_names, each = length(x$key)),
-                  key = rep(names(x$key), length(x$terms)))
+    res <- tibble(terms = rep(term_names, each = length(x$integer_key)),
+                  integer_key = rep(names(x$integer_key), length(x$terms)))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
-                  key = NA_character_)
+                  integer_key = NA_character_)
   }
   res$id <- x$id
   res
@@ -195,11 +196,11 @@ char_key <- function(x) {
   out
 }
 
-string2encoded_matrix <- function(x, key, length) {
-  x <- stringr::str_sub(x, 1, length)
+string2encoded_matrix <- function(x, integer_key, string_length) {
+  x <- stringr::str_sub(x, 1, string_length)
   x <- stringr::str_split(x, "")
-  x <- lapply(x, pad_string, n = length)
-  x <- lapply(x, function(x) key[x])
+  x <- lapply(x, pad_string, n = string_length)
+  x <- lapply(x, function(x) integer_key[x])
   df <- do.call(rbind, x)
   df[is.na(df)] <- 0
   df
