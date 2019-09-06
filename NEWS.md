@@ -6,6 +6,7 @@
 * `step_word2vec()` have been added, calculates word2vec dimensions.
 * `step_tokenmerge()` have been added, combines multiple list columns into one list-columns.
 * `step_texthash()` now correctly accepts `signed` argument.
+* Documentation have been improved to showcase the importance of filtering tokens before applying `step_tf()` and `step_tfidf()`.
 
 # textrecipes 0.0.1
  
