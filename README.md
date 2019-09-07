@@ -9,8 +9,8 @@
 status](https://travis-ci.org/tidymodels/textrecipes.svg?branch=master)](https://travis-ci.org/tidymodels/textrecipes)
 [![Coverage
 status](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/textrecipes)](http://cran.r-project.org/web/packages/textrecipes)
-[![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](http://cran.rstudio.com/package=textrecipes)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/textrecipes)](https://CRAN.R-project.org/package=textrecipes)
+[![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](https://CRAN.R-project.org/package=textrecipes)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
