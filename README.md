@@ -100,7 +100,7 @@ with numeric for future analysis to work.
 | `step_texthash()`        | list-column | numeric     |
 | `step_textfeature()`     | character   | numeric     |
 | `step_sequence_onehot()` | character   | numeric     |
-| `step_text2vec()`        | character   | numeric     |
+| `step_word2vec()`        | character   | numeric     |
 
 This means that valid sequences includes
 
