@@ -24,14 +24,14 @@ embeddings <- readRDS(here::here("tests", "testthat", "embeddings.rds"))
 
 rec <- rec_base %>%
   step_tokenize(text) %>%
-  step_embeddings(text, embeddings = embeddings)
+  step_word_embeddings(text, embeddings = embeddings)
 
 obj <- rec %>%
   prep(training = test_data, retain = TRUE)
 
 juiced <- juice(obj)
 
-test_that("step_embeddings adds the appropriate number of columns.", {
+test_that("step_word_embeddings adds the appropriate number of columns.", {
   ncol_given <- ncol(embeddings) - 1
   ncol_juiced <- juiced %>% 
     select(contains("embedding")) %>% 
@@ -40,7 +40,7 @@ test_that("step_embeddings adds the appropriate number of columns.", {
 })
 
 
-test_that("step_embeddings gives double output.", {
+test_that("step_word_embeddings gives double output.", {
   expect_true(
     juiced %>%
       select(contains("embedding")) %>%
@@ -54,8 +54,8 @@ test_that("step_embeddings gives double output.", {
   expect_equal(dim(tidy(obj, 2)), c(1, 4))
 })
 
-test_that("step_embeddings aggregates vectors as expected.", {
-  # By default, step_embeddings sums the vectors of the tokens it is given.
+test_that("step_word_embeddings aggregates vectors as expected.", {
+  # By default, step_word_embeddings sums the vectors of the tokens it is given.
   expected_vectors <- "to do"
   expect_identical(
     juiced, expected_vectors
@@ -65,13 +65,13 @@ test_that("step_embeddings aggregates vectors as expected.", {
   expected_vectors <- "to do"
   juiced_max <- rec_base %>% 
     step_tokenize(text) %>%
-    step_embeddings(text, embeddings = embeddings, aggregation = max) %>% 
+    step_word_embeddings(text, embeddings = embeddings, aggregation = max) %>% 
     prep(training = test_data, retain = TRUE) %>% 
     juice()
   expect_identical(juiced_max, expected_vectors)
 })
 
-test_that("step_embeddings deals with missing words appropriately.", {
+test_that("step_word_embeddings deals with missing words appropriately.", {
   # Warn if some of the words we're trying to match aren't in the embeddings
   # tibble.
   

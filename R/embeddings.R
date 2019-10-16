@@ -1,0 +1,235 @@
+#' Pretrained word embeddings of tokens
+#'
+#' `step_word_embeddings` creates a *specification* of a recipe step that will
+#' convert a list of tokens into word-embedding dimensions by aggregating the
+#' vectors of each token from a pre-trained embedding.
+#'
+#' @param recipe A recipe object. The step will be added to the sequence of
+#'   operations for this recipe.
+#' @param ... One or more selector functions to choose variables. For
+#'   `step_word_embeddings`, this indicates the variables to be encoded into a
+#'   list column. See [recipes::selections()] for more details. For the `tidy`
+#'   method, these are not currently used.
+#' @param role For model terms created by this step, what analysis role should
+#'   they be assigned?. By default, the function assumes that the new columns
+#'   created by the original variables will be used as predictors in a model.
+#' @param columns A list of tibble results that define the encoding. This is
+#'   `NULL` until the step is trained by [recipes::prep.recipe()].
+#' @param embeddings A tibble of pre-trained word embeddings, such as those
+#'   returned by an \code{\link[textdata]{embedding_glove}} function. The first
+#'   column should contain tokens, and additional columns should contain
+#'   embeddings vectors.
+#' @param aggregation A character giving the name of the aggregation function to
+#'   use.
+#' @param prefix A character string that will be the prefix to the resulting new
+#'   variables. See notes below.
+#' @param skip A logical. Should the step be skipped when the recipe is baked by
+#'   [recipes::bake.recipe()]? While all operations are baked when
+#'   [recipes::prep.recipe()] is run, some operations may not be able to be
+#'   conducted on new data (e.g. processing the outcome variable(s)). Care
+#'   should be taken when using `skip = TRUE` as it may affect the computations
+#'   for subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
+#' @param trained A logical to indicate if the recipe has been baked.
+#'
+#' @return An updated version of `recipe` with the new step added to the
+#'   sequence of existing steps (if any).
+#' @examples
+#' library(recipes)
+#'
+#' embeddings <- tibble(
+#'   tokens = c("the", "cat", "ran"),
+#'   d1 = c(1, 0, 0),
+#'   d2 = c(0, 1, 0),
+#'   d3 = c(0, 0, 1)
+#' )
+#'
+#' sample_data <- tibble(
+#'   text = c(
+#'     "The.",
+#'     "The cat.",
+#'     "The cat ran."
+#'   ),
+#'   text_label = c("fragment", "fragment", "sentence")
+#' )
+#'
+#' rec <- recipe(text_label ~ ., data = sample_data) %>%
+#'   step_tokenize(text) %>%
+#'   step_word_embeddings(text, embeddings = embeddings)
+#' obj <- rec %>%
+#'   prep(training = sample_data, retain = TRUE)
+#'
+#' bake(obj, sample_data)
+#'
+#' tidy(rec, number = 2)
+#' tidy(obj, number = 2)
+#' @export
+#' @details Word embeddings map words (or other tokens) into a high-dimensional
+#'   feature space. This function maps pre-trained word embeddings onto the
+#'   tokens in your data.
+#'
+#'   The argument `embeddings` provides the pre-trained vectors. Each dimension
+#'   present in this tibble becomes a new feature column, with each column
+#'   aggregated across each row of your text using the function supplied in the
+#'   `aggregation` argument.
+#'
+#'   The new components will have names that begin with `prefix`, then the name
+#'   of the aggregation function, then the name of the variable from the
+#'   embeddings tibble (usually something like "d7"). For example, using the
+#'   default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
+#'   embeddings from the textdata package (where the column names are `d1`,
+#'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
+#'   `word_embeddings_sum_d2`, etc.
+#'
+#' @seealso [step_tokenize()]
+#'
+#' @importFrom recipes add_step step terms_select sel2char ellipse_check
+#' @importFrom recipes check_type rand_id
+#' @importFrom purrr map_lgl
+step_word_embeddings <- function(recipe,
+                            ...,
+                            role = "predictor",
+                            trained = FALSE,
+                            columns = NULL,
+                            embeddings,
+                            aggregation = c("sum", "mean", "min", "max"),
+                            prefix = "word_embeddings",
+                            skip = FALSE,
+                            id = rand_id("word_embeddings")) {
+  # Validate the special inputs here to make sure nothing goes haywire further
+  # downstream.
+  if (
+    !tibble::is.tibble(embeddings) ||
+    !any(inherits(embeddings[[1]], c("character", "factor"), which = TRUE)) ||
+    ncol(embeddings) == 1 ||
+    !all(map_lgl(embeddings[,2:ncol(embeddings)], is.numeric))
+  ) {
+    embeddings_message <- paste(
+      "embeddings should be a tibble with 1 character or factor column and",
+      "additional numeric columns."
+    )
+    rlang::abort(
+      embeddings_message,
+      .subclass = "bad_embeddings"
+    )
+  }
+  
+  # For now aggregation must be the name of one of the listed aggregation
+  # functions. I'm having them pass it in as character to avoid more complicated
+  # checks.
+  aggregation <- match.arg(aggregation)
+  
+  add_step(
+    recipe,
+    step_word_embeddings_new(
+      terms = ellipse_check(...),
+      role = role,
+      trained = trained,
+      columns = columns,
+      embeddings = embeddings,
+      aggregation = aggregation,
+      prefix = prefix,
+      skip = skip,
+      id = id
+    )
+  )
+}
+
+step_word_embeddings_new <- function(terms, role, trained, columns, embeddings, 
+                                     aggregation, prefix, skip, id) {
+  recipes::step(
+    subclass = "word_embeddings",
+    terms = terms,
+    role = role,
+    trained = trained,
+    columns = columns,
+    embeddings = embeddings,
+    aggregation = aggregation,
+    prefix = prefix,
+    skip = skip,
+    id = id
+  )
+}
+
+#' @export
+prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
+  col_names <- terms_select(x$terms, info = info)
+  
+  check_list(training[, col_names])
+  
+  step_word_embeddings_new(
+    terms = x$terms,
+    role = x$role,
+    trained = TRUE,
+    columns = col_names,
+    embeddings = x$embeddings,
+    aggregation = x$aggregation,
+    prefix = x$prefix,
+    skip = x$skip,
+    id = x$id
+  )
+}
+
+#' @export
+#' @importFrom tibble as_tibble
+#' @importFrom recipes bake prep
+#' @importFrom purrr map_dfr
+#' @importFrom dplyr bind_cols
+bake.step_word_embeddings <- function(object, new_data, ...) {
+  col_names <- object$columns
+  # for backward compat
+
+  for (i in seq_along(col_names)) {
+    embeddings_columns <- map_dfr(
+      new_data[, col_names[i], drop = TRUE],
+      aggregate_embeddings,
+      embeddings = object$embeddings,
+      aggregation = object$aggregation,
+      prefix = object$prefix
+    )
+    
+    new_data <- bind_cols(new_data, embeddings_columns)
+    
+    new_data <-
+      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+  }
+  
+  as_tibble(new_data)
+}
+
+#' @importFrom tibble tibble
+#' @importFrom dplyr inner_join mutate_all select rename_all summarize_all
+aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
+  aggregation_function <- switch(
+    aggregation,
+    sum = sum,
+    mean = mean,
+    min = min,
+    max = max
+  )
+  embeddings_token_colname <- colnames(embeddings)[[1]]
+  
+  these_embeddings <- select(
+    inner_join(
+      tibble(tokens = tokens),
+      embeddings, 
+      by = c("tokens" = embeddings_token_colname)
+    ), -"tokens"
+  )
+  
+  # Rename columns using the supplied pattern.
+  these_embeddings <- rename_all(
+    these_embeddings, 
+    ~ paste(prefix, aggregation, ., sep = "_")
+  )
+  
+  # If their supplied embeddings don't match any words in the given text, return
+  # NAs.
+  if (nrow(these_embeddings) == 0) {
+    these_embeddings[1,] <- rep(NA_real_, ncol(these_embeddings))
+    return(these_embeddings)
+  }
+  
+  # Otherwise aggregate as requested.
+  summarize_all(these_embeddings, aggregation_function)
+}
