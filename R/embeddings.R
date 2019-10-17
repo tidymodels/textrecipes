@@ -93,7 +93,7 @@ step_word_embeddings <- function(recipe,
                             columns = NULL,
                             embeddings,
                             aggregation = c("sum", "mean", "min", "max"),
-                            prefix = "word_embeddings",
+                            prefix = "w_embed",
                             skip = FALSE,
                             id = rand_id("word_embeddings")) {
   # Validate the special inputs here to make sure nothing goes haywire further
