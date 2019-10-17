@@ -81,7 +81,7 @@
 #'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
 #'   `word_embeddings_sum_d2`, etc.
 #'
-#' @seealso [step_tokenize()]
+#' @seealso [step_tokenize()] [step_word2vec()]
 #'
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check
 #' @importFrom recipes check_type rand_id
@@ -209,6 +209,26 @@ aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   )
   embeddings_token_colname <- colnames(embeddings)[[1]]
   
+  # Deal with missing tokens.
+  missing_tokens <- setdiff(tokens, embeddings[[1]])
+  if (length(missing_tokens) > 0) {
+    warning_msg <- paste(
+      "Tokens missing from embeddings tibble:",
+      paste(missing_tokens, collapse = ", ")
+    )
+    if (length(setdiff(tokens, missing_tokens)) == 0) {
+      rlang::abort(
+        warning_msg,
+        .subclass = "all_tokens_missing_embeddings"
+      )
+    } else {
+      rlang::warn(
+        warning_msg,
+        .subclass = "missing_tokens"
+      )
+    }
+  }
+  
   these_embeddings <- select(
     inner_join(
       tibble(tokens = tokens),
@@ -223,13 +243,36 @@ aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
     ~ paste(prefix, aggregation, ., sep = "_")
   )
   
-  # If their supplied embeddings don't match any words in the given text, return
-  # NAs.
-  if (nrow(these_embeddings) == 0) {
-    these_embeddings[1,] <- rep(NA_real_, ncol(these_embeddings))
-    return(these_embeddings)
-  }
-  
-  # Otherwise aggregate as requested.
+  # Aggregate as requested.
   summarize_all(these_embeddings, aggregation_function)
+}
+
+#' @importFrom recipes printer
+#' @export
+print.step_word_embeddings <- function(x, 
+                                       width = max(20, options()$width - 30),
+                                       ...) {
+  cat("Word embeddings aggregated from ", sep = "")
+  printer(x$columns, x$terms, x$trained, width = width)
+  invisible(x)
+}
+
+#' @rdname step_word_embeddings
+#' @param x A `step_word_embeddings` object.
+#' @importFrom generics tidy
+#' @importFrom recipes is_trained
+#' @export
+tidy.step_word_embeddings <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  embeddings_rows = nrow(x$embeddings),
+                  aggregation = x$aggregation)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  embeddings_rows = nrow(x$embeddings),
+                  aggregation = x$aggregation)
+  }
+  res$id <- x$id
+  res
 }

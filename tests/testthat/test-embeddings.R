@@ -1,4 +1,7 @@
 library(recipes)
+
+# Set up the data that will be used in these tests. -----------------------
+
 test_data <- tibble(text = c("I would not eat them here or there.",
                              "I would not eat them anywhere.",
                              "I would not eat green eggs and ham.",
@@ -106,7 +109,6 @@ test_that("step_word_embeddings adds the appropriate number of columns.", {
   expect_identical(ncol_juiced, ncol_given)
 })
 
-
 test_that("step_word_embeddings gives numeric output.", {
   expect_true(
     juiced %>%
@@ -115,10 +117,22 @@ test_that("step_word_embeddings gives numeric output.", {
       unlist() %>%
       all()
   )
+})
+
+
+# Run the tests. ----------------------------------------------------------
+
+test_that("step_word_embeddings tidy method works.", {
+  rec_tidied <- tidy(rec, 2)
+  obj_tidied <- tidy(obj, 2)
+  expected_cols <- c("terms", "embeddings_rows", "aggregation", "id")
   
-  # Need to dig in and grok what impacts this part before I finalize the test.
-  # expect_equal(dim(tidy(rec, 2)), c(1, 4))
-  # expect_equal(dim(tidy(obj, 2)), c(1, 4))
+  expect_equal(dim(rec_tidied), c(1, 4))
+  expect_equal(dim(obj_tidied), c(1, 4))
+  expect_identical(colnames(rec_tidied), expected_cols)
+  expect_identical(colnames(obj_tidied), expected_cols)
+  expect_identical(rec_tidied$embeddings_rows, 17L)
+  expect_identical(rec_tidied$aggregation, "sum")
 })
 
 test_that("step_word_embeddings aggregates vectors as expected.", {
@@ -154,9 +168,52 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
   expect_identical(juiced_mean, select(sentence_embeddings_mean, -text))
 })
 
-# test_that("step_word_embeddings deals with missing words appropriately.", {
-#   # Warn if some of the words we're trying to match aren't in the embeddings
-#   # tibble.
-#   
-#   # Error if none of the words for a given row are in the embeddings tibble.
-# })
+test_that("step_word_embeddings deals with missing words appropriately.", {
+  # Warn if some of the words we're trying to match aren't in the embeddings
+  # tibble.
+  new_text <- tibble(
+    text = c(
+      "I would not eat red beans and rice.",
+      "I do not like them, they're not nice."
+    )
+  )
+  expect_warning(
+    bake(obj, new_data = new_text),
+    "red, beans, rice"
+  )
+  expect_warning(
+    bake(obj, new_data = new_text),
+    "they're, nice"
+  )
+  
+  # Technically I should make sure I *don't* get a warning for the known words,
+  # but right now I'm getting a warning about "seq.default" that I need to
+  # figure out; might be from recipes. This is the full warning:
+  # Warning message:
+  #   In seq.default(along = object$steps) :
+  #   partial argument match of 'along' to 'along.with'
+  
+  # expect_warning(
+  #   bake(obj, new_data = test_data),
+  #   NA
+  # )
+  
+  # Error if none of the words for a given row are in the embeddings tibble.
+  new_text <- tibble(
+    text = "aksjdf nagjli aslkfa"
+  )
+  expect_error(
+    bake(obj, new_data = new_text),
+    class = "all_tokens_missing_embeddings"
+  )
+})
+
+test_that("printing", {
+  expect_output(
+    print(rec),
+    "Word embeddings aggregated from text"
+  )
+  expect_output(
+    prep(rec, training = test_data, verbose = TRUE)
+  )
+})

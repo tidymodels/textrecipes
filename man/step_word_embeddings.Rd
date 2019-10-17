@@ -2,12 +2,15 @@
 % Please edit documentation in R/embeddings.R
 \name{step_word_embeddings}
 \alias{step_word_embeddings}
+\alias{tidy.step_word_embeddings}
 \title{Pretrained word embeddings of tokens}
 \usage{
 step_word_embeddings(recipe, ..., role = "predictor", trained = FALSE,
   columns = NULL, embeddings, aggregation = c("sum", "mean", "min",
   "max"), prefix = "w_embed", skip = FALSE,
   id = rand_id("word_embeddings"))
+
+\method{tidy}{step_word_embeddings}(x, ...)
 }
 \arguments{
 \item{recipe}{A recipe object. The step will be added to the sequence of
@@ -46,6 +49,8 @@ should be taken when using `skip = TRUE` as it may affect the computations
 for subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
+
+\item{x}{A `step_word_embeddings` object.}
 }
 \value{
 An updated version of `recipe` with the new step added to the
