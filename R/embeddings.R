@@ -209,6 +209,14 @@ aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   )
   embeddings_token_colname <- colnames(embeddings)[[1]]
   
+  # Add a "NA" token if there isn't one. For now I'm going to set this to all 0,
+  # we may want to revise this with more use cases.
+  if (!any(is.na(embeddings[[1]]))) {
+    embeddings[nrow(embeddings) + 1,] <- c(
+      NA, rep(0, ncol(embeddings) - 1)
+    )
+  }
+  
   # Deal with missing tokens.
   missing_tokens <- setdiff(tokens, embeddings[[1]])
   if (length(missing_tokens) > 0) {

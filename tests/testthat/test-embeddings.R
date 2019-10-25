@@ -217,3 +217,15 @@ test_that("printing", {
     prep(rec, training = test_data, verbose = TRUE)
   )
 })
+
+test_that("NA tokens work.", {
+  new_text <- tibble(
+    text = c("am", "and", NA)
+  )
+  test_result <- bake(obj, new_data = new_text)
+  expected_result <- rbind(
+    bake(obj, new_data = new_text[1:2,]),
+    c(0, 0, 0, 0, 0)
+  )
+  expect_identical(test_result, expected_result)
+})
