@@ -1,5 +1,9 @@
 # textrecipes (development version)
 
+## Changed behaviour
+
+* step_tfidf() calculations are slightly changed due to flaw in original implementation https://github.com/dselivanov/text2vec/issues/280.
+
 # textrecipes 0.0.2
 
 * Custom stemming function can now be used in step_stem using the custom_stemmer argument.

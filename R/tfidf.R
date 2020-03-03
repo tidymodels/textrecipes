@@ -80,8 +80,8 @@
 #' give us that much insight, but if it only appear in some it might help
 #' us differentiate the observations. 
 #' 
-#' The IDF is defined as follows: idf = log(# documents in the corpus) / 
-#' (# documents where the term appears + 1)
+#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / 
+#' (# documents where the term appears))
 #' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
