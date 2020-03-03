@@ -14,3 +14,5 @@
 ^textrecipes\.Rcheck$
 ^textrecipes.*\.tar\.gz$
 ^textrecipes.*\.tgz$
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pr-commands\.yaml$
