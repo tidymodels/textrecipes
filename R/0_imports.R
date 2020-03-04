@@ -13,6 +13,8 @@
 #' @importFrom generics tidy
 #' 
 #' @importFrom stopwords stopwords
+#' 
+#' @importFrom tidyr unnest
 NULL
 
 
