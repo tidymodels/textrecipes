@@ -1,7 +1,6 @@
 #' Calculates word2vec dimension estimates
 #'
 #' @description
-#' \lifecycle{experimental}
 #' `step_word2vec` creates a *specification* of a recipe step that
 #' will return the word2vec dimension estimates of a text variable.
 #'
