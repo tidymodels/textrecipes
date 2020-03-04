@@ -1,13 +1,13 @@
-#' Calculates word2vec dimension estimates
+#' Calculates lda dimension estimates
 #'
 #' @description
-#' `step_word2vec` creates a *specification* of a recipe step that
-#' will return the word2vec dimension estimates of a text variable.
+#' `step_lda` creates a *specification* of a recipe step that
+#' will return the lda dimension estimates of a text variable.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_word2vec`, this indicates the variables to be encoded
+#'  For `step_lda`, this indicates the variables to be encoded
 #'  into a list column. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
@@ -21,7 +21,7 @@
 #' to NULL, the default, will it train its model based on the training data.
 #' Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
-#' @param prefix A prefix for generated column names, default to "word2vec".
+#' @param prefix A prefix for generated column names, default to "lda".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
 #'  operations are baked when [recipes::prep.recipe()] is run, some
@@ -42,7 +42,7 @@
 #' data(okc_text)
 #'
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
-#'   step_word2vec(essay0)
+#'   step_lda(essay0)
 #'
 #' okc_obj <- okc_rec %>%
 #'   prep(training = okc_text, retain = TRUE)
@@ -55,7 +55,7 @@
 #'
 #' # Changing the number of topics.
 #' recipe(~ ., data = okc_text) %>%
-#'   step_word2vec(essay0, essay1, num_topics = 20) %>%
+#'   step_lda(essay0, essay1, num_topics = 20) %>%
 #'   prep() %>%
 #'   juice() %>%
 #'   slice(1:2)
@@ -69,13 +69,13 @@
 #' lda_model <- LDA$new(n_topics = 15)
 #'
 #' recipe(~ ., data = okc_text) %>%
-#'   step_word2vec(essay0, essay1, lda_models = lda_model) %>%
+#'   step_lda(essay0, essay1, lda_models = lda_model) %>%
 #'   prep() %>%
 #'   juice() %>%
 #'   slice(1:2)
 #' }
 #' @export
-step_word2vec <-
+step_lda <-
   function(recipe,
            ...,
            role = "predictor",
@@ -83,16 +83,16 @@ step_word2vec <-
            columns = NULL,
            lda_models = NULL,
            num_topics = 10,
-           prefix = "word2vec",
+           prefix = "lda",
            skip = FALSE,
-           id = rand_id("word2vec")
+           id = rand_id("lda")
   ) {
     
     recipes::recipes_pkg_check("textfeatures")
     
     add_step(
       recipe,
-      step_word2vec_new(
+      step_lda_new(
         terms = ellipse_check(...),
         role = role,
         trained = trained,
@@ -106,11 +106,11 @@ step_word2vec <-
     )
   }
 
-step_word2vec_new <-
+step_lda_new <-
   function(terms, role, trained, columns, lda_models, num_topics, prefix,
            skip, id) {
     step(
-      subclass = "word2vec",
+      subclass = "lda",
       terms = terms,
       role = role,
       trained = trained,
@@ -124,7 +124,7 @@ step_word2vec_new <-
   }
 
 #' @export
-prep.step_word2vec <- function(x, training, info = NULL, ...) {
+prep.step_lda <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
 
   training <- factor_to_text(training, col_names)
@@ -142,7 +142,7 @@ prep.step_word2vec <- function(x, training, info = NULL, ...) {
     )
   }
 
-  step_word2vec_new(
+  step_lda_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
@@ -156,7 +156,7 @@ prep.step_word2vec <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-bake.step_word2vec <- function(object, new_data, ...) {
+bake.step_lda <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
 
@@ -181,17 +181,17 @@ bake.step_word2vec <- function(object, new_data, ...) {
 }
 
 #' @export
-print.step_word2vec <-
+print.step_lda <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Text feature extraction for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
   }
 
-#' @rdname step_word2vec
-#' @param x A `step_word2vec` object.
+#' @rdname step_lda
+#' @param x A `step_lda` object.
 #' @export
-tidy.step_word2vec <- function(x, ...) {
+tidy.step_lda <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,

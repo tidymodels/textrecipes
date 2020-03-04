@@ -32,4 +32,4 @@ reference:
     contents:
     - step_textfeature
     - step_sequence_onehot
-    - step_word2vec
+    - step_lda

@@ -82,7 +82,7 @@
 #'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
 #'   `word_embeddings_sum_d2`, etc.
 #'
-#' @seealso [step_tokenize()] [step_word2vec()]
+#' @seealso [step_tokenize()] [step_lda()]
 step_word_embeddings <- function(recipe,
                             ...,
                             role = "predictor",

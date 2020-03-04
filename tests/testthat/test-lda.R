@@ -1,4 +1,4 @@
-context("test-word2vec")
+context("test-lda")
 
 set.seed(1234)
 library(recipes)
@@ -7,11 +7,11 @@ library(textrecipes)
 n_rows <- 100
 rec <- recipe(~ essay0 + essay1, data = okc_text[seq_len(n_rows), ])
 
-test_that("step_word2vec works as intended", {
+test_that("step_lda works as intended", {
   skip_if_not_installed("text2vec")
   n_top <- 10
   rec1 <- rec %>%
-    step_word2vec(essay0, num_topics = n_top)
+    step_lda(essay0, num_topics = n_top)
   
   obj <- rec1 %>%
     prep()
@@ -22,11 +22,11 @@ test_that("step_word2vec works as intended", {
   expect_equal(dim(tidy(obj, 1)), c(1, 3))
 })
 
-test_that("step_word2vec works with num_topics argument", {
+test_that("step_lda works with num_topics argument", {
   skip_if_not_installed("text2vec")
   n_top <- 100
   rec1 <- rec %>%
-    step_word2vec(essay0, num_topics = n_top)
+    step_lda(essay0, num_topics = n_top)
   
   obj <- rec1 %>%
     prep()
@@ -37,7 +37,7 @@ test_that("step_word2vec works with num_topics argument", {
 test_that("printing", {
   skip_if_not_installed("text2vec")
   rec <- rec %>%
-    step_word2vec(essay0)
+    step_lda(essay0)
   
   expect_output(print(rec))
   expect_output(prep(rec, training = okc_text, verbose = TRUE))

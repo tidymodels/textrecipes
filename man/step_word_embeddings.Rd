@@ -119,5 +119,5 @@ tidy(rec, number = 2)
 tidy(obj, number = 2)
 }
 \seealso{
-[step_tokenize()] [step_word2vec()]
+[step_tokenize()] [step_lda()]
 }
