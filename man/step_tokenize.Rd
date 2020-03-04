@@ -113,5 +113,5 @@ juice(okc_obj_chars) \%>\%
   pull(essay0)
 }
 \seealso{
-[step_untokenize]
+[step_untokenize()] to untokenize.
 }

@@ -76,7 +76,7 @@
 #' Working will `textrecipes` will always start by calling `step_tokenize`
 #' followed by modifying and filtering steps.
 #'
-#' @seealso [step_untokenize]
+#' @seealso [step_untokenize()] to untokenize.
 step_tokenize <-
   function(recipe,
            ...,
