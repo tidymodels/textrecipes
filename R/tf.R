@@ -107,9 +107,8 @@ step_tf <-
     recipes::recipes_pkg_check("text2vec")
     
     if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1)
-      stop("`weight_scheme` should be one of: ",
-           paste0("'", tf_funs, "'", collapse = ", "),
-           call. = FALSE)
+      rlang::abort(paste0("`weight_scheme` should be one of: ",
+                          "'", tf_funs, "'", collapse = ", "))
 
     add_step(
       recipe,

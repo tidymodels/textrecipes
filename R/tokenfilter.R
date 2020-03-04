@@ -91,8 +91,9 @@ step_tokenfilter <-
 
     if (percentage && (max_times > 1 | max_times < 0 |
                       min_times > 1 | min_times < 0))
-      stop("`max_times` and `min_times` should be in the interval [0, 1].",
-           call. = FALSE)
+      rlang::abort(
+        "`max_times` and `min_times` should be in the interval [0, 1]."
+        )
 
     add_step(
       recipe,
@@ -192,8 +193,9 @@ tokenfilter_fun <- function(data, max_times, min_times, max_features,
     names(sort(tf[ids], decreasing = TRUE))
   } else {
     if (max_features > sum(ids)) {
-      warning(paste0("max_features was set to '", max_features,
-                     "', but only ", sum(ids), " was available and selected."))
+      rlang::warn(paste0("max_features was set to '", max_features,
+                         "', but only ", sum(ids), 
+                         " was available and selected."))
       max_features <- sum(ids)
     }
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])

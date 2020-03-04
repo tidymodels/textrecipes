@@ -186,9 +186,8 @@ tokenizers_switch <- function(name) {
       "tweets", "words", "word_stems")
 
   if (!(name %in% possible_tokenizers))
-    stop("token should be one of the supported ",
-         paste0("'", possible_tokenizers, "'", collapse = ", "),
-         call. = FALSE)
+    rlang::abort(paste0("token should be one of the supported ",
+                        "'", possible_tokenizers, "'", collapse = ", "))
 
   switch(name,
          characters = tokenizers::tokenize_characters,

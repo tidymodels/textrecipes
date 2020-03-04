@@ -191,11 +191,11 @@ validate_string2num <- function(fun) {
 
   out <- fun(string)
   if (!(is.numeric(out) | is.logical(out))) {
-    stop(deparse(substitute(fun)), " must return a numeric.")
+    rlang::abort(paste0(deparse(substitute(fun)), " must return a numeric."))
   }
 
   if (length(string) != length(out)) {
-    stop(deparse(substitute(fun)),
-         " must return the same length output as its input.")
+    rlang::abort(paste0(deparse(substitute(fun)),
+                        " must return the same length output as its input."))
   }
 }
