@@ -15,8 +15,9 @@
 #' @importFrom stopwords stopwords
 #' 
 #' @importFrom tidyr unnest
+#' 
+#' @importFrom Matrix sparseMatrix
 NULL
-
 
 # nocov start
 .onLoad <- function(libname, pkgname) {

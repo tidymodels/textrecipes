@@ -32,7 +32,6 @@ data("okc_text")
 Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments `custom_stopword_source` and `keep = TRUE` in `step_stopwords`. 
 
 ```{r}
-if (requireNamespace("text2vec", quietly = TRUE)) {
 words <- c("you", "i", "sad", "happy")
 
 okc_rec <- recipe(~ ., data = okc_text) %>%
@@ -45,7 +44,6 @@ okc_obj <- okc_rec %>%
    
 bake(okc_obj, okc_text) %>%
   select(starts_with("tf_essay0"))
-}
 ```
 
 ## Removing words in addition to the stop words list

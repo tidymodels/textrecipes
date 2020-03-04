@@ -28,6 +28,7 @@ Imports:
     SnowballC,
     stopwords,
     magrittr,
+    Matrix,
     stringr
 Suggests: 
     covr,
