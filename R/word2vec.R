@@ -124,7 +124,6 @@ step_word2vec_new <-
   }
 
 #' @export
-#' @importFrom textfeatures word_dims word_dims_newtext
 prep.step_word2vec <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
 
@@ -137,7 +136,8 @@ prep.step_word2vec <- function(x, training, info = NULL, ...) {
   for (i in seq_along(col_names)) {
     ddd <- utils::capture.output(
       model_list[[i]] <- x$lda_models %||%
-        attr(word_dims(training[, col_names[i], drop = TRUE], n = x$num_topics),
+        attr(textfeatures::word_dims(training[, col_names[i], drop = TRUE], 
+                                     n = x$num_topics),
              "dict")
     )
   }
@@ -167,7 +167,7 @@ bake.step_word2vec <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     ddd <- utils::capture.output(
-      tf_text <- word_dims_newtext(object$lda_models[[i]],
+      tf_text <- textfeatures::word_dims_newtext(object$lda_models[[i]],
                                    new_data[, col_names[i], drop = TRUE])
     )
     attr(tf_text, "dict") <- NULL

@@ -27,14 +27,14 @@ Imports:
     SnowballC,
     stopwords,
     magrittr,
-    stringr,
-    textfeatures (>= 0.3.3)
+    stringr
 Suggests: 
     covr,
     testthat (>= 2.1.0),
     knitr,
     text2vec,
-    rmarkdown
+    rmarkdown,
+    textfeatures (>= 0.3.3)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

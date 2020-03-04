@@ -33,6 +33,7 @@
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
 #' @examples
+#' if (requireNamespace("textfeatures", quietly = TRUE)) {
 #' library(recipes)
 #' 
 #' data(okc_text)
@@ -60,7 +61,7 @@
 #'                    extract_functions = list(nchar10 = nchar_round_10)) %>%
 #'   prep(training = okc_text) %>%
 #'   juice()
-#' 
+#' }
 #' @export
 #' @details 
 #' This step will take a character column and returns a number of numeric 
@@ -74,14 +75,13 @@
 #'
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check 
 #' @importFrom recipes check_type rand_id
-#' @importFrom textfeatures count_functions
 step_textfeature <-
   function(recipe,
            ...,
            role = "predictor",
            trained = FALSE,
            columns = NULL,
-           extract_functions = count_functions,
+           extract_functions = textfeatures::count_functions,
            prefix = "textfeature",
            skip = FALSE,
            id = rand_id("textfeature")
@@ -204,9 +204,3 @@ validate_string2num <- function(fun) {
          " must return the same length output as its input.")
   }
 }
-
-#' Counting functions from textfeatures
-#' @name count_functions
-#' @export
-#' @importFrom textfeatures count_functions
-NULL
