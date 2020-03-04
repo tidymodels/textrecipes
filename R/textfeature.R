@@ -72,9 +72,6 @@
 #' All the functions passed to `extract_functions` must take a character vector
 #' as input and return a numeric vector of the same length, otherwise an error 
 #' will be thrown.
-#'
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_textfeature <-
   function(recipe,
            ...,
@@ -143,9 +140,6 @@ prep.step_textfeature <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map_dfc
 bake.step_textfeature <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -167,7 +161,6 @@ bake.step_textfeature <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_textfeature <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -178,7 +171,6 @@ print.step_textfeature <-
 
 #' @rdname step_textfeature
 #' @param x A `step_textfeature` object.
-#' @importFrom recipes sel2char
 #' @export
 tidy.step_textfeature <- function(x, ...) {
   if (is_trained(x)) {

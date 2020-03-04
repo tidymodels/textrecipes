@@ -39,9 +39,9 @@ created by the original variables will be used as predictors in a model.}
 `NULL` until the step is trained by [recipes::prep.recipe()].}
 
 \item{embeddings}{A tibble of pre-trained word embeddings, such as those
-returned by an \code{\link[textdata]{embedding_glove}} function. The first
-column should contain tokens, and additional columns should contain
-embeddings vectors.}
+returned by the embedding_glove function function from the textdata 
+pacakge. The first column should contain tokens, and additional columns 
+should contain embeddings vectors.}
 
 \item{aggregation}{A character giving the name of the aggregation function to
 use.}

@@ -74,8 +74,6 @@
 #' limit the number of variables created.
 #' 
 #' @seealso [step_untokenize()]
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_tokenfilter <-
   function(recipe,
            ...,
@@ -166,9 +164,6 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map
 bake.step_tokenfilter <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -205,7 +200,6 @@ tokenfilter_fun <- function(data, max_times, min_times, max_features,
   }
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_tokenfilter <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -216,7 +210,6 @@ print.step_tokenfilter <-
 
 #' @rdname step_tokenfilter
 #' @param x A `step_tokenfilter` object.
-#' @importFrom rlang na_int
 #' @export
 tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {

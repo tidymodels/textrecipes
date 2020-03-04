@@ -58,8 +58,6 @@
 #' Characters not in the integer_key will be encoded as 0.
 #'
 #' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_sequence_onehot <-
   function(recipe,
            ...,
@@ -129,9 +127,6 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map_dfc
 bake.step_sequence_onehot <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -155,7 +150,6 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_sequence_onehot <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -166,7 +160,6 @@ print.step_sequence_onehot <-
 
 #' @rdname step_sequence_onehot
 #' @param x A `step_sequence_onehot` object.
-#' @importFrom recipes sel2char
 #' @export
 tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {

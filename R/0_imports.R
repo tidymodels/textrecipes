@@ -1,3 +1,21 @@
+#' @importFrom recipes add_step step terms_select sel2char ellipse_check names0
+#' @importFrom recipes printer check_type rand_id bake prep names0 is_trained
+#' 
+#' @importFrom tibble as_tibble tibble
+#' 
+#' @importFrom purrr map map_dfc map_chr map_lgl map_dfr pmap keep
+#' 
+#' @importFrom rlang %||% na_chr na_int expr na_lgl
+#' 
+#' @importFrom dplyr bind_cols inner_join mutate_all select rename_all 
+#' @importFrom dplyr summarize_all
+#' 
+#' @importFrom generics tidy
+#' 
+#' @importFrom stopwords stopwords
+NULL
+
+
 # nocov start
 .onLoad <- function(libname, pkgname) {
   # This package has specific methods for the `tunable` generic. That generic

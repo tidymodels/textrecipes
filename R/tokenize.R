@@ -77,8 +77,6 @@
 #' followed by modifying and filtering steps.
 #'
 #' @seealso [step_untokenize]
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_tokenize <-
   function(recipe,
            ...,
@@ -146,9 +144,6 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble
-#' @importFrom recipes bake prep
-#' @importFrom rlang %||%
 bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -165,7 +160,6 @@ bake.step_tokenize <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom rlang expr
 tokenizer_fun <- function(data, name, options, token, ...) {
   check_type(data[, name], quant = FALSE)
 
@@ -212,7 +206,6 @@ tokenizers_switch <- function(name) {
   )
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_tokenize <-
   function(x, width = max(20, options()$width - 30), ...) {

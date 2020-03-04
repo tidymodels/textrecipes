@@ -48,9 +48,6 @@
 #' tidy(okc_obj, number = 1)
 #' 
 #' @export
-#'
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_tokenmerge <-
   function(recipe,
            ...,
@@ -108,9 +105,6 @@ prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map_dfc pmap
 bake.step_tokenmerge <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -126,7 +120,6 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_tokenmerge <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -137,7 +130,6 @@ print.step_tokenmerge <-
 
 #' @rdname step_tokenmerge
 #' @param x A `step_tokenmerge` object.
-#' @importFrom recipes sel2char
 #' @export
 tidy.step_tokenmerge <- function(x, ...) {
   if (is_trained(x)) {

@@ -16,9 +16,9 @@
 #' @param columns A list of tibble results that define the encoding. This is
 #'   `NULL` until the step is trained by [recipes::prep.recipe()].
 #' @param embeddings A tibble of pre-trained word embeddings, such as those
-#'   returned by an \code{\link[textdata]{embedding_glove}} function. The first
-#'   column should contain tokens, and additional columns should contain
-#'   embeddings vectors.
+#'   returned by the embedding_glove function function from the textdata 
+#'   pacakge. The first column should contain tokens, and additional columns 
+#'   should contain embeddings vectors.
 #' @param aggregation A character giving the name of the aggregation function to
 #'   use.
 #' @param prefix A character string that will be the prefix to the resulting new
@@ -83,10 +83,6 @@
 #'   `word_embeddings_sum_d2`, etc.
 #'
 #' @seealso [step_tokenize()] [step_word2vec()]
-#'
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check
-#' @importFrom recipes check_type rand_id
-#' @importFrom purrr map_lgl
 step_word_embeddings <- function(recipe,
                             ...,
                             role = "predictor",
@@ -172,10 +168,6 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map_dfr
-#' @importFrom dplyr bind_cols
 bake.step_word_embeddings <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -198,8 +190,6 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom tibble tibble
-#' @importFrom dplyr inner_join mutate_all select rename_all summarize_all
 aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   aggregation_function <- switch(
     aggregation,
@@ -255,7 +245,6 @@ aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   summarize_all(these_embeddings, aggregation_function)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_word_embeddings <- function(x, 
                                        width = max(20, options()$width - 30),
@@ -267,8 +256,6 @@ print.step_word_embeddings <- function(x,
 
 #' @rdname step_word_embeddings
 #' @param x A `step_word_embeddings` object.
-#' @importFrom generics tidy
-#' @importFrom recipes is_trained
 #' @export
 tidy.step_word_embeddings <- function(x, ...) {
   if (is_trained(x)) {

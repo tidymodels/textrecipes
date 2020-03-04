@@ -80,8 +80,6 @@
 #' will therefore not work reliably on ngrams or sentences.
 #' 
 #' @seealso [step_stopwords()] [step_tokenfilter()] [step_tokenize()]
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_stem <-
   function(recipe,
            ...,
@@ -142,9 +140,6 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map
 bake.step_stem <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -162,7 +157,6 @@ bake.step_stem <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_stem <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -173,7 +167,6 @@ print.step_stem <-
 
 #' @rdname step_stem
 #' @param x A `step_stem` object.
-#' @importFrom rlang na_chr
 #' @export
 tidy.step_stem <- function(x, ...) {
   if (is_trained(x)) {

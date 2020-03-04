@@ -75,9 +75,6 @@
 #'   slice(1:2)
 #' }
 #' @export
-#'
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check
-#' @importFrom recipes check_type rand_id
 step_word2vec <-
   function(recipe,
            ...,
@@ -159,9 +156,6 @@ prep.step_word2vec <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map_dfc
 bake.step_word2vec <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -186,7 +180,6 @@ bake.step_word2vec <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_word2vec <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -197,7 +190,6 @@ print.step_word2vec <-
 
 #' @rdname step_word2vec
 #' @param x A `step_word2vec` object.
-#' @importFrom recipes sel2char
 #' @export
 tidy.step_word2vec <- function(x, ...) {
   if (is_trained(x)) {

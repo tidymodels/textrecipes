@@ -78,9 +78,6 @@
 #'  Alex Smola; Josh Attenberg (2009).
 #'  
 #' @seealso [step_tf()] [step_tfidf()] [step_tokenize()]
-#' 
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_texthash <-
   function(recipe,
            ...,
@@ -151,10 +148,6 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble tibble
-#' @importFrom recipes bake prep names0
-#' @importFrom purrr map
-#' @importFrom dplyr bind_cols
 bake.step_texthash <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -191,7 +184,6 @@ list_to_hash <- function(x, n, signed) {
   as.matrix(text2vec::create_dtm(it, vectorizer))
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_texthash <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -202,9 +194,6 @@ print.step_texthash <-
 
 #' @rdname step_texthash
 #' @param x A `step_texthash` object.
-#' @importFrom rlang na_lgl na_int
-#' @importFrom generics tidy
-#' @importFrom recipes is_trained
 #' @export
 tidy.step_texthash <- function(x, ...) {
   if (is_trained(x)) {

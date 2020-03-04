@@ -78,8 +78,6 @@
 #' combination of these two arguments.
 #' 
 #' @seealso [step_stem()] [step_tokenfilter()] [step_tokenize()]
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_stopwords <-
   function(recipe,
            ...,
@@ -149,10 +147,6 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map
-#' @importFrom rlang %||%
 bake.step_stopwords <- function(object, new_data, ...) {
   col_names <- object$columns
 
@@ -171,7 +165,6 @@ bake.step_stopwords <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_stopwords <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -182,7 +175,6 @@ print.step_stopwords <-
 
 #' @rdname step_stopwords
 #' @param x A `step_stopwords` object.
-#' @importFrom rlang na_chr na_lgl
 #' @export
 tidy.step_stopwords <- function(x, ...) {
   if (is_trained(x)) {

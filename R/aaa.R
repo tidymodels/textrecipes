@@ -34,8 +34,6 @@ check_list <- function (dat) {
 
 # Takes a vector of character vectors and keeps (for keep = TRUE) the words
 # or removes (for keep = FALSE) the words
-#' @importFrom purrr keep
-#' @importFrom stopwords stopwords
 word_list_filter <- function(x, words, keep) {
 
   if (!keep) {
@@ -47,7 +45,6 @@ word_list_filter <- function(x, words, keep) {
 }
 # same as word_list_filter but takes an list as input and returns a tibble with
 # list-column.
-#' @importFrom purrr map
 word_tbl_filter <- function(x, words, keep) {
   tibble(
     map(x, word_list_filter, words, keep)

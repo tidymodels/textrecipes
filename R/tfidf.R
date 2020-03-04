@@ -92,8 +92,6 @@
 #' token.
 #' 
 #' @seealso [step_hashing()] [step_tf()] [step_tokenize()]
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check 
-#' @importFrom recipes check_type rand_id
 step_tfidf <-
   function(recipe,
            ...,
@@ -180,10 +178,6 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-#' @importFrom tibble as_tibble tibble
-#' @importFrom recipes bake prep
-#' @importFrom purrr map
-#' @importFrom dplyr bind_cols
 bake.step_tfidf <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
@@ -222,7 +216,6 @@ dtm_to_tfidf <- function(x, smooth_idf, norm, sublinear_tf) {
   as.matrix(model_tfidf$fit_transform(x))
 }
 
-#' @importFrom recipes printer
 #' @export
 print.step_tfidf <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -233,7 +226,6 @@ print.step_tfidf <-
 
 #' @rdname step_tfidf
 #' @param x A `step_tfidf` object.
-#' @importFrom rlang na_chr
 #' @export
 tidy.step_tfidf <- function(x, ...) {
   if (is_trained(x)) {
