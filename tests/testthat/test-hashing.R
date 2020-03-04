@@ -12,6 +12,7 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 rec <- recipe(~ ., data = test_data)
 
 test_that("hashing gives double outputs", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text)
@@ -32,6 +33,7 @@ test_that("hashing gives double outputs", {
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text, num_terms = 256) %>%
@@ -46,6 +48,7 @@ test_that("hashing output width changes accordingly with num_terms", {
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
+  skip_if_not_installed("text2vec")
   
   signed <- recipe(~ ., data = test_data) %>%
     step_tokenize(all_predictors()) %>%
@@ -68,6 +71,7 @@ test_that("hashing output width changes accordingly with num_terms", {
 
 
 test_that("printing", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text)

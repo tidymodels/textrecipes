@@ -36,6 +36,7 @@
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
 #' @examples
+#' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' library(recipes)
 #' 
 #' data(okc_text)
@@ -52,6 +53,7 @@
 #' 
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
+#' }
 #' @export
 #' @details
 #' Feature hashing, or the hashing trick, is a transformation of a 
@@ -91,6 +93,8 @@ step_texthash <-
            skip = FALSE,
            id = rand_id("texthash")) {
 
+    recipes::recipes_pkg_check("text2vec")
+    
     add_step(
       recipe,
       step_texthash_new(
@@ -181,11 +185,10 @@ hashing_function <- function(data, labels, signed, n) {
 }
 
 # Takes a list of tokens and calculate the hashed token count matrix
-#' @importFrom text2vec itoken create_dtm hash_vectorizer create_vocabulary
 list_to_hash <- function(x, n, signed) {
-  it <- itoken(x, progress = FALSE)
-  vectorizer <- hash_vectorizer(hash_size = n, signed_hash = signed)
-  as.matrix(create_dtm(it, vectorizer))
+  it <- text2vec::itoken(x, progress = FALSE)
+  vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
+  as.matrix(text2vec::create_dtm(it, vectorizer))
 }
 
 #' @importFrom recipes printer

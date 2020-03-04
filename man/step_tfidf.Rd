@@ -5,10 +5,21 @@
 \alias{tidy.step_tfidf}
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
-step_tfidf(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, vocabulary = NULL, res = NULL, smooth_idf = TRUE,
-  norm = "l1", sublinear_tf = FALSE, prefix = "tfidf",
-  skip = FALSE, id = rand_id("tfidf"))
+step_tfidf(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  vocabulary = NULL,
+  res = NULL,
+  smooth_idf = TRUE,
+  norm = "l1",
+  sublinear_tf = FALSE,
+  prefix = "tfidf",
+  skip = FALSE,
+  id = rand_id("tfidf")
+)
 
 \method{tidy}{step_tfidf}(x, ...)
 }
@@ -92,8 +103,8 @@ observations. If a word appears in all the observations it might not
 give us that much insight, but if it only appear in some it might help
 us differentiate the observations. 
 
-The IDF is defined as follows: idf = log(# documents in the corpus) / 
-(# documents where the term appears + 1)
+The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / 
+(# documents where the term appears))
 
 The new components will have names that begin with `prefix`, then
 the name of the variable, followed by the tokens all seperated by
@@ -101,7 +112,9 @@ the name of the variable, followed by the tokens all seperated by
 token.
 }
 \examples{
+if (requireNamespace("text2vec", quietly = TRUE)) {
 \donttest{
+
 library(recipes)
 
 data(okc_text)
@@ -117,6 +130,7 @@ bake(okc_obj, okc_text)
 
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+}
 }
 }
 \seealso{

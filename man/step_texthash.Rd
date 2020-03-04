@@ -5,9 +5,18 @@
 \alias{tidy.step_texthash}
 \title{Term frequency of tokens}
 \usage{
-step_texthash(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, signed = TRUE, num_terms = 1024, prefix = "hash",
-  skip = FALSE, id = rand_id("texthash"))
+step_texthash(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  signed = TRUE,
+  num_terms = 1024,
+  prefix = "hash",
+  skip = FALSE,
+  id = rand_id("texthash")
+)
 
 \method{tidy}{step_texthash}(x, ...)
 }
@@ -82,6 +91,7 @@ if `num_terms < 10`, their names will be `hash1` - `hash9`.
 If `num_terms = 101`, their names will be `hash001` - `hash101`.
 }
 \examples{
+if (requireNamespace("text2vec", quietly = TRUE)) {
 library(recipes)
 
 data(okc_text)
@@ -98,6 +108,7 @@ bake(okc_obj, okc_text)
 
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+}
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford; 

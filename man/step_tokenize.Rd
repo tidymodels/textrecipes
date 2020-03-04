@@ -5,9 +5,18 @@
 \alias{tidy.step_tokenize}
 \title{Tokenization of character variables}
 \usage{
-step_tokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, options = list(), token = "words",
-  custom_token = NULL, skip = FALSE, id = rand_id("tokenize"))
+step_tokenize(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  columns = NULL,
+  options = list(),
+  token = "words",
+  custom_token = NULL,
+  skip = FALSE,
+  id = rand_id("tokenize")
+)
 
 \method{tidy}{step_tokenize}(x, ...)
 }

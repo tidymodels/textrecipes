@@ -5,9 +5,17 @@
 \alias{tidy.step_stem}
 \title{Stemming of list-column variables}
 \usage{
-step_stem(recipe, ..., role = NA, trained = FALSE, columns = NULL,
-  options = list(), custom_stemmer = NULL, skip = FALSE,
-  id = rand_id("stem"))
+step_stem(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  columns = NULL,
+  options = list(),
+  custom_stemmer = NULL,
+  skip = FALSE,
+  id = rand_id("stem")
+)
 
 \method{tidy}{step_stem}(x, ...)
 }

@@ -8,9 +8,18 @@
 \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
 }
 \usage{
-step_sequence_onehot(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, string_length = 100, integer_key = letters,
-  prefix = "seq1hot", skip = FALSE, id = rand_id("sequence_onehot"))
+step_sequence_onehot(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  string_length = 100,
+  integer_key = letters,
+  prefix = "seq1hot",
+  skip = FALSE,
+  id = rand_id("sequence_onehot")
+)
 
 \method{tidy}{step_sequence_onehot}(x, ...)
 }

@@ -12,6 +12,7 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 rec <- recipe(~ ., data = test_data)
 
 test_that("step_tf works as intended", {
+  skip_if_not_installed("text2vec")
    rec <- rec %>%
      step_tokenize(text) %>%
      step_tf(text) 
@@ -48,6 +49,7 @@ test_that("step_tf works as intended", {
 })
 
 test_that("step_tf works with vocabulary argument", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tf(text, vocabulary = letters) 
@@ -63,6 +65,7 @@ test_that("step_tf works with vocabulary argument", {
 
 
 test_that("step_tf works with other weighting schemes", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tf(text, weight_scheme = "term frequency") 
@@ -96,6 +99,7 @@ test_that("step_tf works with other weighting schemes", {
 })
 
 test_that("printing", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tf(text)

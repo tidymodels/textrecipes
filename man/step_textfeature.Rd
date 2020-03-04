@@ -5,9 +5,17 @@
 \alias{tidy.step_textfeature}
 \title{Generate the basic set of text features}
 \usage{
-step_textfeature(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, extract_functions = count_functions,
-  prefix = "textfeature", skip = FALSE, id = rand_id("textfeature"))
+step_textfeature(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  extract_functions = textfeatures::count_functions,
+  prefix = "textfeature",
+  skip = FALSE,
+  id = rand_id("textfeature")
+)
 
 \method{tidy}{step_textfeature}(x, ...)
 }
@@ -69,6 +77,7 @@ as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
 \examples{
+if (requireNamespace("textfeatures", quietly = TRUE)) {
 library(recipes)
 
 data(okc_text)
@@ -96,5 +105,5 @@ recipe(~ ., data = okc_text) \%>\%
                    extract_functions = list(nchar10 = nchar_round_10)) \%>\%
   prep(training = okc_text) \%>\%
   juice()
-
+}
 }

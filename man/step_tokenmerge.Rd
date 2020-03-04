@@ -5,9 +5,16 @@
 \alias{tidy.step_tokenmerge}
 \title{Generate the basic set of text features}
 \usage{
-step_tokenmerge(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, prefix = "tokenmerge", skip = FALSE,
-  id = rand_id("tokenmerge"))
+step_tokenmerge(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  prefix = "tokenmerge",
+  skip = FALSE,
+  id = rand_id("tokenmerge")
+)
 
 \method{tidy}{step_tokenmerge}(x, ...)
 }

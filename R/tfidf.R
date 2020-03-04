@@ -44,7 +44,9 @@
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
 #' @examples
+#' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' \donttest{
+#' 
 #' library(recipes)
 #' 
 #' data(okc_text)
@@ -60,6 +62,7 @@
 #' 
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
+#' }
 #' }
 #' @export
 #' @details
@@ -80,8 +83,8 @@
 #' give us that much insight, but if it only appear in some it might help
 #' us differentiate the observations. 
 #' 
-#' The IDF is defined as follows: idf = log(# documents in the corpus) / 
-#' (# documents where the term appears + 1)
+#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / 
+#' (# documents where the term appears))
 #' 
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all seperated by
@@ -106,6 +109,8 @@ step_tfidf <-
            skip = FALSE,
            id = rand_id("tfidf")) {
 
+    recipes::recipes_pkg_check("text2vec")
+    
     add_step(
       recipe,
       step_tfidf_new(
@@ -210,12 +215,10 @@ tfidf_function <- function(data, names, labels, smooth_idf, norm,
   as_tibble(tfidf)
 }
 
-
-#' @importFrom text2vec TfIdf
 dtm_to_tfidf <- function(x, smooth_idf, norm, sublinear_tf) {
-  model_tfidf <- TfIdf$new(smooth_idf = smooth_idf,
-                           norm = norm,
-                           sublinear_tf = sublinear_tf)
+  model_tfidf <- text2vec::TfIdf$new(smooth_idf = smooth_idf,
+                                     norm = norm,
+                                     sublinear_tf = sublinear_tf)
   as.matrix(model_tfidf$fit_transform(x))
 }
 

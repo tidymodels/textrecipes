@@ -1,7 +1,6 @@
 #' Calculates word2vec dimension estimates
 #'
 #' @description
-#' \lifecycle{experimental}
 #' `step_word2vec` creates a *specification* of a recipe step that
 #' will return the word2vec dimension estimates of a text variable.
 #'
@@ -37,6 +36,7 @@
 #'  to the sequence of existing steps (if any).
 #' @source \url{https://arxiv.org/abs/1301.3781}
 #' @examples
+#' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' library(recipes)
 #'
 #' data(okc_text)
@@ -73,7 +73,7 @@
 #'   prep() %>%
 #'   juice() %>%
 #'   slice(1:2)
-#'
+#' }
 #' @export
 #'
 #' @importFrom recipes add_step step terms_select sel2char ellipse_check
@@ -90,6 +90,9 @@ step_word2vec <-
            skip = FALSE,
            id = rand_id("word2vec")
   ) {
+    
+    recipes::recipes_pkg_check("textfeatures")
+    
     add_step(
       recipe,
       step_word2vec_new(
@@ -124,7 +127,6 @@ step_word2vec_new <-
   }
 
 #' @export
-#' @importFrom textfeatures word_dims word_dims_newtext
 prep.step_word2vec <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
 
@@ -137,7 +139,8 @@ prep.step_word2vec <- function(x, training, info = NULL, ...) {
   for (i in seq_along(col_names)) {
     ddd <- utils::capture.output(
       model_list[[i]] <- x$lda_models %||%
-        attr(word_dims(training[, col_names[i], drop = TRUE], n = x$num_topics),
+        attr(textfeatures::word_dims(training[, col_names[i], drop = TRUE], 
+                                     n = x$num_topics),
              "dict")
     )
   }
@@ -167,7 +170,7 @@ bake.step_word2vec <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     ddd <- utils::capture.output(
-      tf_text <- word_dims_newtext(object$lda_models[[i]],
+      tf_text <- textfeatures::word_dims_newtext(object$lda_models[[i]],
                                    new_data[, col_names[i], drop = TRUE])
     )
     attr(tf_text, "dict") <- NULL

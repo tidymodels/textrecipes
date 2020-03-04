@@ -5,10 +5,19 @@
 \alias{tidy.step_stopwords}
 \title{Filtering of stopwords from a list-column variable}
 \usage{
-step_stopwords(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, language = "en", keep = FALSE,
-  stopword_source = "snowball", custom_stopword_source = NULL,
-  skip = FALSE, id = rand_id("stopwords"))
+step_stopwords(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  columns = NULL,
+  language = "en",
+  keep = FALSE,
+  stopword_source = "snowball",
+  custom_stopword_source = NULL,
+  skip = FALSE,
+  id = rand_id("stopwords")
+)
 
 \method{tidy}{step_stopwords}(x, ...)
 }

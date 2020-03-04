@@ -8,9 +8,18 @@
 \url{https://arxiv.org/abs/1301.3781}
 }
 \usage{
-step_word2vec(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, lda_models = NULL, num_topics = 10,
-  prefix = "word2vec", skip = FALSE, id = rand_id("word2vec"))
+step_word2vec(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  lda_models = NULL,
+  num_topics = 10,
+  prefix = "word2vec",
+  skip = FALSE,
+  id = rand_id("word2vec")
+)
 
 \method{tidy}{step_word2vec}(x, ...)
 }
@@ -60,11 +69,11 @@ An updated version of `recipe` with the new step added
  to the sequence of existing steps (if any).
 }
 \description{
-\lifecycle{experimental}
 `step_word2vec` creates a *specification* of a recipe step that
 will return the word2vec dimension estimates of a text variable.
 }
 \examples{
+if (requireNamespace("text2vec", quietly = TRUE)) {
 library(recipes)
 
 data(okc_text)
@@ -100,5 +109,5 @@ recipe(~ ., data = okc_text) \%>\%
   prep() \%>\%
   juice() \%>\%
   slice(1:2)
-
+}
 }

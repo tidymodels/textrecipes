@@ -5,9 +5,16 @@
 \alias{tidy.step_untokenize}
 \title{Untokenization of list-column variables}
 \usage{
-step_untokenize(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, sep = " ", skip = FALSE,
-  id = rand_id("untokenize"))
+step_untokenize(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  columns = NULL,
+  sep = " ",
+  skip = FALSE,
+  id = rand_id("untokenize")
+)
 
 \method{tidy}{step_untokenize}(x, ...)
 }

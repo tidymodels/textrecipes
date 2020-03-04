@@ -10,6 +10,8 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 rec <- recipe(~ ., data = test_data)
 
 test_that("textfeature extraction is done correctly", {
+  skip_if_not_installed("textfeatures")
+  library(textfeatures)
   rec <- rec %>%
     step_textfeature(text)
   
@@ -28,6 +30,7 @@ test_that("textfeature extraction is done correctly", {
 })
 
 test_that("custom extraction functions work works", {
+  skip_if_not_installed("textfeatures")
   nchar1 <- function(x) nchar(x) + 1
   nchar2 <- function(x) nchar(x) + 2
   nchar3 <- function(x) nchar(x) + 3
@@ -58,6 +61,7 @@ test_that("custom extraction functions work works", {
 })
 
 test_that("printing", {
+  skip_if_not_installed("textfeatures")
   rec <- rec %>%
     step_textfeature(text)
   expect_output(print(rec))

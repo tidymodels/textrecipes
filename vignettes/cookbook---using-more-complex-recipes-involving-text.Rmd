@@ -32,6 +32,7 @@ data("okc_text")
 Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments `custom_stopword_source` and `keep = TRUE` in `step_stopwords`. 
 
 ```{r}
+if (requireNamespace("text2vec", quietly = TRUE)) {
 words <- c("you", "i", "sad", "happy")
 
 okc_rec <- recipe(~ ., data = okc_text) %>%
@@ -44,6 +45,7 @@ okc_obj <- okc_rec %>%
    
 bake(okc_obj, okc_text) %>%
   select(starts_with("tf_essay0"))
+}
 ```
 
 ## Removing words in addition to the stop words list
@@ -51,6 +53,7 @@ bake(okc_obj, okc_text) %>%
 You might know of certain words you don't want included which isn't a part of the stop word list of choice. This can easily be done by applying the `step_stopwords` step twice, once for the stop words and once for your special words.
 
 ```{r}
+if (requireNamespace("text2vec", quietly = TRUE)) {
 words <- c("sad", "happy")
 
 okc_rec <- recipe(~ ., data = okc_text) %>%
@@ -64,6 +67,7 @@ okc_obj <- okc_rec %>%
    
 bake(okc_obj, okc_text) %>%
   select(starts_with("tfidf_essay0"))
+}
 ```
 
 ## Letter distributions
@@ -71,6 +75,7 @@ bake(okc_obj, okc_text) %>%
 Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the `step_stopwords` step.
 
 ```{r}
+if (requireNamespace("text2vec", quietly = TRUE)) {
 okc_rec <- recipe(~ ., data = okc_text) %>%
   step_tokenize(essay0, token = "characters") %>%
   step_stopwords(essay0, custom_stopword_source = letters, keep = TRUE) %>%
@@ -81,6 +86,7 @@ okc_obj <- okc_rec %>%
    
 bake(okc_obj, okc_text) %>%
   select(starts_with("tf_essay0"))
+}
 ```
 
 ## TF-IDF of ngrams of stemmed tokens
@@ -90,6 +96,7 @@ Sometimes fairly complicated computations. Here we would like the term frequency
 First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using `step_untokenize` so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.
 
 ```{r}
+if (requireNamespace("text2vec", quietly = TRUE)) {
 okc_rec <- recipe(~ ., data = okc_text) %>%
   step_tokenize(essay0, token = "words") %>%
   step_stem(essay0) %>%
@@ -103,6 +110,7 @@ okc_obj <- okc_rec %>%
    
 bake(okc_obj, okc_text) %>%
   select(starts_with("tfidf_essay0"))
+}
 ```
 
 
