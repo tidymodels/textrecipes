@@ -5,9 +5,17 @@
 \alias{tidy.step_textfeature}
 \title{Generate the basic set of text features}
 \usage{
-step_textfeature(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, extract_functions = count_functions,
-  prefix = "textfeature", skip = FALSE, id = rand_id("textfeature"))
+step_textfeature(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  extract_functions = count_functions,
+  prefix = "textfeature",
+  skip = FALSE,
+  id = rand_id("textfeature")
+)
 
 \method{tidy}{step_textfeature}(x, ...)
 }

@@ -5,10 +5,20 @@
 \alias{tidy.step_tf}
 \title{Term frequency of tokens}
 \usage{
-step_tf(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, weight_scheme = "raw count", weight = 0.5,
-  vocabulary = NULL, res = NULL, prefix = "tf", skip = FALSE,
-  id = rand_id("tf"))
+step_tf(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  weight_scheme = "raw count",
+  weight = 0.5,
+  vocabulary = NULL,
+  res = NULL,
+  prefix = "tf",
+  skip = FALSE,
+  id = rand_id("tf")
+)
 
 \method{tidy}{step_tf}(x, ...)
 }
@@ -98,6 +108,7 @@ the name of the variable, followed by the tokens all seperated by
 token.
 }
 \examples{
+if (requireNamespace("text2vec", quietly = TRUE)) {
 \donttest{
 library(recipes)
 
@@ -114,6 +125,7 @@ bake(okc_obj, okc_text)
 
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+}
 }
 }
 \seealso{

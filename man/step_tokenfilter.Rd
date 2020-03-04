@@ -5,10 +5,20 @@
 \alias{tidy.step_tokenfilter}
 \title{Filter the tokens based on term frequency}
 \usage{
-step_tokenfilter(recipe, ..., role = NA, trained = FALSE,
-  columns = NULL, max_times = Inf, min_times = 0,
-  percentage = FALSE, max_tokens = 100, res = NULL, skip = FALSE,
-  id = rand_id("tokenfilter"))
+step_tokenfilter(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  columns = NULL,
+  max_times = Inf,
+  min_times = 0,
+  percentage = FALSE,
+  max_tokens = 100,
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("tokenfilter")
+)
 
 \method{tidy}{step_tokenfilter}(x, ...)
 }

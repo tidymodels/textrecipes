@@ -55,10 +55,9 @@ word_tbl_filter <- function(x, words, keep) {
 }
 
 # Takes a list of tokens and calculate the token count matrix
-#' @importFrom text2vec itoken create_dtm vocab_vectorizer create_vocabulary
 list_to_dtm <- function(x, values) {
 
-  it <- itoken(x, progress = FALSE)
-  vectorizer <- vocab_vectorizer(create_vocabulary(values))
-  create_dtm(it, vectorizer)
+  it <- text2vec::itoken(x, progress = FALSE)
+  vectorizer <- text2vec::vocab_vectorizer(text2vec::create_vocabulary(values))
+  text2vec::create_dtm(it, vectorizer)
 }

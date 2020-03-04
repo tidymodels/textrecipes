@@ -12,6 +12,7 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 rec <- recipe(~ ., data = test_data)
 
 test_that("step_tfidf works as intended", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tfidf(text) 
@@ -51,6 +52,7 @@ test_that("step_tfidf works as intended", {
 })
 
 test_that("step_tfidf works with vocabulary argument", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tfidf(text, vocabulary = letters) 
@@ -65,6 +67,7 @@ test_that("step_tfidf works with vocabulary argument", {
 })
 
 test_that("printing", {
+  skip_if_not_installed("text2vec")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tfidf(text)
