@@ -93,6 +93,8 @@ step_texthash <-
            skip = FALSE,
            id = rand_id("texthash")) {
 
+    recipes::recipes_pkg_check("text2vec")
+    
     add_step(
       recipe,
       step_texthash_new(

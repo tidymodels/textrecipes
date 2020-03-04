@@ -86,6 +86,9 @@ step_textfeature <-
            skip = FALSE,
            id = rand_id("textfeature")
   ) {
+    
+    recipes::recipes_pkg_check("textfeatures")
+    
     add_step(
       recipe,
       step_textfeature_new(

@@ -105,6 +105,9 @@ step_tf <-
            skip = FALSE,
            id = rand_id("tf")
   ) {
+    
+    recipes::recipes_pkg_check("text2vec")
+    
     if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1)
       stop("`weight_scheme` should be one of: ",
            paste0("'", tf_funs, "'", collapse = ", "),

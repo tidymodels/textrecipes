@@ -109,6 +109,8 @@ step_tfidf <-
            skip = FALSE,
            id = rand_id("tfidf")) {
 
+    recipes::recipes_pkg_check("text2vec")
+    
     add_step(
       recipe,
       step_tfidf_new(

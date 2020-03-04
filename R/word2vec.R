@@ -90,6 +90,9 @@ step_word2vec <-
            skip = FALSE,
            id = rand_id("word2vec")
   ) {
+    
+    recipes::recipes_pkg_check("textfeatures")
+    
     add_step(
       recipe,
       step_word2vec_new(
