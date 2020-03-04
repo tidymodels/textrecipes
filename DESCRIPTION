@@ -23,6 +23,7 @@ Imports:
     tokenizers,
     dplyr,
     tibble,
+    tidyr,
     purrr,
     SnowballC,
     stopwords,

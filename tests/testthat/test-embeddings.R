@@ -186,17 +186,10 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
     "they're, nice"
   )
   
-  # Technically I should make sure I *don't* get a warning for the known words,
-  # but right now I'm getting a warning about "seq.default" that I need to
-  # figure out; might be from recipes. This is the full warning:
-  # Warning message:
-  #   In seq.default(along = object$steps) :
-  #   partial argument match of 'along' to 'along.with'
-  
-  # expect_warning(
-  #   bake(obj, new_data = test_data),
-  #   NA
-  # )
+  expect_warning(
+    bake(obj, new_data = test_data),
+    NA
+  )
   
   # Error if none of the words for a given row are in the embeddings tibble.
   new_text <- tibble(

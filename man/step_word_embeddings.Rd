@@ -5,10 +5,18 @@
 \alias{tidy.step_word_embeddings}
 \title{Pretrained word embeddings of tokens}
 \usage{
-step_word_embeddings(recipe, ..., role = "predictor", trained = FALSE,
-  columns = NULL, embeddings, aggregation = c("sum", "mean", "min",
-  "max"), prefix = "w_embed", skip = FALSE,
-  id = rand_id("word_embeddings"))
+step_word_embeddings(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  embeddings,
+  aggregation = c("sum", "mean", "min", "max"),
+  prefix = "w_embed",
+  skip = FALSE,
+  id = rand_id("word_embeddings")
+)
 
 \method{tidy}{step_word_embeddings}(x, ...)
 }
@@ -101,8 +109,9 @@ sample_data <- tibble(
 rec <- recipe(text_label ~ ., data = sample_data) \%>\%
   step_tokenize(text) \%>\%
   step_word_embeddings(text, embeddings = embeddings)
+  
 obj <- rec \%>\%
-  prep(training = sample_data, retain = TRUE)
+  prep(training = sample_data)
 
 bake(obj, sample_data)
 

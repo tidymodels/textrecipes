@@ -56,8 +56,9 @@
 #' rec <- recipe(text_label ~ ., data = sample_data) %>%
 #'   step_tokenize(text) %>%
 #'   step_word_embeddings(text, embeddings = embeddings)
+#'   
 #' obj <- rec %>%
-#'   prep(training = sample_data, retain = TRUE)
+#'   prep(training = sample_data)
 #'
 #' bake(obj, sample_data)
 #'
@@ -178,7 +179,7 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
 bake.step_word_embeddings <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-
+  
   for (i in seq_along(col_names)) {
     embeddings_columns <- map_dfr(
       new_data[, col_names[i], drop = TRUE],
@@ -212,9 +213,8 @@ aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   # Add a "NA" token if there isn't one. For now I'm going to set this to all 0,
   # we may want to revise this with more use cases.
   if (!any(is.na(embeddings[[1]]))) {
-    embeddings[nrow(embeddings) + 1,] <- c(
-      NA, rep(0, ncol(embeddings) - 1)
-    )
+    embeddings[nrow(embeddings) + 1, 1] <- NA_character_
+    embeddings[nrow(embeddings), -1] <- 0
   }
   
   # Deal with missing tokens.
