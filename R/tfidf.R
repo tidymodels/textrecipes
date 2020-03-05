@@ -44,7 +44,6 @@
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
 #' @examples
-#' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' \donttest{
 #' 
 #' library(recipes)
@@ -62,7 +61,6 @@
 #' 
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
-#' }
 #' }
 #' @export
 #' @details
@@ -209,11 +207,32 @@ tfidf_function <- function(data, names, labels, smooth_idf, norm,
   as_tibble(tfidf)
 }
 
-dtm_to_tfidf <- function(x, smooth_idf, norm, sublinear_tf) {
-  model_tfidf <- text2vec::TfIdf$new(smooth_idf = smooth_idf,
-                                     norm = norm,
-                                     sublinear_tf = sublinear_tf)
-  as.matrix(model_tfidf$fit_transform(x))
+dtm_to_tfidf <- function(dtm, smooth_idf, norm, sublinear_tf) {
+  dtm <- normalize(dtm, norm)
+  
+  if (sublinear_tf) {
+    dtm@x <- 1 + log(dtm@x)
+  }
+  
+  out <- dtm %*% Matrix::Diagonal(x = log(smooth_idf + nrow(dtm) / 
+                                            Matrix::colSums(dtm > 0)))
+  as.matrix(out)
+}
+
+normalize = function(dtm, norm = c("l1", "l2", "none")) {
+  if (norm == "none") {
+    return(dtm)
+  }
+  
+  norm_vec <- switch(norm,
+                     l1 = 1 / Matrix::rowSums(dtm),
+                     l2 = 1 / sqrt(Matrix::rowSums(dtm ^ 2))
+  )
+  
+  # case when sum row elements == 0
+  norm_vec[is.infinite(norm_vec)] = 0
+  
+  Matrix::Diagonal(x = norm_vec) %*% dtm
 }
 
 #' @export
