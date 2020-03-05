@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 0.1.0
 
 * `step_word2vec()` have been changed to `step_lda()` to reflect what is actually happening.
 * `step_word_embeddings()` has been added. Allows for use of pre-trained word embeddings to convert token columns to vectors in a high-dimensional "meaning" space. (@jonthegeek, #20)
