@@ -83,31 +83,31 @@ An updated version of `recipe` with the new step added
 \description{
 `step_tfidf` creates a *specification* of a recipe step that
  will convert a list of tokens into multiple variables containing
- the Term frequency-inverse document frequency of tokens.
+ the term frequency-inverse document frequency of tokens.
 }
 \details{
 It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to 
-limit the number of variables created, otherwise you might run into memmory
-issues. A good strategy is to start with a low token count and go up 
-according to how much RAM you want to use.
+limit the number of variables created; otherwise you may run into memory
+issues. A good strategy is to start with a low token count and increase 
+depending on how much RAM you want to use.
 
-Term frequency-inverse document frequency is the product of two statistics.
-The term frequency (TF) and the inverse document frequency (IDF). 
+Term frequency-inverse document frequency is the product of two statistics:
+the term frequency (TF) and the inverse document frequency (IDF). 
 
-Term frequency is a weight of how many times each token appear in each 
+Term frequency measures how many times each token appears in each 
 observation.
 
-Inverse document frequency is a measure of how much information a word
-gives, in other words, how common or rare is the word across all the 
+Inverse document frequency is a measure of how informative a word
+is, e.g., how common or rare the word is across all the 
 observations. If a word appears in all the observations it might not
-give us that much insight, but if it only appear in some it might help
-us differentiate the observations. 
+give that much insight, but if it only appears in some it might help
+differentiate between observations. 
 
 The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / 
 (# documents where the term appears))
 
 The new components will have names that begin with `prefix`, then
-the name of the variable, followed by the tokens all seperated by
+the name of the variable, followed by the tokens all separated by
 `-`. The new variables will be created alphabetically according to
 token.
 }
