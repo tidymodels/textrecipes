@@ -45,7 +45,6 @@
 #'  to the sequence of existing steps (if any).
 #' @examples
 #' \donttest{
-#' 
 #' library(recipes)
 #' 
 #' data(okc_text)

@@ -113,7 +113,6 @@ token.
 }
 \examples{
 \donttest{
-
 library(recipes)
 
 data(okc_text)

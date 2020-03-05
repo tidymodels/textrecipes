@@ -74,6 +74,7 @@ will return the lda dimension estimates of a text variable.
 }
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
+\donttest{
 library(recipes)
 
 data(okc_text)
@@ -109,5 +110,6 @@ recipe(~ ., data = okc_text) \%>\%
   prep() \%>\%
   juice() \%>\%
   slice(1:2)
+}
 }
 }

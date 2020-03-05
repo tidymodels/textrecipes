@@ -33,3 +33,4 @@ reference:
     - step_textfeature
     - step_sequence_onehot
     - step_lda
+    - step_word_embeddings

@@ -37,6 +37,7 @@
 #' @source \url{https://arxiv.org/abs/1301.3781}
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
+#' \donttest{
 #' library(recipes)
 #'
 #' data(okc_text)
@@ -73,6 +74,7 @@
 #'   prep() %>%
 #'   juice() %>%
 #'   slice(1:2)
+#' }
 #' }
 #' @export
 step_lda <-

@@ -98,6 +98,7 @@ with numeric for future analysis to work.
 | `step_tfidf()`           | list-column | numeric     |
 | `step_tf()`              | list-column | numeric     |
 | `step_texthash()`        | list-column | numeric     |
+| `step_word_embeddings()` | list-column | numeric     |
 | `step_textfeature()`     | character   | numeric     |
 | `step_sequence_onehot()` | character   | numeric     |
 | `step_lda()`             | character   | numeric     |
