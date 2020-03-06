@@ -25,23 +25,23 @@ step_texthash(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_texthash`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_texthash}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{signed}{A logical, indicating whether to use a signed 
+\item{signed}{A logical, indicating whether to use a signed
 hash-function to reduce collisions when hashing. Defaults to TRUE.}
 
 \item{num_terms}{An integer, the number of variables to output.
@@ -51,44 +51,44 @@ Defaults to 1024.}
 resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
-\item{x}{A `step_texthash` object.}
+\item{x}{A \code{step_texthash} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_texthash` creates a *specification* of a recipe step that
- will convert a list of tokens into multiple variables using the 
- hashing trick.
+\code{step_texthash} creates a \emph{specification} of a recipe step that
+will convert a list of tokens into multiple variables using the
+hashing trick.
 }
 \details{
-Feature hashing, or the hashing trick, is a transformation of a 
+Feature hashing, or the hashing trick, is a transformation of a
 text variable into a new set of numerical variables. This is done by
 applying a hashing function over the tokens and using the hash values
 as feature indices. This allows for a low memory representation of the
-text. This implementation is done using the MurmurHash3 method. 
+text. This implementation is done using the MurmurHash3 method.
 
-The argument `num_terms` controls the number of indices that the hashing 
-function will map to. This is the tuning parameter for this 
+The argument \code{num_terms} controls the number of indices that the hashing
+function will map to. This is the tuning parameter for this
 transformation. Since the hashing function can map two different tokens
-to the same index, will a higher value of `num_terms` result in a lower 
+to the same index, will a higher value of \code{num_terms} result in a lower
 chance of collision.
 
-The new components will have names that begin with `prefix`, then
+The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all seperated by
-`-`. The variable names are padded with zeros. For example,
-if `num_terms < 10`, their names will be `hash1` - `hash9`.
-If `num_terms = 101`, their names will be `hash001` - `hash101`.
+\code{-}. The variable names are padded with zeros. For example,
+if \code{num_terms < 10}, their names will be \code{hash1} - \code{hash9}.
+If \code{num_terms = 101}, their names will be \code{hash001} - \code{hash101}.
 }
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
@@ -111,9 +111,9 @@ tidy(okc_obj, number = 2)
 }
 }
 \references{
-Kilian Weinberger; Anirban Dasgupta; John Langford; 
- Alex Smola; Josh Attenberg (2009).
+Kilian Weinberger; Anirban Dasgupta; John Langford;
+Alex Smola; Josh Attenberg (2009).
 }
 \seealso{
-[step_tf()] [step_tfidf()] [step_tokenize()]
+\code{\link[=step_tf]{step_tf()}} \code{\link[=step_tfidf]{step_tfidf()}} \code{\link[=step_tokenize]{step_tokenize()}}
 }

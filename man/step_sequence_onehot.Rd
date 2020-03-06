@@ -28,55 +28,55 @@ step_sequence_onehot(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_sequence_onehot`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_sequence_onehot}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{string_length}{A numeric, number of characters to keep before 
+\item{string_length}{A numeric, number of characters to keep before
 discarding. Defaults to 100.}
 
-\item{integer_key}{A character vector, characters to be mapped to integers. 
-Characters not in the integer_key will be encoded as 0. Defaults to 
-`letters`.}
+\item{integer_key}{A character vector, characters to be mapped to integers.
+Characters not in the integer_key will be encoded as 0. Defaults to
+\code{letters}.}
 
 \item{prefix}{A prefix for generated column names, default to "seq1hot".}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it}
 
-\item{x}{A `step_sequence_onehot` object.}
+\item{x}{A \code{step_sequence_onehot} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_sequence_onehot` creates a *specification* of a recipe step that
- will take a string and do one hot encoding for each character by position.
+\code{step_sequence_onehot} creates a \emph{specification} of a recipe step that
+will take a string and do one hot encoding for each character by position.
 }
 \details{
-The string will be capped by the string_length argument, strings shorter then 
-string_length will be padded with empty characters. The encoding will assign 
-a integer to each character in the integer_key, and will encode accordingly. 
+The string will be capped by the string_length argument, strings shorter then
+string_length will be padded with empty characters. The encoding will assign
+a integer to each character in the integer_key, and will encode accordingly.
 Characters not in the integer_key will be encoded as 0.
 }
 \examples{

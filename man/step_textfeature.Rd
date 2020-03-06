@@ -24,56 +24,56 @@ step_textfeature(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_textfeature`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_textfeature}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{extract_functions}{A named list of feature extracting functions. 
-default to [count_functions] from the textfeatures package. See 
-details for more information.}
+\item{extract_functions}{A named list of feature extracting functions.
+default to \code{\link[textfeatures]{count_functions}} from the textfeatures
+package. See details for more information.}
 
 \item{prefix}{A prefix for generated column names, default to "textfeature".}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it}
 
-\item{x}{A `step_textfeature` object.}
+\item{x}{A \code{step_textfeature} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_textfeature` creates a *specification* of a recipe step that
- will extract a number of numeric features of a text column.
+\code{step_textfeature} creates a \emph{specification} of a recipe step that
+will extract a number of numeric features of a text column.
 }
 \details{
-This step will take a character column and returns a number of numeric 
-columns equal to the number of functions in the list passed to the 
-`extract_functions` argument. The default is a list of functions from the 
+This step will take a character column and returns a number of numeric
+columns equal to the number of functions in the list passed to the
+\code{extract_functions} argument. The default is a list of functions from the
 textfeatures package.
 
-All the functions passed to `extract_functions` must take a character vector
-as input and return a numeric vector of the same length, otherwise an error 
+All the functions passed to \code{extract_functions} must take a character vector
+as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
 \examples{

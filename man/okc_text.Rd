@@ -6,19 +6,19 @@
 \title{OkCupid Text Data}
 \source{
 Kim, A. Y., and A. Escobedo-Land. 2015. "OkCupid Data for
-  Introductory Statistics and Data Science Courses." *Journal of
-  Statistics Education: An International Journal on the Teaching and
-  Learning of Statistics*.
+Introductory Statistics and Data Science Courses." \emph{Journal of
+Statistics Education: An International Journal on the Teaching and
+Learning of Statistics}.
 }
 \value{
 \item{okc_text}{a tibble}
 }
 \description{
 These are a sample of columns and users of OkCupid dating
- website. The data are from Kim and Escobedo-Land (2015).
- Permission to use this data set was explicitly granted by
- OkCupid. The data set contains 10 text fields filled out by
- users.
+website. The data are from Kim and Escobedo-Land (2015).
+Permission to use this data set was explicitly granted by
+OkCupid. The data set contains 10 text fields filled out by
+users.
 }
 \examples{
 data(okc_text)

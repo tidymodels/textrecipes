@@ -23,9 +23,9 @@ step_untokenize(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_untokenize`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_untokenize}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
@@ -34,31 +34,31 @@ created.}
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{sep}{a character to determine how the tokens should be seperated
-when pasted together. Defaults to `" "`.}
+when pasted together. Defaults to \code{" "}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
-\item{x}{A `step_untokenize` object.}
+\item{x}{A \code{step_untokenize} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_untokenize` creates a *specification* of a recipe step that
- will convert a list of tokens into a character predictor.
+\code{step_untokenize} creates a \emph{specification} of a recipe step that
+will convert a list of tokens into a character predictor.
 }
 \details{
 This steps will turn a tokenized list-column back into a character

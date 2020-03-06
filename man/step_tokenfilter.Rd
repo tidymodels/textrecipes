@@ -27,9 +27,9 @@ step_tokenfilter(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_tokenfilter`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_tokenfilter}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
@@ -38,8 +38,8 @@ created.}
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{max_times}{An integer. Maximal number of times a word can appear
 before getting removed.}
@@ -47,48 +47,48 @@ before getting removed.}
 \item{min_times}{An integer. Minimum number of times a word can appear
 before getting removed.}
 
-\item{percentage}{A logical. Should max_times and min_times be interpreded 
+\item{percentage}{A logical. Should max_times and min_times be interpreded
 as a percentage instead of count.}
 
 \item{max_tokens}{An integer. Will only keep the top max_tokens tokens
 after filtering done by max_times and min_times. Defaults to 100.}
 
-\item{res}{The words that will be keep will be stored here once 
-this preprocessing step has be trained by [prep.recipe()].}
+\item{res}{The words that will be keep will be stored here once
+this preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
-\item{x}{A `step_tokenfilter` object.}
+\item{x}{A \code{step_tokenfilter} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_tokenfilter` creates a *specification* of a recipe step that
- will convert a list of tokens into a list where the tokens are filtered
- based on frequency.
+\code{step_tokenfilter} creates a \emph{specification} of a recipe step that
+will convert a list of tokens into a list where the tokens are filtered
+based on frequency.
 }
 \details{
 This step allow you to limit the tokens you are looking at by filtering
 on their occurance in the corpus. You are able to exclude tokens if they
 appear too many times or too fews times in the data. It can be specified
-as counts using `max_times` and `min_times` or as percentages by setting
-`percentage` as `TRUE`. In addition one can filter to only use the top
-`max_tokens` used tokens. If `max_tokens` is set to `Inf` then all the tokens
-will be used. This will generally lead to very large datasets when then 
-tokens are words or trigrams. A good strategy is to start with a low token 
+as counts using \code{max_times} and \code{min_times} or as percentages by setting
+\code{percentage} as \code{TRUE}. In addition one can filter to only use the top
+\code{max_tokens} used tokens. If \code{max_tokens} is set to \code{Inf} then all the tokens
+will be used. This will generally lead to very large datasets when then
+tokens are words or trigrams. A good strategy is to start with a low token
 count and go up according to how much RAM you want to use.
 
-It is strongly advised to filter before using [step_tf] or [step_tfidf] to 
+It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf} to
 limit the number of variables created.
 }
 \examples{
@@ -114,5 +114,5 @@ tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
 \seealso{
-[step_untokenize()]
+\code{\link[=step_untokenize]{step_untokenize()}}
 }

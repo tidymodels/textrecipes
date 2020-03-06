@@ -88,7 +88,7 @@
 #' `-`. The new variables will be created alphabetically according to
 #' token.
 #' 
-#' @seealso [step_hashing()] [step_tf()] [step_tokenize()]
+#' @seealso [step_texthash()] [step_tf()] [step_tokenize()]
 step_tfidf <-
   function(recipe,
            ...,

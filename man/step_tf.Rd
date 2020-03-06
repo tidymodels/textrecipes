@@ -27,84 +27,84 @@ step_tf(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_tf`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_tf}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{weight_scheme}{A character determining the weighting scheme for
-the term frequency calculations. Must be one of "binary", 
+the term frequency calculations. Must be one of "binary",
 "raw count", "term frequency", "log normalization" or
 "double normalization". Defaults to "raw count".}
 
-\item{weight}{A numeric weight used if `weight_scheme` is set to
+\item{weight}{A numeric weight used if \code{weight_scheme} is set to
 "double normalization". Defaults to 0.5.}
 
 \item{vocabulary}{A character vector of strings to be considered.}
 
-\item{res}{The words that will be used to calculate the term 
-frequency will be stored here once this preprocessing step has 
-be trained by [prep.recipe()].}
+\item{res}{The words that will be used to calculate the term
+frequency will be stored here once this preprocessing step has
+be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
-\item{x}{A `step_tf` object.}
+\item{x}{A \code{step_tf} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_tf` creates a *specification* of a recipe step that
- will convert a list of tokens into multiple variables containing
- the token counts.
+\code{step_tf} creates a \emph{specification} of a recipe step that
+will convert a list of tokens into multiple variables containing
+the token counts.
 }
 \details{
-It is strongly advised to use [step_tokenfilter] before using [step_tf] to 
+It is strongly advised to use \link{step_tokenfilter} before using \link{step_tf} to
 limit the number of variables created, otherwise you might run into memmory
-issues. A good strategy is to start with a low token count and go up 
+issues. A good strategy is to start with a low token count and go up
 according to how much RAM you want to use.
 
-Term frequency is a weight of how many times each token appear in each 
-observation. There are different ways to calculate the weight and this 
-step can do it in a couple of ways. Setting the argument `weight_scheme` to
+Term frequency is a weight of how many times each token appear in each
+observation. There are different ways to calculate the weight and this
+step can do it in a couple of ways. Setting the argument \code{weight_scheme} to
 "binary" will result in a set of binary variables denoting if a token
 is present in the observation. "raw count" will count the times a token
 is present in the observation. "term frequency" will devide the count
-with the total number of words in the document to limit the effect 
+with the total number of words in the document to limit the effect
 of the document length as longer documents tends to have the word present
 more times but not necessarily at a higher procentage. "log normalization"
 takes the log of 1 plus the count, adding 1 is done to avoid taking log of
-0. Finally "double normalization" is the raw frequency divided by the raw 
-frequency of the most occurring term in the document. This is then 
-multiplied by `weight` and `weight` is added to the result. This is again 
+0. Finally "double normalization" is the raw frequency divided by the raw
+frequency of the most occurring term in the document. This is then
+multiplied by \code{weight} and \code{weight} is added to the result. This is again
 done to prevent a bias towards longer documents.
 
-The new components will have names that begin with `prefix`, then
+The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all seperated by
-`-`. The new variables will be created alphabetically according to
+\code{-}. The new variables will be created alphabetically according to
 token.
 }
 \examples{
@@ -129,5 +129,5 @@ tidy(okc_obj, number = 2)
 }
 }
 \seealso{
-[step_hashing()] [step_tfidf()] [step_tokenize()]
+\code{\link[=step_texthash]{step_texthash()}} \code{\link[=step_tfidf]{step_tfidf()}} \code{\link[=step_tokenize]{step_tokenize()}}
 }

@@ -17,8 +17,8 @@
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
 #' @param extract_functions A named list of feature extracting functions. 
-#'  default to [count_functions] from the textfeatures package. See 
-#'  details for more information.
+#'  default to \code{\link[textfeatures]{count_functions}} from the textfeatures 
+#'  package. See details for more information.
 #' @param prefix A prefix for generated column names, default to "textfeature".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all

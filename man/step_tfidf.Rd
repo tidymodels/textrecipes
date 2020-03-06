@@ -28,87 +28,87 @@ step_tfidf(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_tfidf`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_tfidf}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.}
 
 \item{trained}{A logical to indicate if the recipe has been
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{vocabulary}{A character vector of strings to be considered.}
 
-\item{res}{The words that will be used to calculate the term 
-frequency will be stored here once this preprocessing step has 
-be trained by [prep.recipe()].}
+\item{res}{The words that will be used to calculate the term
+frequency will be stored here once this preprocessing step has
+be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{smooth_idf}{TRUE smooth IDF weights by adding one to document
 frequencies, as if an extra document was seen containing every term
 in the collection exactly once. This prevents division by zero.}
 
-\item{norm}{A character, defines the type of normalization to apply to 
+\item{norm}{A character, defines the type of normalization to apply to
 term vectors. "l1" by default, i.e., scale by the number of words in the
 document. Must be one of c("l1", "l2", "none").}
 
-\item{sublinear_tf}{A logical, apply sublinear term-frequency scaling, i.e., 
+\item{sublinear_tf}{A logical, apply sublinear term-frequency scaling, i.e.,
 replace the term frequency with 1 + log(TF). Defaults to FALSE.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
-\item{x}{A `step_tfidf` object.}
+\item{x}{A \code{step_tfidf} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_tfidf` creates a *specification* of a recipe step that
- will convert a list of tokens into multiple variables containing
- the term frequency-inverse document frequency of tokens.
+\code{step_tfidf} creates a \emph{specification} of a recipe step that
+will convert a list of tokens into multiple variables containing
+the term frequency-inverse document frequency of tokens.
 }
 \details{
-It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to 
+It is strongly advised to use \link{step_tokenfilter} before using \link{step_tfidf} to
 limit the number of variables created; otherwise you may run into memory
-issues. A good strategy is to start with a low token count and increase 
+issues. A good strategy is to start with a low token count and increase
 depending on how much RAM you want to use.
 
 Term frequency-inverse document frequency is the product of two statistics:
-the term frequency (TF) and the inverse document frequency (IDF). 
+the term frequency (TF) and the inverse document frequency (IDF).
 
-Term frequency measures how many times each token appears in each 
+Term frequency measures how many times each token appears in each
 observation.
 
 Inverse document frequency is a measure of how informative a word
-is, e.g., how common or rare the word is across all the 
+is, e.g., how common or rare the word is across all the
 observations. If a word appears in all the observations it might not
 give that much insight, but if it only appears in some it might help
-differentiate between observations. 
+differentiate between observations.
 
-The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / 
+The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
 (# documents where the term appears))
 
-The new components will have names that begin with `prefix`, then
+The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by
-`-`. The new variables will be created alphabetically according to
+\code{-}. The new variables will be created alphabetically according to
 token.
 }
 \examples{
@@ -131,5 +131,5 @@ tidy(okc_obj, number = 2)
 }
 }
 \seealso{
-[step_hashing()] [step_tf()] [step_tokenize()]
+\code{\link[=step_texthash]{step_texthash()}} \code{\link[=step_tf]{step_tf()}} \code{\link[=step_tokenize]{step_tokenize()}}
 }

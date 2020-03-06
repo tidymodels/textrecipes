@@ -25,9 +25,9 @@ step_tokenize(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For `step_tokenize`, this indicates the variables to be encoded
-into a list column. See [recipes::selections()] for more
-details. For the `tidy` method, these are not currently used.}
+For \code{step_tokenize}, this indicates the variables to be encoded
+into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
@@ -36,16 +36,16 @@ created.}
 baked.}
 
 \item{columns}{A list of tibble results that define the
-encoding. This is `NULL` until the step is trained by
-[recipes::prep.recipe()].}
+encoding. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{options}{A list of options passed to the tokenizer.}
 
-\item{token}{Unit for tokenizing. Built-in options from the 
-[tokenizers] package are "words" (default), "characters",
-"character_shingles", "ngrams", "skip_ngrams", "sentences", 
-"lines", "paragraphs", "regex", "tweets" (tokenization by 
-word that preserves usernames, hashtags, and URLS ),  "ptb" 
+\item{token}{Unit for tokenizing. Built-in options from the
+\link{tokenizers} package are "words" (default), "characters",
+"character_shingles", "ngrams", "skip_ngrams", "sentences",
+"lines", "paragraphs", "regex", "tweets" (tokenization by
+word that preserves usernames, hashtags, and URLS ),  "ptb"
 (Penn Treebank), "skip_ngrams" and  "word_stems".}
 
 \item{custom_token}{User supplied tokenizer. use of this argument
@@ -53,34 +53,34 @@ will overwrite the token argument. Must take a character vector
 as input and output a list of character vectors.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by [recipes::bake.recipe()]? While all
-operations are baked when [recipes::prep.recipe()] is run, some
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
-using `skip = TRUE` as it may affect the computations for
+using \code{skip = TRUE} as it may affect the computations for
 subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it}
 
-\item{x}{A `step_tokenize` object.}
+\item{x}{A \code{step_tokenize} object.}
 }
 \value{
-An updated version of `recipe` with the new step added
- to the sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
-`step_tokenize` creates a *specification* of a recipe step that
- will convert a character predictor into a list of tokens.
+\code{step_tokenize} creates a \emph{specification} of a recipe step that
+will convert a character predictor into a list of tokens.
 }
 \details{
 Tokenization is the act of splitting a character string into smaller parts
-to be further analysed. This step uses the `tokenizers` package which 
+to be further analysed. This step uses the \code{tokenizers} package which
 includes heuristics to split the text into paragraphs tokens, word tokens
-amough others. `textrecipes` keeps the tokens in a list-column and other
+amough others. \code{textrecipes} keeps the tokens in a list-column and other
 steps will do their tasks on those list-columns before transforming them
 back to numeric.
 
-Working will `textrecipes` will always start by calling `step_tokenize`
+Working will \code{textrecipes} will always start by calling \code{step_tokenize}
 followed by modifying and filtering steps.
 }
 \examples{
@@ -113,5 +113,5 @@ juice(okc_obj_chars) \%>\%
   pull(essay0)
 }
 \seealso{
-[step_untokenize()] to untokenize.
+\code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 }

@@ -25,8 +25,8 @@ step_word_embeddings(
 operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables. For
-`step_word_embeddings`, this indicates the variables to be encoded into a
-list column. See [recipes::selections()] for more details. For the `tidy`
+\code{step_word_embeddings}, this indicates the variables to be encoded into a
+list column. See \code{\link[recipes:selections]{recipes::selections()}} for more details. For the \code{tidy}
 method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis role should
@@ -36,11 +36,11 @@ created by the original variables will be used as predictors in a model.}
 \item{trained}{A logical to indicate if the recipe has been baked.}
 
 \item{columns}{A list of tibble results that define the encoding. This is
-`NULL` until the step is trained by [recipes::prep.recipe()].}
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{embeddings}{A tibble of pre-trained word embeddings, such as those
-returned by the embedding_glove function function from the textdata 
-pacakge. The first column should contain tokens, and additional columns 
+returned by the embedding_glove function function from the textdata
+pacakge. The first column should contain tokens, and additional columns
 should contain embeddings vectors.}
 
 \item{aggregation}{A character giving the name of the aggregation function to
@@ -50,42 +50,42 @@ use.}
 variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the recipe is baked by
-[recipes::bake.recipe()]? While all operations are baked when
-[recipes::prep.recipe()] is run, some operations may not be able to be
+\code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked when
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)). Care
-should be taken when using `skip = TRUE` as it may affect the computations
+should be taken when using \code{skip = TRUE} as it may affect the computations
 for subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
-\item{x}{A `step_word_embeddings` object.}
+\item{x}{A \code{step_word_embeddings} object.}
 }
 \value{
-An updated version of `recipe` with the new step added to the
-  sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added to the
+sequence of existing steps (if any).
 }
 \description{
-`step_word_embeddings` creates a *specification* of a recipe step that will
+\code{step_word_embeddings} creates a \emph{specification} of a recipe step that will
 convert a list of tokens into word-embedding dimensions by aggregating the
 vectors of each token from a pre-trained embedding.
 }
 \details{
 Word embeddings map words (or other tokens) into a high-dimensional
-  feature space. This function maps pre-trained word embeddings onto the
-  tokens in your data.
+feature space. This function maps pre-trained word embeddings onto the
+tokens in your data.
 
-  The argument `embeddings` provides the pre-trained vectors. Each dimension
-  present in this tibble becomes a new feature column, with each column
-  aggregated across each row of your text using the function supplied in the
-  `aggregation` argument.
+The argument \code{embeddings} provides the pre-trained vectors. Each dimension
+present in this tibble becomes a new feature column, with each column
+aggregated across each row of your text using the function supplied in the
+\code{aggregation} argument.
 
-  The new components will have names that begin with `prefix`, then the name
-  of the aggregation function, then the name of the variable from the
-  embeddings tibble (usually something like "d7"). For example, using the
-  default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
-  embeddings from the textdata package (where the column names are `d1`,
-  `d2`, etc), new columns would be `word_embeddings_sum_d1`,
-  `word_embeddings_sum_d2`, etc.
+The new components will have names that begin with \code{prefix}, then the name
+of the aggregation function, then the name of the variable from the
+embeddings tibble (usually something like "d7"). For example, using the
+default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
+embeddings from the textdata package (where the column names are \code{d1},
+\code{d2}, etc), new columns would be \code{word_embeddings_sum_d1},
+\code{word_embeddings_sum_d2}, etc.
 }
 \examples{
 library(recipes)
@@ -119,5 +119,5 @@ tidy(rec, number = 2)
 tidy(obj, number = 2)
 }
 \seealso{
-[step_tokenize()] [step_lda()]
+\code{\link[=step_tokenize]{step_tokenize()}} \code{\link[=step_lda]{step_lda()}}
 }
