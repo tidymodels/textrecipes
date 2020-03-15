@@ -37,7 +37,7 @@ baked.}
 encoding. This is \code{NULL} until the step is trained by
 \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{sep}{a character to determine how the tokens should be seperated
+\item{sep}{a character to determine how the tokens should be separated
 when pasted together. Defaults to \code{" "}.}
 
 \item{skip}{A logical. Should the step be skipped when the

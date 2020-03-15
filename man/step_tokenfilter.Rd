@@ -79,7 +79,7 @@ based on frequency.
 }
 \details{
 This step allow you to limit the tokens you are looking at by filtering
-on their occurance in the corpus. You are able to exclude tokens if they
+on their occurrence in the corpus. You are able to exclude tokens if they
 appear too many times or too fews times in the data. It can be specified
 as counts using \code{max_times} and \code{min_times} or as percentages by setting
 \code{percentage} as \code{TRUE}. In addition one can filter to only use the top

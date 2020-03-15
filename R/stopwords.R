@@ -14,7 +14,7 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param language A character to indicate the langauge of stopwords 
+#' @param language A character to indicate the language of stopwords 
 #'  by ISO 639-1 coding scheme.
 #' @param keep A logical. Specifies whether to keep the stopwords or discard
 #'  them.
@@ -70,7 +70,7 @@
 #' @details
 #' Stop words are words which sometimes are remove before natural language
 #' processing tasks. While stop words usually refers to the most common 
-#' words in the laguange there is no universal stop word list. 
+#' words in the language there is no universal stop word list. 
 #' 
 #' The argument `custom_stopword_source` allows you to pass a character vector
 #' to filter against. With the `keep` argument one can specify to keep the 

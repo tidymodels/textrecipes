@@ -76,7 +76,7 @@ will convert a character predictor into a list of tokens.
 Tokenization is the act of splitting a character string into smaller parts
 to be further analysed. This step uses the \code{tokenizers} package which
 includes heuristics to split the text into paragraphs tokens, word tokens
-amough others. \code{textrecipes} keeps the tokens in a list-column and other
+amoug others. \code{textrecipes} keeps the tokens in a list-column and other
 steps will do their tasks on those list-columns before transforming them
 back to numeric.
 

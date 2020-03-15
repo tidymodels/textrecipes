@@ -61,7 +61,7 @@
 #' @export
 #' @details
 #' This step allow you to limit the tokens you are looking at by filtering
-#' on their occurance in the corpus. You are able to exclude tokens if they
+#' on their occurrence in the corpus. You are able to exclude tokens if they
 #' appear too many times or too fews times in the data. It can be specified
 #' as counts using `max_times` and `min_times` or as percentages by setting
 #' `percentage` as `TRUE`. In addition one can filter to only use the top

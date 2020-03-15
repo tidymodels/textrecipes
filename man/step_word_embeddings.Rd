@@ -40,7 +40,7 @@ created by the original variables will be used as predictors in a model.}
 
 \item{embeddings}{A tibble of pre-trained word embeddings, such as those
 returned by the embedding_glove function function from the textdata
-pacakge. The first column should contain tokens, and additional columns
+package The first column should contain tokens, and additional columns
 should contain embeddings vectors.}
 
 \item{aggregation}{A character giving the name of the aggregation function to

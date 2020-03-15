@@ -66,7 +66,7 @@ str(bake(okc_obj, okc_text), list.len = 15)
 
 ## Type chart
 
-**textrecipes** includes a little departure in design from **recipes**, in the sense that it allows for some input and output to be in the form of list columns. To avoind confusion, here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
+**textrecipes** includes a little departure in design from **recipes**, in the sense that it allows for some input and output to be in the form of list columns. To avoid confusion, here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.
 
 | Step                       | Input       | Output      |
 |----------------------------|-------------|-------------|

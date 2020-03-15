@@ -85,7 +85,7 @@ to the same index, will a higher value of \code{num_terms} result in a lower
 chance of collision.
 
 The new components will have names that begin with \code{prefix}, then
-the name of the variable, followed by the tokens all seperated by
+the name of the variable, followed by the tokens all separated by
 \code{-}. The variable names are padded with zeros. For example,
 if \code{num_terms < 10}, their names will be \code{hash1} - \code{hash9}.
 If \code{num_terms = 101}, their names will be \code{hash001} - \code{hash101}.

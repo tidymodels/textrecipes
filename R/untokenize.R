@@ -14,7 +14,7 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param sep a character to determine how the tokens should be seperated
+#' @param sep a character to determine how the tokens should be separated
 #'  when pasted together. Defaults to `" "`.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
