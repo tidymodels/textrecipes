@@ -180,28 +180,6 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-tokenfilter_fun <- function(data, max_times, min_times, max_features,
-                            percentage) {
-  tf <- table(unlist(data))
-
-  if (percentage)
-    tf <- tf / sum(tf)
-
-  ids <- tf <= max_times & tf >= min_times
-
-  if (is.infinite(max_features)) {
-    names(sort(tf[ids], decreasing = TRUE))
-  } else {
-    if (max_features > sum(ids)) {
-      rlang::warn(paste0("max_features was set to '", max_features,
-                         "', but only ", sum(ids), 
-                         " was available and selected."))
-      max_features <- sum(ids)
-    }
-    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
-  }
-}
-
 #' @export
 print.step_tokenfilter <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -224,4 +202,27 @@ tidy.step_tokenfilter <- function(x, ...) {
   }
   res$id <- x$id
   res
+}
+
+## Implementation
+tokenfilter_fun <- function(data, max_times, min_times, max_features,
+                            percentage) {
+  tf <- table(unlist(data))
+  
+  if (percentage)
+    tf <- tf / sum(tf)
+  
+  ids <- tf <= max_times & tf >= min_times
+  
+  if (is.infinite(max_features)) {
+    names(sort(tf[ids], decreasing = TRUE))
+  } else {
+    if (max_features > sum(ids)) {
+      rlang::warn(paste0("max_features was set to '", max_features,
+                         "', but only ", sum(ids), 
+                         " was available and selected."))
+      max_features <- sum(ids)
+    }
+    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
+  }
 }

@@ -196,12 +196,35 @@ bake.step_tfidf <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
+#' @export
+print.step_tfidf <-
+  function(x, width = max(20, options()$width - 30), ...) {
+    cat("Term frequency-inverse document frequency with ", sep = "")
+    printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+  }
+
+#' @rdname step_tfidf
+#' @param x A `step_tfidf` object.
+#' @export
+tidy.step_tfidf <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names)
+  }
+  res$id <- x$id
+  res
+}
+
+# Implementation
 tfidf_function <- function(data, names, labels, smooth_idf, norm,
                            sublinear_tf) {
   counts <- list_to_dtm(data, names)
-
+  
   tfidf <- dtm_to_tfidf(counts, smooth_idf, norm, sublinear_tf)
-
+  
   colnames(tfidf) <- paste0(labels, "_", names)
   as_tibble(tfidf)
 }
@@ -232,26 +255,4 @@ normalize = function(dtm, norm = c("l1", "l2", "none")) {
   norm_vec[is.infinite(norm_vec)] = 0
   
   Matrix::Diagonal(x = norm_vec) %*% dtm
-}
-
-#' @export
-print.step_tfidf <-
-  function(x, width = max(20, options()$width - 30), ...) {
-    cat("Term frequency-inverse document frequency with ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
-    invisible(x)
-  }
-
-#' @rdname step_tfidf
-#' @param x A `step_tfidf` object.
-#' @export
-tidy.step_tfidf <- function(x, ...) {
-  if (is_trained(x)) {
-    res <- tibble(terms = x$terms)
-  } else {
-    term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names)
-  }
-  res$id <- x$id
-  res
 }

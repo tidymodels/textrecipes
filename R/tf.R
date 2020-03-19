@@ -198,30 +198,6 @@ bake.step_tf <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-tf_function <- function(data, names, labels, weights, weight) {
-
-  counts <- as.matrix(list_to_dtm(data, names))
-
-  tf <- tf_weight(counts, weights, weight)
-  colnames(tf) <- paste0(labels, "_", names)
-  as_tibble(tf)
-}
-
-tf_weight <- function(x, scheme, weight) {
-  if (scheme == "binary")
-    return(x > 0)
-  if (scheme == "raw count")
-    return(x)
-  if (scheme == "term frequency")
-    return(x / rowSums(x))
-  if (scheme == "log normalization")
-    return(log(1 + x))
-  if (scheme == "double normalization") {
-    max_ftd <- apply(x, 1, max)
-    return(weight + weight * x / max_ftd)
-  }
-}
-
 #' @export
 print.step_tf <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -244,4 +220,28 @@ tidy.step_tf <- function(x, ...) {
   }
   res$id <- x$id
   res
+}
+
+tf_function <- function(data, names, labels, weights, weight) {
+  
+  counts <- as.matrix(list_to_dtm(data, names))
+  
+  tf <- tf_weight(counts, weights, weight)
+  colnames(tf) <- paste0(labels, "_", names)
+  as_tibble(tf)
+}
+
+tf_weight <- function(x, scheme, weight) {
+  if (scheme == "binary")
+    return(x > 0)
+  if (scheme == "raw count")
+    return(x)
+  if (scheme == "term frequency")
+    return(x / rowSums(x))
+  if (scheme == "log normalization")
+    return(log(1 + x))
+  if (scheme == "double normalization") {
+    max_ftd <- apply(x, 1, max)
+    return(weight + weight * x / max_ftd)
+  }
 }
