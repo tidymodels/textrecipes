@@ -33,7 +33,7 @@ test_that("tokenization is done correctly", {
          c("i", "would", "not", "eat", "them", "anywhere"),
          c("i", "would", "not", "eat", "green", "eggs", "and", "ham"),
          c("i", "do", "not", "like", "them", "sam", "i", "am")),
-    juice(obj) %>% pull(text)
+    juice(obj) %>% pull(text) %>% vctrs::vec_data()
   )
   
   expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(1, 3))
@@ -55,7 +55,7 @@ test_that("tokenization works with other built-in tokenizers", {
   
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
-    juice(rec) %>% slice(1) %>% pull(text)
+    juice(rec) %>% slice(1) %>% pull(text) %>% vctrs::vec_data()
   )
 })
 
@@ -68,7 +68,8 @@ test_that("tokenization works with custom tokenizer", {
     tokenizers::tokenize_characters(test_data$text[1]),
     juice(rec) %>% 
       slice(1) %>% 
-      pull(text)
+      pull(text) %>% 
+      vctrs::vec_data()
   )
 })
 
@@ -82,7 +83,7 @@ test_that("arguments are passed using options argument", {
          c("I", "would", "not", "eat", "them", "anywhere"),
          c("I", "would", "not", "eat", "green", "eggs", "and", "ham"),
          c("I", "do", "not", "like", "them", "Sam", "I", "am")),
-    juice(rec) %>% pull(text)
+    juice(rec) %>% pull(text) %>% vctrs::vec_data()
   )
 })
 

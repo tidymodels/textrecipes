@@ -17,6 +17,8 @@
 #' @importFrom tidyr unnest
 #' 
 #' @importFrom Matrix sparseMatrix
+#' 
+#' @importFrom vctrs vec_assert new_vctr vec_cast vec_data
 NULL
 
 # nocov start

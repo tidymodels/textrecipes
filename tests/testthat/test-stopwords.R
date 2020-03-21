@@ -14,7 +14,7 @@ rec <- recipe(~ ., data = test_data)
 test_that("stopwords are removed correctly", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_stopwords(text) 
+    step_stopwords(text)
   
   obj <- rec %>%
     prep(training = test_data, retain = TRUE)
@@ -66,7 +66,8 @@ test_that("custom stopwords are supported", {
         c("would", "eat", "green", "eggs", "and", "ham"),
         c("do", "like", "them", "sam", "am")),
     juice(rec) %>% 
-      pull(text)
+      pull(text) %>%
+      vctrs::vec_data()
   )
 })
 

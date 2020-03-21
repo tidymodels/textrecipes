@@ -11,22 +11,6 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 
 rec <- recipe(~ ., data = test_data)
 
-test_that("tokenfilter does nothing if argument are untouched", {
-  rec_ref <- rec %>%
-    step_tokenize(text) %>%
-    prep(training = test_data, retain = TRUE)
-  
-  rec_test <- rec %>%
-    step_tokenize(text) %>%
-    step_tokenfilter(text) %>%
-    prep(training = test_data, retain = TRUE)
-  
-  expect_equal(
-    juice(rec_ref) %>% pull(text),
-    juice(rec_test) %>% pull(text)
-  )
-})
-
 test_that("tokenfilter removes words correctly using min_times and max_times", {
   rec <- rec %>%
     step_tokenize(text) %>%
@@ -36,7 +20,7 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
     prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    juice(obj) %>% pull(text),
+    juice(obj) %>% pull(text) %>% vctrs::vec_data(),
     list(c("would", "eat", "them"),
          c("would", "eat", "them"),
          c("would", "eat"),
@@ -56,7 +40,7 @@ test_that("removes words correctly with min_times, max_times and procentage", {
     prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    juice(obj) %>% pull(text),
+    juice(obj) %>% pull(text) %>% vctrs::vec_data(),
     list(c("here", "or", "there"),
          c("anywhere"),
          c("green", "eggs", "and", "ham"),
@@ -73,7 +57,7 @@ test_that("tokenfilter removes words correctly using max_tokens", {
     prep(training = test_data, retain = TRUE)
   
   expect_equal(
-    juice(obj) %>% pull(text),
+    juice(obj) %>% pull(text) %>% vctrs::vec_data(),
     list(c("i", "would", "not", "eat", "them"),
          c("i", "would", "not", "eat", "them", "anywhere"),
          c("i", "would", "not", "eat", "eggs", "and"),

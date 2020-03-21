@@ -148,6 +148,7 @@ bake.step_stem <- function(object, new_data, ...) {
     SnowballC::wordStem
 
   for (i in seq_along(col_names)) {
+    
     stemmed_text <- map(new_data[, col_names[i], drop = TRUE],
                         stem_fun)
 

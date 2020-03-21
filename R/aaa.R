@@ -32,22 +32,11 @@ check_list <- function (dat) {
   invisible(all_good)
 }
 
-# Takes a vector of character vectors and keeps (for keep = TRUE) the words
-# or removes (for keep = FALSE) the words
-word_list_filter <- function(x, words, keep) {
-
-  if (!keep) {
-    return(keep(x, !(x %in% words)))
-  }
-  else {
-    return(keep(x, x %in% words))
-  }
-}
-# same as word_list_filter but takes an list as input and returns a tibble with
+# same as tokenlist_filter but takes an list as input and returns a tibble with
 # list-column.
 word_tbl_filter <- function(x, words, keep) {
   tibble(
-    map(x, word_list_filter, words, keep)
+    map(x, tokenlist_filter, words, keep)
   )
 }
 
