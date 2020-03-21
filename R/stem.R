@@ -148,11 +148,10 @@ bake.step_stem <- function(object, new_data, ...) {
     SnowballC::wordStem
 
   for (i in seq_along(col_names)) {
-    
-    stemmed_text <- map(new_data[, col_names[i], drop = TRUE],
-                        stem_fun)
+    stemmed_tokenlist <- tokenlist_apply(new_data[, col_names[i], drop = TRUE],
+                                         stem_fun)
 
-    new_data[, col_names[i]] <- tibble(stemmed_text)
+    new_data[, col_names[i]] <- tibble(stemmed_tokenlist)
   }
   new_data <- factor_to_text(new_data, col_names)
   as_tibble(new_data)

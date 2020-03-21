@@ -45,3 +45,11 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
   names(out) <- NULL
   new_tokenlist(out, dict)
 }
+
+tokenlist_apply <- function(x, fun) {
+  if (!is_tokenlist(x)) {
+    rlang::abort("Input must be a tokenlist.")
+  }
+  
+  tokenlist(lapply(x, fun))
+}
