@@ -160,7 +160,7 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
 
   for (i in seq_along(col_names)) {
     token_list[[i]] <- x$vocabulary %||%
-      sort(unique(unlist(training[, col_names[i], drop = TRUE])))
+      sort(attr(training[, col_names[i], drop = TRUE], "tokens"))
   }
 
   step_tf_new(
@@ -224,7 +224,7 @@ tidy.step_tf <- function(x, ...) {
 
 tf_function <- function(data, names, labels, weights, weight) {
   
-  counts <- as.matrix(list_to_dtm(data, names))
+  counts <- as.matrix(tokenlist_to_dtm(data, names))
   
   tf <- tf_weight(counts, weights, weight)
   colnames(tf) <- paste0(labels, "_", names)

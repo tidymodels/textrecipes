@@ -155,7 +155,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
 
   for (i in seq_along(col_names)) {
     token_list[[i]] <- x$vocabulary %||%
-      sort(unique(unlist(training[, col_names[i], drop = TRUE])))
+      sort(attr(training[, col_names[i], drop = TRUE], "tokens"))
   }
 
   step_tfidf_new(
@@ -221,7 +221,7 @@ tidy.step_tfidf <- function(x, ...) {
 # Implementation
 tfidf_function <- function(data, names, labels, smooth_idf, norm,
                            sublinear_tf) {
-  counts <- list_to_dtm(data, names)
+  counts <- tokenlist_to_dtm(data, names)
   
   tfidf <- dtm_to_tfidf(counts, smooth_idf, norm, sublinear_tf)
   

@@ -53,3 +53,20 @@ tokenlist_apply <- function(x, fun) {
   
   tokenlist(lapply(x, fun))
 }
+
+# Takes a list of tokens and calculate the token count matrix
+tokenlist_to_dtm <- function(x, dict) {
+  if (!is_tokenlist(x)) {
+    rlang::abort("Input must be a tokenlist.")
+  }
+  i <- rep(seq_along(x), lengths(x))
+  j <- match(unlist(x), dict)
+  
+  out <- sparseMatrix(i = i[!is.na(j)],  
+                      j = j[!is.na(j)], 
+                      dims = c(length(x), length(dict)),
+                      x = 1)
+  
+  out@Dimnames[[2]] <- dict
+  out
+}

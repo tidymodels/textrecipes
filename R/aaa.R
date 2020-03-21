@@ -39,17 +39,3 @@ word_tbl_filter <- function(x, words, keep) {
     map(x, tokenlist_filter, words, keep)
   )
 }
-
-# Takes a list of tokens and calculate the token count matrix
-list_to_dtm <- function(word_list, dict) {
-  i <- rep(seq_along(word_list), lengths(word_list))
-  j <- match(unlist(word_list), dict)
-  
-  out <- sparseMatrix(i = i[!is.na(j)],  
-                      j = j[!is.na(j)], 
-                      dims = c(length(word_list), length(dict)),
-                      x = 1)
-  
-  out@Dimnames[[2]] <- dict
-  out
-}
