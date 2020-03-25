@@ -147,6 +147,7 @@ will convert a character predictor into a list of tokens.</p>
   <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
   <span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"words"</span>,
+  <span class='kw'>engine</span> <span class='kw'>=</span> <span class='st'>"tokenizers"</span>,
   <span class='kw'>custom_token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"tokenize"</span>)
@@ -192,17 +193,18 @@ encoding. This is <code>NULL</code> until the step is trained by
     </tr>
     <tr>
       <th>token</th>
-      <td><p>Unit for tokenizing. Built-in options from the
-tokenizers package are "words" (default), "characters",
-"character_shingles", "ngrams", "skip_ngrams", "sentences",
-"lines", "paragraphs", "regex", "tweets" (tokenization by
-word that preserves usernames, hashtags, and URLS ),  "ptb"
-(Penn Treebank), "skip_ngrams" and  "word_stems".</p></td>
+      <td><p>Unit for tokenizing. See details for options. Defaults to
+"words".</p></td>
+    </tr>
+    <tr>
+      <th>engine</th>
+      <td><p>Package that will be used for tokenization. See details for
+options. Defaults to "tokenizers".</p></td>
     </tr>
     <tr>
       <th>custom_token</th>
-      <td><p>User supplied tokenizer. use of this argument
-will overwrite the token argument. Must take a character vector
+      <td><p>User supplied tokenizer. Use of this argument
+will overwrite the token and engine arguments. Must take a character vector
 as input and output a list of character vectors.</p></td>
     </tr>
     <tr>
@@ -237,8 +239,25 @@ includes heuristics to split the text into paragraphs tokens, word tokens
 amoug others. <code>textrecipes</code> keeps the tokens in a list-column and other
 steps will do their tasks on those list-columns before transforming them
 back to numeric.</p>
-<p>Working will <code>textrecipes</code> will always start by calling <code>step_tokenize</code>
-followed by modifying and filtering steps.</p>
+<p>The choice of <code>engine</code> determines the possible choices of <code>token</code>.</p>
+<p>If <code>engine = "tokenizers"</code>:</p><ul>
+<li><p>"words" (default)</p></li>
+<li><p>"characters"</p></li>
+<li><p>"character_shingles"</p></li>
+<li><p>"ngrams"</p></li>
+<li><p>"skip_ngrams"</p></li>
+<li><p>"sentences"</p></li>
+<li><p>"lines"</p></li>
+<li><p>"paragraphs"</p></li>
+<li><p>"regex"</p></li>
+<li><p>"tweets"</p></li>
+<li><p>"ptb" (Penn Treebank)</p></li>
+<li><p>"skip_ngrams"</p></li>
+<li><p>"word_stems"</p></li>
+</ul>
+
+<p>Working will <code>textrecipes</code> will almost always start by calling
+<code>step_tokenize</code> followed by modifying and filtering steps.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='step_untokenize.html'>step_untokenize()</a></code> to untokenize.</p></div>
@@ -267,10 +286,10 @@ followed by modifying and filtering steps.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms  value id            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_weq5T</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_x1Qhq</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms      value id            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_weq5T</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_x1Qhq</div><div class='input'>
 <span class='no'>okc_obj_chars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>step_tokenize</span>(<span class='no'>essay0</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"characters"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
