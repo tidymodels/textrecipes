@@ -108,7 +108,6 @@ the name of the variable, followed by the tokens all separated by
 token.
 }
 \examples{
-if (requireNamespace("text2vec", quietly = TRUE)) {
 \donttest{
 library(recipes)
 
@@ -125,7 +124,6 @@ bake(okc_obj, okc_text)
 
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
-}
 }
 }
 \seealso{
