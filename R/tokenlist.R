@@ -26,6 +26,10 @@ obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
   cat("# Unique Tokens: ", format(length(attr(x, "tokens"))), "\n", sep = "")
 }
 
+vec_restore.textrecipes_tokenlist <- function(x, to, ..., i = NULL) {
+  new_tokenlist(x, unique(unlist(x)))
+}
+
 # Takes a vector of character vectors and keeps (for keep = TRUE) the words
 # or removes (for keep = FALSE) the words
 tokenlist_filter <- function(x, dict, keep = FALSE) {
