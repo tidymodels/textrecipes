@@ -63,7 +63,7 @@ will filter a list of tokens for stopwords(keep or remove)." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -111,7 +111,7 @@ will filter a list of tokens for stopwords(keep or remove)." />
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/textrecipes">
+  <a href="https://github.com/tidymodels/textrecipes/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -258,24 +258,21 @@ combination of these two arguments.</p>
 
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
-#&gt;   essay0     
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;chr [111]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;chr [15]&gt;</span><span> </div><div class='input'>
+#&gt;                                                                           essay0
+#&gt;                                                                       </span><span style='color: #555555;font-style: italic;'>&lt;txtrcps_&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> twice        , upon         , time         , boy          , died         , tw…
+#&gt; </span><span style='color: #555555;'>2</span><span> chill   , steady  , br      , teacher , amp     , musician, br      , like   …</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] "chill"    "steady"   "br"       "teacher"  "amp"      "musician"
-#&gt;  [7] "br"       "like"     "playing"  "outside"  "dislike"  "school"  
-#&gt; [13] "nights"   "br"       "lucky"   
-#&gt; </div><div class='input'>
+  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
+#&gt; [1] chill   , steady  , br      , teacher , amp     , musician, br      , like    , playing , outside , dislike , school  , nights  , br      , lucky   </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms  value keep  id             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    stopwords_G85eL</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    stopwords_o7aV6</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms      value    keep  id             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     snowball FALSE stopwords_G85eL</div><div class='input'><span class='co'># With a custom stopwords list</span>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     snowball FALSE stopwords_o7aV6</div><div class='input'><span class='co'># With a custom stopwords list</span>
 
 <span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
@@ -285,23 +282,13 @@ combination of these two arguments.</p>
 
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] "i'm"      "chill"    "and"      "steady"   "br"       "i'm"     
-#&gt;  [7] "a"        "teacher"  "amp"      "musician" "br"       "i"       
-#&gt; [13] "like"     "playing"  "outside"  "dislike"  "school"   "nights"  
-#&gt; [19] "br"       "and"      "i'm"      "very"     "very"     "lucky"   
-#&gt; </div></span></pre>
+  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
+#&gt; [1] i'm     , chill   , and     , steady  , br      , i'm     , a       , teacher , amp     , musician, br      , i       , like    , playing , outside , dislike , school  , nights  , br      , and     , i'm     , very    , very    , lucky   </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

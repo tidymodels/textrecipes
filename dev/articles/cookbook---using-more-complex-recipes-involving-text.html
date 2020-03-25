@@ -26,7 +26,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -73,7 +73,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/textrecipes">
+  <a href="https://github.com/tidymodels/textrecipes/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -91,10 +91,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Cookbook - Using more complex recipes involving text</h1>
+      <h1 data-toc-skip>Cookbook - Using more complex recipes involving text</h1>
                         <h4 class="author">Emil Hvitfeldt</h4>
             
-            <h4 class="date">2020-03-15</h4>
+            <h4 class="date">2020-03-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="hidden name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -105,249 +105,241 @@
     
 <p>Working to get textual data converted into numerical can be done in many different ways. The steps included in <code>textrecipes</code> should hopefully give you the flexibility to perform most of your desired text preprocessing tasks. This vignette will showcase examples that combine multiple steps.</p>
 <p>This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be <code>dplyr</code>, <code>recipes</code> and <code>textrecipes</code>. Examples will be performed on the <code>okc_text</code> data-set which is packaged with <code>textrecipes</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(textrecipes)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"okc_text"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">textrecipes</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"okc_text"</span>)</pre></body></html></div>
 <div id="counting-select-words" class="section level2">
 <h2 class="hasAnchor">
 <a href="#counting-select-words" class="anchor"></a>Counting select words</h2>
 <p>Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments <code>custom_stopword_source</code> and <code>keep = TRUE</code> in <code>step_stopwords</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>words &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"you"</span>, <span class="st">"i"</span>, <span class="st">"sad"</span>, <span class="st">"happy"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(essay0) <span class="op">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  </span><span class="kw"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(essay0, <span class="dt">custom_stopword_source =</span> words, <span class="dt">keep =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tf.html">step_tf</a></span>(essay0)</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a>okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</span>
-<span id="cb2-10"><a href="#cb2-10"></a>   </span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))</span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; # A tibble: 750 x 4</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;    tf_essay0_happy tf_essay0_i tf_essay0_sad tf_essay0_you</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt;              &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;  1               0           1             0             3</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt;  2               0           1             0             0</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt;  3               0          21             0             1</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt;  4               1           5             0             0</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;  5               0           3             0             3</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt;  6               0           8             0             0</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt;  7               0          15             0             5</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt;  8               0           7             0             0</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt;  9               0           0             0             0</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; 10               0          14             0             1</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; # … with 740 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">words</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"you"</span>, <span class="st">"i"</span>, <span class="st">"sad"</span>, <span class="st">"happy"</span>)
+
+<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">words</span>, <span class="kw">keep</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">essay0</span>)
+
+<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+
+<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
+<span class="co">#&gt; # A tibble: 750 x 4</span>
+<span class="co">#&gt;    tf_essay0_happy tf_essay0_i tf_essay0_sad tf_essay0_you</span>
+<span class="co">#&gt;              &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt;  1               0           1             0             3</span>
+<span class="co">#&gt;  2               0           1             0             0</span>
+<span class="co">#&gt;  3               0          21             0             1</span>
+<span class="co">#&gt;  4               1           5             0             0</span>
+<span class="co">#&gt;  5               0           3             0             3</span>
+<span class="co">#&gt;  6               0           8             0             0</span>
+<span class="co">#&gt;  7               0          15             0             5</span>
+<span class="co">#&gt;  8               0           7             0             0</span>
+<span class="co">#&gt;  9               0           0             0             0</span>
+<span class="co">#&gt; 10               0          14             0             1</span>
+<span class="co">#&gt; # … with 740 more rows</span></pre></body></html></div>
 </div>
 <div id="removing-words-in-addition-to-the-stop-words-list" class="section level2">
 <h2 class="hasAnchor">
 <a href="#removing-words-in-addition-to-the-stop-words-list" class="anchor"></a>Removing words in addition to the stop words list</h2>
 <p>You might know of certain words you don’t want included which isn’t a part of the stop word list of choice. This can easily be done by applying the <code>step_stopwords</code> step twice, once for the stop words and once for your special words.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"text2vec"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</span>
-<span id="cb3-2"><a href="#cb3-2"></a>words &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sad"</span>, <span class="st">"happy"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a>okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(essay0) <span class="op">%&gt;%</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="st">  </span><span class="kw"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(essay0) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="st">  </span><span class="kw"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(essay0, <span class="dt">custom_stopword_source =</span> words) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(essay0)</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a>okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</span>
-<span id="cb3-12"><a href="#cb3-12"></a>   </span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))</span>
-<span id="cb3-15"><a href="#cb3-15"></a>}</span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; # A tibble: 750 x 9,090</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;    tfidf_essay0___… tfidf_essay0___… tfidf_essay0___… tfidf_essay0___…</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  1                0                0                0                0</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;  2                0                0                0                0</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt;  3                0                0                0                0</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;  4                0                0                0                0</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;  5                0                0                0                0</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;  6                0                0                0                0</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;  7                0                0                0                0</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;  8                0                0                0                0</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt;  9                0                0                0                0</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 10                0                0                0                0</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; # … with 740 more rows, and 9,086 more variables: tfidf_essay0__blank &lt;dbl&gt;,</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; #   tfidf_essay0__updates_ &lt;dbl&gt;, tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt; #   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; #   tfidf_essay0_0aboondocks &lt;dbl&gt;, tfidf_essay0_0abrothers &lt;dbl&gt;,</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; #   tfidf_essay0_0aconfidential &lt;dbl&gt;, tfidf_essay0_0aconversation &lt;dbl&gt;,</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; #   tfidf_essay0_0adebates &lt;dbl&gt;, tfidf_essay0_0afly &lt;dbl&gt;,</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt; #   tfidf_essay0_0afriends &lt;dbl&gt;, tfidf_essay0_0agiants &lt;dbl&gt;,</span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; #   tfidf_essay0_0ahop &lt;dbl&gt;, tfidf_essay0_0ahunters &lt;dbl&gt;,</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; #   tfidf_essay0_0aking &lt;dbl&gt;, tfidf_essay0_0amovies &lt;dbl&gt;,</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; #   tfidf_essay0_0amusic &lt;dbl&gt;, tfidf_essay0_0aparties &lt;dbl&gt;,</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; #   tfidf_essay0_0arailroading &lt;dbl&gt;, tfidf_essay0_0ashows &lt;dbl&gt;,</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt; #   tfidf_essay0_0atrips &lt;dbl&gt;, tfidf_essay0_0aweapons &lt;dbl&gt;,</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt; #   tfidf_essay0_1 &lt;dbl&gt;, tfidf_essay0_10 &lt;dbl&gt;, `tfidf_essay0_10,000` &lt;dbl&gt;,</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#&gt; #   tfidf_essay0_100 &lt;dbl&gt;, tfidf_essay0_1000 &lt;dbl&gt;, tfidf_essay0_105 &lt;dbl&gt;,</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a><span class="co">#&gt; #   tfidf_essay0_11 &lt;dbl&gt;, tfidf_essay0_110 &lt;dbl&gt;, tfidf_essay0_1193 &lt;dbl&gt;,</span></span>
-<span id="cb3-44"><a href="#cb3-44"></a><span class="co">#&gt; #   tfidf_essay0_12 &lt;dbl&gt;, tfidf_essay0_125 &lt;dbl&gt;, tfidf_essay0_12s &lt;dbl&gt;,</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a><span class="co">#&gt; #   tfidf_essay0_13 &lt;dbl&gt;, tfidf_essay0_1337 &lt;dbl&gt;, tfidf_essay0_14 &lt;dbl&gt;,</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a><span class="co">#&gt; #   tfidf_essay0_1400 &lt;dbl&gt;, tfidf_essay0_15 &lt;dbl&gt;, tfidf_essay0_150 &lt;dbl&gt;,</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#&gt; #   tfidf_essay0_16 &lt;dbl&gt;, tfidf_essay0_16th &lt;dbl&gt;, tfidf_essay0_17 &lt;dbl&gt;,</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a><span class="co">#&gt; #   tfidf_essay0_18 &lt;dbl&gt;, tfidf_essay0_180 &lt;dbl&gt;,</span></span>
-<span id="cb3-49"><a href="#cb3-49"></a><span class="co">#&gt; #   tfidf_essay0_1886866717 &lt;dbl&gt;, tfidf_essay0_19 &lt;dbl&gt;,</span></span>
-<span id="cb3-50"><a href="#cb3-50"></a><span class="co">#&gt; #   tfidf_essay0_1904 &lt;dbl&gt;, tfidf_essay0_1964 &lt;dbl&gt;, tfidf_essay0_1966 &lt;dbl&gt;,</span></span>
-<span id="cb3-51"><a href="#cb3-51"></a><span class="co">#&gt; #   tfidf_essay0_1982 &lt;dbl&gt;, tfidf_essay0_1988 &lt;dbl&gt;, tfidf_essay0_1991 &lt;dbl&gt;,</span></span>
-<span id="cb3-52"><a href="#cb3-52"></a><span class="co">#&gt; #   tfidf_essay0_1992 &lt;dbl&gt;, tfidf_essay0_1996 &lt;dbl&gt;, tfidf_essay0_1998 &lt;dbl&gt;,</span></span>
-<span id="cb3-53"><a href="#cb3-53"></a><span class="co">#&gt; #   tfidf_essay0_1st &lt;dbl&gt;, tfidf_essay0_2 &lt;dbl&gt;, tfidf_essay0_20 &lt;dbl&gt;,</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a><span class="co">#&gt; #   tfidf_essay0_200 &lt;dbl&gt;, tfidf_essay0_2000s &lt;dbl&gt;, tfidf_essay0_2001 &lt;dbl&gt;,</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a><span class="co">#&gt; #   tfidf_essay0_2005 &lt;dbl&gt;, tfidf_essay0_2007 &lt;dbl&gt;, tfidf_essay0_2008 &lt;dbl&gt;,</span></span>
-<span id="cb3-56"><a href="#cb3-56"></a><span class="co">#&gt; #   tfidf_essay0_2009 &lt;dbl&gt;, tfidf_essay0_2010 &lt;dbl&gt;, tfidf_essay0_2011 &lt;dbl&gt;,</span></span>
-<span id="cb3-57"><a href="#cb3-57"></a><span class="co">#&gt; #   tfidf_essay0_2012 &lt;dbl&gt;, tfidf_essay0_202 &lt;dbl&gt;, tfidf_essay0_2021 &lt;dbl&gt;,</span></span>
-<span id="cb3-58"><a href="#cb3-58"></a><span class="co">#&gt; #   tfidf_essay0_20s &lt;dbl&gt;, tfidf_essay0_20snot &lt;dbl&gt;, tfidf_essay0_20th &lt;dbl&gt;,</span></span>
-<span id="cb3-59"><a href="#cb3-59"></a><span class="co">#&gt; #   tfidf_essay0_21 &lt;dbl&gt;, tfidf_essay0_22 &lt;dbl&gt;, tfidf_essay0_23 &lt;dbl&gt;,</span></span>
-<span id="cb3-60"><a href="#cb3-60"></a><span class="co">#&gt; #   tfidf_essay0_23yo &lt;dbl&gt;, tfidf_essay0_24 &lt;dbl&gt;, tfidf_essay0_245lb &lt;dbl&gt;,</span></span>
-<span id="cb3-61"><a href="#cb3-61"></a><span class="co">#&gt; #   tfidf_essay0_25 &lt;dbl&gt;, tfidf_essay0_250 &lt;dbl&gt;, tfidf_essay0_26 &lt;dbl&gt;,</span></span>
-<span id="cb3-62"><a href="#cb3-62"></a><span class="co">#&gt; #   tfidf_essay0_27 &lt;dbl&gt;, tfidf_essay0_27ish &lt;dbl&gt;, tfidf_essay0_27s &lt;dbl&gt;,</span></span>
-<span id="cb3-63"><a href="#cb3-63"></a><span class="co">#&gt; #   tfidf_essay0_28 &lt;dbl&gt;, tfidf_essay0_28th &lt;dbl&gt;, tfidf_essay0_29 &lt;dbl&gt;,</span></span>
-<span id="cb3-64"><a href="#cb3-64"></a><span class="co">#&gt; #   tfidf_essay0_2cedd &lt;dbl&gt;, tfidf_essay0_2cehksxolna &lt;dbl&gt;,</span></span>
-<span id="cb3-65"><a href="#cb3-65"></a><span class="co">#&gt; #   tfidf_essay0_2fbowling &lt;dbl&gt;, tfidf_essay0_2fdarts &lt;dbl&gt;,</span></span>
-<span id="cb3-66"><a href="#cb3-66"></a><span class="co">#&gt; #   tfidf_essay0_2fodd &lt;dbl&gt;, tfidf_essay0_2foutdoor &lt;dbl&gt;,</span></span>
-<span id="cb3-67"><a href="#cb3-67"></a><span class="co">#&gt; #   tfidf_essay0_2nd &lt;dbl&gt;, tfidf_essay0_2wqv9 &lt;dbl&gt;, tfidf_essay0_3 &lt;dbl&gt;, …</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"text2vec"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
+<span class="no">words</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sad"</span>, <span class="st">"happy"</span>)
+
+<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">words</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
+
+<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+
+<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
+}
+<span class="co">#&gt; # A tibble: 750 x 9,090</span>
+<span class="co">#&gt;    tfidf_essay0___… tfidf_essay0___… tfidf_essay0___… tfidf_essay0___…</span>
+<span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                0                0                0                0</span>
+<span class="co">#&gt;  2                0                0                0                0</span>
+<span class="co">#&gt;  3                0                0                0                0</span>
+<span class="co">#&gt;  4                0                0                0                0</span>
+<span class="co">#&gt;  5                0                0                0                0</span>
+<span class="co">#&gt;  6                0                0                0                0</span>
+<span class="co">#&gt;  7                0                0                0                0</span>
+<span class="co">#&gt;  8                0                0                0                0</span>
+<span class="co">#&gt;  9                0                0                0                0</span>
+<span class="co">#&gt; 10                0                0                0                0</span>
+<span class="co">#&gt; # … with 740 more rows, and 9,086 more variables: tfidf_essay0__blank &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0__updates_ &lt;dbl&gt;, tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0aboondocks &lt;dbl&gt;, tfidf_essay0_0abrothers &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0aconfidential &lt;dbl&gt;, tfidf_essay0_0aconversation &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0adebates &lt;dbl&gt;, tfidf_essay0_0afly &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0afriends &lt;dbl&gt;, tfidf_essay0_0agiants &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0ahop &lt;dbl&gt;, tfidf_essay0_0ahunters &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0aking &lt;dbl&gt;, tfidf_essay0_0amovies &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0amusic &lt;dbl&gt;, tfidf_essay0_0aparties &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0arailroading &lt;dbl&gt;, tfidf_essay0_0ashows &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_0atrips &lt;dbl&gt;, tfidf_essay0_0aweapons &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1 &lt;dbl&gt;, tfidf_essay0_10 &lt;dbl&gt;, `tfidf_essay0_10,000` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_100 &lt;dbl&gt;, tfidf_essay0_1000 &lt;dbl&gt;, tfidf_essay0_105 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_11 &lt;dbl&gt;, tfidf_essay0_110 &lt;dbl&gt;, tfidf_essay0_1193 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_12 &lt;dbl&gt;, tfidf_essay0_125 &lt;dbl&gt;, tfidf_essay0_12s &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_13 &lt;dbl&gt;, tfidf_essay0_1337 &lt;dbl&gt;, tfidf_essay0_14 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1400 &lt;dbl&gt;, tfidf_essay0_15 &lt;dbl&gt;, tfidf_essay0_150 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_16 &lt;dbl&gt;, tfidf_essay0_16th &lt;dbl&gt;, tfidf_essay0_17 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_18 &lt;dbl&gt;, tfidf_essay0_180 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1886866717 &lt;dbl&gt;, tfidf_essay0_19 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1904 &lt;dbl&gt;, tfidf_essay0_1964 &lt;dbl&gt;, tfidf_essay0_1966 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1982 &lt;dbl&gt;, tfidf_essay0_1988 &lt;dbl&gt;, tfidf_essay0_1991 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1992 &lt;dbl&gt;, tfidf_essay0_1996 &lt;dbl&gt;, tfidf_essay0_1998 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1st &lt;dbl&gt;, tfidf_essay0_2 &lt;dbl&gt;, tfidf_essay0_20 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_200 &lt;dbl&gt;, tfidf_essay0_2000s &lt;dbl&gt;, tfidf_essay0_2001 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2005 &lt;dbl&gt;, tfidf_essay0_2007 &lt;dbl&gt;, tfidf_essay0_2008 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2009 &lt;dbl&gt;, tfidf_essay0_2010 &lt;dbl&gt;, tfidf_essay0_2011 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2012 &lt;dbl&gt;, tfidf_essay0_202 &lt;dbl&gt;, tfidf_essay0_2021 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_20s &lt;dbl&gt;, tfidf_essay0_20snot &lt;dbl&gt;, tfidf_essay0_20th &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_21 &lt;dbl&gt;, tfidf_essay0_22 &lt;dbl&gt;, tfidf_essay0_23 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_23yo &lt;dbl&gt;, tfidf_essay0_24 &lt;dbl&gt;, tfidf_essay0_245lb &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_25 &lt;dbl&gt;, tfidf_essay0_250 &lt;dbl&gt;, tfidf_essay0_26 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_27 &lt;dbl&gt;, tfidf_essay0_27ish &lt;dbl&gt;, tfidf_essay0_27s &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_28 &lt;dbl&gt;, tfidf_essay0_28th &lt;dbl&gt;, tfidf_essay0_29 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2cedd &lt;dbl&gt;, tfidf_essay0_2cehksxolna &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2fbowling &lt;dbl&gt;, tfidf_essay0_2fdarts &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2fodd &lt;dbl&gt;, tfidf_essay0_2foutdoor &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_2nd &lt;dbl&gt;, tfidf_essay0_2wqv9 &lt;dbl&gt;, tfidf_essay0_3 &lt;dbl&gt;, …</span></pre></body></html></div>
 </div>
 <div id="letter-distributions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#letter-distributions" class="anchor"></a>Letter distributions</h2>
 <p>Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the <code>step_stopwords</code> step.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"text2vec"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(essay0, <span class="dt">token =</span> <span class="st">"characters"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(essay0, <span class="dt">custom_stopword_source =</span> letters, <span class="dt">keep =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tf.html">step_tf</a></span>(essay0)</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a>okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>   </span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))</span>
-<span id="cb4-12"><a href="#cb4-12"></a>}</span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; # A tibble: 750 x 26</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;    tf_essay0_a tf_essay0_b tf_essay0_c tf_essay0_d tf_essay0_e tf_essay0_f</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  1          80          32          22          25          79          13</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;  2           8           3           5           5           8           0</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;  3         127          30          36          59         148          36</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt;  4          28           3           5          10          34           6</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;  5          19           9           6           6          34           9</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt;  6          97          21          22          34         130          26</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;  7         110          25          32          46         146          23</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt;  8          66          13           9          23          69          12</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt;  9           1           0           0           0           1           0</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; 10         250          76         115         106         274          53</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; # … with 740 more rows, and 20 more variables: tf_essay0_g &lt;dbl&gt;,</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; #   tf_essay0_h &lt;dbl&gt;, tf_essay0_i &lt;dbl&gt;, tf_essay0_j &lt;dbl&gt;, tf_essay0_k &lt;dbl&gt;,</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; #   tf_essay0_l &lt;dbl&gt;, tf_essay0_m &lt;dbl&gt;, tf_essay0_n &lt;dbl&gt;, tf_essay0_o &lt;dbl&gt;,</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; #   tf_essay0_p &lt;dbl&gt;, tf_essay0_q &lt;dbl&gt;, tf_essay0_r &lt;dbl&gt;, tf_essay0_s &lt;dbl&gt;,</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; #   tf_essay0_t &lt;dbl&gt;, tf_essay0_u &lt;dbl&gt;, tf_essay0_v &lt;dbl&gt;, tf_essay0_w &lt;dbl&gt;,</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; #   tf_essay0_x &lt;dbl&gt;, tf_essay0_y &lt;dbl&gt;, tf_essay0_z &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"text2vec"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
+<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="kw">token</span> <span class="kw">=</span> <span class="st">"characters"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">letters</span>, <span class="kw">keep</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">essay0</span>)
+
+<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+
+<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
+}
+<span class="co">#&gt; # A tibble: 750 x 26</span>
+<span class="co">#&gt;    tf_essay0_a tf_essay0_b tf_essay0_c tf_essay0_d tf_essay0_e tf_essay0_f</span>
+<span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt;  1          80          32          22          25          79          13</span>
+<span class="co">#&gt;  2           8           3           5           5           8           0</span>
+<span class="co">#&gt;  3         127          30          36          59         148          36</span>
+<span class="co">#&gt;  4          28           3           5          10          34           6</span>
+<span class="co">#&gt;  5          19           9           6           6          34           9</span>
+<span class="co">#&gt;  6          97          21          22          34         130          26</span>
+<span class="co">#&gt;  7         110          25          32          46         146          23</span>
+<span class="co">#&gt;  8          66          13           9          23          69          12</span>
+<span class="co">#&gt;  9           1           0           0           0           1           0</span>
+<span class="co">#&gt; 10         250          76         115         106         274          53</span>
+<span class="co">#&gt; # … with 740 more rows, and 20 more variables: tf_essay0_g &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_essay0_h &lt;dbl&gt;, tf_essay0_i &lt;dbl&gt;, tf_essay0_j &lt;dbl&gt;, tf_essay0_k &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_essay0_l &lt;dbl&gt;, tf_essay0_m &lt;dbl&gt;, tf_essay0_n &lt;dbl&gt;, tf_essay0_o &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_essay0_p &lt;dbl&gt;, tf_essay0_q &lt;dbl&gt;, tf_essay0_r &lt;dbl&gt;, tf_essay0_s &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_essay0_t &lt;dbl&gt;, tf_essay0_u &lt;dbl&gt;, tf_essay0_v &lt;dbl&gt;, tf_essay0_w &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_essay0_x &lt;dbl&gt;, tf_essay0_y &lt;dbl&gt;, tf_essay0_z &lt;dbl&gt;</span></pre></body></html></div>
 </div>
 <div id="tf-idf-of-ngrams-of-stemmed-tokens" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tf-idf-of-ngrams-of-stemmed-tokens" class="anchor"></a>TF-IDF of ngrams of stemmed tokens</h2>
 <p>Sometimes fairly complicated computations. Here we would like the term frequency inverse document frequency (TF-IDF) of the most common 500 ngrams done on stemmed tokens. It is quite a handful and would seldom be included as a option in most other libraries. But the modularity of <code>textrecipes</code> makes this task fairly easy.</p>
 <p>First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using <code>step_untokenize</code> so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"text2vec"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</span>
-<span id="cb5-2"><a href="#cb5-2"></a>okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(essay0, <span class="dt">token =</span> <span class="st">"words"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw"><a href="../reference/step_stem.html">step_stem</a></span>(essay0) <span class="op">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw"><a href="../reference/step_untokenize.html">step_untokenize</a></span>(essay0) <span class="op">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(essay0, <span class="dt">token =</span> <span class="st">"ngrams"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span>(essay0, <span class="dt">max_tokens =</span> <span class="dv">500</span>) <span class="op">%&gt;%</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(essay0)</span>
-<span id="cb5-9"><a href="#cb5-9"></a></span>
-<span id="cb5-10"><a href="#cb5-10"></a>okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</span>
-<span id="cb5-12"><a href="#cb5-12"></a>   </span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))</span>
-<span id="cb5-15"><a href="#cb5-15"></a>}</span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; # A tibble: 750 x 500</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;    `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a…</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  1                0                0                0                0</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  2                0                0                0                0</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;  3                0                0                0                0</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt;  4                0                0                0                0</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt;  5                0                0                0                0</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt;  6                0                0                0                0</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt;  7                0                0                0                0</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt;  8                0                0                0                0</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt;  9                0                0                0                0</span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 10                0                0                0                0</span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; # … with 740 more rows, and 496 more variables: `tfidf_essay0_a br br` &lt;dbl&gt;,</span></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; #   `tfidf_essay0_a class ilink` &lt;dbl&gt;, `tfidf_essay0_a coupl of` &lt;dbl&gt;,</span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; #   `tfidf_essay0_a few year` &lt;dbl&gt;, `tfidf_essay0_a good time` &lt;dbl&gt;,</span></span>
-<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; #   `tfidf_essay0_a i can` &lt;dbl&gt;, `tfidf_essay0_a laid back` &lt;dbl&gt;,</span></span>
-<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; #   `tfidf_essay0_a littl bit` &lt;dbl&gt;, `tfidf_essay0_a long a` &lt;dbl&gt;,</span></span>
-<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt; #   `tfidf_essay0_a lot and` &lt;dbl&gt;, `tfidf_essay0_a lot of` &lt;dbl&gt;,</span></span>
-<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt; #   `tfidf_essay0_a lover who` &lt;dbl&gt;, `tfidf_essay0_a man who` &lt;dbl&gt;,</span></span>
-<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt; #   `tfidf_essay0_a much a` &lt;dbl&gt;, `tfidf_essay0_a part of` &lt;dbl&gt;,</span></span>
-<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; #   `tfidf_essay0_a sens of` &lt;dbl&gt;, `tfidf_essay0_a well a` &lt;dbl&gt;,</span></span>
-<span id="cb5-38"><a href="#cb5-38"></a><span class="co">#&gt; #   `tfidf_essay0_about me i` &lt;dbl&gt;, `tfidf_essay0_all kind of` &lt;dbl&gt;,</span></span>
-<span id="cb5-39"><a href="#cb5-39"></a><span class="co">#&gt; #   `tfidf_essay0_all over the` &lt;dbl&gt;, `tfidf_essay0_all the time` &lt;dbl&gt;,</span></span>
-<span id="cb5-40"><a href="#cb5-40"></a><span class="co">#&gt; #   `tfidf_essay0_also like to` &lt;dbl&gt;, `tfidf_essay0_am a veri` &lt;dbl&gt;,</span></span>
-<span id="cb5-41"><a href="#cb5-41"></a><span class="co">#&gt; #   `tfidf_essay0_am look for` &lt;dbl&gt;, `tfidf_essay0_am not a` &lt;dbl&gt;,</span></span>
-<span id="cb5-42"><a href="#cb5-42"></a><span class="co">#&gt; #   `tfidf_essay0_and a class` &lt;dbl&gt;, `tfidf_essay0_and am a` &lt;dbl&gt;,</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a><span class="co">#&gt; #   `tfidf_essay0_and enjoi the` &lt;dbl&gt;, `tfidf_essay0_and go to` &lt;dbl&gt;,</span></span>
-<span id="cb5-44"><a href="#cb5-44"></a><span class="co">#&gt; #   `tfidf_essay0_and have a` &lt;dbl&gt;, `tfidf_essay0_and have been` &lt;dbl&gt;,</span></span>
-<span id="cb5-45"><a href="#cb5-45"></a><span class="co">#&gt; #   `tfidf_essay0_and have fun` &lt;dbl&gt;, `tfidf_essay0_and i am` &lt;dbl&gt;,</span></span>
-<span id="cb5-46"><a href="#cb5-46"></a><span class="co">#&gt; #   `tfidf_essay0_and i don't` &lt;dbl&gt;, `tfidf_essay0_and i have` &lt;dbl&gt;,</span></span>
-<span id="cb5-47"><a href="#cb5-47"></a><span class="co">#&gt; #   `tfidf_essay0_and i like` &lt;dbl&gt;, `tfidf_essay0_and i love` &lt;dbl&gt;,</span></span>
-<span id="cb5-48"><a href="#cb5-48"></a><span class="co">#&gt; #   `tfidf_essay0_and i try` &lt;dbl&gt;, `tfidf_essay0_and i'm not` &lt;dbl&gt;,</span></span>
-<span id="cb5-49"><a href="#cb5-49"></a><span class="co">#&gt; #   `tfidf_essay0_and like to` &lt;dbl&gt;, `tfidf_essay0_and live in` &lt;dbl&gt;,</span></span>
-<span id="cb5-50"><a href="#cb5-50"></a><span class="co">#&gt; #   `tfidf_essay0_and look for` &lt;dbl&gt;, `tfidf_essay0_and love it` &lt;dbl&gt;,</span></span>
-<span id="cb5-51"><a href="#cb5-51"></a><span class="co">#&gt; #   `tfidf_essay0_and love the` &lt;dbl&gt;, `tfidf_essay0_and love to` &lt;dbl&gt;,</span></span>
-<span id="cb5-52"><a href="#cb5-52"></a><span class="co">#&gt; #   `tfidf_essay0_and rais in` &lt;dbl&gt;, `tfidf_essay0_and try new` &lt;dbl&gt;,</span></span>
-<span id="cb5-53"><a href="#cb5-53"></a><span class="co">#&gt; #   `tfidf_essay0_and try to` &lt;dbl&gt;, `tfidf_essay0_and work in` &lt;dbl&gt;,</span></span>
-<span id="cb5-54"><a href="#cb5-54"></a><span class="co">#&gt; #   `tfidf_essay0_and would love` &lt;dbl&gt;, `tfidf_essay0_at least onc` &lt;dbl&gt;,</span></span>
-<span id="cb5-55"><a href="#cb5-55"></a><span class="co">#&gt; #   `tfidf_essay0_at the same` &lt;dbl&gt;, `tfidf_essay0_back in the` &lt;dbl&gt;,</span></span>
-<span id="cb5-56"><a href="#cb5-56"></a><span class="co">#&gt; #   `tfidf_essay0_back to the` &lt;dbl&gt;, `tfidf_essay0_bai area for` &lt;dbl&gt;,</span></span>
-<span id="cb5-57"><a href="#cb5-57"></a><span class="co">#&gt; #   `tfidf_essay0_bai area i` &lt;dbl&gt;, `tfidf_essay0_be abl to` &lt;dbl&gt;,</span></span>
-<span id="cb5-58"><a href="#cb5-58"></a><span class="co">#&gt; #   `tfidf_essay0_be in the` &lt;dbl&gt;, `tfidf_essay0_big fan of` &lt;dbl&gt;,</span></span>
-<span id="cb5-59"><a href="#cb5-59"></a><span class="co">#&gt; #   `tfidf_essay0_bit of a` &lt;dbl&gt;, `tfidf_essay0_born and rais` &lt;dbl&gt;,</span></span>
-<span id="cb5-60"><a href="#cb5-60"></a><span class="co">#&gt; #   `tfidf_essay0_br a class` &lt;dbl&gt;, `tfidf_essay0_br br a` &lt;dbl&gt;,</span></span>
-<span id="cb5-61"><a href="#cb5-61"></a><span class="co">#&gt; #   `tfidf_essay0_br br also` &lt;dbl&gt;, `tfidf_essay0_br br and` &lt;dbl&gt;,</span></span>
-<span id="cb5-62"><a href="#cb5-62"></a><span class="co">#&gt; #   `tfidf_essay0_br br at` &lt;dbl&gt;, `tfidf_essay0_br br br` &lt;dbl&gt;,</span></span>
-<span id="cb5-63"><a href="#cb5-63"></a><span class="co">#&gt; #   `tfidf_essay0_br br for` &lt;dbl&gt;, `tfidf_essay0_br br here` &lt;dbl&gt;,</span></span>
-<span id="cb5-64"><a href="#cb5-64"></a><span class="co">#&gt; #   `tfidf_essay0_br br i` &lt;dbl&gt;, `tfidf_essay0_br br i'm` &lt;dbl&gt;,</span></span>
-<span id="cb5-65"><a href="#cb5-65"></a><span class="co">#&gt; #   `tfidf_essay0_br br i'v` &lt;dbl&gt;, `tfidf_essay0_br br if` &lt;dbl&gt;,</span></span>
-<span id="cb5-66"><a href="#cb5-66"></a><span class="co">#&gt; #   `tfidf_essay0_br br im` &lt;dbl&gt;, `tfidf_essay0_br br imagin` &lt;dbl&gt;,</span></span>
-<span id="cb5-67"><a href="#cb5-67"></a><span class="co">#&gt; #   `tfidf_essay0_br br in` &lt;dbl&gt;, `tfidf_essay0_br br my` &lt;dbl&gt;,</span></span>
-<span id="cb5-68"><a href="#cb5-68"></a><span class="co">#&gt; #   `tfidf_essay0_br br oh` &lt;dbl&gt;, `tfidf_essay0_br br on` &lt;dbl&gt;,</span></span>
-<span id="cb5-69"><a href="#cb5-69"></a><span class="co">#&gt; #   `tfidf_essay0_br br so` &lt;dbl&gt;, `tfidf_essay0_br br the` &lt;dbl&gt;,</span></span>
-<span id="cb5-70"><a href="#cb5-70"></a><span class="co">#&gt; #   `tfidf_essay0_br br to` &lt;dbl&gt;, `tfidf_essay0_br br what` &lt;dbl&gt;,</span></span>
-<span id="cb5-71"><a href="#cb5-71"></a><span class="co">#&gt; #   `tfidf_essay0_br br when` &lt;dbl&gt;, `tfidf_essay0_br br you` &lt;dbl&gt;,</span></span>
-<span id="cb5-72"><a href="#cb5-72"></a><span class="co">#&gt; #   `tfidf_essay0_br i also` &lt;dbl&gt;, `tfidf_essay0_br i am` &lt;dbl&gt;,</span></span>
-<span id="cb5-73"><a href="#cb5-73"></a><span class="co">#&gt; #   `tfidf_essay0_br i believ` &lt;dbl&gt;, `tfidf_essay0_br i can` &lt;dbl&gt;,</span></span>
-<span id="cb5-74"><a href="#cb5-74"></a><span class="co">#&gt; #   `tfidf_essay0_br i do` &lt;dbl&gt;, `tfidf_essay0_br i don't` &lt;dbl&gt;,</span></span>
-<span id="cb5-75"><a href="#cb5-75"></a><span class="co">#&gt; #   `tfidf_essay0_br i enjoi` &lt;dbl&gt;, `tfidf_essay0_br i grew` &lt;dbl&gt;,</span></span>
-<span id="cb5-76"><a href="#cb5-76"></a><span class="co">#&gt; #   `tfidf_essay0_br i have` &lt;dbl&gt;, `tfidf_essay0_br i just` &lt;dbl&gt;,</span></span>
-<span id="cb5-77"><a href="#cb5-77"></a><span class="co">#&gt; #   `tfidf_essay0_br i like` &lt;dbl&gt;, `tfidf_essay0_br i love` &lt;dbl&gt;,</span></span>
-<span id="cb5-78"><a href="#cb5-78"></a><span class="co">#&gt; #   `tfidf_essay0_br i realli` &lt;dbl&gt;, `tfidf_essay0_br i think` &lt;dbl&gt;,</span></span>
-<span id="cb5-79"><a href="#cb5-79"></a><span class="co">#&gt; #   `tfidf_essay0_br i wa` &lt;dbl&gt;, …</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"text2vec"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
+<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="kw">token</span> <span class="kw">=</span> <span class="st">"words"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_untokenize.html">step_untokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="kw">token</span> <span class="kw">=</span> <span class="st">"ngrams"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="no">essay0</span>, <span class="kw">max_tokens</span> <span class="kw">=</span> <span class="fl">500</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
+
+<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+
+<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
+}
+<span class="co">#&gt; # A tibble: 750 x 500</span>
+<span class="co">#&gt;    `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a…</span>
+<span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                0                0                0                0</span>
+<span class="co">#&gt;  2                0                0                0                0</span>
+<span class="co">#&gt;  3                0                0                0                0</span>
+<span class="co">#&gt;  4                0                0                0                0</span>
+<span class="co">#&gt;  5                0                0                0                0</span>
+<span class="co">#&gt;  6                0                0                0                0</span>
+<span class="co">#&gt;  7                0                0                0                0</span>
+<span class="co">#&gt;  8                0                0                0                0</span>
+<span class="co">#&gt;  9                0                0                0                0</span>
+<span class="co">#&gt; 10                0                0                0                0</span>
+<span class="co">#&gt; # … with 740 more rows, and 496 more variables: `tfidf_essay0_a br br` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a class ilink` &lt;dbl&gt;, `tfidf_essay0_a coupl of` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a few year` &lt;dbl&gt;, `tfidf_essay0_a good time` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a i can` &lt;dbl&gt;, `tfidf_essay0_a laid back` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a littl bit` &lt;dbl&gt;, `tfidf_essay0_a long a` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a lot and` &lt;dbl&gt;, `tfidf_essay0_a lot of` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a lover who` &lt;dbl&gt;, `tfidf_essay0_a man who` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a much a` &lt;dbl&gt;, `tfidf_essay0_a part of` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_a sens of` &lt;dbl&gt;, `tfidf_essay0_a well a` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_about me i` &lt;dbl&gt;, `tfidf_essay0_all kind of` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_all over the` &lt;dbl&gt;, `tfidf_essay0_all the time` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_also like to` &lt;dbl&gt;, `tfidf_essay0_am a veri` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_am look for` &lt;dbl&gt;, `tfidf_essay0_am not a` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and a class` &lt;dbl&gt;, `tfidf_essay0_and am a` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and enjoi the` &lt;dbl&gt;, `tfidf_essay0_and go to` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and have a` &lt;dbl&gt;, `tfidf_essay0_and have been` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and have fun` &lt;dbl&gt;, `tfidf_essay0_and i am` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and i don't` &lt;dbl&gt;, `tfidf_essay0_and i have` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and i like` &lt;dbl&gt;, `tfidf_essay0_and i love` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and i try` &lt;dbl&gt;, `tfidf_essay0_and i'm not` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and like to` &lt;dbl&gt;, `tfidf_essay0_and live in` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and look for` &lt;dbl&gt;, `tfidf_essay0_and love it` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and love the` &lt;dbl&gt;, `tfidf_essay0_and love to` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and rais in` &lt;dbl&gt;, `tfidf_essay0_and try new` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and try to` &lt;dbl&gt;, `tfidf_essay0_and work in` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_and would love` &lt;dbl&gt;, `tfidf_essay0_at least onc` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_at the same` &lt;dbl&gt;, `tfidf_essay0_back in the` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_back to the` &lt;dbl&gt;, `tfidf_essay0_bai area for` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_bai area i` &lt;dbl&gt;, `tfidf_essay0_be abl to` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_be in the` &lt;dbl&gt;, `tfidf_essay0_big fan of` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_bit of a` &lt;dbl&gt;, `tfidf_essay0_born and rais` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br a class` &lt;dbl&gt;, `tfidf_essay0_br br a` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br also` &lt;dbl&gt;, `tfidf_essay0_br br and` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br at` &lt;dbl&gt;, `tfidf_essay0_br br br` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br for` &lt;dbl&gt;, `tfidf_essay0_br br here` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br i` &lt;dbl&gt;, `tfidf_essay0_br br i'm` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br i'v` &lt;dbl&gt;, `tfidf_essay0_br br if` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br im` &lt;dbl&gt;, `tfidf_essay0_br br imagin` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br in` &lt;dbl&gt;, `tfidf_essay0_br br my` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br oh` &lt;dbl&gt;, `tfidf_essay0_br br on` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br so` &lt;dbl&gt;, `tfidf_essay0_br br the` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br to` &lt;dbl&gt;, `tfidf_essay0_br br what` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br br when` &lt;dbl&gt;, `tfidf_essay0_br br you` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i also` &lt;dbl&gt;, `tfidf_essay0_br i am` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i believ` &lt;dbl&gt;, `tfidf_essay0_br i can` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i do` &lt;dbl&gt;, `tfidf_essay0_br i don't` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i enjoi` &lt;dbl&gt;, `tfidf_essay0_br i grew` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i have` &lt;dbl&gt;, `tfidf_essay0_br i just` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i like` &lt;dbl&gt;, `tfidf_essay0_br i love` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i realli` &lt;dbl&gt;, `tfidf_essay0_br i think` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `tfidf_essay0_br i wa` &lt;dbl&gt;, …</span></pre></body></html></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#counting-select-words">Counting select words</a></li>
-      <li><a href="#removing-words-in-addition-to-the-stop-words-list">Removing words in addition to the stop words list</a></li>
-      <li><a href="#letter-distributions">Letter distributions</a></li>
-      <li><a href="#tf-idf-of-ngrams-of-stemmed-tokens">TF-IDF of ngrams of stemmed tokens</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

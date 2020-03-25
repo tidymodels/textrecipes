@@ -1,7 +1,7 @@
 pandoc: 2.7.3
 pkgdown: 1.4.1.9000
-pkgdown_sha: 17d069073e39a73cf09b54eb756a83d55f8fa96b
+pkgdown_sha: cfd478efc17cce99bd473d70a41374557dbda3f3
 articles:
   cookbook---using-more-complex-recipes-involving-text: cookbook---using-more-complex-recipes-involving-text.html
-last_built: 2020-03-15T03:00Z
+last_built: 2020-03-25T17:37Z
 
