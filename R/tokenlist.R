@@ -13,6 +13,7 @@ is_tokenlist <- function(x) {
   inherits(x, "textrecipes_tokenlist")
 }
 
+#' @export
 format.textrecipes_tokenlist <- function(x, ...) {
   out <- formatC(lengths(vec_data(x)))
   paste0("[", out, " tokens]")

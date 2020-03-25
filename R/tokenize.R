@@ -251,5 +251,20 @@ tokenizer_switch <- function(name, engine) {
     return(res)
   }
   
+  if (engine == "spacyr") {
+    recipes::recipes_pkg_check("spacyr")
+    
+    possible_tokenizers <- c("words")
+    
+    if (!(name %in% possible_tokenizers))
+      rlang::abort(paste0("token should be one of the supported ",
+                          "'", possible_tokenizers, "'", collapse = ", "))
+    
+    res <- switch(name,
+                  words = spacyr_tokenizer_words
+    )
+    return(res)
+  }
+  
   rlang::abort("`engine` argument is not valid.")
 }
