@@ -1,12 +1,18 @@
-new_tokenlist <- function(x = list(), tokens = character()) {
+new_tokenlist <- function(x = list(), lemma = NULL, tokens = character()) {
   vec_assert(x, list())
+  if (!(is.null(lemma) | is.list(lemma))) {
+    rlang::abort("`lemma` must be NULL or a list.")
+  }
   vec_assert(tokens, character())
-  new_vctr(x, tokens = tokens, class = "textrecipes_tokenlist")
+  new_vctr(x, lemma = lemma, tokens = tokens, class = "textrecipes_tokenlist")
 }
 
-tokenlist <- function(x = list()) {
+tokenlist <- function(x = list(), lemma = NULL) {
   x <- vec_cast(x, list())
-  new_tokenlist(x, tokens = unique(unlist(x)))
+  if (!is.null(lemma)) {
+    lemma <- vec_cast(lemma, list())
+  }
+  new_tokenlist(x, lemma = lemma, tokens = unique(unlist(x)))
 }
 
 is_tokenlist <- function(x) {
@@ -31,6 +37,15 @@ vec_restore.textrecipes_tokenlist <- function(x, to, ..., i = NULL) {
   new_tokenlist(x, unique(unlist(x)))
 }
 
+`[.textrecipes_tokenlist`<- function(x, i) {
+  if (is.null(attr(x, "lemma"))) {
+    lemma <- NULL
+  } else {
+    lemma <- attr(x, "lemma")[i]
+  }
+  tokenlist(vec_data(x)[i], lemma = lemma)
+}
+
 # Takes a vector of character vectors and keeps (for keep = TRUE) the words
 # or removes (for keep = FALSE) the words
 tokenlist_filter <- function(x, dict, keep = FALSE) {
@@ -45,10 +60,21 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
   seq_x <- seq_along(x)
   i <- rep(seq_x, lengths(x))
   j <- match(unlist(x), dict)
+
+  keep_id <- !is.na(j)
+  split_id <- factor(i[keep_id], seq_x)
   
-  out <- split(dict[j[!is.na(j)]], factor(i[!is.na(j)], seq_x))
+  out <- split(dict[j[keep_id]], split_id)
   names(out) <- NULL
-  new_tokenlist(out, dict)
+  
+  if (!is.null(attr(x, "lemma"))) {
+    lemma <- split(unlist(attr(x, "lemma"))[keep_id], split_id)
+    names(lemma) <- NULL
+  } else {
+    lemma <- NULL
+  }
+  
+  new_tokenlist(out, lemma = lemma, tokens = dict)
 }
 
 tokenlist_apply <- function(x, fun) {
