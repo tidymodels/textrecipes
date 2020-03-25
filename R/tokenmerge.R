@@ -108,8 +108,9 @@ prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
 bake.step_tokenmerge <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  new_col <-
-    tibble(pmap(as.list(unname(new_data[, col_names, drop = FALSE])), c))
+  
+  new_col <- pmap(as.list(unname(new_data[, col_names, drop = FALSE])), c)
+  new_col <- tibble(tokenlist(new_col))
   names(new_col) <- object$prefix
 
   new_data <- bind_cols(new_data, new_col)

@@ -32,35 +32,10 @@ check_list <- function (dat) {
   invisible(all_good)
 }
 
-# Takes a vector of character vectors and keeps (for keep = TRUE) the words
-# or removes (for keep = FALSE) the words
-word_list_filter <- function(x, words, keep) {
-
-  if (!keep) {
-    return(keep(x, !(x %in% words)))
-  }
-  else {
-    return(keep(x, x %in% words))
-  }
-}
-# same as word_list_filter but takes an list as input and returns a tibble with
+# same as tokenlist_filter but takes an list as input and returns a tibble with
 # list-column.
 word_tbl_filter <- function(x, words, keep) {
   tibble(
-    map(x, word_list_filter, words, keep)
+    map(x, tokenlist_filter, words, keep)
   )
-}
-
-# Takes a list of tokens and calculate the token count matrix
-list_to_dtm <- function(word_list, dict) {
-  i <- rep(seq_along(word_list), lengths(word_list))
-  j <- match(unlist(word_list), dict)
-  
-  out <- sparseMatrix(i = i[!is.na(j)],  
-                      j = j[!is.na(j)], 
-                      dims = c(length(word_list), length(dict)),
-                      x = 1)
-  
-  out@Dimnames[[2]] <- dict
-  out
 }

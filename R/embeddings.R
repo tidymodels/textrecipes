@@ -190,6 +190,34 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
+#' @export
+print.step_word_embeddings <- function(x, 
+                                       width = max(20, options()$width - 30),
+                                       ...) {
+  cat("Word embeddings aggregated from ", sep = "")
+  printer(x$columns, x$terms, x$trained, width = width)
+  invisible(x)
+}
+
+#' @rdname step_word_embeddings
+#' @param x A `step_word_embeddings` object.
+#' @export
+tidy.step_word_embeddings <- function(x, ...) {
+  if (is_trained(x)) {
+    res <- tibble(terms = x$terms,
+                  embeddings_rows = nrow(x$embeddings),
+                  aggregation = x$aggregation)
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names,
+                  embeddings_rows = nrow(x$embeddings),
+                  aggregation = x$aggregation)
+  }
+  res$id <- x$id
+  res
+}
+
+# Implementation
 aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   aggregation_function <- switch(
     aggregation,
@@ -243,31 +271,4 @@ aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
   
   # Aggregate as requested.
   summarize_all(these_embeddings, aggregation_function)
-}
-
-#' @export
-print.step_word_embeddings <- function(x, 
-                                       width = max(20, options()$width - 30),
-                                       ...) {
-  cat("Word embeddings aggregated from ", sep = "")
-  printer(x$columns, x$terms, x$trained, width = width)
-  invisible(x)
-}
-
-#' @rdname step_word_embeddings
-#' @param x A `step_word_embeddings` object.
-#' @export
-tidy.step_word_embeddings <- function(x, ...) {
-  if (is_trained(x)) {
-    res <- tibble(terms = x$terms,
-                  embeddings_rows = nrow(x$embeddings),
-                  aggregation = x$aggregation)
-  } else {
-    term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names,
-                  embeddings_rows = nrow(x$embeddings),
-                  aggregation = x$aggregation)
-  }
-  res$id <- x$id
-  res
 }

@@ -160,51 +160,6 @@ bake.step_tokenize <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
-tokenizer_fun <- function(data, name, options, token, ...) {
-  check_type(data[, name], quant = FALSE)
-
-  data <- factor_to_text(data, name)
-
-  token_expr <- expr(
-    token(
-      x = data[, 1, drop = TRUE]
-    )
-  )
-
-  if (length(options) > 0)
-    token_expr <- mod_call_args(token_expr, args = options)
-
-  out <- tibble::tibble(eval(token_expr))
-  names(out) <- name
-  out
-}
-
-tokenizers_switch <- function(name) {
-  possible_tokenizers <-
-    c("characters", "character_shingle", "lines", "ngrams",
-      "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
-      "tweets", "words", "word_stems")
-
-  if (!(name %in% possible_tokenizers))
-    rlang::abort(paste0("token should be one of the supported ",
-                        "'", possible_tokenizers, "'", collapse = ", "))
-
-  switch(name,
-         characters = tokenizers::tokenize_characters,
-         character_shingle = tokenizers::tokenize_character_shingles,
-         lines = tokenizers::tokenize_lines,
-         ngrams = tokenizers::tokenize_ngrams,
-         paragraphs = tokenizers::tokenize_paragraphs,
-         ptb = tokenizers::tokenize_ptb,
-         regex = tokenizers::tokenize_regex,
-         sentences = tokenizers::tokenize_sentences,
-         skip_ngrams = tokenizers::tokenize_skip_ngrams,
-         tweets = tokenizers::tokenize_tweets,
-         words = tokenizers::tokenize_words,
-         word_stems = tokenizers::tokenize_word_stems
-  )
-}
-
 #' @export
 print.step_tokenize <-
   function(x, width = max(20, options()$width - 30), ...) {
@@ -227,4 +182,50 @@ tidy.step_tokenize <- function(x, ...) {
   }
   res$id <- x$id
   res
+}
+
+## Implementation
+tokenizer_fun <- function(data, name, options, token, ...) {
+  check_type(data[, name], quant = FALSE)
+  
+  data <- factor_to_text(data, name)
+  
+  token_expr <- expr(
+    token(
+      x = data[, 1, drop = TRUE]
+    )
+  )
+  
+  if (length(options) > 0)
+    token_expr <- mod_call_args(token_expr, args = options)
+  
+  out <- tibble::tibble(tokenlist(eval(token_expr)))
+  names(out) <- name
+  out
+}
+
+tokenizers_switch <- function(name) {
+  possible_tokenizers <-
+    c("characters", "character_shingle", "lines", "ngrams",
+      "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
+      "tweets", "words", "word_stems")
+  
+  if (!(name %in% possible_tokenizers))
+    rlang::abort(paste0("token should be one of the supported ",
+                        "'", possible_tokenizers, "'", collapse = ", "))
+  
+  switch(name,
+         characters = tokenizers::tokenize_characters,
+         character_shingle = tokenizers::tokenize_character_shingles,
+         lines = tokenizers::tokenize_lines,
+         ngrams = tokenizers::tokenize_ngrams,
+         paragraphs = tokenizers::tokenize_paragraphs,
+         ptb = tokenizers::tokenize_ptb,
+         regex = tokenizers::tokenize_regex,
+         sentences = tokenizers::tokenize_sentences,
+         skip_ngrams = tokenizers::tokenize_skip_ngrams,
+         tweets = tokenizers::tokenize_tweets,
+         words = tokenizers::tokenize_words,
+         word_stems = tokenizers::tokenize_word_stems
+  )
 }

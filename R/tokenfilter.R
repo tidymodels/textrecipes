@@ -143,8 +143,8 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
 
   for (i in seq_along(col_names)) {
     retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
-                                        x$max_times, x$min_times, x$max_tokens,
-                                        x$percentage)
+                                         x$max_times, x$min_times, x$max_tokens,
+                                         x$percentage)
 
     n_words[[i]] <- length(table(unlist(training[, col_names[i], drop = TRUE])))
   }
@@ -170,36 +170,15 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   # for backward compat
 
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <-
-      word_tbl_filter(new_data[, col_names[i], drop = TRUE],
-                      object$res[[i]],
-                      TRUE)
+    filtered_text <- tokenlist_filter(new_data[, col_names[i], drop = TRUE], 
+                                      object$res[[i]], 
+                                      TRUE)
+    
+    new_data[, col_names[i]] <- tibble(filtered_text)
   }
   new_data <- factor_to_text(new_data, col_names)
 
   as_tibble(new_data)
-}
-
-tokenfilter_fun <- function(data, max_times, min_times, max_features,
-                            percentage) {
-  tf <- table(unlist(data))
-
-  if (percentage)
-    tf <- tf / sum(tf)
-
-  ids <- tf <= max_times & tf >= min_times
-
-  if (is.infinite(max_features)) {
-    names(sort(tf[ids], decreasing = TRUE))
-  } else {
-    if (max_features > sum(ids)) {
-      rlang::warn(paste0("max_features was set to '", max_features,
-                         "', but only ", sum(ids), 
-                         " was available and selected."))
-      max_features <- sum(ids)
-    }
-    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
-  }
 }
 
 #' @export
@@ -224,4 +203,27 @@ tidy.step_tokenfilter <- function(x, ...) {
   }
   res$id <- x$id
   res
+}
+
+## Implementation
+tokenfilter_fun <- function(data, max_times, min_times, max_features,
+                            percentage) {
+  tf <- table(unlist(data))
+  
+  if (percentage)
+    tf <- tf / sum(tf)
+  
+  ids <- tf <= max_times & tf >= min_times
+  
+  if (is.infinite(max_features)) {
+    names(sort(tf[ids], decreasing = TRUE))
+  } else {
+    if (max_features > sum(ids)) {
+      rlang::warn(paste0("max_features was set to '", max_features,
+                         "', but only ", sum(ids), 
+                         " was available and selected."))
+      max_features <- sum(ids)
+    }
+    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
+  }
 }

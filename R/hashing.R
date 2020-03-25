@@ -154,7 +154,7 @@ bake.step_texthash <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
 
-    tf_text <- hashing_function(new_data[, col_names[i], drop = TRUE],
+    tf_text <- hashing_function(vec_data(new_data[, col_names[i], drop = TRUE]),
                                 paste0(col_names[i], "_",
                                        names0(object$num_terms, object$prefix)),
                                 object$signed,
@@ -167,21 +167,6 @@ bake.step_texthash <- function(object, new_data, ...) {
   }
 
   as_tibble(new_data)
-}
-
-hashing_function <- function(data, labels, signed, n) {
-
-  counts <- list_to_hash(data, n, signed)
-
-  colnames(counts) <- labels
-  as_tibble(counts)
-}
-
-# Takes a list of tokens and calculate the hashed token count matrix
-list_to_hash <- function(x, n, signed) {
-  it <- text2vec::itoken(x, progress = FALSE)
-  vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
-  as.matrix(text2vec::create_dtm(it, vectorizer))
 }
 
 #' @export
@@ -209,3 +194,20 @@ tidy.step_texthash <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+# Implementation
+hashing_function <- function(data, labels, signed, n) {
+  
+  counts <- list_to_hash(data, n, signed)
+  
+  colnames(counts) <- labels
+  as_tibble(counts)
+}
+
+# Takes a list of tokens and calculate the hashed token count matrix
+list_to_hash <- function(x, n, signed) {
+  it <- text2vec::itoken(x, progress = FALSE)
+  vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
+  as.matrix(text2vec::create_dtm(it, vectorizer))
+}
+

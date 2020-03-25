@@ -135,7 +135,8 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
-                                      integer_key = object$integer_key, string_length = object$string_length)
+                                      integer_key = object$integer_key,
+                                      string_length = object$string_length)
 
     colnames(out_text) <- paste(sep = "_",
                                 object$prefix,
@@ -175,6 +176,7 @@ tidy.step_sequence_onehot <- function(x, ...) {
   res
 }
 
+# Implementation
 pad_string <- function(x, n) {
   len_x <- length(x)
   if (len_x == n) {
