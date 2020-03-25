@@ -13,6 +13,7 @@ step_tokenize(
   columns = NULL,
   options = list(),
   token = "words",
+  engine = "tokenizers",
   custom_token = NULL,
   skip = FALSE,
   id = rand_id("tokenize")
@@ -41,15 +42,14 @@ encoding. This is \code{NULL} until the step is trained by
 
 \item{options}{A list of options passed to the tokenizer.}
 
-\item{token}{Unit for tokenizing. Built-in options from the
-\link{tokenizers} package are "words" (default), "characters",
-"character_shingles", "ngrams", "skip_ngrams", "sentences",
-"lines", "paragraphs", "regex", "tweets" (tokenization by
-word that preserves usernames, hashtags, and URLS ),  "ptb"
-(Penn Treebank), "skip_ngrams" and  "word_stems".}
+\item{token}{Unit for tokenizing. See details for options. Defaults to
+"words".}
 
-\item{custom_token}{User supplied tokenizer. use of this argument
-will overwrite the token argument. Must take a character vector
+\item{engine}{Package that will be used for tokenization. See details for
+options. Defaults to "tokenizers".}
+
+\item{custom_token}{User supplied tokenizer. Use of this argument
+will overwrite the token and engine arguments. Must take a character vector
 as input and output a list of character vectors.}
 
 \item{skip}{A logical. Should the step be skipped when the
@@ -80,8 +80,27 @@ amoug others. \code{textrecipes} keeps the tokens in a list-column and other
 steps will do their tasks on those list-columns before transforming them
 back to numeric.
 
-Working will \code{textrecipes} will always start by calling \code{step_tokenize}
-followed by modifying and filtering steps.
+The choice of \code{engine} determines the possible choices of \code{token}.
+
+If \code{engine = "tokenizers"}:
+\itemize{
+\item "words" (default)
+\item "characters"
+\item "character_shingles"
+\item "ngrams"
+\item "skip_ngrams"
+\item "sentences"
+\item "lines"
+\item "paragraphs"
+\item "regex"
+\item "tweets"
+\item "ptb" (Penn Treebank)
+\item "skip_ngrams"
+\item "word_stems"
+}
+
+Working will \code{textrecipes} will almost always start by calling
+\code{step_tokenize} followed by modifying and filtering steps.
 }
 \examples{
 library(recipes)

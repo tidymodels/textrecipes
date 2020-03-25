@@ -87,6 +87,14 @@ test_that("arguments are passed using options argument", {
   )
 })
 
+test_that("tokenization errors with wrong engines", {
+  expect_error(
+    rec %>%
+      step_tokenize(text, engine = "fake") %>%
+      prep(training = test_data)
+  )
+})
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text)
