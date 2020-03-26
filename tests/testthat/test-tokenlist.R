@@ -55,3 +55,31 @@ test_that("tokenlist_filter respects lemma", {
     tokenlist(list("there", "No", character()), pos = list(2, 1, numeric(0)))
   )
 })
+
+
+test_that("tokenlist_pos_filter works", {
+  data <- list(c("hello", "there"),
+               c("dog"),
+               character(0))
+  pos <- list(c("INTJ", "ADV"), "NOUN", character(0))
+  
+  pos_tokenlist <- tokenlist(data, pos = pos)
+  
+  expect_equal(
+    tokenlist_pos_filter(pos_tokenlist, c("INTJ", "NOUN")),
+    tokenlist(list("hello", "dog", character()), 
+              pos = list("INTJ", "NOUN", character()))
+  )
+  
+  expect_equal(
+    tokenlist_pos_filter(pos_tokenlist, "NOUN"),
+    tokenlist(list(character(), "dog", character()), 
+              pos = list(character(), "NOUN", character()))
+  )
+  
+  expect_equal(
+    tokenlist_pos_filter(pos_tokenlist, character()),
+    tokenlist(list(character(), character(), character()), 
+              pos = list(character(), character(), character()))
+  )
+})

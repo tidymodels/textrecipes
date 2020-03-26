@@ -95,6 +95,7 @@ numeric for future analysis to work.
 | `step_lemma()`           | list-column | list-column |
 | `step_stem()`            | list-column | list-column |
 | `step_stopwords()`       | list-column | list-column |
+| `step_pos_filter()`      | list-column | list-column |
 | `step_tokenfilter()`     | list-column | list-column |
 | `step_tokenmerge()`      | list-column | list-column |
 | `step_tfidf()`           | list-column | numeric     |

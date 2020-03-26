@@ -121,3 +121,35 @@ tokenlist_to_dtm <- function(x, dict) {
 tokenlist_lemma <- function(x) {
   tokenlist(attr(x, "lemma"))
 }
+
+tokenlist_pos_filter <- function(x, pos_tags) {
+  if (!is_tokenlist(x)) {
+    rlang::abort("Input must be a tokenlist.")
+  }
+  
+  if (is.null(attr(x, "pos"))) {
+    rlang::abort("pos attribute not avaliable.")
+  }
+  
+  seq_x <- seq_along(x)
+  i <- rep(seq_x, lengths(x))
+  j <- match(unlist(attr(x, "pos")), pos_tags)
+  
+  keep_id <- !is.na(j)
+  split_id <- factor(i[keep_id], seq_x)
+  
+  out <- split(unlist(vec_data(x))[keep_id], split_id)
+  names(out) <- NULL
+  
+  pos <- split(unlist(attr(x, "pos"))[keep_id], split_id)
+  names(pos) <- NULL
+  
+  if (!is.null(attr(x, "lemma"))) {
+    lemma <- split(unlist(attr(x, "lemma"))[keep_id], split_id)
+    names(lemma) <- NULL
+  } else {
+    lemma <- NULL
+  }
+  
+  tokenlist(out, lemma = lemma, pos = pos)
+}
