@@ -21,6 +21,7 @@ reference:
     contents:
     - step_stem
     - step_stopwords
+    - step_lemma
     - step_tokenfilter
     - step_tokenmerge
   - title: Step Functions - list-column to numeric

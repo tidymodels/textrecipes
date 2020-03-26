@@ -101,3 +101,7 @@ tokenlist_to_dtm <- function(x, dict) {
   out@Dimnames[[2]] <- dict
   out
 }
+
+tokenlist_lemma <- function(x) {
+  tokenlist(attr(x, "lemma"))
+}
