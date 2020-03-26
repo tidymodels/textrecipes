@@ -26,9 +26,22 @@ test_that("tokenizer works", {
     lengths(vctrs::vec_data(out))
   )
   
+  expect_equal(
+    lengths(attr(out, "pos")),
+    lengths(vctrs::vec_data(out))
+  )
+  
+  
   expect_false(
     isTRUE(all.equal(
       attr(out, "lemma"),
+      vctrs::vec_data(out)
+    ))
+  )
+  
+  expect_false(
+    isTRUE(all.equal(
+      attr(out, "pos"),
       vctrs::vec_data(out)
     ))
   )

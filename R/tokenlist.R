@@ -1,18 +1,25 @@
-new_tokenlist <- function(x = list(), lemma = NULL, tokens = character()) {
+new_tokenlist <- function(x = list(), lemma = NULL, pos, tokens = character()) {
   vec_assert(x, list())
   if (!(is.null(lemma) | is.list(lemma))) {
     rlang::abort("`lemma` must be NULL or a list.")
   }
+  if (!(is.null(pos) | is.list(pos))) {
+    rlang::abort("`pos` must be NULL or a list.")
+  }
   vec_assert(tokens, character())
-  new_vctr(x, lemma = lemma, tokens = tokens, class = "textrecipes_tokenlist")
+  new_vctr(x, lemma = lemma, pos = pos, tokens = tokens, 
+           class = "textrecipes_tokenlist")
 }
 
-tokenlist <- function(x = list(), lemma = NULL) {
+tokenlist <- function(x = list(), lemma = NULL, pos = NULL) {
   x <- vec_cast(x, list())
   if (!is.null(lemma)) {
     lemma <- vec_cast(lemma, list())
   }
-  new_tokenlist(x, lemma = lemma, tokens = unique(unlist(x)))
+  if (!is.null(pos)) {
+    pos <- vec_cast(pos, list())
+  }
+  new_tokenlist(x, lemma = lemma, pos = pos, tokens = unique(unlist(x)))
 }
 
 is_tokenlist <- function(x) {
@@ -33,17 +40,19 @@ obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
   cat("# Unique Tokens: ", format(length(attr(x, "tokens"))), "\n", sep = "")
 }
 
-vec_restore.textrecipes_tokenlist <- function(x, to, ..., i = NULL) {
-  new_tokenlist(x, unique(unlist(x)))
-}
-
+#' @export
 `[.textrecipes_tokenlist`<- function(x, i) {
   if (is.null(attr(x, "lemma"))) {
     lemma <- NULL
   } else {
     lemma <- attr(x, "lemma")[i]
   }
-  tokenlist(vec_data(x)[i], lemma = lemma)
+  if (is.null(attr(x, "pos"))) {
+    pos <- NULL
+  } else {
+    pos <- attr(x, "pos")[i]
+  }
+  tokenlist(vec_data(x)[i], lemma = lemma, pos = pos)
 }
 
 # Takes a vector of character vectors and keeps (for keep = TRUE) the words
@@ -74,7 +83,14 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
     lemma <- NULL
   }
   
-  new_tokenlist(out, lemma = lemma, tokens = dict)
+  if (!is.null(attr(x, "pos"))) {
+    pos <- split(unlist(attr(x, "pos"))[keep_id], split_id)
+    names(pos) <- NULL
+  } else {
+    pos <- NULL
+  }
+  
+  new_tokenlist(out, lemma = lemma, pos = pos, tokens = dict)
 }
 
 tokenlist_apply <- function(x, fun) {

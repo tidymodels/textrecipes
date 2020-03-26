@@ -8,5 +8,8 @@ spacyr_tokenizer_words <- function(x) {
   lemma_list <- split(tokens$lemma, doc_id)
   names(lemma_list) <- NULL
   
-  tokenlist(token_list, lemma = lemma_list)
+  pos_list <- split(tokens$pos, doc_id)
+  names(pos_list) <- NULL
+  
+  tokenlist(token_list, lemma = lemma_list, pos = pos_list)
 }
