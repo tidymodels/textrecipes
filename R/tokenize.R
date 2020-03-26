@@ -217,8 +217,14 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   
   if (length(options) > 0)
     token_expr <- mod_call_args(token_expr, args = options)
+
+  token_list <- eval(token_expr)
   
-  out <- tibble::tibble(tokenlist(eval(token_expr)))
+  if (is_tokenlist(token_list)) {
+    out <- tibble::tibble(token_list)
+  } else {
+    out <- tibble::tibble(tokenlist(token_list))
+  }
   names(out) <- name
   out
 }
