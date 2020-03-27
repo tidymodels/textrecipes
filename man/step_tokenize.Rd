@@ -99,6 +99,11 @@ If \code{engine = "tokenizers"}:
 \item "word_stems"
 }
 
+if \code{engine = "spacyr"}
+\itemize{
+\item "words"
+}
+
 Working will \code{textrecipes} will almost always start by calling
 \code{step_tokenize} followed by modifying and filtering steps.
 }

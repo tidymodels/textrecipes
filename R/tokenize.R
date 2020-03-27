@@ -88,6 +88,9 @@
 #' * "skip_ngrams"
 #' * "word_stems"
 #' 
+#' if `engine = "spacyr"`
+#' * "words"
+#' 
 #' Working will `textrecipes` will almost always start by calling 
 #' `step_tokenize` followed by modifying and filtering steps.
 #'
