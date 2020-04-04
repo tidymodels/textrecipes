@@ -134,6 +134,16 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#textrecipes-development-version" class="anchor"></a>textrecipes (development version)<small> Unreleased </small>
 </h1>
+<ul>
+<li>
+<code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> got an <code>engine</code> argument to specify packages other then tokenizers to tokenize.</li>
+<li>
+<code>spacyr</code> have been added as an engine to <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>.</li>
+<li>
+<code><a href="../reference/step_lemma.html">step_lemma()</a></code> has been added to extract lemma attribute from tokenlists.</li>
+<li>
+<code><a href="../reference/step_pos_filter.html">step_pos_filter()</a></code> has been added to allow filtering of tokens bases on their pat of speech tags.</li>
+</ul>
 </div>
     <div id="textrecipes-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
@@ -143,7 +153,7 @@
 <li>
 <code>step_word2vec()</code> have been changed to <code><a href="../reference/step_lda.html">step_lda()</a></code> to reflect what is actually happening.</li>
 <li>
-<code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code> has been added. Allows for use of pre-trained word embeddings to convert token columns to vectors in a high-dimensional “meaning” space. (<a href='https://github.com/jonthegeek'>@jonthegeek</a>, <a href='https://github.com/tidymodels/textrecipes/issues/20'>#20</a>)</li>
+<code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code> has been added. Allows for use of pre-trained word embeddings to convert token columns to vectors in a high-dimensional âmeaningâ space. (<a href='https://github.com/jonthegeek'>@jonthegeek</a>, <a href='https://github.com/tidymodels/textrecipes/issues/20'>#20</a>)</li>
 <li>text2vec have been changed from Imports to Suggests.</li>
 <li>textfeatures have been changed from Imports to Suggests.</li>
 <li>
