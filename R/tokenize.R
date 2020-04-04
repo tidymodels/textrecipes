@@ -88,6 +88,9 @@
 #' * "skip_ngrams"
 #' * "word_stems"
 #' 
+#' if `engine = "spacyr"`
+#' * "words"
+#' 
 #' Working will `textrecipes` will almost always start by calling 
 #' `step_tokenize` followed by modifying and filtering steps.
 #'
@@ -217,8 +220,14 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   
   if (length(options) > 0)
     token_expr <- mod_call_args(token_expr, args = options)
+
+  token_list <- eval(token_expr)
   
-  out <- tibble::tibble(tokenlist(eval(token_expr)))
+  if (is_tokenlist(token_list)) {
+    out <- tibble::tibble(token_list)
+  } else {
+    out <- tibble::tibble(tokenlist(token_list))
+  }
   names(out) <- name
   out
 }
@@ -247,6 +256,21 @@ tokenizer_switch <- function(name, engine) {
            tweets = tokenizers::tokenize_tweets,
            words = tokenizers::tokenize_words,
            word_stems = tokenizers::tokenize_word_stems
+    )
+    return(res)
+  }
+  
+  if (engine == "spacyr") {
+    recipes::recipes_pkg_check("spacyr")
+    
+    possible_tokenizers <- c("words")
+    
+    if (!(name %in% possible_tokenizers))
+      rlang::abort(paste0("token should be one of the supported ",
+                          "'", possible_tokenizers, "'", collapse = ", "))
+    
+    res <- switch(name,
+                  words = spacyr_tokenizer_words
     )
     return(res)
   }

@@ -95,6 +95,31 @@ test_that("tokenization errors with wrong engines", {
   )
 })
 
+test_that("tokenization includes lemma attribute when avaliable", {
+  skip_if_no_python_or_no_spacy()
+  
+  expect_type(
+    rec %>%
+      step_tokenize(text, engine = "spacyr") %>%
+      prep() %>%
+      juice() %>%
+      .$text %>%
+      attr("lemma"), 
+    "list"
+    )
+})
+  
+test_that("tokenization doesn't includes lemma attribute when unavaliable", {
+  expect_null(
+    rec %>%
+      step_tokenize(text) %>%
+      prep() %>%
+      juice() %>%
+      .$text %>%
+      attr("lemma")
+  )
+})
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text)

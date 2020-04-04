@@ -1,5 +1,10 @@
 # textrecipes (development version)
 
+* `step_tokenize()` got an `engine` argument to specify packages other then tokenizers to tokenize.
+* `spacyr` have been added as an engine to `step_tokenize()`.
+* `step_lemma()` has been added to extract lemma attribute from tokenlists.
+* `step_pos_filter()` has been added to allow filtering of tokens bases on their pat of speech tags.
+
 # textrecipes 0.1.0
 
 * `step_word2vec()` have been changed to `step_lda()` to reflect what is actually happening.

@@ -37,7 +37,8 @@ Suggests:
     knitr,
     text2vec,
     rmarkdown,
-    textfeatures (>= 0.3.3)
+    textfeatures (>= 0.3.3),
+    spacyr
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

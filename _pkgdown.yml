@@ -21,8 +21,10 @@ reference:
     contents:
     - step_stem
     - step_stopwords
+    - step_lemma
     - step_tokenfilter
     - step_tokenmerge
+    - step_pos_filter
   - title: Step Functions - list-column to numeric
     contents:
     - step_tfidf
