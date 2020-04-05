@@ -83,3 +83,26 @@ test_that("tokenlist_pos_filter works", {
               pos = list(character(), character(), character()))
   )
 })
+
+test_that("tokenlist_ngram works", {
+  data <- list(c("not", "eat", "them", "here", "or", "there."),
+               c("not", "eat", "them", "anywhere."),
+               character(0))
+  
+  pos_tokenlist <- tokenlist(data)
+  
+  ngrams <- tokenlist_ngram(pos_tokenlist, 3, "_")
+  
+  expect_s3_class(ngrams, "textrecipes_tokenlist")
+  
+  
+  expect_equal(
+    vec_data(ngrams),
+    list(c("not_eat_them", "eat_them_here", "them_here_or", "here_or_there."),
+         c("not_eat_them", "eat_them_anywhere."),
+         character())
+  )
+  
+  expect_null(attr(ngrams, "lemma"))
+  expect_null(attr(ngrams, "pos"))
+})
