@@ -120,7 +120,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">okc_text</span>)
 
-<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
+<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~  <span class="no">essay0</span> + <span class="no">essay1</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>) <span class="kw">%&gt;%</span> <span class="co"># Tokenizes to words by default</span>
   <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>) <span class="kw">%&gt;%</span> <span class="co"># Uses the english snowball list by default</span>
   <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>, <span class="kw">max_tokens</span> <span class="kw">=</span> <span class="fl">100</span>) <span class="kw">%&gt;%</span>
@@ -130,15 +130,7 @@
   <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>), <span class="kw">list.len</span> <span class="kw">=</span> <span class="fl">15</span>)
-<span class="co">#&gt; tibble [750 Ã 208] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ essay2                 : Factor w/ 749 levels "- being myself. i'm comfortable in my own skin.&lt;br /&gt;\n- cooking, eating and washing dishes&lt;br /&gt;\n- sleeping &amp;"| __truncated__,..: 743 574 595 385 109 367 719 721 225 449 ...</span>
-<span class="co">#&gt;  $ essay3                 : Factor w/ 737 levels "... is how batman i am.&lt;br /&gt;\n&lt;br /&gt;\ni'm a huge geek.&lt;br /&gt;\n&lt;br /&gt;\nrecently i've heard \"you're like a stra"| __truncated__,..: 655 192 523 403 675 698 51 46 417 309 ...</span>
-<span class="co">#&gt;  $ essay4                 : Factor w/ 750 levels "- wealth of nations, the social contract, the prince.&lt;br /&gt;\n&lt;br /&gt;\n- coming to america, willy wonka and the c"| __truncated__,..: 611 634 695 638 104 113 378 86 293 323 ...</span>
-<span class="co">#&gt;  $ essay5                 : Factor w/ 750 levels "- a tent&lt;br /&gt;\n- a good pillow&lt;br /&gt;\n- a funny hat in cold weather&lt;br /&gt;\n- genuinely good and trustworthy fr"| __truncated__,..: 344 237 536 271 7 383 128 52 688 750 ...</span>
-<span class="co">#&gt;  $ essay6                 : Factor w/ 749 levels "- being happy with simple things.&lt;br /&gt;\n- whether lightness is unbearable.&lt;br /&gt;\n- how to get to know someone"| __truncated__,..: 466 105 332 215 568 35 506 480 317 326 ...</span>
-<span class="co">#&gt;  $ essay7                 : Factor w/ 750 levels "-out to dinner.&lt;br /&gt;\n-at the movies.&lt;br /&gt;\n-having drinks at a spot where i like the atmosphere.&lt;br /&gt;\n-coo"| __truncated__,..: 658 419 50 292 552 248 530 116 144 461 ...</span>
-<span class="co">#&gt;  $ essay8                 : Factor w/ 747 levels "-bad news everybody i received a message from the people of 2135,\nthey said the aliens attacked and devastated"| __truncated__,..: 254 704 622 548 709 497 347 298 76 42 ...</span>
-<span class="co">#&gt;  $ essay9                 : Factor w/ 743 levels "- &lt;em&gt;you think i'm the bee's knees&lt;/em&gt; (although obviously that\nwon't slim down the pool at all)&lt;br /&gt;\n- &lt;e"| __truncated__,..: 698 643 540 638 530 137 378 320 17 283 ...</span>
+<span class="co">#&gt; tibble [750 Ã 200] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ tfidf_essay0_also      : num [1:750] 0 0 0.0252 0.2232 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_always    : num [1:750] 0 0 0 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_amp       : num [1:750] 0.47 0.583 0 0 0 ...</span>
@@ -146,6 +138,14 @@
 <span class="co">#&gt;  $ tfidf_essay0_area      : num [1:750] 0 0 0 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_around    : num [1:750] 0 0 0.0348 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_art       : num [1:750] 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_back      : num [1:750] 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_bay       : num [1:750] 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_believe   : num [1:750] 0 0 0 0 0.314 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_big       : num [1:750] 0.0781 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_bit       : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_br        : num [1:750] 0.121 0.565 0.121 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_can       : num [1:750] 0.0488 0 0.0244 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_essay0_city      : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="co">#&gt;   [list output truncated]</span></pre></div>
 </div>
 <div id="type-chart" class="section level2">
