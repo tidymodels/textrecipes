@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Untokenization of list-column variables — step_untokenize • textrecipes</title>
+<title>Generate ngrams from tokenlist — step_ngram • textrecipes</title>
 
 
 <!-- jquery -->
@@ -34,9 +34,9 @@
 
 
 
-<meta property="og:title" content="Untokenization of list-column variables — step_untokenize" />
-<meta property="og:description" content="step_untokenize creates a specification of a recipe step that
-will convert a list of tokens into a character predictor." />
+<meta property="og:title" content="Generate ngrams from tokenlist — step_ngram" />
+<meta property="og:description" content="step_ngram creates a specification of a recipe step that
+will convert a list of tokens into a list of ngram of tokens." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,28 +129,29 @@ will convert a list of tokens into a character predictor." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Untokenization of list-column variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/untokenize.R'><code>R/untokenize.R</code></a></small>
-    <div class="hidden name"><code>step_untokenize.Rd</code></div>
+    <h1>Generate ngrams from tokenlist</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/ngram.R'><code>R/ngram.R</code></a></small>
+    <div class="hidden name"><code>step_ngram.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_untokenize</code> creates a <em>specification</em> of a recipe step that
-will convert a list of tokens into a character predictor.</p>
+    <p><code>step_ngram</code> creates a <em>specification</em> of a recipe step that
+will convert a list of tokens into a list of ngram of tokens.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_untokenize</span>(
+    <pre class="usage"><span class='fu'>step_ngram</span>(
   <span class='no'>recipe</span>,
   <span class='no'>...</span>,
   <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>" "</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3L</span>,
+  <span class='kw'>delim</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"untokenize"</span>)
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"ngram"</span>)
 )
 
-<span class='co'># S3 method for step_untokenize</span>
+<span class='co'># S3 method for step_ngram</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -164,7 +165,7 @@ sequence of operations for this recipe.</p></td>
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
-For <code>step_untokenize</code>, this indicates the variables to be encoded
+For <code>step_ngram</code>, this indicates the variables to be encoded
 into a list column. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
@@ -185,9 +186,13 @@ encoding. This is <code>NULL</code> until the step is trained by
 <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>sep</th>
-      <td><p>a character to determine how the tokens should be separated
-when pasted together. Defaults to <code>" "</code>.</p></td>
+      <th>n</th>
+      <td><p>The number of words in the n-gram. This must be an integer greater
+than or equal to 1. Defaults to 3.</p></td>
+    </tr>
+    <tr>
+      <th>delim</th>
+      <td><p>The separator between words in an n-gram. Defaults to "_".</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -205,7 +210,7 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_untokenize</code> object.</p></td>
+      <td><p>A <code>step_ngram</code> object.</p></td>
     </tr>
     </table>
 
@@ -213,10 +218,9 @@ subsequent operations.</p></td>
 
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>This steps will turn a tokenized list-column back into a character
-vector.</p>
+    <div class='dont-index'><p><code><a href='step_stopwords.html'>step_stopwords()</a></code> <code><a href='step_tokenfilter.html'>step_tokenfilter()</a></code> <code><a href='step_tokenize.html'>step_tokenize()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
@@ -225,28 +229,28 @@ vector.</p>
 
 <span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_untokenize</span>(<span class='no'>essay0</span>)
+  <span class='fu'>step_ngram</span>(<span class='no'>essay0</span>)
 
 <span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
-#&gt;   essay0                                                                        
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                                                         
-#&gt; </span><span style='color: #555555;'>1</span><span> twice upon a time there was a boy who died twice and lived happily ever after…
-#&gt; </span><span style='color: #555555;'>2</span><span> i'm chill and steady br i'm a teacher amp musician br i like playing outside …</div><div class='input'>
+#&gt;         essay0
+#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;txtrcps_&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> [182 tokens]
+#&gt; </span><span style='color: #555555;'>2</span><span>  [22 tokens]</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [1] i'm chill and steady br i'm a teacher amp musician br i like playing outside dislike school nights br and i'm very very lucky
-#&gt; 750 Levels: _updates_ br br br i've written this as pretty much a big stream of info it's not in any way creative prose it's also not the ideal delivery mechanism but hopefully serves to give you some insight on who i am what i'm about where i'm going what i'm looking for and what's important to me br br humor i would say my humor is pretty unique i take things i have learned about a person and dream up scenarios where i play back my knowledge of her him in slightly exaggerated ways bringing in the context of the current moment and weaving in any and all additional persons around me i can use all that data i've been collecting about you your world and the greater universe and transform it into some vociferous laughter or so i say br br destroying banality with every breath br br br br gt now the schpeel br br i grew up rural only child dad immigrated from germany in his mid twenties mom has euro immigrant parents big but odd farm till adolescence i stayed in my home town for school then headed from east dc metro to west sf with a few years in palo alto menlo park san bruno for good in my late twenties general plan well established but new old challenges continue to press for a lifelong solution i've been here for about 12 years now minus travel time year in portland and two winters in tahoe including this one br br i've come to see art in everything and music and boundless energy sf bay is truly a bubble but a sustainable bubble of intellect soul and know how that shapes its world each and every day i am honored to be a part of that br br i am adventurous inventive and fiery ...</div><div class='input'>
+  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
+#&gt; [1] [22 tokens]</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
-#&gt;   terms  value id              
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    untokenize_l8fbD</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
-#&gt;   terms      value id              
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     </span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>   untokenize_l8fbD</div></span></pre>
+#&gt;   terms  value id         
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    ngram_fCGQJ</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
+#&gt;   terms      id         
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     ngram_fCGQJ</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

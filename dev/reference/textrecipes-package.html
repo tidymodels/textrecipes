@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • textrecipes</title>
+<title>textrecipes: Extra 'Recipes' for Text Processing — textrecipes-package • textrecipes</title>
 
 
 <!-- jquery -->
@@ -34,7 +34,12 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="textrecipes: Extra 'Recipes' for Text Processing — textrecipes-package" />
+<meta property="og:description" content="Converting text to numerical features requires
+    specifically created procedures, which are implemented as steps
+    according to the 'recipes' package. These steps allows for
+    tokenization, filtering, counting (tf and tfidf) and feature hashing." />
+<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -61,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,75 +131,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>textrecipes: Extra 'Recipes' for Text Processing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/textrecipes-package.R'><code>R/textrecipes-package.R</code></a></small>
+    <div class="hidden name"><code>textrecipes-package.Rd</code></div>
     </div>
 
-    <div id="textrecipes-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#textrecipes-development-version" class="anchor"></a>textrecipes (development version)<small> Unreleased </small>
-</h1>
-<ul>
-<li>
-<code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> got an <code>engine</code> argument to specify packages other then tokenizers to tokenize.</li>
-<li>
-<code>spacyr</code> have been added as an engine to <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>.</li>
-<li>
-<code><a href="../reference/step_lemma.html">step_lemma()</a></code> has been added to extract lemma attribute from tokenlists.</li>
-<li>
-<code><a href="../reference/step_pos_filter.html">step_pos_filter()</a></code> has been added to allow filtering of tokens bases on their pat of speech tags.</li>
-<li>
-<code><a href="../reference/step_ngram.html">step_ngram()</a></code> has been added to generate ngrams from tokenlists.</li>
-</ul>
-</div>
-    <div id="textrecipes-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#textrecipes-010" class="anchor"></a>textrecipes 0.1.0<small> 2020-03-05 </small>
-</h1>
-<ul>
-<li>
-<code>step_word2vec()</code> have been changed to <code><a href="../reference/step_lda.html">step_lda()</a></code> to reflect what is actually happening.</li>
-<li>
-<code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code> has been added. Allows for use of pre-trained word embeddings to convert token columns to vectors in a high-dimensional âmeaningâ space. (<a href='https://github.com/jonthegeek'>@jonthegeek</a>, <a href='https://github.com/tidymodels/textrecipes/issues/20'>#20</a>)</li>
-<li>text2vec have been changed from Imports to Suggests.</li>
-<li>textfeatures have been changed from Imports to Suggests.</li>
-<li>
-<code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> calculations are slightly changed due to flaw in original implementation <a href="https://github.com/dselivanov/text2vec/issues/280" class="uri">https://github.com/dselivanov/text2vec/issues/280</a>.</li>
-</ul>
-</div>
-    <div id="textrecipes-002" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.2">
-<a href="#textrecipes-002" class="anchor"></a>textrecipes 0.0.2<small> 2019-09-07 </small>
-</h1>
-<ul>
-<li>Custom stemming function can now be used in step_stem using the custom_stemmer argument.</li>
-<li>
-<code>step_textfeatures()</code> have been added, allows for multiple numerical features to be pulled from text.</li>
-<li>
-<code><a href="../reference/step_sequence_onehot.html">step_sequence_onehot()</a></code> have been added, allows for one hot encoding of sequences of fixed width.</li>
-<li>
-<code>step_word2vec()</code> have been added, calculates word2vec dimensions.</li>
-<li>
-<code><a href="../reference/step_tokenmerge.html">step_tokenmerge()</a></code> have been added, combines multiple list columns into one list-columns.</li>
-<li>
-<code><a href="../reference/step_texthash.html">step_texthash()</a></code> now correctly accepts <code>signed</code> argument.</li>
-<li>Documentation have been improved to showcase the importance of filtering tokens before applying <code><a href="../reference/step_tf.html">step_tf()</a></code> and <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code>.</li>
-</ul>
-</div>
-    <div id="textrecipes-001" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1">
-<a href="#textrecipes-001" class="anchor"></a>textrecipes 0.0.1<small> 2018-12-17 </small>
-</h1>
-<p>First CRAN version</p>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Converting text to numerical features requires
+    specifically created procedures, which are implemented as steps
+    according to the 'recipes' package. These steps allows for
+    tokenization, filtering, counting (tf and tfidf) and feature hashing.</p>
+    </div>
 
+
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Useful links:</p><ul>
+<li><p><a href='https://github.com/tidymodels/textrecipes'>https://github.com/tidymodels/textrecipes</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/tidymodels/textrecipes/issues'>https://github.com/tidymodels/textrecipes/issues</a></p></li>
+</ul>
+
+</div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
