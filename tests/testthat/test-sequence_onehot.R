@@ -16,7 +16,7 @@ test_that("sequence encoding is done correctly", {
     step_sequence_onehot(text, string_length = seq_length)
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   juiced_data <- juice(obj)  
   
@@ -35,7 +35,7 @@ test_that("custom extraction functions work works", {
     step_sequence_onehot(text, integer_key = "I", string_length = 10)
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_equal(dim(juice(obj)), c(nrow(test_data), 10))
   

@@ -17,7 +17,7 @@ test_that("step_tfidf works as intended", {
     step_tfidf(text) 
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   rec_answer <- unname(juice(obj))
   
@@ -56,7 +56,7 @@ test_that("step_tfidf works with vocabulary argument", {
     step_tfidf(text, vocabulary = letters) 
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_length(
     juice(obj),

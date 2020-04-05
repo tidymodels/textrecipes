@@ -97,7 +97,7 @@ rec <- rec_base %>%
   step_word_embeddings(text, embeddings = embeddings)
 
 obj <- rec %>%
-  prep(training = test_data, retain = TRUE)
+  prep(training = test_data)
 
 juiced <- juice(obj)
 
@@ -147,7 +147,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_word_embeddings(
       text, embeddings = embeddings, aggregation = "max"
     ) %>% 
-    prep(training = test_data, retain = TRUE) %>% 
+    prep(training = test_data) %>% 
     juice()
   expect_identical(juiced_max, select(sentence_embeddings_max, -text))
   juiced_min <- rec_base %>% 
@@ -155,7 +155,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_word_embeddings(
       text, embeddings = embeddings, aggregation = "min"
     ) %>% 
-    prep(training = test_data, retain = TRUE) %>% 
+    prep(training = test_data) %>% 
     juice()
   expect_identical(juiced_min, select(sentence_embeddings_min, -text))
   juiced_mean <- rec_base %>% 
@@ -163,7 +163,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_word_embeddings(
       text, embeddings = embeddings, aggregation = "mean"
     ) %>% 
-    prep(training = test_data, retain = TRUE) %>% 
+    prep(training = test_data) %>% 
     juice()
   expect_identical(juiced_mean, select(sentence_embeddings_mean, -text))
 })

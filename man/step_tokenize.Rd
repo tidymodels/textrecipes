@@ -116,7 +116,7 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) 
   
 okc_obj <- okc_rec \%>\%
-  prep(training = okc_text, retain = TRUE)
+  prep(training = okc_text)
 
 juice(okc_obj, essay0) \%>\%
   slice(1:2)
@@ -130,7 +130,7 @@ tidy(okc_obj, number = 1)
 
 okc_obj_chars <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0, token = "characters") \%>\%
-  prep(training = okc_text, retain = TRUE)
+  prep(training = okc_text)
 
 juice(okc_obj_chars) \%>\%
   slice(2) \%>\%

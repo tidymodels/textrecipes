@@ -17,7 +17,7 @@ test_that("stemming is done correctly", {
     step_stem(text) 
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_equal(
     tokenizers::tokenize_words(test_data$text[1])[[1]] %>%
@@ -40,7 +40,7 @@ test_that("custom stemmer works", {
     step_stem(text, custom_stemmer = custom_stem_fun) 
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_equal(
     tokenizers::tokenize_words(test_data$text[1])[[1]] %>%

@@ -17,7 +17,7 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
     step_tokenfilter(text, max_times = 3, min_times = 2)
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_equal(
     juice(obj) %>% pull(text) %>% vctrs::vec_data(),
@@ -37,7 +37,7 @@ test_that("removes words correctly with min_times, max_times and procentage", {
     step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_equal(
     juice(obj) %>% pull(text) %>% vctrs::vec_data(),
@@ -54,7 +54,7 @@ test_that("tokenfilter removes words correctly using max_tokens", {
     step_tokenfilter(text, max_tokens = 10)
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_equal(
     juice(obj) %>% pull(text) %>% vctrs::vec_data(),
@@ -72,7 +72,7 @@ test_that("tokenfilter throws warning when max_tokens > words", {
   
   expect_warning(
     rec %>%
-      prep(training = test_data, retain = TRUE)
+      prep(training = test_data)
   )
 })
 

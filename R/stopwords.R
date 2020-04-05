@@ -44,7 +44,7 @@
 #'   step_stopwords(essay0) 
 #'   
 #' okc_obj <- okc_rec %>%
-#'   prep(training = okc_text, retain = TRUE)
+#'   prep(training = okc_text)
 #' 
 #' juice(okc_obj, essay0) %>% 
 #'   slice(1:2)
@@ -61,7 +61,7 @@
 #'   step_tokenize(essay0) %>%
 #'   step_stopwords(essay0, custom_stopword_source = c("twice", "upon"))
 #' okc_obj <- okc_rec %>%
-#'   prep(traimomg = okc_text, retain = TRUE)
+#'   prep(traimomg = okc_text)
 #'   
 #' juice(okc_obj) %>%
 #'   slice(2) %>%

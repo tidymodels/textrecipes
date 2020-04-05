@@ -17,7 +17,7 @@ test_that("stopwords are removed correctly", {
     step_stopwords(text)
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
   
@@ -37,7 +37,7 @@ test_that("stopwords are kept correctly", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stopwords(text, keep = TRUE) %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
   
@@ -56,7 +56,7 @@ test_that("custom stopwords are supported", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stopwords(text, custom_stopword_source = custom_stopwords) %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
   

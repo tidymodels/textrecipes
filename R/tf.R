@@ -52,7 +52,7 @@
 #'   step_tf(essay0)
 #'   
 #' okc_obj <- okc_rec %>%
-#'   prep(training = okc_text, retain = TRUE)
+#'   prep(training = okc_text)
 #'   
 #' bake(okc_obj, okc_text)
 #' 

@@ -72,7 +72,7 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenmerge(essay0, essay1) 
   
 okc_obj <- okc_rec \%>\%
-  prep(training = okc_text, retain = TRUE)
+  prep(training = okc_text)
 
 juice(okc_obj)
   

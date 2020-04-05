@@ -17,7 +17,7 @@ test_that("step_tf works as intended", {
      step_tf(text) 
    
    obj <- rec %>%
-     prep(training = test_data, retain = TRUE)
+     prep(training = test_data)
    
    rec_answer <- unname(juice(obj))
    manual_answer <- unname(tibble(am =       c(0, 0, 0, 1),
@@ -54,7 +54,7 @@ test_that("step_tf works with vocabulary argument", {
     step_tf(text, vocabulary = letters) 
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   expect_length(
     juice(obj),
@@ -69,7 +69,7 @@ test_that("step_tf works with other weighting schemes", {
     step_tf(text, weight_scheme = "term frequency") 
   
   obj <- rec %>%
-    prep(training = test_data, retain = TRUE)
+    prep(training = test_data)
   
   rec_answer <- unname(juice(obj))
   manual_answer <- unname(tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8),
