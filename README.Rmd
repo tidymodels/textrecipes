@@ -51,7 +51,7 @@ library(textrecipes)
 
 data(okc_text)
 
-okc_rec <- recipe(~ ., data = okc_text) %>%
+okc_rec <- recipe(~  essay0 + essay1, data = okc_text) %>%
   step_tokenize(essay0, essay1) %>% # Tokenizes to words by default
   step_stopwords(essay0, essay1) %>% # Uses the english snowball list by default
   step_tokenfilter(essay0, essay1, max_tokens = 100) %>%
