@@ -25,6 +25,7 @@ reference:
     - step_tokenfilter
     - step_tokenmerge
     - step_pos_filter
+    - step_ngram
   - title: Step Functions - list-column to numeric
     contents:
     - step_tfidf

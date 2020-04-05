@@ -153,3 +153,11 @@ tokenlist_pos_filter <- function(x, pos_tags) {
   
   tokenlist(out, lemma = lemma, pos = pos)
 }
+
+tokenlist_ngram <- function(x, n, delim) {
+  if (!is_tokenlist(x)) {
+    rlang::abort("Input must be a tokenlist.")
+  }
+  
+  tokenlist(rcpp_ngram(vec_data(x), n, delim))
+}
