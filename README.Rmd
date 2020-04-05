@@ -76,6 +76,7 @@ str(bake(okc_obj, okc_text), list.len = 15)
 | `step_stem()`              | list-column | list-column |
 | `step_stopwords()`         | list-column | list-column |
 | `step_pos_filter()`        | list-column | list-column |
+| `step_ngram()`             | list-column | list-column |
 | `step_tokenfilter()`       | list-column | list-column |
 | `step_tokenmerge()`        | list-column | list-column |
 | `step_tfidf()`             | list-column | numeric     |
