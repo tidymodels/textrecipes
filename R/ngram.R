@@ -58,7 +58,7 @@ step_ngram <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           n = 3L,
+           n_tokens = 3L,
            delim = "_",
            skip = FALSE,
            id = rand_id("ngram")
@@ -69,7 +69,7 @@ step_ngram <-
         terms = ellipse_check(...),
         role = role,
         trained = trained,
-        n = n,
+        n_tokens = n_tokens,
         delim = delim,
         columns = columns,
         skip = skip,
@@ -79,14 +79,14 @@ step_ngram <-
   }
 
 step_ngram_new <-
-  function(terms, role, trained, columns, n, delim, skip, id) {
+  function(terms, role, trained, columns, n_tokens, delim, skip, id) {
     step(
       subclass = "ngram",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
-      n = n,
+      n_tokens = n_tokens,
       delim = delim,
       skip = skip,
       id = id
@@ -104,7 +104,7 @@ prep.step_ngram <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    n = x$n,
+    n_tokens = x$n_tokens,
     delim = x$delim,
     skip = x$skip,
     id = x$id
@@ -118,7 +118,7 @@ bake.step_ngram <- function(object, new_data, ...) {
   
   for (i in seq_along(col_names)) {
     ngrammed_tokenlist <- tokenlist_ngram(new_data[, col_names[i], drop = TRUE],
-                                          n = object$n,
+                                          n = object$n_tokens,
                                           delim = object$delim)
     
     new_data[, col_names[i]] <- tibble(ngrammed_tokenlist)
@@ -164,7 +164,7 @@ tunable.step_ngram <- function(x, ...) {
   tibble::tibble(
     name = c("n_tokens"),
     call_info = list(
-      list(pkg = "textrecipes", fun = "n_tokens", range = c(1, 3))
+      list(pkg = "dials", fun = "n_tokens", range = c(1, 3))
     ),
     source = "recipe",
     component = "step_ngram",
