@@ -14,8 +14,8 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param n The number of words in the n-gram. This must be an integer greater 
-#' than or equal to 1. Defaults to 3.
+#' @param n_tokens The number of tokens in the n-gram. This must be an integer 
+#' greater than or equal to 1. Defaults to 3.
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
@@ -149,3 +149,26 @@ tidy.step_ngram <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' tunable methods for step_ngram
+#'
+#' These functions define what parameters _can_ be tuned for specific steps.
+#' They also define the recommended objects from the `dials` package that can
+#' be used to generate new parameter values and other characteristics.
+#' @param x A recipe step object
+#' @param ... Not used.
+#' @return A tibble object.
+#' @keywords internal
+#' @export
+tunable.step_ngram <- function(x, ...) {
+  tibble::tibble(
+    name = c("n_tokens"),
+    call_info = list(
+      list(pkg = "textrecipes", fun = "n_tokens", range = c(1, 3))
+    ),
+    source = "recipe",
+    component = "step_ngram",
+    component_id = x$id
+  )
+}
+

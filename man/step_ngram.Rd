@@ -38,9 +38,6 @@ baked.}
 encoding. This is \code{NULL} until the step is trained by
 \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{n}{The number of words in the n-gram. This must be an integer greater
-than or equal to 1. Defaults to 3.}
-
 \item{delim}{The separator between words in an n-gram. Defaults to "_".}
 
 \item{skip}{A logical. Should the step be skipped when the
@@ -54,6 +51,9 @@ subsequent operations.}
 \item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A \code{step_ngram} object.}
+
+\item{n_tokens}{The number of tokens in the n-gram. This must be an integer
+greater than or equal to 1. Defaults to 3.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
