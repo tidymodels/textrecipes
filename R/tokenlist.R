@@ -93,12 +93,17 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
   new_tokenlist(out, lemma = lemma, pos = pos, tokens = dict)
 }
 
-tokenlist_apply <- function(x, fun) {
+tokenlist_apply <- function(x, fun, arguments = NULL) {
   if (!is_tokenlist(x)) {
     rlang::abort("Input must be a tokenlist.")
   }
   
-  tokenlist(lapply(x, fun))
+  apply_expr <- expr(lapply(x, fun))
+  
+  if (length(arguments) > 0)
+    apply_expr <- mod_call_args(apply_expr, args = arguments)
+  
+  tokenlist(eval(apply_expr))
 }
 
 # Takes a list of tokens and calculate the token count matrix

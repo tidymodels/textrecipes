@@ -5,6 +5,7 @@
 * `step_lemma()` has been added to extract lemma attribute from tokenlists.
 * `step_pos_filter()` has been added to allow filtering of tokens bases on their pat of speech tags.
 * `step_ngram()` has been added to generate ngrams from tokenlists.
+* `step_stem()` not correctly uses the options argument. (Thanks to @grayskripko for finding bug, #64)
 
 # textrecipes 0.1.0
 

@@ -55,6 +55,21 @@ test_that("custom stemmer works", {
   expect_equal(dim(tidy(obj, 2)), c(1, 3))
 })
 
+test_that("arguments are passed by options", {
+  data <- tibble(y = 0, text = "коты") 
+
+  expect_equal(
+  recipe(y ~ ., data = data) %>% 
+    step_tokenize(text) %>% 
+    step_stem(text, options = list(language = "russian")) %>% 
+    prep(data) %>% 
+    juice() %>% 
+    pull(text) %>%
+    vctrs::vec_data(),
+  list("кот")
+  )
+})
+
 
 test_that("printing", {
   rec <- rec %>%
