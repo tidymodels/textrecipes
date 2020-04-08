@@ -304,7 +304,7 @@
 
 <span class="no">rec</span> <span class="kw">&lt;-</span> <span class="fu">recipe</span>(~ <span class="no">text</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">abc_tibble</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span>(<span class="no">text</span>, <span class="kw">n_tokens</span> <span class="kw">=</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span>(<span class="no">text</span>, <span class="kw">num_tokens</span> <span class="kw">=</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">text</span>)
 
@@ -340,7 +340,7 @@
 <span class="no">rec</span> <span class="kw">&lt;-</span> <span class="fu">recipe</span>(~ <span class="no">text</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">abc_tibble</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span>(<span class="no">text</span>, <span class="kw">n_tokens</span> <span class="kw">=</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span>(<span class="no">text</span>, <span class="kw">num_tokens</span> <span class="kw">=</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">text</span>)
 
@@ -370,7 +370,7 @@
 <span class="co">#&gt; [11] "tf_text_the_bank_i"         "tf_text_the_bee_i"         </span>
 <span class="co">#&gt; [13] "tf_text_where_you_put"      "tf_text_you_put_your"</span></pre></body></html></div>
 <p>This also works great for cases where you need higher flexibility or when you want to use a more powerful engine such as <strong>spacyr</strong> that doesn’t come with an n-gram tokenizer.</p>
-<p>Furthermore the <code>n_tokens</code> argument is tunable with the <strong>dials</strong> and <strong>tune</strong> package.</p>
+<p>Furthermore the <code>num_tokens</code> argument is tunable with the <strong>dials</strong> and <strong>tune</strong> package.</p>
 <p>Pros:</p>
 <ul>
 <li>Full flexibility</li>
