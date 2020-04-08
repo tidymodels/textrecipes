@@ -14,7 +14,7 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param n_tokens The number of tokens in the n-gram. This must be an integer 
+#' @param num_tokens The number of tokens in the n-gram. This must be an integer 
 #' greater than or equal to 1. Defaults to 3.
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @param skip A logical. Should the step be skipped when the
@@ -58,7 +58,7 @@ step_ngram <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           n_tokens = 3L,
+           num_tokens = 3L,
            delim = "_",
            skip = FALSE,
            id = rand_id("ngram")
@@ -69,7 +69,7 @@ step_ngram <-
         terms = ellipse_check(...),
         role = role,
         trained = trained,
-        n_tokens = n_tokens,
+        num_tokens = num_tokens,
         delim = delim,
         columns = columns,
         skip = skip,
@@ -79,14 +79,14 @@ step_ngram <-
   }
 
 step_ngram_new <-
-  function(terms, role, trained, columns, n_tokens, delim, skip, id) {
+  function(terms, role, trained, columns, num_tokens, delim, skip, id) {
     step(
       subclass = "ngram",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
-      n_tokens = n_tokens,
+      num_tokens = num_tokens,
       delim = delim,
       skip = skip,
       id = id
@@ -104,7 +104,7 @@ prep.step_ngram <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    n_tokens = x$n_tokens,
+    num_tokens = x$num_tokens,
     delim = x$delim,
     skip = x$skip,
     id = x$id
@@ -118,7 +118,7 @@ bake.step_ngram <- function(object, new_data, ...) {
   
   for (i in seq_along(col_names)) {
     ngrammed_tokenlist <- tokenlist_ngram(new_data[, col_names[i], drop = TRUE],
-                                          n = object$n_tokens,
+                                          n = object$num_tokens,
                                           delim = object$delim)
     
     new_data[, col_names[i]] <- tibble(ngrammed_tokenlist)
@@ -162,9 +162,9 @@ tidy.step_ngram <- function(x, ...) {
 #' @export
 tunable.step_ngram <- function(x, ...) {
   tibble::tibble(
-    name = c("n_tokens"),
+    name = c("num_tokens"),
     call_info = list(
-      list(pkg = "dials", fun = "n_tokens", range = c(1, 3))
+      list(pkg = "dials", fun = "num_tokens", range = c(1, 3))
     ),
     source = "recipe",
     component = "step_ngram",

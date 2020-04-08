@@ -142,7 +142,7 @@ abc_tibble <- tibble(text = abc)
 
 rec <- recipe(~ text, data = abc_tibble) %>%
   step_tokenize(text) %>%
-  step_ngram(text, n_tokens = 3) %>%
+  step_ngram(text, num_tokens = 3) %>%
   step_tokenfilter(text) %>%
   step_tf(text)
 
@@ -163,7 +163,7 @@ abc_tibble <- tibble(text = abc)
 rec <- recipe(~ text, data = abc_tibble) %>%
   step_tokenize(text) %>%
   step_stem(text) %>%
-  step_ngram(text, n_tokens = 3) %>%
+  step_ngram(text, num_tokens = 3) %>%
   step_tokenfilter(text) %>%
   step_tf(text)
 
@@ -178,7 +178,7 @@ names(abc_ngram)
 
 This also works great for cases where you need higher flexibility or when you want to use a more powerful engine such as **spacyr** that doesn't come with an n-gram tokenizer.
 
-Furthermore the `n_tokens` argument is tunable with the **dials** and **tune** package.
+Furthermore the `num_tokens` argument is tunable with the **dials** and **tune** package.
 
 Pros:
 

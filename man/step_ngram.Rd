@@ -11,7 +11,7 @@ step_ngram(
   role = NA,
   trained = FALSE,
   columns = NULL,
-  n_tokens = 3L,
+  num_tokens = 3L,
   delim = "_",
   skip = FALSE,
   id = rand_id("ngram")
@@ -38,7 +38,7 @@ baked.}
 encoding. This is \code{NULL} until the step is trained by
 \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{n_tokens}{The number of tokens in the n-gram. This must be an integer
+\item{num_tokens}{The number of tokens in the n-gram. This must be an integer
 greater than or equal to 1. Defaults to 3.}
 
 \item{delim}{The separator between words in an n-gram. Defaults to "_".}

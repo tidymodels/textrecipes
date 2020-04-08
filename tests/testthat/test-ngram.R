@@ -96,7 +96,7 @@ test_that("ngramming is done correctly", {
 test_that("`n` argument works", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_ngram(text, n_tokens = 2) 
+    step_ngram(text, num_tokens = 2) 
   
   obj <- rec %>%
     prep(training = test_tibble)
@@ -141,7 +141,7 @@ test_that("tunable", {
     recipe(~ ., data = iris) %>%
     step_ngram(all_predictors())
   rec_param <- tunable.step_ngram(rec$steps[[1]])
-  expect_equal(rec_param$name, c("n_tokens"))
+  expect_equal(rec_param$name, c("num_tokens"))
   expect_true(all(rec_param$source == "recipe"))
   expect_true(is.list(rec_param$call_info))
   expect_equal(nrow(rec_param), 1)
