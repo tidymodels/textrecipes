@@ -96,7 +96,7 @@ test_that("ngramming is done correctly", {
 test_that("`n` argument works", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_ngram(text, n = 2) 
+    step_ngram(text, n_tokens = 2) 
   
   obj <- rec %>%
     prep(training = test_tibble)
