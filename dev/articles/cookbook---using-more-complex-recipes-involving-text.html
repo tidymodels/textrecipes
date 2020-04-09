@@ -6,10 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cookbook - Using more complex recipes involving text • textrecipes</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Cookbook - Using more complex recipes involving text">
 <meta property="og:description" content="textrecipes">
@@ -40,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
         </div>
@@ -100,7 +101,7 @@
       <h1 data-toc-skip>Cookbook - Using more complex recipes involving text</h1>
                         <h4 class="author">Emil Hvitfeldt</h4>
             
-            <h4 class="date">2020-04-08</h4>
+            <h4 class="date">2020-04-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="hidden name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -114,6 +115,7 @@
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">textrecipes</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">modeldata</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"okc_text"</span>)</pre></body></html></div>
 <div id="counting-select-words" class="section level2">
 <h2 class="hasAnchor">
@@ -127,7 +129,7 @@
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">essay0</span>)
 
 <span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
@@ -159,7 +161,7 @@
   <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
 
 <span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
@@ -226,7 +228,7 @@
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">essay0</span>)
 
 <span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
@@ -264,7 +266,7 @@
   <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
 
 <span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))

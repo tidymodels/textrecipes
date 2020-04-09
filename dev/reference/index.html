@@ -10,22 +10,26 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -75,7 +79,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
         </div>
@@ -146,7 +150,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-step-functions-character-to-list-column" class="hasAnchor"><a href="#section-step-functions-character-to-list-column" class="anchor"></a>Step Functions - character to list-column</h2>
+          <h2 id="section-step-functions-character-to-tokenlist" class="hasAnchor"><a href="#section-step-functions-character-to-tokenlist" class="anchor"></a>Step Functions - character to tokenlist</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -165,7 +169,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-step-functions-list-column-to-character" class="hasAnchor"><a href="#section-step-functions-list-column-to-character" class="anchor"></a>Step Functions - list-column to character</h2>
+          <h2 id="section-step-functions-tokenlist-to-character" class="hasAnchor"><a href="#section-step-functions-tokenlist-to-character" class="anchor"></a>Step Functions - tokenlist to character</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -179,12 +183,12 @@
         <td>
           <p><code><a href="step_untokenize.html">step_untokenize()</a></code> <code><a href="step_untokenize.html">tidy(<i>&lt;step_untokenize&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Untokenization of list-column variables</p></td>
+        <td><p>Untokenization of tokenlist variables</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-step-functions-list-column-to-list-column" class="hasAnchor"><a href="#section-step-functions-list-column-to-list-column" class="anchor"></a>Step Functions - list-column to list-column</h2>
+          <h2 id="section-step-functions-tokenlist-to-tokenlist" class="hasAnchor"><a href="#section-step-functions-tokenlist-to-tokenlist" class="anchor"></a>Step Functions - tokenlist to tokenlist</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -198,19 +202,19 @@
         <td>
           <p><code><a href="step_stem.html">step_stem()</a></code> <code><a href="step_stem.html">tidy(<i>&lt;step_stem&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Stemming of list-column variables</p></td>
+        <td><p>Stemming of tokenlist variables</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="step_stopwords.html">step_stopwords()</a></code> <code><a href="step_stopwords.html">tidy(<i>&lt;step_stopwords&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Filtering of stopwords from a list-column variable</p></td>
+        <td><p>Filtering of stopwords from a tokenlist variable</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="step_lemma.html">step_lemma()</a></code> <code><a href="step_lemma.html">tidy(<i>&lt;step_lemma&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Lemmatization of list-column variables</p></td>
+        <td><p>Lemmatization of tokenlist variables</p></td>
       </tr><tr>
         
         <td>
@@ -228,7 +232,7 @@
         <td>
           <p><code><a href="step_pos_filter.html">step_pos_filter()</a></code> <code><a href="step_pos_filter.html">tidy(<i>&lt;step_pos_filter&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Part of speech filtering of list-column variables</p></td>
+        <td><p>Part of speech filtering of tokenlist variables</p></td>
       </tr><tr>
         
         <td>
@@ -239,7 +243,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-step-functions-list-column-to-numeric" class="hasAnchor"><a href="#section-step-functions-list-column-to-numeric" class="anchor"></a>Step Functions - list-column to numeric</h2>
+          <h2 id="section-step-functions-tokenlist-to-numeric" class="hasAnchor"><a href="#section-step-functions-tokenlist-to-numeric" class="anchor"></a>Step Functions - tokenlist to numeric</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -266,6 +270,12 @@
           <p><code><a href="step_texthash.html">step_texthash()</a></code> <code><a href="step_texthash.html">tidy(<i>&lt;step_texthash&gt;</i>)</a></code> </p>
         </td>
         <td><p>Term frequency of tokens</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_word_embeddings.html">step_word_embeddings()</a></code> <code><a href="step_word_embeddings.html">tidy(<i>&lt;step_word_embeddings&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Pretrained word embeddings of tokens</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -297,12 +307,6 @@
           <p><code><a href="step_lda.html">step_lda()</a></code> <code><a href="step_lda.html">tidy(<i>&lt;step_lda&gt;</i>)</a></code> </p>
         </td>
         <td><p>Calculates lda dimension estimates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="step_word_embeddings.html">step_word_embeddings()</a></code> <code><a href="step_word_embeddings.html">tidy(<i>&lt;step_word_embeddings&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Pretrained word embeddings of tokens</p></td>
       </tr>
     </tbody>
     </table>

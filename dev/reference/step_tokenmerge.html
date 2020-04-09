@@ -10,22 +10,26 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,8 +40,8 @@
 
 <meta property="og:title" content="Generate the basic set of text features — step_tokenmerge" />
 <meta property="og:description" content="step_tokenmerge creates a specification of a recipe step that
-will take multiple list-columns of tokens and combine them into one
-list-column." />
+will take multiple tokenlists and combine them into one
+tokenlist." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -79,7 +83,7 @@ list-column." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
         </div>
@@ -143,8 +147,8 @@ list-column." />
 
     <div class="ref-description">
     <p><code>step_tokenmerge</code> creates a <em>specification</em> of a recipe step that
-will take multiple list-columns of tokens and combine them into one
-list-column.</p>
+will take multiple <a href='tokenlist.html'>tokenlist</a>s and combine them into one
+<a href='tokenlist.html'>tokenlist</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_tokenmerge</span>(
@@ -173,7 +177,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_tokenmerge</code>, this indicates the variables to be encoded
-into a list column. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -222,10 +226,20 @@ subsequent operations.</p></td>
 
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+<p>Other tokenlist to tokenlist steps: 
+<code><a href='step_lemma.html'>step_lemma</a>()</code>,
+<code><a href='step_ngram.html'>step_ngram</a>()</code>,
+<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
+<code><a href='step_stem.html'>step_stem</a>()</code>,
+<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
+<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
 
 <span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
@@ -233,11 +247,11 @@ to the sequence of existing steps (if any).</p>
   <span class='fu'>step_tokenmerge</span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>)
 
 <span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
 
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 750 x 9</span><span>
 #&gt;    essay2   essay3  essay4  essay5  essay6  essay7  essay8  essay9    tokenmerge
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;txtrcps_&gt;</span><span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>writin… </span><span style='color: #555555;'>"</span><span>that … </span><span style='color: #555555;'>"</span><span>music… </span><span style='color: #555555;'>"</span><span>frien… </span><span style='color: #555555;'>"</span><span>roman… </span><span style='color: #555555;'>"</span><span>usual… </span><span style='color: #555555;'>"</span><span>i hav… </span><span style='color: #555555;'>"</span><span>you'r… [240 tokens]
 #&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>pickin… </span><span style='color: #555555;'>"</span><span>i loo… </span><span style='color: #555555;'>"</span><span>non-f… </span><span style='color: #555555;'>"</span><span>deser… </span><span style='color: #555555;'>"</span><span>every… </span><span style='color: #555555;'>"</span><span>makin… </span><span style='color: #555555;'>"</span><span>this … </span><span style='color: #555555;'>"</span><span>you'r…  [28 tokens]
 #&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>procra… </span><span style='color: #555555;'>"</span><span>my sm… </span><span style='color: #555555;'>"</span><span>sushi… </span><span style='color: #555555;'>"</span><span>my ce… </span><span style='color: #555555;'>"</span><span>movin… </span><span style='color: #555555;'>"</span><span>at ho… </span><span style='color: #555555;'>"</span><span>on ma… </span><span style='color: #555555;'>"</span><span>you t… [385 tokens]
@@ -252,12 +266,12 @@ to the sequence of existing steps (if any).</p>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
 #&gt;   terms  value id            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_79pnR
-#&gt; </span><span style='color: #555555;'>2</span><span> essay1 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_79pnR</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_1qHq1
+#&gt; </span><span style='color: #555555;'>2</span><span> essay1 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_1qHq1</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
 #&gt;   terms      value id            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_79pnR
-#&gt; </span><span style='color: #555555;'>2</span><span> essay1     words tokenize_79pnR</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_1qHq1
+#&gt; </span><span style='color: #555555;'>2</span><span> essay1     words tokenize_1qHq1</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
