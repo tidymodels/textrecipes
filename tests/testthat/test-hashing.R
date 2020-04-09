@@ -18,7 +18,7 @@ test_that("hashing gives double outputs", {
     step_texthash(text)
 
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
 
   expect_true(
     juice(obj) %>%
@@ -37,7 +37,7 @@ test_that("hashing output width changes accordingly with num_terms", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text, num_terms = 256) %>%
-    prep(training = test_data)
+    prep()
 
   expect_equal(
     juice(rec) %>%
@@ -76,5 +76,5 @@ test_that("printing", {
     step_tokenize(text) %>%
     step_texthash(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = test_data, verbose = TRUE))
+  expect_output(prep(rec, verbose = TRUE))
 })

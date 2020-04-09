@@ -16,7 +16,7 @@ test_that("output is list when length is 1 or 0", {
   
   data_rec <- recipe(~ ., data = data) %>%
     step_tokenize(a) %>%
-    prep(training = data)
+    prep()
   
   expect_true(is.list(juice(data_rec, a)[, 1, drop = TRUE]))
 })
@@ -26,7 +26,7 @@ test_that("tokenization is done correctly", {
     step_tokenize(text) 
   
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(
     list(c("i", "would", "not", "eat", "them", "here", "or", "there"),
@@ -44,14 +44,14 @@ test_that("step throws an error if unavaliable tokenizer is picked", {
   expect_error(
     rec %>%
       step_tokenize(text, token = "wrong") %>%
-      prep(training = test_data)
+      prep()
   )
 })
 
 test_that("tokenization works with other built-in tokenizers", {
   rec <- rec %>%
     step_tokenize(text, token = "characters") %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
@@ -62,7 +62,7 @@ test_that("tokenization works with other built-in tokenizers", {
 test_that("tokenization works with custom tokenizer", {
   rec <- rec %>%
     step_tokenize(text, custom_token = tokenizers::tokenize_characters) %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
@@ -76,7 +76,7 @@ test_that("tokenization works with custom tokenizer", {
 test_that("arguments are passed using options argument", {
   rec <- rec %>%
     step_tokenize(text, options = list(lowercase = FALSE)) %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(
     list(c("I", "would", "not", "eat", "them", "here", "or", "there"),
@@ -91,7 +91,7 @@ test_that("tokenization errors with wrong engines", {
   expect_error(
     rec %>%
       step_tokenize(text, engine = "fake") %>%
-      prep(training = test_data)
+      prep()
   )
 })
 
@@ -124,5 +124,5 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = test_data, verbose = TRUE))
+  expect_output(prep(rec, verbose = TRUE))
 })

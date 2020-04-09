@@ -58,7 +58,7 @@
 #'   step_word_embeddings(text, embeddings = embeddings)
 #'   
 #' obj <- rec %>%
-#'   prep(training = sample_data)
+#'   prep()
 #'
 #' bake(obj, sample_data)
 #'

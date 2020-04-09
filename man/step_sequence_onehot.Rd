@@ -88,7 +88,7 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_sequence_onehot(essay0) 
   
 okc_obj <- okc_rec \%>\%
-  prep(training = okc_text)
+  prep()
 
 juice(okc_obj)
   

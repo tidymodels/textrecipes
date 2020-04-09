@@ -47,7 +47,7 @@
 #'   step_texthash(essay0)
 #'   
 #' okc_obj <- okc_rec %>%
-#'   prep(training = okc_text)
+#'   prep()
 #'   
 #' bake(okc_obj, okc_text)
 #' 

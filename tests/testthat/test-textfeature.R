@@ -16,7 +16,7 @@ test_that("textfeature extraction is done correctly", {
     step_textfeature(text)
   
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
   
   juiced_data <- juice(obj)  
   
@@ -41,14 +41,14 @@ test_that("custom extraction functions work works", {
                                                     nchar3 = nchar3))
   
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(dim(juice(obj)), c(nrow(test_data), 3))
   
   expect_error(
     rec %>%
       step_textfeature(text, extract_functions = list(as.character)) %>%
-      prep(training = test_data)
+      prep()
   )
   
   expect_error(
@@ -56,7 +56,7 @@ test_that("custom extraction functions work works", {
       step_textfeature(
         text, 
         extract_functions = list(function(x) 1)) %>%
-      prep(training = test_data)
+      prep()
   )
 })
 
@@ -65,5 +65,5 @@ test_that("printing", {
   rec <- rec %>%
     step_textfeature(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = test_data, verbose = TRUE))
+  expect_output(prep(rec, verbose = TRUE))
 })

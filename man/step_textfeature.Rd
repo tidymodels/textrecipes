@@ -86,7 +86,7 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_textfeature(essay0) 
   
 okc_obj <- okc_rec \%>\%
-  prep(training = okc_text)
+  prep()
 
 juice(okc_obj) \%>\%
   slice(1:2)
@@ -103,7 +103,7 @@ nchar_round_10 <- function(x) round(nchar(x) / 10) * 10
 recipe(~ ., data = okc_text) \%>\%
   step_textfeature(essay0, 
                    extract_functions = list(nchar10 = nchar_round_10)) \%>\%
-  prep(training = okc_text) \%>\%
+  prep() \%>\%
   juice()
 }
 }

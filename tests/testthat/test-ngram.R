@@ -79,7 +79,7 @@ test_that("ngramming is done correctly", {
     step_ngram(text) 
   
   obj <- rec %>%
-    prep(training = test_tibble)
+    prep()
   
   expect_equal(
     juice(obj) %>% 
@@ -99,7 +99,7 @@ test_that("`n` argument works", {
     step_ngram(text, num_tokens = 2) 
   
   obj <- rec %>%
-    prep(training = test_tibble)
+    prep()
   
   expect_equal(
     juice(obj) %>% 
@@ -116,7 +116,7 @@ test_that("`delim` argument works", {
     step_ngram(text, delim = " ") 
   
   obj <- rec %>%
-    prep(training = test_tibble)
+    prep()
   
   expect_equal(
     juice(obj) %>% 
@@ -133,7 +133,7 @@ test_that("printing", {
     step_tokenize(text) %>%
     step_stem(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = test_tibble, verbose = TRUE))
+  expect_output(prep(rec, verbose = TRUE))
 })
 
 test_that("tunable", {

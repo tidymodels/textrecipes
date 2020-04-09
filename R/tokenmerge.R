@@ -40,7 +40,7 @@
 #'   step_tokenmerge(essay0, essay1) 
 #'   
 #' okc_obj <- okc_rec %>%
-#'   prep(training = okc_text)
+#'   prep()
 #' 
 #' juice(okc_obj)
 #'   

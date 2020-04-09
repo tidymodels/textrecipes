@@ -20,7 +20,7 @@ test_that("merging is done correctly", {
     step_tokenmerge(text1, text2)
   
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
   
   juiced_data <- juice(obj)
   
@@ -43,6 +43,6 @@ test_that("it complains when the selected column isn't a tokenlist", {
     step_tokenmerge(text1, text2)
   
   expect_error(
-    prep(rec, training = test_data)
+    prep(rec)
   )
 })

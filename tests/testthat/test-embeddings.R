@@ -13,7 +13,7 @@ rec_base <- recipe(~ ., data = test_data)
 # Create some manual data for expected results.
 tokens <- rec_base %>% 
   step_tokenize(text) %>%
-  recipes::prep(training = test_data) %>%
+  recipes::prep() %>%
   recipes::juice() %>% 
   dplyr::bind_cols(test_data) %>% 
   dplyr::select(text = text1, tokens = text)
@@ -97,7 +97,7 @@ rec <- rec_base %>%
   step_word_embeddings(text, embeddings = embeddings)
 
 obj <- rec %>%
-  prep(training = test_data)
+  prep()
 
 juiced <- juice(obj)
 
@@ -147,7 +147,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_word_embeddings(
       text, embeddings = embeddings, aggregation = "max"
     ) %>% 
-    prep(training = test_data) %>% 
+    prep() %>% 
     juice()
   expect_identical(juiced_max, select(sentence_embeddings_max, -text))
   juiced_min <- rec_base %>% 
@@ -155,7 +155,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_word_embeddings(
       text, embeddings = embeddings, aggregation = "min"
     ) %>% 
-    prep(training = test_data) %>% 
+    prep() %>% 
     juice()
   expect_identical(juiced_min, select(sentence_embeddings_min, -text))
   juiced_mean <- rec_base %>% 
@@ -163,7 +163,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_word_embeddings(
       text, embeddings = embeddings, aggregation = "mean"
     ) %>% 
-    prep(training = test_data) %>% 
+    prep() %>% 
     juice()
   expect_identical(juiced_mean, select(sentence_embeddings_mean, -text))
 })
@@ -207,7 +207,7 @@ test_that("printing", {
     "Word embeddings aggregated from text"
   )
   expect_output(
-    prep(rec, training = test_data, verbose = TRUE)
+    prep(rec, verbose = TRUE)
   )
 })
 

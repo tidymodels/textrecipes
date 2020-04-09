@@ -42,5 +42,5 @@ test_that("printing", {
     step_lda(essay0)
   
   expect_output(print(rec))
-  expect_output(prep(rec, training = okc_text, verbose = TRUE))
+  expect_output(prep(rec, verbose = TRUE))
 })

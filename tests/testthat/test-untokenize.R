@@ -19,7 +19,7 @@ test_that("output is not a list", {
     step_untokenize(a) 
   
   obj <- rec %>%
-    prep(training = data)
+    prep()
   
   expect_true(is.factor(juice(obj, a)[, 1, drop = TRUE]))
   
@@ -33,7 +33,7 @@ test_that("working as intended", {
     step_untokenize(text)
 
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(
     juice(obj) %>% pull(text) %>% as.character(),
@@ -50,7 +50,7 @@ test_that("working as intended", {
     step_untokenize(text, sep = "-")
   
   obj <- rec %>%
-    prep(training = test_data)
+    prep()
   
   expect_equal(
     juice(obj) %>% pull(text) %>% as.character(),
@@ -66,5 +66,5 @@ test_that("printing", {
     step_tokenize(text) %>%
     step_untokenize(text)
   expect_output(print(rec))
-  expect_output(prep(rec, training = test_data, verbose = TRUE))
+  expect_output(prep(rec, verbose = TRUE))
 })

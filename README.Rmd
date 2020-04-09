@@ -58,7 +58,7 @@ okc_rec <- recipe(~  essay0 + essay1, data = okc_text) %>%
   step_tfidf(essay0, essay1)
    
 okc_obj <- okc_rec %>%
-  prep(training = okc_text)
+  prep()
    
 str(bake(okc_obj, okc_text), list.len = 15)
 ```
