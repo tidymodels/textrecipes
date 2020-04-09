@@ -105,7 +105,9 @@ if \code{engine = "spacyr"}
 }
 
 Working will \code{textrecipes} will almost always start by calling
-\code{step_tokenize} followed by modifying and filtering steps.
+\code{step_tokenize} followed by modifying and filtering steps. This is not always
+the case as you sometimes want to do apply pre-tokenization steps, this can
+be done with \code{\link[recipes:step_mutate]{recipes::step_mutate()}}.
 }
 \examples{
 library(recipes)

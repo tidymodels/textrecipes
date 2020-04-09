@@ -92,7 +92,9 @@
 #' * "words"
 #' 
 #' Working will `textrecipes` will almost always start by calling 
-#' `step_tokenize` followed by modifying and filtering steps.
+#' `step_tokenize` followed by modifying and filtering steps. This is not always
+#' the case as you sometimes want to do apply pre-tokenization steps, this can
+#' be done with [recipes::step_mutate()].
 #'
 #' @seealso [step_untokenize()] to untokenize.
 step_tokenize <-
