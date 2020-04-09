@@ -27,13 +27,13 @@ check_list <- function (dat) {
   all_good <- vapply(dat, is.list, logical(1))
 
   if (!all(all_good))
-    rlang::abort("All columns selected for the step should be a list-column")
+    rlang::abort("All columns selected for this step should be tokenlists")
   
   invisible(all_good)
 }
 
 # same as tokenlist_filter but takes an list as input and returns a tibble with
-# list-column.
+# [tokenlist].
 word_tbl_filter <- function(x, words, keep) {
   tibble(
     map(x, tokenlist_filter, words, keep)

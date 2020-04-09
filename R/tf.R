@@ -1,14 +1,14 @@
 #' Term frequency of tokens
 #'
 #' `step_tf` creates a *specification* of a recipe step that
-#'  will convert a list of tokens into multiple variables containing
+#'  will convert a [tokenlist] into multiple variables containing
 #'  the token counts.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_tf`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes

@@ -1,13 +1,13 @@
 #' Tokenization of character variables
 #'
 #' `step_tokenize` creates a *specification* of a recipe step that
-#'  will convert a character predictor into a list of tokens.
+#'  will convert a character predictor into a [tokenlist].
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_tokenize`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.
@@ -67,8 +67,8 @@
 #' Tokenization is the act of splitting a character string into smaller parts
 #' to be further analysed. This step uses the `tokenizers` package which 
 #' includes heuristics to split the text into paragraphs tokens, word tokens
-#' amoug others. `textrecipes` keeps the tokens in a list-column and other
-#' steps will do their tasks on those list-columns before transforming them
+#' amoug others. `textrecipes` keeps the tokens in a [tokenlist] and other
+#' steps will do their tasks on those [tokenlist]s before transforming them
 #' back to numeric.
 #' 
 #' The choice of `engine` determines the possible choices of `token`.

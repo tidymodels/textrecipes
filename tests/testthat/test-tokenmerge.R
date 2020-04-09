@@ -38,7 +38,7 @@ test_that("merging is done correctly", {
   expect_equal(dim(recipes:::tidy.recipe(obj, 1)), c(2, 3))
 })
 
-test_that("it complains when the selected column isn't a list-column", {
+test_that("it complains when the selected column isn't a tokenlist", {
   rec <- rec %>%
     step_tokenmerge(text1, text2)
   

@@ -3,7 +3,7 @@
 \name{step_stem}
 \alias{step_stem}
 \alias{tidy.step_stem}
-\title{Stemming of list-column variables}
+\title{Stemming of \link{tokenlist} variables}
 \usage{
 step_stem(
   recipe,
@@ -25,7 +25,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
 For \code{step_stem}, this indicates the variables to be encoded
-into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
@@ -61,7 +61,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_stem} creates a \emph{specification} of a recipe step that
-will convert a list of tokens into a list of stemmed tokens.
+will convert a \link{tokenlist} to have its tokens stemmed.
 }
 \details{
 Words tend to have different forms depending on context, such as

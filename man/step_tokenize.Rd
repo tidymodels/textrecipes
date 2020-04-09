@@ -27,7 +27,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
 For \code{step_tokenize}, this indicates the variables to be encoded
-into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
@@ -70,14 +70,14 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_tokenize} creates a \emph{specification} of a recipe step that
-will convert a character predictor into a list of tokens.
+will convert a character predictor into a \link{tokenlist}.
 }
 \details{
 Tokenization is the act of splitting a character string into smaller parts
 to be further analysed. This step uses the \code{tokenizers} package which
 includes heuristics to split the text into paragraphs tokens, word tokens
-amoug others. \code{textrecipes} keeps the tokens in a list-column and other
-steps will do their tasks on those list-columns before transforming them
+amoug others. \code{textrecipes} keeps the tokens in a \link{tokenlist} and other
+steps will do their tasks on those \link{tokenlist}s before transforming them
 back to numeric.
 
 The choice of \code{engine} determines the possible choices of \code{token}.

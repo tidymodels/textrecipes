@@ -1,4 +1,4 @@
-#' Lemmatization of list-column variables
+#' Lemmatization of [tokenlist] variables
 #'
 #' `step_lemma` creates a *specification* of a recipe step that
 #'  will extract the lemmatization of a tokenlist.
@@ -7,7 +7,7 @@
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_lemma`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.

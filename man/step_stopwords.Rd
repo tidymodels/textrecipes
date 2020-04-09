@@ -3,7 +3,7 @@
 \name{step_stopwords}
 \alias{step_stopwords}
 \alias{tidy.step_stopwords}
-\title{Filtering of stopwords from a list-column variable}
+\title{Filtering of stopwords from a \link{tokenlist} variable}
 \usage{
 step_stopwords(
   recipe,
@@ -27,7 +27,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
 For \code{step_stopwords}, this indicates the variables to be encoded
-into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
@@ -70,7 +70,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_stopwords} creates a \emph{specification} of a recipe step that
-will filter a list of tokens for stopwords(keep or remove).
+will filter a \link{tokenlist} for stopwords(keep or remove).
 }
 \details{
 Stop words are words which sometimes are remove before natural language

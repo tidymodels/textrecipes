@@ -1,14 +1,14 @@
 #'  Generate the basic set of text features
 #'
 #' `step_tokenmerge` creates a *specification* of a recipe step that
-#'  will take multiple list-columns of tokens and combine them into one 
-#'  list-column.
+#'  will take multiple [tokenlist]s and combine them into one 
+#'  [tokenlist].
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_tokenmerge`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes

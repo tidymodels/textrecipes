@@ -1,13 +1,13 @@
-#' Part of speech filtering of list-column variables
+#' Part of speech filtering of [tokenlist] variables
 #'
 #' `step_pos_filter` creates a *specification* of a recipe step that
-#'  will filter a list-column based on part of speech tags.
+#'  will filter a [tokenlist] based on part of speech tags.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_pos_filter`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.

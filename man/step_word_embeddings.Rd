@@ -26,7 +26,7 @@ operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables. For
 \code{step_word_embeddings}, this indicates the variables to be encoded into a
-list column. See \code{\link[recipes:selections]{recipes::selections()}} for more details. For the \code{tidy}
+\link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more details. For the \code{tidy}
 method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis role should
@@ -66,7 +66,7 @@ sequence of existing steps (if any).
 }
 \description{
 \code{step_word_embeddings} creates a \emph{specification} of a recipe step that will
-convert a list of tokens into word-embedding dimensions by aggregating the
+convert a \link{tokenlist} into word-embedding dimensions by aggregating the
 vectors of each token from a pre-trained embedding.
 }
 \details{

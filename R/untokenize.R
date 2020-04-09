@@ -1,13 +1,13 @@
-#' Untokenization of list-column variables
+#' Untokenization of [tokenlist] variables
 #'
 #' `step_untokenize` creates a *specification* of a recipe step that
-#'  will convert a list of tokens into a character predictor.
+#'  will convert a [tokenlist] into a character predictor.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_untokenize`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.
@@ -51,8 +51,7 @@
 #' tidy(okc_obj, number = 2)
 #' @export
 #' @details
-#' This steps will turn a tokenized list-column back into a character
-#' vector.
+#' This steps will turn a [tokenlist] back into a character vector.
 step_untokenize <-
   function(recipe,
            ...,

@@ -1,14 +1,14 @@
 #' Pretrained word embeddings of tokens
 #'
 #' `step_word_embeddings` creates a *specification* of a recipe step that will
-#' convert a list of tokens into word-embedding dimensions by aggregating the
+#' convert a [tokenlist] into word-embedding dimensions by aggregating the
 #' vectors of each token from a pre-trained embedding.
 #'
 #' @param recipe A recipe object. The step will be added to the sequence of
 #'   operations for this recipe.
 #' @param ... One or more selector functions to choose variables. For
 #'   `step_word_embeddings`, this indicates the variables to be encoded into a
-#'   list column. See [recipes::selections()] for more details. For the `tidy`
+#'   [tokenlist]. See [recipes::selections()] for more details. For the `tidy`
 #'   method, these are not currently used.
 #' @param role For model terms created by this step, what analysis role should
 #'   they be assigned?. By default, the function assumes that the new columns

@@ -1,4 +1,7 @@
 #' Create tokenlist object
+#' 
+#' A [tokenlist] object is a thin wrapper around a list of character vectors, 
+#' with a few attributes.
 #'
 #' @param x List of character vectors
 #' @param lemma List of character vectors, must be same size and shape as `x`.
@@ -8,9 +11,19 @@
 #' @export
 #'
 #' @examples
-#' tokenlist(list(letters, LETTERS))
+#' abc <- list(letters, LETTERS)
+#' tokenlist(abc)
 #' 
-#' tibble(text = tokenlist(list(letters, LETTERS)))
+#' unclass(tokenlist(abc))
+#' 
+#' tibble(text = tokenlist(abc))
+#' 
+#' library(tokenizers)
+#' tokens <- tokenize_words(okc_text$essay0)
+#' 
+#' tokenlist(tokens)
+#' 
+#' tokenlist()
 tokenlist <- function(x = list(), lemma = NULL, pos = NULL) {
   x <- vec_cast(x, list())
   if (!is.null(lemma)) {
@@ -121,7 +134,7 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
   tokenlist(eval(apply_expr))
 }
 
-# Takes a list of tokens and calculate the token count matrix
+# Takes a [tokenlist] and calculate the token count matrix
 tokenlist_to_dtm <- function(x, dict) {
   if (!is_tokenlist(x)) {
     rlang::abort("Input must be a tokenlist.")

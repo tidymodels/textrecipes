@@ -3,7 +3,7 @@
 \name{step_lemma}
 \alias{step_lemma}
 \alias{tidy.step_lemma}
-\title{Lemmatization of list-column variables}
+\title{Lemmatization of \link{tokenlist} variables}
 \usage{
 step_lemma(
   recipe,
@@ -23,7 +23,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
 For \code{step_lemma}, this indicates the variables to be encoded
-into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are

@@ -3,7 +3,7 @@
 \name{step_pos_filter}
 \alias{step_pos_filter}
 \alias{tidy.step_pos_filter}
-\title{Part of speech filtering of list-column variables}
+\title{Part of speech filtering of \link{tokenlist} variables}
 \usage{
 step_pos_filter(
   recipe,
@@ -24,7 +24,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
 For \code{step_pos_filter}, this indicates the variables to be encoded
-into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{Not used by this step since no new variables are
@@ -58,7 +58,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_pos_filter} creates a \emph{specification} of a recipe step that
-will filter a list-column based on part of speech tags.
+will filter a \link{tokenlist} based on part of speech tags.
 }
 \details{
 Possible part of speech tags for \code{spacyr} engine are: "ADJ", "ADP", "ADV",

@@ -17,10 +17,21 @@ tokenlist(x = list(), lemma = NULL, pos = NULL)
 a \link{tokenlist} object.
 }
 \description{
-Create tokenlist object
+A \link{tokenlist} object is a thin wrapper around a list of character vectors,
+with a few attributes.
 }
 \examples{
-tokenlist(list(letters, LETTERS))
+abc <- list(letters, LETTERS)
+tokenlist(abc)
 
-tibble(text = tokenlist(list(letters, LETTERS)))
+unclass(tokenlist(abc))
+
+tibble(text = tokenlist(abc))
+
+library(tokenizers)
+tokens <- tokenize_words(okc_text$essay0)
+
+tokenlist(tokens)
+
+tokenlist()
 }

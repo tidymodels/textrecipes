@@ -11,13 +11,13 @@ home:
   strip_header: true
 
 reference:
-  - title: Step Functions - character to list-column
+  - title: Step Functions - character to tokenlist
     contents:
     - step_tokenize
-  - title: Step Functions - list-column to character
+  - title: Step Functions - tokenlist to character
     contents:
     - step_untokenize
-  - title: Step Functions - list-column to list-column
+  - title: Step Functions - tokenlist to tokenlist
     contents:
     - step_stem
     - step_stopwords
@@ -26,7 +26,7 @@ reference:
     - step_tokenmerge
     - step_pos_filter
     - step_ngram
-  - title: Step Functions - list-column to numeric
+  - title: Step Functions - tokenlist to numeric
     contents:
     - step_tfidf
     - step_tf

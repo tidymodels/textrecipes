@@ -1,13 +1,13 @@
-#' Filtering of stopwords from a list-column variable
+#' Filtering of stopwords from a [tokenlist] variable
 #'
 #' `step_stopwords` creates a *specification* of a recipe step that
-#'  will filter a list of tokens for stopwords(keep or remove).
+#'  will filter a [tokenlist] for stopwords(keep or remove).
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_stopwords`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.

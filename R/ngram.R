@@ -1,13 +1,13 @@
 #' Generate ngrams from tokenlist
 #'
 #' `step_ngram` creates a *specification* of a recipe step that
-#'  will convert a list of tokens into a list of ngram of tokens.
+#'  will convert a [tokenlist] into a list of ngram of tokens.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_ngram`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.

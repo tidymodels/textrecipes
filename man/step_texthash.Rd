@@ -26,7 +26,7 @@ sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
 For \code{step_texthash}, this indicates the variables to be encoded
-into a list column. See \code{\link[recipes:selections]{recipes::selections()}} for more
+into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
 \item{role}{For model terms created by this step, what analysis
@@ -68,7 +68,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_texthash} creates a \emph{specification} of a recipe step that
-will convert a list of tokens into multiple variables using the
+will convert a \link{tokenlist} into multiple variables using the
 hashing trick.
 }
 \details{

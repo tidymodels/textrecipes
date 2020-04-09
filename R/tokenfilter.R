@@ -1,14 +1,13 @@
 #' Filter the tokens based on term frequency
 #'
 #' `step_tokenfilter` creates a *specification* of a recipe step that
-#'  will convert a list of tokens into a list where the tokens are filtered
-#'  based on frequency.
+#'  will convert a [tokenlist] to be filtered based on frequency.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_tokenfilter`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are
 #'  created.

@@ -1,14 +1,14 @@
 #' Term frequency of tokens
 #'
 #' `step_texthash` creates a *specification* of a recipe step that
-#'  will convert a list of tokens into multiple variables using the 
+#'  will convert a [tokenlist] into multiple variables using the 
 #'  hashing trick.
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_texthash`, this indicates the variables to be encoded
-#'  into a list column. See [recipes::selections()] for more
+#'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes
@@ -204,7 +204,7 @@ hashing_function <- function(data, labels, signed, n) {
   as_tibble(counts)
 }
 
-# Takes a list of tokens and calculate the hashed token count matrix
+# Takes a [tokenlist] and calculate the hashed token count matrix
 list_to_hash <- function(x, n, signed) {
   it <- text2vec::itoken(x, progress = FALSE)
   vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
