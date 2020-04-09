@@ -48,6 +48,9 @@
 #' tidy(okc_obj, number = 1)
 #' 
 #' @export
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_tokenmerge <-
   function(recipe,
            ...,

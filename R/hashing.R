@@ -77,7 +77,8 @@
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; 
 #'  Alex Smola; Josh Attenberg (2009).
 #'  
-#' @seealso [step_tf()] [step_tfidf()] [step_tokenize()]
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to numeric steps
 step_texthash <-
   function(recipe,
            ...,

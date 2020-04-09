@@ -77,7 +77,8 @@
 #' words instead of removing thus allowing you to select words with a 
 #' combination of these two arguments.
 #' 
-#' @seealso [step_stem()] [step_tokenfilter()] [step_tokenize()]
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_stopwords <-
   function(recipe,
            ...,

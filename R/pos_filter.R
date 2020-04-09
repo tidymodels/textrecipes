@@ -50,6 +50,9 @@
 #' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", 
 #' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more 
 #' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_pos_filter <-
   function(recipe,
            ...,

@@ -58,6 +58,8 @@
 #' Characters not in the integer_key will be encoded as 0.
 #'
 #' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
+#' 
+#' @family character to numeric steps
 step_sequence_onehot <-
   function(recipe,
            ...,

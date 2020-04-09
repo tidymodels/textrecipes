@@ -77,6 +77,8 @@
 #' }
 #' }
 #' @export
+#' 
+#' @family character to numeric steps
 step_lda <-
   function(recipe,
            ...,

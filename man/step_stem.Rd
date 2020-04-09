@@ -114,5 +114,14 @@ juice(okc_obj) \%>\%
   pull(essay0) 
 }
 \seealso{
-\code{\link[=step_stopwords]{step_stopwords()}} \code{\link[=step_tokenfilter]{step_tokenfilter()}} \code{\link[=step_tokenize]{step_tokenize()}}
+\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+
+Other tokenlist to tokenlist steps: 
+\code{\link{step_lemma}()},
+\code{\link{step_ngram}()},
+\code{\link{step_pos_filter}()},
+\code{\link{step_stopwords}()},
+\code{\link{step_tokenfilter}()},
+\code{\link{step_tokenmerge}()}
 }
+\concept{tokenlist to tokenlist steps}

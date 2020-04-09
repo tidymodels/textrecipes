@@ -88,7 +88,8 @@
 #' `-`. The new variables will be created alphabetically according to
 #' token.
 #' 
-#' @seealso [step_texthash()] [step_tf()] [step_tokenize()]
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to numeric steps
 step_tfidf <-
   function(recipe,
            ...,

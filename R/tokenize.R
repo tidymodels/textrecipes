@@ -97,6 +97,7 @@
 #' be done with [recipes::step_mutate()].
 #'
 #' @seealso [step_untokenize()] to untokenize.
+#' @family character to tokenlist steps
 step_tokenize <-
   function(recipe,
            ...,

@@ -52,6 +52,9 @@
 #' @export
 #' @details
 #' This steps will turn a [tokenlist] back into a character vector.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to character steps
 step_untokenize <-
   function(recipe,
            ...,

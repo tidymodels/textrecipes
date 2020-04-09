@@ -127,5 +127,11 @@ tidy(okc_obj, number = 2)
 }
 }
 \seealso{
-\code{\link[=step_texthash]{step_texthash()}} \code{\link[=step_tfidf]{step_tfidf()}} \code{\link[=step_tokenize]{step_tokenize()}}
+\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+
+Other tokenlist to numeric steps: 
+\code{\link{step_texthash}()},
+\code{\link{step_tfidf}()},
+\code{\link{step_word_embeddings}()}
 }
+\concept{tokenlist to numeric steps}

@@ -72,6 +72,8 @@
 #' All the functions passed to `extract_functions` must take a character vector
 #' as input and return a numeric vector of the same length, otherwise an error 
 #' will be thrown.
+#' 
+#' @family character to numeric steps
 step_textfeature <-
   function(recipe,
            ...,

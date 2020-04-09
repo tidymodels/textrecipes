@@ -82,7 +82,8 @@
 #'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
 #'   `word_embeddings_sum_d2`, etc.
 #'
-#' @seealso [step_tokenize()] [step_lda()]
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to numeric steps
 step_word_embeddings <- function(recipe,
                             ...,
                             role = "predictor",

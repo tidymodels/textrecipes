@@ -49,6 +49,9 @@
 #' you need to use a tokenization method that includes lemmatization. Currently
 #' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and 
 #' works well with `step_lemma`.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_lemma <-
   function(recipe,
            ...,

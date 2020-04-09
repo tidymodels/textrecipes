@@ -96,3 +96,9 @@ tidy(okc_rec, number = 1)
 tidy(okc_obj, number = 1)
 
 }
+\seealso{
+Other character to numeric steps: 
+\code{\link{step_lda}()},
+\code{\link{step_textfeature}()}
+}
+\concept{character to numeric steps}

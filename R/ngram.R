@@ -51,7 +51,9 @@
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
 #' @export
-#' @seealso [step_stopwords()] [step_tokenfilter()] [step_tokenize()]
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_ngram <-
   function(recipe,
            ...,

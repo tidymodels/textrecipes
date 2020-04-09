@@ -115,5 +115,11 @@ Kilian Weinberger; Anirban Dasgupta; John Langford;
 Alex Smola; Josh Attenberg (2009).
 }
 \seealso{
-\code{\link[=step_tf]{step_tf()}} \code{\link[=step_tfidf]{step_tfidf()}} \code{\link[=step_tokenize]{step_tokenize()}}
+\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+
+Other tokenlist to numeric steps: 
+\code{\link{step_tfidf}()},
+\code{\link{step_tf}()},
+\code{\link{step_word_embeddings}()}
 }
+\concept{tokenlist to numeric steps}

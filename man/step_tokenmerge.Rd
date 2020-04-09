@@ -80,3 +80,15 @@ tidy(okc_rec, number = 1)
 tidy(okc_obj, number = 1)
 
 }
+\seealso{
+\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+
+Other tokenlist to tokenlist steps: 
+\code{\link{step_lemma}()},
+\code{\link{step_ngram}()},
+\code{\link{step_pos_filter}()},
+\code{\link{step_stem}()},
+\code{\link{step_stopwords}()},
+\code{\link{step_tokenfilter}()}
+}
+\concept{tokenlist to tokenlist steps}

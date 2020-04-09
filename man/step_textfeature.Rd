@@ -107,3 +107,9 @@ recipe(~ ., data = okc_text) \%>\%
   juice()
 }
 }
+\seealso{
+Other character to numeric steps: 
+\code{\link{step_lda}()},
+\code{\link{step_sequence_onehot}()}
+}
+\concept{character to numeric steps}

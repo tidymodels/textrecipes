@@ -79,7 +79,8 @@
 #' Note that the steming will only be done at the end of the string and 
 #' will therefore not work reliably on ngrams or sentences.
 #' 
-#' @seealso [step_stopwords()] [step_tokenfilter()] [step_tokenize()]
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_stem <-
   function(recipe,
            ...,

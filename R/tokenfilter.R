@@ -72,7 +72,8 @@
 #' It is strongly advised to filter before using [step_tf] or [step_tfidf] to 
 #' limit the number of variables created.
 #' 
-#' @seealso [step_untokenize()]
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 step_tokenfilter <-
   function(recipe,
            ...,
