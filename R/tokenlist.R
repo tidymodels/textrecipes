@@ -1,3 +1,27 @@
+#' Create tokenlist object
+#'
+#' @param x List of character vectors
+#' @param lemma List of character vectors, must be same size and shape as `x`.
+#' @param pos List of character vectors, must be same size and shape as `x`.
+#'
+#' @return a [tokenlist] object.
+#' @export
+#'
+#' @examples
+#' tokenlist(list(letters, LETTERS))
+#' 
+#' tibble(text = tokenlist(list(letters, LETTERS)))
+tokenlist <- function(x = list(), lemma = NULL, pos = NULL) {
+  x <- vec_cast(x, list())
+  if (!is.null(lemma)) {
+    lemma <- vec_cast(lemma, list())
+  }
+  if (!is.null(pos)) {
+    pos <- vec_cast(pos, list())
+  }
+  new_tokenlist(x, lemma = lemma, pos = pos, tokens = unique(unlist(x)))
+}
+
 new_tokenlist <- function(x = list(), lemma = NULL, pos, tokens = character()) {
   vec_assert(x, list())
   if (!(is.null(lemma) | is.list(lemma))) {
@@ -11,17 +35,6 @@ new_tokenlist <- function(x = list(), lemma = NULL, pos, tokens = character()) {
            class = "textrecipes_tokenlist")
 }
 
-tokenlist <- function(x = list(), lemma = NULL, pos = NULL) {
-  x <- vec_cast(x, list())
-  if (!is.null(lemma)) {
-    lemma <- vec_cast(lemma, list())
-  }
-  if (!is.null(pos)) {
-    pos <- vec_cast(pos, list())
-  }
-  new_tokenlist(x, lemma = lemma, pos = pos, tokens = unique(unlist(x)))
-}
-
 is_tokenlist <- function(x) {
   inherits(x, "textrecipes_tokenlist")
 }
@@ -32,10 +45,12 @@ format.textrecipes_tokenlist <- function(x, ...) {
   paste0("[", out, " tokens]")
 }
 
+#' @export
 vec_ptype_abbr.textrecipes_tokenlist <- function(x, ...) {
-  "tokens"
+  "tknlist"
 }
 
+#' @export
 obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
   cat("# Unique Tokens: ", format(length(attr(x, "tokens"))), "\n", sep = "")
 }
