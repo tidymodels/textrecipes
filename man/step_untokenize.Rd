@@ -65,7 +65,7 @@ This steps will turn a \link{tokenlist} back into a character vector.
 }
 \examples{
 library(recipes)
-
+library(modeldata)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%

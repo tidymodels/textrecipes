@@ -30,7 +30,7 @@
 #'  to the sequence of existing steps (if any).
 #' @examples
 #' library(recipes)
-#'
+#' library(modeldata)
 #' data(okc_text)
 #'
 #' okc_rec <- recipe(~ ., data = okc_text) %>%

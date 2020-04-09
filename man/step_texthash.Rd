@@ -93,7 +93,7 @@ If \code{num_terms = 101}, their names will be \code{hash001} - \code{hash101}.
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
 library(recipes)
-
+library(modeldata)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%

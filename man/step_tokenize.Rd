@@ -111,7 +111,7 @@ be done with \code{\link[recipes:step_mutate]{recipes::step_mutate()}}.
 }
 \examples{
 library(recipes)
-
+library(modeldata)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%

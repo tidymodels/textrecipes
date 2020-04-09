@@ -75,7 +75,7 @@ will therefore not work reliably on ngrams or sentences.
 }
 \examples{
 library(recipes)
-
+library(modeldata)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%

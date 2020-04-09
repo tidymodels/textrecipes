@@ -39,7 +39,7 @@
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' \donttest{
 #' library(recipes)
-#'
+#' library(modeldata)
 #' data(okc_text)
 #'
 #' okc_rec <- recipe(~ ., data = okc_text) %>%

@@ -24,6 +24,7 @@ This vignette will not do any modeling with the processed text as its purpose it
 library(dplyr)
 library(recipes)
 library(textrecipes)
+library(modeldata)
 data("okc_text")
 ```
 

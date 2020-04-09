@@ -19,11 +19,11 @@
 #' tibble(text = tokenlist(abc))
 #' 
 #' library(tokenizers)
+#' library(modeldata)
+#' data(okc_text)
 #' tokens <- tokenize_words(okc_text$essay0)
 #' 
 #' tokenlist(tokens)
-#' 
-#' tokenlist()
 tokenlist <- function(x = list(), lemma = NULL, pos = NULL) {
   x <- vec_cast(x, list())
   if (!is.null(lemma)) {

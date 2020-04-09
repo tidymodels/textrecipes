@@ -79,7 +79,7 @@ will be thrown.
 \examples{
 if (requireNamespace("textfeatures", quietly = TRUE)) {
 library(recipes)
-
+library(modeldata)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
