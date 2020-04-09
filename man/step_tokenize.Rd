@@ -26,7 +26,7 @@ step_tokenize(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables.
-For \code{step_tokenize}, this indicates the variables to be encoded
+For \code{\link[=step_tokenize]{step_tokenize()}}, this indicates the variables to be encoded
 into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
 details. For the \code{tidy} method, these are not currently used.}
 
@@ -69,7 +69,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tokenize} creates a \emph{specification} of a recipe step that
+\code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that
 will convert a character predictor into a \link{tokenlist}.
 }
 \details{

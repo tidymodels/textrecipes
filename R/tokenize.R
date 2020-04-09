@@ -1,12 +1,12 @@
 #' Tokenization of character variables
 #'
-#' `step_tokenize` creates a *specification* of a recipe step that
+#' [step_tokenize()] creates a *specification* of a recipe step that
 #'  will convert a character predictor into a [tokenlist].
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables.
-#'  For `step_tokenize`, this indicates the variables to be encoded
+#'  For [step_tokenize()], this indicates the variables to be encoded
 #'  into a [tokenlist]. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role Not used by this step since no new variables are

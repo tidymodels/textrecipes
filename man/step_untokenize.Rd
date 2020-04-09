@@ -61,7 +61,8 @@ to the sequence of existing steps (if any).
 will convert a \link{tokenlist} into a character predictor.
 }
 \details{
-This steps will turn a \link{tokenlist} back into a character vector.
+This steps will turn a \link{tokenlist} back into a character vector. This step
+is calling \code{paste} internally to put the tokens back together to a character.
 }
 \examples{
 library(recipes)

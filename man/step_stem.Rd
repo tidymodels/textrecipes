@@ -70,7 +70,7 @@ to have these words condensed into one to allow for a smaller pool of
 words. Stemming is the act of choping off the end of words using a set
 of heuristics.
 
-Note that the steming will only be done at the end of the string and
+Note that the steming will only be done at the end of the word and
 will therefore not work reliably on ngrams or sentences.
 }
 \examples{
@@ -96,7 +96,7 @@ tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 
 # Using custom stemmer. Here a custom stemmer that removes the last letter
-# if it is a s.
+# if it is a "s".
 remove_s <- function(x) gsub("s$", "", x)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%

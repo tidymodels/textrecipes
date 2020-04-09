@@ -51,7 +51,8 @@
 #' tidy(okc_obj, number = 2)
 #' @export
 #' @details
-#' This steps will turn a [tokenlist] back into a character vector.
+#' This steps will turn a [tokenlist] back into a character vector. This step
+#' is calling `paste` internally to put the tokens back together to a character.
 #' 
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to character steps
