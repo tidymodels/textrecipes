@@ -173,6 +173,44 @@ test_that("subsetting respects pos", {
 })
 
 ## Tokenfilter ----------------------------------------------------------------
+test_that("tokenlist_filter works", {
+  tkn_list <- tokenlist(list(letters, character()))
+  
+  expect_equal(
+    tokenlist_filter(tkn_list, letters[1:10]),
+    tokenlist(list(letters[-(1:10)], character()))
+  )
+  
+  expect_equal(
+    tokenlist_filter(tkn_list, "hello"),
+    tkn_list
+  )
+  
+  expect_equal(
+    tokenlist_filter(tkn_list, letters),
+    tokenlist(list(character(), character()))
+  )
+  
+  
+  expect_equal(
+    tokenlist_filter(tkn_list, letters[1:10], keep = TRUE),
+    tokenlist(list(letters[1:10], character()))
+  )
+  
+  expect_equal(
+    tokenlist_filter(tkn_list, "hello", keep = TRUE),
+    new_tokenlist(list(character(), character()), unique_tokens = "hello")
+  )
+  
+  expect_equal(
+    tokenlist_filter(tkn_list, letters, keep = TRUE),
+    tkn_list
+  )
+  
+  expect_error(
+   tokenlist_filter(LETTERS, letters)
+  )
+})
 
 test_that("tokenlist_filter respects lemma", {
   
@@ -194,8 +232,6 @@ test_that("tokenlist_filter respects lemma", {
               list(1, numeric(0), numeric(0)))
   )
 })
-
-
 
 test_that("tokenlist_filter respects pos", {
   
