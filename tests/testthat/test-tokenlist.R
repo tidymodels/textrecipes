@@ -254,7 +254,7 @@ test_that("tokenlist_filter respects pos", {
   )
 })
 
-
+## tokenlist_pos_filter -------------------------------------------------------
 test_that("tokenlist_pos_filter works", {
   data <- list(c("hello", "there"),
                c("dog"),
@@ -279,6 +279,22 @@ test_that("tokenlist_pos_filter works", {
     tokenlist_pos_filter(pos_tokenlist, character()),
     tokenlist(list(character(), character(), character()), 
               pos = list(character(), character(), character()))
+  )
+  
+  tkn_list <- tokenlist(list(letters), list(letters), list(letters))
+  
+  expect_equal(
+    tokenlist_pos_filter(tkn_list, letters[1:2]),
+    tokenlist(list(letters[1:2]), list(letters[1:2]), list(letters[1:2]))
+  )
+  
+  expect_error(
+    tokenlist_pos_filter(letters, "NOUN"),
+    "must be a tokenlist"
+  )
+  expect_error(
+    tokenlist_pos_filter(tokenlist(letters), "NOUN"),
+    "pos attribute not avaliable"
   )
 })
 
