@@ -290,6 +290,50 @@ test_that("tokenlist_apply works", {
   )
 })
 
+## tokenlist_to_dtm -----------------------------------------------------------
+test_that("tokenlist_apply works", {
+  tkn_list <- tokenlist(list(c("a", "b", "c"), "b", "c"))
+  
+  expect_equal(
+    tokenlist_to_dtm(tkn_list, get_unique_tokens(tkn_list)),
+    Matrix::sparseMatrix(i = c(1, 1, 1, 2, 3), j = c(1, 2, 3, 2, 3), 
+                         dimnames = list(NULL, c("a", "b", "c")), x = 1)
+  )
+  
+  expect_equal(
+    tokenlist_to_dtm(tkn_list, c("a", "b")),
+    Matrix::sparseMatrix(i = c(1, 1, 2), j = c(1, 2, 2), dims = c(3, 2),
+                         dimnames = list(NULL, c("a", "b")), x = 1)
+  )
+  
+  expect_equal(
+    tokenlist_to_dtm(tkn_list, character()),
+    {
+      ref_mat <- Matrix::sparseMatrix(i = NULL, j = NULL, dims = c(3, 0),
+                                      dimnames = list(NULL, character()), x = 1)
+      
+      ref_mat@Dimnames[[2]] <- character()
+      ref_mat
+    }
+  )
+  
+  expect_equal(
+    tokenlist_to_dtm(tkn_list, letters),
+    Matrix::sparseMatrix(i = c(1, 1, 1, 2, 3), j = c(1, 2, 3, 2, 3), 
+                         dims = c(3, 26),
+                         dimnames = list(NULL, letters), x = 1)
+  )
+  
+  expect_error(
+    tokenlist_to_dtm(tkn_list),
+    "is missing"
+  )
+  
+  expect_error(
+    tokenlist_to_dtm(letters),
+    "Input must be a tokenlist"
+  )
+})
 
 ## tokenlist_pos_filter -------------------------------------------------------
 test_that("tokenlist_pos_filter works", {
