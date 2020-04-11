@@ -1,4 +1,137 @@
 library(testthat)
+library(vctrs)
+
+## Creation -------------------------------------------------------------------
+
+test_that("tokenlist creation works", {
+  # Tokens
+  tkn_list <- tokenlist(list(letters, letters))
+
+  expect_s3_class(tkn_list, "textrecipes_tokenlist")
+  
+  expect_equal(
+    fields(tkn_list),
+    "tokens"
+  )
+  
+  expect_equal(
+    field(tkn_list, "tokens"),
+    list(letters, letters)
+  )
+  
+  expect_equal(
+    attr(tkn_list, "unique_tokens"),
+    letters
+  )
+  
+  # Tokens, lemma
+  tkn_list <- tokenlist(list(letters, letters), lemma = list(LETTERS, LETTERS))
+  
+  expect_s3_class(tkn_list, "textrecipes_tokenlist")
+  
+  expect_equal(
+    fields(tkn_list),
+    c("tokens", "lemma")
+  )
+  
+  expect_equal(
+    field(tkn_list, "tokens"),
+    list(letters, letters)
+  )
+  
+  expect_equal(
+    field(tkn_list, "lemma"),
+    list(LETTERS, LETTERS)
+  )
+  
+  expect_equal(
+    attr(tkn_list, "unique_tokens"),
+    letters
+  )
+  
+  # Tokens, pos
+  tkn_list <- tokenlist(list(letters, letters), pos = list(LETTERS, LETTERS))
+  
+  expect_s3_class(tkn_list, "textrecipes_tokenlist")
+  
+  expect_equal(
+    fields(tkn_list),
+    c("tokens", "pos")
+  )
+  
+  expect_equal(
+    field(tkn_list, "tokens"),
+    list(letters, letters)
+  )
+  
+  expect_equal(
+    field(tkn_list, "pos"),
+    list(LETTERS, LETTERS)
+  )
+  
+  expect_equal(
+    attr(tkn_list, "unique_tokens"),
+    letters
+  )
+  
+  # Tokens, lemma, pos
+  tkn_list <- tokenlist(list(letters, letters), 
+                        lemma = list(letters, LETTERS),
+                        pos = list(LETTERS, LETTERS))
+  
+  expect_s3_class(tkn_list, "textrecipes_tokenlist")
+  
+  expect_equal(
+    fields(tkn_list),
+    c("tokens", "lemma", "pos")
+  )
+  
+  expect_equal(
+    field(tkn_list, "tokens"),
+    list(letters, letters)
+  )
+  
+  expect_equal(
+    field(tkn_list, "lemma"),
+    list(letters, LETTERS)
+  )
+  
+  expect_equal(
+    field(tkn_list, "pos"),
+    list(LETTERS, LETTERS)
+  )
+  
+  expect_equal(
+    attr(tkn_list, "unique_tokens"),
+    letters
+  )
+})
+
+test_that("tokenlist errors with diffent length input", {
+  expect_error(
+    tokenlist(list(letters), lemma = list(letters, letters))
+  )
+  
+  expect_error(
+    tokenlist(list(letters), pos = list(letters, letters))
+  )
+})
+
+test_that("new_tokenlist errors with wrong input", {
+  expect_error(
+    new_tokenlist(letters)
+  )
+  
+  expect_error(
+    new_tokenlist(list(letters), lemma = letters),
+    "`lemma` must be NULL or a list."
+  )
+  
+  expect_error(
+    new_tokenlist(list(letters), pos = letters),
+    "`pos` must be NULL or a list."
+  )
+})
 
 ## Subsetting -----------------------------------------------------------------
 
