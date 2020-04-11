@@ -254,6 +254,43 @@ test_that("tokenlist_filter respects pos", {
   )
 })
 
+## tokenlist_apply ------------------------------------------------------------
+test_that("tokenlist_apply works", {
+  tkn_list <- tokenlist(list(letters, letters[1:5], LETTERS),
+                        list(letters, letters[1:5], LETTERS),
+                        list(letters, letters[1:5], LETTERS))
+
+  expect_equal(
+    tokenlist_apply(tkn_list, toupper),
+    tokenlist(list(LETTERS, LETTERS[1:5], LETTERS))
+  )
+  
+  letter_filter <- function(x, let = "a") {
+    x[x == let]
+  }
+  
+  expect_equal(
+    tokenlist_apply(tkn_list, letter_filter),
+    tokenlist(list("a", "a", character()))
+  )
+  
+  expect_equal(
+    tokenlist_apply(tkn_list, letter_filter, list(let = "D")),
+    tokenlist(list(character(), character(), "D"))
+  )
+  
+  expect_error(
+    tokenlist_apply(tkn_list, letter_filter, let = "D"),
+    "unused argument"
+  )
+  
+  expect_error(
+    tokenlist_apply(letters, toupper),
+    "Input must be a tokenlist"
+  )
+})
+
+
 ## tokenlist_pos_filter -------------------------------------------------------
 test_that("tokenlist_pos_filter works", {
   data <- list(c("hello", "there"),
