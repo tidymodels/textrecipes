@@ -202,7 +202,15 @@ tokenlist_to_dtm <- function(x, dict) {
 }
 
 tokenlist_lemma <- function(x) {
-  tokenlist(maybe_get_lemma(x))
+  if (!is_tokenlist(x)) {
+    rlang::abort("Input must be a tokenlist.")
+  }
+  
+  if (is.null(maybe_get_lemma(x))) {
+    rlang::abort("`lemma` attribute not avaliable.")
+  }
+  
+  tokenlist(maybe_get_lemma(x), pos = maybe_get_pos(x))
 }
 
 tokenlist_pos_filter <- function(x, pos_tags) {

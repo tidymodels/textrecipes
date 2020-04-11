@@ -291,7 +291,7 @@ test_that("tokenlist_apply works", {
 })
 
 ## tokenlist_to_dtm -----------------------------------------------------------
-test_that("tokenlist_apply works", {
+test_that("tokenlist_to_dtm works", {
   tkn_list <- tokenlist(list(c("a", "b", "c"), "b", "c"))
   
   expect_equal(
@@ -332,6 +332,29 @@ test_that("tokenlist_apply works", {
   expect_error(
     tokenlist_to_dtm(letters),
     "Input must be a tokenlist"
+  )
+})
+
+## tokenlist_lemma ------------------------------------------------------------
+test_that("tokenlist_lemma works", {
+  tkn_list <- tokenlist(list(letters, letters), 
+                        lemma = list(letters, LETTERS),
+                        pos = list(LETTERS, LETTERS))
+
+  expect_equal(
+    tokenlist_lemma(tkn_list),
+    tokenlist(list(letters, LETTERS), 
+              pos = list(LETTERS, LETTERS))
+  )
+  
+  expect_error(
+    tokenlist_lemma(letters),
+    "Input must be a tokenlist"
+  )
+  
+  expect_error(
+    tokenlist_lemma(tokenlist(list(letters))),
+    "attribute not avaliable"
   )
 })
 
