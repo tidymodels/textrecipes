@@ -424,3 +424,11 @@ test_that("tokenlist_ngram works", {
   expect_null(attr(ngrams, "lemma"))
   expect_null(attr(ngrams, "pos"))
 })
+
+## tokenlist_ngram ------------------------------------------------------------
+test_that("tokenlist_ngram errors", {
+  expect_error(
+    tokenlist_ngram(letters),
+    "Input must be a tokenlist"
+  )
+})
