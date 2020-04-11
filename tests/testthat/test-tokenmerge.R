@@ -30,8 +30,9 @@ test_that("merging is done correctly", {
     juice()
   
   expect_equal(
-    lengths(juiced_data$tokenmerge),
-    lengths(rec2$text1) + lengths(rec2$text2)
+    lengths(vctrs::field(juiced_data$tokenmerge, "tokens")),
+    lengths(vctrs::field(rec2$text1, "tokens")) + 
+    lengths(vctrs::field(rec2$text2, "tokens"))
   )
 
   expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(2, 3))

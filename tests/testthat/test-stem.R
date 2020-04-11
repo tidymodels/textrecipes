@@ -25,6 +25,7 @@ test_that("stemming is done correctly", {
     juice(obj) %>% 
       slice(1) %>% 
       pull(text) %>%
+      vctrs::field("tokens") %>%
       unlist()
   )
   
@@ -48,6 +49,7 @@ test_that("custom stemmer works", {
     juice(obj) %>% 
       slice(1) %>% 
       pull(text) %>%
+      vctrs::field("tokens") %>%
       unlist()
   )
   
@@ -65,7 +67,7 @@ test_that("arguments are passed by options", {
     prep(data) %>% 
     juice() %>% 
     pull(text) %>%
-    vctrs::vec_data(),
+    vctrs::field("tokens"),
   list("кот")
   )
 })
@@ -78,3 +80,4 @@ test_that("printing", {
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
+

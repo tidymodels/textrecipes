@@ -154,7 +154,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
 
   for (i in seq_along(col_names)) {
     token_list[[i]] <- x$vocabulary %||%
-      sort(attr(training[, col_names[i], drop = TRUE], "tokens"))
+      sort(get_unique_tokens(training[, col_names[i], drop = TRUE]))
   }
 
   step_tfidf_new(
@@ -187,10 +187,10 @@ bake.step_tfidf <- function(object, new_data, ...) {
                                  object$norm,
                                  object$sublinear_tf)
 
-    new_data <- bind_cols(new_data, tfidf_text)
-
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+
+    new_data <- vctrs::vec_cbind(new_data, tfidf_text)
   }
   as_tibble(new_data)
 }

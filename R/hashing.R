@@ -155,16 +155,16 @@ bake.step_texthash <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
 
-    tf_text <- hashing_function(vec_data(new_data[, col_names[i], drop = TRUE]),
+    tf_text <- hashing_function(get_tokens(new_data[, col_names[i], drop = TRUE]),
                                 paste0(col_names[i], "_",
                                        names0(object$num_terms, object$prefix)),
                                 object$signed,
                                 object$num_terms)
 
-    new_data <- bind_cols(new_data, tf_text)
-
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    
+    new_data <- vctrs::vec_cbind(tf_text, new_data)
   }
 
   as_tibble(new_data)

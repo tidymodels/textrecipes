@@ -1,3 +1,16 @@
+library(testthat)
+
+## Subsetting -----------------------------------------------------------------
+
+test_that("subsetting works as intended", {
+  data <- list(letters, LETTERS)
+
+  expect_length(tokenlist(data)[1:2], 2)
+  expect_length(tokenlist(data)[2], 1)
+  expect_error(tokenlist(data)[3], class = "vctrs_error_subscript_oob")
+  expect_equal(tokenlist(data)[0], tokenlist(list()))
+})
+
 test_that("subsetting respects lemma", {
   
   data <- list(c("hello", "there"),
@@ -12,6 +25,22 @@ test_that("subsetting respects lemma", {
   )
 })
 
+test_that("subsetting respects pos", {
+  
+  data <- list(c("hello", "there"),
+               c("No"),
+               character(0))
+  
+  pos_tokenlist <- tokenlist(data, pos = data)
+  
+  expect_equal(
+    pos_tokenlist[1],
+    tokenlist(data[1], pos = data[1])
+  )
+})
+
+## Tokenfilter ----------------------------------------------------------------
+
 test_that("tokenlist_filter respects lemma", {
   
   data <- list(c("hello", "there"),
@@ -22,37 +51,37 @@ test_that("tokenlist_filter respects lemma", {
   lemma_tokenlist <- tokenlist(data, lemma)
   
   expect_equal(
-    tokenlist_filter(lemma_tokenlist, "hello"),
+    tokenlist_filter(x = lemma_tokenlist, dict = "hello"),
     tokenlist(list("there", "No", character()), list(2, 1, numeric(0)))
   )
-})
-
-test_that("subsetting respects pos", {
-  
-  data <- list(c("hello", "there"),
-               c("No"),
-               character(0))
-  
-  lemma_tokenlist <- tokenlist(data, pos = data)
   
   expect_equal(
-    lemma_tokenlist[1],
-    tokenlist(data[1], pos = data[1])
+    tokenlist_filter(x = lemma_tokenlist, dict = "hello", keep = TRUE),
+    tokenlist(list("hello", character(), character()), 
+              list(1, numeric(0), numeric(0)))
   )
 })
 
-test_that("tokenlist_filter respects lemma", {
+
+
+test_that("tokenlist_filter respects pos", {
   
   data <- list(c("hello", "there"),
                c("No"),
                character(0))
   pos <- list(1:2, 1, numeric(0))
   
-  lemma_tokenlist <- tokenlist(data, pos = pos)
+  pos_tokenlist <- tokenlist(data, pos = pos)
   
   expect_equal(
-    tokenlist_filter(lemma_tokenlist, "hello"),
+    tokenlist_filter(pos_tokenlist, "hello"),
     tokenlist(list("there", "No", character()), pos = list(2, 1, numeric(0)))
+  )
+  
+  expect_equal(
+    tokenlist_filter(x = pos_tokenlist, dict = "hello", keep = TRUE),
+    tokenlist(list("hello", character(), character()), 
+              pos = list(1, numeric(0), numeric(0)))
   )
 })
 
@@ -66,7 +95,7 @@ test_that("tokenlist_pos_filter works", {
   pos_tokenlist <- tokenlist(data, pos = pos)
   
   expect_equal(
-    tokenlist_pos_filter(pos_tokenlist, c("INTJ", "NOUN")),
+    tokenlist_pos_filter(x = pos_tokenlist, pos_tags = c("INTJ", "NOUN")),
     tokenlist(list("hello", "dog", character()), 
               pos = list("INTJ", "NOUN", character()))
   )
@@ -97,7 +126,7 @@ test_that("tokenlist_ngram works", {
   
   
   expect_equal(
-    vec_data(ngrams),
+    vctrs::field(ngrams, "tokens"),
     list(c("not_eat_them", "eat_them_here", "them_here_or", "here_or_there."),
          c("not_eat_them", "eat_them_anywhere."),
          character())

@@ -14,7 +14,7 @@ test_that("tokenizer works", {
   expect_s3_class(out, "textrecipes_tokenlist")
   
   expect_equal(
-    vctrs::vec_data(out),
+    vctrs::field(out, "tokens"),
     list(c("I", "would", "not", "eat", "them", "here", "or", "there", "."),
          c("I", "would", "not", "eat", "them", "anywhere", "."),
          c("I", "would", "not", "eat", "green", "eggs", "and", "ham", "."),
@@ -22,27 +22,27 @@ test_that("tokenizer works", {
   )
   
   expect_equal(
-    lengths(attr(out, "lemma")),
-    lengths(vctrs::vec_data(out))
+    lengths(vctrs::field(out, "lemma")),
+    lengths(vctrs::field(out, "tokens"))
   )
   
   expect_equal(
-    lengths(attr(out, "pos")),
-    lengths(vctrs::vec_data(out))
+    lengths(vctrs::field(out, "pos")),
+    lengths(vctrs::field(out, "tokens"))
   )
   
   
   expect_false(
     isTRUE(all.equal(
-      attr(out, "lemma"),
-      vctrs::vec_data(out)
+      vctrs::field(out, "lemma"),
+      vctrs::field(out, "tokens")
     ))
   )
   
   expect_false(
     isTRUE(all.equal(
-      attr(out, "pos"),
-      vctrs::vec_data(out)
+      vctrs::field(out, "pos"),
+      vctrs::field(out, "tokens")
     ))
   )
 })

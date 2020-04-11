@@ -103,3 +103,4 @@ test_that("printing", {
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
+

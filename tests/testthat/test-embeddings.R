@@ -15,12 +15,13 @@ tokens <- rec_base %>%
   step_tokenize(text) %>%
   recipes::prep() %>%
   recipes::juice() %>% 
-  dplyr::bind_cols(test_data) %>% 
+  vctrs::vec_cbind(rename(test_data, text1 = text)) %>% 
   dplyr::select(text = text1, tokens = text)
 
 # Give each token an arbitrary value for comparison. Real embeddings will be
 # doubles, so make these double.
 embeddings <- tokens %>% 
+  dplyr::mutate(tokens = vctrs::field(tokens, "tokens")) %>%
   tidyr::unnest(tokens) %>% 
   dplyr::distinct(tokens) %>%
   dplyr::arrange(tokens) %>% 
@@ -44,6 +45,7 @@ embeddings <- tokens %>%
   )
 
 sentence_embeddings_long <- tokens %>% 
+  dplyr::mutate(tokens = vctrs::field(tokens, "tokens")) %>%
   tidyr::unnest(tokens) %>% 
   dplyr::left_join(embeddings, by = "tokens")
 
@@ -222,3 +224,4 @@ test_that("NA tokens work.", {
   )
   expect_identical(test_result, expected_result)
 })
+

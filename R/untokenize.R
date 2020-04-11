@@ -117,7 +117,8 @@ bake.step_untokenize <- function(object, new_data, ...) {
   # for backward compat
 
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- map_chr(new_data[, col_names[i], drop = TRUE],
+    tokens <- get_tokens(new_data[, col_names[i], drop = TRUE])
+    new_data[, col_names[i]] <- map_chr(tokens,
                                         paste, collapse = object$sep)
   }
 

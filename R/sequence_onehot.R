@@ -145,10 +145,10 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
                                 col_names[i],
                                 seq_len(ncol(out_text)))
 
-    new_data <- bind_cols(new_data, as_tibble(out_text))
-
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+
+    new_data <- vctrs::vec_cbind(new_data, as_tibble(out_text))
   }
   as_tibble(new_data)
 }

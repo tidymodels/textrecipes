@@ -26,6 +26,7 @@ test_that("stopwords are removed correctly", {
     juice(obj) %>% 
       slice(1) %>% 
       pull(text) %>%
+      vctrs::field("tokens") %>%
       unlist()
   )
   
@@ -46,6 +47,7 @@ test_that("stopwords are kept correctly", {
     juice(rec) %>% 
       slice(1) %>% 
       pull(text) %>%
+      vctrs::field("tokens") %>%
       unlist()
   )
 })
@@ -67,7 +69,7 @@ test_that("custom stopwords are supported", {
         c("do", "like", "them", "sam", "am")),
     juice(rec) %>% 
       pull(text) %>%
-      vctrs::vec_data()
+      vctrs::field("tokens")
   )
 })
 
@@ -78,3 +80,4 @@ test_that("printing", {
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
+

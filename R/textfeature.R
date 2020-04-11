@@ -155,7 +155,7 @@ bake.step_textfeature <- function(object, new_data, ...) {
     colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text),
                                sep = "_")
 
-    new_data <- bind_cols(new_data, tf_text)
+    new_data <- vctrs::vec_cbind(new_data, tf_text)
 
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]

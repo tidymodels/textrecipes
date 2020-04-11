@@ -4,10 +4,10 @@
 \alias{tokenlist}
 \title{Create tokenlist object}
 \usage{
-tokenlist(x = list(), lemma = NULL, pos = NULL)
+tokenlist(tokens = list(), lemma = NULL, pos = NULL)
 }
 \arguments{
-\item{x}{List of character vectors}
+\item{tokens}{List of character vectors}
 
 \item{lemma}{List of character vectors, must be same size and shape as \code{x}.}
 

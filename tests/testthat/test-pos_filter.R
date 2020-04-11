@@ -22,7 +22,7 @@ test_that("part of speech filtering works", {
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   
   expect_equal(
-    vctrs::vec_data(prepped_data$text),
+    vctrs::field(prepped_data$text, "tokens"),
     list(character(),
          character(),
          c("eggs", "ham"),
@@ -45,7 +45,7 @@ test_that("part of speech filtering removes everything", {
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   
   expect_equal(
-    vctrs::vec_data(prepped_data$text),
+    vctrs::field(prepped_data$text, "tokens"),
     list(character(),
          character(),
          character(),
@@ -68,7 +68,7 @@ test_that("part of speech filtering works with multiple tags", {
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   
   expect_equal(
-    vctrs::vec_data(prepped_data$text),
+    vctrs::field(prepped_data$text, "tokens"),
     list(c("would", "eat"),
          c("would", "eat"),
          c("would", "eat", "eggs", "ham"),
@@ -88,6 +88,7 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
 })
 
 test_that("printing", {
+  skip_on_cran()
   skip_if_no_python_or_no_spacy()
   rec <- recipe(~ text, data = text) %>%
     step_tokenize(all_predictors(), engine = "spacyr") %>%
@@ -96,3 +97,4 @@ test_that("printing", {
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
+
