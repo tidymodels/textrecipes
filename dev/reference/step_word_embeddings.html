@@ -282,14 +282,12 @@ embeddings from the textdata package (where the column names are <code>d1</code>
 
 <span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>text_label</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sample_data</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_word_embeddings</span>(<span class='no'>text</span>, <span class='kw'>embeddings</span> <span class='kw'>=</span> <span class='no'>embeddings</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `is.tibble()` is deprecated as of tibble 2.0.0.</span>
-#&gt; <span class='warning'>Please use `is_tibble()` instead.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
+  <span class='fu'>step_word_embeddings</span>(<span class='no'>text</span>, <span class='kw'>embeddings</span> <span class='kw'>=</span> <span class='no'>embeddings</span>)
+
 <span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>rec</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>obj</span>, <span class='no'>sample_data</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 4</span><span>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>obj</span>, <span class='no'>sample_data</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
 #&gt;   text_label w_embed_sum_d1 w_embed_sum_d2 w_embed_sum_d3
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> fragment                1              0              0
@@ -298,10 +296,10 @@ embeddings from the textdata package (where the column names are <code>d1</code>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms embeddings_rows aggregation id                   
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'>1</span><span> text                3 sum         word_embeddings_wZ71V</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> text                3 sum         word_embeddings_1fQ2J</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms      embeddings_rows aggregation id                   
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'>1</span><span> text                     3 sum         word_embeddings_wZ71V</div></span></pre>
+#&gt; </span><span style='color: #555555;'>1</span><span> text                     3 sum         word_embeddings_1fQ2J</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

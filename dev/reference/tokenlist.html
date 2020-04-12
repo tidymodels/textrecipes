@@ -149,13 +149,13 @@ with a few attributes." />
 with a few attributes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tokenlist</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>lemma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>tokenlist</span>(<span class='kw'>tokens</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>lemma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>tokens</th>
       <td><p>List of character vectors</p></td>
     </tr>
     <tr>
@@ -177,15 +177,17 @@ with a few attributes.</p>
 <span class='fu'>tokenlist</span>(<span class='no'>abc</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[2]&gt;
 #&gt; [1] [26 tokens] [26 tokens]
 #&gt; # Unique Tokens: 52</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>unclass</a></span>(<span class='fu'>tokenlist</span>(<span class='no'>abc</span>))</div><div class='output co'>#&gt; [[1]]
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>unclass</a></span>(<span class='fu'>tokenlist</span>(<span class='no'>abc</span>))</div><div class='output co'>#&gt; $tokens
+#&gt; $tokens[[1]]
 #&gt;  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 #&gt; [20] "t" "u" "v" "w" "x" "y" "z"
 #&gt; 
-#&gt; [[2]]
+#&gt; $tokens[[2]]
 #&gt;  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
 #&gt; [20] "T" "U" "V" "W" "X" "Y" "Z"
 #&gt; 
-#&gt; attr(,"tokens")
+#&gt; 
+#&gt; attr(,"unique_tokens")
 #&gt;  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 #&gt; [20] "t" "u" "v" "w" "x" "y" "z" "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L"
 #&gt; [39] "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"</div><div class='input'>
