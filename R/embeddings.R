@@ -97,7 +97,7 @@ step_word_embeddings <- function(recipe,
   # Validate the special inputs here to make sure nothing goes haywire further
   # downstream.
   if (
-    !tibble::is.tibble(embeddings) ||
+    !tibble::is_tibble(embeddings) ||
     !any(inherits(embeddings[[1]], c("character", "factor"), which = TRUE)) ||
     ncol(embeddings) == 1 ||
     !all(map_lgl(embeddings[,2:ncol(embeddings)], is.numeric))
@@ -175,14 +175,14 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   
   for (i in seq_along(col_names)) {
     embeddings_columns <- map_dfr(
-      new_data[, col_names[i], drop = TRUE],
+      get_tokens(new_data[, col_names[i], drop = TRUE]),
       aggregate_embeddings,
       embeddings = object$embeddings,
       aggregation = object$aggregation,
       prefix = object$prefix
     )
     
-    new_data <- bind_cols(new_data, embeddings_columns)
+    new_data <- vctrs::vec_cbind(new_data, embeddings_columns)
     
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]

@@ -84,7 +84,7 @@ test_that("ngramming is done correctly", {
   expect_equal(
     juice(obj) %>% 
       pull(text) %>%
-      vctrs::vec_data(),
+      vctrs::field("tokens"),
     list(c("not_eat_them", "eat_them_here", "them_here_or", "here_or_there"),
          c("not_eat_them", "eat_them_anywhere"))
   )
@@ -104,7 +104,7 @@ test_that("`n` argument works", {
   expect_equal(
     juice(obj) %>% 
       pull(text) %>%
-      vctrs::vec_data(),
+      vctrs::field("tokens"),
     list(c("not_eat", "eat_them", "them_here", "here_or", "or_there"),
          c("not_eat", "eat_them", "them_anywhere"))
   )
@@ -121,7 +121,7 @@ test_that("`delim` argument works", {
   expect_equal(
     juice(obj) %>% 
       pull(text) %>%
-      vctrs::vec_data(),
+      vctrs::field("tokens"),
     list(c("not eat them", "eat them here", "them here or", "here or there"),
          c("not eat them", "eat them anywhere"))
   )
@@ -131,7 +131,7 @@ test_that("`delim` argument works", {
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_stem(text)
+    step_ngram(text)
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })

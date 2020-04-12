@@ -22,7 +22,7 @@ test_that("lemmatization works", {
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   
   expect_equal(
-    vctrs::vec_data(prepped_data$text),
+    vctrs::field(prepped_data$text, "tokens"),
     list(c("-PRON-", "would", "not", "eat", "-PRON-", "here", "or", "there", "."),
          c("-PRON-", "would", "not", "eat", "-PRON-", "anywhere", "."),
          c("-PRON-", "would", "not", "eat", "green", "egg", "and", "ham", "."),
@@ -55,3 +55,4 @@ test_that("printing", {
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
+

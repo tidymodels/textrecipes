@@ -112,15 +112,17 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
-  new_col <- pmap(as.list(unname(new_data[, col_names, drop = FALSE])), c)
+  new_col <- as.list(unname(new_data[, col_names, drop = FALSE])) %>%
+    map(get_tokens) %>%
+    pmap(c)
   new_col <- tibble(tokenlist(new_col))
   names(new_col) <- object$prefix
-
-  new_data <- bind_cols(new_data, new_col)
 
   new_data <-
     new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
 
+  new_data <- vctrs::vec_cbind(new_data, new_col)
+  
   as_tibble(new_data)
 }
 

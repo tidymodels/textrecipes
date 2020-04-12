@@ -16,11 +16,14 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 3, min_times = 2)
   
+  expect_warning(
   obj <- rec %>%
-    prep()
+    prep(),
+  "only 3 was available and selected."
+  )
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% vctrs::vec_data(),
+    juice(obj) %>% pull(text) %>% vctrs::field("tokens"),
     list(c("would", "eat", "them"),
          c("would", "eat", "them"),
          c("would", "eat"),
@@ -36,11 +39,14 @@ test_that("removes words correctly with min_times, max_times and procentage", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
   
+  expect_warning(
   obj <- rec %>%
-    prep()
+    prep(),
+  "only 12 was available and selected."
+  )
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% vctrs::vec_data(),
+    juice(obj) %>% pull(text) %>% vctrs::field("tokens"),
     list(c("here", "or", "there"),
          c("anywhere"),
          c("green", "eggs", "and", "ham"),
@@ -57,7 +63,7 @@ test_that("tokenfilter removes words correctly using max_tokens", {
     prep()
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% vctrs::vec_data(),
+    juice(obj) %>% pull(text) %>% vctrs::field("tokens"),
     list(c("i", "would", "not", "eat", "them"),
          c("i", "would", "not", "eat", "them", "anywhere"),
          c("i", "would", "not", "eat", "eggs", "and"),
@@ -81,5 +87,8 @@ test_that("printing", {
     step_tokenize(text) %>%
     step_tokenfilter(text)
   expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_warning(
+    expect_output(prep(rec, verbose = TRUE))
+  )
 })
+

@@ -110,8 +110,8 @@ bake.step_lemma <- function(object, new_data, ...) {
   
   for (i in seq_along(col_names)) {
     variable <- new_data[, col_names[i], drop = TRUE]
-    
-    if (is.null(attr(variable, "lemma"))) {
+
+    if (is.null(maybe_get_lemma(variable))) {
       rlang::abort(paste0("`", col_names[i], 
                           "` doesn't have a lemma attribute. ",
                           "Make sure the tokenization step includes ",

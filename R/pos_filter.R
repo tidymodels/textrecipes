@@ -116,7 +116,7 @@ bake.step_pos_filter <- function(object, new_data, ...) {
   for (i in seq_along(col_names)) {
     variable <- new_data[, col_names[i], drop = TRUE]
     
-    if (is.null(attr(variable, "pos"))) {
+    if (is.null(maybe_get_pos(variable))) {
       rlang::abort(paste0("`", col_names[i], 
                           "` doesn't have a pos attribute. ",
                           "Make sure the tokenization step includes ",
