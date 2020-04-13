@@ -68,6 +68,10 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
+        
+      - name: Install spacy
+        run: |
+           Rscript -e "spacyr::spacy_install()"
 
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
