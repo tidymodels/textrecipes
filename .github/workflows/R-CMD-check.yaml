@@ -68,9 +68,10 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
-        
+      
       - name: Install spacy
         run: |
+           sudo apt-get install python-virtualenv
            Rscript -e "spacyr::spacy_install_virtualenv(prompt = FALSE)"
 
       - name: Check
