@@ -71,7 +71,7 @@ jobs:
         
       - name: Install spacy
         run: |
-           Rscript -e "spacyr::spacy_install(lang_models = c("en"), prompt = FALSE)"
+           Rscript -e "spacyr::spacy_install(prompt = FALSE)"
 
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
