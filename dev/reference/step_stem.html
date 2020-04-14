@@ -84,7 +84,7 @@ will convert a tokenlist to have its tokens stemmed." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
         </div>
       </div>
     </div>
@@ -274,10 +274,10 @@ will therefore not work reliably on ngrams or sentences.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms  value id        
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    stem_eg4QQ</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    stem_XtJpq</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms      is_custom_stemmer id        
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     TRUE              stem_eg4QQ</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     TRUE              stem_XtJpq</div><div class='input'>
 <span class='co'># Using custom stemmer. Here a custom stemmer that removes the last letter</span>
 <span class='co'># if it is a "s".</span>
 <span class='no'>remove_s</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='no'>x</span>)

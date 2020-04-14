@@ -46,7 +46,7 @@
         <a class="navbar-brand" href="index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
         </div>
       </div>
     </div>
@@ -124,6 +124,7 @@
 <p>In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 100 most used words. The preprocessing will be conducted on the variable <code>essay0</code> and <code>essay1</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">textrecipes</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">modeldata</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">okc_text</span>)
 
@@ -134,7 +135,7 @@
   <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>)
 
 <span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="kw">training</span> <span class="kw">=</span> <span class="no">okc_text</span>)
+  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>), <span class="kw">list.len</span> <span class="kw">=</span> <span class="fl">15</span>)
 <span class="co">#&gt; tibble [750 × 200] (S3: tbl_df/tbl/data.frame)</span>
