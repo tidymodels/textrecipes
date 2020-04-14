@@ -48,6 +48,7 @@ In the following example we will go through the steps needed, to convert a chara
 ```{r, message=FALSE}
 library(recipes)
 library(textrecipes)
+library(modeldata)
 
 data(okc_text)
 

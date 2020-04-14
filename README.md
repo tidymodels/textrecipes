@@ -48,6 +48,7 @@ preprocessing will be conducted on the variable `essay0` and `essay1`.
 ``` r
 library(recipes)
 library(textrecipes)
+library(modeldata)
 
 data(okc_text)
 
@@ -58,7 +59,7 @@ okc_rec <- recipe(~  essay0 + essay1, data = okc_text) %>%
   step_tfidf(essay0, essay1)
    
 okc_obj <- okc_rec %>%
-  prep(training = okc_text)
+  prep()
    
 str(bake(okc_obj, okc_text), list.len = 15)
 #> tibble [750 × 200] (S3: tbl_df/tbl/data.frame)

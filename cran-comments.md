@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 3nd CRAN release of textrecipes. It includes a handful of new functions, improved documentation and bug fixes.
+This is the 4th CRAN release of textrecipes. It includes a handful of new functions, much improved documentation and bug fixes.
 
 ## Test environments
 * local OS X install, R 3.6.0
