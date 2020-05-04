@@ -208,7 +208,7 @@ tidy.step_tokenfilter <- function(x, ...) {
 ## Implementation
 tokenfilter_fun <- function(data, max_times, min_times, max_features,
                             percentage) {
-  tf <- table(unlist(data))
+  tf <- table(unlist(get_tokens(data)))
   
   if (percentage)
     tf <- tf / sum(tf)
