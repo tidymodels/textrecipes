@@ -47,6 +47,7 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
 
 
 test_that("printing", {
+  skip_on_cran()
   skip_if_no_python_or_no_spacy()
   rec <- recipe(~ text, data = text) %>%
     step_tokenize(all_predictors(), engine = "spacyr") %>%
