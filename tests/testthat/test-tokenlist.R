@@ -397,7 +397,7 @@ test_that("tokenlist_pos_filter works", {
     "must be a tokenlist"
   )
   expect_error(
-    tokenlist_pos_filter(tokenlist(letters), "NOUN"),
+    tokenlist_pos_filter(tokenlist(data), "NOUN"),
     "pos attribute not avaliable"
   )
 })
