@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 0.2.1
 
 # textrecipes 0.2.0
 
