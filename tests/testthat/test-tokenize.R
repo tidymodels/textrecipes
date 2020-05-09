@@ -96,6 +96,7 @@ test_that("tokenization errors with wrong engines", {
 })
 
 test_that("tokenization includes lemma attribute when avaliable", {
+  skip_on_cran()
   skip_if_no_python_or_no_spacy()
   
   expect_type(
