@@ -5,7 +5,7 @@
 #' 
 #' @importFrom purrr map map_dfc map_chr map_lgl map_dfr pmap keep
 #' 
-#' @importFrom rlang %||% na_chr na_int expr na_lgl
+#' @importFrom rlang %||% na_chr na_int expr na_lgl .data
 #' 
 #' @importFrom dplyr bind_cols inner_join mutate_all select rename_all 
 #' @importFrom dplyr summarize_all

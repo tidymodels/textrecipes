@@ -254,3 +254,21 @@ tokenlist_ngram <- function(x, n, delim) {
   
   tokenlist(rcpp_ngram(get_tokens(x), n, delim))
 }
+
+tokenlist_embedding <- function(x, emb, fun) {
+  tokens <- get_tokens(x)
+  seq_x <- seq_along(tokens)
+  i <- rep(seq_x, lengths(tokens))
+  unlisted_tokens <- unlist(tokens)
+  j <- match(unlisted_tokens, get_unique_tokens(x))
+  
+  keep_id <- !is.na(j)
+  split_id <- factor(i[keep_id], seq_x)
+  
+  emb[match(unlisted_tokens, emb[[1]]), -1] %>%
+    dplyr::mutate("id" = split_id) %>%
+    tidyr::drop_na() %>%
+    dplyr::group_by(.data$id, .drop = FALSE) %>%
+    dplyr::summarise_all(fun, na.rm = TRUE) %>%
+    dplyr::select(-.data$id)
+}

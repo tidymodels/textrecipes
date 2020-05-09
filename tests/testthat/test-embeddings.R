@@ -171,8 +171,6 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
 })
 
 test_that("step_word_embeddings deals with missing words appropriately.", {
-  # Warn if some of the words we're trying to match aren't in the embeddings
-  # tibble.
   new_text <- tibble(
     text = c(
       "I would not eat red beans and rice.",
@@ -181,11 +179,11 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
   )
   expect_warning(
     bake(obj, new_data = new_text),
-    "red, beans, rice"
+    NA
   )
   expect_warning(
     bake(obj, new_data = new_text),
-    "they're, nice"
+    NA
   )
   
   expect_warning(
@@ -193,13 +191,12 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
     NA
   )
   
-  # Error if none of the words for a given row are in the embeddings tibble.
   new_text <- tibble(
     text = "aksjdf nagjli aslkfa"
   )
   expect_error(
     bake(obj, new_data = new_text),
-    class = "all_tokens_missing_embeddings"
+    NA
   )
 })
 
@@ -223,5 +220,97 @@ test_that("NA tokens work.", {
     c(0, 0, 0, 0, 0)
   )
   expect_identical(test_result, expected_result)
+})
+
+test_that("Embeddings work with empty documents", {
+  empty_data <- data.frame(text = "")
+
+  expect_equal(
+  recipe(~ text, data = empty_data) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "sum") %>%
+    prep() %>%
+    juice() %>% 
+    as.numeric(),
+  rep(0, 5)
+  )
+  
+  expect_equal(
+  recipe(~ text, data = empty_data) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "mean") %>%
+    prep() %>%
+    juice() %>% 
+    as.numeric(),
+  rep(0, 5)
+  )
+  
+  expect_equal(
+  recipe(~ text, data = empty_data) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "min") %>%
+    prep() %>%
+    juice() %>% 
+    as.numeric(),
+  rep(0, 5)
+  )
+  
+  expect_equal(
+  recipe(~ text, data = empty_data) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "max") %>%
+    prep() %>%
+    juice() %>% 
+    as.numeric(),
+  rep(0, 5)
+  )
+})
+
+test_that("aggregation_default argument works", {
+  empty_data <- data.frame(text = "")
+  
+  expect_equal(
+    recipe(~ text, data = empty_data) %>%
+      step_tokenize(text) %>%
+      step_word_embeddings(text, embeddings = embeddings, aggregation = "sum", 
+                           aggregation_default = 3) %>%
+      prep() %>%
+      juice() %>% 
+      as.numeric(),
+    rep(3, 5)
+  )
+  
+  expect_equal(
+    recipe(~ text, data = empty_data) %>%
+      step_tokenize(text) %>%
+      step_word_embeddings(text, embeddings = embeddings, aggregation = "mean",
+                           aggregation_default = 3) %>%
+      prep() %>%
+      juice() %>% 
+      as.numeric(),
+    rep(3, 5)
+  )
+  
+  expect_equal(
+    recipe(~ text, data = empty_data) %>%
+      step_tokenize(text) %>%
+      step_word_embeddings(text, embeddings = embeddings, aggregation = "min",
+                           aggregation_default = 3) %>%
+      prep() %>%
+      juice() %>% 
+      as.numeric(),
+    rep(3, 5)
+  )
+  
+  expect_equal(
+    recipe(~ text, data = empty_data) %>%
+      step_tokenize(text) %>%
+      step_word_embeddings(text, embeddings = embeddings, aggregation = "max",
+                           aggregation_default = 3) %>%
+      prep() %>%
+      juice() %>% 
+      as.numeric(),
+    rep(3, 5)
+  )
 })
 

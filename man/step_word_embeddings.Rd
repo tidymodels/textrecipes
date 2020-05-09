@@ -13,6 +13,7 @@ step_word_embeddings(
   columns = NULL,
   embeddings,
   aggregation = c("sum", "mean", "min", "max"),
+  aggregation_default = 0,
   prefix = "w_embed",
   skip = FALSE,
   id = rand_id("word_embeddings")
@@ -44,7 +45,10 @@ package The first column should contain tokens, and additional columns
 should contain embeddings vectors.}
 
 \item{aggregation}{A character giving the name of the aggregation function to
-use.}
+use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".}
+
+\item{aggregation_default}{A numeric denoting the default value for case with
+no words are matched in embedding. Defaults to 0.}
 
 \item{prefix}{A character string that will be the prefix to the resulting new
 variables. See notes below.}

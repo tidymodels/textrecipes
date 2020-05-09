@@ -20,7 +20,9 @@
 #'   package The first column should contain tokens, and additional columns 
 #'   should contain embeddings vectors.
 #' @param aggregation A character giving the name of the aggregation function to
-#'   use.
+#'   use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".
+#' @param aggregation_default A numeric denoting the default value for case with 
+#'   no words are matched in embedding. Defaults to 0.
 #' @param prefix A character string that will be the prefix to the resulting new
 #'   variables. See notes below.
 #' @param skip A logical. Should the step be skipped when the recipe is baked by
@@ -91,6 +93,7 @@ step_word_embeddings <- function(recipe,
                             columns = NULL,
                             embeddings,
                             aggregation = c("sum", "mean", "min", "max"),
+                            aggregation_default = 0,
                             prefix = "w_embed",
                             skip = FALSE,
                             id = rand_id("word_embeddings")) {
@@ -112,9 +115,6 @@ step_word_embeddings <- function(recipe,
     )
   }
   
-  # For now aggregation must be the name of one of the listed aggregation
-  # functions. I'm having them pass it in as character to avoid more complicated
-  # checks.
   aggregation <- match.arg(aggregation)
   
   add_step(
@@ -126,6 +126,7 @@ step_word_embeddings <- function(recipe,
       columns = columns,
       embeddings = embeddings,
       aggregation = aggregation,
+      aggregation_default = aggregation_default,
       prefix = prefix,
       skip = skip,
       id = id
@@ -134,7 +135,8 @@ step_word_embeddings <- function(recipe,
 }
 
 step_word_embeddings_new <- function(terms, role, trained, columns, embeddings, 
-                                     aggregation, prefix, skip, id) {
+                                     aggregation, aggregation_default, prefix, 
+                                     skip, id) {
   recipes::step(
     subclass = "word_embeddings",
     terms = terms,
@@ -143,6 +145,7 @@ step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
     columns = columns,
     embeddings = embeddings,
     aggregation = aggregation,
+    aggregation_default = aggregation_default,
     prefix = prefix,
     skip = skip,
     id = id
@@ -162,6 +165,7 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
     columns = col_names,
     embeddings = x$embeddings,
     aggregation = x$aggregation,
+    aggregation_default = x$aggregation_default,
     prefix = x$prefix,
     skip = x$skip,
     id = x$id
@@ -174,14 +178,38 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   # for backward compat
   
   for (i in seq_along(col_names)) {
-    embeddings_columns <- map_dfr(
-      get_tokens(new_data[, col_names[i], drop = TRUE]),
-      aggregate_embeddings,
-      embeddings = object$embeddings,
-      aggregation = object$aggregation,
-      prefix = object$prefix
+    
+    arggregation_fun <- switch(
+      object$aggregation,
+      sum = function(x, ...) {
+        if(length(x) == 0) return(object$aggregation_default)
+        sum(x, ...)
+      },
+      mean = function(x, ...) {
+        if(length(x) == 0) return(object$aggregation_default)
+          mean(x, ...)
+        },
+      min = function(x, ...) {
+        if(length(x) == 0) return(object$aggregation_default)
+        min(x, ...)
+      },
+      max = function(x, ...) {
+        if(length(x) == 0) return(object$aggregation_default)
+        max(x, ...)
+      }
     )
     
+    embeddings_columns <- tokenlist_embedding(
+      new_data[, col_names[i], drop = TRUE], 
+      object$embeddings, 
+      arggregation_fun
+      )
+    
+    colnames(embeddings_columns) <- paste(object$prefix,
+                                          object$aggregation,
+                                          colnames(embeddings_columns),
+                                          sep = "_")
+
     new_data <- vctrs::vec_cbind(new_data, embeddings_columns)
     
     new_data <-
@@ -216,60 +244,4 @@ tidy.step_word_embeddings <- function(x, ...) {
   }
   res$id <- x$id
   res
-}
-
-# Implementation
-aggregate_embeddings <- function(tokens, embeddings, aggregation, prefix) {
-  aggregation_function <- switch(
-    aggregation,
-    sum = sum,
-    mean = mean,
-    min = min,
-    max = max
-  )
-  embeddings_token_colname <- colnames(embeddings)[[1]]
-  
-  # Add a "NA" token if there isn't one. For now I'm going to set this to all 0,
-  # we may want to revise this with more use cases.
-  if (!any(is.na(embeddings[[1]]))) {
-    embeddings[nrow(embeddings) + 1, 1] <- NA_character_
-    embeddings[nrow(embeddings), -1] <- 0
-  }
-  
-  # Deal with missing tokens.
-  missing_tokens <- setdiff(tokens, embeddings[[1]])
-  if (length(missing_tokens) > 0) {
-    warning_msg <- paste(
-      "Tokens missing from embeddings tibble:",
-      paste(missing_tokens, collapse = ", ")
-    )
-    if (length(setdiff(tokens, missing_tokens)) == 0) {
-      rlang::abort(
-        warning_msg,
-        .subclass = "all_tokens_missing_embeddings"
-      )
-    } else {
-      rlang::warn(
-        warning_msg,
-        .subclass = "missing_tokens"
-      )
-    }
-  }
-  
-  these_embeddings <- select(
-    inner_join(
-      tibble(tokens = tokens),
-      embeddings, 
-      by = c("tokens" = embeddings_token_colname)
-    ), -"tokens"
-  )
-  
-  # Rename columns using the supplied pattern.
-  these_embeddings <- rename_all(
-    these_embeddings, 
-    ~ paste(prefix, aggregation, ., sep = "_")
-  )
-  
-  # Aggregate as requested.
-  summarize_all(these_embeddings, aggregation_function)
 }
