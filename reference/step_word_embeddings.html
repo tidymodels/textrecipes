@@ -84,8 +84,8 @@ vectors of each token from a pre-trained embedding." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
         </div>
       </div>
     </div>
@@ -159,6 +159,7 @@ vectors of each token from a pre-trained embedding.</p>
   <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>embeddings</span>,
   <span class='kw'>aggregation</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sum"</span>, <span class='st'>"mean"</span>, <span class='st'>"min"</span>, <span class='st'>"max"</span>),
+  <span class='kw'>aggregation_default</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"w_embed"</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"word_embeddings"</span>)
@@ -207,7 +208,12 @@ should contain embeddings vectors.</p></td>
     <tr>
       <th>aggregation</th>
       <td><p>A character giving the name of the aggregation function to
-use.</p></td>
+use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".</p></td>
+    </tr>
+    <tr>
+      <th>aggregation_default</th>
+      <td><p>A numeric denoting the default value for case with
+no words are matched in embedding. Defaults to 0.</p></td>
     </tr>
     <tr>
       <th>prefix</th>
@@ -296,10 +302,10 @@ embeddings from the textdata package (where the column names are <code>d1</code>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms embeddings_rows aggregation id                   
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'>1</span><span> text                3 sum         word_embeddings_GmHHk</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> text                3 sum         word_embeddings_727UQ</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms      embeddings_rows aggregation id                   
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'>1</span><span> text                     3 sum         word_embeddings_GmHHk</div></span></pre>
+#&gt; </span><span style='color: #555555;'>1</span><span> text                     3 sum         word_embeddings_727UQ</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
