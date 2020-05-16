@@ -1,6 +1,9 @@
 ## Release Summary
 
-This is the 5th CRAN release of textrecipes. Includes a couple of fixes.
+This is the 6th CRAN release of textrecipes. Includes a couple of fixes.
+
+- Stopping python dependent tests to be run on CRAN
+- Fixing "Namespaces in Imports field not imported from" notes
 
 ## Test environments
 * local OS X install, R 3.6.0

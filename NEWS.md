@@ -1,8 +1,10 @@
+# textrecipes (development version)
+
 # textrecipes 0.2.2
 
-# textrecipes 0.2.1
-
 * `step_word_embeddings()` got a argument `aggregation_default` to specify value in cases where no words matches embedding.
+
+# textrecipes 0.2.1
 
 # textrecipes 0.2.0
 
