@@ -83,8 +83,8 @@ will extract the lemmatization of a tokenlist." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.2.9000</span>
         </div>
       </div>
     </div>
@@ -247,7 +247,7 @@ works well with <code>step_lemma</code>.</p>
   <span class='fu'>step_lemma</span>(<span class='no'>text</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='step_tf.html'>step_tf</a></span>(<span class='no'>text</span>)
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>okc_rec</span>)</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.2.3, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>
+<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>okc_rec</span>)</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.2.4, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 12</span><span>
 #&gt;   `tf_text_,` tf_text_. tf_text_a tf_text_and tf_text_be tf_text_cat
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
