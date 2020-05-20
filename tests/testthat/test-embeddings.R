@@ -1,5 +1,9 @@
 library(recipes)
 
+eps <- if (capabilities("long.double"))
+  sqrt(.Machine$double.eps) else
+    0.1
+
 # Set up the data that will be used in these tests. -----------------------
 
 test_data <- tibble(text = c("I would not eat them here or there.",
@@ -139,8 +143,10 @@ test_that("step_word_embeddings tidy method works.", {
 
 test_that("step_word_embeddings aggregates vectors as expected.", {
   # By default, step_word_embeddings sums the vectors of the tokens it is given.
-  expect_identical(
-    juiced, select(sentence_embeddings_sum, -text)
+  expect_equal(
+    juiced, 
+    select(sentence_embeddings_sum, -text),
+    tolerance = eps
   )
   
   # Also allow the user to choose an aggregation function.
@@ -151,7 +157,13 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     ) %>% 
     prep() %>% 
     juice()
-  expect_identical(juiced_max, select(sentence_embeddings_max, -text))
+  
+  expect_equal(
+    juiced_max, 
+    select(sentence_embeddings_max, -text), 
+    tolerance = eps
+  )
+  
   juiced_min <- rec_base %>% 
     step_tokenize(text) %>%
     step_word_embeddings(
@@ -159,7 +171,13 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     ) %>% 
     prep() %>% 
     juice()
-  expect_identical(juiced_min, select(sentence_embeddings_min, -text))
+  
+  expect_equal(
+    juiced_min, 
+    select(sentence_embeddings_min, -text), 
+    tolerance = eps
+  )
+  
   juiced_mean <- rec_base %>% 
     step_tokenize(text) %>%
     step_word_embeddings(
@@ -167,7 +185,12 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     ) %>% 
     prep() %>% 
     juice()
-  expect_identical(juiced_mean, select(sentence_embeddings_mean, -text))
+  
+  expect_equal(
+    juiced_mean, 
+    select(sentence_embeddings_mean, -text), 
+    tolerance = eps
+  )
 })
 
 test_that("step_word_embeddings deals with missing words appropriately.", {

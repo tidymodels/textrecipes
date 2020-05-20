@@ -15,6 +15,7 @@ Converting text to numerical features requires
 Useful links:
 \itemize{
   \item \url{https://github.com/tidymodels/textrecipes}
+  \item \url{https://textrecipes.tidymodels.org}
   \item Report bugs at \url{https://github.com/tidymodels/textrecipes/issues}
 }
 
