@@ -1,14 +1,13 @@
 ## Release Summary
 
-This is the 6th CRAN release of textrecipes. Includes a couple of fixes.
+This is the 7th CRAN release of textrecipes.
 
-- Stopping python dependent tests to be run on CRAN
-- Fixing "Namespaces in Imports field not imported from" notes
+This version fixes the noLD problem causing textrecipes to be removed from CRAN on 2020-05-20
 
 ## Test environments
-* local OS X install, R 3.6.0
-* ubuntu 14.04 (on travis-ci), R 3.6.0
-* win-builder (devel and release)
+* local R installation, R 4.0.0
+* ubuntu 16.04 (on travis-ci), R 4.0.0
+* win-builder (devel)
 
 ## R CMD check results
 
