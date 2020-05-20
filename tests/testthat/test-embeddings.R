@@ -144,8 +144,8 @@ test_that("step_word_embeddings tidy method works.", {
 test_that("step_word_embeddings aggregates vectors as expected.", {
   # By default, step_word_embeddings sums the vectors of the tokens it is given.
   expect_equal(
-    juiced, 
-    select(sentence_embeddings_sum, -text),
+    as.data.frame(juiced), 
+    as.data.frame(select(sentence_embeddings_sum, -text)),
     tolerance = eps
   )
   
@@ -159,8 +159,8 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     juice()
   
   expect_equal(
-    juiced_max, 
-    select(sentence_embeddings_max, -text), 
+    as.data.frame(juiced_max), 
+    as.data.frame(select(sentence_embeddings_max, -text)), 
     tolerance = eps
   )
   
@@ -173,8 +173,8 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     juice()
   
   expect_equal(
-    juiced_min, 
-    select(sentence_embeddings_min, -text), 
+    as.data.frame(juiced_min), 
+    as.data.frame(select(sentence_embeddings_min, -text)), 
     tolerance = eps
   )
   
@@ -187,8 +187,8 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     juice()
   
   expect_equal(
-    juiced_mean, 
-    select(sentence_embeddings_mean, -text), 
+    as.data.frame(juiced_mean), 
+    as.data.frame(select(sentence_embeddings_mean, -text)), 
     tolerance = eps
   )
 })
