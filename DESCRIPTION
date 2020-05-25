@@ -12,35 +12,38 @@ Description: Converting text to numerical features requires
     according to the 'recipes' package. These steps allows for
     tokenization, filtering, counting (tf and tfidf) and feature hashing.
 License: MIT + file LICENSE
-URL: https://github.com/tidymodels/textrecipes, https://textrecipes.tidymodels.org
+URL: https://github.com/tidymodels/textrecipes,
+    https://textrecipes.tidymodels.org
 BugReports: https://github.com/tidymodels/textrecipes/issues
 Depends: 
     R (>= 2.10),
     recipes (>= 0.1.4)
 Imports: 
-    generics,
-    rlang,
-    tokenizers,
     dplyr,
-    tibble,
-    tidyr,
-    purrr,
-    SnowballC,
+    generics,
     magrittr,
     Matrix,
+    purrr,
+    Rcpp,
+    rlang,
+    SnowballC,
     stringr,
-    vctrs,
-    Rcpp
+    tibble,
+    tidyr,
+    tokenizers,
+    vctrs
 Suggests: 
     covr,
-    testthat (>= 2.1.0),
     knitr,
-    text2vec,
-    rmarkdown,
-    textfeatures (>= 0.3.3),
     modeldata,
+    rmarkdown,
+    spacyr,
     stopwords,
-    spacyr
+    testthat (>= 2.1.0),
+    text2vec,
+    textfeatures (>= 0.3.3)
+LinkingTo: 
+    Rcpp
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
@@ -48,5 +51,3 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0.9000
 SystemRequirements: GNU make, C++11
-LinkingTo: 
-    Rcpp
