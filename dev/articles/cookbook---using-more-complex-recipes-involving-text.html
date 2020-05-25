@@ -152,11 +152,15 @@
 <h2 class="hasAnchor">
 <a href="#removing-words-in-addition-to-the-stop-words-list" class="anchor"></a>Removing words in addition to the stop words list</h2>
 <p>You might know of certain words you don’t want included which isn’t a part of the stop word list of choice. This can easily be done by applying the <code>step_stopwords</code> step twice, once for the stop words and once for your special words.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">words</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sad"</span>, <span class="st">"happy"</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">stopwords_list</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"was"</span>, <span class="st">"she's"</span>, <span class="st">"who"</span>, <span class="st">"had"</span>, <span class="st">"some"</span>, <span class="st">"same"</span>, <span class="st">"you"</span>, <span class="st">"most"</span>,
+                    <span class="st">"it's"</span>, <span class="st">"they"</span>, <span class="st">"for"</span>, <span class="st">"i'll"</span>, <span class="st">"which"</span>, <span class="st">"shan't"</span>, <span class="st">"we're"</span>,
+                    <span class="st">"such"</span>, <span class="st">"more"</span>, <span class="st">"with"</span>, <span class="st">"there's"</span>, <span class="st">"each"</span>)
+
+<span class="no">words</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sad"</span>, <span class="st">"happy"</span>)
 
 <span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">stopwords_list</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">words</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
 
@@ -165,7 +169,7 @@
 
 <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
-<span class="co">#&gt; # A tibble: 750 x 9,090</span>
+<span class="co">#&gt; # A tibble: 750 x 9,235</span>
 <span class="co">#&gt;    tfidf_essay0___… tfidf_essay0___… tfidf_essay0___… tfidf_essay0___…</span>
 <span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
 <span class="co">#&gt;  1                0                0                0                0</span>
@@ -178,7 +182,7 @@
 <span class="co">#&gt;  8                0                0                0                0</span>
 <span class="co">#&gt;  9                0                0                0                0</span>
 <span class="co">#&gt; 10                0                0                0                0</span>
-<span class="co">#&gt; # … with 740 more rows, and 9,086 more variables: tfidf_essay0__blank &lt;dbl&gt;,</span>
+<span class="co">#&gt; # … with 740 more rows, and 9,231 more variables: tfidf_essay0__blank &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0__updates_ &lt;dbl&gt;, tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_0aboondocks &lt;dbl&gt;, tfidf_essay0_0abrothers &lt;dbl&gt;,</span>
