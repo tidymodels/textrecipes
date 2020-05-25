@@ -26,7 +26,6 @@ Imports:
     tidyr,
     purrr,
     SnowballC,
-    stopwords,
     magrittr,
     Matrix,
     stringr,
@@ -40,6 +39,7 @@ Suggests:
     rmarkdown,
     textfeatures (>= 0.3.3),
     modeldata,
+    stopwords,
     spacyr
 VignetteBuilder: 
     knitr

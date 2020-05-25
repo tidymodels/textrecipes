@@ -87,6 +87,7 @@ library(recipes)
 library(modeldata)
 data(okc_text)
 
+if (requireNamespace("stopwords", quietly = TRUE)) {
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
   step_stopwords(essay0) 
@@ -103,6 +104,8 @@ juice(okc_obj) \%>\%
   
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+}
+
 # With a custom stopwords list
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%

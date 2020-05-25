@@ -39,6 +39,7 @@
 #' library(modeldata)
 #' data(okc_text)
 #' 
+#' if (requireNamespace("stopwords", quietly = TRUE)) {
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
 #'   step_stopwords(essay0) 
@@ -55,6 +56,8 @@
 #'   
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
+#' }
+#' 
 #' # With a custom stopwords list
 #' 
 #' okc_rec <- recipe(~ ., data = okc_text) %>%
@@ -152,8 +155,10 @@ bake.step_stopwords <- function(object, new_data, ...) {
   col_names <- object$columns
 
   stopword_list <- object$custom_stopword_source %||%
-                               stopwords(language = object$language,
-                                         source = object$stopword_source)
+                               stopwords::stopwords(
+                                 language = object$language,
+                                 source = object$stopword_source
+                               )
 
   for (i in seq_along(col_names)) {
     filtered_text <- tokenlist_filter(new_data[, col_names[i], drop = TRUE], 

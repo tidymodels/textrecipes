@@ -52,11 +52,15 @@ bake(okc_obj, okc_text) %>%
 You might know of certain words you don't want included which isn't a part of the stop word list of choice. This can easily be done by applying the `step_stopwords` step twice, once for the stop words and once for your special words.
 
 ```{r}
+stopwords_list <- c("was", "she's", "who", "had", "some", "same", "you", "most", 
+                    "it's", "they", "for", "i'll", "which", "shan't", "we're", 
+                    "such", "more", "with", "there's", "each")
+
 words <- c("sad", "happy")
 
 okc_rec <- recipe(~ ., data = okc_text) %>%
   step_tokenize(essay0) %>%
-  step_stopwords(essay0) %>% 
+  step_stopwords(essay0, custom_stopword_source = stopwords_list) %>% 
   step_stopwords(essay0, custom_stopword_source = words) %>% 
   step_tfidf(essay0)
 

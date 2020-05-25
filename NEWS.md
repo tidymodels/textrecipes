@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* stopwords package have been moved from Imports to Suggests.
+
 # textrecipes 0.2.3
 
 # textrecipes 0.2.2

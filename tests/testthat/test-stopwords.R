@@ -12,6 +12,7 @@ test_data <- tibble(text = c("I would not eat them here or there.",
 rec <- recipe(~ ., data = test_data)
 
 test_that("stopwords are removed correctly", {
+  skip_if_not_installed("stopwords")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stopwords(text)
@@ -35,6 +36,7 @@ test_that("stopwords are removed correctly", {
 })
 
 test_that("stopwords are kept correctly", {
+  skip_if_not_installed("stopwords")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stopwords(text, keep = TRUE) %>%
@@ -74,10 +76,10 @@ test_that("custom stopwords are supported", {
 })
 
 test_that("printing", {
+  skip_if_not_installed("stopwords")
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stopwords(text)
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
-

@@ -12,8 +12,6 @@
 #' 
 #' @importFrom generics tidy
 #' 
-#' @importFrom stopwords stopwords
-#' 
 #' @importFrom tidyr unnest
 #' 
 #' @importFrom Matrix sparseMatrix
