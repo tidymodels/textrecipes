@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href="../.css" rel="stylesheet">
 <meta property="og:title" content="Under the hood - tokenlist">
 <meta property="og:description" content="textrecipes">
 <meta name="twitter:card" content="summary">
@@ -95,7 +96,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tokenlist_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Under the hood - tokenlist</h1>
@@ -108,7 +109,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">textrecipes</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span>)
 <span class="co">#&gt; Loading required package: recipes</span>
 <span class="co">#&gt; Loading required package: dplyr</span>
 <span class="co">#&gt; </span>
@@ -123,7 +125,8 @@
 <span class="co">#&gt; Attaching package: 'recipes'</span>
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;     step</span></pre></body></html></div>
+<span class="co">#&gt;     step</span>
+</pre></div>
 <p><strong>textrecipes</strong> have been using lists of character vectors to carry around the tokens. A simple S3 vector class has been implemented with the <strong>vctrs</strong> package to handle that list of tokens, henceforth to be known as a <code>tokenlist</code>.</p>
 <p>If you are only using this package for preprocessing then you most likely won’t even notice that this change has happened. However if you are thinking of contributing to <strong>textrecipes</strong> then knowing about <code>tokenlist</code>s will be essential.</p>
 <p>A <code>tokenlist</code> is based around a simple list of character vectors, and has 3 attributes, <code>lemma</code>, <code>pos</code> and <code>tokens</code>.</p>

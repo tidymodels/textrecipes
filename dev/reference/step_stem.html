@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Stemming of <a href='tokenlist.html'>tokenlist</a> variables — step_stem • textrecipes</title>
+<title>Stemming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_stem • textrecipes</title>
 
 
 <!-- jquery -->
@@ -36,9 +36,13 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Stemming of <a href='tokenlist.html'>tokenlist</a> variables — step_stem" />
+
+
+<meta property="og:title" content="Stemming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_stem" />
 <meta property="og:description" content="step_stem creates a specification of a recipe step that
 will convert a tokenlist to have its tokens stemmed." />
 <meta name="twitter:card" content="summary" />
@@ -139,30 +143,30 @@ will convert a tokenlist to have its tokens stemmed." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Stemming of <a href='tokenlist.html'>tokenlist</a> variables</h1>
+    <h1>Stemming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/stem.R'><code>R/stem.R</code></a></small>
     <div class="hidden name"><code>step_stem.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><code>step_stem</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='tokenlist.html'>tokenlist</a> to have its tokens stemmed.</p>
+will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> to have its tokens stemmed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_stem</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>custom_stemmer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"stem"</span>)
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a></span>(
+  <span class='kw'>recipe</span>,
+  <span class='kw'>...</span>,
+  role = <span class='fl'>NA</span>,
+  trained = <span class='fl'>FALSE</span>,
+  columns = <span class='kw'>NULL</span>,
+  options = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  custom_stemmer = <span class='kw'>NULL</span>,
+  skip = <span class='fl'>FALSE</span>,
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"stem"</span>)
 )
 
 <span class='co'># S3 method for step_stem</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,7 +180,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_stem</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -193,7 +197,7 @@ baked.</p></td>
       <th>columns</th>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>options</th>
@@ -207,8 +211,8 @@ it will default to "SnowballC".</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is run, some
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
+operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using <code>skip = TRUE</code> as it may affect the computations for
@@ -239,67 +243,67 @@ of heuristics.</p>
 will therefore not work reliably on ngrams or sentences.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to tokenlist steps: 
-<code><a href='step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code>,
-<code><a href='step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+<code><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_stopwords.html'>step_stopwords</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_stem</span>(<span class='no'>essay0</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a></span>(<span class='kw'>essay0</span>)
+  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>essay0</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
 #&gt;         essay0
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> [184 tokens]
-#&gt; </span><span style='color: #555555;'>2</span><span>  [24 tokens]</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
+#&gt;      &lt;tknlist&gt;
+#&gt; 1 [184 tokens]
+#&gt; 2  [24 tokens]</div><div class='input'>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span>(<span class='kw'>essay0</span>) </div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
 #&gt; [1] [24 tokens]
-#&gt; # Unique Tokens: 18</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
+#&gt; # Unique Tokens: 18</div><div class='input'>  
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id        
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    stem_XRHJp</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
+#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     
+#&gt; 1 essay0 &lt;NA&gt;  stem_q4KUL</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      is_custom_stemmer id        
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     TRUE              stem_XRHJp</div><div class='input'>
+#&gt;   &lt;quos&gt;     &lt;lgl&gt;             &lt;chr&gt;     
+#&gt; 1 essay0     TRUE              stem_q4KUL</div><div class='input'>
 <span class='co'># Using custom stemmer. Here a custom stemmer that removes the last letter</span>
 <span class='co'># if it is a "s".</span>
-<span class='no'>remove_s</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='no'>x</span>)
+<span class='kw'>remove_s</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='kw'>x</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_stem</span>(<span class='no'>essay0</span>, <span class='kw'>custom_stemmer</span> <span class='kw'>=</span> <span class='no'>remove_s</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a></span>(<span class='kw'>essay0</span>, custom_stemmer = <span class='kw'>remove_s</span>)
+  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>essay0</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
 #&gt;         essay0
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> [184 tokens]
-#&gt; </span><span style='color: #555555;'>2</span><span>  [24 tokens]</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
+#&gt;      &lt;tknlist&gt;
+#&gt; 1 [184 tokens]
+#&gt; 2  [24 tokens]</div><div class='input'>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span>(<span class='kw'>essay0</span>) </div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
 #&gt; [1] [24 tokens]
-#&gt; # Unique Tokens: 18</div></span></pre>
+#&gt; # Unique Tokens: 18</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href="../.css" rel="stylesheet">
 <meta property="og:title" content="Cookbook - Using more complex recipes involving text">
 <meta property="og:description" content="textrecipes">
 <meta name="twitter:card" content="summary">
@@ -95,13 +96,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="cookbook---using-more-complex-recipes-involving-text_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Cookbook - Using more complex recipes involving text</h1>
                         <h4 class="author">Emil Hvitfeldt</h4>
             
-            <h4 class="date">2020-05-25</h4>
+            <h4 class="date">2020-07-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="hidden name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -112,27 +113,30 @@
     
 <p>Working to get textual data converted into numerical can be done in many different ways. The steps included in <code>textrecipes</code> should hopefully give you the flexibility to perform most of your desired text preprocessing tasks. This vignette will showcase examples that combine multiple steps.</p>
 <p>This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be <code>dplyr</code>, <code>recipes</code> and <code>textrecipes</code>. Examples will be performed on the <code>okc_text</code> data-set which is packaged with <code>textrecipes</code>.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">textrecipes</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">modeldata</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"okc_text"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/tidymodels/recipes">recipes</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://modeldata.tidymodels.org">modeldata</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"okc_text"</span>)
+</pre></div>
 <div id="counting-select-words" class="section level2">
 <h2 class="hasAnchor">
 <a href="#counting-select-words" class="anchor"></a>Counting select words</h2>
 <p>Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments <code>custom_stopword_source</code> and <code>keep = TRUE</code> in <code>step_stopwords</code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">words</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"you"</span>, <span class="st">"i"</span>, <span class="st">"sad"</span>, <span class="st">"happy"</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"you"</span>, <span class="st">"i"</span>, <span class="st">"sad"</span>, <span class="st">"happy"</span>)
 
-<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">words</span>, <span class="kw">keep</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">essay0</span>)
+<span class="kw">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">essay0</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="kw">essay0</span>, custom_stopword_source = <span class="kw">words</span>, keep = <span class="fl">TRUE</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="kw">essay0</span>)
 
-<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
-
-<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
+<span class="kw">okc_obj</span> <span class="op">&lt;-</span> <span class="kw">okc_rec</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>()
+   
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span>(<span class="kw">okc_obj</span>, <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
 <span class="co">#&gt; # A tibble: 750 x 4</span>
 <span class="co">#&gt;    tf_essay0_happy tf_essay0_i tf_essay0_sad tf_essay0_you</span>
 <span class="co">#&gt;              &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span>
@@ -146,29 +150,31 @@
 <span class="co">#&gt;  8               0           7             0             0</span>
 <span class="co">#&gt;  9               0           0             0             0</span>
 <span class="co">#&gt; 10               0          14             0             1</span>
-<span class="co">#&gt; # … with 740 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 740 more rows</span>
+</pre></div>
 </div>
 <div id="removing-words-in-addition-to-the-stop-words-list" class="section level2">
 <h2 class="hasAnchor">
 <a href="#removing-words-in-addition-to-the-stop-words-list" class="anchor"></a>Removing words in addition to the stop words list</h2>
 <p>You might know of certain words you don’t want included which isn’t a part of the stop word list of choice. This can easily be done by applying the <code>step_stopwords</code> step twice, once for the stop words and once for your special words.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">stopwords_list</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"was"</span>, <span class="st">"she's"</span>, <span class="st">"who"</span>, <span class="st">"had"</span>, <span class="st">"some"</span>, <span class="st">"same"</span>, <span class="st">"you"</span>, <span class="st">"most"</span>,
-                    <span class="st">"it's"</span>, <span class="st">"they"</span>, <span class="st">"for"</span>, <span class="st">"i'll"</span>, <span class="st">"which"</span>, <span class="st">"shan't"</span>, <span class="st">"we're"</span>,
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">stopwords_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"was"</span>, <span class="st">"she's"</span>, <span class="st">"who"</span>, <span class="st">"had"</span>, <span class="st">"some"</span>, <span class="st">"same"</span>, <span class="st">"you"</span>, <span class="st">"most"</span>, 
+                    <span class="st">"it's"</span>, <span class="st">"they"</span>, <span class="st">"for"</span>, <span class="st">"i'll"</span>, <span class="st">"which"</span>, <span class="st">"shan't"</span>, <span class="st">"we're"</span>, 
                     <span class="st">"such"</span>, <span class="st">"more"</span>, <span class="st">"with"</span>, <span class="st">"there's"</span>, <span class="st">"each"</span>)
 
-<span class="no">words</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sad"</span>, <span class="st">"happy"</span>)
+<span class="kw">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sad"</span>, <span class="st">"happy"</span>)
 
-<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">stopwords_list</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">words</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
+<span class="kw">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">essay0</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="kw">essay0</span>, custom_stopword_source = <span class="kw">stopwords_list</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="kw">essay0</span>, custom_stopword_source = <span class="kw">words</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="kw">essay0</span>)
 
-<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
-
-<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
+<span class="kw">okc_obj</span> <span class="op">&lt;-</span> <span class="kw">okc_rec</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>()
+   
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span>(<span class="kw">okc_obj</span>, <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
 <span class="co">#&gt; # A tibble: 750 x 9,235</span>
 <span class="co">#&gt;    tfidf_essay0___… tfidf_essay0___… tfidf_essay0___… tfidf_essay0___…</span>
 <span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
@@ -220,22 +226,24 @@
 <span class="co">#&gt; #   tfidf_essay0_2cedd &lt;dbl&gt;, tfidf_essay0_2cehksxolna &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_2fbowling &lt;dbl&gt;, tfidf_essay0_2fdarts &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_2fodd &lt;dbl&gt;, tfidf_essay0_2foutdoor &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2nd &lt;dbl&gt;, tfidf_essay0_2wqv9 &lt;dbl&gt;, tfidf_essay0_3 &lt;dbl&gt;, …</span></pre></body></html></div>
+<span class="co">#&gt; #   tfidf_essay0_2nd &lt;dbl&gt;, tfidf_essay0_2wqv9 &lt;dbl&gt;, tfidf_essay0_3 &lt;dbl&gt;, …</span>
+</pre></div>
 </div>
 <div id="letter-distributions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#letter-distributions" class="anchor"></a>Letter distributions</h2>
 <p>Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the <code>step_stopwords</code> step.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="kw">token</span> <span class="kw">=</span> <span class="st">"characters"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="kw">custom_stopword_source</span> <span class="kw">=</span> <span class="no">letters</span>, <span class="kw">keep</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="no">essay0</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">essay0</span>, token = <span class="st">"characters"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span>(<span class="kw">essay0</span>, custom_stopword_source = <span class="kw">letters</span>, keep = <span class="fl">TRUE</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span>(<span class="kw">essay0</span>)
 
-<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
-
-<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
+<span class="kw">okc_obj</span> <span class="op">&lt;-</span> <span class="kw">okc_rec</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>()
+   
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span>(<span class="kw">okc_obj</span>, <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))
 <span class="co">#&gt; # A tibble: 750 x 26</span>
 <span class="co">#&gt;    tf_essay0_a tf_essay0_b tf_essay0_c tf_essay0_d tf_essay0_e tf_essay0_f</span>
 <span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
@@ -254,26 +262,28 @@
 <span class="co">#&gt; #   tf_essay0_l &lt;dbl&gt;, tf_essay0_m &lt;dbl&gt;, tf_essay0_n &lt;dbl&gt;, tf_essay0_o &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_essay0_p &lt;dbl&gt;, tf_essay0_q &lt;dbl&gt;, tf_essay0_r &lt;dbl&gt;, tf_essay0_s &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_essay0_t &lt;dbl&gt;, tf_essay0_u &lt;dbl&gt;, tf_essay0_v &lt;dbl&gt;, tf_essay0_w &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_essay0_x &lt;dbl&gt;, tf_essay0_y &lt;dbl&gt;, tf_essay0_z &lt;dbl&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   tf_essay0_x &lt;dbl&gt;, tf_essay0_y &lt;dbl&gt;, tf_essay0_z &lt;dbl&gt;</span>
+</pre></div>
 </div>
 <div id="tf-idf-of-ngrams-of-stemmed-tokens" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tf-idf-of-ngrams-of-stemmed-tokens" class="anchor"></a>TF-IDF of ngrams of stemmed tokens</h2>
 <p>Sometimes fairly complicated computations. Here we would like the term frequency inverse document frequency (TF-IDF) of the most common 500 ngrams done on stemmed tokens. It is quite a handful and would seldom be included as a option in most other libraries. But the modularity of <code>textrecipes</code> makes this task fairly easy.</p>
 <p>First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using <code>step_untokenize</code> so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="kw">token</span> <span class="kw">=</span> <span class="st">"words"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_untokenize.html">step_untokenize</a></span>(<span class="no">essay0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="kw">token</span> <span class="kw">=</span> <span class="st">"ngrams"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="no">essay0</span>, <span class="kw">max_tokens</span> <span class="kw">=</span> <span class="fl">500</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">essay0</span>, token = <span class="st">"words"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span>(<span class="kw">essay0</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_untokenize.html">step_untokenize</a></span>(<span class="kw">essay0</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">essay0</span>, token = <span class="st">"ngrams"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="kw">essay0</span>, max_tokens = <span class="fl">500</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span>(<span class="kw">essay0</span>)
 
-<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
-
-<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
+<span class="kw">okc_obj</span> <span class="op">&lt;-</span> <span class="kw">okc_rec</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>()
+   
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span>(<span class="kw">okc_obj</span>, <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))
 <span class="co">#&gt; # A tibble: 750 x 500</span>
 <span class="co">#&gt;    `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a…</span>
 <span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
@@ -337,7 +347,8 @@
 <span class="co">#&gt; #   `tfidf_essay0_br i have` &lt;dbl&gt;, `tfidf_essay0_br i just` &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   `tfidf_essay0_br i like` &lt;dbl&gt;, `tfidf_essay0_br i love` &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   `tfidf_essay0_br i realli` &lt;dbl&gt;, `tfidf_essay0_br i think` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i wa` &lt;dbl&gt;, …</span></pre></body></html></div>
+<span class="co">#&gt; #   `tfidf_essay0_br i wa` &lt;dbl&gt;, …</span>
+</pre></div>
 </div>
   </div>
 

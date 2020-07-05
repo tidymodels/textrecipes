@@ -36,6 +36,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Calculates lda dimension estimates — step_lda" />
@@ -149,21 +153,21 @@ will return the lda dimension estimates of a text variable." />
 will return the lda dimension estimates of a text variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_lda</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lda_models</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>num_topics</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"lda"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"lda"</span>)
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(
+  <span class='kw'>recipe</span>,
+  <span class='kw'>...</span>,
+  role = <span class='st'>"predictor"</span>,
+  trained = <span class='fl'>FALSE</span>,
+  columns = <span class='kw'>NULL</span>,
+  lda_models = <span class='kw'>NULL</span>,
+  num_topics = <span class='fl'>10</span>,
+  prefix = <span class='st'>"lda"</span>,
+  skip = <span class='fl'>FALSE</span>,
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"lda"</span>)
 )
 
 <span class='co'># S3 method for step_lda</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +181,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_lda</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -196,7 +200,7 @@ baked.</p></td>
       <th>columns</th>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>lda_models</th>
@@ -215,8 +219,8 @@ Look at the examples for how to fit a WarpLDA model.</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is run, some
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
+operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using <code>skip = TRUE</code> as it may affect the computations for
@@ -242,63 +246,63 @@ to the sequence of existing steps (if any).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other character to numeric steps: 
-<code><a href='step_sequence_onehot.html'>step_sequence_onehot</a>()</code>,
-<code><a href='step_textfeature.html'>step_textfeature</a>()</code></p></div>
+<code><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"text2vec"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"text2vec"</span>, quietly = <span class='fl'>TRUE</span>)) {
 <span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_lda</span>(<span class='no'>essay0</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(<span class='kw'>essay0</span>)
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)
 
 <span class='co'># Changing the number of topics.</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_lda</span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>, <span class='kw'>num_topics</span> <span class='kw'>=</span> <span class='fl'>20</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>, num_topics = <span class='fl'>20</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
 
 <span class='co'># Supplying A pre-trained LDA model trained using text2vec</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>text2vec</span>)
-<span class='no'>tokens</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/tokenizers.html'>word_tokenizer</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='no'>okc_text</span>$<span class='no'>essay5</span>))
-<span class='no'>it</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/itoken.html'>itoken</a></span>(<span class='no'>tokens</span>, <span class='kw'>ids</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='no'>okc_text</span>$<span class='no'>essay5</span>))
-<span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/create_vocabulary.html'>create_vocabulary</a></span>(<span class='no'>it</span>)
-<span class='no'>dtm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/create_dtm.html'>create_dtm</a></span>(<span class='no'>it</span>, <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/vectorizers.html'>vocab_vectorizer</a></span>(<span class='no'>v</span>))
-<span class='no'>lda_model</span> <span class='kw'>&lt;-</span> <span class='no'>LDA</span>$<span class='fu'>new</span>(<span class='kw'>n_topics</span> <span class='kw'>=</span> <span class='fl'>15</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://text2vec.org'>text2vec</a></span>)
+<span class='kw'>tokens</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/tokenizers.html'>word_tokenizer</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='kw'>okc_text</span><span class='op'>$</span><span class='kw'>essay5</span>))
+<span class='kw'>it</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/itoken.html'>itoken</a></span>(<span class='kw'>tokens</span>, ids = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>okc_text</span><span class='op'>$</span><span class='kw'>essay5</span>))
+<span class='kw'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/create_vocabulary.html'>create_vocabulary</a></span>(<span class='kw'>it</span>)
+<span class='kw'>dtm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/create_dtm.html'>create_dtm</a></span>(<span class='kw'>it</span>, <span class='fu'><a href='https://rdrr.io/pkg/text2vec/man/vectorizers.html'>vocab_vectorizer</a></span>(<span class='kw'>v</span>))
+<span class='kw'>lda_model</span> <span class='op'>&lt;-</span> <span class='kw'>LDA</span><span class='op'>$</span><span class='fu'>new</span>(n_topics = <span class='fl'>15</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_lda</span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>, <span class='kw'>lda_models</span> <span class='kw'>=</span> <span class='no'>lda_model</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>, lda_models = <span class='kw'>lda_model</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
 <span class='co'># }</span>
-}</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 38</span><span>
+}</div><div class='output co'>#&gt; # A tibble: 2 x 38
 #&gt;   essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9 lda_essay0_w1
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>"</span><span>writ… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>musi… </span><span style='color: #555555;'>"</span><span>frie… </span><span style='color: #555555;'>"</span><span>roma… </span><span style='color: #555555;'>"</span><span>usua… </span><span style='color: #555555;'>"</span><span>i ha… </span><span style='color: #555555;'>"</span><span>you'…        0.098</span><span style='text-decoration: underline;'>8</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>"</span><span>pick… </span><span style='color: #555555;'>"</span><span>i lo… </span><span style='color: #555555;'>"</span><span>non-… </span><span style='color: #555555;'>"</span><span>dese… </span><span style='color: #555555;'>"</span><span>ever… </span><span style='color: #555555;'>"</span><span>maki… </span><span style='color: #555555;'>"</span><span>this… </span><span style='color: #555555;'>"</span><span>you'…        0.01  
-#&gt; </span><span style='color: #555555;'># … with 29 more variables: lda_essay0_w2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay0_w4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay0_w7 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w8 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w9 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay0_w10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay0_w13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay0_w15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay1_w1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay1_w4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay1_w7 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w8 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w9 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay1_w10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   lda_essay1_w13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, lda_essay1_w15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
+#&gt;   &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;          &lt;dbl&gt;
+#&gt; 1 "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…        0.0171
+#&gt; 2 "pick… "i lo… "non-… "dese… "ever… "maki… "this… "you'…        0.01  
+#&gt; # … with 29 more variables: lda_essay0_w2 &lt;dbl&gt;, lda_essay0_w3 &lt;dbl&gt;,
+#&gt; #   lda_essay0_w4 &lt;dbl&gt;, lda_essay0_w5 &lt;dbl&gt;, lda_essay0_w6 &lt;dbl&gt;,
+#&gt; #   lda_essay0_w7 &lt;dbl&gt;, lda_essay0_w8 &lt;dbl&gt;, lda_essay0_w9 &lt;dbl&gt;,
+#&gt; #   lda_essay0_w10 &lt;dbl&gt;, lda_essay0_w11 &lt;dbl&gt;, lda_essay0_w12 &lt;dbl&gt;,
+#&gt; #   lda_essay0_w13 &lt;dbl&gt;, lda_essay0_w14 &lt;dbl&gt;, lda_essay0_w15 &lt;dbl&gt;,
+#&gt; #   lda_essay1_w1 &lt;dbl&gt;, lda_essay1_w2 &lt;dbl&gt;, lda_essay1_w3 &lt;dbl&gt;,
+#&gt; #   lda_essay1_w4 &lt;dbl&gt;, lda_essay1_w5 &lt;dbl&gt;, lda_essay1_w6 &lt;dbl&gt;,
+#&gt; #   lda_essay1_w7 &lt;dbl&gt;, lda_essay1_w8 &lt;dbl&gt;, lda_essay1_w9 &lt;dbl&gt;,
+#&gt; #   lda_essay1_w10 &lt;dbl&gt;, lda_essay1_w11 &lt;dbl&gt;, lda_essay1_w12 &lt;dbl&gt;,
+#&gt; #   lda_essay1_w13 &lt;dbl&gt;, lda_essay1_w14 &lt;dbl&gt;, lda_essay1_w15 &lt;dbl&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

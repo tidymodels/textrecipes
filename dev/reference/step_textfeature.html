@@ -36,6 +36,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Generate the basic set of text features — step_textfeature" />
@@ -149,20 +153,20 @@ will extract a number of numeric features of a text column." />
 will extract a number of numeric features of a text column.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_textfeature</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>extract_functions</span> <span class='kw'>=</span> <span class='kw pkg'>textfeatures</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/textfeatures/man/count_functions.html'>count_functions</a></span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"textfeature"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"textfeature"</span>)
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a></span>(
+  <span class='kw'>recipe</span>,
+  <span class='kw'>...</span>,
+  role = <span class='st'>"predictor"</span>,
+  trained = <span class='fl'>FALSE</span>,
+  columns = <span class='kw'>NULL</span>,
+  extract_functions = <span class='kw'>textfeatures</span>::<span class='kw'><a href='https://rdrr.io/pkg/textfeatures/man/count_functions.html'>count_functions</a></span>,
+  prefix = <span class='st'>"textfeature"</span>,
+  skip = <span class='fl'>FALSE</span>,
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"textfeature"</span>)
 )
 
 <span class='co'># S3 method for step_textfeature</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,7 +180,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_textfeature</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -195,7 +199,7 @@ baked.</p></td>
       <th>columns</th>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>extract_functions</th>
@@ -210,8 +214,8 @@ package. See details for more information.</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is run, some
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
+operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using <code>skip = TRUE</code> as it may affect the computations for
@@ -243,52 +247,52 @@ will be thrown.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other character to numeric steps: 
-<code><a href='step_lda.html'>step_lda</a>()</code>,
-<code><a href='step_sequence_onehot.html'>step_sequence_onehot</a>()</code></p></div>
+<code><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"textfeatures"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"textfeatures"</span>, quietly = <span class='fl'>TRUE</span>)) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_textfeature</span>(<span class='no'>essay0</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a></span>(<span class='kw'>essay0</span>) 
+  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>textfeature_essay0_n_words</span>)
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>pull</span>(<span class='kw'>textfeature_essay0_n_words</span>)
+  
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)
 
 <span class='co'># Using custom extraction functions</span>
-<span class='no'>nchar_round_10</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span>(<span class='no'>x</span>) / <span class='fl'>10</span>) * <span class='fl'>10</span>
+<span class='kw'>nchar_round_10</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span>(<span class='kw'>x</span>) <span class='op'>/</span> <span class='fl'>10</span>) <span class='op'>*</span> <span class='fl'>10</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_textfeature</span>(<span class='no'>essay0</span>,
-                   <span class='kw'>extract_functions</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>nchar10</span> <span class='kw'>=</span> <span class='no'>nchar_round_10</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>()
-}</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 750 x 10</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a></span>(<span class='kw'>essay0</span>, 
+                   extract_functions = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(nchar10 = <span class='kw'>nchar_round_10</span>)) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>()
+}</div><div class='output co'>#&gt; # A tibble: 750 x 10
 #&gt;    essay1 essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>i ju… </span><span style='color: #555555;'>"</span><span>writ… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>musi… </span><span style='color: #555555;'>"</span><span>frie… </span><span style='color: #555555;'>"</span><span>roma… </span><span style='color: #555555;'>"</span><span>usua… </span><span style='color: #555555;'>"</span><span>i ha… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>eati… </span><span style='color: #555555;'>"</span><span>pick… </span><span style='color: #555555;'>"</span><span>i lo… </span><span style='color: #555555;'>"</span><span>non-… </span><span style='color: #555555;'>"</span><span>dese… </span><span style='color: #555555;'>"</span><span>ever… </span><span style='color: #555555;'>"</span><span>maki… </span><span style='color: #555555;'>"</span><span>this… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>rais… </span><span style='color: #555555;'>"</span><span>proc… </span><span style='color: #555555;'>"</span><span>my s… </span><span style='color: #555555;'>"</span><span>sush… </span><span style='color: #555555;'>"</span><span>my c… </span><span style='color: #555555;'>"</span><span>movi… </span><span style='color: #555555;'>"</span><span>at h… </span><span style='color: #555555;'>"</span><span>on m… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>i ju… </span><span style='color: #555555;'>"</span><span>i've… </span><span style='color: #555555;'>"</span><span>my f… </span><span style='color: #555555;'>"</span><span>nove… </span><span style='color: #555555;'>"</span><span>fami… </span><span style='color: #555555;'>"</span><span>how … </span><span style='color: #555555;'>"</span><span>havi… </span><span style='color: #555555;'>"</span><span>is t… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>bein… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>- fr… </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>prob… </span><span style='color: #555555;'>"</span><span>uhh.… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>guit… </span><span style='color: #555555;'>"</span><span>a li… </span><span style='color: #555555;'>"</span><span>hang… </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>if y…
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>eith… </span><span style='color: #555555;'>"</span><span>i do… </span><span style='color: #555555;'>"</span><span>1) m… </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>out … </span><span style='color: #555555;'>"</span><span>i ow… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>i wo… </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>dimp… </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>1-la… </span><span style='color: #555555;'>"</span><span>sex&lt;… </span><span style='color: #555555;'>"</span><span>depe… </span><span style='color: #555555;'>"</span><span>i li… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>phot… </span><span style='color: #555555;'>"</span><span>eati… </span><span style='color: #555555;'>"</span><span>my g… </span><span style='color: #555555;'>"</span><span>donn… </span><span style='color: #555555;'>"</span><span>sush… </span><span style='color: #555555;'>"</span><span>love… </span><span style='color: #555555;'>"</span><span>drin… </span><span style='color: #555555;'>"</span><span>hm..… </span><span style='color: #555555;'>"</span><span>.</span><span style='color: #555555;'>"</span><span>   
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>"</span><span>occu… </span><span style='color: #555555;'>"</span><span>livi… </span><span style='color: #555555;'>"</span><span>long… </span><span style='color: #555555;'>"</span><span>film… </span><span style='color: #555555;'>"</span><span>yuzu… </span><span style='color: #555555;'>"</span><span>menu… </span><span style='color: #555555;'>"</span><span>ofte… </span><span style='color: #555555;'>"</span><span>but … </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'># … with 740 more rows, and 1 more variable: textfeature_essay0_nchar10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
+#&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; 
+#&gt;  1 "i ju… "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…
+#&gt;  2 "eati… "pick… "i lo… "non-… "dese… "ever… "maki… "this… "you'…
+#&gt;  3 "rais… "proc… "my s… "sush… "my c… "movi… "at h… "on m… "you …
+#&gt;  4 "i ju… "i've… "my f… "nove… "fami… "how … "havi… "is t… "you'…
+#&gt;  5 "i'm … "bein… "that… "book… "- fr… "the … "prob… "uhh.… "you …
+#&gt;  6 "i'm … "i'm … "the … "book… "guit… "a li… "hang… "i'm … "if y…
+#&gt;  7 "well… "well… "eith… "i do… "1) m… "the … "out … "i ow… "you …
+#&gt;  8 "i wo… "well… "dimp… "book… "1-la… "sex&lt;… "depe… "i li… "you …
+#&gt;  9 "phot… "eati… "my g… "donn… "sush… "love… "drin… "hm..… "."   
+#&gt; 10 "occu… "livi… "long… "film… "yuzu… "menu… "ofte… "but … "you …
+#&gt; # … with 740 more rows, and 1 more variable: textfeature_essay0_nchar10 &lt;dbl&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

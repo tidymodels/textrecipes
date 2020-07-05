@@ -36,6 +36,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Generate the basic set of text features — step_tokenmerge" />
@@ -147,23 +151,23 @@ tokenlist." />
 
     <div class="ref-description">
     <p><code>step_tokenmerge</code> creates a <em>specification</em> of a recipe step that
-will take multiple <a href='tokenlist.html'>tokenlist</a>s and combine them into one
-<a href='tokenlist.html'>tokenlist</a>.</p>
+will take multiple <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>s and combine them into one
+<a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_tokenmerge</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"tokenmerge"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"tokenmerge"</span>)
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a></span>(
+  <span class='kw'>recipe</span>,
+  <span class='kw'>...</span>,
+  role = <span class='st'>"predictor"</span>,
+  trained = <span class='fl'>FALSE</span>,
+  columns = <span class='kw'>NULL</span>,
+  prefix = <span class='st'>"tokenmerge"</span>,
+  skip = <span class='fl'>FALSE</span>,
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"tokenmerge"</span>)
 )
 
 <span class='co'># S3 method for step_tokenmerge</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +181,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_tokenmerge</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -196,7 +200,7 @@ baked.</p></td>
       <th>columns</th>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>prefix</th>
@@ -205,8 +209,8 @@ encoding. This is <code>NULL</code> until the step is trained by
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is run, some
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
+operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using <code>skip = TRUE</code> as it may affect the computations for
@@ -228,51 +232,50 @@ subsequent operations.</p></td>
 to the sequence of existing steps (if any).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to tokenlist steps: 
-<code><a href='step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='step_stem.html'>step_stem</a>()</code>,
-<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code></p></div>
+<code><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_stopwords.html'>step_stopwords</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_tokenmerge</span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a></span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>) 
+  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 750 x 9</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)</div><div class='output co'>#&gt; # A tibble: 750 x 9
 #&gt;    essay2   essay3  essay4  essay5  essay6  essay7  essay8  essay9    tokenmerge
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>writin… </span><span style='color: #555555;'>"</span><span>that … </span><span style='color: #555555;'>"</span><span>music… </span><span style='color: #555555;'>"</span><span>frien… </span><span style='color: #555555;'>"</span><span>roman… </span><span style='color: #555555;'>"</span><span>usual… </span><span style='color: #555555;'>"</span><span>i hav… </span><span style='color: #555555;'>"</span><span>you'r… [240 tokens]
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>pickin… </span><span style='color: #555555;'>"</span><span>i loo… </span><span style='color: #555555;'>"</span><span>non-f… </span><span style='color: #555555;'>"</span><span>deser… </span><span style='color: #555555;'>"</span><span>every… </span><span style='color: #555555;'>"</span><span>makin… </span><span style='color: #555555;'>"</span><span>this … </span><span style='color: #555555;'>"</span><span>you'r…  [28 tokens]
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>procra… </span><span style='color: #555555;'>"</span><span>my sm… </span><span style='color: #555555;'>"</span><span>sushi… </span><span style='color: #555555;'>"</span><span>my ce… </span><span style='color: #555555;'>"</span><span>movin… </span><span style='color: #555555;'>"</span><span>at ho… </span><span style='color: #555555;'>"</span><span>on ma… </span><span style='color: #555555;'>"</span><span>you t… [385 tokens]
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>i've b… </span><span style='color: #555555;'>"</span><span>my fa… </span><span style='color: #555555;'>"</span><span>novel… </span><span style='color: #555555;'>"</span><span>famil… </span><span style='color: #555555;'>"</span><span>how t… </span><span style='color: #555555;'>"</span><span>havin… </span><span style='color: #555555;'>"</span><span>is th… </span><span style='color: #555555;'>"</span><span>you'd… [104 tokens]
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>"</span><span>being … </span><span style='color: #555555;'>"</span><span>that … </span><span style='color: #555555;'>"</span><span>books… </span><span style='color: #555555;'>"</span><span>- fri… </span><span style='color: #555555;'>"</span><span>the u… </span><span style='color: #555555;'>"</span><span>proba… </span><span style='color: #555555;'>"</span><span>uhh..… </span><span style='color: #555555;'>"</span><span>you s…  [87 tokens]
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>i'm re… </span><span style='color: #555555;'>"</span><span>the w… </span><span style='color: #555555;'>"</span><span>books… </span><span style='color: #555555;'>"</span><span>guita… </span><span style='color: #555555;'>"</span><span>a lit… </span><span style='color: #555555;'>"</span><span>hangi… </span><span style='color: #555555;'>"</span><span>i'm p… </span><span style='color: #555555;'>"</span><span>if yo… [352 tokens]
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>well, … </span><span style='color: #555555;'>"</span><span>eithe… </span><span style='color: #555555;'>"</span><span>i don… </span><span style='color: #555555;'>"</span><span>1) my… </span><span style='color: #555555;'>"</span><span>the e… </span><span style='color: #555555;'>"</span><span>out w… </span><span style='color: #555555;'>"</span><span>i own… </span><span style='color: #555555;'>"</span><span>you a… [374 tokens]
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>welll.… </span><span style='color: #555555;'>"</span><span>dimpl… </span><span style='color: #555555;'>"</span><span>book-… </span><span style='color: #555555;'>"</span><span>1-lau… </span><span style='color: #555555;'>"</span><span>sex&lt;b… </span><span style='color: #555555;'>"</span><span>depen… </span><span style='color: #555555;'>"</span><span>i lik… </span><span style='color: #555555;'>"</span><span>you a… [228 tokens]
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>eating… </span><span style='color: #555555;'>"</span><span>my gl… </span><span style='color: #555555;'>"</span><span>donni… </span><span style='color: #555555;'>"</span><span>sushi… </span><span style='color: #555555;'>"</span><span>love.</span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>drink… </span><span style='color: #555555;'>"</span><span>hm...</span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>.</span><span style='color: #555555;'>"</span><span>       [5 tokens]
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>"</span><span>living… </span><span style='color: #555555;'>"</span><span>long … </span><span style='color: #555555;'>"</span><span>films… </span><span style='color: #555555;'>"</span><span>yuzu,… </span><span style='color: #555555;'>"</span><span>menus… </span><span style='color: #555555;'>"</span><span>often… </span><span style='color: #555555;'>"</span><span>but i… </span><span style='color: #555555;'>"</span><span>you a… [610 tokens]
-#&gt; </span><span style='color: #555555;'># … with 740 more rows</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
+#&gt;    &lt;fct&gt;    &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;      &lt;tknlist&gt;
+#&gt;  1 "writin… "that … "music… "frien… "roman… "usual… "i hav… "you'r… [240 tokens]
+#&gt;  2 "pickin… "i loo… "non-f… "deser… "every… "makin… "this … "you'r…  [28 tokens]
+#&gt;  3 "procra… "my sm… "sushi… "my ce… "movin… "at ho… "on ma… "you t… [385 tokens]
+#&gt;  4 "i've b… "my fa… "novel… "famil… "how t… "havin… "is th… "you'd… [104 tokens]
+#&gt;  5 "being … "that … "books… "- fri… "the u… "proba… "uhh..… "you s…  [87 tokens]
+#&gt;  6 "i'm re… "the w… "books… "guita… "a lit… "hangi… "i'm p… "if yo… [352 tokens]
+#&gt;  7 "well, … "eithe… "i don… "1) my… "the e… "out w… "i own… "you a… [374 tokens]
+#&gt;  8 "welll.… "dimpl… "book-… "1-lau… "sex&lt;b… "depen… "i lik… "you a… [228 tokens]
+#&gt;  9 "eating… "my gl… "donni… "sushi… "love." "drink… "hm..." "."       [5 tokens]
+#&gt; 10 "living… "long … "films… "yuzu,… "menus… "often… "but i… "you a… [610 tokens]
+#&gt; # … with 740 more rows</div><div class='input'>  
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
 #&gt;   terms  value id            
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_2lQs0
-#&gt; </span><span style='color: #555555;'>2</span><span> essay1 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_2lQs0</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
+#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         
+#&gt; 1 essay0 &lt;NA&gt;  tokenize_3IhCD
+#&gt; 2 essay1 &lt;NA&gt;  tokenize_3IhCD</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
 #&gt;   terms      value id            
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_2lQs0
-#&gt; </span><span style='color: #555555;'>2</span><span> essay1     words tokenize_2lQs0</div><div class='input'>
-</div></span></pre>
+#&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;         
+#&gt; 1 essay0     words tokenize_3IhCD
+#&gt; 2 essay1     words tokenize_3IhCD</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

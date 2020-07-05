@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href=".css" rel="stylesheet">
 <meta property="og:title" content="Extra Recipes for Text Processing">
 <meta property="og:description" content="Converting text to numerical features requires
     specifically created procedures, which are implemented as steps
@@ -113,31 +114,36 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the released version of textrecipes from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"textrecipes"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"textrecipes"</span>)
+</pre></div>
 <p>Install the development version from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)
-<span class="fu">install_github</span>(<span class="st">"tidymodels/textrecipes"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)
+<span class="fu">install_github</span>(<span class="st">"tidymodels/textrecipes"</span>)
+</pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 100 most used words. The preprocessing will be conducted on the variable <code>essay0</code> and <code>essay1</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">textrecipes</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">modeldata</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/tidymodels/recipes">recipes</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://modeldata.tidymodels.org">modeldata</a></span>)
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">okc_text</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">okc_text</span>)
 
-<span class="no">okc_rec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~  <span class="no">essay0</span> + <span class="no">essay1</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">okc_text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>) <span class="kw">%&gt;%</span> <span class="co"># Tokenizes to words by default</span>
-  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>) <span class="kw">%&gt;%</span> <span class="co"># Uses the english snowball list by default</span>
-  <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>, <span class="kw">max_tokens</span> <span class="kw">=</span> <span class="fl">100</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">essay0</span>, <span class="no">essay1</span>)
-
-<span class="no">okc_obj</span> <span class="kw">&lt;-</span> <span class="no">okc_rec</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>()
-
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="no">okc_obj</span>, <span class="no">okc_text</span>), <span class="kw">list.len</span> <span class="kw">=</span> <span class="fl">15</span>)
+<span class="kw">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span>  <span class="kw">essay0</span> <span class="op">+</span> <span class="kw">essay1</span>, data = <span class="kw">okc_text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">essay0</span>, <span class="kw">essay1</span>) <span class="op">%&gt;%</span> <span class="co"># Tokenizes to words by default</span>
+  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span>(<span class="kw">essay0</span>, <span class="kw">essay1</span>) <span class="op">%&gt;%</span> <span class="co"># Uses the english snowball list by default</span>
+  <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span>(<span class="kw">essay0</span>, <span class="kw">essay1</span>, max_tokens = <span class="fl">100</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span>(<span class="kw">essay0</span>, <span class="kw">essay1</span>)
+   
+<span class="kw">okc_obj</span> <span class="op">&lt;-</span> <span class="kw">okc_rec</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>()
+   
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span>(<span class="kw">okc_obj</span>, <span class="kw">okc_text</span>), list.len = <span class="fl">15</span>)
 <span class="co">#&gt; tibble [750 × 200] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ tfidf_essay0_also      : num [1:750] 0 0 0.0252 0.2232 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_always    : num [1:750] 0 0 0 0 0 ...</span>
@@ -154,7 +160,8 @@
 <span class="co">#&gt;  $ tfidf_essay0_br        : num [1:750] 0.121 0.565 0.121 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_can       : num [1:750] 0.0488 0 0.0244 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_city      : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;   [list output truncated]</span></pre></div>
+<span class="co">#&gt;   [list output truncated]</span>
+</pre></div>
 </div>
 <div id="type-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -250,19 +257,32 @@
 </tbody>
 </table>
 <p>This means that valid sequences includes</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_stem.html">step_stem</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">step_topwords</span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tf.html">step_tf</a></span>(<span class="no">text</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">data</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_stem.html">step_stem</a></span>(<span class="kw">text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span>(<span class="kw">text</span>) <span class="op">%&gt;%</span>
+  <span class="fu">step_topwords</span>(<span class="kw">text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tf.html">step_tf</a></span>(<span class="kw">text</span>)
 
 <span class="co"># or</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_stem.html">step_stem</a></span>(<span class="no">text</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span>(<span class="no">text</span>)</pre></div>
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span>(<span class="op">~</span> <span class="kw">.</span>, data = <span class="kw">data</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span>(<span class="kw">text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_stem.html">step_stem</a></span>(<span class="kw">text</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span>(<span class="kw">text</span>)
+</pre></div>
+</div>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<p>This project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<ul>
+<li><p>For questions and discussions about tidymodels packages, modeling, and machine learning, <a href="https://rstd.io/tidymodels-community">join us on RStudio Community</a>.</p></li>
+<li><p>If you think you have encountered a bug, please <a href="https://github.com/tidymodels/textrecipes/issues">submit an issue</a>.</p></li>
+<li><p>Either way, learn how to create and share a <a href="https://rstd.io/reprex">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
+<li><p>Check out further details on <a href="https://www.tidymodels.org/contribute/">contributing guidelines for tidymodels packages</a> and <a href="https://www.tidymodels.org/help/">how to get help</a>.</p></li>
+</ul>
 </div>
 </div>
   </div>
@@ -284,6 +304,12 @@
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+</ul>
+</div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
 <div class="developers">
