@@ -22,10 +22,10 @@ jobs:
         run: R CMD INSTALL .
       - name: Install spacy
         run: |
-           Rscript -e "remotes::install_github('rstudio/reticulate') # TODO remove when reticulate 1.14 is on CRAN"
-           Rscript -e "reticulate::install_miniconda()"
-           Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
-           Rscript -e "spacyr::spacy_install(prompt = FALSE)"
+          Rscript -e "reticulate::install_miniconda()"
+          echo "options(reticulate.conda_binary = reticulate:::miniconda_conda())" >> .Rprofile
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
+          Rscript -e "spacyr::spacy_install(prompt = FALSE)"
       - name: Deploy package
         run: pkgdown::deploy_to_branch(new_process = FALSE, run_dont_run = TRUE)
         shell: Rscript {0}
