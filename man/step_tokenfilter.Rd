@@ -39,7 +39,7 @@ baked.}
 
 \item{columns}{A list of tibble results that define the
 encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{max_times}{An integer. Maximal number of times a word can appear
 before getting removed.}
@@ -57,8 +57,8 @@ after filtering done by max_times and min_times. Defaults to 100.}
 this preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using \code{skip = TRUE} as it may affect the computations for

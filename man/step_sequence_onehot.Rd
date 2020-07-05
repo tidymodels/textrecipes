@@ -42,7 +42,7 @@ baked.}
 
 \item{columns}{A list of tibble results that define the
 encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{string_length}{A numeric, number of characters to keep before
 discarding. Defaults to 100.}
@@ -54,8 +54,8 @@ Characters not in the integer_key will be encoded as 0. Defaults to
 \item{prefix}{A prefix for generated column names, default to "seq1hot".}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
+operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using \code{skip = TRUE} as it may affect the computations for
