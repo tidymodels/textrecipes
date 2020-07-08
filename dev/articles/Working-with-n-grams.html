@@ -337,29 +337,55 @@
 <span class="kw">abc_ngram</span> <span class="op">&lt;-</span> <span class="kw">rec</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>() <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span>()
-<span class="co">#&gt; Warning: max_features was set to '100', but only 14 was available and selected.</span>
+<span class="co">#&gt; Warning: max_features was set to '100', but only 46 was available and selected.</span>
 
 <span class="kw">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 x 14</span>
-<span class="co">#&gt;   tf_text_a_place… tf_text_an_inse… tf_text_bank_is… tf_text_bee_is_…</span>
-<span class="co">#&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                1                0                1                0</span>
-<span class="co">#&gt; 2                0                1                0                1</span>
-<span class="co">#&gt; # … with 10 more variables: tf_text_insect_that_gathers &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_is_a_place &lt;dbl&gt;, tf_text_is_an_insect &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_place_where_you &lt;dbl&gt;, tf_text_put_your_money &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_that_gathers_honey &lt;dbl&gt;, tf_text_the_bank_is &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_the_bee_is &lt;dbl&gt;, tf_text_where_you_put &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_you_put_your &lt;dbl&gt;</span>
+<span class="co">#&gt; # A tibble: 2 x 46</span>
+<span class="co">#&gt;   tf_text_a tf_text_a_place tf_text_a_place… tf_text_an tf_text_an_inse…</span>
+<span class="co">#&gt;       &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt; 1         1               1                1          0                0</span>
+<span class="co">#&gt; 2         0               0                0          1                1</span>
+<span class="co">#&gt; # … with 41 more variables: tf_text_an_insect_that &lt;dbl&gt;, tf_text_bank &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_bank_is &lt;dbl&gt;, tf_text_bank_is_a &lt;dbl&gt;, tf_text_bee &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_bee_is &lt;dbl&gt;, tf_text_bee_is_an &lt;dbl&gt;, tf_text_gathers &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_gathers_honey &lt;dbl&gt;, tf_text_honey &lt;dbl&gt;, tf_text_insect &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_insect_that &lt;dbl&gt;, tf_text_insect_that_gathers &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_is &lt;dbl&gt;, tf_text_is_a &lt;dbl&gt;, tf_text_is_a_place &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_is_an &lt;dbl&gt;, tf_text_is_an_insect &lt;dbl&gt;, tf_text_money &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_place &lt;dbl&gt;, tf_text_place_where &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_place_where_you &lt;dbl&gt;, tf_text_put &lt;dbl&gt;, tf_text_put_your &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_put_your_money &lt;dbl&gt;, tf_text_that &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_that_gathers &lt;dbl&gt;, tf_text_that_gathers_honey &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_the &lt;dbl&gt;, tf_text_the_bank &lt;dbl&gt;, tf_text_the_bank_is &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_the_bee &lt;dbl&gt;, tf_text_the_bee_is &lt;dbl&gt;, tf_text_where &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_where_you &lt;dbl&gt;, tf_text_where_you_put &lt;dbl&gt;, tf_text_you &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_you_put &lt;dbl&gt;, tf_text_you_put_your &lt;dbl&gt;, tf_text_your &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_your_money &lt;dbl&gt;</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">abc_ngram</span>)
-<span class="co">#&gt;  [1] "tf_text_a_place_where"       "tf_text_an_insect_that"     </span>
-<span class="co">#&gt;  [3] "tf_text_bank_is_a"           "tf_text_bee_is_an"          </span>
-<span class="co">#&gt;  [5] "tf_text_insect_that_gathers" "tf_text_is_a_place"         </span>
-<span class="co">#&gt;  [7] "tf_text_is_an_insect"        "tf_text_place_where_you"    </span>
-<span class="co">#&gt;  [9] "tf_text_put_your_money"      "tf_text_that_gathers_honey" </span>
-<span class="co">#&gt; [11] "tf_text_the_bank_is"         "tf_text_the_bee_is"         </span>
-<span class="co">#&gt; [13] "tf_text_where_you_put"       "tf_text_you_put_your"</span>
+<span class="co">#&gt;  [1] "tf_text_a"                   "tf_text_a_place"            </span>
+<span class="co">#&gt;  [3] "tf_text_a_place_where"       "tf_text_an"                 </span>
+<span class="co">#&gt;  [5] "tf_text_an_insect"           "tf_text_an_insect_that"     </span>
+<span class="co">#&gt;  [7] "tf_text_bank"                "tf_text_bank_is"            </span>
+<span class="co">#&gt;  [9] "tf_text_bank_is_a"           "tf_text_bee"                </span>
+<span class="co">#&gt; [11] "tf_text_bee_is"              "tf_text_bee_is_an"          </span>
+<span class="co">#&gt; [13] "tf_text_gathers"             "tf_text_gathers_honey"      </span>
+<span class="co">#&gt; [15] "tf_text_honey"               "tf_text_insect"             </span>
+<span class="co">#&gt; [17] "tf_text_insect_that"         "tf_text_insect_that_gathers"</span>
+<span class="co">#&gt; [19] "tf_text_is"                  "tf_text_is_a"               </span>
+<span class="co">#&gt; [21] "tf_text_is_a_place"          "tf_text_is_an"              </span>
+<span class="co">#&gt; [23] "tf_text_is_an_insect"        "tf_text_money"              </span>
+<span class="co">#&gt; [25] "tf_text_place"               "tf_text_place_where"        </span>
+<span class="co">#&gt; [27] "tf_text_place_where_you"     "tf_text_put"                </span>
+<span class="co">#&gt; [29] "tf_text_put_your"            "tf_text_put_your_money"     </span>
+<span class="co">#&gt; [31] "tf_text_that"                "tf_text_that_gathers"       </span>
+<span class="co">#&gt; [33] "tf_text_that_gathers_honey"  "tf_text_the"                </span>
+<span class="co">#&gt; [35] "tf_text_the_bank"            "tf_text_the_bank_is"        </span>
+<span class="co">#&gt; [37] "tf_text_the_bee"             "tf_text_the_bee_is"         </span>
+<span class="co">#&gt; [39] "tf_text_where"               "tf_text_where_you"          </span>
+<span class="co">#&gt; [41] "tf_text_where_you_put"       "tf_text_you"                </span>
+<span class="co">#&gt; [43] "tf_text_you_put"             "tf_text_you_put_your"       </span>
+<span class="co">#&gt; [45] "tf_text_your"                "tf_text_your_money"</span>
 </pre></div>
 <p>Now you are able to perform additional steps between the tokenization and the n-gram creation such as stemming the tokens.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
@@ -375,28 +401,54 @@
 <span class="kw">abc_ngram</span> <span class="op">&lt;-</span> <span class="kw">rec</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span>() <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span>()
-<span class="co">#&gt; Warning: max_features was set to '100', but only 14 was available and selected.</span>
+<span class="co">#&gt; Warning: max_features was set to '100', but only 46 was available and selected.</span>
 
 <span class="kw">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 x 14</span>
-<span class="co">#&gt;   tf_text_a_place… tf_text_an_inse… tf_text_bank_i_a tf_text_bee_i_an</span>
-<span class="co">#&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                1                0                1                0</span>
-<span class="co">#&gt; 2                0                1                0                1</span>
-<span class="co">#&gt; # … with 10 more variables: tf_text_i_a_place &lt;dbl&gt;, tf_text_i_an_insect &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_insect_that_gather &lt;dbl&gt;, tf_text_place_where_you &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_put_your_monei &lt;dbl&gt;, tf_text_that_gather_honei &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_the_bank_i &lt;dbl&gt;, tf_text_the_bee_i &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_where_you_put &lt;dbl&gt;, tf_text_you_put_your &lt;dbl&gt;</span>
+<span class="co">#&gt; # A tibble: 2 x 46</span>
+<span class="co">#&gt;   tf_text_a tf_text_a_place tf_text_a_place… tf_text_an tf_text_an_inse…</span>
+<span class="co">#&gt;       &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt; 1         1               1                1          0                0</span>
+<span class="co">#&gt; 2         0               0                0          1                1</span>
+<span class="co">#&gt; # … with 41 more variables: tf_text_an_insect_that &lt;dbl&gt;, tf_text_bank &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_bank_i &lt;dbl&gt;, tf_text_bank_i_a &lt;dbl&gt;, tf_text_bee &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_bee_i &lt;dbl&gt;, tf_text_bee_i_an &lt;dbl&gt;, tf_text_gather &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_gather_honei &lt;dbl&gt;, tf_text_honei &lt;dbl&gt;, tf_text_i &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_i_a &lt;dbl&gt;, tf_text_i_a_place &lt;dbl&gt;, tf_text_i_an &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_i_an_insect &lt;dbl&gt;, tf_text_insect &lt;dbl&gt;, tf_text_insect_that &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_insect_that_gather &lt;dbl&gt;, tf_text_monei &lt;dbl&gt;, tf_text_place &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_place_where &lt;dbl&gt;, tf_text_place_where_you &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_put &lt;dbl&gt;, tf_text_put_your &lt;dbl&gt;, tf_text_put_your_monei &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_that &lt;dbl&gt;, tf_text_that_gather &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_that_gather_honei &lt;dbl&gt;, tf_text_the &lt;dbl&gt;, tf_text_the_bank &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_the_bank_i &lt;dbl&gt;, tf_text_the_bee &lt;dbl&gt;, tf_text_the_bee_i &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_where &lt;dbl&gt;, tf_text_where_you &lt;dbl&gt;, tf_text_where_you_put &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_you &lt;dbl&gt;, tf_text_you_put &lt;dbl&gt;, tf_text_you_put_your &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_your &lt;dbl&gt;, tf_text_your_monei &lt;dbl&gt;</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">abc_ngram</span>)
-<span class="co">#&gt;  [1] "tf_text_a_place_where"      "tf_text_an_insect_that"    </span>
-<span class="co">#&gt;  [3] "tf_text_bank_i_a"           "tf_text_bee_i_an"          </span>
-<span class="co">#&gt;  [5] "tf_text_i_a_place"          "tf_text_i_an_insect"       </span>
-<span class="co">#&gt;  [7] "tf_text_insect_that_gather" "tf_text_place_where_you"   </span>
-<span class="co">#&gt;  [9] "tf_text_put_your_monei"     "tf_text_that_gather_honei" </span>
-<span class="co">#&gt; [11] "tf_text_the_bank_i"         "tf_text_the_bee_i"         </span>
-<span class="co">#&gt; [13] "tf_text_where_you_put"      "tf_text_you_put_your"</span>
+<span class="co">#&gt;  [1] "tf_text_a"                  "tf_text_a_place"           </span>
+<span class="co">#&gt;  [3] "tf_text_a_place_where"      "tf_text_an"                </span>
+<span class="co">#&gt;  [5] "tf_text_an_insect"          "tf_text_an_insect_that"    </span>
+<span class="co">#&gt;  [7] "tf_text_bank"               "tf_text_bank_i"            </span>
+<span class="co">#&gt;  [9] "tf_text_bank_i_a"           "tf_text_bee"               </span>
+<span class="co">#&gt; [11] "tf_text_bee_i"              "tf_text_bee_i_an"          </span>
+<span class="co">#&gt; [13] "tf_text_gather"             "tf_text_gather_honei"      </span>
+<span class="co">#&gt; [15] "tf_text_honei"              "tf_text_i"                 </span>
+<span class="co">#&gt; [17] "tf_text_i_a"                "tf_text_i_a_place"         </span>
+<span class="co">#&gt; [19] "tf_text_i_an"               "tf_text_i_an_insect"       </span>
+<span class="co">#&gt; [21] "tf_text_insect"             "tf_text_insect_that"       </span>
+<span class="co">#&gt; [23] "tf_text_insect_that_gather" "tf_text_monei"             </span>
+<span class="co">#&gt; [25] "tf_text_place"              "tf_text_place_where"       </span>
+<span class="co">#&gt; [27] "tf_text_place_where_you"    "tf_text_put"               </span>
+<span class="co">#&gt; [29] "tf_text_put_your"           "tf_text_put_your_monei"    </span>
+<span class="co">#&gt; [31] "tf_text_that"               "tf_text_that_gather"       </span>
+<span class="co">#&gt; [33] "tf_text_that_gather_honei"  "tf_text_the"               </span>
+<span class="co">#&gt; [35] "tf_text_the_bank"           "tf_text_the_bank_i"        </span>
+<span class="co">#&gt; [37] "tf_text_the_bee"            "tf_text_the_bee_i"         </span>
+<span class="co">#&gt; [39] "tf_text_where"              "tf_text_where_you"         </span>
+<span class="co">#&gt; [41] "tf_text_where_you_put"      "tf_text_you"               </span>
+<span class="co">#&gt; [43] "tf_text_you_put"            "tf_text_you_put_your"      </span>
+<span class="co">#&gt; [45] "tf_text_your"               "tf_text_your_monei"</span>
 </pre></div>
 <p>This also works great for cases where you need higher flexibility or when you want to use a more powerful engine such as <strong>spacyr</strong> that doesn’t come with an n-gram tokenizer.</p>
 <p>Furthermore the <code>num_tokens</code> argument is tunable with the <strong>dials</strong> and <strong>tune</strong> package.</p>

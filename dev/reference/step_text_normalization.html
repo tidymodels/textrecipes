@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Term frequency of tokens — step_texthash • textrecipes</title>
+<title>text_normalizationming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_text_normalization • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,10 +49,9 @@
 
 
 
-<meta property="og:title" content="Term frequency of tokens — step_texthash" />
-<meta property="og:description" content="step_texthash creates a specification of a recipe step that
-will convert a tokenlist into multiple variables using the
-hashing trick." />
+<meta property="og:title" content="text_normalizationming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_text_normalization" />
+<meta property="og:description" content="step_text_normalization creates a specification of a recipe step that
+will perform Unicode Normalization" />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -152,31 +151,28 @@ hashing trick." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Term frequency of tokens</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/hashing.R'><code>R/hashing.R</code></a></small>
-    <div class="hidden name"><code>step_texthash.Rd</code></div>
+    <h1>text_normalizationming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/text_normalization.R'><code>R/text_normalization.R</code></a></small>
+    <div class="hidden name"><code>step_text_normalization.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_texthash</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into multiple variables using the
-hashing trick.</p>
+    <p><code>step_text_normalization</code> creates a <em>specification</em> of a recipe step that
+will perform Unicode Normalization</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash</a></span>(
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_text_normalization.html'>step_text_normalization</a></span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
-  role = <span class='st'>"predictor"</span>,
+  role = <span class='fl'>NA</span>,
   trained = <span class='fl'>FALSE</span>,
   columns = <span class='kw'>NULL</span>,
-  signed = <span class='fl'>TRUE</span>,
-  num_terms = <span class='fl'>1024</span>,
-  prefix = <span class='st'>"hash"</span>,
+  normalization_form = <span class='st'>"nfc"</span>,
   skip = <span class='fl'>FALSE</span>,
-  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"texthash"</span>)
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"text_normalization"</span>)
 )
 
-<span class='co'># S3 method for step_texthash</span>
+<span class='co'># S3 method for step_text_normalization</span>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -189,17 +185,14 @@ sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_texthash</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+      <td><p>One or more selector functions to choose which
+variables will be transformed. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
       <th>role</th>
-      <td><p>For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.</p></td>
+      <td><p>Not used by this step since no new variables are
+created.</p></td>
     </tr>
     <tr>
       <th>trained</th>
@@ -213,19 +206,11 @@ encoding. This is <code>NULL</code> until the step is trained by
 <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>signed</th>
-      <td><p>A logical, indicating whether to use a signed
-hash-function to reduce collisions when hashing. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>num_terms</th>
-      <td><p>An integer, the number of variables to output.
-Defaults to 1024.</p></td>
-    </tr>
-    <tr>
-      <th>prefix</th>
-      <td><p>A character string that will be the prefix to the
-resulting new variables. See notes below.</p></td>
+      <th>normalization_form</th>
+      <td><p>A single character string determining the Unicode
+Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
+"nfkc_casefold". Defaults to "nfc".
+See <code><a href='https://rdrr.io/pkg/stringi/man/stri_trans_nf.html'>stringi::stri_trans_nfc()</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -243,7 +228,7 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_texthash</code> object.</p></td>
+      <td><p>A <code>step_text_normalization</code> object.</p></td>
     </tr>
     </table>
 
@@ -251,57 +236,35 @@ subsequent operations.</p></td>
 
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Feature hashing, or the hashing trick, is a transformation of a
-text variable into a new set of numerical variables. This is done by
-applying a hashing function over the tokens and using the hash values
-as feature indices. This allows for a low memory representation of the
-text. This implementation is done using the MurmurHash3 method.</p>
-<p>The argument <code>num_terms</code> controls the number of indices that the hashing
-function will map to. This is the tuning parameter for this
-transformation. Since the hashing function can map two different tokens
-to the same index, will a higher value of <code>num_terms</code> result in a lower
-chance of collision.</p>
-<p>The new components will have names that begin with <code>prefix</code>, then
-the name of the variable, followed by the tokens all separated by
-<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>. The variable names are padded with zeros. For example,
-if <code>num_terms &lt; 10</code>, their names will be <code>hash1</code> - <code>hash9</code>.
-If <code>num_terms = 101</code>, their names will be <code>hash001</code> - <code>hash101</code>.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Kilian Weinberger; Anirban Dasgupta; John Langford;
-Alex Smola; Josh Attenberg (2009).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
-<p>Other tokenlist to numeric steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tfidf.html'>step_tfidf</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_word_embeddings.html'>step_word_embeddings</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash()</a></code> for feature hashing.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"text2vec"</span>, quietly = <span class='fl'>TRUE</span>)) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"stringi"</span>, quietly = <span class='fl'>TRUE</span>)) {
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a></span>(<span class='kw'>essay0</span>, max_tokens = <span class='fl'>10</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash</a></span>(<span class='kw'>essay0</span>)
+<span class='kw'>sample_data</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span>(text = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sch\U00f6n"</span>, <span class='st'>"scho\U0308n"</span>))
+
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>sample_data</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_text_normalization.html'>step_text_normalization</a></span>(<span class='kw'>text</span>)
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
-  
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>okc_text</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>text</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
+
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span>(<span class='kw'>text</span>) 
+  
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)
 }</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt;   terms      value     id               
-#&gt;   &lt;quos&gt;     &lt;list&gt;    &lt;chr&gt;            
-#&gt; 1 essay0     &lt;int [1]&gt; tokenfilter_UHNPo</div></pre>
+#&gt;   terms      normalization_form id                      
+#&gt;   &lt;quos&gt;     &lt;chr&gt;              &lt;chr&gt;                   
+#&gt; 1 text       nfc                text_normalization_Ot5kc</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

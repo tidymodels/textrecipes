@@ -286,10 +286,10 @@ will therefore not work reliably on ngrams or sentences.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id        
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     
-#&gt; 1 essay0 &lt;NA&gt;  stem_JfJA2</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0 &lt;NA&gt;  stem_iqzc4</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      is_custom_stemmer id        
 #&gt;   &lt;quos&gt;     &lt;lgl&gt;             &lt;chr&gt;     
-#&gt; 1 essay0     TRUE              stem_JfJA2</div><div class='input'>
+#&gt; 1 essay0     TRUE              stem_iqzc4</div><div class='input'>
 <span class='co'># Using custom stemmer. Here a custom stemmer that removes the last letter</span>
 <span class='co'># if it is a "s".</span>
 <span class='kw'>remove_s</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='kw'>x</span>)

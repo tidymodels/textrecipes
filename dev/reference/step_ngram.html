@@ -168,6 +168,7 @@ will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.h
   trained = <span class='fl'>FALSE</span>,
   columns = <span class='kw'>NULL</span>,
   num_tokens = <span class='fl'>3L</span>,
+  min_num_tokens = <span class='fl'>1L</span>,
   delim = <span class='st'>"_"</span>,
   skip = <span class='fl'>FALSE</span>,
   id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"ngram"</span>)
@@ -213,6 +214,12 @@ encoding. This is <code>NULL</code> until the step is trained by
 greater than or equal to 1. Defaults to 3.</p></td>
     </tr>
     <tr>
+      <th>min_num_tokens</th>
+      <td><p>The minimum number of tokens in the n-gram.
+This must be an integer greater than or equal to 1 and smaller than <code>n</code>.
+Defaults to 1.</p></td>
+    </tr>
+    <tr>
       <th>delim</th>
       <td><p>The separator between words in an n-gram. Defaults to "_".</p></td>
     </tr>
@@ -240,6 +247,13 @@ subsequent operations.</p></td>
 
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The use of this step will leave the ordering of the tokens meaningless.
+If <code>min_num_tokens &lt;  num_tokens</code> then the tokens order in increasing
+fashion with respect to the number of tokens in the n-gram. If
+<code>min_num_tokens = 1</code> and <code>num_tokens = 3</code> then the output contains all the
+1-grams followed by all the 2-grams followed by all the 3-grams.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
@@ -267,20 +281,20 @@ to the sequence of existing steps (if any).</p>
   <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
 #&gt;         essay0
 #&gt;      &lt;tknlist&gt;
-#&gt; 1 [182 tokens]
-#&gt; 2  [22 tokens]</div><div class='input'>
+#&gt; 1 [549 tokens]
+#&gt; 2  [69 tokens]</div><div class='input'>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span> 
   <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='op'>%&gt;%</span> 
   <span class='fu'>pull</span>(<span class='kw'>essay0</span>) </div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
-#&gt; [1] [22 tokens]
-#&gt; # Unique Tokens: 22</div><div class='input'>  
+#&gt; [1] [69 tokens]
+#&gt; # Unique Tokens: 63</div><div class='input'>  
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id         
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      
-#&gt; 1 essay0 &lt;NA&gt;  ngram_hljQQ</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt; 1 essay0 &lt;NA&gt;  ngram_Qmy2c</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   terms      id         
 #&gt;   &lt;quos&gt;     &lt;chr&gt;      
-#&gt; 1 essay0     ngram_hljQQ</div></pre>
+#&gt; 1 essay0     ngram_Qmy2c</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

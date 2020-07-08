@@ -31,6 +31,9 @@
     <loc>https://textrecipes.tidymodels.org/reference/step_stopwords.html</loc>
   </url>
   <url>
+    <loc>https://textrecipes.tidymodels.org/reference/step_text_normalization.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/reference/step_textfeature.html</loc>
   </url>
   <url>
