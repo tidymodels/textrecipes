@@ -15,7 +15,10 @@
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
 #' @param num_tokens The number of tokens in the n-gram. This must be an integer 
-#' greater than or equal to 1. Defaults to 3.
+#'  greater than or equal to 1. Defaults to 3.
+#' @param min_num_tokens The minimum number of tokens in the n-gram.
+#'  This must be an integer greater than or equal to 1 and smaller than `n`. 
+#'  Defaults to 1.
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
@@ -27,6 +30,14 @@
 #' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
+#'  
+#' @details 
+#'  The use of this step will leave the ordering of the tokens meaningless.
+#'  If `min_num_tokens <  num_tokens` then the tokens order in increasing 
+#'  fashion with respect to the number of tokens in the n-gram. If
+#'  `min_num_tokens = 1` and `num_tokens = 3` then the output contains all the 
+#'  1-grams followed by all the 2-grams followed by all the 3-grams.
+#'  
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
 #' @examples
@@ -50,6 +61,7 @@
 #'   
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
+#' 
 #' @export
 #' 
 #' @seealso [step_tokenize()] to turn character into tokenlist.
@@ -61,6 +73,7 @@ step_ngram <-
            trained = FALSE,
            columns = NULL,
            num_tokens = 3L,
+           min_num_tokens = 1L,
            delim = "_",
            skip = FALSE,
            id = rand_id("ngram")
@@ -72,6 +85,7 @@ step_ngram <-
         role = role,
         trained = trained,
         num_tokens = num_tokens,
+        min_num_tokens = min_num_tokens,
         delim = delim,
         columns = columns,
         skip = skip,
@@ -81,7 +95,8 @@ step_ngram <-
   }
 
 step_ngram_new <-
-  function(terms, role, trained, columns, num_tokens, delim, skip, id) {
+  function(terms, role, trained, columns, num_tokens, min_num_tokens, delim, 
+           skip, id) {
     step(
       subclass = "ngram",
       terms = terms,
@@ -89,6 +104,7 @@ step_ngram_new <-
       trained = trained,
       columns = columns,
       num_tokens = num_tokens,
+      min_num_tokens = min_num_tokens,
       delim = delim,
       skip = skip,
       id = id
@@ -107,6 +123,7 @@ prep.step_ngram <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     num_tokens = x$num_tokens,
+    min_num_tokens = x$min_num_tokens,
     delim = x$delim,
     skip = x$skip,
     id = x$id
@@ -121,6 +138,7 @@ bake.step_ngram <- function(object, new_data, ...) {
   for (i in seq_along(col_names)) {
     ngrammed_tokenlist <- tokenlist_ngram(new_data[, col_names[i], drop = TRUE],
                                           n = object$num_tokens,
+                                          n_min = object$min_num_tokens,
                                           delim = object$delim)
     
     new_data[, col_names[i]] <- tibble(ngrammed_tokenlist)

@@ -402,6 +402,7 @@ test_that("tokenlist_pos_filter works", {
   )
 })
 
+## tokenlist_ngram ------------------------------------------------------------
 test_that("tokenlist_ngram works", {
   data <- list(c("not", "eat", "them", "here", "or", "there."),
                c("not", "eat", "them", "anywhere."),
@@ -409,7 +410,7 @@ test_that("tokenlist_ngram works", {
   
   pos_tokenlist <- tokenlist(data)
   
-  ngrams <- tokenlist_ngram(pos_tokenlist, 3, "_")
+  ngrams <- tokenlist_ngram(pos_tokenlist, 3, 3, "_")
   
   expect_s3_class(ngrams, "textrecipes_tokenlist")
   
@@ -425,10 +426,88 @@ test_that("tokenlist_ngram works", {
   expect_null(attr(ngrams, "pos"))
 })
 
-## tokenlist_ngram ------------------------------------------------------------
+test_that("tokenlist_ngram works with n_min and n", {
+  tokens <- list(c("a", "b", "c", "d", "e"),
+                 c("a", "b"),
+                 c("a"),
+                 character(0))
+  
+  tknlist <- tokenlist(tokens)
+  
+  expect_equal(
+    get_tokens(tokenlist_ngram(tknlist, 1, 1, " ")),
+    tokens
+  )
+  
+  expect_equal(
+    get_tokens(tokenlist_ngram(tknlist, 2, 2, " ")),
+    list(c("a b", "b c", "c d", "d e"),
+         c("a b"),
+         character(0),
+         character(0))
+  )
+  
+  expect_equal(
+    get_tokens(tokenlist_ngram(tknlist, 3, 3, " ")),
+    list(c("a b c", "b c d", "c d e"),
+         character(0),
+         character(0),
+         character(0))
+  )
+  
+  expect_equal(
+    get_tokens(tokenlist_ngram(tknlist, 2, 1, " ")),
+    list(c("a", "b", "c", "d", "e", "a b", "b c", "c d", "d e"),
+         c("a", "b", "a b"),
+         c("a"),
+         character(0))
+  )
+  
+  expect_equal(
+    get_tokens(tokenlist_ngram(tknlist, 3, 1, " ")),
+    list(c("a", "b", "c", "d", "e", "a b", "b c", "c d", "d e", "a b c", "b c d", "c d e"),
+         c("a", "b", "a b"),
+         c("a"),
+         character(0))
+  )
+  
+  expect_equal(
+    get_tokens(tokenlist_ngram(tknlist, 3, 2, " ")),
+    list(c("a b", "b c", "c d", "d e", "a b c", "b c d", "c d e"),
+         c("a b"),
+         character(0),
+         character(0))
+  )
+})
+
 test_that("tokenlist_ngram errors", {
   expect_error(
     tokenlist_ngram(letters),
     "Input must be a tokenlist"
   )
+  
+  data <- list(c("not", "eat", "them", "here", "or", "there."),
+               c("not", "eat", "them", "anywhere."),
+               character(0))
+  
+  expect_error(
+    tokenlist_ngram(tokenlist(data), 0, 3, " "),
+    "'n' must be a positive integer."
+  )
+  
+  expect_error(
+    tokenlist_ngram(tokenlist(data), 3, 0, " "),
+    "'n_min' must be a positive integer."
+  )
+  
+  expect_error(
+    tokenlist_ngram(tokenlist(data), 1, 2, " "),
+    "'n_min' must be larger then 'n'."
+  ) 
+  
 })
+  
+  
+  
+  
+  

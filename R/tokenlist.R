@@ -247,12 +247,12 @@ tokenlist_pos_filter <- function(x, pos_tags) {
   tokenlist(out, lemma = lemma, pos = pos)
 }
 
-tokenlist_ngram <- function(x, n, delim) {
+tokenlist_ngram <- function(x, n, n_min, delim) {
   if (!is_tokenlist(x)) {
     rlang::abort("Input must be a tokenlist.")
   }
   
-  tokenlist(rcpp_ngram(get_tokens(x), n, delim))
+  tokenlist(rcpp_ngram(get_tokens(x), n, n_min, delim))
 }
 
 tokenlist_embedding <- function(x, emb, fun) {

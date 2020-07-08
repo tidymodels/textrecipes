@@ -5,9 +5,10 @@
 #'
 #' @param x list of character vectors
 #' @param n number of grams
+#' @param n_min minimum number of grams
 #' @param delim delimiter
 #'
-rcpp_ngram <- function(x, n, delim) {
-    .Call(`_textrecipes_rcpp_ngram`, x, n, delim)
+rcpp_ngram <- function(x, n, n_min, delim) {
+    .Call(`_textrecipes_rcpp_ngram`, x, n, n_min, delim)
 }
 

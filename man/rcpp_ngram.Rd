@@ -4,12 +4,14 @@
 \alias{rcpp_ngram}
 \title{ngram generator}
 \usage{
-rcpp_ngram(x, n, delim)
+rcpp_ngram(x, n, n_min, delim)
 }
 \arguments{
 \item{x}{list of character vectors}
 
 \item{n}{number of grams}
+
+\item{n_min}{minimum number of grams}
 
 \item{delim}{delimiter}
 }

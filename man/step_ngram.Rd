@@ -12,6 +12,7 @@ step_ngram(
   trained = FALSE,
   columns = NULL,
   num_tokens = 3L,
+  min_num_tokens = 1L,
   delim = "_",
   skip = FALSE,
   id = rand_id("ngram")
@@ -41,6 +42,10 @@ encoding. This is \code{NULL} until the step is trained by
 \item{num_tokens}{The number of tokens in the n-gram. This must be an integer
 greater than or equal to 1. Defaults to 3.}
 
+\item{min_num_tokens}{The minimum number of tokens in the n-gram.
+This must be an integer greater than or equal to 1 and smaller than \code{n}.
+Defaults to 1.}
+
 \item{delim}{The separator between words in an n-gram. Defaults to "_".}
 
 \item{skip}{A logical. Should the step be skipped when the
@@ -63,6 +68,13 @@ to the sequence of existing steps (if any).
 \code{step_ngram} creates a \emph{specification} of a recipe step that
 will convert a \link{tokenlist} into a list of ngram of tokens.
 }
+\details{
+The use of this step will leave the ordering of the tokens meaningless.
+If \code{min_num_tokens <  num_tokens} then the tokens order in increasing
+fashion with respect to the number of tokens in the n-gram. If
+\code{min_num_tokens = 1} and \code{num_tokens = 3} then the output contains all the
+1-grams followed by all the 2-grams followed by all the 3-grams.
+}
 \examples{
 library(recipes)
 library(modeldata)
@@ -84,6 +96,7 @@ juice(okc_obj) \%>\%
   
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
