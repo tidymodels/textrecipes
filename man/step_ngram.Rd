@@ -12,7 +12,7 @@ step_ngram(
   trained = FALSE,
   columns = NULL,
   num_tokens = 3L,
-  min_num_tokens = 1L,
+  min_num_tokens = 3L,
   delim = "_",
   skip = FALSE,
   id = rand_id("ngram")
@@ -44,7 +44,7 @@ greater than or equal to 1. Defaults to 3.}
 
 \item{min_num_tokens}{The minimum number of tokens in the n-gram.
 This must be an integer greater than or equal to 1 and smaller than \code{n}.
-Defaults to 1.}
+Defaults to 3.}
 
 \item{delim}{The separator between words in an n-gram. Defaults to "_".}
 

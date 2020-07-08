@@ -18,7 +18,7 @@
 #'  greater than or equal to 1. Defaults to 3.
 #' @param min_num_tokens The minimum number of tokens in the n-gram.
 #'  This must be an integer greater than or equal to 1 and smaller than `n`. 
-#'  Defaults to 1.
+#'  Defaults to 3.
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
@@ -73,7 +73,7 @@ step_ngram <-
            trained = FALSE,
            columns = NULL,
            num_tokens = 3L,
-           min_num_tokens = 1L,
+           min_num_tokens = 3L,
            delim = "_",
            skip = FALSE,
            id = rand_id("ngram")
