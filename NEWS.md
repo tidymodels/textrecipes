@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 0.3.0
 
 * stopwords package have been moved from Imports to Suggests.
 * `step_ngram()` gained an argument `min_num_tokens` to be able to return multiple n-grams together. (#90)

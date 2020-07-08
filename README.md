@@ -89,24 +89,25 @@ of list columns. To avoid confusion, here is a table of steps with their
 expected input and output respectively. Notice how you need to end with
 numeric for future analysis to work.
 
-| Step                     | Input         | Output        |
-| ------------------------ | ------------- | ------------- |
-| `step_tokenize()`        | character     | `tokenlist()` |
-| `step_untokenize()`      | `tokenlist()` | character     |
-| `step_lemma()`           | `tokenlist()` | `tokenlist()` |
-| `step_stem()`            | `tokenlist()` | `tokenlist()` |
-| `step_stopwords()`       | `tokenlist()` | `tokenlist()` |
-| `step_pos_filter()`      | `tokenlist()` | `tokenlist()` |
-| `step_ngram()`           | `tokenlist()` | `tokenlist()` |
-| `step_tokenfilter()`     | `tokenlist()` | `tokenlist()` |
-| `step_tokenmerge()`      | `tokenlist()` | `tokenlist()` |
-| `step_tfidf()`           | `tokenlist()` | numeric       |
-| `step_tf()`              | `tokenlist()` | numeric       |
-| `step_texthash()`        | `tokenlist()` | numeric       |
-| `step_word_embeddings()` | `tokenlist()` | numeric       |
-| `step_textfeature()`     | character     | numeric       |
-| `step_sequence_onehot()` | character     | numeric       |
-| `step_lda()`             | character     | numeric       |
+| Step                        | Input         | Output        |
+| --------------------------- | ------------- | ------------- |
+| `step_tokenize()`           | character     | `tokenlist()` |
+| `step_untokenize()`         | `tokenlist()` | character     |
+| `step_lemma()`              | `tokenlist()` | `tokenlist()` |
+| `step_stem()`               | `tokenlist()` | `tokenlist()` |
+| `step_stopwords()`          | `tokenlist()` | `tokenlist()` |
+| `step_pos_filter()`         | `tokenlist()` | `tokenlist()` |
+| `step_ngram()`              | `tokenlist()` | `tokenlist()` |
+| `step_tokenfilter()`        | `tokenlist()` | `tokenlist()` |
+| `step_tokenmerge()`         | `tokenlist()` | `tokenlist()` |
+| `step_tfidf()`              | `tokenlist()` | numeric       |
+| `step_tf()`                 | `tokenlist()` | numeric       |
+| `step_texthash()`           | `tokenlist()` | numeric       |
+| `step_word_embeddings()`    | `tokenlist()` | numeric       |
+| `step_textfeature()`        | character     | numeric       |
+| `step_sequence_onehot()`    | character     | numeric       |
+| `step_lda()`                | character     | numeric       |
+| `step_text_normalization()` | character     | character     |
 
 This means that valid sequences includes
 
