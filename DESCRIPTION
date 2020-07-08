@@ -41,7 +41,8 @@ Suggests:
     stopwords,
     testthat (>= 2.1.0),
     text2vec,
-    textfeatures (>= 0.3.3)
+    textfeatures (>= 0.3.3),
+    stringi
 LinkingTo: 
     Rcpp
 VignetteBuilder: 

@@ -39,6 +39,9 @@ reference:
     - step_textfeature
     - step_sequence_onehot
     - step_lda
+  - title: Step Functions - character to character
+    contents:
+    - step_text_normalization
   - title: Tokenlist functions
     contents:
     - tokenlist

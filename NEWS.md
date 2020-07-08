@@ -2,6 +2,7 @@
 
 * stopwords package have been moved from Imports to Suggests.
 * `step_ngram()` gained an argument `min_num_tokens` to be able to return multiple n-grams together. (#90)
+* Adds `step_text_normalization()` to perform unicode normalization on character vectors. (#86)
 
 # textrecipes 0.2.3
 
