@@ -8,6 +8,13 @@
 
 <title>Term frequency of tokens — step_texthash • textrecipes</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,12 +43,17 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Term frequency of tokens — step_texthash" />
 <meta property="og:description" content="step_texthash creates a specification of a recipe step that
 will convert a tokenlist into multiple variables using the
 hashing trick." />
+<meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -85,7 +97,7 @@ hashing trick." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
         </div>
       </div>
     </div>
@@ -147,25 +159,25 @@ hashing trick." />
 
     <div class="ref-description">
     <p><code>step_texthash</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='tokenlist.html'>tokenlist</a> into multiple variables using the
+will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into multiple variables using the
 hashing trick.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_texthash</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>signed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>num_terms</span> <span class='kw'>=</span> <span class='fl'>1024</span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"hash"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"texthash"</span>)
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash</a></span>(
+  <span class='kw'>recipe</span>,
+  <span class='kw'>...</span>,
+  role = <span class='st'>"predictor"</span>,
+  trained = <span class='fl'>FALSE</span>,
+  columns = <span class='kw'>NULL</span>,
+  signed = <span class='fl'>TRUE</span>,
+  num_terms = <span class='fl'>1024</span>,
+  prefix = <span class='st'>"hash"</span>,
+  skip = <span class='fl'>FALSE</span>,
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"texthash"</span>)
 )
 
 <span class='co'># S3 method for step_texthash</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,7 +191,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_texthash</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -198,7 +210,7 @@ baked.</p></td>
       <th>columns</th>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>signed</th>
@@ -218,8 +230,8 @@ resulting new variables. See notes below.</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is run, some
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
+operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using <code>skip = TRUE</code> as it may affect the computations for
@@ -253,7 +265,7 @@ to the same index, will a higher value of <code>num_terms</code> result in a low
 chance of collision.</p>
 <p>The new components will have names that begin with <code>prefix</code>, then
 the name of the variable, followed by the tokens all separated by
-<code>-</code>. The variable names are padded with zeros. For example,
+<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>. The variable names are padded with zeros. For example,
 if <code>num_terms &lt; 10</code>, their names will be <code>hash1</code> - <code>hash9</code>.
 If <code>num_terms = 101</code>, their names will be <code>hash001</code> - <code>hash101</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -262,34 +274,34 @@ If <code>num_terms = 101</code>, their names will be <code>hash001</code> - <cod
 Alex Smola; Josh Attenberg (2009).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to numeric steps: 
-<code><a href='step_tfidf.html'>step_tfidf</a>()</code>,
-<code><a href='step_tf.html'>step_tf</a>()</code>,
-<code><a href='step_word_embeddings.html'>step_word_embeddings</a>()</code></p></div>
+<code><a href='https://textrecipes.tidymodels.org/reference/step_tfidf.html'>step_tfidf</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_word_embeddings.html'>step_word_embeddings</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"text2vec"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"text2vec"</span>, quietly = <span class='fl'>TRUE</span>)) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenfilter.html'>step_tokenfilter</a></span>(<span class='no'>essay0</span>, <span class='kw'>max_tokens</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_texthash</span>(<span class='no'>essay0</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a></span>(<span class='kw'>essay0</span>, max_tokens = <span class='fl'>10</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash</a></span>(<span class='kw'>essay0</span>)
+  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
+  
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>okc_text</span>)
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>okc_obj</span>, <span class='no'>okc_text</span>)
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-}</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 3</span><span>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)
+}</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      value     id               
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span> tokenfilter_BihaV</div></span></pre>
+#&gt;   &lt;quos&gt;     &lt;list&gt;    &lt;chr&gt;            
+#&gt; 1 essay0     &lt;int [1]&gt; tokenfilter_dDBpr</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Part of speech filtering of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_pos_filter • textrecipes</title>
+<title>text_normalizationming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_text_normalization • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,9 @@
 
 
 
-<meta property="og:title" content="Part of speech filtering of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_pos_filter" />
-<meta property="og:description" content="step_pos_filter creates a specification of a recipe step that
-will filter a tokenlist based on part of speech tags." />
+<meta property="og:title" content="text_normalizationming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_text_normalization" />
+<meta property="og:description" content="step_text_normalization creates a specification of a recipe step that
+will perform Unicode Normalization" />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,28 +151,28 @@ will filter a tokenlist based on part of speech tags." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Part of speech filtering of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/pos_filter.R'><code>R/pos_filter.R</code></a></small>
-    <div class="hidden name"><code>step_pos_filter.Rd</code></div>
+    <h1>text_normalizationming of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/text_normalization.R'><code>R/text_normalization.R</code></a></small>
+    <div class="hidden name"><code>step_text_normalization.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_pos_filter</code> creates a <em>specification</em> of a recipe step that
-will filter a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> based on part of speech tags.</p>
+    <p><code>step_text_normalization</code> creates a <em>specification</em> of a recipe step that
+will perform Unicode Normalization</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a></span>(
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_text_normalization.html'>step_text_normalization</a></span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='fl'>NA</span>,
   trained = <span class='fl'>FALSE</span>,
   columns = <span class='kw'>NULL</span>,
-  keep_tags = <span class='st'>"NOUN"</span>,
+  normalization_form = <span class='st'>"nfc"</span>,
   skip = <span class='fl'>FALSE</span>,
-  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"pos_filter"</span>)
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"text_normalization"</span>)
 )
 
-<span class='co'># S3 method for step_pos_filter</span>
+<span class='co'># S3 method for step_text_normalization</span>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -185,9 +185,8 @@ sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_pos_filter</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+      <td><p>One or more selector functions to choose which
+variables will be transformed. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -207,9 +206,11 @@ encoding. This is <code>NULL</code> until the step is trained by
 <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>keep_tags</th>
-      <td><p>Character variable of part of speech tags to keep. See
-details for complete list of tags. Defaults to "NOUN".</p></td>
+      <th>normalization_form</th>
+      <td><p>A single character string determining the Unicode
+Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
+"nfkc_casefold". Defaults to "nfc".
+See <code><a href='https://rdrr.io/pkg/stringi/man/stri_trans_nf.html'>stringi::stri_trans_nfc()</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -227,7 +228,7 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_pos_filter</code> object.</p></td>
+      <td><p>A <code>step_text_normalization</code> object.</p></td>
     </tr>
     </table>
 
@@ -235,42 +236,35 @@ subsequent operations.</p></td>
 
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Possible part of speech tags for <code>spacyr</code> engine are: "ADJ", "ADP", "ADV",
-"AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
-"PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
-information look here <a href='https://spacy.io/api/annotation#pos-tagging'>https://spacy.io/api/annotation#pos-tagging</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
-<p>Other tokenlist to tokenlist steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash()</a></code> for feature hashing.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"stringi"</span>, quietly = <span class='fl'>TRUE</span>)) {
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
 
-<span class='kw'>short_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(text = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"This is a short tale,"</span>,
-                                  <span class='st'>"With many cats and ladies."</span>))
+<span class='kw'>sample_data</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span>(text = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sch\U00f6n"</span>, <span class='st'>"scho\U0308n"</span>))
 
-<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>text</span>, data = <span class='kw'>short_data</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>text</span>, engine = <span class='st'>"spacyr"</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a></span>(<span class='kw'>text</span>, keep_tags = <span class='st'>"NOUN"</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a></span>(<span class='kw'>text</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>sample_data</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_text_normalization.html'>step_text_normalization</a></span>(<span class='kw'>text</span>)
   
-<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='kw'>okc_rec</span>)
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
+
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>text</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
+
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span>(<span class='kw'>text</span>) 
   
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
-#&gt;   tf_text_cats tf_text_ladies tf_text_tale
-#&gt;          &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
-#&gt; 1            0              0            1
-#&gt; 2            1              1            0</div><div class='input'><span class='co'># }</span></div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)
+}</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt;   terms      normalization_form id                      
+#&gt;   &lt;quos&gt;     &lt;chr&gt;              &lt;chr&gt;                   
+#&gt; 1 text       nfc                text_normalization_n1s9f</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

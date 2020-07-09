@@ -8,6 +8,13 @@
 
 <title>Generate the basic set of text features — step_sequence_onehot • textrecipes</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,11 +43,16 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Generate the basic set of text features — step_sequence_onehot" />
 <meta property="og:description" content="step_sequence_onehot creates a specification of a recipe step that
 will take a string and do one hot encoding for each character by position." />
+<meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -84,7 +96,7 @@ will take a string and do one hot encoding for each character by position." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
         </div>
       </div>
     </div>
@@ -149,21 +161,21 @@ will take a string and do one hot encoding for each character by position." />
 will take a string and do one hot encoding for each character by position.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_sequence_onehot</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>string_length</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>integer_key</span> <span class='kw'>=</span> <span class='no'>letters</span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"seq1hot"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"sequence_onehot"</span>)
+    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a></span>(
+  <span class='kw'>recipe</span>,
+  <span class='kw'>...</span>,
+  role = <span class='st'>"predictor"</span>,
+  trained = <span class='fl'>FALSE</span>,
+  columns = <span class='kw'>NULL</span>,
+  string_length = <span class='fl'>100</span>,
+  integer_key = <span class='kw'>letters</span>,
+  prefix = <span class='st'>"seq1hot"</span>,
+  skip = <span class='fl'>FALSE</span>,
+  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"sequence_onehot"</span>)
 )
 
 <span class='co'># S3 method for step_sequence_onehot</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +189,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_sequence_onehot</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more
+into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -196,7 +208,7 @@ baked.</p></td>
       <th>columns</th>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>string_length</th>
@@ -216,8 +228,8 @@ Characters not in the integer_key will be encoded as 0. Defaults to
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is run, some
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
+operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
 operations may not be able to be conducted on new data (e.g.
 processing the outcome variable(s)). Care should be taken when
 using <code>skip = TRUE</code> as it may affect the computations for
@@ -249,85 +261,84 @@ Characters not in the integer_key will be encoded as 0.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other character to numeric steps: 
-<code><a href='step_lda.html'>step_lda</a>()</code>,
-<code><a href='step_textfeature.html'>step_textfeature</a>()</code></p></div>
+<code><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a>()</code>,
+<code><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>modeldata</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
-<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_sequence_onehot</span>(<span class='no'>essay0</span>)
+<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a></span>(<span class='kw'>essay0</span>) 
+  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
-
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 750 x 109</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)</div><div class='output co'>#&gt; # A tibble: 750 x 109
 #&gt;    essay1 essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>i ju… </span><span style='color: #555555;'>"</span><span>writ… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>musi… </span><span style='color: #555555;'>"</span><span>frie… </span><span style='color: #555555;'>"</span><span>roma… </span><span style='color: #555555;'>"</span><span>usua… </span><span style='color: #555555;'>"</span><span>i ha… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>eati… </span><span style='color: #555555;'>"</span><span>pick… </span><span style='color: #555555;'>"</span><span>i lo… </span><span style='color: #555555;'>"</span><span>non-… </span><span style='color: #555555;'>"</span><span>dese… </span><span style='color: #555555;'>"</span><span>ever… </span><span style='color: #555555;'>"</span><span>maki… </span><span style='color: #555555;'>"</span><span>this… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>rais… </span><span style='color: #555555;'>"</span><span>proc… </span><span style='color: #555555;'>"</span><span>my s… </span><span style='color: #555555;'>"</span><span>sush… </span><span style='color: #555555;'>"</span><span>my c… </span><span style='color: #555555;'>"</span><span>movi… </span><span style='color: #555555;'>"</span><span>at h… </span><span style='color: #555555;'>"</span><span>on m… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>i ju… </span><span style='color: #555555;'>"</span><span>i've… </span><span style='color: #555555;'>"</span><span>my f… </span><span style='color: #555555;'>"</span><span>nove… </span><span style='color: #555555;'>"</span><span>fami… </span><span style='color: #555555;'>"</span><span>how … </span><span style='color: #555555;'>"</span><span>havi… </span><span style='color: #555555;'>"</span><span>is t… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>bein… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>- fr… </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>prob… </span><span style='color: #555555;'>"</span><span>uhh.… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>guit… </span><span style='color: #555555;'>"</span><span>a li… </span><span style='color: #555555;'>"</span><span>hang… </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>if y…
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>eith… </span><span style='color: #555555;'>"</span><span>i do… </span><span style='color: #555555;'>"</span><span>1) m… </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>out … </span><span style='color: #555555;'>"</span><span>i ow… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>i wo… </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>dimp… </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>1-la… </span><span style='color: #555555;'>"</span><span>sex&lt;… </span><span style='color: #555555;'>"</span><span>depe… </span><span style='color: #555555;'>"</span><span>i li… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>phot… </span><span style='color: #555555;'>"</span><span>eati… </span><span style='color: #555555;'>"</span><span>my g… </span><span style='color: #555555;'>"</span><span>donn… </span><span style='color: #555555;'>"</span><span>sush… </span><span style='color: #555555;'>"</span><span>love… </span><span style='color: #555555;'>"</span><span>drin… </span><span style='color: #555555;'>"</span><span>hm..… </span><span style='color: #555555;'>"</span><span>.</span><span style='color: #555555;'>"</span><span>   
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>"</span><span>occu… </span><span style='color: #555555;'>"</span><span>livi… </span><span style='color: #555555;'>"</span><span>long… </span><span style='color: #555555;'>"</span><span>film… </span><span style='color: #555555;'>"</span><span>yuzu… </span><span style='color: #555555;'>"</span><span>menu… </span><span style='color: #555555;'>"</span><span>ofte… </span><span style='color: #555555;'>"</span><span>but … </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'># … with 740 more rows, and 100 more variables: seq1hot_essay0_1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_7 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_8 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_9 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_16 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_17 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_18 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_19 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_20 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_21 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_22 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_23 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_24 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_25 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_26 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_27 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_28 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_29 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_30 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_31 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_32 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_33 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_34 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_35 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_36 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_37 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_38 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_39 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_40 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_41 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_42 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_43 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_44 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_45 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_46 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_47 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_48 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_49 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_50 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_51 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_52 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_53 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_54 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_55 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_56 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_57 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_58 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_59 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_60 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_61 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_62 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_63 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_64 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_65 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_66 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_67 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_68 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_69 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_70 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_71 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_72 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_73 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_74 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_75 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_76 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_77 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_78 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_79 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_80 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_81 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_82 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_83 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_84 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_85 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_86 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_87 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_88 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_89 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_90 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_91 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_92 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_93 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_94 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_95 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_96 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_97 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   seq1hot_essay0_98 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_99 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, seq1hot_essay0_100 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
+#&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt; 
+#&gt;  1 "i ju… "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…
+#&gt;  2 "eati… "pick… "i lo… "non-… "dese… "ever… "maki… "this… "you'…
+#&gt;  3 "rais… "proc… "my s… "sush… "my c… "movi… "at h… "on m… "you …
+#&gt;  4 "i ju… "i've… "my f… "nove… "fami… "how … "havi… "is t… "you'…
+#&gt;  5 "i'm … "bein… "that… "book… "- fr… "the … "prob… "uhh.… "you …
+#&gt;  6 "i'm … "i'm … "the … "book… "guit… "a li… "hang… "i'm … "if y…
+#&gt;  7 "well… "well… "eith… "i do… "1) m… "the … "out … "i ow… "you …
+#&gt;  8 "i wo… "well… "dimp… "book… "1-la… "sex&lt;… "depe… "i li… "you …
+#&gt;  9 "phot… "eati… "my g… "donn… "sush… "love… "drin… "hm..… "."   
+#&gt; 10 "occu… "livi… "long… "film… "yuzu… "menu… "ofte… "but … "you …
+#&gt; # … with 740 more rows, and 100 more variables: seq1hot_essay0_1 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_2 &lt;dbl&gt;, seq1hot_essay0_3 &lt;dbl&gt;, seq1hot_essay0_4 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_5 &lt;dbl&gt;, seq1hot_essay0_6 &lt;dbl&gt;, seq1hot_essay0_7 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_8 &lt;dbl&gt;, seq1hot_essay0_9 &lt;dbl&gt;, seq1hot_essay0_10 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_11 &lt;dbl&gt;, seq1hot_essay0_12 &lt;dbl&gt;, seq1hot_essay0_13 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_14 &lt;dbl&gt;, seq1hot_essay0_15 &lt;dbl&gt;, seq1hot_essay0_16 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_17 &lt;dbl&gt;, seq1hot_essay0_18 &lt;dbl&gt;, seq1hot_essay0_19 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_20 &lt;dbl&gt;, seq1hot_essay0_21 &lt;dbl&gt;, seq1hot_essay0_22 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_23 &lt;dbl&gt;, seq1hot_essay0_24 &lt;dbl&gt;, seq1hot_essay0_25 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_26 &lt;dbl&gt;, seq1hot_essay0_27 &lt;dbl&gt;, seq1hot_essay0_28 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_29 &lt;dbl&gt;, seq1hot_essay0_30 &lt;dbl&gt;, seq1hot_essay0_31 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_32 &lt;dbl&gt;, seq1hot_essay0_33 &lt;dbl&gt;, seq1hot_essay0_34 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_35 &lt;dbl&gt;, seq1hot_essay0_36 &lt;dbl&gt;, seq1hot_essay0_37 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_38 &lt;dbl&gt;, seq1hot_essay0_39 &lt;dbl&gt;, seq1hot_essay0_40 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_41 &lt;dbl&gt;, seq1hot_essay0_42 &lt;dbl&gt;, seq1hot_essay0_43 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_44 &lt;dbl&gt;, seq1hot_essay0_45 &lt;dbl&gt;, seq1hot_essay0_46 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_47 &lt;dbl&gt;, seq1hot_essay0_48 &lt;dbl&gt;, seq1hot_essay0_49 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_50 &lt;dbl&gt;, seq1hot_essay0_51 &lt;dbl&gt;, seq1hot_essay0_52 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_53 &lt;dbl&gt;, seq1hot_essay0_54 &lt;dbl&gt;, seq1hot_essay0_55 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_56 &lt;dbl&gt;, seq1hot_essay0_57 &lt;dbl&gt;, seq1hot_essay0_58 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_59 &lt;dbl&gt;, seq1hot_essay0_60 &lt;dbl&gt;, seq1hot_essay0_61 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_62 &lt;dbl&gt;, seq1hot_essay0_63 &lt;dbl&gt;, seq1hot_essay0_64 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_65 &lt;dbl&gt;, seq1hot_essay0_66 &lt;dbl&gt;, seq1hot_essay0_67 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_68 &lt;dbl&gt;, seq1hot_essay0_69 &lt;dbl&gt;, seq1hot_essay0_70 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_71 &lt;dbl&gt;, seq1hot_essay0_72 &lt;dbl&gt;, seq1hot_essay0_73 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_74 &lt;dbl&gt;, seq1hot_essay0_75 &lt;dbl&gt;, seq1hot_essay0_76 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_77 &lt;dbl&gt;, seq1hot_essay0_78 &lt;dbl&gt;, seq1hot_essay0_79 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_80 &lt;dbl&gt;, seq1hot_essay0_81 &lt;dbl&gt;, seq1hot_essay0_82 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_83 &lt;dbl&gt;, seq1hot_essay0_84 &lt;dbl&gt;, seq1hot_essay0_85 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_86 &lt;dbl&gt;, seq1hot_essay0_87 &lt;dbl&gt;, seq1hot_essay0_88 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_89 &lt;dbl&gt;, seq1hot_essay0_90 &lt;dbl&gt;, seq1hot_essay0_91 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_92 &lt;dbl&gt;, seq1hot_essay0_93 &lt;dbl&gt;, seq1hot_essay0_94 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_95 &lt;dbl&gt;, seq1hot_essay0_96 &lt;dbl&gt;, seq1hot_essay0_97 &lt;dbl&gt;,
+#&gt; #   seq1hot_essay0_98 &lt;dbl&gt;, seq1hot_essay0_99 &lt;dbl&gt;, seq1hot_essay0_100 &lt;dbl&gt;</div><div class='input'>  
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  integer_key id                   
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>          sequence_onehot_QH91Q</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 26 x 3</span><span>
+#&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;                
+#&gt; 1 essay0 &lt;NA&gt;        sequence_onehot_aq6LC</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 26 x 3
 #&gt;    terms  integer_key id                   
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'> 1</span><span> essay0 a           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 2</span><span> essay0 b           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 3</span><span> essay0 c           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 4</span><span> essay0 d           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 5</span><span> essay0 e           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 6</span><span> essay0 f           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 7</span><span> essay0 g           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 8</span><span> essay0 h           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'> 9</span><span> essay0 i           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'>10</span><span> essay0 j           sequence_onehot_QH91Q
-#&gt; </span><span style='color: #555555;'># … with 16 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;                
+#&gt;  1 essay0 a           sequence_onehot_aq6LC
+#&gt;  2 essay0 b           sequence_onehot_aq6LC
+#&gt;  3 essay0 c           sequence_onehot_aq6LC
+#&gt;  4 essay0 d           sequence_onehot_aq6LC
+#&gt;  5 essay0 e           sequence_onehot_aq6LC
+#&gt;  6 essay0 f           sequence_onehot_aq6LC
+#&gt;  7 essay0 g           sequence_onehot_aq6LC
+#&gt;  8 essay0 h           sequence_onehot_aq6LC
+#&gt;  9 essay0 i           sequence_onehot_aq6LC
+#&gt; 10 essay0 j           sequence_onehot_aq6LC
+#&gt; # … with 16 more rows</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
