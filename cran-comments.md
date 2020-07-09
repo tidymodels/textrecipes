@@ -1,8 +1,9 @@
 ## Release Summary
 
-This is the 7th CRAN release of textrecipes.
+This is the 8th CRAN release of textrecipes.
 
-This version fixes the noLD problem causing textrecipes to be removed from CRAN on 2020-05-20
+Add 1 new function and extra functionality to old functions.
+
 
 ## Test environments
 * local R installation, R 4.0.0
