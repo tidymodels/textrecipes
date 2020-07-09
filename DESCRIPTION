@@ -1,6 +1,6 @@
 Package: textrecipes
 Title: Extra 'Recipes' for Text Processing
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: 
     person(given = "Emil",
            family = "Hvitfeldt",
