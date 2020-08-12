@@ -161,7 +161,7 @@ will extract a number of numeric features of a text column." />
 will extract a number of numeric features of a text column.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a></span>(
+    <pre class="usage"><span class='fu'>step_textfeature</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='st'>"predictor"</span>,
@@ -188,7 +188,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_textfeature</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -255,8 +255,8 @@ will be thrown.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other character to numeric steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a>()</code></p></div>
+<code><a href='step_lda.html'>step_lda</a>()</code>,
+<code><a href='step_sequence_onehot.html'>step_sequence_onehot</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"textfeatures"</span>, quietly = <span class='fl'>TRUE</span>)) {
@@ -265,7 +265,7 @@ will be thrown.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a></span>(<span class='kw'>essay0</span>) 
+  <span class='fu'>step_textfeature</span>(<span class='kw'>essay0</span>) 
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -283,7 +283,7 @@ will be thrown.</p>
 <span class='kw'>nchar_round_10</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span>(<span class='kw'>x</span>) <span class='op'>/</span> <span class='fl'>10</span>) <span class='op'>*</span> <span class='fl'>10</span>
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a></span>(<span class='kw'>essay0</span>, 
+  <span class='fu'>step_textfeature</span>(<span class='kw'>essay0</span>, 
                    extract_functions = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(nchar10 = <span class='kw'>nchar_round_10</span>)) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>() <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>()

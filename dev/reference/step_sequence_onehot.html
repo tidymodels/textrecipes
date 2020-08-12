@@ -161,7 +161,7 @@ will take a string and do one hot encoding for each character by position." />
 will take a string and do one hot encoding for each character by position.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a></span>(
+    <pre class="usage"><span class='fu'>step_sequence_onehot</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='st'>"predictor"</span>,
@@ -189,7 +189,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_sequence_onehot</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -261,8 +261,8 @@ Characters not in the integer_key will be encoded as 0.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other character to numeric steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a>()</code></p></div>
+<code><a href='step_lda.html'>step_lda</a>()</code>,
+<code><a href='step_textfeature.html'>step_textfeature</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
@@ -270,7 +270,7 @@ Characters not in the integer_key will be encoded as 0.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a></span>(<span class='kw'>essay0</span>) 
+  <span class='fu'>step_sequence_onehot</span>(<span class='kw'>essay0</span>) 
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -325,19 +325,19 @@ Characters not in the integer_key will be encoded as 0.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  integer_key id                   
 #&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;                
-#&gt; 1 essay0 &lt;NA&gt;        sequence_onehot_7jDDd</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 26 x 3
+#&gt; 1 essay0 &lt;NA&gt;        sequence_onehot_jlkBL</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 26 x 3
 #&gt;    terms  integer_key id                   
 #&gt;    &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;                
-#&gt;  1 essay0 a           sequence_onehot_7jDDd
-#&gt;  2 essay0 b           sequence_onehot_7jDDd
-#&gt;  3 essay0 c           sequence_onehot_7jDDd
-#&gt;  4 essay0 d           sequence_onehot_7jDDd
-#&gt;  5 essay0 e           sequence_onehot_7jDDd
-#&gt;  6 essay0 f           sequence_onehot_7jDDd
-#&gt;  7 essay0 g           sequence_onehot_7jDDd
-#&gt;  8 essay0 h           sequence_onehot_7jDDd
-#&gt;  9 essay0 i           sequence_onehot_7jDDd
-#&gt; 10 essay0 j           sequence_onehot_7jDDd
+#&gt;  1 essay0 a           sequence_onehot_jlkBL
+#&gt;  2 essay0 b           sequence_onehot_jlkBL
+#&gt;  3 essay0 c           sequence_onehot_jlkBL
+#&gt;  4 essay0 d           sequence_onehot_jlkBL
+#&gt;  5 essay0 e           sequence_onehot_jlkBL
+#&gt;  6 essay0 f           sequence_onehot_jlkBL
+#&gt;  7 essay0 g           sequence_onehot_jlkBL
+#&gt;  8 essay0 h           sequence_onehot_jlkBL
+#&gt;  9 essay0 i           sequence_onehot_jlkBL
+#&gt; 10 essay0 j           sequence_onehot_jlkBL
 #&gt; # … with 16 more rows</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

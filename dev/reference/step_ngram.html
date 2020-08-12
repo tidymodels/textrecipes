@@ -158,10 +158,10 @@ will convert a tokenlist into a list of ngram of tokens." />
 
     <div class="ref-description">
     <p><code>step_ngram</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into a list of ngram of tokens.</p>
+will convert a <a href='tokenlist.html'>tokenlist</a> into a list of ngram of tokens.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a></span>(
+    <pre class="usage"><span class='fu'>step_ngram</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='fl'>NA</span>,
@@ -189,7 +189,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_ngram</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -256,14 +256,14 @@ fashion with respect to the number of tokens in the n-gram. If
 1-grams followed by all the 2-grams followed by all the 3-grams.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to tokenlist steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+<code><a href='step_lemma.html'>step_lemma</a>()</code>,
+<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
+<code><a href='step_stem.html'>step_stem</a>()</code>,
+<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
+<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code>,
+<code><a href='step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
@@ -271,8 +271,8 @@ fashion with respect to the number of tokens in the n-gram. If
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a></span>(<span class='kw'>essay0</span>)
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_ngram</span>(<span class='kw'>essay0</span>)
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -291,10 +291,10 @@ fashion with respect to the number of tokens in the n-gram. If
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id         
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      
-#&gt; 1 essay0 &lt;NA&gt;  ngram_8nF4k</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt; 1 essay0 &lt;NA&gt;  ngram_PPo3Q</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   terms      id         
 #&gt;   &lt;quos&gt;     &lt;chr&gt;      
-#&gt; 1 essay0     ngram_8nF4k</div><div class='input'></div></pre>
+#&gt; 1 essay0     ngram_PPo3Q</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

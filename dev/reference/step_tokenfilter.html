@@ -158,10 +158,10 @@ will convert a tokenlist to be filtered based on frequency." />
 
     <div class="ref-description">
     <p><code>step_tokenfilter</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> to be filtered based on frequency.</p>
+will convert a <a href='tokenlist.html'>tokenlist</a> to be filtered based on frequency.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a></span>(
+    <pre class="usage"><span class='fu'>step_tokenfilter</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='fl'>NA</span>,
@@ -191,7 +191,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_tokenfilter</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -270,18 +270,18 @@ as counts using <code>max_times</code> and <code>min_times</code> or as percenta
 will be used. This will generally lead to very large datasets when then
 tokens are words or trigrams. A good strategy is to start with a low token
 count and go up according to how much RAM you want to use.</p>
-<p>It is strongly advised to filter before using <a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a> or <a href='https://textrecipes.tidymodels.org/reference/step_tfidf.html'>step_tfidf</a> to
+<p>It is strongly advised to filter before using <a href='step_tf.html'>step_tf</a> or <a href='step_tfidf.html'>step_tfidf</a> to
 limit the number of variables created.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to tokenlist steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+<code><a href='step_lemma.html'>step_lemma</a>()</code>,
+<code><a href='step_ngram.html'>step_ngram</a>()</code>,
+<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
+<code><a href='step_stem.html'>step_stem</a>()</code>,
+<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
+<code><a href='step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
@@ -289,8 +289,8 @@ limit the number of variables created.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a></span>(<span class='kw'>essay0</span>) 
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_tokenfilter</span>(<span class='kw'>essay0</span>) 
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -309,10 +309,10 @@ limit the number of variables created.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id               
 #&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;            
-#&gt; 1 essay0    NA tokenfilter_DnQyX</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0    NA tokenfilter_dT4ps</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      value     id               
 #&gt;   &lt;quos&gt;     &lt;list&gt;    &lt;chr&gt;            
-#&gt; 1 essay0     &lt;int [1]&gt; tokenfilter_DnQyX</div></pre>
+#&gt; 1 essay0     &lt;int [1]&gt; tokenfilter_dT4ps</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

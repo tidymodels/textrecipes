@@ -161,7 +161,7 @@ will return the lda dimension estimates of a text variable." />
 will return the lda dimension estimates of a text variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(
+    <pre class="usage"><span class='fu'>step_lda</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='st'>"predictor"</span>,
@@ -189,7 +189,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_lda</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -254,8 +254,8 @@ to the sequence of existing steps (if any).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other character to numeric steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html'>step_sequence_onehot</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_textfeature.html'>step_textfeature</a>()</code></p></div>
+<code><a href='step_sequence_onehot.html'>step_sequence_onehot</a>()</code>,
+<code><a href='step_textfeature.html'>step_textfeature</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"text2vec"</span>, quietly = <span class='fl'>TRUE</span>)) {
@@ -265,7 +265,7 @@ to the sequence of existing steps (if any).</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(<span class='kw'>essay0</span>)
+  <span class='fu'>step_lda</span>(<span class='kw'>essay0</span>)
 
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -277,7 +277,7 @@ to the sequence of existing steps (if any).</p>
 
 <span class='co'># Changing the number of topics.</span>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>, num_topics = <span class='fl'>20</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_lda</span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>, num_topics = <span class='fl'>20</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>() <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>() <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
@@ -291,7 +291,7 @@ to the sequence of existing steps (if any).</p>
 <span class='kw'>lda_model</span> <span class='op'>&lt;-</span> <span class='kw'>LDA</span><span class='op'>$</span><span class='fu'>new</span>(n_topics = <span class='fl'>15</span>)
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lda.html'>step_lda</a></span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>, lda_models = <span class='kw'>lda_model</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_lda</span>(<span class='kw'>essay0</span>, <span class='kw'>essay1</span>, lda_models = <span class='kw'>lda_model</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>() <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>() <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)
@@ -299,8 +299,8 @@ to the sequence of existing steps (if any).</p>
 }</div><div class='output co'>#&gt; # A tibble: 2 x 38
 #&gt;   essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9 lda_essay0_w1
 #&gt;   &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;          &lt;dbl&gt;
-#&gt; 1 "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…        0.0171
-#&gt; 2 "pick… "i lo… "non-… "dese… "ever… "maki… "this… "you'…        0     
+#&gt; 1 "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…        0.0341
+#&gt; 2 "pick… "i lo… "non-… "dese… "ever… "maki… "this… "you'…        0.04  
 #&gt; # … with 29 more variables: lda_essay0_w2 &lt;dbl&gt;, lda_essay0_w3 &lt;dbl&gt;,
 #&gt; #   lda_essay0_w4 &lt;dbl&gt;, lda_essay0_w5 &lt;dbl&gt;, lda_essay0_w6 &lt;dbl&gt;,
 #&gt; #   lda_essay0_w7 &lt;dbl&gt;, lda_essay0_w8 &lt;dbl&gt;, lda_essay0_w9 &lt;dbl&gt;,

@@ -159,11 +159,11 @@ the token counts." />
 
     <div class="ref-description">
     <p><code>step_tf</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into multiple variables containing
+will convert a <a href='tokenlist.html'>tokenlist</a> into multiple variables containing
 the token counts.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a></span>(
+    <pre class="usage"><span class='fu'>step_tf</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='st'>"predictor"</span>,
@@ -193,7 +193,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_tf</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -267,7 +267,7 @@ subsequent operations.</p></td>
 to the sequence of existing steps (if any).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>It is strongly advised to use <a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a> before using <a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a> to
+    <p>It is strongly advised to use <a href='step_tokenfilter.html'>step_tokenfilter</a> before using step_tf to
 limit the number of variables created, otherwise you might run into memory
 issues. A good strategy is to start with a low token count and go up
 according to how much RAM you want to use.</p>
@@ -291,11 +291,11 @@ the name of the variable, followed by the tokens all separated by
 token.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to numeric steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tfidf.html'>step_tfidf</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_word_embeddings.html'>step_word_embeddings</a>()</code></p></div>
+<code><a href='step_texthash.html'>step_texthash</a>()</code>,
+<code><a href='step_tfidf.html'>step_tfidf</a>()</code>,
+<code><a href='step_word_embeddings.html'>step_word_embeddings</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -304,8 +304,8 @@ token.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a></span>(<span class='kw'>essay0</span>)
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_tf</span>(<span class='kw'>essay0</span>)
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -364,10 +364,10 @@ token.</p>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id      
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   
-#&gt; 1 essay0 &lt;NA&gt;  tf_ZTXpS</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0 &lt;NA&gt;  tf_sNwdo</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      value     id      
 #&gt;   &lt;quos&gt;     &lt;chr&gt;     &lt;chr&gt;   
-#&gt; 1 essay0     raw count tf_ZTXpS</div><div class='input'><span class='co'># }</span></div></pre>
+#&gt; 1 essay0     raw count tf_sNwdo</div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

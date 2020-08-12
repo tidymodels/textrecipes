@@ -159,11 +159,11 @@ vectors of each token from a pre-trained embedding." />
 
     <div class="ref-description">
     <p><code>step_word_embeddings</code> creates a <em>specification</em> of a recipe step that will
-convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into word-embedding dimensions by aggregating the
+convert a <a href='tokenlist.html'>tokenlist</a> into word-embedding dimensions by aggregating the
 vectors of each token from a pre-trained embedding.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_word_embeddings.html'>step_word_embeddings</a></span>(
+    <pre class="usage"><span class='fu'>step_word_embeddings</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='st'>"predictor"</span>,
@@ -192,7 +192,7 @@ operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables. For
 <code>step_word_embeddings</code>, this indicates the variables to be encoded into a
-<a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more details. For the <code>tidy</code>
+<a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more details. For the <code>tidy</code>
 method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -273,11 +273,11 @@ embeddings from the textdata package (where the column names are <code>d1</code>
 <code>word_embeddings_sum_d2</code>, etc.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to numeric steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_texthash.html'>step_texthash</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tfidf.html'>step_tfidf</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a>()</code></p></div>
+<code><a href='step_texthash.html'>step_texthash</a>()</code>,
+<code><a href='step_tfidf.html'>step_tfidf</a>()</code>,
+<code><a href='step_tf.html'>step_tf</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
@@ -299,8 +299,8 @@ embeddings from the textdata package (where the column names are <code>d1</code>
 )
 
 <span class='kw'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='kw'>text_label</span> <span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>sample_data</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_word_embeddings.html'>step_word_embeddings</a></span>(<span class='kw'>text</span>, embeddings = <span class='kw'>embeddings</span>)
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_word_embeddings</span>(<span class='kw'>text</span>, embeddings = <span class='kw'>embeddings</span>)
   
 <span class='kw'>obj</span> <span class='op'>&lt;-</span> <span class='kw'>rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -314,10 +314,10 @@ embeddings from the textdata package (where the column names are <code>d1</code>
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;   terms embeddings_rows aggregation id                   
 #&gt;   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                
-#&gt; 1 text                3 sum         word_embeddings_RlxOn</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1 text                3 sum         word_embeddings_c5snq</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;   terms      embeddings_rows aggregation id                   
 #&gt;   &lt;quos&gt;               &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                
-#&gt; 1 text                     3 sum         word_embeddings_RlxOn</div></pre>
+#&gt; 1 text                     3 sum         word_embeddings_c5snq</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

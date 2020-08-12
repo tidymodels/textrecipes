@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Untokenization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_untokenize • textrecipes</title>
+<title>Untokenization of tokenlist variables — step_untokenize • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="Untokenization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_untokenize" />
+<meta property="og:title" content="Untokenization of tokenlist variables — step_untokenize" />
 <meta property="og:description" content="step_untokenize creates a specification of a recipe step that
 will convert a tokenlist into a character predictor." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
@@ -151,17 +151,17 @@ will convert a tokenlist into a character predictor." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Untokenization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
+    <h1>Untokenization of <a href='tokenlist.html'>tokenlist</a> variables</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/untokenize.R'><code>R/untokenize.R</code></a></small>
     <div class="hidden name"><code>step_untokenize.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><code>step_untokenize</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into a character predictor.</p>
+will convert a <a href='tokenlist.html'>tokenlist</a> into a character predictor.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_untokenize.html'>step_untokenize</a></span>(
+    <pre class="usage"><span class='fu'>step_untokenize</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='fl'>NA</span>,
@@ -187,7 +187,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_untokenize</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -237,11 +237,11 @@ subsequent operations.</p></td>
 to the sequence of existing steps (if any).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This steps will turn a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> back into a character vector. This step
+    <p>This steps will turn a <a href='tokenlist.html'>tokenlist</a> back into a character vector. This step
 is calling <code>paste</code> internally to put the tokens back together to a character.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p></div>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
@@ -249,8 +249,8 @@ is calling <code>paste</code> internally to put the tokens back together to a ch
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_untokenize.html'>step_untokenize</a></span>(<span class='kw'>essay0</span>)
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_untokenize</span>(<span class='kw'>essay0</span>)
 
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -268,10 +268,10 @@ is calling <code>paste</code> internally to put the tokens back together to a ch
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id              
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           
-#&gt; 1 essay0 &lt;NA&gt;  untokenize_becbk</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0 &lt;NA&gt;  untokenize_WRftt</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      value id              
 #&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;           
-#&gt; 1 essay0     " "   untokenize_becbk</div></pre>
+#&gt; 1 essay0     " "   untokenize_WRftt</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

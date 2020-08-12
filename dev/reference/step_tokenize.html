@@ -157,11 +157,11 @@ will convert a character predictor into a tokenlist." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> creates a <em>specification</em> of a recipe step that
-will convert a character predictor into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>.</p>
+    <p><code>step_tokenize()</code> creates a <em>specification</em> of a recipe step that
+will convert a character predictor into a <a href='tokenlist.html'>tokenlist</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(
+    <pre class="usage"><span class='fu'>step_tokenize</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='fl'>NA</span>,
@@ -189,8 +189,8 @@ sequence of operations for this recipe.</p></td>
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
-For <code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+For <code>step_tokenize()</code>, this indicates the variables to be encoded
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -258,8 +258,8 @@ to the sequence of existing steps (if any).</p>
     <p>Tokenization is the act of splitting a character string into smaller parts
 to be further analysed. This step uses the <code>tokenizers</code> package which
 includes heuristics to split the text into paragraphs tokens, word tokens
-amoug others. <code>textrecipes</code> keeps the tokens in a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> and other
-steps will do their tasks on those <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>s before transforming them
+amoug others. <code>textrecipes</code> keeps the tokens in a <a href='tokenlist.html'>tokenlist</a> and other
+steps will do their tasks on those <a href='tokenlist.html'>tokenlist</a>s before transforming them
 back to numeric.</p>
 <p>The choice of <code>engine</code> determines the possible choices of <code>token</code>.</p>
 <p>If <code>engine = "tokenizers"</code>:</p><ul>
@@ -288,7 +288,7 @@ the case as you sometimes want to do apply pre-tokenization steps, this can
 be done with <code><a href='https://recipes.tidymodels.org/reference/step_mutate.html'>recipes::step_mutate()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_untokenize.html'>step_untokenize()</a></code> to untokenize.</p></div>
+    <div class='dont-index'><p><code><a href='step_untokenize.html'>step_untokenize()</a></code> to untokenize.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
@@ -296,7 +296,7 @@ be done with <code><a href='https://recipes.tidymodels.org/reference/step_mutate
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) 
+  <span class='fu'>step_tokenize</span>(<span class='kw'>essay0</span>) 
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
@@ -315,12 +315,12 @@ be done with <code><a href='https://recipes.tidymodels.org/reference/step_mutate
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id            
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0 &lt;NA&gt;  tokenize_akinf</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0 &lt;NA&gt;  tokenize_yrxaw</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      value id            
 #&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0     words tokenize_akinf</div><div class='input'>
+#&gt; 1 essay0     words tokenize_yrxaw</div><div class='input'>
 <span class='kw'>okc_obj_chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>, token = <span class='st'>"characters"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_tokenize</span>(<span class='kw'>essay0</span>, token = <span class='st'>"characters"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj_chars</span>) <span class='op'>%&gt;%</span>

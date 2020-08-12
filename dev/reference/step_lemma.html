@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lemmatization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_lemma • textrecipes</title>
+<title>Lemmatization of tokenlist variables — step_lemma • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="Lemmatization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_lemma" />
+<meta property="og:title" content="Lemmatization of tokenlist variables — step_lemma" />
 <meta property="og:description" content="step_lemma creates a specification of a recipe step that
 will extract the lemmatization of a tokenlist." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
@@ -151,7 +151,7 @@ will extract the lemmatization of a tokenlist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lemmatization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
+    <h1>Lemmatization of <a href='tokenlist.html'>tokenlist</a> variables</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lemma.R'><code>R/lemma.R</code></a></small>
     <div class="hidden name"><code>step_lemma.Rd</code></div>
     </div>
@@ -161,7 +161,7 @@ will extract the lemmatization of a tokenlist." />
 will extract the lemmatization of a tokenlist.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a></span>(
+    <pre class="usage"><span class='fu'>step_lemma</span>(
   <span class='kw'>recipe</span>,
   <span class='kw'>...</span>,
   role = <span class='fl'>NA</span>,
@@ -186,7 +186,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_lemma</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -234,18 +234,18 @@ to the sequence of existing steps (if any).</p>
     <p>This stem doesn't perform lemmatization by itself, but rather lets you
 extract the lemma attribute of the tokenlist. To be able to use <code>step_lemma</code>
 you need to use a tokenization method that includes lemmatization. Currently
-using the <code>"spacyr"</code> engine in <code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> provides lemmatization and
+using the <code>"spacyr"</code> engine in <code><a href='step_tokenize.html'>step_tokenize()</a></code> provides lemmatization and
 works well with <code>step_lemma</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
 <p>Other tokenlist to tokenlist steps: 
-<code><a href='https://textrecipes.tidymodels.org/reference/step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stem.html'>step_stem</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenfilter.html'>step_tokenfilter</a>()</code>,
-<code><a href='https://textrecipes.tidymodels.org/reference/step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+<code><a href='step_ngram.html'>step_ngram</a>()</code>,
+<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
+<code><a href='step_stem.html'>step_stem</a>()</code>,
+<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
+<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code>,
+<code><a href='step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
@@ -255,11 +255,11 @@ works well with <code>step_lemma</code>.</p>
                                   <span class='st'>"With many cats and ladies."</span>))
 
 <span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>text</span>, data = <span class='kw'>short_data</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>text</span>, engine = <span class='st'>"spacyr"</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_lemma.html'>step_lemma</a></span>(<span class='kw'>text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tf.html'>step_tf</a></span>(<span class='kw'>text</span>)
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>text</span>, engine = <span class='st'>"spacyr"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'>step_lemma</span>(<span class='kw'>text</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='step_tf.html'>step_tf</a></span>(<span class='kw'>text</span>)
   
-<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='kw'>okc_rec</span>)</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.1, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>  
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='kw'>okc_rec</span>)</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.2, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>  
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 12
 #&gt;   `tf_text_,` tf_text_. tf_text_a tf_text_and tf_text_be tf_text_cat
 #&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
