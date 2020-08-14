@@ -205,26 +205,10 @@ test_that("`delim` argument works", {
   )
 })
 
-
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_ngram(text)
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
-})
-
-test_that("tunable", {
-  rec <-
-    recipe(~ ., data = iris) %>%
-    step_ngram(all_predictors())
-  rec_param <- tunable.step_ngram(rec$steps[[1]])
-  expect_equal(rec_param$name, c("num_tokens"))
-  expect_true(all(rec_param$source == "recipe"))
-  expect_true(is.list(rec_param$call_info))
-  expect_equal(nrow(rec_param), 1)
-  expect_equal(
-    names(rec_param),
-    c("name", "call_info", "source", "component", "component_id")
-  )
 })
