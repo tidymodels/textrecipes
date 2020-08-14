@@ -315,10 +315,10 @@ be done with <code><a href='https://recipes.tidymodels.org/reference/step_mutate
 <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id            
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0 &lt;NA&gt;  tokenize_yrxaw</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0 &lt;NA&gt;  tokenize_jnyP2</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms      value id            
 #&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0     words tokenize_yrxaw</div><div class='input'>
+#&gt; 1 essay0     words tokenize_jnyP2</div><div class='input'>
 <span class='kw'>okc_obj_chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span>(<span class='kw'>essay0</span>, token = <span class='st'>"characters"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
