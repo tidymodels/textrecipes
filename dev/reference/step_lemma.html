@@ -259,15 +259,8 @@ works well with <code>step_lemma</code>.</p>
   <span class='fu'>step_lemma</span>(<span class='kw'>text</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='step_tf.html'>step_tf</a></span>(<span class='kw'>text</span>)
   
-<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='kw'>okc_rec</span>)</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.2, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>  
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 12
-#&gt;   `tf_text_,` tf_text_. tf_text_a tf_text_and tf_text_be tf_text_cat
-#&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
-#&gt; 1           1         0         1           0          1           0
-#&gt; 2           0         1         0           1          0           1
-#&gt; # … with 6 more variables: tf_text_lady &lt;dbl&gt;, tf_text_many &lt;dbl&gt;,
-#&gt; #   tf_text_short &lt;dbl&gt;, tf_text_tale &lt;dbl&gt;, tf_text_this &lt;dbl&gt;,
-#&gt; #   tf_text_with &lt;dbl&gt;</div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='kw'>okc_rec</span>)</div><div class='output co'>#&gt; <span class='error'>Error in required_pkgs.step_tokenize(): argument "x" is missing, with no default</span></div><div class='input'>  
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)</div><div class='output co'>#&gt; <span class='error'>Error in fully_trained(object): object 'okc_obj' not found</span></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
