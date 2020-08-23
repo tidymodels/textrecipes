@@ -66,7 +66,7 @@ step_text_normalization <-
            id = rand_id("text_normalization")
   ) {
     
-    recipes::recipes_pkg_check("stringi")
+    recipes::recipes_pkg_check(required_pkgs.step_text_normalization())
     
     add_step(
       recipe,
@@ -165,4 +165,11 @@ tidy.step_text_normalization <- function(x, ...) {
   }
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_text_normalization <- function(x, ...) {
+  c("stringi")
 }
