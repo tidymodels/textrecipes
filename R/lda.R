@@ -92,7 +92,7 @@ step_lda <-
            id = rand_id("lda")
   ) {
     
-    recipes::recipes_pkg_check("textfeatures")
+    recipes::recipes_pkg_check(required_pkgs.step_lda())
     
     add_step(
       recipe,
@@ -207,4 +207,11 @@ tidy.step_lda <- function(x, ...) {
   }
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_lda <- function(x, ...) {
+  c("textfeatures")
 }
