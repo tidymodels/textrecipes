@@ -206,6 +206,6 @@ validate_string2num <- function(fun) {
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_textfeature <- function(x, ...) {
-  c("textfeatures")
+  c("textfeatures", "textrecipes")
 }
 

@@ -209,9 +209,8 @@ tidy.step_lda <- function(x, ...) {
   res
 }
 
-
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_lda <- function(x, ...) {
-  c("textfeatures")
+  c("textfeatures", "textrecipes")
 }

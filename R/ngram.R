@@ -169,3 +169,9 @@ tidy.step_ngram <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_ngram <- function(x, ...) {
+  c("textrecipes")
+}

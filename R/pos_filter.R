@@ -153,3 +153,9 @@ tidy.step_pos_filter <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_pos_filter <- function(x, ...) {
+  c("textrecipes")
+}

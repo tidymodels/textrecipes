@@ -286,9 +286,9 @@ tokenizer_switch <- function(name, engine) {
 #' @export
 required_pkgs.step_tokenize <- function(x, ...) {
   if (x$engine == "spacyr") {
-    c("spacyr")
+    c("spacyr", "textrecipes")
   } else {
-    character(0)
+    "textrecipes"
   }
 }
 

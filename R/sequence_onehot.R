@@ -202,3 +202,9 @@ string2encoded_matrix <- function(x, integer_key, string_length) {
   df[is.na(df)] <- 0
   df
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_sequence_onehot <- function(x, ...) {
+  c("textrecipes")
+}
