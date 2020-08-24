@@ -50,7 +50,8 @@
 
 
 <meta property="og:title" content="S3 methods for tracking which additional packages are needed for steps. — required_pkgs.step_texthash" />
-<meta property="og:description" content="S3 methods for tracking which additional packages are needed for steps." />
+<meta property="og:description" content="Recipe-adjacent packages always list themselves as a required package so that
+the steps can function properly within parallel processing schemes." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,23 +152,44 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>S3 methods for tracking which additional packages are needed for steps.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/hashing.R'><code>R/hashing.R</code></a>, <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lda.R'><code>R/lda.R</code></a>, <a href='https://github.com/tidymodels/textrecipes/blob/master/R/text_normalization.R'><code>R/text_normalization.R</code></a>, and 2 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/hashing.R'><code>R/hashing.R</code></a>, <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lda.R'><code>R/lda.R</code></a>, <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lemma.R'><code>R/lemma.R</code></a>, and 12 more</small>
     <div class="hidden name"><code>required_pkgs.step.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>S3 methods for tracking which additional packages are needed for steps.</p>
+    <p>Recipe-adjacent packages always list themselves as a required package so that
+the steps can function properly within parallel processing schemes.</p>
     </div>
 
     <pre class="usage"><span class='fu'>required_pkgs.step_texthash</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='fu'>required_pkgs.step_lda</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
+<span class='fu'>required_pkgs.step_lemma</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_ngram</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_pos_filter</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_sequence_onehot</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_stem</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_stopwords</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
 <span class='fu'>required_pkgs.step_text_normalization</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='fu'>required_pkgs.step_textfeature</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
-<span class='fu'>required_pkgs.step_tokenize</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>required_pkgs.step_tf</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_tfidf</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_tokenfilter</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_tokenize</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+
+<span class='fu'>required_pkgs.step_untokenize</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
