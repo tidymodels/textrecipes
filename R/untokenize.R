@@ -150,3 +150,9 @@ tidy.step_untokenize <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_untokenize <- function(x, ...) {
+  c("textrecipes")
+}

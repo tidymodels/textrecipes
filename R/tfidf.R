@@ -255,3 +255,9 @@ normalize = function(dtm, norm = c("l1", "l2", "none")) {
   
   Matrix::Diagonal(x = norm_vec) %*% dtm
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_tfidf <- function(x, ...) {
+  c("textrecipes")
+}

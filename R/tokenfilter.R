@@ -227,3 +227,9 @@ tokenfilter_fun <- function(data, max_times, min_times, max_features,
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
   }
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_tokenfilter <- function(x, ...) {
+  c("textrecipes")
+}

@@ -171,5 +171,5 @@ tidy.step_text_normalization <- function(x, ...) {
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_text_normalization <- function(x, ...) {
-  c("stringi")
+  c("stringi", "textrecipes")
 }
