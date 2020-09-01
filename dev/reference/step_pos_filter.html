@@ -265,10 +265,14 @@ information look here <a href='https://spacy.io/api/annotation#pos-tagging'>http
   <span class='fu'><a href='step_tf.html'>step_tf</a></span>(<span class='kw'>text</span>)
   
 <span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='kw'>okc_rec</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in required_pkgs.step_tokenize(): argument "x" is missing, with no default</span></div><div class='input'>  
+  
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in fully_trained(object): object 'okc_obj' not found</span></div><div class='input'><span class='co'># }</span>
-</div></pre>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 3</span><span>
+#&gt;   tf_text_cats tf_text_ladies tf_text_tale
+#&gt;          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>            0              0            1
+#&gt; </span><span style='color: #555555;'>2</span><span>            1              1            0</div><div class='input'><span class='co'># }</span>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
