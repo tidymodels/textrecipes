@@ -264,7 +264,7 @@ tokenizer_switch <- function(name, engine) {
   }
   
   if (engine == "spacyr") {
-    recipes::recipes_pkg_check("spacyr")
+    recipes::recipes_pkg_check(required_pkgs.step_tokenize())
     
     possible_tokenizers <- c("words")
     
@@ -280,3 +280,15 @@ tokenizer_switch <- function(name, engine) {
   
   rlang::abort("`engine` argument is not valid.")
 }
+
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_tokenize <- function(x, ...) {
+  if (x$engine == "spacyr") {
+    c("spacyr", "textrecipes")
+  } else {
+    "textrecipes"
+  }
+}
+

@@ -197,3 +197,9 @@ tidy.step_stopwords <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_stopwords <- function(x, ...) {
+  c("textrecipes")
+}

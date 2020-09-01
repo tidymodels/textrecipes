@@ -86,7 +86,7 @@ step_textfeature <-
            id = rand_id("textfeature")
   ) {
     
-    recipes::recipes_pkg_check("textfeatures")
+    recipes::recipes_pkg_check(required_pkgs.step_textfeature())
     
     add_step(
       recipe,
@@ -201,3 +201,11 @@ validate_string2num <- function(fun) {
                         " must return the same length output as its input."))
   }
 }
+
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_textfeature <- function(x, ...) {
+  c("textfeatures", "textrecipes")
+}
+

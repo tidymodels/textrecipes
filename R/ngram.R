@@ -170,25 +170,8 @@ tidy.step_ngram <- function(x, ...) {
   res
 }
 
-#' tunable methods for step_ngram
-#'
-#' These functions define what parameters _can_ be tuned for specific steps.
-#' They also define the recommended objects from the `dials` package that can
-#' be used to generate new parameter values and other characteristics.
-#' @param x A recipe step object
-#' @param ... Not used.
-#' @return A tibble object.
-#' @keywords internal
+#' @rdname required_pkgs.step
 #' @export
-tunable.step_ngram <- function(x, ...) {
-  tibble::tibble(
-    name = c("num_tokens"),
-    call_info = list(
-      list(pkg = "dials", fun = "num_tokens", range = c(1, 3))
-    ),
-    source = "recipe",
-    component = "step_ngram",
-    component_id = x$id
-  )
+required_pkgs.step_ngram <- function(x, ...) {
+  c("textrecipes")
 }
-

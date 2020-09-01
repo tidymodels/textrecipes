@@ -242,3 +242,9 @@ tf_weight <- function(x, scheme, weight) {
     return(weight + weight * x / max_ftd)
   }
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_tf <- function(x, ...) {
+  c("textrecipes")
+}

@@ -49,6 +49,18 @@ maybe_register_tunable_methods <- function() {
     s3_register("generics::tidy", class)
   }
   
+  # ----------------------------------------------------------------------------
+  
+  req_pkgs_names <- grep("^required_pkgs\\.", names, value = TRUE)
+  req_pkgs_classes <- gsub("required_pkgs.", "", req_pkgs_names)
+  
+  for (i in seq_along(req_pkgs_names)) {
+    class <- req_pkgs_classes[[i]]
+    s3_register("tune::required_pkgs", class)
+  }
+  
+  # ----------------------------------------------------------------------------
+  
   invisible()
 }
 

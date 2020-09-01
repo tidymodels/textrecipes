@@ -91,7 +91,7 @@ step_texthash <-
            skip = FALSE,
            id = rand_id("texthash")) {
 
-    recipes::recipes_pkg_check("text2vec")
+    recipes::recipes_pkg_check(required_pkgs.step_texthash())
     
     add_step(
       recipe,
@@ -212,3 +212,16 @@ list_to_hash <- function(x, n, signed) {
   as.matrix(text2vec::create_dtm(it, vectorizer))
 }
 
+
+#' S3 methods for tracking which additional packages are needed for steps.
+#'
+#' Recipe-adjacent packages always list themselves as a required package so that
+#' the steps can function properly within parallel processing schemes. 
+#' @param x A recipe step
+#' @return A character vector
+#' @rdname required_pkgs.step
+#' @keywords internal
+#' @export
+required_pkgs.step_texthash <- function(x, ...) {
+  c("text2vec", "textrecipes")
+}
