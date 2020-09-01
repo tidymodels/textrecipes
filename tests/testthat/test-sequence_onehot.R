@@ -69,7 +69,7 @@ test_that("padding and truncating works correctly", {
       0, 0, 0, 0, 0
     ), nrow = 3, byrow = TRUE)
   )
-  
+
   expect_equal(
     pad_trunc(5, "pre", "post"),
     matrix(c(

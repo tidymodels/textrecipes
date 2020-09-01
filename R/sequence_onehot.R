@@ -205,31 +205,6 @@ tidy.step_sequence_onehot <- function(x, ...) {
   res
 }
 
-# Implementation
-pad_string <- function(x, n, padding, truncating) {
-  
-  len_x <- length(x)
-  
-  if (len_x == n) {
-    return(x)
-  }
-  
-  if (len_x < n) {
-    if (padding == "post") {
-      return(c(x, rep(NA, (n - len_x))))
-    } else {
-      return(c(rep(NA, (n - len_x)), x))
-    }
-  } else {
-    if (truncating == "post") {
-      return(x[seq_len(n)])
-    } else {
-      return(x[seq(len_x - n + 1, len_x)])
-    }
-  }
-
-}
-
 char_key <- function(x) {
   out <- seq_along(x)
   names(out) <- x
@@ -240,15 +215,37 @@ string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
                                   truncating) {
   vocabulary <- char_key(vocabulary)
   x <- get_tokens(x)
-  x <- lapply(x, pad_string, 
-              n = sequence_length, 
-              padding = padding, 
-              truncating = truncating)
-  x <- lapply(x, function(x) vocabulary[x])
-  df <- do.call(rbind, x)
-  df <- unname(df)
-  df[is.na(df)] <- 0
-  df
+  
+  res <- matrix(NA, nrow = length(x), ncol = sequence_length)
+  
+  for (i in seq_along(x)) {
+    len_x <- length(x[[i]])
+    
+    values <- x[[i]]
+    
+    if (len_x == 0) next
+    
+    if (len_x == sequence_length) {
+      res[i, ] <- values
+    }
+    
+    if (len_x < sequence_length) {
+      if (padding == "post") {
+        res[i, seq_len(len_x)] <- values
+      } else {
+        res[i, seq(sequence_length - len_x + 1 , sequence_length)] <- values
+      }
+    } else {
+      if (truncating == "post") {
+        res[i, ] <- values[seq_len(sequence_length)]
+      } else {
+        res[i, ] <- values[seq(len_x - sequence_length + 1, len_x)]
+      }
+    }
+  }
+  res <- matrix(vocabulary[res], nrow = length(x), ncol = sequence_length)
+  res[is.na(res)] <- 0
+  res
 }
 
 #' @rdname required_pkgs.step
