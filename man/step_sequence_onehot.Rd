@@ -14,7 +14,7 @@ step_sequence_onehot(
   role = "predictor",
   trained = FALSE,
   columns = NULL,
-  string_length = 100,
+  sequence_length = 100,
   padding = "pre",
   truncating = "pre",
   vocabulary = NULL,
@@ -46,14 +46,14 @@ baked.}
 encoding. This is \code{NULL} until the step is trained by
 \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{string_length}{A numeric, number of characters to keep before
+\item{sequence_length}{A numeric, number of characters to keep before
 discarding. Defaults to 100.}
 
 \item{padding}{'pre' or 'post', pad either before or after each sequence.
 defaults to 'pre'.}
 
 \item{truncating}{'pre' or 'post', remove values from sequences larger than
-string_length either in the beginning or in the end of the sequence.
+sequence_length either in the beginning or in the end of the sequence.
 Defaults too 'pre'.}
 
 \item{vocabulary}{A character vector, characters to be mapped to integers.
@@ -83,8 +83,8 @@ to the sequence of existing steps (if any).
 will take a string and do one hot encoding for each character by position.
 }
 \details{
-The string will be capped by the string_length argument, strings shorter then
-string_length will be padded with empty characters. The encoding will assign
+The string will be capped by the sequence_length argument, strings shorter then
+sequence_length will be padded with empty characters. The encoding will assign
 a integer to each character in the vocabulary, and will encode accordingly.
 Characters not in the vocabulary will be encoded as 0.
 }

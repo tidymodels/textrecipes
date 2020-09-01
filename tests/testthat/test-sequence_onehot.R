@@ -13,7 +13,7 @@ rec <- recipe(~ ., data = test_data)
 test_that("sequence encoding is done correctly", {
   rec <- rec %>%
     step_tokenize(text) %>%
-    step_sequence_onehot(text, string_length = 10)
+    step_sequence_onehot(text, sequence_length = 10)
   
   obj <- rec %>%
     prep()
@@ -44,7 +44,7 @@ test_that("padding and truncating works correctly", {
     recipe(~ text, data = data) %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, 
-                           string_length = seq_length, 
+                           sequence_length = seq_length, 
                            padding = padding, 
                            truncating = truncating) %>%
       prep() %>%

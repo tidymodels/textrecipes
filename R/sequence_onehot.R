@@ -16,12 +16,12 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
-#' @param string_length A numeric, number of characters to keep before 
+#' @param sequence_length A numeric, number of characters to keep before 
 #'      discarding. Defaults to 100.
 #' @param padding 'pre' or 'post', pad either before or after each sequence.
 #'  defaults to 'pre'.
 #' @param truncating 'pre' or 'post', remove values from sequences larger than 
-#'  string_length either in the beginning or in the end of the sequence. 
+#'  sequence_length either in the beginning or in the end of the sequence. 
 #'  Defaults too 'pre'.
 #' @param vocabulary A character vector, characters to be mapped to integers. 
 #'  Characters not in the vocabulary will be encoded as 0. Defaults to 
@@ -59,8 +59,8 @@
 #' 
 #' @export
 #' @details 
-#' The string will be capped by the string_length argument, strings shorter then 
-#' string_length will be padded with empty characters. The encoding will assign 
+#' The string will be capped by the sequence_length argument, strings shorter then 
+#' sequence_length will be padded with empty characters. The encoding will assign 
 #' a integer to each character in the vocabulary, and will encode accordingly. 
 #' Characters not in the vocabulary will be encoded as 0.
 #'
@@ -73,7 +73,7 @@ step_sequence_onehot <-
            role = "predictor",
            trained = FALSE,
            columns = NULL,
-           string_length = 100,
+           sequence_length = 100,
            padding = "pre",
            truncating = "pre",
            vocabulary = NULL,
@@ -95,7 +95,7 @@ step_sequence_onehot <-
         role = role,
         trained = trained,
         columns = columns,
-        string_length = string_length,
+        sequence_length = sequence_length,
         padding = padding,
         truncating = truncating,
         vocabulary = vocabulary,
@@ -107,7 +107,7 @@ step_sequence_onehot <-
   }
 
 step_sequence_onehot_new <-
-  function(terms, role, trained, columns, string_length, padding, truncating,
+  function(terms, role, trained, columns, sequence_length, padding, truncating,
            vocabulary, prefix, skip, id) {
     step(
       subclass = "sequence_onehot",
@@ -115,7 +115,7 @@ step_sequence_onehot_new <-
       role = role,
       trained = trained,
       columns = columns,
-      string_length = string_length,
+      sequence_length = sequence_length,
       padding = padding,
       truncating = truncating,
       vocabulary = vocabulary,
@@ -143,7 +143,7 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    string_length = x$string_length,
+    sequence_length = x$sequence_length,
     padding = x$padding,
     truncating = x$truncating,
     vocabulary = token_list,
@@ -161,7 +161,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
                                       vocabulary = object$vocabulary[[i]],
-                                      string_length = object$string_length,
+                                      sequence_length = object$sequence_length,
                                       padding = object$padding,
                                       truncating = object$truncating)
 
@@ -236,13 +236,12 @@ char_key <- function(x) {
   out
 }
 
-string2encoded_matrix <- function(x, vocabulary, string_length, padding,
+string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
                                   truncating) {
   vocabulary <- char_key(vocabulary)
   x <- get_tokens(x)
-  #x <- map(x, ~.x[seq_len(min(length(.x), string_length))])
   x <- lapply(x, pad_string, 
-              n = string_length, 
+              n = sequence_length, 
               padding = padding, 
               truncating = truncating)
   x <- lapply(x, function(x) vocabulary[x])
