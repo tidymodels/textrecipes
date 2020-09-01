@@ -18,8 +18,8 @@
 #'  [recipes::prep.recipe()].
 #' @param string_length A numeric, number of characters to keep before 
 #'      discarding. Defaults to 100.
-#' @param integer_key A character vector, characters to be mapped to integers. 
-#'  Characters not in the integer_key will be encoded as 0. Defaults to 
+#' @param vocabulary A character vector, characters to be mapped to integers. 
+#'  Characters not in the vocabulary will be encoded as 0. Defaults to 
 #'  `letters`.
 #' @param prefix A prefix for generated column names, default to "seq1hot".
 #' @param skip A logical. Should the step be skipped when the
@@ -39,7 +39,9 @@
 #' library(modeldata)
 #' data(okc_text)
 #' 
-#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#' okc_rec <- recipe(~ essay0, data = okc_text) %>%
+#'   step_tokenize(essay0) %>%
+#'   step_tokenfilter(essay0) %>%
 #'   step_sequence_onehot(essay0) 
 #'   
 #' okc_obj <- okc_rec %>%
@@ -54,8 +56,8 @@
 #' @details 
 #' The string will be capped by the string_length argument, strings shorter then 
 #' string_length will be padded with empty characters. The encoding will assign 
-#' a integer to each character in the integer_key, and will encode accordingly. 
-#' Characters not in the integer_key will be encoded as 0.
+#' a integer to each character in the vocabulary, and will encode accordingly. 
+#' Characters not in the vocabulary will be encoded as 0.
 #'
 #' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
 #' 
@@ -67,7 +69,7 @@ step_sequence_onehot <-
            trained = FALSE,
            columns = NULL,
            string_length = 100,
-           integer_key = letters,
+           vocabulary = NULL,
            prefix = "seq1hot",
            skip = FALSE,
            id = rand_id("sequence_onehot")
@@ -80,7 +82,7 @@ step_sequence_onehot <-
         trained = trained,
         columns = columns,
         string_length = string_length,
-        integer_key = integer_key,
+        vocabulary = vocabulary,
         prefix = prefix,
         skip = skip,
         id = id
@@ -89,7 +91,7 @@ step_sequence_onehot <-
   }
 
 step_sequence_onehot_new <-
-  function(terms, role, trained, columns, string_length, integer_key, prefix,
+  function(terms, role, trained, columns, string_length, vocabulary, prefix,
            skip, id) {
     step(
       subclass = "sequence_onehot",
@@ -98,7 +100,7 @@ step_sequence_onehot_new <-
       trained = trained,
       columns = columns,
       string_length = string_length,
-      integer_key = integer_key,
+      vocabulary = vocabulary,
       prefix = prefix,
       skip = skip,
       id = id
@@ -108,12 +110,15 @@ step_sequence_onehot_new <-
 #' @export
 prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
+  
+  check_list(training[, col_names])
 
-  training <- factor_to_text(training, col_names)
-
-  check_type(training[, col_names], quant = FALSE)
-
-  encoded_key <- char_key(x$integer_key)
+  token_list <- list()
+  
+  for (i in seq_along(col_names)) {
+    token_list[[i]] <- x$vocabulary %||%
+      sort(get_unique_tokens(training[, col_names[i], drop = TRUE]))
+  }
 
   step_sequence_onehot_new(
     terms = x$terms,
@@ -121,7 +126,7 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     string_length = x$string_length,
-    integer_key = encoded_key,
+    vocabulary = token_list,
     prefix = x$prefix,
     skip = x$skip,
     id = x$id
@@ -133,11 +138,9 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
 
-  new_data <- factor_to_text(new_data, col_names)
-
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
-                                      integer_key = object$integer_key,
+                                      vocabulary = object$vocabulary[[i]],
                                       string_length = object$string_length)
 
     colnames(out_text) <- paste(sep = "_",
@@ -167,13 +170,13 @@ print.step_sequence_onehot <-
 tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = rep(term_names, each = length(x$integer_key)),
-                  integer_key = rep(unname(x$integer_key), length(x$terms)),
-                  token = rep(names(x$integer_key), length(x$terms)))
+    res <- tibble(terms = rep(term_names, each = lengths(x$vocabulary)),
+                  vocabulary = unlist(lapply(x$vocabulary, seq_along)),
+                  token = unlist(x$vocabulary))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
-                  integer_key = NA_character_,
+                  vocabulary = NA_character_,
                   token = NA_integer_)
   }
   res$id <- x$id
@@ -186,7 +189,7 @@ pad_string <- function(x, n) {
   if (len_x == n) {
     return(x)
   }
-  c(x, character(n - len_x))
+  c(x, rep(NA, (n - len_x)))
 }
 
 char_key <- function(x) {
@@ -195,12 +198,14 @@ char_key <- function(x) {
   out
 }
 
-string2encoded_matrix <- function(x, integer_key, string_length) {
-  x <- stringr::str_sub(x, 1, string_length)
-  x <- stringr::str_split(x, "")
+string2encoded_matrix <- function(x, vocabulary, string_length) {
+  vocabulary <- char_key(vocabulary)
+  x <- get_tokens(x)
+  x <- map(x, ~.x[seq_len(min(length(.x), string_length))])
   x <- lapply(x, pad_string, n = string_length)
-  x <- lapply(x, function(x) integer_key[x])
+  x <- lapply(x, function(x) vocabulary[x])
   df <- do.call(rbind, x)
+  df <- unname(df)
   df[is.na(df)] <- 0
   df
 }

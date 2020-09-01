@@ -15,7 +15,7 @@ step_sequence_onehot(
   trained = FALSE,
   columns = NULL,
   string_length = 100,
-  integer_key = letters,
+  vocabulary = NULL,
   prefix = "seq1hot",
   skip = FALSE,
   id = rand_id("sequence_onehot")
@@ -47,8 +47,8 @@ encoding. This is \code{NULL} until the step is trained by
 \item{string_length}{A numeric, number of characters to keep before
 discarding. Defaults to 100.}
 
-\item{integer_key}{A character vector, characters to be mapped to integers.
-Characters not in the integer_key will be encoded as 0. Defaults to
+\item{vocabulary}{A character vector, characters to be mapped to integers.
+Characters not in the vocabulary will be encoded as 0. Defaults to
 \code{letters}.}
 
 \item{prefix}{A prefix for generated column names, default to "seq1hot".}
@@ -76,15 +76,17 @@ will take a string and do one hot encoding for each character by position.
 \details{
 The string will be capped by the string_length argument, strings shorter then
 string_length will be padded with empty characters. The encoding will assign
-a integer to each character in the integer_key, and will encode accordingly.
-Characters not in the integer_key will be encoded as 0.
+a integer to each character in the vocabulary, and will encode accordingly.
+Characters not in the vocabulary will be encoded as 0.
 }
 \examples{
 library(recipes)
 library(modeldata)
 data(okc_text)
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
+okc_rec <- recipe(~ essay0, data = okc_text) \%>\%
+  step_tokenize(essay0) \%>\%
+  step_tokenfilter(essay0) \%>\%
   step_sequence_onehot(essay0) 
   
 okc_obj <- okc_rec \%>\%
