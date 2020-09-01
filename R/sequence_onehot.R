@@ -168,11 +168,13 @@ tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = rep(term_names, each = length(x$integer_key)),
-                  integer_key = rep(names(x$integer_key), length(x$terms)))
+                  integer_key = rep(unname(x$integer_key), length(x$terms)),
+                  token = rep(names(x$integer_key), length(x$terms)))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
-                  integer_key = NA_character_)
+                  integer_key = NA_character_,
+                  token = NA_integer_)
   }
   res$id <- x$id
   res

@@ -25,8 +25,8 @@ test_that("sequence encoding is done correctly", {
   expect_true(all(vapply(juiced_data, function(x) all(is.numeric(x)), 
                          FUN.VALUE = logical(1))))
   
-  expect_equal(dim(tidy(rec, 1)), c(1, 3))
-  expect_equal(dim(tidy(obj, 1)), c(length(letters), 3))
+  expect_equal(dim(tidy(rec, 1)), c(1, 4))
+  expect_equal(dim(tidy(obj, 1)), c(length(letters), 4))
 })
 
 test_that("custom extraction functions work works", {
