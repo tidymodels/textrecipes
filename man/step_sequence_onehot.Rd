@@ -15,6 +15,8 @@ step_sequence_onehot(
   trained = FALSE,
   columns = NULL,
   string_length = 100,
+  padding = "pre",
+  truncating = "pre",
   vocabulary = NULL,
   prefix = "seq1hot",
   skip = FALSE,
@@ -46,6 +48,13 @@ encoding. This is \code{NULL} until the step is trained by
 
 \item{string_length}{A numeric, number of characters to keep before
 discarding. Defaults to 100.}
+
+\item{padding}{'pre' or 'post', pad either before or after each sequence.
+defaults to 'pre'.}
+
+\item{truncating}{'pre' or 'post', remove values from sequences larger than
+string_length either in the beginning or in the end of the sequence.
+Defaults too 'pre'.}
 
 \item{vocabulary}{A character vector, characters to be mapped to integers.
 Characters not in the vocabulary will be encoded as 0. Defaults to

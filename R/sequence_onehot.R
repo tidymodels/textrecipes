@@ -18,6 +18,11 @@
 #'  [recipes::prep.recipe()].
 #' @param string_length A numeric, number of characters to keep before 
 #'      discarding. Defaults to 100.
+#' @param padding 'pre' or 'post', pad either before or after each sequence.
+#'  defaults to 'pre'.
+#' @param truncating 'pre' or 'post', remove values from sequences larger than 
+#'  string_length either in the beginning or in the end of the sequence. 
+#'  Defaults too 'pre'.
 #' @param vocabulary A character vector, characters to be mapped to integers. 
 #'  Characters not in the vocabulary will be encoded as 0. Defaults to 
 #'  `letters`.
@@ -69,11 +74,20 @@ step_sequence_onehot <-
            trained = FALSE,
            columns = NULL,
            string_length = 100,
+           padding = "pre",
+           truncating = "pre",
            vocabulary = NULL,
            prefix = "seq1hot",
            skip = FALSE,
            id = rand_id("sequence_onehot")
   ) {
+    
+    if (length(padding) != 1 || !(padding %in% c("pre", "post")))
+      rlang::abort("`padding` should be one of: 'pre', 'post'")
+    
+    if (length(truncating) != 1 || !(truncating %in% c("pre", "post")))
+      rlang::abort("`truncating` should be one of: 'pre', 'post'")
+    
     add_step(
       recipe,
       step_sequence_onehot_new(
@@ -82,6 +96,8 @@ step_sequence_onehot <-
         trained = trained,
         columns = columns,
         string_length = string_length,
+        padding = padding,
+        truncating = truncating,
         vocabulary = vocabulary,
         prefix = prefix,
         skip = skip,
@@ -91,8 +107,8 @@ step_sequence_onehot <-
   }
 
 step_sequence_onehot_new <-
-  function(terms, role, trained, columns, string_length, vocabulary, prefix,
-           skip, id) {
+  function(terms, role, trained, columns, string_length, padding, truncating,
+           vocabulary, prefix, skip, id) {
     step(
       subclass = "sequence_onehot",
       terms = terms,
@@ -100,6 +116,8 @@ step_sequence_onehot_new <-
       trained = trained,
       columns = columns,
       string_length = string_length,
+      padding = padding,
+      truncating = truncating,
       vocabulary = vocabulary,
       prefix = prefix,
       skip = skip,
@@ -126,6 +144,8 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     string_length = x$string_length,
+    padding = x$padding,
+    truncating = x$truncating,
     vocabulary = token_list,
     prefix = x$prefix,
     skip = x$skip,
@@ -141,7 +161,9 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(new_data[, col_names[i], drop = TRUE],
                                       vocabulary = object$vocabulary[[i]],
-                                      string_length = object$string_length)
+                                      string_length = object$string_length,
+                                      padding = object$padding,
+                                      truncating = object$truncating)
 
     colnames(out_text) <- paste(sep = "_",
                                 object$prefix,
@@ -184,12 +206,28 @@ tidy.step_sequence_onehot <- function(x, ...) {
 }
 
 # Implementation
-pad_string <- function(x, n) {
+pad_string <- function(x, n, padding, truncating) {
+  
   len_x <- length(x)
+  
   if (len_x == n) {
     return(x)
   }
-  c(x, rep(NA, (n - len_x)))
+  
+  if (len_x < n) {
+    if (padding == "post") {
+      return(c(x, rep(NA, (n - len_x))))
+    } else {
+      return(c(rep(NA, (n - len_x)), x))
+    }
+  } else {
+    if (truncating == "post") {
+      return(x[seq_len(n)])
+    } else {
+      return(x[seq(len_x - n + 1, len_x)])
+    }
+  }
+
 }
 
 char_key <- function(x) {
@@ -198,11 +236,15 @@ char_key <- function(x) {
   out
 }
 
-string2encoded_matrix <- function(x, vocabulary, string_length) {
+string2encoded_matrix <- function(x, vocabulary, string_length, padding,
+                                  truncating) {
   vocabulary <- char_key(vocabulary)
   x <- get_tokens(x)
-  x <- map(x, ~.x[seq_len(min(length(.x), string_length))])
-  x <- lapply(x, pad_string, n = string_length)
+  #x <- map(x, ~.x[seq_len(min(length(.x), string_length))])
+  x <- lapply(x, pad_string, 
+              n = string_length, 
+              padding = padding, 
+              truncating = truncating)
   x <- lapply(x, function(x) vocabulary[x])
   df <- do.call(rbind, x)
   df <- unname(df)

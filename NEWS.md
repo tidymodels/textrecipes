@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* `step_sequence_onehot()` now takes tokenlists as input.
+
 # textrecipes 0.3.0
 
 * stopwords package have been moved from Imports to Suggests.

@@ -34,6 +34,83 @@ test_that("sequence encoding is done correctly", {
   )
 })
 
+
+test_that("padding and truncating works correctly", {
+  data <- tibble(text = c("a b c d e f g",
+                          "a b c",
+                          ""))
+  
+  pad_trunc <- function(seq_length, padding, truncating) {
+    recipe(~ text, data = data) %>%
+      step_tokenize(text) %>%
+      step_sequence_onehot(text, 
+                           string_length = seq_length, 
+                           padding = padding, 
+                           truncating = truncating) %>%
+      prep() %>%
+      juice(composition = "matrix") %>%
+      unname()
+  }
+  
+  expect_equal(
+    pad_trunc(5, "pre", "pre"),
+    matrix(c(
+      3, 4, 5, 6, 7,
+      0, 0, 1, 2, 3,
+      0, 0, 0, 0, 0
+    ), nrow = 3, byrow = TRUE)
+  )
+
+  expect_equal(
+    pad_trunc(5, "post", "pre"),
+    matrix(c(
+      3, 4, 5, 6, 7,
+      1, 2, 3, 0, 0,
+      0, 0, 0, 0, 0
+    ), nrow = 3, byrow = TRUE)
+  )
+  
+  expect_equal(
+    pad_trunc(5, "pre", "post"),
+    matrix(c(
+      1, 2, 3, 4, 5,
+      0, 0, 1, 2, 3,
+      0, 0, 0, 0, 0
+    ), nrow = 3, byrow = TRUE)
+  )
+  
+  expect_equal(
+    pad_trunc(5, "post", "post"),
+    matrix(c(
+      1, 2, 3, 4, 5,
+      1, 2, 3, 0, 0,
+      0, 0, 0, 0, 0
+    ), nrow = 3, byrow = TRUE)
+  )
+  
+  expect_error(
+    rec %>%
+      step_tokenize(text) %>%
+      step_sequence_onehot(text, padding = "not pre")
+  )
+  expect_error(
+    rec %>%
+      step_tokenize(text) %>%
+      step_sequence_onehot(text, truncating = "Wrong")
+  )
+  expect_error(
+    rec %>%
+      step_tokenize(text) %>%
+      step_sequence_onehot(text, padding = c("pre", "pre"))
+  )
+  expect_error(
+    rec %>%
+      step_tokenize(text) %>%
+      step_sequence_onehot(text, truncating = "Wrong")
+  )
+})
+
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
