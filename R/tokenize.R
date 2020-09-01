@@ -174,7 +174,7 @@ bake.step_tokenize <- function(object, new_data, ...) {
   # for backward compat
 
   tokenizer <- object$custom_token %||%
-                           tokenizer_switch(object$token, object$engine)
+                           tokenizer_switch(object$token, object)
 
   for (i in seq_along(col_names)) {
     new_data[, col_names[i]] <- tokenizer_fun(new_data[, col_names[i]],
@@ -235,8 +235,8 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   out
 }
 
-tokenizer_switch <- function(name, engine) {
-  if (engine == "tokenizers") {
+tokenizer_switch <- function(name, object) {
+  if (object$engine == "tokenizers") {
     possible_tokenizers <-
       c("characters", "character_shingle", "lines", "ngrams",
         "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
@@ -263,8 +263,8 @@ tokenizer_switch <- function(name, engine) {
     return(res)
   }
   
-  if (engine == "spacyr") {
-    recipes::recipes_pkg_check(required_pkgs.step_tokenize())
+  if (object$engine == "spacyr") {
+    recipes::recipes_pkg_check(required_pkgs.step_tokenize(object))
     
     possible_tokenizers <- c("words")
     
