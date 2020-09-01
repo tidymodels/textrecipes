@@ -1,8 +1,8 @@
 pandoc: 2.7.3
 pkgdown: 1.5.1.9000
-pkgdown_sha: add5b7df498dcc2b6d36313297d657f14b775af3
+pkgdown_sha: ecce89ed7fc0bfe4a2ec6e2fdc9285f238e13e7c
 articles: []
-last_built: 2020-08-24T04:25Z
+last_built: 2020-09-01T05:30Z
 urls:
   reference: https://textrecipes.tidymodels.org/reference
   article: https://textrecipes.tidymodels.org/articles

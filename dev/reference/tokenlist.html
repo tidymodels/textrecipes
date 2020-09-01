@@ -186,10 +186,12 @@ with a few attributes.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>abc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>letters</span>, <span class='kw'>LETTERS</span>)
-<span class='fu'>tokenlist</span>(<span class='kw'>abc</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[2]&gt;
+<span class='fu'>tokenlist</span>(<span class='kw'>abc</span>)
+</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[2]&gt;
 #&gt; [1] [26 tokens] [26 tokens]
 #&gt; # Unique Tokens: 52</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>unclass</a></span>(<span class='fu'>tokenlist</span>(<span class='kw'>abc</span>))</div><div class='output co'>#&gt; $tokens
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>unclass</a></span>(<span class='fu'>tokenlist</span>(<span class='kw'>abc</span>))
+</div><div class='output co'>#&gt; $tokens
 #&gt; $tokens[[1]]
 #&gt;  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 #&gt; [20] "t" "u" "v" "w" "x" "y" "z"
@@ -203,17 +205,19 @@ with a few attributes.</p>
 #&gt;  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 #&gt; [20] "t" "u" "v" "w" "x" "y" "z" "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L"
 #&gt; [39] "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"</div><div class='input'>
-<span class='fu'>tibble</span>(text = <span class='fu'>tokenlist</span>(<span class='kw'>abc</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 1
+<span class='fu'>tibble</span>(text = <span class='fu'>tokenlist</span>(<span class='kw'>abc</span>))
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
 #&gt;          text
-#&gt;     &lt;tknlist&gt;
-#&gt; 1 [26 tokens]
-#&gt; 2 [26 tokens]</div><div class='input'>
+#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> [26 tokens]
+#&gt; </span><span style='color: #555555;'>2</span><span> [26 tokens]</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://lincolnmullen.com/software/tokenizers'>tokenizers</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
 <span class='kw'>tokens</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html'>tokenize_words</a></span>(<span class='kw'>okc_text</span><span class='op'>$</span><span class='kw'>essay0</span>)
 
-<span class='fu'>tokenlist</span>(<span class='kw'>tokens</span>)</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[750]&gt;
+<span class='fu'>tokenlist</span>(<span class='kw'>tokens</span>)
+</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[750]&gt;
 #&gt;   [1] [184 tokens] [24 tokens]  [375 tokens] [77 tokens]  [77 tokens] 
 #&gt;   [6] [275 tokens] [327 tokens] [155 tokens] [4 tokens]   [592 tokens]
 #&gt;  [11] [494 tokens] [563 tokens] [105 tokens] [44 tokens]  [11 tokens] 
@@ -364,7 +368,7 @@ with a few attributes.</p>
 #&gt; [736] [371 tokens] [20 tokens]  [165 tokens] [112 tokens] [44 tokens] 
 #&gt; [741] [108 tokens] [120 tokens] [17 tokens]  [70 tokens]  [15 tokens] 
 #&gt; [746] [101 tokens] [57 tokens]  [243 tokens] [91 tokens]  [47 tokens] 
-#&gt; # Unique Tokens: 9256</div></pre>
+#&gt; # Unique Tokens: 9256</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
