@@ -153,6 +153,9 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
   training <- factor_to_text(training, col_names)
 
   check_type(training[, col_names], quant = FALSE)
+  
+  tokenizer <- x$custom_token %||%
+    tokenizer_switch(x$token, x)
 
   step_tokenize_new(
     terms = x$terms,
@@ -162,7 +165,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     options = x$options,
     token = x$token,
     engine = x$engine,
-    custom_token = x$custom_token,
+    custom_token = tokenizer,
     skip = x$skip,
     id = x$id
   )
@@ -173,14 +176,11 @@ bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
 
-  tokenizer <- object$custom_token %||%
-                           tokenizer_switch(object$token, object)
-
   for (i in seq_along(col_names)) {
     new_data[, col_names[i]] <- tokenizer_fun(new_data[, col_names[i]],
                                               col_names[i],
                                               options = object$options,
-                                              token = tokenizer)
+                                              token = object$custom_token)
   }
   as_tibble(new_data)
 }
