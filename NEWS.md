@@ -1,6 +1,7 @@
 # textrecipes (development version)
 
 * `step_sequence_onehot()` now takes tokenlists as input.
+* added {tokenizers.bpe} engine to `step_tokenize()`.
 
 # textrecipes 0.3.0
 
