@@ -154,8 +154,12 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 
   check_type(training[, col_names], quant = FALSE)
   
-  tokenizer <- x$custom_token %||%
-    tokenizer_switch(x$token, x)
+  tokenizers <- list()
+  
+  for (i in seq_along(col_names)) {
+    tokenizers[[i]] <- x$custom_token %||%
+      tokenizer_switch(x$token, x, training[, col_names[[i]], drop = TRUE])
+  }
 
   step_tokenize_new(
     terms = x$terms,
@@ -165,7 +169,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     options = x$options,
     token = x$token,
     engine = x$engine,
-    custom_token = tokenizer,
+    custom_token = tokenizers,
     skip = x$skip,
     id = x$id
   )
@@ -180,7 +184,7 @@ bake.step_tokenize <- function(object, new_data, ...) {
     new_data[, col_names[i]] <- tokenizer_fun(new_data[, col_names[i]],
                                               col_names[i],
                                               options = object$options,
-                                              token = object$custom_token)
+                                              token = object$custom_token[[i]])
   }
   as_tibble(new_data)
 }
@@ -235,7 +239,7 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   out
 }
 
-tokenizer_switch <- function(name, object) {
+tokenizer_switch <- function(name, object, data) {
   if (object$engine == "tokenizers") {
     possible_tokenizers <-
       c("characters", "character_shingle", "lines", "ngrams",
@@ -273,8 +277,21 @@ tokenizer_switch <- function(name, object) {
                           "'", possible_tokenizers, "'", collapse = ", "))
     
     res <- switch(name,
-                  words = spacyr_tokenizer_words
-    )
+                  words = spacyr_tokenizer_words)
+    return(res)
+  }
+  
+  if (object$engine == "tokenizers.bpe") {
+    recipes::recipes_pkg_check(required_pkgs.step_tokenize(object))
+    
+    possible_tokenizers <- c("words")
+    
+    if (!(name %in% possible_tokenizers))
+      rlang::abort(paste0("token should be one of the supported ",
+                          "'", possible_tokenizers, "'", collapse = ", "))
+    
+    res <- switch(name,
+                  words = tokenizers_bpe_words(data))
     return(res)
   }
   
@@ -287,6 +304,8 @@ tokenizer_switch <- function(name, object) {
 required_pkgs.step_tokenize <- function(x, ...) {
   if (x$engine == "spacyr") {
     c("spacyr", "textrecipes")
+  } else if (x$engine == "tokenizers.bpe") {
+    c("tokenizers.bpe", "textrecipes") 
   } else {
     "textrecipes"
   }

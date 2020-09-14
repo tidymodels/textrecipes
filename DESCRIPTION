@@ -42,7 +42,8 @@ Suggests:
     testthat (>= 2.1.0),
     text2vec,
     textfeatures (>= 0.3.3),
-    stringi
+    stringi,
+    tokenizers.bpe
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
