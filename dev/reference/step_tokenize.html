@@ -167,6 +167,7 @@ will convert a character predictor into a <a href='tokenlist.html'>tokenlist</a>
   role = <span class='fl'>NA</span>,
   trained = <span class='fl'>FALSE</span>,
   columns = <span class='kw'>NULL</span>,
+  training_options = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
   options = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
   token = <span class='st'>"words"</span>,
   engine = <span class='st'>"tokenizers"</span>,
@@ -208,6 +209,11 @@ baked.</p></td>
       <td><p>A list of tibble results that define the
 encoding. This is <code>NULL</code> until the step is trained by
 <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>training_options</th>
+      <td><p>A list of options passed to the tokenizer when it is
+being trained. Only applicable for engine == "tokenizers.bpe".</p></td>
     </tr>
     <tr>
       <th>options</th>
@@ -318,11 +324,11 @@ be done with <code><a href='https://recipes.tidymodels.org/reference/step_mutate
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms  value id            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_8SVTT</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_JtuAR</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>1</span>)
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms      value id            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_8SVTT</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_JtuAR</div><div class='input'>
 <span class='kw'>okc_obj_chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span>(<span class='kw'>essay0</span>, token = <span class='st'>"characters"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
