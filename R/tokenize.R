@@ -301,9 +301,22 @@ tokenizer_switch <- function(name, object, data) {
     return(res)
   }
   
+  if (object$engine == "udpipe") {
+    recipes::recipes_pkg_check(required_pkgs.step_tokenize(object))
+    
+    possible_tokenizers <- c("words")
+    
+    if (!(name %in% possible_tokenizers))
+      rlang::abort(paste0("token should be one of the supported ",
+                          "'", possible_tokenizers, "'", collapse = ", "))
+    
+    res <- switch(name,
+                  words = udpipe_words(object$training_options$model))
+    return(res)
+  }
+  
   rlang::abort("`engine` argument is not valid.")
 }
-
 
 #' @rdname required_pkgs.step
 #' @export
@@ -312,6 +325,8 @@ required_pkgs.step_tokenize <- function(x, ...) {
     c("spacyr", "textrecipes")
   } else if (x$engine == "tokenizers.bpe") {
     c("tokenizers.bpe", "textrecipes") 
+  } else if (x$engine == "udpipe") {
+    c("udpipe", "textrecipes") 
   } else {
     "textrecipes"
   }

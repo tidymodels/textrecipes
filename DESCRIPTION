@@ -43,7 +43,8 @@ Suggests:
     text2vec,
     textfeatures (>= 0.3.3),
     stringi,
-    tokenizers.bpe
+    tokenizers.bpe,
+    udpipe
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
