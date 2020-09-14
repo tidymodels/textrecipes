@@ -14,6 +14,8 @@
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
+#' @param training_options A list of options passed to the tokenizer when it is
+#'  being trained. Only applicable for engine == "tokenizers.bpe".
 #' @param options A list of options passed to the tokenizer.
 #' @param token Unit for tokenizing. See details for options. Defaults to 
 #' "words".
@@ -104,6 +106,7 @@ step_tokenize <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           training_options = list(),
            options = list(),
            token = "words",
            engine = "tokenizers",
@@ -118,6 +121,7 @@ step_tokenize <-
         role = role,
         trained = trained,
         columns = columns,
+        training_options = training_options,
         options = options,
         token = token,
         engine = engine,
@@ -129,14 +133,15 @@ step_tokenize <-
   }
 
 step_tokenize_new <-
-  function(terms, role, trained, columns, options, token, engine, custom_token,
-           skip, id) {
+  function(terms, role, trained, columns, training_options, options, token, 
+           engine, custom_token, skip, id) {
     step(
       subclass = "tokenize",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
+      training_options = training_options,
       options = options,
       token = token,
       engine = engine,
@@ -166,6 +171,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
+    training_options = x$training_options,
     options = x$options,
     token = x$token,
     engine = x$engine,
@@ -291,7 +297,7 @@ tokenizer_switch <- function(name, object, data) {
                           "'", possible_tokenizers, "'", collapse = ", "))
     
     res <- switch(name,
-                  words = tokenizers_bpe_words(data))
+                  words = tokenizers_bpe_words(data, object$training_options))
     return(res)
   }
   

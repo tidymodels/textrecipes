@@ -101,4 +101,29 @@ test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
   )
 })
 
+test_that("arguments are passed to tokenizers.bpe", {
+  res <- recipe(~ text1, data = test_data) %>%
+    step_tokenize(text1, 
+                  engine = "tokenizers.bpe", 
+                  training_options = list(vocab_size = 60)) %>%
+    prep() %>%
+    juice()
+  
+  expect_equal(
+    length(textrecipes:::get_unique_tokens(res$text1)),
+    60
+  )
+  
+  res <- recipe(~ text1, data = test_data) %>%
+    step_tokenize(text1, 
+                  engine = "tokenizers.bpe", 
+                  training_options = list(vocab_size = 80)) %>%
+    prep() %>%
+    juice()
+  
+  expect_equal(
+    length(textrecipes:::get_unique_tokens(res$text1)),
+    80
+  )
+})
 

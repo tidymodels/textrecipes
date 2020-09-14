@@ -1,11 +1,17 @@
-tokenizers_bpe_words <- function(text, ...) {
+tokenizers_bpe_words <- function(text, options = list()) {
   temp_file0 <- tempfile()
   
+  token_expr <- expr(
+    tokenizers.bpe::bpe(text, 
+                        threads = 1, 
+                        model_path = temp_file0)
+  )
+  
+  if (length(options) > 0)
+    token_expr <- mod_call_args(token_expr, args = options)
+  
   ddd <- utils::capture.output(type = "message", {
-    model <- tokenizers.bpe::bpe(text, 
-                                 threads = 1, 
-                                 model_path = temp_file0, 
-                                 ...)
+    model <- eval(token_expr)
   })
   
   model_code <- readLines(temp_file0)

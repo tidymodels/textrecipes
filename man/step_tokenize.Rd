@@ -11,6 +11,7 @@ step_tokenize(
   role = NA,
   trained = FALSE,
   columns = NULL,
+  training_options = list(),
   options = list(),
   token = "words",
   engine = "tokenizers",
@@ -39,6 +40,9 @@ baked.}
 \item{columns}{A list of tibble results that define the
 encoding. This is \code{NULL} until the step is trained by
 \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+
+\item{training_options}{A list of options passed to the tokenizer when it is
+being trained. Only applicable for engine == "tokenizers.bpe".}
 
 \item{options}{A list of options passed to the tokenizer.}
 
