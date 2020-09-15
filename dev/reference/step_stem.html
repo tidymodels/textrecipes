@@ -289,11 +289,11 @@ will therefore not work reliably on ngrams or sentences.</p>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms  value id        
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    stem_R06gp</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    stem_g9rpM</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms      is_custom_stemmer id        
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     TRUE              stem_R06gp</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     TRUE              stem_g9rpM</div><div class='input'>
 <span class='co'># Using custom stemmer. Here a custom stemmer that removes the last letter</span>
 <span class='co'># if it is a "s".</span>
 <span class='kw'>remove_s</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='kw'>x</span>)
