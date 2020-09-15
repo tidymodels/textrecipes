@@ -10,7 +10,7 @@ udpipe_words <- function(model) {
     
     model$file_model <- temp_file
     
-    tokens <- udpipe::udpipe(x = x, object = model, ...)
+    tokens <- udpipe::udpipe(x = x, object = model, parser = "none", ...)
     
     doc_id <- factor(tokens$doc_id, paste0("doc", seq_along(x)))
     
