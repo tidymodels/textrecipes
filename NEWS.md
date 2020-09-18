@@ -3,6 +3,7 @@
 * `step_sequence_onehot()` now takes tokenlists as input.
 * added {tokenizers.bpe} engine to `step_tokenize()`.
 * added {udpipe} engine to `step_tokenize()`.
+* added new steps for cleaning variable names or levels with {janitor}, `step_clean_names()` and `step_clean_levels()`. (#101)
 
 # textrecipes 0.3.0
 
