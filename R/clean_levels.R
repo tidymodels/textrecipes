@@ -21,9 +21,11 @@
 #'   levels (i.e., not contained in the training set), they are converted
 #'   to missing.
 #'
-#' @seealso [recipes::step_factor2string()], [recipes::step_string2factor()],
-#'  [recipes::step_regex()], [recipes::step_unknown()], [recipes::step_novel()]
+#' @seealso [step_clean_names()], [recipes::step_factor2string()], 
+#'  [recipes::step_string2factor()], [recipes::step_regex()], 
+#'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @examples
+#' library(recipes)
 #' library(modeldata)
 #' data(Smithsonian)
 #'
@@ -114,6 +116,7 @@ bake.step_clean_levels <- function(object, new_data, ...) {
   as_tibble(new_data)
 }
 
+#' @export
 print.step_clean_levels <-
   function(x, width = max(20, options()$width - 30), ...) {
     
