@@ -67,10 +67,10 @@ will convert a \link{tokenlist} to have its tokens stemmed.
 Words tend to have different forms depending on context, such as
 organize, organizes, and organizing. In many situations it is beneficial
 to have these words condensed into one to allow for a smaller pool of
-words. Stemming is the act of choping off the end of words using a set
+words. Stemming is the act of chopping off the end of words using a set
 of heuristics.
 
-Note that the steming will only be done at the end of the word and
+Note that the stemming will only be done at the end of the word and
 will therefore not work reliably on ngrams or sentences.
 }
 \examples{

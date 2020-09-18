@@ -3,7 +3,7 @@
 \name{step_text_normalization}
 \alias{step_text_normalization}
 \alias{tidy.step_text_normalization}
-\title{text_normalizationming of \link{tokenlist} variables}
+\title{Normalization of \link{tokenlist} variables}
 \usage{
 step_text_normalization(
   recipe,
@@ -67,21 +67,21 @@ library(recipes)
 
 sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 
-okc_rec <- recipe(~ ., data = sample_data) \%>\%
+rec <- recipe(~ ., data = sample_data) \%>\%
   step_text_normalization(text)
   
-okc_obj <- okc_rec \%>\%
+prepped <- rec \%>\%
   prep()
 
-juice(okc_obj, text) \%>\% 
+juice(prepped, text) \%>\% 
   slice(1:2)
 
-juice(okc_obj) \%>\% 
+juice(prepped) \%>\% 
   slice(2) \%>\% 
   pull(text) 
   
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+tidy(rec, number = 1)
+tidy(prepped, number = 1)
 }
 }
 \seealso{

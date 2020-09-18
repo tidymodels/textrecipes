@@ -42,6 +42,9 @@ reference:
   - title: Step Functions - character to character
     contents:
     - step_text_normalization
+  - title: Step Functions - text cleaning
+    - step_clean_levels
+    - step_clean_names
   - title: Tokenlist functions
     contents:
     - tokenlist

@@ -1,4 +1,4 @@
-#' text_normalizationming of [tokenlist] variables
+#' Normalization of [tokenlist] variables
 #'
 #' `step_text_normalization` creates a *specification* of a recipe step that
 #'  will perform Unicode Normalization
@@ -35,21 +35,21 @@
 #' 
 #' sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 #' 
-#' okc_rec <- recipe(~ ., data = sample_data) %>%
+#' rec <- recipe(~ ., data = sample_data) %>%
 #'   step_text_normalization(text)
 #'   
-#' okc_obj <- okc_rec %>%
+#' prepped <- rec %>%
 #'   prep()
 #' 
-#' juice(okc_obj, text) %>% 
+#' juice(prepped, text) %>% 
 #'   slice(1:2)
 #' 
-#' juice(okc_obj) %>% 
+#' juice(prepped) %>% 
 #'   slice(2) %>% 
 #'   pull(text) 
 #'   
-#' tidy(okc_rec, number = 1)
-#' tidy(okc_obj, number = 1)
+#' tidy(rec, number = 1)
+#' tidy(prepped, number = 1)
 #' }
 #' @export
 #' 

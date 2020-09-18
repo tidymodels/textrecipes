@@ -34,6 +34,7 @@ Imports:
     vctrs
 Suggests: 
     covr,
+    janitor,
     knitr,
     modeldata,
     rmarkdown,
