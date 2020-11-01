@@ -18,3 +18,4 @@ rcpp_ngram(x, n, n_min, delim)
 \description{
 ngram generator
 }
+\keyword{internal}

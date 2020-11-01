@@ -8,6 +8,7 @@
 #' @param n_min minimum number of grams
 #' @param delim delimiter
 #'
+#' @keywords internal
 rcpp_ngram <- function(x, n, n_min, delim) {
     .Call(`_textrecipes_rcpp_ngram`, x, n, n_min, delim)
 }

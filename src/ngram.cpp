@@ -58,6 +58,7 @@ CharacterVector ngram(CharacterVector x, int n, int n_min, String delim) {
 //' @param n_min minimum number of grams
 //' @param delim delimiter
 //'
+//' @keywords internal
 // [[Rcpp::export]]
 List rcpp_ngram(List x, int n, int n_min, String delim) {
   
