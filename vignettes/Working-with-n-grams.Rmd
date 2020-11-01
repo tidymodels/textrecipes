@@ -2,7 +2,7 @@
 title: "Working with n-grams"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Working-with-n-grams}
+  %\VignetteIndexEntry{Working with n-grams}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

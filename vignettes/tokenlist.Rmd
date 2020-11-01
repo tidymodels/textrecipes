@@ -2,7 +2,7 @@
 title: "Under the hood - tokenlist"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tokenlist}
+  %\VignetteIndexEntry{Under the hood - tokenlist}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
