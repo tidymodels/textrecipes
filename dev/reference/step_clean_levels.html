@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter the tokens based on term frequency — step_tokenfilter • textrecipes</title>
+<title>Clean categorical levels — step_clean_levels • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,10 @@
 
 
 
-<meta property="og:title" content="Filter the tokens based on term frequency — step_tokenfilter" />
-<meta property="og:description" content="step_tokenfilter creates a specification of a recipe step that
-will convert a tokenlist to be filtered based on frequency." />
+<meta property="og:title" content="Clean categorical levels — step_clean_levels" />
+<meta property="og:description" content="step_clean_levels creates a specification of a recipe step that will
+clean nominal data (character or factor) so the levels consist only of
+letters, numbers, and the underscore." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,32 +152,28 @@ will convert a tokenlist to be filtered based on frequency." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter the tokens based on term frequency</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/tokenfilter.R'><code>R/tokenfilter.R</code></a></small>
-    <div class="hidden name"><code>step_tokenfilter.Rd</code></div>
+    <h1>Clean categorical levels</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/clean_levels.R'><code>R/clean_levels.R</code></a></small>
+    <div class="hidden name"><code>step_clean_levels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_tokenfilter</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='tokenlist.html'>tokenlist</a> to be filtered based on frequency.</p>
+    <p><code>step_clean_levels</code> creates a <em>specification</em> of a recipe step that will
+clean nominal data (character or factor) so the levels consist only of
+letters, numbers, and the underscore.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_tokenfilter</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>step_clean_levels</span><span class='op'>(</span>
   <span class='va'>recipe</span>,
   <span class='va'>...</span>,
   role <span class='op'>=</span> <span class='cn'>NA</span>,
   trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  columns <span class='op'>=</span> <span class='cn'>NULL</span>,
-  max_times <span class='op'>=</span> <span class='cn'>Inf</span>,
-  min_times <span class='op'>=</span> <span class='fl'>0</span>,
-  percentage <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  max_tokens <span class='op'>=</span> <span class='fl'>100</span>,
-  res <span class='op'>=</span> <span class='cn'>NULL</span>,
+  clean <span class='op'>=</span> <span class='cn'>NULL</span>,
   skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"tokenfilter"</span><span class='op'>)</span>
+  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"clean_levels"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='co'># S3 method for step_tokenfilter</span>
+<span class='co'># S3 method for step_clean_levels</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -189,9 +186,8 @@ sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_tokenfilter</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+      <td><p>One or more selector functions to choose which
+variables' levels will be cleaned. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -205,35 +201,10 @@ created.</p></td>
 baked.</p></td>
     </tr>
     <tr>
-      <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>max_times</th>
-      <td><p>An integer. Maximal number of times a word can appear
-before getting removed.</p></td>
-    </tr>
-    <tr>
-      <th>min_times</th>
-      <td><p>An integer. Minimum number of times a word can appear
-before getting removed.</p></td>
-    </tr>
-    <tr>
-      <th>percentage</th>
-      <td><p>A logical. Should max_times and min_times be interpreded
-as a percentage instead of count.</p></td>
-    </tr>
-    <tr>
-      <th>max_tokens</th>
-      <td><p>An integer. Will only keep the top max_tokens tokens
-after filtering done by max_times and min_times. Defaults to 100.</p></td>
-    </tr>
-    <tr>
-      <th>res</th>
-      <td><p>The words that will be keep will be stored here once
-this preprocessing step has be trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>prep.recipe()</a></code>.</p></td>
+      <th>clean</th>
+      <td><p>A named character vector to clean and recode categorical levels.
+This is <code>NULL</code> until computed by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>. Note that if the
+original variable is a character vector, it will be converted to a factor.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -251,72 +222,59 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_tokenfilter</code> object.</p></td>
+      <td><p>A <code>step_clean_levels</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An updated version of <code>recipe</code> with the new step added
-to the sequence of existing steps (if any).</p>
+    <p>An updated version of <code>recipe</code> with the new step
+added to the sequence of existing steps (if any). For the <code>tidy</code> method, a
+tibble with columns <code>terms</code> (the columns that are cleaned), <code>original</code> (the
+original uncleaned levels) and <code>value</code> (the new cleaned levels).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This step allow you to limit the tokens you are looking at by filtering
-on their occurrence in the corpus. You are able to exclude tokens if they
-appear too many times or too fews times in the data. It can be specified
-as counts using <code>max_times</code> and <code>min_times</code> or as percentages by setting
-<code>percentage</code> as <code>TRUE</code>. In addition one can filter to only use the top
-<code>max_tokens</code> used tokens. If <code>max_tokens</code> is set to <code>Inf</code> then all the tokens
-will be used. This will generally lead to very large datasets when then
-tokens are words or trigrams. A good strategy is to start with a low token
-count and go up according to how much RAM you want to use.</p>
-<p>It is strongly advised to filter before using <a href='step_tf.html'>step_tf</a> or <a href='step_tfidf.html'>step_tfidf</a> to
-limit the number of variables created.</p>
+    <p>The new levels are cleaned and then reset with
+<code><a href='https://dplyr.tidyverse.org/reference/recode.html'>dplyr::recode_factor()</a></code>. When data to be processed contains novel
+levels (i.e., not contained in the training set), they are converted
+to missing.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
-<p>Other tokenlist to tokenlist steps: 
-<code><a href='step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='step_stem.html'>step_stem</a>()</code>,
-<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='step_clean_names.html'>step_clean_names()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_factor2string.html'>recipes::step_factor2string()</a></code>,
+<code><a href='https://recipes.tidymodels.org/reference/step_string2factor.html'>recipes::step_string2factor()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_regex.html'>recipes::step_regex()</a></code>,
+<code><a href='https://recipes.tidymodels.org/reference/step_unknown.html'>recipes::step_unknown()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_novel.html'>recipes::step_novel()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_other.html'>recipes::step_other()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>okc_text</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>Smithsonian</span><span class='op'>)</span>
 
-<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_tokenfilter</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> 
-  
-<span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='va'>okc_rec</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>smith_tr</span> <span class='op'>&lt;-</span> <span class='va'>Smithsonian</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>,<span class='op'>]</span>
+<span class='va'>smith_te</span> <span class='op'>&lt;-</span> <span class='va'>Smithsonian</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>20</span>,<span class='op'>]</span>
 
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, <span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
-#&gt;        essay0
-#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> [83 tokens]
-#&gt; </span><span style='color: #555555;'>2</span><span> [13 tokens]</div><div class='input'>
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span><span class='op'>(</span><span class='va'>okc_obj</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
-#&gt; [1] [13 tokens]
-#&gt; # Unique Tokens: 7</div><div class='input'>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
-#&gt;   terms  value id               
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0    </span><span style='color: #BB0000;'>NA</span><span> tokenfilter_Vq8Fg</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
-#&gt;   terms      value     id               
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span> tokenfilter_Vq8Fg</div></span></pre>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>smith_tr</span><span class='op'>)</span>
+
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"janitor"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='va'>rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>step_clean_levels</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec</span>, training <span class='op'>=</span> <span class='va'>smith_tr</span><span class='op'>)</span>
+
+<span class='va'>cleaned</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>rec</span>, <span class='va'>smith_tr</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+<span class='co'># novel levels are replaced with missing</span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>rec</span>, <span class='va'>smith_te</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 3</span><span>
+#&gt;   name  latitude longitude
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #BB0000;'>NA</span><span>        38.9     -</span><span style='color: #BB0000;'>77.0</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #BB0000;'>NA</span><span>        38.9     -</span><span style='color: #BB0000;'>77.0</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #BB0000;'>NA</span><span>        38.9     -</span><span style='color: #BB0000;'>77.0</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #BB0000;'>NA</span><span>        38.9     -</span><span style='color: #BB0000;'>77.0</span><span>
+#&gt; </span><span style='color: #555555;'>5</span><span> </span><span style='color: #BB0000;'>NA</span><span>        38.9     -</span><span style='color: #BB0000;'>77.1</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

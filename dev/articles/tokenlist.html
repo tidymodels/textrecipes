@@ -103,7 +103,8 @@
 
       
 
-      </header><script src="tokenlist_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="tokenlist_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tokenlist_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="tokenlist_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Under the hood - tokenlist</h1>
@@ -117,7 +118,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: recipes</span>
 <span class="co">#&gt; Loading required package: dplyr</span>
 <span class="co">#&gt; </span>
@@ -132,8 +133,7 @@
 <span class="co">#&gt; Attaching package: 'recipes'</span>
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;     step</span>
-</pre></div>
+<span class="co">#&gt;     step</span></pre></div>
 <p><strong>textrecipes</strong> have been using lists of character vectors to carry around the tokens. A simple S3 vector class has been implemented with the <strong>vctrs</strong> package to handle that list of tokens, henceforth to be known as a <code>tokenlist</code>.</p>
 <p>If you are only using this package for preprocessing then you most likely won’t even notice that this change has happened. However if you are thinking of contributing to <strong>textrecipes</strong> then knowing about <code>tokenlist</code>s will be essential.</p>
 <p>A <code>tokenlist</code> is based around a simple list of character vectors, and has 3 attributes, <code>lemma</code>, <code>pos</code> and <code>tokens</code>.</p>
