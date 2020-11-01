@@ -43,6 +43,7 @@ reference:
     contents:
     - step_text_normalization
   - title: Step Functions - text cleaning
+    contents:
     - step_clean_levels
     - step_clean_names
   - title: Tokenlist functions

@@ -104,6 +104,7 @@ bake.step_clean_names <- function(object, new_data, ...) {
 }
 
 
+#' @export
 print.step_clean_names <-
   function(x, width = max(20, options()$width - 30), ...) {
     
