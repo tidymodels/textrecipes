@@ -48,7 +48,7 @@
 #' okc_obj <- okc_rec %>%
 #'   prep()
 #'
-#' juice(okc_obj) %>%
+#' bake(okc_obj, new_data = NULL) %>%
 #'   slice(1:2)
 
 #' tidy(okc_rec, number = 1)
@@ -58,7 +58,7 @@
 #' recipe(~ ., data = okc_text) %>%
 #'   step_lda(essay0, essay1, num_topics = 20) %>%
 #'   prep() %>%
-#'   juice() %>%
+#'   bake(new_data = NULL) %>%
 #'   slice(1:2)
 #'
 #' # Supplying A pre-trained LDA model trained using text2vec
@@ -72,7 +72,7 @@
 #' recipe(~ ., data = okc_text) %>%
 #'   step_lda(essay0, essay1, lda_models = lda_model) %>%
 #'   prep() %>%
-#'   juice() %>%
+#'   bake(new_data = NULL) %>%
 #'   slice(1:2)
 #' }
 #' }

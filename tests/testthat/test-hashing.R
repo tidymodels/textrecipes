@@ -21,7 +21,7 @@ test_that("hashing gives double outputs", {
     prep()
 
   expect_true(
-    juice(obj) %>%
+    bake(obj, new_data = NULL) %>%
       select(contains("hash")) %>%
       lapply(is.double) %>%
       unlist() %>%
@@ -40,7 +40,7 @@ test_that("hashing output width changes accordingly with num_terms", {
     prep()
 
   expect_equal(
-    juice(rec) %>%
+    bake(rec, new_data = NULL) %>%
       select(contains("hash")) %>%
       ncol(),
     256
@@ -54,13 +54,13 @@ test_that("hashing output width changes accordingly with num_terms", {
     step_tokenize(all_predictors()) %>%
     step_texthash(all_predictors(), num_terms = 2) %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
   
   unsigned <- recipe(~ ., data = test_data) %>%
     step_tokenize(all_predictors()) %>%
     step_texthash(all_predictors(), num_terms = 2, signed = FALSE) %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
   
   all(unsigned$text_hash1 == signed$text_hash1)
   all(unsigned$text_hash2 == signed$text_hash2)

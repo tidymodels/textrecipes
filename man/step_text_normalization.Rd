@@ -73,10 +73,10 @@ rec <- recipe(~ ., data = sample_data) \%>\%
 prepped <- rec \%>\%
   prep()
 
-juice(prepped, text) \%>\% 
+bake(prepped, new_data = NULL, text) \%>\% 
   slice(1:2)
 
-juice(prepped) \%>\% 
+bake(prepped, new_data = NULL) \%>\% 
   slice(2) \%>\% 
   pull(text) 
   

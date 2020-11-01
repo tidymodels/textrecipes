@@ -22,7 +22,7 @@ test_that("stemming is done correctly", {
   expect_equal(
     tokenizers::tokenize_words(test_data$text[1])[[1]] %>%
       SnowballC::wordStem(),
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       slice(1) %>% 
       pull(text) %>%
       vctrs::field("tokens") %>%
@@ -46,7 +46,7 @@ test_that("custom stemmer works", {
   expect_equal(
     tokenizers::tokenize_words(test_data$text[1])[[1]] %>%
       custom_stem_fun(),
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       slice(1) %>% 
       pull(text) %>%
       vctrs::field("tokens") %>%
@@ -65,7 +65,7 @@ test_that("arguments are passed by options", {
     step_tokenize(text) %>% 
     step_stem(text, options = list(language = "russian")) %>% 
     prep(data) %>% 
-    juice() %>% 
+    bake(new_data = NULL) %>% 
     pull(text) %>%
     vctrs::field("tokens"),
   list("кот")

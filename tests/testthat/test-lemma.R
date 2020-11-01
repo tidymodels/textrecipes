@@ -17,7 +17,7 @@ test_that("lemmatization works", {
   
   prepped_data <- rec %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
   
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   

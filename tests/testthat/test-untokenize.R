@@ -36,7 +36,7 @@ test_that("working as intended", {
     prep()
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% as.character(),
+    bake(obj, new_data = NULL) %>% pull(text) %>% as.character(),
     c("i would not eat them here or there",
       "i would not eat them anywhere",
       "i would not eat green eggs and ham",
@@ -53,7 +53,7 @@ test_that("working as intended", {
     prep()
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% as.character(),
+    bake(obj, new_data = NULL) %>% pull(text) %>% as.character(),
     c("i-would-not-eat-them-here-or-there",
       "i-would-not-eat-them-anywhere",
       "i-would-not-eat-green-eggs-and-ham",

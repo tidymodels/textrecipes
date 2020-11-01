@@ -85,10 +85,10 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
 okc_obj <- okc_rec \%>\%
   prep()
 
-juice(okc_obj, essay0) \%>\% 
+bake(okc_obj, new_data = NULL, essay0) \%>\% 
   slice(1:2)
 
-juice(okc_obj) \%>\% 
+bake(okc_obj, new_data = NULL) \%>\% 
   slice(2) \%>\% 
   pull(essay0) 
   
@@ -106,10 +106,10 @@ okc_rec <- recipe(~ ., data = okc_text) \%>\%
 okc_obj <- okc_rec \%>\%
   prep()
 
-juice(okc_obj, essay0) \%>\% 
+bake(okc_obj, new_data = NULL, essay0) \%>\% 
   slice(1:2)
 
-juice(okc_obj) \%>\% 
+bake(okc_obj, new_data = NULL) \%>\% 
   slice(2) \%>\% 
   pull(essay0) 
 }

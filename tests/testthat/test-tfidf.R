@@ -19,7 +19,7 @@ test_that("step_tfidf works as intended", {
   obj <- rec %>%
     prep()
   
-  rec_answer <- unname(juice(obj))
+  rec_answer <- unname(bake(obj, new_data = NULL))
   
   manual_answer <- unname(
     tibble(am =       c(0 / 8, 0 / 6, 0 / 8, 1 / 8) * log(1 + 4 / 1),
@@ -59,7 +59,7 @@ test_that("step_tfidf works with vocabulary argument", {
     prep()
   
   expect_length(
-    juice(obj),
+    bake(obj, new_data = NULL),
     26
   )
 })

@@ -18,7 +18,7 @@ rec_base <- recipe(~ ., data = test_data)
 tokens <- rec_base %>% 
   step_tokenize(text) %>%
   recipes::prep() %>%
-  recipes::juice() %>% 
+  recipes::bake(new_data = NULL) %>% 
   vctrs::vec_cbind(rename(test_data, text1 = text)) %>% 
   dplyr::select(text = text1, tokens = text)
 
@@ -105,7 +105,7 @@ rec <- rec_base %>%
 obj <- rec %>%
   prep()
 
-juiced <- juice(obj)
+juiced <- bake(obj, new_data = NULL)
 
 test_that("step_word_embeddings adds the appropriate number of columns.", {
   ncol_given <- ncol(embeddings) - 1L
@@ -156,7 +156,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
       text, embeddings = embeddings, aggregation = "max"
     ) %>% 
     prep() %>% 
-    juice()
+    bake(new_data = NULL)
   
   expect_equal(
     as.data.frame(juiced_max), 
@@ -170,7 +170,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
       text, embeddings = embeddings, aggregation = "min"
     ) %>% 
     prep() %>% 
-    juice()
+    bake(new_data = NULL)
   
   expect_equal(
     as.data.frame(juiced_min), 
@@ -184,7 +184,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
       text, embeddings = embeddings, aggregation = "mean"
     ) %>% 
     prep() %>% 
-    juice()
+    bake(new_data = NULL)
   
   expect_equal(
     as.data.frame(juiced_mean), 
@@ -253,7 +253,7 @@ test_that("Embeddings work with empty documents", {
     step_tokenize(text) %>%
     step_word_embeddings(text, embeddings = embeddings, aggregation = "sum") %>%
     prep() %>%
-    juice() %>% 
+    bake(new_data = NULL) %>% 
     as.numeric(),
   rep(0, 5)
   )
@@ -263,7 +263,7 @@ test_that("Embeddings work with empty documents", {
     step_tokenize(text) %>%
     step_word_embeddings(text, embeddings = embeddings, aggregation = "mean") %>%
     prep() %>%
-    juice() %>% 
+    bake(new_data = NULL) %>% 
     as.numeric(),
   rep(0, 5)
   )
@@ -273,7 +273,7 @@ test_that("Embeddings work with empty documents", {
     step_tokenize(text) %>%
     step_word_embeddings(text, embeddings = embeddings, aggregation = "min") %>%
     prep() %>%
-    juice() %>% 
+    bake(new_data = NULL) %>% 
     as.numeric(),
   rep(0, 5)
   )
@@ -283,7 +283,7 @@ test_that("Embeddings work with empty documents", {
     step_tokenize(text) %>%
     step_word_embeddings(text, embeddings = embeddings, aggregation = "max") %>%
     prep() %>%
-    juice() %>% 
+    bake(new_data = NULL) %>% 
     as.numeric(),
   rep(0, 5)
   )
@@ -298,7 +298,7 @@ test_that("aggregation_default argument works", {
       step_word_embeddings(text, embeddings = embeddings, aggregation = "sum", 
                            aggregation_default = 3) %>%
       prep() %>%
-      juice() %>% 
+      bake(new_data = NULL) %>% 
       as.numeric(),
     rep(3, 5)
   )
@@ -309,7 +309,7 @@ test_that("aggregation_default argument works", {
       step_word_embeddings(text, embeddings = embeddings, aggregation = "mean",
                            aggregation_default = 3) %>%
       prep() %>%
-      juice() %>% 
+      bake(new_data = NULL) %>% 
       as.numeric(),
     rep(3, 5)
   )
@@ -320,7 +320,7 @@ test_that("aggregation_default argument works", {
       step_word_embeddings(text, embeddings = embeddings, aggregation = "min",
                            aggregation_default = 3) %>%
       prep() %>%
-      juice() %>% 
+      bake(new_data = NULL) %>% 
       as.numeric(),
     rep(3, 5)
   )
@@ -331,7 +331,7 @@ test_that("aggregation_default argument works", {
       step_word_embeddings(text, embeddings = embeddings, aggregation = "max",
                            aggregation_default = 3) %>%
       prep() %>%
-      juice() %>% 
+      bake(new_data = NULL) %>% 
       as.numeric(),
     rep(3, 5)
   )

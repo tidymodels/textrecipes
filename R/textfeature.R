@@ -44,10 +44,10 @@
 #' okc_obj <- okc_rec %>%
 #'   prep()
 #' 
-#' juice(okc_obj) %>%
+#' bake(okc_obj, new_data = NULL) %>%
 #'   slice(1:2)
 #' 
-#' juice(okc_obj) %>%
+#' bake(okc_obj, new_data = NULL) %>%
 #'   pull(textfeature_essay0_n_words)
 #'   
 #' tidy(okc_rec, number = 1)
@@ -60,7 +60,7 @@
 #'   step_textfeature(essay0, 
 #'                    extract_functions = list(nchar10 = nchar_round_10)) %>%
 #'   prep() %>%
-#'   juice()
+#'   bake(new_data = NULL)
 #' }
 #' @export
 #' @details 

@@ -77,7 +77,7 @@ okc_rec <- recipe(~ text, data = short_data) \%>\%
   
 okc_obj <- prep(okc_rec)
   
-juice(okc_obj)
+bake(okc_obj, new_data = NULL)
 }
 }
 \seealso{

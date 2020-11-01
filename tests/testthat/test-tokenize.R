@@ -33,7 +33,7 @@ test_that("tokenization is done correctly", {
          c("i", "would", "not", "eat", "them", "anywhere"),
          c("i", "would", "not", "eat", "green", "eggs", "and", "ham"),
          c("i", "do", "not", "like", "them", "sam", "i", "am")),
-    juice(obj) %>% pull(text) %>% vctrs::field("tokens")
+    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens")
   )
   
   expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(1, 3))
@@ -55,7 +55,7 @@ test_that("tokenization works with other built-in tokenizers", {
   
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
-    juice(rec) %>% slice(1) %>% pull(text) %>% vctrs::field("tokens")
+    bake(rec, new_data = NULL) %>% slice(1) %>% pull(text) %>% vctrs::field("tokens")
   )
 })
 
@@ -66,7 +66,7 @@ test_that("tokenization works with custom tokenizer", {
   
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
-    juice(rec) %>% 
+    bake(rec, new_data = NULL) %>% 
       slice(1) %>% 
       pull(text) %>% 
       vctrs::field("tokens")
@@ -83,7 +83,7 @@ test_that("arguments are passed using options argument", {
          c("I", "would", "not", "eat", "them", "anywhere"),
          c("I", "would", "not", "eat", "green", "eggs", "and", "ham"),
          c("I", "do", "not", "like", "them", "Sam", "I", "am")),
-    juice(rec) %>% pull(text) %>% vctrs::field("tokens")
+    bake(rec, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens")
   )
 })
 
@@ -103,7 +103,7 @@ test_that("tokenization includes lemma attribute when avaliable", {
     rec %>%
       step_tokenize(text, engine = "spacyr") %>%
       prep() %>%
-      juice() %>%
+      bake(new_data = NULL) %>%
       .$text %>%
       vctrs::field("lemma"), 
     "list"
@@ -115,7 +115,7 @@ test_that("tokenization doesn't includes lemma attribute when unavaliable", {
     rec %>%
       step_tokenize(text) %>%
       prep() %>%
-      juice() %>%
+      bake(new_data = NULL) %>%
       .$text %>%
       attr("lemma")
   )

@@ -18,7 +18,7 @@ test_that("textfeature extraction is done correctly", {
   obj <- rec %>%
     prep()
   
-  juiced_data <- juice(obj)  
+  juiced_data <- bake(obj, new_data = NULL)  
   
   expect_equal(dim(juiced_data), c(nrow(test_data), length(count_functions)))
   
@@ -43,7 +43,7 @@ test_that("custom extraction functions work works", {
   obj <- rec %>%
     prep()
   
-  expect_equal(dim(juice(obj)), c(nrow(test_data), 3))
+  expect_equal(dim(bake(obj, new_data = NULL)), c(nrow(test_data), 3))
   
   expect_error(
     rec %>%

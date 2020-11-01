@@ -20,7 +20,7 @@ test_that("character input", {
   expect_equal(tidy_exp_un, tidy(cleaned, number = 1))
   
   cleaned <- prep(cleaned, training = smith_tr[1:2,])
-  cleaned_tr <-  juice(cleaned)
+  cleaned_tr <-  bake(cleaned, new_data = NULL)
   cleaned_te <- bake(cleaned, new_data = smith_te)
   
   expect_equal(sum(grepl(" ", cleaned_tr$name)), 0)

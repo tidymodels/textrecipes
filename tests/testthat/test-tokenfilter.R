@@ -23,7 +23,7 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
   )
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
     list(c("would", "eat", "them"),
          c("would", "eat", "them"),
          c("would", "eat"),
@@ -46,7 +46,7 @@ test_that("removes words correctly with min_times, max_times and procentage", {
   )
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
     list(c("here", "or", "there"),
          c("anywhere"),
          c("green", "eggs", "and", "ham"),
@@ -63,7 +63,7 @@ test_that("tokenfilter removes words correctly using max_tokens", {
     prep()
   
   expect_equal(
-    juice(obj) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
     list(c("i", "would", "not", "eat", "them"),
          c("i", "would", "not", "eat", "them", "anywhere"),
          c("i", "would", "not", "eat", "eggs", "and"),

@@ -18,7 +18,7 @@ test_that("sequence encoding is done correctly", {
   obj <- rec %>%
     prep()
   
-  juiced_data <- juice(obj)  
+  juiced_data <- bake(obj, new_data = NULL)  
   
   expect_equal(dim(juiced_data), c(nrow(test_data), 10))
   
@@ -48,7 +48,7 @@ test_that("padding and truncating works correctly", {
                            padding = padding, 
                            truncating = truncating) %>%
       prep() %>%
-      juice(composition = "matrix") %>%
+      bake(new_data = NULL, composition = "matrix") %>%
       unname()
   }
   

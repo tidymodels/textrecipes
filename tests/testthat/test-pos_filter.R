@@ -17,7 +17,7 @@ test_that("part of speech filtering works", {
   
   prepped_data <- rec %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
   
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   
@@ -40,7 +40,7 @@ test_that("part of speech filtering removes everything", {
   
   prepped_data <- rec %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
   
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   
@@ -63,7 +63,7 @@ test_that("part of speech filtering works with multiple tags", {
   
   prepped_data <- rec %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
   
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
   

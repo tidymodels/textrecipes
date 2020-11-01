@@ -101,7 +101,7 @@ okc_rec <- recipe(~ essay0, data = okc_text) \%>\%
 okc_obj <- okc_rec \%>\%
   prep()
 
-juice(okc_obj)
+bake(okc_obj, new_data = NULL)
   
 tidy(okc_rec, number = 1)
 tidy(okc_obj, number = 1)

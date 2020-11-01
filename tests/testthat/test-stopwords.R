@@ -24,7 +24,7 @@ test_that("stopwords are removed correctly", {
   
   expect_equal(
     token_words[!is.element(token_words, stopwords::stopwords())],
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       slice(1) %>% 
       pull(text) %>%
       vctrs::field("tokens") %>%
@@ -46,7 +46,7 @@ test_that("stopwords are kept correctly", {
   
   expect_equal(
     token_words[is.element(token_words, stopwords::stopwords())],
-    juice(rec) %>% 
+    bake(rec, new_data = NULL) %>% 
       slice(1) %>% 
       pull(text) %>%
       vctrs::field("tokens") %>%
@@ -69,7 +69,7 @@ test_that("custom stopwords are supported", {
         c("would", "eat", "them", "anywhere"),
         c("would", "eat", "green", "eggs", "and", "ham"),
         c("do", "like", "them", "sam", "am")),
-    juice(rec) %>% 
+    bake(rec, new_data = NULL) %>% 
       pull(text) %>%
       vctrs::field("tokens")
   )

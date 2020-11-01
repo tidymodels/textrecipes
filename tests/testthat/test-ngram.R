@@ -136,7 +136,7 @@ test_that("ngramming is done correctly", {
     prep()
   
   expect_equal(
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       pull(text) %>%
       vctrs::field("tokens"),
     list(c("not_eat_them", "eat_them_here", "them_here_or", "here_or_there"),
@@ -156,7 +156,7 @@ test_that("`n` argument works", {
     prep()
   
   expect_equal(
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       pull(text) %>%
       vctrs::field("tokens"),
     list(c("not_eat", "eat_them", "them_here", "here_or", "or_there"),
@@ -173,7 +173,7 @@ test_that("ngramming works with min_num_tokens", {
     prep()
   
   expect_equal(
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       pull(text) %>%
       vctrs::field("tokens"),
     list(c("not", "eat", "them", "here", "or", "there", 
@@ -197,7 +197,7 @@ test_that("`delim` argument works", {
     prep()
   
   expect_equal(
-    juice(obj) %>% 
+    bake(obj, new_data = NULL) %>% 
       pull(text) %>%
       vctrs::field("tokens"),
     list(c("not eat them", "eat them here", "them here or", "here or there"),

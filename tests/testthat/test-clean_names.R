@@ -20,7 +20,7 @@ test_that("can clean names", {
   expect_equal(tidy_exp_un, tidy(cleaned, number = 1))
   
   cleaned <- prep(cleaned, training = air_tr)
-  cleaned_tr <- juice(cleaned)
+  cleaned_tr <- bake(cleaned, new_data = NULL)
   cleaned_te <- bake(cleaned, new_data = air_te)
   
   expect_equal(sum(grepl(" ", colnames(cleaned_tr))), 0)

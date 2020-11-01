@@ -18,7 +18,7 @@ test_that("step_lda works as intended", {
   obj <- rec1 %>%
     prep()
   
-  expect_equal(dim(juice(obj)), c(n_rows, n_top + 1))
+  expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
   
   expect_equal(dim(tidy(rec1, 1)), c(1, 3))
   expect_equal(dim(tidy(obj, 1)), c(1, 3))
@@ -33,7 +33,7 @@ test_that("step_lda works with num_topics argument", {
   obj <- rec1 %>%
     prep()
   
-  expect_equal(dim(juice(obj)), c(n_rows, n_top + 1))
+  expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
 })
 
 test_that("printing", {

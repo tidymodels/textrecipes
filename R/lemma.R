@@ -40,7 +40,7 @@
 #'   
 #' okc_obj <- prep(okc_rec)
 #'   
-#' juice(okc_obj)
+#' bake(okc_obj, new_data = NULL)
 #' }
 #' @export
 #' @details
