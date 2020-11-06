@@ -233,3 +233,19 @@ tokenfilter_fun <- function(data, max_times, min_times, max_features,
 required_pkgs.step_tokenfilter <- function(x, ...) {
   c("textrecipes")
 }
+
+#' @rdname tunable.step
+#' @export
+tunable.step_tokenfilter <- function(x, ...) {
+  tibble::tibble(
+    name = c("max_times", "min_times", "max_tokens"),
+    call_info = list(
+      list(pkg = "dials", fun = "max_times"),
+      list(pkg = "dials", fun = "min_times"),
+      list(pkg = "dials", fun = "max_tokens")
+    ),
+    source = "recipe",
+    component = "step_tokenfilter",
+    component_id = x$id
+  )
+}
