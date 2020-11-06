@@ -21,35 +21,35 @@
 \alias{required_pkgs.step_untokenize}
 \title{S3 methods for tracking which additional packages are needed for steps.}
 \usage{
-required_pkgs.step_texthash(x, ...)
+\method{required_pkgs}{step_texthash}(x, ...)
 
-required_pkgs.step_lda(x, ...)
+\method{required_pkgs}{step_lda}(x, ...)
 
-required_pkgs.step_lemma(x, ...)
+\method{required_pkgs}{step_lemma}(x, ...)
 
-required_pkgs.step_ngram(x, ...)
+\method{required_pkgs}{step_ngram}(x, ...)
 
-required_pkgs.step_pos_filter(x, ...)
+\method{required_pkgs}{step_pos_filter}(x, ...)
 
-required_pkgs.step_sequence_onehot(x, ...)
+\method{required_pkgs}{step_sequence_onehot}(x, ...)
 
-required_pkgs.step_stem(x, ...)
+\method{required_pkgs}{step_stem}(x, ...)
 
-required_pkgs.step_stopwords(x, ...)
+\method{required_pkgs}{step_stopwords}(x, ...)
 
-required_pkgs.step_text_normalization(x, ...)
+\method{required_pkgs}{step_text_normalization}(x, ...)
 
-required_pkgs.step_textfeature(x, ...)
+\method{required_pkgs}{step_textfeature}(x, ...)
 
-required_pkgs.step_tf(x, ...)
+\method{required_pkgs}{step_tf}(x, ...)
 
-required_pkgs.step_tfidf(x, ...)
+\method{required_pkgs}{step_tfidf}(x, ...)
 
-required_pkgs.step_tokenfilter(x, ...)
+\method{required_pkgs}{step_tokenfilter}(x, ...)
 
-required_pkgs.step_tokenize(x, ...)
+\method{required_pkgs}{step_tokenize}(x, ...)
 
-required_pkgs.step_untokenize(x, ...)
+\method{required_pkgs}{step_untokenize}(x, ...)
 }
 \arguments{
 \item{x}{A recipe step}
