@@ -201,5 +201,5 @@ tidy.step_stopwords <- function(x, ...) {
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_stopwords <- function(x, ...) {
-  c("textrecipes")
+  c("textrecipes", "stopwords")
 }
