@@ -121,19 +121,19 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the released version of textrecipes from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"textrecipes"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"textrecipes"</span><span class="op">)</span></code></pre></div>
 <p>Install the development version from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">install_github</span><span class="op">(</span><span class="st">"tidymodels/textrecipes"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu">install_github</span><span class="op">(</span><span class="st">"tidymodels/textrecipes"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 100 most used words. The preprocessing will be conducted on the variable <code>essay0</code> and <code>essay1</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes">recipes</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes">recipes</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://modeldata.tidymodels.org">modeldata</a></span><span class="op">)</span>
 
@@ -165,7 +165,7 @@
 <span class="co">#&gt;  $ tfidf_essay0_br        : num [1:750] 0.121 0.565 0.121 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_can       : num [1:750] 0.0488 0 0.0244 0 0 ...</span>
 <span class="co">#&gt;  $ tfidf_essay0_city      : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;   [list output truncated]</span></pre></div>
+<span class="co">#&gt;   [list output truncated]</span></code></pre></div>
 </div>
 <div id="type-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -266,8 +266,8 @@
 </tbody>
 </table>
 <p>This means that valid sequences includes</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -279,7 +279,7 @@
 <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
