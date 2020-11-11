@@ -175,3 +175,17 @@ tidy.step_ngram <- function(x, ...) {
 required_pkgs.step_ngram <- function(x, ...) {
   c("textrecipes")
 }
+
+#' @rdname tunable.step
+#' @export
+tunable.step_ngram <- function(x, ...) {
+  tibble::tibble(
+    name = c("num_tokens"),
+    call_info = list(
+      list(pkg = "dials", fun = "num_tokens", range = c(1, 3))
+    ),
+    source = "recipe",
+    component = "step_ngram",
+    component_id = x$id
+  )
+}

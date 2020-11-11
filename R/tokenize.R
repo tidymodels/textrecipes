@@ -332,3 +332,16 @@ required_pkgs.step_tokenize <- function(x, ...) {
   }
 }
 
+#' @rdname tunable.step
+#' @export
+tunable.step_tokenize <- function(x, ...) {
+  tibble::tibble(
+    name = c("token"),
+    call_info = list(
+      list(pkg = "dials", fun = "token")
+    ),
+    source = "recipe",
+    component = "step_tokenize",
+    component_id = x$id
+  )
+}

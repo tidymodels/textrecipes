@@ -225,3 +225,25 @@ list_to_hash <- function(x, n, signed) {
 required_pkgs.step_texthash <- function(x, ...) {
   c("text2vec", "textrecipes")
 }
+
+#' Find recommended methods for generating parameter values
+#'
+#' [tunable()] determines which parameters in an object _can_ be tuned along
+#' with information about the parameters.
+#' @param x A recipe step
+#' @param ... Not currently used.
+#' @rdname tunable.step
+#' @keywords internal
+#' @export
+tunable.step_texthash <- function(x, ...) {
+  tibble::tibble(
+    name = c("signed", "num_terms"),
+    call_info = list(
+      list(pkg = "dials", fun = "signed_hash"),
+      list(pkg = "dials", fun = "num_hash", range = c(8, 12))
+    ),
+    source = "recipe",
+    component = "step_texthash",
+    component_id = x$id
+  )
+}

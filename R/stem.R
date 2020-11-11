@@ -185,5 +185,5 @@ tidy.step_stem <- function(x, ...) {
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_stem <- function(x, ...) {
-  c("textrecipes")
+  c("textrecipes", "SnowballC")
 }
