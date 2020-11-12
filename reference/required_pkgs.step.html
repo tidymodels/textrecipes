@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>textrecipes: Extra 'Recipes' for Text Processing — textrecipes-package • textrecipes</title>
+<title>S3 methods for tracking which additional packages are needed for steps. — required_pkgs.step_texthash • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,12 +49,9 @@
 
 
 
-<meta property="og:title" content="textrecipes: Extra 'Recipes' for Text Processing — textrecipes-package" />
-<meta property="og:description" content="
-Converting text to numerical features requires
-    specifically created procedures, which are implemented as steps
-    according to the 'recipes' package. These steps allows for
-    tokenization, filtering, counting (tf and tfidf) and feature hashing." />
+<meta property="og:title" content="S3 methods for tracking which additional packages are needed for steps. — required_pkgs.step_texthash" />
+<meta property="og:description" content="Recipe-adjacent packages always list themselves as a required package so that
+the steps can function properly within parallel processing schemes." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -154,33 +151,73 @@ Converting text to numerical features requires
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>textrecipes: Extra 'Recipes' for Text Processing</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/textrecipes-package.R'><code>R/textrecipes-package.R</code></a></small>
-    <div class="hidden name"><code>textrecipes-package.Rd</code></div>
+    <h1>S3 methods for tracking which additional packages are needed for steps.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/hashing.R'><code>R/hashing.R</code></a>, <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lda.R'><code>R/lda.R</code></a>, <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lemma.R'><code>R/lemma.R</code></a>, and 12 more</small>
+    <div class="hidden name"><code>required_pkgs.step.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
-<p>Converting text to numerical features requires
-    specifically created procedures, which are implemented as steps
-    according to the 'recipes' package. These steps allows for
-    tokenization, filtering, counting (tf and tfidf) and feature hashing.</p>
+    <p>Recipe-adjacent packages always list themselves as a required package so that
+the steps can function properly within parallel processing schemes.</p>
     </div>
 
+    <pre class="usage"><span class='co'># S3 method for step_texthash</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for step_lda</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+<span class='co'># S3 method for step_lemma</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/tidymodels/textrecipes'>https://github.com/tidymodels/textrecipes</a></p></li>
-<li><p><a href='https://textrecipes.tidymodels.org'>https://textrecipes.tidymodels.org</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/tidymodels/textrecipes/issues'>https://github.com/tidymodels/textrecipes/issues</a></p></li>
-</ul>
+<span class='co'># S3 method for step_ngram</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+<span class='co'># S3 method for step_pos_filter</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-    <p><strong>Maintainer</strong>: Emil Hvitfeldt <a href='mailto:emilhhvitfeldt@gmail.com'>emilhhvitfeldt@gmail.com</a> (<a href='https://orcid.org/0000-0002-0679-1945'>ORCID</a>)</p>
+<span class='co'># S3 method for step_sequence_onehot</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_stem</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_stopwords</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_text_normalization</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_textfeature</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_tf</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_tfidf</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_tokenfilter</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_tokenize</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for step_untokenize</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/required_pkgs.html'>required_pkgs</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A recipe step</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A character vector</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

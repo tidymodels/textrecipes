@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Untokenization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_untokenize • textrecipes</title>
+<title>Untokenization of tokenlist variables — step_untokenize • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="Untokenization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables — step_untokenize" />
+<meta property="og:title" content="Untokenization of tokenlist variables — step_untokenize" />
 <meta property="og:description" content="step_untokenize creates a specification of a recipe step that
 will convert a tokenlist into a character predictor." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
@@ -96,7 +96,7 @@ will convert a tokenlist into a character predictor." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
         </div>
       </div>
     </div>
@@ -151,29 +151,29 @@ will convert a tokenlist into a character predictor." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Untokenization of <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> variables</h1>
+    <h1>Untokenization of <a href='tokenlist.html'>tokenlist</a> variables</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/untokenize.R'><code>R/untokenize.R</code></a></small>
     <div class="hidden name"><code>step_untokenize.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><code>step_untokenize</code> creates a <em>specification</em> of a recipe step that
-will convert a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> into a character predictor.</p>
+will convert a <a href='tokenlist.html'>tokenlist</a> into a character predictor.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_untokenize.html'>step_untokenize</a></span>(
-  <span class='kw'>recipe</span>,
-  <span class='kw'>...</span>,
-  role = <span class='fl'>NA</span>,
-  trained = <span class='fl'>FALSE</span>,
-  columns = <span class='kw'>NULL</span>,
-  sep = <span class='st'>" "</span>,
-  skip = <span class='fl'>FALSE</span>,
-  id = <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span>(<span class='st'>"untokenize"</span>)
-)
+    <pre class="usage"><span class='fu'>step_untokenize</span><span class='op'>(</span>
+  <span class='va'>recipe</span>,
+  <span class='va'>...</span>,
+  role <span class='op'>=</span> <span class='cn'>NA</span>,
+  trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  columns <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sep <span class='op'>=</span> <span class='st'>" "</span>,
+  skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"untokenize"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for step_untokenize</span>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,7 +187,7 @@ sequence of operations for this recipe.</p></td>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
 For <code>step_untokenize</code>, this indicates the variables to be encoded
-into a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -237,41 +237,45 @@ subsequent operations.</p></td>
 to the sequence of existing steps (if any).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This steps will turn a <a href='https://textrecipes.tidymodels.org/reference/tokenlist.html'>tokenlist</a> back into a character vector. This step
+    <p>This steps will turn a <a href='tokenlist.html'>tokenlist</a> back into a character vector. This step
 is calling <code>paste</code> internally to put the tokens back together to a character.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p></div>
+    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/tidymodels/recipes'>recipes</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://modeldata.tidymodels.org'>modeldata</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>okc_text</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>okc_text</span><span class='op'>)</span>
 
-<span class='kw'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='op'>~</span> <span class='kw'>.</span>, data = <span class='kw'>okc_text</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_tokenize.html'>step_tokenize</a></span>(<span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://textrecipes.tidymodels.org/reference/step_untokenize.html'>step_untokenize</a></span>(<span class='kw'>essay0</span>)
+<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>step_untokenize</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
 
-<span class='kw'>okc_obj</span> <span class='op'>&lt;-</span> <span class='kw'>okc_rec</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
+<span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='va'>okc_rec</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>, <span class='kw'>essay0</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
 #&gt;   essay0                                                                        
-#&gt;   &lt;fct&gt;                                                                         
-#&gt; 1 twice upon a time there was a boy who died twice and lived happily ever after…
-#&gt; 2 i'm chill and steady br i'm a teacher amp musician br i like playing outside …</div><div class='input'>
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/juice.html'>juice</a></span>(<span class='kw'>okc_obj</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='kw'>essay0</span>)</div><div class='output co'>#&gt; [1] i'm chill and steady br i'm a teacher amp musician br i like playing outside dislike school nights br and i'm very very lucky
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                                                         
+#&gt; </span><span style='color: #555555;'>1</span><span> twice upon a time there was a boy who died twice and lived happily ever after…
+#&gt; </span><span style='color: #555555;'>2</span><span> i'm chill and steady br i'm a teacher amp musician br i like playing outside …</div><div class='input'>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] i'm chill and steady br i'm a teacher amp musician br i like playing outside dislike school nights br and i'm very very lucky
 #&gt; 750 Levels: _updates_ br br br i've written this as pretty much a big stream of info it's not in any way creative prose it's also not the ideal delivery mechanism but hopefully serves to give you some insight on who i am what i'm about where i'm going what i'm looking for and what's important to me br br humor i would say my humor is pretty unique i take things i have learned about a person and dream up scenarios where i play back my knowledge of her him in slightly exaggerated ways bringing in the context of the current moment and weaving in any and all additional persons around me i can use all that data i've been collecting about you your world and the greater universe and transform it into some vociferous laughter or so i say br br destroying banality with every breath br br br br gt now the schpeel br br i grew up rural only child dad immigrated from germany in his mid twenties mom has euro immigrant parents big but odd farm till adolescence i stayed in my home town for school then headed from east dc metro to west sf with a few years in palo alto menlo park san bruno for good in my late twenties general plan well established but new old challenges continue to press for a lifelong solution i've been here for about 12 years now minus travel time year in portland and two winters in tahoe including this one br br i've come to see art in everything and music and boundless energy sf bay is truly a bubble but a sustainable bubble of intellect soul and know how that shapes its world each and every day i am honored to be a part of that br br i am adventurous inventive and fiery ...</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_rec</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms  value id              
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           
-#&gt; 1 essay0 &lt;NA&gt;  untokenize_eE9C3</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span>(<span class='kw'>okc_obj</span>, number = <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    untokenize_RaVb8</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   terms      value id              
-#&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;           
-#&gt; 1 essay0     " "   untokenize_eE9C3</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     </span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>   untokenize_RaVb8</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

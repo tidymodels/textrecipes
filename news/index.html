@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
         </div>
       </div>
     </div>
@@ -153,6 +153,30 @@
       <small>Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="textrecipes-040" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#textrecipes-040" class="anchor"></a>textrecipes 0.4.0<small> Unreleased </small>
+</h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>
+<code><a href="../reference/step_lda.html">step_lda()</a></code> now takes a tokenlist instead of a character variable. See readme for more detail.</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li>
+<code><a href="../reference/step_sequence_onehot.html">step_sequence_onehot()</a></code> now takes tokenlists as input.</li>
+<li>added {tokenizers.bpe} engine to <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>.</li>
+<li>added {udpipe} engine to <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>.</li>
+<li>added new steps for cleaning variable names or levels with {janitor}, <code><a href="../reference/step_clean_names.html">step_clean_names()</a></code> and <code><a href="../reference/step_clean_levels.html">step_clean_levels()</a></code>. (<a href='https://github.com/tidymodels/textrecipes/issues/101'>#101</a>)</li>
+</ul>
+</div>
+</div>
     <div id="textrecipes-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#textrecipes-030" class="anchor"></a>textrecipes 0.3.0<small> 2020-07-08 </small>
@@ -160,8 +184,8 @@
 <ul>
 <li>stopwords package have been moved from Imports to Suggests.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_ngram.html">step_ngram()</a></code> gained an argument <code>min_num_tokens</code> to be able to return multiple n-grams together. (<a href='https://github.com/tidymodels/textrecipes/issues/90'>#90</a>)</li>
-<li>Adds <code><a href="https://textrecipes.tidymodels.org/reference/step_text_normalization.html">step_text_normalization()</a></code> to perform unicode normalization on character vectors. (<a href='https://github.com/tidymodels/textrecipes/issues/86'>#86</a>)</li>
+<code><a href="../reference/step_ngram.html">step_ngram()</a></code> gained an argument <code>min_num_tokens</code> to be able to return multiple n-grams together. (<a href='https://github.com/tidymodels/textrecipes/issues/90'>#90</a>)</li>
+<li>Adds <code><a href="../reference/step_text_normalization.html">step_text_normalization()</a></code> to perform unicode normalization on character vectors. (<a href='https://github.com/tidymodels/textrecipes/issues/86'>#86</a>)</li>
 </ul>
 </div>
     <div id="textrecipes-023" class="section level1">
@@ -175,7 +199,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_word_embeddings.html">step_word_embeddings()</a></code> got a argument <code>aggregation_default</code> to specify value in cases where no words matches embedding.</li>
+<code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code> got a argument <code>aggregation_default</code> to specify value in cases where no words matches embedding.</li>
 </ul>
 </div>
     <div id="textrecipes-021" class="section level1">
@@ -189,17 +213,17 @@
 </h1>
 <ul>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize()</a></code> got an <code>engine</code> argument to specify packages other then tokenizers to tokenize.</li>
+<code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> got an <code>engine</code> argument to specify packages other then tokenizers to tokenize.</li>
 <li>
-<code>spacyr</code> have been added as an engine to <code><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize()</a></code>.</li>
+<code>spacyr</code> have been added as an engine to <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_lemma.html">step_lemma()</a></code> has been added to extract lemma attribute from tokenlists.</li>
+<code><a href="../reference/step_lemma.html">step_lemma()</a></code> has been added to extract lemma attribute from tokenlists.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_pos_filter.html">step_pos_filter()</a></code> has been added to allow filtering of tokens bases on their pat of speech tags.</li>
+<code><a href="../reference/step_pos_filter.html">step_pos_filter()</a></code> has been added to allow filtering of tokens bases on their pat of speech tags.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_ngram.html">step_ngram()</a></code> has been added to generate ngrams from tokenlists.</li>
+<code><a href="../reference/step_ngram.html">step_ngram()</a></code> has been added to generate ngrams from tokenlists.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_stem.html">step_stem()</a></code> not correctly uses the options argument. (Thanks to <a href='https://github.com/grayskripko'>@grayskripko</a> for finding bug, <a href='https://github.com/tidymodels/textrecipes/issues/64'>#64</a>)</li>
+<code><a href="../reference/step_stem.html">step_stem()</a></code> not correctly uses the options argument. (Thanks to <a href='https://github.com/grayskripko'>@grayskripko</a> for finding bug, <a href='https://github.com/tidymodels/textrecipes/issues/64'>#64</a>)</li>
 </ul>
 </div>
     <div id="textrecipes-010" class="section level1">
@@ -208,13 +232,13 @@
 </h1>
 <ul>
 <li>
-<code>step_word2vec()</code> have been changed to <code><a href="https://textrecipes.tidymodels.org/reference/step_lda.html">step_lda()</a></code> to reflect what is actually happening.</li>
+<code>step_word2vec()</code> have been changed to <code><a href="../reference/step_lda.html">step_lda()</a></code> to reflect what is actually happening.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_word_embeddings.html">step_word_embeddings()</a></code> has been added. Allows for use of pre-trained word embeddings to convert token columns to vectors in a high-dimensional “meaning” space. (<a href='https://github.com/jonthegeek'>@jonthegeek</a>, <a href='https://github.com/tidymodels/textrecipes/issues/20'>#20</a>)</li>
+<code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code> has been added. Allows for use of pre-trained word embeddings to convert token columns to vectors in a high-dimensional “meaning” space. (<a href='https://github.com/jonthegeek'>@jonthegeek</a>, <a href='https://github.com/tidymodels/textrecipes/issues/20'>#20</a>)</li>
 <li>text2vec have been changed from Imports to Suggests.</li>
 <li>textfeatures have been changed from Imports to Suggests.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_tfidf.html">step_tfidf()</a></code> calculations are slightly changed due to flaw in original implementation <a href="https://github.com/dselivanov/text2vec/issues/280" class="uri">https://github.com/dselivanov/text2vec/issues/280</a>.</li>
+<code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> calculations are slightly changed due to flaw in original implementation <a href="https://github.com/dselivanov/text2vec/issues/280" class="uri">https://github.com/dselivanov/text2vec/issues/280</a>.</li>
 </ul>
 </div>
     <div id="textrecipes-002" class="section level1">
@@ -226,14 +250,14 @@
 <li>
 <code>step_textfeatures()</code> have been added, allows for multiple numerical features to be pulled from text.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html">step_sequence_onehot()</a></code> have been added, allows for one hot encoding of sequences of fixed width.</li>
+<code><a href="../reference/step_sequence_onehot.html">step_sequence_onehot()</a></code> have been added, allows for one hot encoding of sequences of fixed width.</li>
 <li>
 <code>step_word2vec()</code> have been added, calculates word2vec dimensions.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_tokenmerge.html">step_tokenmerge()</a></code> have been added, combines multiple list columns into one list-columns.</li>
+<code><a href="../reference/step_tokenmerge.html">step_tokenmerge()</a></code> have been added, combines multiple list columns into one list-columns.</li>
 <li>
-<code><a href="https://textrecipes.tidymodels.org/reference/step_texthash.html">step_texthash()</a></code> now correctly accepts <code>signed</code> argument.</li>
-<li>Documentation have been improved to showcase the importance of filtering tokens before applying <code><a href="https://textrecipes.tidymodels.org/reference/step_tf.html">step_tf()</a></code> and <code><a href="https://textrecipes.tidymodels.org/reference/step_tfidf.html">step_tfidf()</a></code>.</li>
+<code><a href="../reference/step_texthash.html">step_texthash()</a></code> now correctly accepts <code>signed</code> argument.</li>
+<li>Documentation have been improved to showcase the importance of filtering tokens before applying <code><a href="../reference/step_tf.html">step_tf()</a></code> and <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code>.</li>
 </ul>
 </div>
     <div id="textrecipes-001" class="section level1">

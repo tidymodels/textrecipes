@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lemmatization of tokenlist variables — step_lemma • textrecipes</title>
+<title>Clean variable names — step_clean_names • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,9 +49,10 @@
 
 
 
-<meta property="og:title" content="Lemmatization of tokenlist variables — step_lemma" />
-<meta property="og:description" content="step_lemma creates a specification of a recipe step that
-will extract the lemmatization of a tokenlist." />
+<meta property="og:title" content="Clean variable names — step_clean_names" />
+<meta property="og:description" content="step_clean_names creates a specification of a recipe step that will
+clean variable names so the names consist only of letters, numbers, and the
+underscore." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -151,27 +152,28 @@ will extract the lemmatization of a tokenlist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lemmatization of <a href='tokenlist.html'>tokenlist</a> variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/lemma.R'><code>R/lemma.R</code></a></small>
-    <div class="hidden name"><code>step_lemma.Rd</code></div>
+    <h1>Clean variable names</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/clean_names.R'><code>R/clean_names.R</code></a></small>
+    <div class="hidden name"><code>step_clean_names.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_lemma</code> creates a <em>specification</em> of a recipe step that
-will extract the lemmatization of a tokenlist.</p>
+    <p><code>step_clean_names</code> creates a <em>specification</em> of a recipe step that will
+clean variable names so the names consist only of letters, numbers, and the
+underscore.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_lemma</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>step_clean_names</span><span class='op'>(</span>
   <span class='va'>recipe</span>,
   <span class='va'>...</span>,
   role <span class='op'>=</span> <span class='cn'>NA</span>,
   trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  columns <span class='op'>=</span> <span class='cn'>NULL</span>,
+  clean <span class='op'>=</span> <span class='cn'>NULL</span>,
   skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"lemma"</span><span class='op'>)</span>
+  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"clean_names"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='co'># S3 method for step_lemma</span>
+<span class='co'># S3 method for step_clean_names</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -184,9 +186,8 @@ sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_lemma</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
+      <td><p>One or more selector functions to choose which
+variables' names will be cleaned. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
 details. For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -200,10 +201,9 @@ created.</p></td>
 baked.</p></td>
     </tr>
     <tr>
-      <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+      <th>clean</th>
+      <td><p>A named character vector to clean variable names. This is <code>NULL</code>
+until computed by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -221,58 +221,54 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_lemma</code> object.</p></td>
+      <td><p>A <code>step_clean_names</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An updated version of <code>recipe</code> with the new step added
-to the sequence of existing steps (if any).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This stem doesn't perform lemmatization by itself, but rather lets you
-extract the lemma attribute of the tokenlist. To be able to use <code>step_lemma</code>
-you need to use a tokenization method that includes lemmatization. Currently
-using the <code>"spacyr"</code> engine in <code><a href='step_tokenize.html'>step_tokenize()</a></code> provides lemmatization and
-works well with <code>step_lemma</code>.</p>
+    <p>An updated version of <code>recipe</code> with the new step
+added to the sequence of existing steps (if any). For the <code>tidy</code> method, a
+tibble with columns <code>terms</code> (the new clean variable names) and <code>value</code>
+(the original variable names).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
-<p>Other tokenlist to tokenlist steps: 
-<code><a href='step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='step_stem.html'>step_stem</a>()</code>,
-<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code>,
-<code><a href='step_tokenmerge.html'>step_tokenmerge</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='step_clean_levels.html'>step_clean_levels()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_factor2string.html'>recipes::step_factor2string()</a></code>,
+<code><a href='https://recipes.tidymodels.org/reference/step_string2factor.html'>recipes::step_string2factor()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_regex.html'>recipes::step_regex()</a></code>,
+<code><a href='https://recipes.tidymodels.org/reference/step_unknown.html'>recipes::step_unknown()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_novel.html'>recipes::step_novel()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_other.html'>recipes::step_other()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span>
 
-<span class='va'>short_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"This is a short tale,"</span>,
-  <span class='st'>"With many cats and ladies."</span>
-<span class='op'>)</span><span class='op'>)</span>
+<span class='va'>air_tr</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='op'>]</span><span class='op'>)</span>
+<span class='va'>air_te</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>[</span><span class='fl'>101</span><span class='op'>:</span><span class='fl'>153</span>, <span class='op'>]</span><span class='op'>)</span>
 
-<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>short_data</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>text</span>, engine <span class='op'>=</span> <span class='st'>"spacyr"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_lemma</span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='step_tf.html'>step_tf</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>air_tr</span><span class='op'>)</span>
 
-<span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>okc_rec</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.2, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 12</span><span>
-#&gt;   `tf_text_,` tf_text_. tf_text_a tf_text_and tf_text_be tf_text_cat
-#&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>           1         0         1           0          1           0
-#&gt; </span><span style='color: #555555;'>2</span><span>           0         1         0           1          0           1
-#&gt; </span><span style='color: #555555;'># … with 6 more variables: tf_text_lady </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tf_text_many </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tf_text_short </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tf_text_tale </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tf_text_this </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tf_text_with </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='co'># }</span>
-</div></span></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"janitor"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='va'>rec</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>step_clean_names</span><span class='op'>(</span><span class='fu'><a href='https://recipes.tidymodels.org/reference/has_role.html'>all_predictors</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec</span>, training <span class='op'>=</span> <span class='va'>air_tr</span><span class='op'>)</span>
+  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>rec</span>, <span class='va'>air_tr</span><span class='op'>)</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>rec</span>, <span class='va'>air_te</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 53 x 6</span><span>
+#&gt;    ozone solar_r  wind  temp month   day
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>   110     207   8      90     8     9
+#&gt; </span><span style='color: #555555;'> 2</span><span>    </span><span style='color: #BB0000;'>NA</span><span>     222   8.6    92     8    10
+#&gt; </span><span style='color: #555555;'> 3</span><span>    </span><span style='color: #BB0000;'>NA</span><span>     137  11.5    86     8    11
+#&gt; </span><span style='color: #555555;'> 4</span><span>    44     192  11.5    86     8    12
+#&gt; </span><span style='color: #555555;'> 5</span><span>    28     273  11.5    82     8    13
+#&gt; </span><span style='color: #555555;'> 6</span><span>    65     157   9.7    80     8    14
+#&gt; </span><span style='color: #555555;'> 7</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      64  11.5    79     8    15
+#&gt; </span><span style='color: #555555;'> 8</span><span>    22      71  10.3    77     8    16
+#&gt; </span><span style='color: #555555;'> 9</span><span>    59      51   6.3    79     8    17
+#&gt; </span><span style='color: #555555;'>10</span><span>    23     115   7.4    76     8    18
+#&gt; </span><span style='color: #555555;'># … with 43 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
