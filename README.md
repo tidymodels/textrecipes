@@ -104,9 +104,9 @@ numeric for future analysis to work.
 | `step_tf()`                 | `tokenlist()` | numeric       |
 | `step_texthash()`           | `tokenlist()` | numeric       |
 | `step_word_embeddings()`    | `tokenlist()` | numeric       |
+| `step_lda()`                | `tokenlist()` | numeric       |
 | `step_textfeature()`        | character     | numeric       |
 | `step_sequence_onehot()`    | character     | numeric       |
-| `step_lda()`                | character     | numeric       |
 | `step_text_normalization()` | character     | character     |
 
 This means that valid sequences includes
@@ -125,6 +125,28 @@ recipe(~ ., data = data) %>%
   step_tokenize(text) %>%
   step_stem(text) %>%
   step_tfidf(text)
+```
+
+## Breaking changes
+
+As of version 0.4.0, `step_lda()` no longer accepts character variables
+and instead takes tokenlist variables.
+
+the following recipe
+
+``` r
+recipe(~ text_var, data = data) %>%
+  step_lda(text_var)
+```
+
+can be replaced with the following recipe to achive the same results
+
+``` r
+lda_tokenizer <- function(x) text2vec::word_tokenizer(tolower(x))
+recipe(~ essay0, data = okc_text) %>%
+  step_tokenize(essay0, 
+                custom_token = lda_tokenizer) %>%
+  step_lda(essay0)
 ```
 
 ## Contributing

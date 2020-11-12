@@ -80,6 +80,7 @@ library(modeldata)
 data(okc_text)
 
 okc_rec <- recipe(~ ., data = okc_text) \%>\%
+  step_tokenize(essay0) \%>\%
   step_lda(essay0)
 
 okc_obj <- okc_rec \%>\%
@@ -92,6 +93,7 @@ tidy(okc_obj, number = 1)
 
 # Changing the number of topics.
 recipe(~ ., data = okc_text) \%>\%
+  step_tokenize(essay0, essay1) \%>\%
   step_lda(essay0, essay1, num_topics = 20) \%>\%
   prep() \%>\%
   bake(new_data = NULL) \%>\%
@@ -106,6 +108,7 @@ dtm <- create_dtm(it, vocab_vectorizer(v))
 lda_model <- LDA$new(n_topics = 15)
 
 recipe(~ ., data = okc_text) \%>\%
+  step_tokenize(essay0, essay1) \%>\%
   step_lda(essay0, essay1, lda_models = lda_model) \%>\%
   prep() \%>\%
   bake(new_data = NULL) \%>\%

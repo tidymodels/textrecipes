@@ -13,6 +13,7 @@ test_that("step_lda works as intended", {
   skip_if_not_installed("text2vec")
   n_top <- 10
   rec1 <- rec %>%
+    step_tokenize(essay0) %>%
     step_lda(essay0, num_topics = n_top)
   
   obj <- rec1 %>%
@@ -28,6 +29,7 @@ test_that("step_lda works with num_topics argument", {
   skip_if_not_installed("text2vec")
   n_top <- 100
   rec1 <- rec %>%
+    step_tokenize(essay0) %>%
     step_lda(essay0, num_topics = n_top)
   
   obj <- rec1 %>%
@@ -39,6 +41,7 @@ test_that("step_lda works with num_topics argument", {
 test_that("printing", {
   skip_if_not_installed("text2vec")
   rec <- rec %>%
+    step_tokenize(essay0) %>%
     step_lda(essay0)
   
   expect_output(print(rec))

@@ -1,5 +1,11 @@
 # textrecipes (development version)
 
+## Breaking Changes
+
+* `step_lda()` now takes a tokenlist instead of a character variable. See readme for more detail.
+
+## New Features
+
 * `step_sequence_onehot()` now takes tokenlists as input.
 * added {tokenizers.bpe} engine to `step_tokenize()`.
 * added {udpipe} engine to `step_tokenize()`.
