@@ -96,7 +96,7 @@ will extract the lemmatization of a tokenlist." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
         </div>
       </div>
     </div>
@@ -251,16 +251,18 @@ works well with <code>step_lemma</code>.</p>
     <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
 
-<span class='va'>short_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"This is a short tale,"</span>,
-                                  <span class='st'>"With many cats and ladies."</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>short_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='st'>"This is a short tale,"</span>,
+  <span class='st'>"With many cats and ladies."</span>
+<span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>short_data</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>short_data</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>text</span>, engine <span class='op'>=</span> <span class='st'>"spacyr"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_lemma</span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='step_tf.html'>step_tf</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
-  
+
 <span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>okc_rec</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.2, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>  
+</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.2, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 12</span><span>
 #&gt;   `tf_text_,` tf_text_. tf_text_a tf_text_and tf_text_be tf_text_cat

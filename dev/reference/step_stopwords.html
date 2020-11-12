@@ -96,7 +96,7 @@ will filter a tokenlist for stopwords(keep or remove)." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
         </div>
       </div>
     </div>
@@ -279,38 +279,38 @@ combination of these two arguments.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>okc_text</span><span class='op'>)</span>
 
 <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"stopwords"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_stopwords</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> 
-  
-<span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='va'>okc_rec</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>step_stopwords</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
+  <span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='va'>okc_rec</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> 
-  
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
+
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
+
+  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   terms      value    keep  id             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     snowball FALSE stopwords_NwdPq</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> essay0     snowball FALSE stopwords_qL5aZ</div><div class='input'>
 <span class='co'># With a custom stopwords list</span>
 
-<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>okc_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_stopwords</span><span class='op'>(</span><span class='va'>essay0</span>, custom_stopword_source <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"twice"</span>, <span class='st'>"upon"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='va'>okc_rec</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span>traimomg <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span>
-  
+
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span> 
+  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
 #&gt; [1] [24 tokens]
 #&gt; # Unique Tokens: 18</div></span></pre>
