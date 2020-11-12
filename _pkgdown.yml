@@ -30,6 +30,7 @@ reference:
     - step_ngram
   - title: Step Functions - tokenlist to numeric
     contents:
+    - step_lda
     - step_tfidf
     - step_tf
     - step_texthash
@@ -38,7 +39,6 @@ reference:
     contents:
     - step_textfeature
     - step_sequence_onehot
-    - step_lda
   - title: Step Functions - character to character
     contents:
     - step_text_normalization
