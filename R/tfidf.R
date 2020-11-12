@@ -12,22 +12,22 @@
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be 
+#'  that the new columns created by the original variables will be
 #'  used as predictors in a model.
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
 #' @param vocabulary A character vector of strings to be considered.
-#' @param res The words that will be used to calculate the term 
-#'  frequency will be stored here once this preprocessing step has 
+#' @param res The words that will be used to calculate the term
+#'  frequency will be stored here once this preprocessing step has
 #'  be trained by [prep.recipe()].
 #' @param smooth_idf TRUE smooth IDF weights by adding one to document
 #'  frequencies, as if an extra document was seen containing every term
 #'  in the collection exactly once. This prevents division by zero.
-#' @param norm A character, defines the type of normalization to apply to 
+#' @param norm A character, defines the type of normalization to apply to
 #'  term vectors. "l1" by default, i.e., scale by the number of words in the
 #'  document. Must be one of c("l1", "l2", "none").
-#' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e., 
+#' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e.,
 #'  replace the term frequency with 1 + log(TF). Defaults to FALSE.
 #' @param prefix A character string that will be the prefix to the
 #'  resulting new variables. See notes below.
@@ -48,46 +48,46 @@
 #' library(recipes)
 #' library(modeldata)
 #' data(okc_text)
-#' 
-#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#'
+#' okc_rec <- recipe(~., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
 #'   step_tfidf(essay0)
-#'   
+#'
 #' okc_obj <- okc_rec %>%
 #'   prep()
-#'   
+#'
 #' bake(okc_obj, okc_text)
-#' 
+#'
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
 #' }
 #' @export
 #' @details
-#' It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to 
+#' It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to
 #' limit the number of variables created; otherwise you may run into memory
-#' issues. A good strategy is to start with a low token count and increase 
+#' issues. A good strategy is to start with a low token count and increase
 #' depending on how much RAM you want to use.
-#' 
+#'
 #' Term frequency-inverse document frequency is the product of two statistics:
-#' the term frequency (TF) and the inverse document frequency (IDF). 
-#' 
-#' Term frequency measures how many times each token appears in each 
+#' the term frequency (TF) and the inverse document frequency (IDF).
+#'
+#' Term frequency measures how many times each token appears in each
 #' observation.
-#' 
+#'
 #' Inverse document frequency is a measure of how informative a word
-#' is, e.g., how common or rare the word is across all the 
+#' is, e.g., how common or rare the word is across all the
 #' observations. If a word appears in all the observations it might not
 #' give that much insight, but if it only appears in some it might help
-#' differentiate between observations. 
-#' 
-#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / 
+#' differentiate between observations.
+#'
+#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
 #' (# documents where the term appears))
-#' 
+#'
 #' The new components will have names that begin with `prefix`, then
 #' the name of the variable, followed by the tokens all separated by
 #' `-`. The new variables will be created alphabetically according to
 #' token.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps
 step_tfidf <-
@@ -104,7 +104,6 @@ step_tfidf <-
            prefix = "tfidf",
            skip = FALSE,
            id = rand_id("tfidf")) {
-
     add_step(
       recipe,
       step_tfidf_new(
@@ -179,13 +178,14 @@ bake.step_tfidf <- function(object, new_data, ...) {
   # for backward compat
 
   for (i in seq_along(col_names)) {
-
-    tfidf_text <- tfidf_function(new_data[, col_names[i], drop = TRUE],
-                                 object$res[[i]],
-                                 paste0(object$prefix, "_", col_names[i]),
-                                 object$smooth_idf,
-                                 object$norm,
-                                 object$sublinear_tf)
+    tfidf_text <- tfidf_function(
+      new_data[, col_names[i], drop = TRUE],
+      object$res[[i]],
+      paste0(object$prefix, "_", col_names[i]),
+      object$smooth_idf,
+      object$norm,
+      object$sublinear_tf
+    )
 
     new_data <-
       new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
@@ -221,38 +221,38 @@ tidy.step_tfidf <- function(x, ...) {
 tfidf_function <- function(data, names, labels, smooth_idf, norm,
                            sublinear_tf) {
   counts <- tokenlist_to_dtm(data, names)
-  
+
   tfidf <- dtm_to_tfidf(counts, smooth_idf, norm, sublinear_tf)
-  
+
   colnames(tfidf) <- paste0(labels, "_", names)
   as_tibble(tfidf)
 }
 
 dtm_to_tfidf <- function(dtm, smooth_idf, norm, sublinear_tf) {
   dtm <- normalize(dtm, norm)
-  
+
   if (sublinear_tf) {
     dtm@x <- 1 + log(dtm@x)
   }
-  
-  out <- dtm %*% Matrix::Diagonal(x = log(smooth_idf + nrow(dtm) / 
-                                            Matrix::colSums(dtm > 0)))
+
+  out <- dtm %*% Matrix::Diagonal(x = log(smooth_idf + nrow(dtm) /
+    Matrix::colSums(dtm > 0)))
   as.matrix(out)
 }
 
-normalize = function(dtm, norm = c("l1", "l2", "none")) {
+normalize <- function(dtm, norm = c("l1", "l2", "none")) {
   if (norm == "none") {
     return(dtm)
   }
-  
+
   norm_vec <- switch(norm,
-                     l1 = 1 / Matrix::rowSums(dtm),
-                     l2 = 1 / sqrt(Matrix::rowSums(dtm ^ 2))
+    l1 = 1 / Matrix::rowSums(dtm),
+    l2 = 1 / sqrt(Matrix::rowSums(dtm^2))
   )
-  
+
   # case when sum row elements == 0
-  norm_vec[is.infinite(norm_vec)] = 0
-  
+  norm_vec[is.infinite(norm_vec)] <- 0
+
   Matrix::Diagonal(x = norm_vec) %*% dtm
 }
 

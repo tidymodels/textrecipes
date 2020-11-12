@@ -88,35 +88,35 @@ library(modeldata)
 data(okc_text)
 
 if (requireNamespace("stopwords", quietly = TRUE)) {
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_stopwords(essay0) 
-  
-okc_obj <- okc_rec \%>\%
-  prep()
+  okc_rec <- recipe(~., data = okc_text) \%>\%
+    step_tokenize(essay0) \%>\%
+    step_stopwords(essay0)
 
-bake(okc_obj, new_data = NULL, essay0) \%>\% 
-  slice(1:2)
+  okc_obj <- okc_rec \%>\%
+    prep()
 
-bake(okc_obj, new_data = NULL) \%>\% 
-  slice(2) \%>\% 
-  pull(essay0) 
-  
-tidy(okc_rec, number = 2)
-tidy(okc_obj, number = 2)
+  bake(okc_obj, new_data = NULL, essay0) \%>\%
+    slice(1:2)
+
+  bake(okc_obj, new_data = NULL) \%>\%
+    slice(2) \%>\%
+    pull(essay0)
+
+  tidy(okc_rec, number = 2)
+  tidy(okc_obj, number = 2)
 }
 
 # With a custom stopwords list
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
+okc_rec <- recipe(~., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
   step_stopwords(essay0, custom_stopword_source = c("twice", "upon"))
 okc_obj <- okc_rec \%>\%
   prep(traimomg = okc_text)
-  
+
 bake(okc_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0) 
+  pull(essay0)
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

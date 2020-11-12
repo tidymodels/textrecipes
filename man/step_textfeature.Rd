@@ -78,33 +78,34 @@ will be thrown.
 }
 \examples{
 if (requireNamespace("textfeatures", quietly = TRUE)) {
-library(recipes)
-library(modeldata)
-data(okc_text)
+  library(recipes)
+  library(modeldata)
+  data(okc_text)
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_textfeature(essay0) 
-  
-okc_obj <- okc_rec \%>\%
-  prep()
+  okc_rec <- recipe(~., data = okc_text) \%>\%
+    step_textfeature(essay0)
 
-bake(okc_obj, new_data = NULL) \%>\%
-  slice(1:2)
+  okc_obj <- okc_rec \%>\%
+    prep()
 
-bake(okc_obj, new_data = NULL) \%>\%
-  pull(textfeature_essay0_n_words)
-  
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+  bake(okc_obj, new_data = NULL) \%>\%
+    slice(1:2)
 
-# Using custom extraction functions
-nchar_round_10 <- function(x) round(nchar(x) / 10) * 10
+  bake(okc_obj, new_data = NULL) \%>\%
+    pull(textfeature_essay0_n_words)
 
-recipe(~ ., data = okc_text) \%>\%
-  step_textfeature(essay0, 
-                   extract_functions = list(nchar10 = nchar_round_10)) \%>\%
-  prep() \%>\%
-  bake(new_data = NULL)
+  tidy(okc_rec, number = 1)
+  tidy(okc_obj, number = 1)
+
+  # Using custom extraction functions
+  nchar_round_10 <- function(x) round(nchar(x) / 10) * 10
+
+  recipe(~., data = okc_text) \%>\%
+    step_textfeature(essay0,
+      extract_functions = list(nchar10 = nchar_round_10)
+    ) \%>\%
+    prep() \%>\%
+    bake(new_data = NULL)
 }
 }
 \seealso{

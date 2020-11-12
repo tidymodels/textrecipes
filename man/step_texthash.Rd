@@ -92,22 +92,22 @@ If \code{num_terms = 101}, their names will be \code{hash001} - \code{hash101}.
 }
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
-library(recipes)
-library(modeldata)
-data(okc_text)
+  library(recipes)
+  library(modeldata)
+  data(okc_text)
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_tokenfilter(essay0, max_tokens = 10) \%>\%
-  step_texthash(essay0)
-  
-okc_obj <- okc_rec \%>\%
-  prep()
-  
-bake(okc_obj, okc_text)
+  okc_rec <- recipe(~., data = okc_text) \%>\%
+    step_tokenize(essay0) \%>\%
+    step_tokenfilter(essay0, max_tokens = 10) \%>\%
+    step_texthash(essay0)
 
-tidy(okc_rec, number = 2)
-tidy(okc_obj, number = 2)
+  okc_obj <- okc_rec \%>\%
+    prep()
+
+  bake(okc_obj, okc_text)
+
+  tidy(okc_rec, number = 2)
+  tidy(okc_obj, number = 2)
 }
 }
 \references{

@@ -33,7 +33,7 @@
 #' library(modeldata)
 #' data(okc_text)
 #'
-#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#' okc_rec <- recipe(~., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
 #'   step_untokenize(essay0)
 #'
@@ -53,7 +53,7 @@
 #' @details
 #' This steps will turn a [tokenlist] back into a character vector. This step
 #' is calling `paste` internally to put the tokens back together to a character.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to character steps
 step_untokenize <-
@@ -64,8 +64,7 @@ step_untokenize <-
            columns = NULL,
            sep = " ",
            skip = FALSE,
-           id = rand_id("untokenize")
-  ) {
+           id = rand_id("untokenize")) {
     add_step(
       recipe,
       step_untokenize_new(
@@ -118,8 +117,11 @@ bake.step_untokenize <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     tokens <- get_tokens(new_data[, col_names[i], drop = TRUE])
-    new_data[, col_names[i]] <- map_chr(tokens,
-                                        paste, collapse = object$sep)
+    new_data[, col_names[i]] <- map_chr(
+      .x = tokens,
+      .f = paste,
+      collapse = object$sep
+    )
   }
 
   new_data <- factor_to_text(new_data, col_names)
@@ -140,12 +142,16 @@ print.step_untokenize <-
 #' @export
 tidy.step_untokenize <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms,
-                  value = x$sep)
+    res <- tibble(
+      terms = x$terms,
+      value = x$sep
+    )
   } else {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names,
-                  value = na_chr)
+    res <- tibble(
+      terms = term_names,
+      value = na_chr
+    )
   }
   res$id <- x$id
   res

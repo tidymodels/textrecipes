@@ -63,25 +63,25 @@ will perform Unicode Normalization
 }
 \examples{
 if (requireNamespace("stringi", quietly = TRUE)) {
-library(recipes)
+  library(recipes)
 
-sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
+  sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 
-rec <- recipe(~ ., data = sample_data) \%>\%
-  step_text_normalization(text)
-  
-prepped <- rec \%>\%
-  prep()
+  rec <- recipe(~., data = sample_data) \%>\%
+    step_text_normalization(text)
 
-bake(prepped, new_data = NULL, text) \%>\% 
-  slice(1:2)
+  prepped <- rec \%>\%
+    prep()
 
-bake(prepped, new_data = NULL) \%>\% 
-  slice(2) \%>\% 
-  pull(text) 
-  
-tidy(rec, number = 1)
-tidy(prepped, number = 1)
+  bake(prepped, new_data = NULL, text) \%>\%
+    slice(1:2)
+
+  bake(prepped, new_data = NULL) \%>\%
+    slice(2) \%>\%
+    pull(text)
+
+  tidy(rec, number = 1)
+  tidy(prepped, number = 1)
 }
 }
 \seealso{

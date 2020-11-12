@@ -118,9 +118,9 @@ library(recipes)
 library(modeldata)
 data(okc_text)
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0) 
-  
+okc_rec <- recipe(~., data = okc_text) \%>\%
+  step_tokenize(essay0)
+
 okc_obj <- okc_rec \%>\%
   prep()
 
@@ -130,11 +130,11 @@ bake(okc_obj, new_data = NULL, essay0) \%>\%
 bake(okc_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(essay0)
-  
+
 tidy(okc_rec, number = 1)
 tidy(okc_obj, number = 1)
 
-okc_obj_chars <- recipe(~ ., data = okc_text) \%>\%
+okc_obj_chars <- recipe(~., data = okc_text) \%>\%
   step_tokenize(essay0, token = "characters") \%>\%
   prep()
 

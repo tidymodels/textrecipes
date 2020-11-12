@@ -61,21 +61,20 @@ underscore.
 library(recipes)
 data(airquality)
 
-air_tr <- tibble(airquality[1:100,])
-air_te <- tibble(airquality[101:153,])
+air_tr <- tibble(airquality[1:100, ])
+air_te <- tibble(airquality[101:153, ])
 
-rec <- recipe(~ ., data = air_tr)
+rec <- recipe(~., data = air_tr)
 
 if (requireNamespace("janitor", quietly = TRUE)) {
-rec <- rec \%>\%
-  step_clean_names(all_predictors())
-rec <- prep(rec, training = air_tr)
-tidy(rec, number = 1)
+  rec <- rec \%>\%
+    step_clean_names(all_predictors())
+  rec <- prep(rec, training = air_tr)
+  tidy(rec, number = 1)
 
-bake(rec, air_tr)
-bake(rec, air_te)
+  bake(rec, air_tr)
+  bake(rec, air_te)
 }
-
 }
 \seealso{
 \code{\link[=step_clean_levels]{step_clean_levels()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},

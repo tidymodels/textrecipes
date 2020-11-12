@@ -15,12 +15,12 @@ test_that("step_lda works as intended", {
   rec1 <- rec %>%
     step_tokenize(essay0) %>%
     step_lda(essay0, num_topics = n_top)
-  
+
   obj <- rec1 %>%
     prep()
-  
+
   expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
-  
+
   expect_equal(dim(tidy(rec1, 1)), c(1, 3))
   expect_equal(dim(tidy(obj, 1)), c(1, 3))
 })
@@ -31,10 +31,10 @@ test_that("step_lda works with num_topics argument", {
   rec1 <- rec %>%
     step_tokenize(essay0) %>%
     step_lda(essay0, num_topics = n_top)
-  
+
   obj <- rec1 %>%
     prep()
-  
+
   expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
 })
 
@@ -43,7 +43,7 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(essay0) %>%
     step_lda(essay0)
-  
+
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })

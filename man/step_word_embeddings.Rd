@@ -113,7 +113,7 @@ sample_data <- tibble(
 rec <- recipe(text_label ~ ., data = sample_data) \%>\%
   step_tokenize(text) \%>\%
   step_word_embeddings(text, embeddings = embeddings)
-  
+
 obj <- rec \%>\%
   prep()
 

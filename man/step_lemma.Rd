@@ -67,16 +67,18 @@ works well with \code{step_lemma}.
 \dontrun{
 library(recipes)
 
-short_data <- data.frame(text = c("This is a short tale,",
-                                  "With many cats and ladies."))
+short_data <- data.frame(text = c(
+  "This is a short tale,",
+  "With many cats and ladies."
+))
 
-okc_rec <- recipe(~ text, data = short_data) \%>\%
+okc_rec <- recipe(~text, data = short_data) \%>\%
   step_tokenize(text, engine = "spacyr") \%>\%
   step_lemma(text) \%>\%
   step_tf(text)
-  
+
 okc_obj <- prep(okc_rec)
-  
+
 bake(okc_obj, new_data = NULL)
 }
 }

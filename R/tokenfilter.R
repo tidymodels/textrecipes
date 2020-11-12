@@ -18,11 +18,11 @@
 #'  before getting removed.
 #' @param min_times An integer. Minimum number of times a word can appear
 #'  before getting removed.
-#' @param percentage A logical. Should max_times and min_times be interpreded 
+#' @param percentage A logical. Should max_times and min_times be interpreded
 #'  as a percentage instead of count.
 #' @param max_tokens An integer. Will only keep the top max_tokens tokens
 #'  after filtering done by max_times and min_times. Defaults to 100.
-#' @param res The words that will be keep will be stored here once 
+#' @param res The words that will be keep will be stored here once
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [recipes::bake.recipe()]? While all
@@ -40,21 +40,21 @@
 #' library(recipes)
 #' library(modeldata)
 #' data(okc_text)
-#' 
-#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#'
+#' okc_rec <- recipe(~., data = okc_text) %>%
 #'   step_tokenize(essay0) %>%
-#'   step_tokenfilter(essay0) 
-#'   
+#'   step_tokenfilter(essay0)
+#'
 #' okc_obj <- okc_rec %>%
 #'   prep()
-#' 
-#' bake(okc_obj, new_data = NULL, essay0) %>% 
+#'
+#' bake(okc_obj, new_data = NULL, essay0) %>%
 #'   slice(1:2)
-#' 
-#' bake(okc_obj, new_data = NULL) %>% 
-#'   slice(2) %>% 
+#'
+#' bake(okc_obj, new_data = NULL) %>%
+#'   slice(2) %>%
 #'   pull(essay0)
-#' 
+#'
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
 #' @export
@@ -65,13 +65,13 @@
 #' as counts using `max_times` and `min_times` or as percentages by setting
 #' `percentage` as `TRUE`. In addition one can filter to only use the top
 #' `max_tokens` used tokens. If `max_tokens` is set to `Inf` then all the tokens
-#' will be used. This will generally lead to very large datasets when then 
-#' tokens are words or trigrams. A good strategy is to start with a low token 
+#' will be used. This will generally lead to very large datasets when then
+#' tokens are words or trigrams. A good strategy is to start with a low token
 #' count and go up according to how much RAM you want to use.
-#' 
-#' It is strongly advised to filter before using [step_tf] or [step_tfidf] to 
+#'
+#' It is strongly advised to filter before using [step_tf] or [step_tfidf] to
 #' limit the number of variables created.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
 step_tokenfilter <-
@@ -86,14 +86,13 @@ step_tokenfilter <-
            max_tokens = 100,
            res = NULL,
            skip = FALSE,
-           id = rand_id("tokenfilter")
-  ) {
-
+           id = rand_id("tokenfilter")) {
     if (percentage && (max_times > 1 | max_times < 0 |
-                      min_times > 1 | min_times < 0))
+      min_times > 1 | min_times < 0)) {
       rlang::abort(
         "`max_times` and `min_times` should be in the interval [0, 1]."
-        )
+      )
+    }
 
     add_step(
       recipe,
@@ -142,9 +141,11 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   n_words <- list()
 
   for (i in seq_along(col_names)) {
-    retain_words[[i]] <- tokenfilter_fun(training[, col_names[i], drop = TRUE],
-                                         x$max_times, x$min_times, x$max_tokens,
-                                         x$percentage)
+    retain_words[[i]] <- tokenfilter_fun(
+      training[, col_names[i], drop = TRUE],
+      x$max_times, x$min_times, x$max_tokens,
+      x$percentage
+    )
 
     n_words[[i]] <- length(table(unlist(training[, col_names[i], drop = TRUE])))
   }
@@ -170,10 +171,12 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   # for backward compat
 
   for (i in seq_along(col_names)) {
-    filtered_text <- tokenlist_filter(new_data[, col_names[i], drop = TRUE], 
-                                      object$res[[i]], 
-                                      TRUE)
-    
+    filtered_text <- tokenlist_filter(
+      new_data[, col_names[i], drop = TRUE],
+      object$res[[i]],
+      TRUE
+    )
+
     new_data[, col_names[i]] <- tibble(filtered_text)
   }
   new_data <- factor_to_text(new_data, col_names)
@@ -194,12 +197,16 @@ print.step_tokenfilter <-
 #' @export
 tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms,
-                  value = x$max_tokens)
+    res <- tibble(
+      terms = x$terms,
+      value = x$max_tokens
+    )
   } else {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names,
-                  value = na_int)
+    res <- tibble(
+      terms = term_names,
+      value = na_int
+    )
   }
   res$id <- x$id
   res
@@ -209,19 +216,22 @@ tidy.step_tokenfilter <- function(x, ...) {
 tokenfilter_fun <- function(data, max_times, min_times, max_features,
                             percentage) {
   tf <- table(unlist(get_tokens(data)))
-  
-  if (percentage)
+
+  if (percentage) {
     tf <- tf / sum(tf)
-  
+  }
+
   ids <- tf <= max_times & tf >= min_times
-  
+
   if (is.infinite(max_features)) {
     names(sort(tf[ids], decreasing = TRUE))
   } else {
     if (max_features > sum(ids)) {
-      rlang::warn(paste0("max_features was set to '", max_features,
-                         "', but only ", sum(ids), 
-                         " was available and selected."))
+      rlang::warn(paste0(
+        "max_features was set to '", max_features,
+        "', but only ", sum(ids),
+        " was available and selected."
+      ))
       max_features <- sum(ids)
     }
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])

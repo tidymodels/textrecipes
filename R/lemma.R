@@ -29,27 +29,29 @@
 #' @examples
 #' \dontrun{
 #' library(recipes)
-#' 
-#' short_data <- data.frame(text = c("This is a short tale,",
-#'                                   "With many cats and ladies."))
-#' 
-#' okc_rec <- recipe(~ text, data = short_data) %>%
+#'
+#' short_data <- data.frame(text = c(
+#'   "This is a short tale,",
+#'   "With many cats and ladies."
+#' ))
+#'
+#' okc_rec <- recipe(~text, data = short_data) %>%
 #'   step_tokenize(text, engine = "spacyr") %>%
 #'   step_lemma(text) %>%
 #'   step_tf(text)
-#'   
+#'
 #' okc_obj <- prep(okc_rec)
-#'   
+#'
 #' bake(okc_obj, new_data = NULL)
 #' }
 #' @export
 #' @details
-#' This stem doesn't perform lemmatization by itself, but rather lets you 
+#' This stem doesn't perform lemmatization by itself, but rather lets you
 #' extract the lemma attribute of the tokenlist. To be able to use `step_lemma`
 #' you need to use a tokenization method that includes lemmatization. Currently
-#' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and 
+#' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and
 #' works well with `step_lemma`.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
 step_lemma <-
@@ -59,8 +61,7 @@ step_lemma <-
            trained = FALSE,
            columns = NULL,
            skip = FALSE,
-           id = rand_id("lemma")
-  ) {
+           id = rand_id("lemma")) {
     add_step(
       recipe,
       step_lemma_new(
@@ -90,9 +91,9 @@ step_lemma_new <-
 #' @export
 prep.step_lemma <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
-  
+
   check_list(training[, col_names])
-  
+
   step_lemma_new(
     terms = x$terms,
     role = x$role,
@@ -107,15 +108,17 @@ prep.step_lemma <- function(x, training, info = NULL, ...) {
 bake.step_lemma <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   for (i in seq_along(col_names)) {
     variable <- new_data[, col_names[i], drop = TRUE]
 
     if (is.null(maybe_get_lemma(variable))) {
-      rlang::abort(paste0("`", col_names[i], 
-                          "` doesn't have a lemma attribute. ",
-                          "Make sure the tokenization step includes ",
-                          "lemmatization."))
+      rlang::abort(paste0(
+        "`", col_names[i],
+        "` doesn't have a lemma attribute. ",
+        "Make sure the tokenization step includes ",
+        "lemmatization."
+      ))
     } else {
       lemma_variable <- tokenlist_lemma(variable)
     }
@@ -139,12 +142,16 @@ print.step_lemma <-
 #' @export
 tidy.step_lemma <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms,
-                  is_custom_stemmer = is.null(x$custom_stemmer))
+    res <- tibble(
+      terms = x$terms,
+      is_custom_stemmer = is.null(x$custom_stemmer)
+    )
   } else {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names,
-                  value = na_chr)
+    res <- tibble(
+      terms = term_names,
+      value = na_chr
+    )
   }
   res$id <- x$id
   res

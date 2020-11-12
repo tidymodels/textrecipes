@@ -1,7 +1,7 @@
 #'  Generate the basic set of text features
 #'
 #' `step_tokenmerge` creates a *specification* of a recipe step that
-#'  will take multiple [tokenlist]s and combine them into one 
+#'  will take multiple [tokenlist]s and combine them into one
 #'  [tokenlist].
 #'
 #' @param recipe A recipe object. The step will be added to the
@@ -12,7 +12,7 @@
 #'  details. For the `tidy` method, these are not currently used.
 #' @param role For model terms created by this step, what analysis
 #'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be 
+#'  that the new columns created by the original variables will be
 #'  used as predictors in a model.
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
@@ -34,21 +34,20 @@
 #' library(recipes)
 #' library(modeldata)
 #' data(okc_text)
-#' 
-#' okc_rec <- recipe(~ ., data = okc_text) %>%
+#'
+#' okc_rec <- recipe(~., data = okc_text) %>%
 #'   step_tokenize(essay0, essay1) %>%
-#'   step_tokenmerge(essay0, essay1) 
-#'   
+#'   step_tokenmerge(essay0, essay1)
+#'
 #' okc_obj <- okc_rec %>%
 #'   prep()
-#' 
+#'
 #' bake(okc_obj, new_data = NULL)
-#'   
+#'
 #' tidy(okc_rec, number = 1)
 #' tidy(okc_obj, number = 1)
-#' 
 #' @export
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
 step_tokenmerge <-
@@ -59,8 +58,7 @@ step_tokenmerge <-
            columns = NULL,
            prefix = "tokenmerge",
            skip = FALSE,
-           id = rand_id("tokenmerge")
-  ) {
+           id = rand_id("tokenmerge")) {
     add_step(
       recipe,
       step_tokenmerge_new(
@@ -111,7 +109,7 @@ prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
 bake.step_tokenmerge <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   new_col <- as.list(unname(new_data[, col_names, drop = FALSE])) %>%
     map(get_tokens) %>%
     pmap(c)
@@ -122,7 +120,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
     new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
 
   new_data <- vctrs::vec_cbind(new_data, new_col)
-  
+
   as_tibble(new_data)
 }
 
@@ -132,7 +130,7 @@ print.step_tokenmerge <-
     cat("Merging tokens for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
     invisible(x)
-}
+  }
 
 #' @rdname step_tokenmerge
 #' @param x A `step_tokenmerge` object.

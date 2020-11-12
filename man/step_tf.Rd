@@ -113,13 +113,13 @@ library(recipes)
 library(modeldata)
 data(okc_text)
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
+okc_rec <- recipe(~., data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
   step_tf(essay0)
-  
+
 okc_obj <- okc_rec \%>\%
   prep()
-  
+
 bake(okc_obj, okc_text)
 
 tidy(okc_rec, number = 2)

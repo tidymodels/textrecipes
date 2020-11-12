@@ -93,19 +93,18 @@ library(recipes)
 library(modeldata)
 data(okc_text)
 
-okc_rec <- recipe(~ essay0, data = okc_text) \%>\%
+okc_rec <- recipe(~essay0, data = okc_text) \%>\%
   step_tokenize(essay0) \%>\%
   step_tokenfilter(essay0) \%>\%
-  step_sequence_onehot(essay0) 
-  
+  step_sequence_onehot(essay0)
+
 okc_obj <- okc_rec \%>\%
   prep()
 
 bake(okc_obj, new_data = NULL)
-  
+
 tidy(okc_rec, number = 1)
 tidy(okc_obj, number = 1)
-
 }
 \seealso{
 Other character to numeric steps: 

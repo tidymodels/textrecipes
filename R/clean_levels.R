@@ -1,15 +1,15 @@
 #' Clean categorical levels
 #'
 #' `step_clean_levels` creates a *specification* of a recipe step that will
-#'  clean nominal data (character or factor) so the levels consist only of 
+#'  clean nominal data (character or factor) so the levels consist only of
 #'  letters, numbers, and the underscore.
 #'
 #' @inheritParams step_untokenize
 #' @param ... One or more selector functions to choose which
-#'  variables' levels will be cleaned. See [recipes::selections()] for more 
+#'  variables' levels will be cleaned. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.
 #' @param clean A named character vector to clean and recode categorical levels.
-#'  This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the 
+#'  This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
 #'  original variable is a character vector, it will be converted to a factor.
 #' @return An updated version of `recipe` with the new step
 #'  added to the sequence of existing steps (if any). For the `tidy` method, a
@@ -21,33 +21,31 @@
 #'   levels (i.e., not contained in the training set), they are converted
 #'   to missing.
 #'
-#' @seealso [step_clean_names()], [recipes::step_factor2string()], 
-#'  [recipes::step_string2factor()], [recipes::step_regex()], 
+#' @seealso [step_clean_names()], [recipes::step_factor2string()],
+#'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @examples
 #' library(recipes)
 #' library(modeldata)
 #' data(Smithsonian)
 #'
-#' smith_tr <- Smithsonian[1:15,]
-#' smith_te <- Smithsonian[16:20,]
+#' smith_tr <- Smithsonian[1:15, ]
+#' smith_te <- Smithsonian[16:20, ]
 #'
-#' rec <- recipe(~ ., data = smith_tr)
+#' rec <- recipe(~., data = smith_tr)
 #'
 #' if (requireNamespace("janitor", quietly = TRUE)) {
-#' rec <- rec %>%
-#'   step_clean_levels(name)
-#' rec <- prep(rec, training = smith_tr)
+#'   rec <- rec %>%
+#'     step_clean_levels(name)
+#'   rec <- prep(rec, training = smith_tr)
 #'
-#' cleaned <- bake(rec, smith_tr)
+#'   cleaned <- bake(rec, smith_tr)
 #'
-#' tidy(rec, number = 1)
+#'   tidy(rec, number = 1)
 #'
-#' # novel levels are replaced with missing
-#' bake(rec, smith_te)
+#'   # novel levels are replaced with missing
+#'   bake(rec, smith_te)
 #' }
-#'
-
 step_clean_levels <-
   function(recipe,
            ...,
@@ -86,7 +84,7 @@ step_clean_levels_new <-
 prep.step_clean_levels <- function(x, training, info = NULL, ...) {
   col_names <- terms_select(x$terms, info = info)
   check_type(training[, col_names], quant = FALSE)
-  
+
   if (length(col_names) > 0) {
     orig <- purrr::map(training[, col_names], levels)
     cleaned <- purrr::map(orig, janitor::make_clean_names)
@@ -94,7 +92,7 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
   } else {
     clean <- NULL
   }
-  
+
   step_clean_levels_new(
     terms = x$terms,
     role = x$role,
@@ -112,14 +110,13 @@ bake.step_clean_levels <- function(object, new_data, ...) {
       new_data[[i]] <- recode_factor(new_data[[i]], !!!object$clean[[i]])
     }
   }
-  
+
   as_tibble(new_data)
 }
 
 #' @export
 print.step_clean_levels <-
   function(x, width = max(20, options()$width - 30), ...) {
-    
     if (x$trained) {
       cleaned <- names(x$clean)
       if (length(cleaned) > 0) {
@@ -140,8 +137,12 @@ print.step_clean_levels <-
 #' @export
 tidy.step_clean_levels <- function(x, ...) {
   if (is_trained(x)) {
-    res <- purrr::map_dfr(x$clean, tibble::enframe,
-                          name = "original", .id = "terms")
+    res <- purrr::map_dfr(
+      x$clean, 
+      tibble::enframe,
+      name = "original", 
+      .id = "terms"
+    )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names)
@@ -149,4 +150,3 @@ tidy.step_clean_levels <- function(x, ...) {
   res$id <- x$id
   res
 }
-
