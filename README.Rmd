@@ -122,10 +122,10 @@ can be replaced with the following recipe to achive the same results
 
 ```{r, eval=FALSE}
 lda_tokenizer <- function(x) text2vec::word_tokenizer(tolower(x))
-recipe(~ essay0, data = okc_text) %>%
-  step_tokenize(essay0, 
+recipe(~ text_var, data = data) %>%
+  step_tokenize(text_var, 
                 custom_token = lda_tokenizer) %>%
-  step_lda(essay0)
+  step_lda(text_var)
 ```
 
 ## Contributing
