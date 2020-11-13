@@ -292,10 +292,10 @@
 <p>can be replaced with the following recipe to achive the same results</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lda_tokenizer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/tokenizers.html">word_tokenizer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">essay0</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, 
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text_var</span>, 
                 custom_token <span class="op">=</span> <span class="va">lda_tokenizer</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">text_var</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
