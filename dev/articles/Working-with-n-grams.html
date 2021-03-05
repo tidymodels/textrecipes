@@ -59,7 +59,7 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +89,7 @@
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -103,8 +103,7 @@
 
       
 
-      </header><script src="Working-with-n-grams_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Working-with-n-grams_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Working-with-n-grams_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="Working-with-n-grams_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with n-grams</h1>
@@ -213,15 +212,16 @@
 
 <span class="va">abc_ngram</span>
 <span class="co">#&gt; # A tibble: 2 x 14</span>
-<span class="co">#&gt;   `tf_text_a plac… `tf_text_an ins… `tf_text_bank i… `tf_text_bee is…</span>
-<span class="co">#&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                1                0                1                0</span>
-<span class="co">#&gt; 2                0                1                0                1</span>
-<span class="co">#&gt; # … with 10 more variables: `tf_text_insect that gathers` &lt;dbl&gt;, `tf_text_is a</span>
-<span class="co">#&gt; #   place` &lt;dbl&gt;, `tf_text_is an insect` &lt;dbl&gt;, `tf_text_place where</span>
-<span class="co">#&gt; #   you` &lt;dbl&gt;, `tf_text_put your money` &lt;dbl&gt;, `tf_text_that gathers</span>
-<span class="co">#&gt; #   honey` &lt;dbl&gt;, `tf_text_the bank is` &lt;dbl&gt;, `tf_text_the bee is` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tf_text_where you put` &lt;dbl&gt;, `tf_text_you put your` &lt;dbl&gt;</span>
+<span class="co">#&gt;   `tf_text_a place wh… `tf_text_an insect t… `tf_text_bank is… `tf_text_bee is …</span>
+<span class="co">#&gt;                  &lt;dbl&gt;                 &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;</span>
+<span class="co">#&gt; 1                    1                     0                 1                 0</span>
+<span class="co">#&gt; 2                    0                     1                 0                 1</span>
+<span class="co">#&gt; # … with 10 more variables: tf_text_insect that gathers &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_is a place &lt;dbl&gt;, tf_text_is an insect &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_place where you &lt;dbl&gt;, tf_text_put your money &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_that gathers honey &lt;dbl&gt;, tf_text_the bank is &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_the bee is &lt;dbl&gt;, tf_text_where you put &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tf_text_you put your &lt;dbl&gt;</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "tf_text_a place where"       "tf_text_an insect that"     </span>
@@ -248,10 +248,10 @@
 
 <span class="va">abc_ngram</span>
 <span class="co">#&gt; # A tibble: 2 x 16</span>
-<span class="co">#&gt;   tf_text_a_place tf_text_an_inse… tf_text_bank_is tf_text_bee_is</span>
-<span class="co">#&gt;             &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;</span>
-<span class="co">#&gt; 1               1                0               1              0</span>
-<span class="co">#&gt; 2               0                1               0              1</span>
+<span class="co">#&gt;   tf_text_a_place tf_text_an_insect tf_text_bank_is tf_text_bee_is</span>
+<span class="co">#&gt;             &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span class="co">#&gt; 1               1                 0               1              0</span>
+<span class="co">#&gt; 2               0                 1               0              1</span>
 <span class="co">#&gt; # … with 12 more variables: tf_text_gathers_honey &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_insect_that &lt;dbl&gt;, tf_text_is_a &lt;dbl&gt;, tf_text_is_an &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_place_where &lt;dbl&gt;, tf_text_put_your &lt;dbl&gt;,</span>
@@ -285,10 +285,10 @@
 
 <span class="va">abc_ngram</span>
 <span class="co">#&gt; # A tibble: 2 x 16</span>
-<span class="co">#&gt;   tf_text_a.place tf_text_an.inse… tf_text_Bank.is tf_text_Bee.is</span>
-<span class="co">#&gt;             &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;</span>
-<span class="co">#&gt; 1               1                0               1              0</span>
-<span class="co">#&gt; 2               0                1               0              1</span>
+<span class="co">#&gt;   tf_text_a.place tf_text_an.insect tf_text_Bank.is tf_text_Bee.is</span>
+<span class="co">#&gt;             &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span class="co">#&gt; 1               1                 0               1              0</span>
+<span class="co">#&gt; 2               0                 1               0              1</span>
 <span class="co">#&gt; # … with 12 more variables: tf_text_gathers.honey &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_insect.that &lt;dbl&gt;, tf_text_is.a &lt;dbl&gt;, tf_text_is.an &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_place.where &lt;dbl&gt;, tf_text_put.your &lt;dbl&gt;,</span>
@@ -334,10 +334,10 @@
 
 <span class="va">abc_ngram</span>
 <span class="co">#&gt; # A tibble: 2 x 14</span>
-<span class="co">#&gt;   tf_text_a_place… tf_text_an_inse… tf_text_bank_is… tf_text_bee_is_…</span>
-<span class="co">#&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                1                0                1                0</span>
-<span class="co">#&gt; 2                0                1                0                1</span>
+<span class="co">#&gt;   tf_text_a_place_where tf_text_an_insect_that tf_text_bank_is… tf_text_bee_is_…</span>
+<span class="co">#&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt; 1                     1                      0                1                0</span>
+<span class="co">#&gt; 2                     0                      1                0                1</span>
 <span class="co">#&gt; # … with 10 more variables: tf_text_insect_that_gathers &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_is_a_place &lt;dbl&gt;, tf_text_is_an_insect &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_place_where_you &lt;dbl&gt;, tf_text_put_your_money &lt;dbl&gt;,</span>
@@ -371,10 +371,10 @@
 
 <span class="va">abc_ngram</span>
 <span class="co">#&gt; # A tibble: 2 x 14</span>
-<span class="co">#&gt;   tf_text_a_place… tf_text_an_inse… tf_text_bank_i_a tf_text_bee_i_an</span>
-<span class="co">#&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                1                0                1                0</span>
-<span class="co">#&gt; 2                0                1                0                1</span>
+<span class="co">#&gt;   tf_text_a_place_where tf_text_an_insect_that tf_text_bank_i_a tf_text_bee_i_an</span>
+<span class="co">#&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt; 1                     1                      0                1                0</span>
+<span class="co">#&gt; 2                     0                      1                0                1</span>
 <span class="co">#&gt; # … with 10 more variables: tf_text_i_a_place &lt;dbl&gt;, tf_text_i_an_insect &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_insect_that_gather &lt;dbl&gt;, tf_text_place_where_you &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tf_text_put_your_monei &lt;dbl&gt;, tf_text_that_gather_honei &lt;dbl&gt;,</span>

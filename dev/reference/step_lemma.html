@@ -104,7 +104,7 @@ will extract the lemmatization of a tokenlist." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -134,7 +134,7 @@ will extract the lemmatization of a tokenlist." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -262,16 +262,16 @@ works well with <code>step_lemma</code>.</p>
   <span class='fu'><a href='step_tf.html'>step_tf</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
 
 <span class='va'>okc_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>okc_rec</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 2.3.2, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Found 'spacy_condaenv'. spacyr will use this environment</span></div><div class='output co'>#&gt; <span class='message'>successfully initialized (spaCy Version: 3.0.3, language model: en_core_web_sm)</span></div><div class='output co'>#&gt; <span class='message'>(python options: type = "condaenv", value = "spacy_condaenv")</span></div><div class='input'>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 12</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 12</span><span>
 #&gt;   `tf_text_,` tf_text_. tf_text_a tf_text_and tf_text_be tf_text_cat
-#&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>           1         0         1           0          1           0
-#&gt; </span><span style='color: #555555;'>2</span><span>           0         1         0           1          0           1
-#&gt; </span><span style='color: #555555;'># … with 6 more variables: tf_text_lady </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tf_text_many </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tf_text_short </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tf_text_tale </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tf_text_this </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tf_text_with </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='co'># }</span>
+#&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>           1         0         1           0          1           0
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>           0         1         0           1          0           1
+#&gt; </span><span style='color: #949494;'># … with 6 more variables: tf_text_lady &lt;dbl&gt;, tf_text_many &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   tf_text_short &lt;dbl&gt;, tf_text_tale &lt;dbl&gt;, tf_text_this &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   tf_text_with &lt;dbl&gt;</span><span></div><div class='input'><span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

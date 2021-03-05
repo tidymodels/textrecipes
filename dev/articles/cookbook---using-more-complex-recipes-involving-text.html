@@ -59,7 +59,7 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +89,7 @@
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -103,14 +103,13 @@
 
       
 
-      </header><script src="cookbook---using-more-complex-recipes-involving-text_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="cookbook---using-more-complex-recipes-involving-text_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="cookbook---using-more-complex-recipes-involving-text_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="cookbook---using-more-complex-recipes-involving-text_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Cookbook - Using more complex recipes involving text</h1>
                         <h4 class="author">Emil Hvitfeldt</h4>
             
-            <h4 class="date">2020-11-13</h4>
+            <h4 class="date">2021-03-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="hidden name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -182,18 +181,18 @@
 <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 750 x 9,235</span>
-<span class="co">#&gt;    tfidf_essay0___… tfidf_essay0___… tfidf_essay0___… tfidf_essay0___…</span>
-<span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt;  1                0                0                0                0</span>
-<span class="co">#&gt;  2                0                0                0                0</span>
-<span class="co">#&gt;  3                0                0                0                0</span>
-<span class="co">#&gt;  4                0                0                0                0</span>
-<span class="co">#&gt;  5                0                0                0                0</span>
-<span class="co">#&gt;  6                0                0                0                0</span>
-<span class="co">#&gt;  7                0                0                0                0</span>
-<span class="co">#&gt;  8                0                0                0                0</span>
-<span class="co">#&gt;  9                0                0                0                0</span>
-<span class="co">#&gt; 10                0                0                0                0</span>
+<span class="co">#&gt;    tfidf_essay0____… tfidf_essay0____… tfidf_essay0_________… tfidf_essay0_____…</span>
+<span class="co">#&gt;                &lt;dbl&gt;             &lt;dbl&gt;                  &lt;dbl&gt;              &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                 0                 0                      0                  0</span>
+<span class="co">#&gt;  2                 0                 0                      0                  0</span>
+<span class="co">#&gt;  3                 0                 0                      0                  0</span>
+<span class="co">#&gt;  4                 0                 0                      0                  0</span>
+<span class="co">#&gt;  5                 0                 0                      0                  0</span>
+<span class="co">#&gt;  6                 0                 0                      0                  0</span>
+<span class="co">#&gt;  7                 0                 0                      0                  0</span>
+<span class="co">#&gt;  8                 0                 0                      0                  0</span>
+<span class="co">#&gt;  9                 0                 0                      0                  0</span>
+<span class="co">#&gt; 10                 0                 0                      0                  0</span>
 <span class="co">#&gt; # … with 740 more rows, and 9,231 more variables: tfidf_essay0__blank &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0__updates_ &lt;dbl&gt;, tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span>
@@ -206,7 +205,7 @@
 <span class="co">#&gt; #   tfidf_essay0_0amusic &lt;dbl&gt;, tfidf_essay0_0aparties &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_0arailroading &lt;dbl&gt;, tfidf_essay0_0ashows &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_0atrips &lt;dbl&gt;, tfidf_essay0_0aweapons &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1 &lt;dbl&gt;, tfidf_essay0_10 &lt;dbl&gt;, `tfidf_essay0_10,000` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_1 &lt;dbl&gt;, tfidf_essay0_10 &lt;dbl&gt;, tfidf_essay0_10,000 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_100 &lt;dbl&gt;, tfidf_essay0_1000 &lt;dbl&gt;, tfidf_essay0_105 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_11 &lt;dbl&gt;, tfidf_essay0_110 &lt;dbl&gt;, tfidf_essay0_1193 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   tfidf_essay0_12 &lt;dbl&gt;, tfidf_essay0_125 &lt;dbl&gt;, tfidf_essay0_12s &lt;dbl&gt;,</span>
@@ -289,69 +288,69 @@
 <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 750 x 500</span>
-<span class="co">#&gt;    `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a…</span>
-<span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt;  1                0                0                0                0</span>
-<span class="co">#&gt;  2                0                0                0                0</span>
-<span class="co">#&gt;  3                0                0                0                0</span>
-<span class="co">#&gt;  4                0                0                0                0</span>
-<span class="co">#&gt;  5                0                0                0                0</span>
-<span class="co">#&gt;  6                0                0                0                0</span>
-<span class="co">#&gt;  7                0                0                0                0</span>
-<span class="co">#&gt;  8                0                0                0                0</span>
-<span class="co">#&gt;  9                0                0                0                0</span>
-<span class="co">#&gt; 10                0                0                0                0</span>
-<span class="co">#&gt; # … with 740 more rows, and 496 more variables: `tfidf_essay0_a br br` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a class ilink` &lt;dbl&gt;, `tfidf_essay0_a coupl of` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a few year` &lt;dbl&gt;, `tfidf_essay0_a good time` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a i can` &lt;dbl&gt;, `tfidf_essay0_a laid back` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a littl bit` &lt;dbl&gt;, `tfidf_essay0_a long a` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a lot and` &lt;dbl&gt;, `tfidf_essay0_a lot of` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a lover who` &lt;dbl&gt;, `tfidf_essay0_a man who` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a much a` &lt;dbl&gt;, `tfidf_essay0_a part of` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_a sens of` &lt;dbl&gt;, `tfidf_essay0_a well a` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_about me i` &lt;dbl&gt;, `tfidf_essay0_all kind of` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_all over the` &lt;dbl&gt;, `tfidf_essay0_all the time` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_also like to` &lt;dbl&gt;, `tfidf_essay0_am a veri` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_am look for` &lt;dbl&gt;, `tfidf_essay0_am not a` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and a class` &lt;dbl&gt;, `tfidf_essay0_and am a` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and enjoi the` &lt;dbl&gt;, `tfidf_essay0_and go to` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and have a` &lt;dbl&gt;, `tfidf_essay0_and have been` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and have fun` &lt;dbl&gt;, `tfidf_essay0_and i am` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and i don't` &lt;dbl&gt;, `tfidf_essay0_and i have` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and i like` &lt;dbl&gt;, `tfidf_essay0_and i love` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and i try` &lt;dbl&gt;, `tfidf_essay0_and i'm not` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and like to` &lt;dbl&gt;, `tfidf_essay0_and live in` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and look for` &lt;dbl&gt;, `tfidf_essay0_and love it` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and love the` &lt;dbl&gt;, `tfidf_essay0_and love to` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and rais in` &lt;dbl&gt;, `tfidf_essay0_and try new` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and try to` &lt;dbl&gt;, `tfidf_essay0_and work in` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_and would love` &lt;dbl&gt;, `tfidf_essay0_at least onc` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_at the same` &lt;dbl&gt;, `tfidf_essay0_back in the` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_back to the` &lt;dbl&gt;, `tfidf_essay0_bai area for` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_bai area i` &lt;dbl&gt;, `tfidf_essay0_be abl to` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_be in the` &lt;dbl&gt;, `tfidf_essay0_big fan of` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_bit of a` &lt;dbl&gt;, `tfidf_essay0_born and rais` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br a class` &lt;dbl&gt;, `tfidf_essay0_br br a` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br also` &lt;dbl&gt;, `tfidf_essay0_br br and` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br at` &lt;dbl&gt;, `tfidf_essay0_br br br` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br for` &lt;dbl&gt;, `tfidf_essay0_br br here` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br i` &lt;dbl&gt;, `tfidf_essay0_br br i'm` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br i'v` &lt;dbl&gt;, `tfidf_essay0_br br if` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br im` &lt;dbl&gt;, `tfidf_essay0_br br imagin` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br in` &lt;dbl&gt;, `tfidf_essay0_br br my` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br oh` &lt;dbl&gt;, `tfidf_essay0_br br on` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br so` &lt;dbl&gt;, `tfidf_essay0_br br the` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br to` &lt;dbl&gt;, `tfidf_essay0_br br what` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br br when` &lt;dbl&gt;, `tfidf_essay0_br br you` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i also` &lt;dbl&gt;, `tfidf_essay0_br i am` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i believ` &lt;dbl&gt;, `tfidf_essay0_br i can` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i do` &lt;dbl&gt;, `tfidf_essay0_br i don't` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i enjoi` &lt;dbl&gt;, `tfidf_essay0_br i grew` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i have` &lt;dbl&gt;, `tfidf_essay0_br i just` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i like` &lt;dbl&gt;, `tfidf_essay0_br i love` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i realli` &lt;dbl&gt;, `tfidf_essay0_br i think` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `tfidf_essay0_br i wa` &lt;dbl&gt;, …</span></code></pre></div>
+<span class="co">#&gt;    `tfidf_essay0_a a … `tfidf_essay0_a a… `tfidf_essay0_a bi… `tfidf_essay0_a b…</span>
+<span class="co">#&gt;                  &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;              &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                   0                  0                   0                  0</span>
+<span class="co">#&gt;  2                   0                  0                   0                  0</span>
+<span class="co">#&gt;  3                   0                  0                   0                  0</span>
+<span class="co">#&gt;  4                   0                  0                   0                  0</span>
+<span class="co">#&gt;  5                   0                  0                   0                  0</span>
+<span class="co">#&gt;  6                   0                  0                   0                  0</span>
+<span class="co">#&gt;  7                   0                  0                   0                  0</span>
+<span class="co">#&gt;  8                   0                  0                   0                  0</span>
+<span class="co">#&gt;  9                   0                  0                   0                  0</span>
+<span class="co">#&gt; 10                   0                  0                   0                  0</span>
+<span class="co">#&gt; # … with 740 more rows, and 496 more variables: tfidf_essay0_a br br &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a class ilink &lt;dbl&gt;, tfidf_essay0_a coupl of &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a few year &lt;dbl&gt;, tfidf_essay0_a good time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a i can &lt;dbl&gt;, tfidf_essay0_a laid back &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a littl bit &lt;dbl&gt;, tfidf_essay0_a long a &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a lot and &lt;dbl&gt;, tfidf_essay0_a lot of &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a lover who &lt;dbl&gt;, tfidf_essay0_a man who &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a much a &lt;dbl&gt;, tfidf_essay0_a part of &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_a sens of &lt;dbl&gt;, tfidf_essay0_a well a &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_about me i &lt;dbl&gt;, tfidf_essay0_all kind of &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_all over the &lt;dbl&gt;, tfidf_essay0_all the time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_also like to &lt;dbl&gt;, tfidf_essay0_am a veri &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_am look for &lt;dbl&gt;, tfidf_essay0_am not a &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and a class &lt;dbl&gt;, tfidf_essay0_and am a &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and enjoi the &lt;dbl&gt;, tfidf_essay0_and go to &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and have a &lt;dbl&gt;, tfidf_essay0_and have been &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and have fun &lt;dbl&gt;, tfidf_essay0_and i am &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and i don't &lt;dbl&gt;, tfidf_essay0_and i have &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and i like &lt;dbl&gt;, tfidf_essay0_and i love &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and i try &lt;dbl&gt;, tfidf_essay0_and i'm not &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and like to &lt;dbl&gt;, tfidf_essay0_and live in &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and look for &lt;dbl&gt;, tfidf_essay0_and love it &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and love the &lt;dbl&gt;, tfidf_essay0_and love to &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and rais in &lt;dbl&gt;, tfidf_essay0_and try new &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and try to &lt;dbl&gt;, tfidf_essay0_and work in &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_and would love &lt;dbl&gt;, tfidf_essay0_at least onc &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_at the same &lt;dbl&gt;, tfidf_essay0_back in the &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_back to the &lt;dbl&gt;, tfidf_essay0_bai area for &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_bai area i &lt;dbl&gt;, tfidf_essay0_be abl to &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_be in the &lt;dbl&gt;, tfidf_essay0_big fan of &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_bit of a &lt;dbl&gt;, tfidf_essay0_born and rais &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br a class &lt;dbl&gt;, tfidf_essay0_br br a &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br also &lt;dbl&gt;, tfidf_essay0_br br and &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br at &lt;dbl&gt;, tfidf_essay0_br br br &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br for &lt;dbl&gt;, tfidf_essay0_br br here &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br i &lt;dbl&gt;, tfidf_essay0_br br i'm &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br i'v &lt;dbl&gt;, tfidf_essay0_br br if &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br im &lt;dbl&gt;, tfidf_essay0_br br imagin &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br in &lt;dbl&gt;, tfidf_essay0_br br my &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br oh &lt;dbl&gt;, tfidf_essay0_br br on &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br so &lt;dbl&gt;, tfidf_essay0_br br the &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br to &lt;dbl&gt;, tfidf_essay0_br br what &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br br when &lt;dbl&gt;, tfidf_essay0_br br you &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i also &lt;dbl&gt;, tfidf_essay0_br i am &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i believ &lt;dbl&gt;, tfidf_essay0_br i can &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i do &lt;dbl&gt;, tfidf_essay0_br i don't &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i enjoi &lt;dbl&gt;, tfidf_essay0_br i grew &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i have &lt;dbl&gt;, tfidf_essay0_br i just &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i like &lt;dbl&gt;, tfidf_essay0_br i love &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i realli &lt;dbl&gt;, tfidf_essay0_br i think &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   tfidf_essay0_br i wa &lt;dbl&gt;, …</span></code></pre></div>
 </div>
   </div>
 
