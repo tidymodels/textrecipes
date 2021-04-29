@@ -78,15 +78,29 @@ will convert a character predictor into a \link{tokenlist}.
 }
 \details{
 Tokenization is the act of splitting a character string into smaller parts
-to be further analysed. This step uses the \code{tokenizers} package which
+to be further analyzed. This step uses the \code{tokenizers} package which
 includes heuristics to split the text into paragraphs tokens, word tokens
-amoug others. \code{textrecipes} keeps the tokens in a \link{tokenlist} and other
+among others. \code{textrecipes} keeps the tokens in a \link{tokenlist} and other
 steps will do their tasks on those \link{tokenlist}s before transforming them
 back to numeric.
 
+Working will \code{textrecipes} will almost always start by calling
+\code{step_tokenize} followed by modifying and filtering steps. This is not always
+the case as you sometimes want to do apply pre-tokenization steps, this can
+be done with \code{\link[recipes:step_mutate]{recipes::step_mutate()}}.
+}
+\section{Engines}{
 The choice of \code{engine} determines the possible choices of \code{token}.
 
-If \code{engine = "tokenizers"}:
+The following is some small example data used in the following examples\if{html}{\out{<div class="r">}}\preformatted{text_tibble <- tibble(
+  text = c("This is words", "They are nice!")
+)
+}\if{html}{\out{</div>}}
+\subsection{tokenizers}{
+
+The tokenizers package is the default \code{engine} and it comes with the
+following unit of \code{token}. All of these options correspond to a function in
+the tokenizers package.
 \itemize{
 \item "words" (default)
 \item "characters"
@@ -103,16 +117,126 @@ If \code{engine = "tokenizers"}:
 \item "word_stems"
 }
 
-if \code{engine = "spacyr"}
+The default tokenizer is \code{"word"} which splits the text into a series of
+words. By using \code{step_tokenize()} without setting any arguments you get word
+tokens\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+  step_tokenize(text) \%>\%
+  show_tokens(text)
+}\if{html}{\out{</div>}}\preformatted{## [[1]]
+## [1] "this"  "is"    "words"
+## 
+## [[2]]
+## [1] "they" "are"  "nice"
+}
+
+This tokenizer has arguments that change how the tokenization occurs and can
+accessed using the \code{options} argument by passing a named list. Here we are
+telling \link[tokenizers:basic-tokenizers]{tokenizers::tokenize_words} that we don't want to turn the words to
+lowercase\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+  step_tokenize(text, 
+                options = list(lowercase = FALSE)) \%>\%
+  show_tokens(text)
+}\if{html}{\out{</div>}}\preformatted{## [[1]]
+## [1] "This"  "is"    "words"
+## 
+## [[2]]
+## [1] "They" "are"  "nice"
+}
+
+We can also stop removing punctuation.\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+  step_tokenize(text, 
+                options = list(strip_punct = FALSE,
+                               lowercase = FALSE)) \%>\%
+  show_tokens(text)
+}\if{html}{\out{</div>}}\preformatted{## [[1]]
+## [1] "This"  "is"    "words"
+## 
+## [[2]]
+## [1] "They" "are"  "nice" "!"
+}
+
+The tokenizer can be changed by setting a different \code{token}. Here we change
+it to return character tokens.\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+  step_tokenize(text, token = "characters") \%>\%
+  show_tokens(text)
+}\if{html}{\out{</div>}}\preformatted{## [[1]]
+##  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
+## 
+## [[2]]
+##  [1] "t" "h" "e" "y" "a" "r" "e" "n" "i" "c" "e"
+}
+
+It is worth noting that not all these token methods are appropriate but are
+included for completeness.
+}
+
+\subsection{spacyr}{
+\itemize{
+\item "words"
+}
+}
+
+\subsection{tokenizers.bpe}{
+
+The tokeenizers.bpe engine performs Byte Pair Encoding Text Tokenization.
 \itemize{
 \item "words"
 }
 
-Working will \code{textrecipes} will almost always start by calling
-\code{step_tokenize} followed by modifying and filtering steps. This is not always
-the case as you sometimes want to do apply pre-tokenization steps, this can
-be done with \code{\link[recipes:step_mutate]{recipes::step_mutate()}}.
+This tokenizer is trained on the training set and will thus need to be passed
+training arguments. These are passed to the \code{training_options} argument and
+the most important one is \code{vocab_size}. The determines the number of unique
+tokens the tokenizer will produce. It is generally set to a much higher
+value, typically in the thousands, but is set to 22 here for demonstration
+purposes.\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+  step_tokenize(
+    text, 
+    engine = "tokenizers.bpe", 
+    training_options = list(vocab_size = 22)
+  ) \%>\%
+  show_tokens(text)
+}\if{html}{\out{</div>}}\preformatted{## [[1]]
+##  [1] "▁Th" "is"  "▁"   "is"  "▁"   "w"   "o"   "r"  
+##  [9] "d"   "s"  
+## 
+## [[2]]
+##  [1] "▁Th" "e"   "y"   "▁"   "a"   "r"   "e"   "▁"  
+##  [9] "n"   "i"   "c"   "e"   "!"
 }
+}
+
+\subsection{udpipe}{
+\itemize{
+\item "words"
+}
+}
+
+\subsection{custom_token}{
+
+Sometimes you need to perform tokenization that is not covered by the
+supported engines. In that case you can use the \code{custom_token} argument to
+pass a function in that performs the tokenization you want.
+
+Below is an example of a very simple space tokenization. This is a very fast
+way of tokenizing.\if{html}{\out{<div class="r">}}\preformatted{space_tokenizer <- function(x) \{
+  strsplit(x, " +")
+\}
+
+recipe(~ text, data = text_tibble) \%>\%
+  step_tokenize(
+    text, 
+    custom_token = space_tokenizer
+  ) \%>\%
+  show_tokens(text)
+}\if{html}{\out{</div>}}\preformatted{## [[1]]
+## [1] "This"  "is"    "words"
+## 
+## [[2]]
+## [1] "They"  "are"   "nice!"
+}
+}
+}
+
 \examples{
 library(recipes)
 library(modeldata)
