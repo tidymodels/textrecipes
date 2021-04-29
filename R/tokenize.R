@@ -34,8 +34,6 @@
 #' @param id A character string that is unique to this step to identify it
 #' @param trained A logical to indicate if the recipe has been
 #'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -67,15 +65,40 @@
 #' @export
 #' @details
 #' Tokenization is the act of splitting a character string into smaller parts
-#' to be further analysed. This step uses the `tokenizers` package which
+#' to be further analyzed. This step uses the `tokenizers` package which
 #' includes heuristics to split the text into paragraphs tokens, word tokens
-#' amoug others. `textrecipes` keeps the tokens in a [tokenlist] and other
+#' among others. `textrecipes` keeps the tokens in a [tokenlist] and other
 #' steps will do their tasks on those [tokenlist]s before transforming them
 #' back to numeric.
 #'
+#' Working will `textrecipes` will almost always start by calling
+#' `step_tokenize` followed by modifying and filtering steps. This is not always
+#' the case as you sometimes want to do apply pre-tokenization steps, this can
+#' be done with [recipes::step_mutate()].
+#' 
+#' # Engines
+#' 
 #' The choice of `engine` determines the possible choices of `token`.
 #'
-#' If `engine = "tokenizers"`:
+#' The following is some small example data and a function that is used to show
+#' how what happens inside the recipe. The details of `show_tokens()` is not 
+#' important.
+#' 
+#' ```{r}
+#' text_tibble <- tibble(text = c("This is words", "They are nice!"))
+#' show_tokens <- function(rec, var) {
+#'   rec %>%
+#'     prep() %>%
+#'     bake(new_data = NULL) %>%
+#'     pull({{var}}) %>%
+#'     textrecipes:::get_tokens()
+#' }
+#' ```
+#' 
+#' ## tokenizers
+#' 
+#' The tokenizers package is the default 
+#' 
 #' * "words" (default)
 #' * "characters"
 #' * "character_shingles"
@@ -89,15 +112,53 @@
 #' * "ptb" (Penn Treebank)
 #' * "skip_ngrams"
 #' * "word_stems"
+#' 
+#' ```{r}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(text) %>%
+#'   show_tokens(text)
+#' ```
+#' 
+#' ```{r}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(text, options = list(lowercase = FALSE)) %>%
+#'   show_tokens(text)
+#' ```
+#' 
+#' ```{r}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(text, options = list(strip_punct = FALSE)) %>%
+#'   show_tokens(text)
+#' ```
+#' 
+#' ```{r}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(text, token = "characters") %>%
+#'   show_tokens(text)
+#' ```
 #'
-#' if `engine = "spacyr"`
+#' ## spacyr
+#' 
 #' * "words"
 #'
-#' Working will `textrecipes` will almost always start by calling
-#' `step_tokenize` followed by modifying and filtering steps. This is not always
-#' the case as you sometimes want to do apply pre-tokenization steps, this can
-#' be done with [recipes::step_mutate()].
+#' ## tokenizers.bpe
+#' 
+#' * "words"
+#' 
+#' ```{r}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(text, 
+#'                 engine = "tokenizers.bpe", 
+#'                 training_options = list(vocab_size = 22)) %>%
+#'   show_tokens(text)
+#' ```
+#' 
+#' ## udpipe
+#' 
+#' * "words"
 #'
+#'@return An updated version of `recipe` with the new step added
+#'  to the sequence of existing steps (if any).
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
 step_tokenize <-

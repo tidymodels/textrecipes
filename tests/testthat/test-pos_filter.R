@@ -10,6 +10,7 @@ text <- tibble(text = c(
 ))
 
 test_that("part of speech filtering works", {
+  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
@@ -35,6 +36,7 @@ test_that("part of speech filtering works", {
 })
 
 test_that("part of speech filtering removes everything", {
+  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
@@ -60,6 +62,7 @@ test_that("part of speech filtering removes everything", {
 })
 
 test_that("part of speech filtering works with multiple tags", {
+  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 

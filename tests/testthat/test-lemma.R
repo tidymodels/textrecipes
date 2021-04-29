@@ -10,6 +10,7 @@ text <- tibble(text = c(
 ))
 
 test_that("lemmatization works", {
+  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
