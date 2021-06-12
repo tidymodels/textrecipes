@@ -147,7 +147,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
       x$percentage
     )
 
-    n_words[[i]] <- length(table(unlist(training[, col_names[i], drop = TRUE])))
+    n_words[[i]] <- length(unique(unlist(training[, col_names[i], drop = TRUE])))
   }
 
   step_tokenfilter_new(
@@ -215,7 +215,7 @@ tidy.step_tokenfilter <- function(x, ...) {
 ## Implementation
 tokenfilter_fun <- function(data, max_times, min_times, max_features,
                             percentage) {
-  tf <- table(unlist(get_tokens(data)))
+  tf <- table0(unlist(get_tokens(data)))
 
   if (percentage) {
     tf <- tf / sum(tf)

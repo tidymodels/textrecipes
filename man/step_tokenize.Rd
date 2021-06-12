@@ -92,7 +92,7 @@ be done with \code{\link[recipes:step_mutate]{recipes::step_mutate()}}.
 \section{Engines}{
 The choice of \code{engine} determines the possible choices of \code{token}.
 
-The following is some small example data used in the following examples\if{html}{\out{<div class="r">}}\preformatted{text_tibble <- tibble(
+The following is some small example data used in the following examples\if{html}{\out{<div class="sourceCode r">}}\preformatted{text_tibble <- tibble(
   text = c("This is words", "They are nice!")
 )
 }\if{html}{\out{</div>}}
@@ -119,7 +119,7 @@ the tokenizers package.
 
 The default tokenizer is \code{"word"} which splits the text into a series of
 words. By using \code{step_tokenize()} without setting any arguments you get word
-tokens\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+tokens\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text) \%>\%
   show_tokens(text)
 }\if{html}{\out{</div>}}\preformatted{## [[1]]
@@ -132,7 +132,7 @@ tokens\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_t
 This tokenizer has arguments that change how the tokenization occurs and can
 accessed using the \code{options} argument by passing a named list. Here we are
 telling \link[tokenizers:basic-tokenizers]{tokenizers::tokenize_words} that we don't want to turn the words to
-lowercase\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+lowercase\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text, 
                 options = list(lowercase = FALSE)) \%>\%
   show_tokens(text)
@@ -143,7 +143,7 @@ lowercase\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = tex
 ## [1] "They" "are"  "nice"
 }
 
-We can also stop removing punctuation.\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+We can also stop removing punctuation.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text, 
                 options = list(strip_punct = FALSE,
                                lowercase = FALSE)) \%>\%
@@ -156,7 +156,7 @@ We can also stop removing punctuation.\if{html}{\out{<div class="r">}}\preformat
 }
 
 The tokenizer can be changed by setting a different \code{token}. Here we change
-it to return character tokens.\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+it to return character tokens.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text, token = "characters") \%>\%
   show_tokens(text)
 }\if{html}{\out{</div>}}\preformatted{## [[1]]
@@ -188,7 +188,7 @@ training arguments. These are passed to the \code{training_options} argument and
 the most important one is \code{vocab_size}. The determines the number of unique
 tokens the tokenizer will produce. It is generally set to a much higher
 value, typically in the thousands, but is set to 22 here for demonstration
-purposes.\if{html}{\out{<div class="r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+purposes.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(
     text, 
     engine = "tokenizers.bpe", 
@@ -218,7 +218,7 @@ supported engines. In that case you can use the \code{custom_token} argument to
 pass a function in that performs the tokenization you want.
 
 Below is an example of a very simple space tokenization. This is a very fast
-way of tokenizing.\if{html}{\out{<div class="r">}}\preformatted{space_tokenizer <- function(x) \{
+way of tokenizing.\if{html}{\out{<div class="sourceCode r">}}\preformatted{space_tokenizer <- function(x) \{
   strsplit(x, " +")
 \}
 
