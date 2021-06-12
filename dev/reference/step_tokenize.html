@@ -274,7 +274,7 @@ be done with <code><a href='https://recipes.tidymodels.org/reference/step_mutate
     <h2 class="hasAnchor" id="engines"><a class="anchor" href="#engines"></a>Engines</h2>
 
     <p>The choice of <code>engine</code> determines the possible choices of <code>token</code>.</p>
-<p>The following is some small example data used in the following examples<div class="r"></p><pre><span class='va'>text_tibble</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>
+<p>The following is some small example data used in the following examples<div class="sourceCode r"></p><pre><span class='va'>text_tibble</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>
   text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"This is words"</span>, <span class='st'>"They are nice!"</span><span class='op'>)</span>
 <span class='op'>)</span>
 </pre><p></div></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>tokenizers</h3>
@@ -300,7 +300,7 @@ the tokenizers package.</p><ul>
 
 <p>The default tokenizer is <code>"word"</code> which splits the text into a series of
 words. By using <code>step_tokenize()</code> without setting any arguments you get word
-tokens<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+tokens<div class="sourceCode r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='show_tokens.html'>show_tokens</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [[1]]</span>
@@ -313,7 +313,7 @@ tokens<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidymode
 <p>This tokenizer has arguments that change how the tokenization occurs and can
 accessed using the <code>options</code> argument by passing a named list. Here we are
 telling <a href='https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html'>tokenizers::tokenize_words</a> that we don't want to turn the words to
-lowercase<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+lowercase<div class="sourceCode r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span><span class='op'>(</span><span class='va'>text</span>, 
                 options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>lowercase <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='show_tokens.html'>show_tokens</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
@@ -324,7 +324,7 @@ lowercase<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidym
 <span class='co'>## [1] "They" "are"  "nice"</span>
 </pre>
 
-<p>We can also stop removing punctuation.<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<p>We can also stop removing punctuation.<div class="sourceCode r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span><span class='op'>(</span><span class='va'>text</span>, 
                 options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>strip_punct <span class='op'>=</span> <span class='cn'>FALSE</span>,
                                lowercase <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -337,7 +337,7 @@ lowercase<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidym
 </pre>
 
 <p>The tokenizer can be changed by setting a different <code>token</code>. Here we change
-it to return character tokens.<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+it to return character tokens.<div class="sourceCode r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span><span class='op'>(</span><span class='va'>text</span>, token <span class='op'>=</span> <span class='st'>"characters"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='show_tokens.html'>show_tokens</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## [[1]]</span>
@@ -369,7 +369,7 @@ training arguments. These are passed to the <code>training_options</code> argume
 the most important one is <code>vocab_size</code>. The determines the number of unique
 tokens the tokenizer will produce. It is generally set to a much higher
 value, typically in the thousands, but is set to 22 here for demonstration
-purposes.<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+purposes.<div class="sourceCode r"></p><pre><span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span><span class='op'>(</span>
     <span class='va'>text</span>, 
     engine <span class='op'>=</span> <span class='st'>"tokenizers.bpe"</span>, 
@@ -400,7 +400,7 @@ purposes.<div class="r"></p><pre><span class='fu'><a href='https://recipes.tidym
 supported engines. In that case you can use the <code>custom_token</code> argument to
 pass a function in that performs the tokenization you want.</p>
 <p>Below is an example of a very simple space tokenization. This is a very fast
-way of tokenizing.<div class="r"></p><pre><span class='va'>space_tokenizer</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
+way of tokenizing.<div class="sourceCode r"></p><pre><span class='va'>space_tokenizer</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>" +"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
@@ -435,11 +435,11 @@ way of tokenizing.<div class="r"></p><pre><span class='va'>space_tokenizer</span
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span>
 #&gt;         essay0
-#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> [184 tokens]
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  [24 tokens]</div><div class='input'>
+#&gt;      <span style='color: #949494; font-style: italic;'>&lt;tknlist&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> [184 tokens]
+#&gt; <span style='color: #BCBCBC;'>2</span>  [24 tokens]</div><div class='input'>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
@@ -447,14 +447,14 @@ way of tokenizing.<div class="r"></p><pre><span class='va'>space_tokenizer</span
 #&gt; [1] [24 tokens]
 #&gt; # Unique Tokens: 18</div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 3</span>
 #&gt;   terms  value id            
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_oTCQw</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 3</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    tokenize_sRz5Z</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 3</span>
 #&gt;   terms      value id            
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> essay0     words tokenize_oTCQw</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0     words tokenize_sRz5Z</div><div class='input'>
 <span class='va'>okc_obj_chars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>okc_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_tokenize</span><span class='op'>(</span><span class='va'>essay0</span>, token <span class='op'>=</span> <span class='st'>"characters"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -464,7 +464,7 @@ way of tokenizing.<div class="r"></p><pre><span class='va'>space_tokenizer</span
   <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
 #&gt; [1] [24 tokens]
-#&gt; # Unique Tokens: 18</div></span></pre>
+#&gt; # Unique Tokens: 18</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

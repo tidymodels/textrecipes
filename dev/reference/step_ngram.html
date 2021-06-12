@@ -279,11 +279,11 @@ fashion with respect to the number of tokens in the n-gram. If
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>essay0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span>
 #&gt;         essay0
-#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> [182 tokens]
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  [22 tokens]</div><div class='input'>
+#&gt;      <span style='color: #949494; font-style: italic;'>&lt;tknlist&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> [182 tokens]
+#&gt; <span style='color: #BCBCBC;'>2</span>  [22 tokens]</div><div class='input'>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
@@ -291,14 +291,14 @@ fashion with respect to the number of tokens in the n-gram. If
 #&gt; [1] [22 tokens]
 #&gt; # Unique Tokens: 22</div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 3</span>
 #&gt;   terms  value id         
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    ngram_y9kKc</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 2</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    ngram_B5dM3</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;   terms      id         
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> essay0     ngram_y9kKc</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0     ngram_B5dM3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
