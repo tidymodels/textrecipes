@@ -250,7 +250,10 @@ string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
       }
     }
   }
-  res <- matrix(vocabulary[res], nrow = length(x), ncol = sequence_length)
+  res <- matrix(
+    vocabulary[match(res, names(vocabulary))], 
+    nrow = length(x), ncol = sequence_length
+  )
   res[is.na(res)] <- 0
   res
 }
