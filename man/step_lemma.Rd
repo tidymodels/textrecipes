@@ -21,10 +21,9 @@ step_lemma(
 \item{recipe}{A \link{recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose variables.
-For \code{step_lemma}, this indicates the variables to be encoded
-into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
-details. For the \code{tidy} method, these are not currently used.}
+\item{...}{One or more selector functions to choose which
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
+for more details.}
 
 \item{role}{Not used by this step since no new variables are
 created.}

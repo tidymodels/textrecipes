@@ -5,9 +5,7 @@
 #'  underscore.
 #'
 #' @inheritParams step_untokenize
-#' @param ... One or more selector functions to choose which
-#'  variables' names will be cleaned. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
+#' @template args-dots
 #' @param clean A named character vector to clean variable names. This is `NULL`
 #'  until computed by [recipes::prep.recipe()].
 #' @return An updated version of `recipe` with the new step

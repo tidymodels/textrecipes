@@ -23,8 +23,8 @@ step_text_normalization(
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
-variables will be transformed. See \code{\link[recipes:selections]{recipes::selections()}} for more
-details. For the \code{tidy} method, these are not currently used.}
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
+for more details.}
 
 \item{role}{Not used by this step since no new variables are
 created.}

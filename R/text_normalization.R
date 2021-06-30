@@ -4,9 +4,7 @@
 #'  will perform Unicode Normalization
 #'
 #' @template args-recipe
-#' @param ... One or more selector functions to choose which
-#'  variables will be transformed. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
+#' @template args-dots
 #' @param role Not used by this step since no new variables are
 #'  created.
 #' @param columns A list of tibble results that define the

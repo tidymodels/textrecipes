@@ -5,9 +5,7 @@
 #'  letters, numbers, and the underscore.
 #'
 #' @inheritParams step_untokenize
-#' @param ... One or more selector functions to choose which
-#'  variables' levels will be cleaned. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
+#' @template args-dots
 #' @param clean A named character vector to clean and recode categorical levels.
 #'  This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
 #'  original variable is a character vector, it will be converted to a factor.
