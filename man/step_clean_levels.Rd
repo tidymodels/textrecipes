@@ -28,8 +28,8 @@ for more details.}
 \item{role}{Not used by this step since no new variables are
 created.}
 
-\item{trained}{A logical to indicate if the recipe has been
-baked.}
+\item{trained}{A logical to indicate if the quantities for
+preprocessing have been estimated.}
 
 \item{clean}{A named character vector to clean and recode categorical levels.
 This is \code{NULL} until computed by \code{\link[recipes:prep]{recipes::prep.recipe()}}. Note that if the

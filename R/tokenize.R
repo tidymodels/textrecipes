@@ -21,8 +21,7 @@
 #'  as input and output a list of character vectors.
 #' @template args-skip
 #' @param id A character string that is unique to this step to identify it
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
+#' @template args-trained
 #' @examples
 #' library(recipes)
 #' library(modeldata)

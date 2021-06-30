@@ -32,8 +32,8 @@ role should they be assigned?. By default, the function assumes
 that the new columns created by the original variables will be
 used as predictors in a model.}
 
-\item{trained}{A logical to indicate if the recipe has been
-baked.}
+\item{trained}{A logical to indicate if the quantities for
+preprocessing have been estimated.}
 
 \item{columns}{A list of tibble results that define the
 encoding. This is \code{NULL} until the step is trained by

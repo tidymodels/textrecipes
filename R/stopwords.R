@@ -19,8 +19,8 @@
 #'  list of words that cater to the users specific problem.
 #' @template args-skip
 #' @param id A character string that is unique to this step to identify it.
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
+#' @template args-trained
+#' 
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).
 #' @examples

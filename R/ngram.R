@@ -17,8 +17,7 @@
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @template args-skip
 #' @param id A character string that is unique to this step to identify it.
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
+#' @template args-trained
 #'
 #' @details
 #'  The use of this step will leave the ordering of the tokens meaningless.
