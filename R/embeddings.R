@@ -19,12 +19,7 @@
 #'   no words are matched in embedding. Defaults to 0.
 #' @param prefix A character string that will be the prefix to the resulting new
 #'   variables. See notes below.
-#' @param skip A logical. Should the step be skipped when the recipe is baked by
-#'   [recipes::bake.recipe()]? While all operations are baked when
-#'   [recipes::prep.recipe()] is run, some operations may not be able to be
-#'   conducted on new data (e.g. processing the outcome variable(s)). Care
-#'   should be taken when using `skip = TRUE` as it may affect the computations
-#'   for subsequent operations.
+#' @template args-skip
 #' @param id A character string that is unique to this step to identify it.
 #' @param trained A logical to indicate if the recipe has been baked.
 #'

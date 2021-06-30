@@ -52,12 +52,10 @@ Look at the examples for how to fit a WarpLDA model.}
 \item{prefix}{A prefix for generated column names, default to "lda".}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using \code{skip = TRUE} as it may affect the computations for
-subsequent operations.}
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it}
 
