@@ -3,8 +3,7 @@
 #' `step_sequence_onehot` creates a *specification* of a recipe step that
 #'  will take a string and do one hot encoding for each character by position.
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
+#' @template args-recipe
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_sequence_onehot`, this indicates the variables to be encoded
 #'  into a [tokenlist]. See [recipes::selections()] for more

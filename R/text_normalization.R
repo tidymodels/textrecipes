@@ -3,8 +3,7 @@
 #' `step_text_normalization` creates a *specification* of a recipe step that
 #'  will perform Unicode Normalization
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
+#' @template args-recipe
 #' @param ... One or more selector functions to choose which
 #'  variables will be transformed. See [recipes::selections()] for more
 #'  details. For the `tidy` method, these are not currently used.

@@ -3,8 +3,7 @@
 #' `step_untokenize` creates a *specification* of a recipe step that
 #'  will convert a [tokenlist] into a character predictor.
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
+#' @template args-recipe
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_untokenize`, this indicates the variables to be encoded
 #'  into a [tokenlist]. See [recipes::selections()] for more

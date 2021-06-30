@@ -4,8 +4,7 @@
 #'  will take multiple [tokenlist]s and combine them into one
 #'  [tokenlist].
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
+#' @template args-recipe
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_tokenmerge`, this indicates the variables to be encoded
 #'  into a [tokenlist]. See [recipes::selections()] for more

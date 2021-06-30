@@ -22,8 +22,8 @@ step_word_embeddings(
 \method{tidy}{step_word_embeddings}(x, ...)
 }
 \arguments{
-\item{recipe}{A recipe object. The step will be added to the sequence of
-operations for this recipe.}
+\item{recipe}{A \link{recipe} object. The step will be added to the
+sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables. For
 \code{step_word_embeddings}, this indicates the variables to be encoded into a

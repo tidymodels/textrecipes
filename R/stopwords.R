@@ -3,8 +3,7 @@
 #' `step_stopwords` creates a *specification* of a recipe step that
 #'  will filter a [tokenlist] for stopwords(keep or remove).
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
+#' @template args-recipe
 #' @param ... One or more selector functions to choose variables.
 #'  For `step_stopwords`, this indicates the variables to be encoded
 #'  into a [tokenlist]. See [recipes::selections()] for more
