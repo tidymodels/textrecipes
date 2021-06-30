@@ -5,8 +5,7 @@
 #'
 #' @template args-recipe
 #' @template args-dots
-#' @param role Not used by this step since no new variables are
-#'  created.
+#' @template args-role_no-new
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].

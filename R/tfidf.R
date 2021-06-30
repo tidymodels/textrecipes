@@ -6,10 +6,7 @@
 #'
 #' @template args-recipe
 #' @template args-dots
-#' @param role For model terms created by this step, what analysis
-#'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be
-#'  used as predictors in a model.
+#' @template args-role_predictors
 #' @param columns A list of tibble results that define the
 #'  encoding. This is `NULL` until the step is trained by
 #'  [recipes::prep.recipe()].
