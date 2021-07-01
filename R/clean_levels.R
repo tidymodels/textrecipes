@@ -3,9 +3,14 @@
 #' `step_clean_levels` creates a *specification* of a recipe step that will
 #'  clean nominal data (character or factor) so the levels consist only of
 #'  letters, numbers, and the underscore.
-#'
-#' @inheritParams step_untokenize
+#' 
+#' @template args-recipe
 #' @template args-dots
+#' @template args-role_no-new
+#' @template args-trained
+#' @template args-skip
+#' @template args-id
+#' 
 #' @param clean A named character vector to clean and recode categorical levels.
 #'  This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
 #'  original variable is a character vector, it will be converted to a factor.
