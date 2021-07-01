@@ -6,6 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
+#' @template args-trained
 #' @template args-columns
 #' @param language A character to indicate the language of stopwords
 #'  by ISO 639-1 coding scheme.
@@ -17,9 +18,21 @@
 #'  list of words that cater to the users specific problem.
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
+#' 
+#' @details
+#' Stop words are words which sometimes are remove before natural language
+#' processing tasks. While stop words usually refers to the most common
+#' words in the language there is no universal stop word list.
+#'
+#' The argument `custom_stopword_source` allows you to pass a character vector
+#' to filter against. With the `keep` argument one can specify to keep the
+#' words instead of removing thus allowing you to select words with a
+#' combination of these two arguments.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 #' 
 #' @examples
 #' library(recipes)
@@ -56,19 +69,8 @@
 #' bake(okc_obj, new_data = NULL) %>%
 #'   slice(2) %>%
 #'   pull(essay0)
+#'
 #' @export
-#' @details
-#' Stop words are words which sometimes are remove before natural language
-#' processing tasks. While stop words usually refers to the most common
-#' words in the language there is no universal stop word list.
-#'
-#' The argument `custom_stopword_source` allows you to pass a character vector
-#' to filter against. With the `keep` argument one can specify to keep the
-#' words instead of removing thus allowing you to select words with a
-#' combination of these two arguments.
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_stopwords <-
   function(recipe,
            ...,

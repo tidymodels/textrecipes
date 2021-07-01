@@ -8,27 +8,26 @@
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
-#' @template args-skip
-#' @template args-id
-#' 
 #' @param clean A named character vector to clean and recode categorical levels.
 #'  This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
 #'  original variable is a character vector, it will be converted to a factor.
+#' @template args-skip
+#' @template args-id
 #' 
 #' @template returns
 #'
-#' @export
 #' @details The new levels are cleaned and then reset with
-#'   [dplyr::recode_factor()]. When data to be processed contains novel
-#'   levels (i.e., not contained in the training set), they are converted
-#'   to missing.
-#'   
-#'   For the `tidy` method, a tibble with columns `terms` (the new clean 
+#'  [dplyr::recode_factor()]. When data to be processed contains novel
+#'  levels (i.e., not contained in the training set), they are converted
+#'  to missing.
+#'  
+#'  For the `tidy` method, a tibble with columns `terms` (the new clean 
 #'  variable names) and `value` (the original variable names).
 #'
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
+#' 
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -51,6 +50,8 @@
 #'   # novel levels are replaced with missing
 #'   bake(rec, smith_te)
 #' }
+#' 
+#' @export
 step_clean_levels <-
   function(recipe,
            ...,

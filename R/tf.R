@@ -7,6 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
+#' @template args-trained
 #' @template args-columns
 #' @param weight_scheme A character determining the weighting scheme for
 #'  the term frequency calculations. Must be one of "binary",
@@ -21,29 +22,9 @@
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
-#'  
-#' @examples
-#' \donttest{
-#' library(recipes)
-#' library(modeldata)
-#' data(okc_text)
-#'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0) %>%
-#'   step_tf(essay0)
-#'
-#' okc_obj <- okc_rec %>%
-#'   prep()
-#'
-#' bake(okc_obj, okc_text)
-#'
-#' tidy(okc_rec, number = 2)
-#' tidy(okc_obj, number = 2)
-#' }
-#' @export
+#' 
 #' @details
 #' It is strongly advised to use [step_tokenfilter] before using [step_tf] to
 #' limit the number of variables created, otherwise you might run into memory
@@ -66,9 +47,30 @@
 #' done to prevent a bias towards longer documents.
 #'
 #' @template details-prefix
-#'
+#' 
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps
+#'  
+#' @examples
+#' \donttest{
+#' library(recipes)
+#' library(modeldata)
+#' data(okc_text)
+#'
+#' okc_rec <- recipe(~., data = okc_text) %>%
+#'   step_tokenize(essay0) %>%
+#'   step_tf(essay0)
+#'
+#' okc_obj <- okc_rec %>%
+#'   prep()
+#'
+#' bake(okc_obj, okc_text)
+#'
+#' tidy(okc_rec, number = 2)
+#' tidy(okc_obj, number = 2)
+#' }
+#' 
+#' @export
 step_tf <-
   function(recipe,
            ...,

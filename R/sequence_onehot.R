@@ -6,6 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
+#' @template args-trained
 #' @template args-columns
 #' @param sequence_length A numeric, number of characters to keep before
 #'      discarding. Defaults to 100.
@@ -20,9 +21,18 @@
 #' @param prefix A prefix for generated column names, default to "seq1hot".
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
+#' 
+#' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
 #' 
 #' @template returns
+#' 
+#' @details
+#' The string will be capped by the sequence_length argument, strings shorter then
+#' sequence_length will be padded with empty characters. The encoding will assign
+#' a integer to each character in the vocabulary, and will encode accordingly.
+#' Characters not in the vocabulary will be encoded as 0.
+#' 
+#' @family character to numeric steps
 #' 
 #' @examples
 #' library(recipes)
@@ -41,16 +51,8 @@
 #'
 #' tidy(okc_rec, number = 1)
 #' tidy(okc_obj, number = 1)
+#' 
 #' @export
-#' @details
-#' The string will be capped by the sequence_length argument, strings shorter then
-#' sequence_length will be padded with empty characters. The encoding will assign
-#' a integer to each character in the vocabulary, and will encode accordingly.
-#' Characters not in the vocabulary will be encoded as 0.
-#'
-#' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
-#'
-#' @family character to numeric steps
 step_sequence_onehot <-
   function(recipe,
            ...,

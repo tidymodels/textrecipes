@@ -7,6 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
+#' @template args-trained
 #' @template args-columns
 #' @param embeddings A tibble of pre-trained word embeddings, such as those
 #'   returned by the embedding_glove function function from the textdata
@@ -19,9 +20,28 @@
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #'
 #' @template returns
+#' 
+#' @details Word embeddings map words (or other tokens) into a high-dimensional
+#'   feature space. This function maps pre-trained word embeddings onto the
+#'   tokens in your data.
+#'
+#'   The argument `embeddings` provides the pre-trained vectors. Each dimension
+#'   present in this tibble becomes a new feature column, with each column
+#'   aggregated across each row of your text using the function supplied in the
+#'   `aggregation` argument.
+#'
+#'   The new components will have names that begin with `prefix`, then the name
+#'   of the aggregation function, then the name of the variable from the
+#'   embeddings tibble (usually something like "d7"). For example, using the
+#'   default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
+#'   embeddings from the textdata package (where the column names are `d1`,
+#'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
+#'   `word_embeddings_sum_d2`, etc.
+#'   
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to numeric steps
 #' 
 #' @examples
 #' library(recipes)
@@ -53,26 +73,8 @@
 #'
 #' tidy(rec, number = 2)
 #' tidy(obj, number = 2)
+#' 
 #' @export
-#' @details Word embeddings map words (or other tokens) into a high-dimensional
-#'   feature space. This function maps pre-trained word embeddings onto the
-#'   tokens in your data.
-#'
-#'   The argument `embeddings` provides the pre-trained vectors. Each dimension
-#'   present in this tibble becomes a new feature column, with each column
-#'   aggregated across each row of your text using the function supplied in the
-#'   `aggregation` argument.
-#'
-#'   The new components will have names that begin with `prefix`, then the name
-#'   of the aggregation function, then the name of the variable from the
-#'   embeddings tibble (usually something like "d7"). For example, using the
-#'   default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
-#'   embeddings from the textdata package (where the column names are `d1`,
-#'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
-#'   `word_embeddings_sum_d2`, etc.
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to numeric steps
 step_word_embeddings <- function(recipe,
                                  ...,
                                  role = "predictor",

@@ -6,12 +6,22 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
+#' @template args-trained
 #' @template args-columns
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
+#' 
+#' @details
+#' This stem doesn't perform lemmatization by itself, but rather lets you
+#' extract the lemma attribute of the tokenlist. To be able to use `step_lemma`
+#' you need to use a tokenization method that includes lemmatization. Currently
+#' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and
+#' works well with `step_lemma`.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 #' 
 #' @examples
 #' \dontrun{
@@ -31,16 +41,8 @@
 #'
 #' bake(okc_obj, new_data = NULL)
 #' }
+#' 
 #' @export
-#' @details
-#' This stem doesn't perform lemmatization by itself, but rather lets you
-#' extract the lemma attribute of the tokenlist. To be able to use `step_lemma`
-#' you need to use a tokenization method that includes lemmatization. Currently
-#' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and
-#' works well with `step_lemma`.
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_lemma <-
   function(recipe,
            ...,

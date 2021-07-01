@@ -81,6 +81,7 @@ okc_obj <- prep(okc_rec)
 
 bake(okc_obj, new_data = NULL)
 }
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

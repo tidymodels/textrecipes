@@ -262,6 +262,7 @@ okc_obj_chars <- recipe(~., data = okc_text) \%>\%
 bake(okc_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(essay0)
+
 }
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.

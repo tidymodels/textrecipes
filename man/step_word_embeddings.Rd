@@ -122,6 +122,7 @@ bake(obj, sample_data)
 
 tidy(rec, number = 2)
 tidy(obj, number = 2)
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

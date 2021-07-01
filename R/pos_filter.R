@@ -6,14 +6,23 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
+#' @template args-trained
 #' @template args-columns
 #' @param keep_tags Character variable of part of speech tags to keep. See
 #' details for complete list of tags. Defaults to "NOUN".
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
+#' 
+#' @details
+#' Possible part of speech tags for `spacyr` engine are: "ADJ", "ADP", "ADV",
+#' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
+#' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
+#' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 #' 
 #' @examples
 #' \dontrun{
@@ -33,15 +42,8 @@
 #'
 #' bake(okc_obj, new_data = NULL)
 #' }
+#' 
 #' @export
-#' @details
-#' Possible part of speech tags for `spacyr` engine are: "ADJ", "ADP", "ADV",
-#' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
-#' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
-#' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_pos_filter <-
   function(recipe,
            ...,

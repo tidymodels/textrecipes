@@ -6,6 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
+#' @template args-trained
 #' @template args-columns
 #' @param normalization_form A single character string determining the Unicode
 #'  Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
@@ -13,9 +14,11 @@
 #'  See [stringi::stri_trans_nfc()] for more details.
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
+#' 
+#' @seealso [step_texthash()] for feature hashing.
+#' @family character to character steps
 #' 
 #' @examples
 #' if (requireNamespace("stringi", quietly = TRUE)) {
@@ -39,10 +42,8 @@
 #'   tidy(rec, number = 1)
 #'   tidy(prepped, number = 1)
 #' }
+#' 
 #' @export
-#'
-#' @seealso [step_texthash()] for feature hashing.
-#' @family character to character steps
 step_text_normalization <-
   function(recipe,
            ...,

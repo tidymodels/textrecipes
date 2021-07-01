@@ -85,6 +85,7 @@ if (requireNamespace("janitor", quietly = TRUE)) {
   # novel levels are replaced with missing
   bake(rec, smith_te)
 }
+
 }
 \seealso{
 \code{\link[=step_clean_names]{step_clean_names()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},

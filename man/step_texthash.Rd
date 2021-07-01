@@ -80,6 +80,13 @@ function will map to. This is the tuning parameter for this
 transformation. Since the hashing function can map two different tokens
 to the same index, will a higher value of \code{num_terms} result in a lower
 chance of collision.
+
+The new components will have names that begin with \code{prefix}, then
+the name of the variable, followed by the tokens all separated by
+\code{-}. The variable names are padded with zeros. For example if
+\code{prefix = "hash"}, and if \code{num_terms < 10}, their names will be
+\code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
+\code{hash001} - \code{hash101}.
 }
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
@@ -100,6 +107,7 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
   tidy(okc_rec, number = 2)
   tidy(okc_obj, number = 2)
 }
+
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford;

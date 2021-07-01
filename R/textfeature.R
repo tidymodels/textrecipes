@@ -6,6 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
+#' @template args-trained
 #' @template args-columns
 #' @param extract_functions A named list of feature extracting functions.
 #'  default to \code{\link[textfeatures]{count_functions}} from the textfeatures
@@ -13,9 +14,20 @@
 #' @param prefix A prefix for generated column names, default to "textfeature".
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
+#' 
+#' @details
+#' This step will take a character column and returns a number of numeric
+#' columns equal to the number of functions in the list passed to the
+#' `extract_functions` argument. The default is a list of functions from the
+#' textfeatures package.
+#'
+#' All the functions passed to `extract_functions` must take a character vector
+#' as input and return a numeric vector of the same length, otherwise an error
+#' will be thrown.
+#'
+#' @family character to numeric steps
 #' 
 #' @examples
 #' if (requireNamespace("textfeatures", quietly = TRUE)) {
@@ -48,18 +60,8 @@
 #'     prep() %>%
 #'     bake(new_data = NULL)
 #' }
+#' 
 #' @export
-#' @details
-#' This step will take a character column and returns a number of numeric
-#' columns equal to the number of functions in the list passed to the
-#' `extract_functions` argument. The default is a list of functions from the
-#' textfeatures package.
-#'
-#' All the functions passed to `extract_functions` must take a character vector
-#' as input and return a numeric vector of the same length, otherwise an error
-#' will be thrown.
-#'
-#' @family character to numeric steps
 step_textfeature <-
   function(recipe,
            ...,

@@ -8,23 +8,21 @@
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
+#' @param clean A named character vector to clean variable names. This is `NULL`
+#'  until computed by [recipes::prep.recipe()].
 #' @template args-skip
 #' @template args-id
 #' 
-#' @param clean A named character vector to clean variable names. This is `NULL`
-#'  until computed by [recipes::prep.recipe()].
-#'  
 #' @template returns
 #' 
 #' @details
 #'  For the `tidy` method, a tibble with columns `terms` (the new clean 
 #'  variable names) and `value` (the original variable names).
 #' 
-#' @export
-#'
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
+#'
 #' @examples
 #' library(recipes)
 #' data(airquality)
@@ -43,6 +41,8 @@
 #'   bake(rec, air_tr)
 #'   bake(rec, air_te)
 #' }
+#' 
+#' @export
 step_clean_names <-
   function(recipe,
            ...,

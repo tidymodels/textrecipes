@@ -112,6 +112,7 @@ recipe(~ ., data = okc_text) \%>\%
   slice(1:2)
 }
 }
+
 }
 \seealso{
 Other character to numeric steps: 

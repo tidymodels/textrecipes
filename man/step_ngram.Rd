@@ -93,6 +93,7 @@ bake(okc_obj, new_data = NULL) \%>\%
 
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

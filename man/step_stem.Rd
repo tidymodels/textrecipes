@@ -109,6 +109,7 @@ bake(okc_obj, new_data = NULL, essay0) \%>\%
 bake(okc_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(essay0)
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

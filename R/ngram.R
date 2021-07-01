@@ -6,6 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
+#' @template args-trained
 #' @template args-columns
 #' @param num_tokens The number of tokens in the n-gram. This must be an integer
 #'  greater than or equal to 1. Defaults to 3.
@@ -15,16 +16,18 @@
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #'
+#' @template returns
+#' 
 #' @details
 #'  The use of this step will leave the ordering of the tokens meaningless.
 #'  If `min_num_tokens <  num_tokens` then the tokens order in increasing
 #'  fashion with respect to the number of tokens in the n-gram. If
 #'  `min_num_tokens = 1` and `num_tokens = 3` then the output contains all the
 #'  1-grams followed by all the 2-grams followed by all the 3-grams.
-#'
-#' @template returns
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 #' 
 #' @examples
 #' library(recipes)
@@ -47,10 +50,8 @@
 #'
 #' tidy(okc_rec, number = 2)
 #' tidy(okc_obj, number = 2)
+#' 
 #' @export
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_ngram <-
   function(recipe,
            ...,

@@ -7,6 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
+#' @template args-trained
 #' @template args-columns
 #' @param lda_models A WarpLDA model object from the text2vec package. If left
 #' to NULL, the default, will it train its model based on the training data.
@@ -15,11 +16,13 @@
 #' @param prefix A prefix for generated column names, default to "lda".
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
+#' 
+#' @source \url{https://arxiv.org/abs/1301.3781}
 #' 
 #' @template returns
 #' 
-#' @source \url{https://arxiv.org/abs/1301.3781}
+#' @family character to numeric steps
+#' 
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' \donttest{
@@ -64,9 +67,8 @@
 #'   slice(1:2)
 #' }
 #' }
-#' @export
 #' 
-#' @family character to numeric steps
+#' @export
 step_lda <-
   function(recipe,
            ...,

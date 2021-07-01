@@ -8,7 +8,6 @@
 #' @param pos List of character vectors, must be same size and shape as `x`.
 #'
 #' @return a [tokenlist] object.
-#' @export
 #'
 #' @examples
 #' abc <- list(letters, LETTERS)
@@ -24,6 +23,8 @@
 #' tokens <- tokenize_words(okc_text$essay0)
 #'
 #' tokenlist(tokens)
+#' 
+#' @export
 tokenlist <- function(tokens = list(), lemma = NULL, pos = NULL) {
   tokens <- vec_cast(tokens, list())
   if (!is.null(lemma)) {

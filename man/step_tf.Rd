@@ -98,6 +98,13 @@ takes the log of 1 plus the count, adding 1 is done to avoid taking log of
 frequency of the most occurring term in the document. This is then
 multiplied by \code{weight} and \code{weight} is added to the result. This is again
 done to prevent a bias towards longer documents.
+
+The new components will have names that begin with \code{prefix}, then
+the name of the variable, followed by the tokens all separated by
+\code{-}. The variable names are padded with zeros. For example if
+\code{prefix = "hash"}, and if \code{num_terms < 10}, their names will be
+\code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
+\code{hash001} - \code{hash101}.
 }
 \examples{
 \donttest{
@@ -117,6 +124,7 @@ bake(okc_obj, okc_text)
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

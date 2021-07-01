@@ -6,6 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
+#' @template args-trained
 #' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
 #'  being trained. Only applicable for engine == "tokenizers.bpe".
@@ -19,37 +20,9 @@
 #'  as input and output a list of character vectors.
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
-#' @examples
-#' library(recipes)
-#' library(modeldata)
-#' data(okc_text)
-#'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0)
-#'
-#' okc_obj <- okc_rec %>%
-#'   prep()
-#'
-#' bake(okc_obj, new_data = NULL, essay0) %>%
-#'   slice(1:2)
-#'
-#' bake(okc_obj, new_data = NULL) %>%
-#'   slice(2) %>%
-#'   pull(essay0)
-#'
-#' tidy(okc_rec, number = 1)
-#' tidy(okc_obj, number = 1)
-#'
-#' okc_obj_chars <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0, token = "characters") %>%
-#'   prep()
-#'
-#' bake(okc_obj, new_data = NULL) %>%
-#'   slice(2) %>%
-#'   pull(essay0)
-#' @export
+#' @template returns
+#' 
 #' @details
 #' 
 #' ```{r, echo=FALSE}
@@ -197,10 +170,39 @@
 #'   show_tokens(text)
 #' ```
 #'
-#' @template returns
-#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
+#' 
+#' @examples
+#' library(recipes)
+#' library(modeldata)
+#' data(okc_text)
+#'
+#' okc_rec <- recipe(~., data = okc_text) %>%
+#'   step_tokenize(essay0)
+#'
+#' okc_obj <- okc_rec %>%
+#'   prep()
+#'
+#' bake(okc_obj, new_data = NULL, essay0) %>%
+#'   slice(1:2)
+#'
+#' bake(okc_obj, new_data = NULL) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
+#'
+#' tidy(okc_rec, number = 1)
+#' tidy(okc_obj, number = 1)
+#'
+#' okc_obj_chars <- recipe(~., data = okc_text) %>%
+#'   step_tokenize(essay0, token = "characters") %>%
+#'   prep()
+#'
+#' bake(okc_obj, new_data = NULL) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
+#'
+#' @export
 step_tokenize <-
   function(recipe,
            ...,

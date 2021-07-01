@@ -102,6 +102,13 @@ differentiate between observations.
 
 The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
 (# documents where the term appears))
+
+The new components will have names that begin with \code{prefix}, then
+the name of the variable, followed by the tokens all separated by
+\code{-}. The variable names are padded with zeros. For example if
+\code{prefix = "hash"}, and if \code{num_terms < 10}, their names will be
+\code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
+\code{hash001} - \code{hash101}.
 }
 \examples{
 \donttest{
@@ -121,6 +128,7 @@ bake(okc_obj, okc_text)
 tidy(okc_rec, number = 2)
 tidy(okc_obj, number = 2)
 }
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

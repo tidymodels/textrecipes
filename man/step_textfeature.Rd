@@ -104,6 +104,7 @@ if (requireNamespace("textfeatures", quietly = TRUE)) {
     prep() \%>\%
     bake(new_data = NULL)
 }
+
 }
 \seealso{
 Other character to numeric steps: 

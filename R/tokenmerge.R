@@ -7,13 +7,16 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
+#' @template args-trained
 #' @template args-columns
 #' @param prefix A prefix for generated column names, default to "tokenmerge".
 #' @template args-skip
 #' @template args-id
-#' @template args-trained
 #' 
 #' @template returns
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
 #' 
 #' @examples
 #' library(recipes)
@@ -31,10 +34,8 @@
 #'
 #' tidy(okc_rec, number = 1)
 #' tidy(okc_obj, number = 1)
+#' 
 #' @export
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_tokenmerge <-
   function(recipe,
            ...,
