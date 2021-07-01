@@ -12,7 +12,7 @@
 #' @param keep_tags Character variable of part of speech tags to keep. See
 #' details for complete list of tags. Defaults to "NOUN".
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it.
+#' @template args-id
 #' @template args-trained
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).

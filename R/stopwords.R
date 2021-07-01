@@ -18,7 +18,7 @@
 #' @param custom_stopword_source A character vector to indicate a custom
 #'  list of words that cater to the users specific problem.
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it.
+#' @template args-id
 #' @template args-trained
 #' 
 #' @return An updated version of `recipe` with the new step added

@@ -13,7 +13,7 @@
 #' @param custom_stemmer A custom stemming function. If none is provided
 #'  it will default to "SnowballC".
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it.
+#' @template args-id
 #' @template args-trained
 #' 
 #' @return An updated version of `recipe` with the new step added

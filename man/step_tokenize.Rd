@@ -61,7 +61,7 @@ when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations 
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
-\item{id}{A character string that is unique to this step to identify it}
+\item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A \code{step_tokenize} object.}
 }

@@ -14,7 +14,7 @@
 #'  package. See details for more information.
 #' @param prefix A prefix for generated column names, default to "textfeature".
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it
+#' @template args-id
 #' @template args-trained
 #' 
 #' @return An updated version of `recipe` with the new step added

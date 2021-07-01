@@ -16,7 +16,7 @@
 #' @param num_topics integer desired number of latent topics.
 #' @param prefix A prefix for generated column names, default to "lda".
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it
+#' @template args-id
 #' @template args-trained
 #' @return An updated version of `recipe` with the new step added
 #'  to the sequence of existing steps (if any).

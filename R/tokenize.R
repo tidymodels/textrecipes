@@ -20,8 +20,9 @@
 #'  will overwrite the token and engine arguments. Must take a character vector
 #'  as input and output a list of character vectors.
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it
+#' @template args-id
 #' @template args-trained
+#' 
 #' @examples
 #' library(recipes)
 #' library(modeldata)

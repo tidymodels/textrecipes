@@ -14,7 +14,7 @@
 #'  "nfkc_casefold". Defaults to "nfc".
 #'  See [stringi::stri_trans_nfc()] for more details.
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it.
+#' @template args-id
 #' @template args-trained
 #' 
 #' @return An updated version of `recipe` with the new step added

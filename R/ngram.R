@@ -16,7 +16,7 @@
 #'  Defaults to 3.
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @template args-skip
-#' @param id A character string that is unique to this step to identify it.
+#' @template args-id
 #' @template args-trained
 #'
 #' @details
