@@ -24,8 +24,8 @@
 #'  `min_num_tokens = 1` and `num_tokens = 3` then the output contains all the
 #'  1-grams followed by all the 2-grams followed by all the 3-grams.
 #'
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template returns
+#' 
 #' @examples
 #' library(recipes)
 #' library(modeldata)

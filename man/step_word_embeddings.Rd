@@ -66,8 +66,8 @@ Care should be taken when using \code{skip = FALSE}.}
 \item{x}{A \code{step_word_embeddings} object.}
 }
 \value{
-An updated version of \code{recipe} with the new step added to the
-sequence of existing steps (if any).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
 \code{step_word_embeddings} creates a \emph{specification} of a recipe step that will

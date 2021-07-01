@@ -13,10 +13,13 @@
 #' 
 #' @param clean A named character vector to clean variable names. This is `NULL`
 #'  until computed by [recipes::prep.recipe()].
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the `tidy` method, a
-#'  tibble with columns `terms` (the new clean variable names) and `value`
-#'  (the original variable names).
+#'  
+#' @template returns
+#' 
+#' @details
+#'  For the `tidy` method, a tibble with columns `terms` (the new clean 
+#'  variable names) and `value` (the original variable names).
+#' 
 #' @export
 #'
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],

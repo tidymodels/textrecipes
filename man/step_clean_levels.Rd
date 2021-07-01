@@ -46,10 +46,8 @@ Care should be taken when using \code{skip = FALSE}.}
 \item{x}{A \code{step_clean_levels} object.}
 }
 \value{
-An updated version of \code{recipe} with the new step
-added to the sequence of existing steps (if any). For the \code{tidy} method, a
-tibble with columns \code{terms} (the columns that are cleaned), \code{original} (the
-original uncleaned levels) and \code{value} (the new cleaned levels).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
 \code{step_clean_levels} creates a \emph{specification} of a recipe step that will
@@ -61,6 +59,9 @@ The new levels are cleaned and then reset with
 \code{\link[dplyr:recode]{dplyr::recode_factor()}}. When data to be processed contains novel
 levels (i.e., not contained in the training set), they are converted
 to missing.
+
+For the \code{tidy} method, a tibble with columns \code{terms} (the new clean
+variable names) and \code{value} (the original variable names).
 }
 \examples{
 library(recipes)

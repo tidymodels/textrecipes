@@ -45,15 +45,17 @@ Care should be taken when using \code{skip = FALSE}.}
 \item{x}{A \code{step_clean_names} object.}
 }
 \value{
-An updated version of \code{recipe} with the new step
-added to the sequence of existing steps (if any). For the \code{tidy} method, a
-tibble with columns \code{terms} (the new clean variable names) and \code{value}
-(the original variable names).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
 \code{step_clean_names} creates a \emph{specification} of a recipe step that will
 clean variable names so the names consist only of letters, numbers, and the
 underscore.
+}
+\details{
+For the \code{tidy} method, a tibble with columns \code{terms} (the new clean
+variable names) and \code{value} (the original variable names).
 }
 \examples{
 library(recipes)

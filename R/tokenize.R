@@ -197,8 +197,8 @@
 #'   show_tokens(text)
 #' ```
 #'
-#'@return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template returns
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
 step_tokenize <-
