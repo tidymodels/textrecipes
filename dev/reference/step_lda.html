@@ -182,15 +182,14 @@ will return the lda dimension estimates of a text variable.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
+      <td><p>A <a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_lda</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+      <td><p>One or more selector functions to choose which
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -201,14 +200,14 @@ used as predictors in a model.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the recipe has been
-baked.</p></td>
+      <td><p>A logical to indicate if the quantities for
+preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+      <td><p>A character string of variable names that will
+be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
+until the step is trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>lda_models</th>
@@ -227,16 +226,14 @@ Look at the examples for how to fit a WarpLDA model.</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using <code>skip = TRUE</code> as it may affect the computations for
-subsequent operations.</p></td>
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all operations are baked
+when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>A character string that is unique to this step to identify it</p></td>
+      <td><p>A character string that is unique to this step to identify it.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -303,7 +300,7 @@ to the sequence of existing steps (if any).</p>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 38</span>
 #&gt;   essay2   essay3  essay4  essay5  essay6  essay7  essay8  essay9  lda_essay0_w1
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>"</span>writin… <span style='color: #949494;'>"</span>that … <span style='color: #949494;'>"</span>music… <span style='color: #949494;'>"</span>frien… <span style='color: #949494;'>"</span>roman… <span style='color: #949494;'>"</span>usual… <span style='color: #949494;'>"</span>i hav… <span style='color: #949494;'>"</span>you'r…        0.078<span style='text-decoration: underline;'>0</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>"</span>writin… <span style='color: #949494;'>"</span>that … <span style='color: #949494;'>"</span>music… <span style='color: #949494;'>"</span>frien… <span style='color: #949494;'>"</span>roman… <span style='color: #949494;'>"</span>usual… <span style='color: #949494;'>"</span>i hav… <span style='color: #949494;'>"</span>you'r…        0.041<span style='text-decoration: underline;'>5</span>
 #&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>"</span>pickin… <span style='color: #949494;'>"</span>i loo… <span style='color: #949494;'>"</span>non-f… <span style='color: #949494;'>"</span>deser… <span style='color: #949494;'>"</span>every… <span style='color: #949494;'>"</span>makin… <span style='color: #949494;'>"</span>this … <span style='color: #949494;'>"</span>you'r…        0     
 #&gt; <span style='color: #949494;'># … with 29 more variables: lda_essay0_w2 &lt;dbl&gt;, lda_essay0_w3 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   lda_essay0_w4 &lt;dbl&gt;, lda_essay0_w5 &lt;dbl&gt;, lda_essay0_w6 &lt;dbl&gt;,</span>
@@ -314,7 +311,8 @@ to the sequence of existing steps (if any).</p>
 #&gt; <span style='color: #949494;'>#   lda_essay1_w4 &lt;dbl&gt;, lda_essay1_w5 &lt;dbl&gt;, lda_essay1_w6 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   lda_essay1_w7 &lt;dbl&gt;, lda_essay1_w8 &lt;dbl&gt;, lda_essay1_w9 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   lda_essay1_w10 &lt;dbl&gt;, lda_essay1_w11 &lt;dbl&gt;, lda_essay1_w12 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   lda_essay1_w13 &lt;dbl&gt;, lda_essay1_w14 &lt;dbl&gt;, lda_essay1_w15 &lt;dbl&gt;</span></div></pre>
+#&gt; <span style='color: #949494;'>#   lda_essay1_w13 &lt;dbl&gt;, lda_essay1_w14 &lt;dbl&gt;, lda_essay1_w15 &lt;dbl&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

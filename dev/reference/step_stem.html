@@ -181,15 +181,14 @@ will convert a <a href='tokenlist.html'>tokenlist</a> to have its tokens stemmed
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
+      <td><p>A <a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_stem</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+      <td><p>One or more selector functions to choose which
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -198,14 +197,14 @@ created.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the recipe has been
-baked.</p></td>
+      <td><p>A logical to indicate if the quantities for
+preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+      <td><p>A character string of variable names that will
+be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
+until the step is trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>options</th>
@@ -219,12 +218,10 @@ it will default to "SnowballC".</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using <code>skip = TRUE</code> as it may affect the computations for
-subsequent operations.</p></td>
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all operations are baked
+when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -289,11 +286,11 @@ will therefore not work reliably on ngrams or sentences.</p>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 3</span>
 #&gt;   terms  value id        
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    stem_DEzp3</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    stem_EFXeb</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 3</span>
 #&gt;   terms      is_custom_stemmer id        
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'>1</span> essay0     TRUE              stem_DEzp3</div><div class='input'>
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0     TRUE              stem_EFXeb</div><div class='input'>
 <span class='co'># Using custom stemmer. Here a custom stemmer that removes the last letter</span>
 <span class='co'># if it is a "s".</span>
 <span class='va'>remove_s</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='va'>x</span><span class='op'>)</span>
@@ -317,7 +314,8 @@ will therefore not work reliably on ngrams or sentences.</p>
   <span class='fu'>pull</span><span class='op'>(</span><span class='va'>essay0</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;textrecipes_tokenlist[1]&gt;
 #&gt; [1] [24 tokens]
-#&gt; # Unique Tokens: 18</div></pre>
+#&gt; # Unique Tokens: 18</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

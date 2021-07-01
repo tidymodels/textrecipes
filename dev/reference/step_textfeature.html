@@ -181,15 +181,14 @@ will extract a number of numeric features of a text column.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
+      <td><p>A <a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_textfeature</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+      <td><p>One or more selector functions to choose which
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -200,14 +199,14 @@ used as predictors in a model.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the recipe has been
-baked.</p></td>
+      <td><p>A logical to indicate if the quantities for
+preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+      <td><p>A character string of variable names that will
+be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
+until the step is trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>extract_functions</th>
@@ -222,16 +221,14 @@ package. See details for more information.</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using <code>skip = TRUE</code> as it may affect the computations for
-subsequent operations.</p></td>
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all operations are baked
+when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>A character string that is unique to this step to identify it</p></td>
+      <td><p>A character string that is unique to this step to identify it.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -302,7 +299,8 @@ will be thrown.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> <span style='color: #949494;'>"</span>i work… <span style='color: #949494;'>"</span>welll.… <span style='color: #949494;'>"</span>dimple… <span style='color: #949494;'>"</span>book-t… <span style='color: #949494;'>"</span>1-laug… <span style='color: #949494;'>"</span>sex&lt;br… <span style='color: #949494;'>"</span>depen… <span style='color: #949494;'>"</span>i lik… <span style='color: #949494;'>"</span>you a…
 #&gt; <span style='color: #BCBCBC;'> 9</span> <span style='color: #949494;'>"</span>photog… <span style='color: #949494;'>"</span>eating… <span style='color: #949494;'>"</span>my gla… <span style='color: #949494;'>"</span>donnie… <span style='color: #949494;'>"</span>sushi.… <span style='color: #949494;'>"</span>love.<span style='color: #949494;'>"</span>  <span style='color: #949494;'>"</span>drink… <span style='color: #949494;'>"</span>hm...<span style='color: #949494;'>"</span> <span style='color: #949494;'>"</span>.<span style='color: #949494;'>"</span>    
 #&gt; <span style='color: #BCBCBC;'>10</span> <span style='color: #949494;'>"</span>occupy… <span style='color: #949494;'>"</span>living… <span style='color: #949494;'>"</span>long h… <span style='color: #949494;'>"</span>films&lt;… <span style='color: #949494;'>"</span>yuzu, … <span style='color: #949494;'>"</span>menus,… <span style='color: #949494;'>"</span>often… <span style='color: #949494;'>"</span>but i… <span style='color: #949494;'>"</span>you a…
-#&gt; <span style='color: #949494;'># … with 740 more rows, and 1 more variable: textfeature_essay0_nchar10 &lt;dbl&gt;</span></div></pre>
+#&gt; <span style='color: #949494;'># … with 740 more rows, and 1 more variable: textfeature_essay0_nchar10 &lt;dbl&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

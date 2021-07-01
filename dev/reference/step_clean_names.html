@@ -181,14 +181,14 @@ underscore.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
+      <td><p>A <a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose which
-variables' names will be cleaned. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -197,8 +197,8 @@ created.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the recipe has been
-baked.</p></td>
+      <td><p>A logical to indicate if the quantities for
+preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>clean</th>
@@ -208,12 +208,10 @@ until computed by <code><a href='https://recipes.tidymodels.org/reference/prep.h
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using <code>skip = TRUE</code> as it may affect the computations for
-subsequent operations.</p></td>
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all operations are baked
+when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -227,10 +225,12 @@ subsequent operations.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An updated version of <code>recipe</code> with the new step
-added to the sequence of existing steps (if any). For the <code>tidy</code> method, a
-tibble with columns <code>terms</code> (the new clean variable names) and <code>value</code>
-(the original variable names).</p>
+    <p>An updated version of <code>recipe</code> with the new step added
+to the sequence of existing steps (if any).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For the <code>tidy</code> method, a tibble with columns <code>terms</code> (the new clean
+variable names) and <code>value</code> (the original variable names).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='step_clean_levels.html'>step_clean_levels()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_factor2string.html'>recipes::step_factor2string()</a></code>,
@@ -268,7 +268,8 @@ tibble with columns <code>terms</code> (the new clean variable names) and <code>
 #&gt; <span style='color: #BCBCBC;'> 8</span>    22      71  10.3    77     8    16
 #&gt; <span style='color: #BCBCBC;'> 9</span>    59      51   6.3    79     8    17
 #&gt; <span style='color: #BCBCBC;'>10</span>    23     115   7.4    76     8    18
-#&gt; <span style='color: #949494;'># … with 43 more rows</span></div></pre>
+#&gt; <span style='color: #949494;'># … with 43 more rows</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
