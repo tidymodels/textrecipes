@@ -102,11 +102,6 @@ differentiate between observations.
 
 The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
 (# documents where the term appears))
-
-The new components will have names that begin with \code{prefix}, then
-the name of the variable, followed by the tokens all separated by
-\code{-}. The new variables will be created alphabetically according to
-token.
 }
 \examples{
 \donttest{

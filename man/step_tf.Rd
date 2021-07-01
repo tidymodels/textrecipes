@@ -57,7 +57,7 @@ frequency will be stored here once this preprocessing step has
 be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{prefix}{A character string that will be the prefix to the
-resulting new variables. See notes below}
+resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -98,11 +98,6 @@ takes the log of 1 plus the count, adding 1 is done to avoid taking log of
 frequency of the most occurring term in the document. This is then
 multiplied by \code{weight} and \code{weight} is added to the result. This is again
 done to prevent a bias towards longer documents.
-
-The new components will have names that begin with \code{prefix}, then
-the name of the variable, followed by the tokens all separated by
-\code{-}. The new variables will be created alphabetically according to
-token.
 }
 \examples{
 \donttest{

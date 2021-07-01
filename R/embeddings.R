@@ -17,8 +17,7 @@
 #'   use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".
 #' @param aggregation_default A numeric denoting the default value for case with
 #'   no words are matched in embedding. Defaults to 0.
-#' @param prefix A character string that will be the prefix to the resulting new
-#'   variables. See notes below.
+#' @template args-prefix
 #' @template args-skip
 #' @template args-id
 #' @template args-trained

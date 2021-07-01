@@ -20,8 +20,7 @@
 #' @param res The words that will be used to calculate the term
 #'  frequency will be stored here once this preprocessing step has
 #'  be trained by [prep.recipe()].
-#' @param prefix A character string that will be the prefix to the
-#'  resulting new variables. See notes below
+#' @template args-prefix
 #' @template args-skip
 #' @template args-id
 #' @template args-trained
@@ -68,10 +67,7 @@
 #' multiplied by `weight` and `weight` is added to the result. This is again
 #' done to prevent a bias towards longer documents.
 #'
-#' The new components will have names that begin with `prefix`, then
-#' the name of the variable, followed by the tokens all separated by
-#' `-`. The new variables will be created alphabetically according to
-#' token.
+#' @template details-prefix
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps

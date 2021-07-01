@@ -22,8 +22,7 @@
 #'  document. Must be one of c("l1", "l2", "none").
 #' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e.,
 #'  replace the term frequency with 1 + log(TF). Defaults to FALSE.
-#' @param prefix A character string that will be the prefix to the
-#'  resulting new variables. See notes below.
+#' @template args-prefix
 #' @template args-skip
 #' @template args-id
 #' @template args-trained
@@ -70,10 +69,7 @@
 #' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
 #' (# documents where the term appears))
 #'
-#' The new components will have names that begin with `prefix`, then
-#' the name of the variable, followed by the tokens all separated by
-#' `-`. The new variables will be created alphabetically according to
-#' token.
+#' @template details-prefix
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps

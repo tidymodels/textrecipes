@@ -51,8 +51,8 @@ use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".}
 \item{aggregation_default}{A numeric denoting the default value for case with
 no words are matched in embedding. Defaults to 0.}
 
-\item{prefix}{A character string that will be the prefix to the resulting new
-variables. See notes below.}
+\item{prefix}{A character string that will be the prefix to the
+resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

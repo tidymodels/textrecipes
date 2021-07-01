@@ -14,8 +14,7 @@
 #' hash-function to reduce collisions when hashing. Defaults to TRUE.
 #' @param num_terms An integer, the number of variables to output.
 #'  Defaults to 1024.
-#' @param prefix A character string that will be the prefix to the
-#'  resulting new variables. See notes below.
+#' @template args-prefix
 #' @template args-skip
 #' @template args-id
 #' @template args-trained
@@ -55,11 +54,7 @@
 #' to the same index, will a higher value of `num_terms` result in a lower
 #' chance of collision.
 #'
-#' The new components will have names that begin with `prefix`, then
-#' the name of the variable, followed by the tokens all separated by
-#' `-`. The variable names are padded with zeros. For example,
-#' if `num_terms < 10`, their names will be `hash1` - `hash9`.
-#' If `num_terms = 101`, their names will be `hash001` - `hash101`.
+#' @template details-prefix
 #'
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
 #'  Alex Smola; Josh Attenberg (2009).
