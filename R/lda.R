@@ -4,37 +4,25 @@
 #' `step_lda` creates a *specification* of a recipe step that
 #' will return the lda dimension estimates of a text variable.
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose variables.
-#'  For `step_lda`, this indicates the variables to be encoded
-#'  into a [tokenlist]. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role For model terms created by this step, what analysis
-#'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be
-#'  used as predictors in a model.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_predictors
+#' @template args-trained
+#' @template args-columns
 #' @param lda_models A WarpLDA model object from the text2vec package. If left
 #' to NULL, the default, will it train its model based on the training data.
 #' Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
 #' @param prefix A prefix for generated column names, default to "lda".
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template args-skip
+#' @template args-id
+#' 
 #' @source \url{https://arxiv.org/abs/1301.3781}
+#' 
+#' @template returns
+#' 
+#' @family character to numeric steps
+#' 
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' \donttest{
@@ -79,9 +67,8 @@
 #'   slice(1:2)
 #' }
 #' }
-#' @export
 #' 
-#' @family character to numeric steps
+#' @export
 step_lda <-
   function(recipe,
            ...,

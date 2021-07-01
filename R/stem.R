@@ -3,32 +3,32 @@
 #' `step_stem` creates a *specification* of a recipe step that
 #'  will convert a [tokenlist] to have its tokens stemmed.
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose variables.
-#'  For `step_stem`, this indicates the variables to be encoded
-#'  into a [tokenlist]. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role Not used by this step since no new variables are
-#'  created.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_no-new
+#' @template args-trained
+#' @template args-columns
 #' @param options A list of options passed to the stemmer function.
 #' @param custom_stemmer A custom stemming function. If none is provided
 #'  it will default to "SnowballC".
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it.
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
+#' @details
+#' Words tend to have different forms depending on context, such as
+#' organize, organizes, and organizing. In many situations it is beneficial
+#' to have these words condensed into one to allow for a smaller pool of
+#' words. Stemming is the act of chopping off the end of words using a set
+#'  of heuristics.
+#'
+#' Note that the stemming will only be done at the end of the word and
+#' will therefore not work reliably on ngrams or sentences.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
+#' 
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -68,19 +68,8 @@
 #' bake(okc_obj, new_data = NULL) %>%
 #'   slice(2) %>%
 #'   pull(essay0)
+#' 
 #' @export
-#' @details
-#' Words tend to have different forms depending on context, such as
-#' organize, organizes, and organizing. In many situations it is beneficial
-#' to have these words condensed into one to allow for a smaller pool of
-#' words. Stemming is the act of chopping off the end of words using a set
-#'  of heuristics.
-#'
-#' Note that the stemming will only be done at the end of the word and
-#' will therefore not work reliably on ngrams or sentences.
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_stem <-
   function(recipe,
            ...,

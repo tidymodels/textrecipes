@@ -3,35 +3,32 @@
 #' `step_textfeature` creates a *specification* of a recipe step that
 #'  will extract a number of numeric features of a text column.
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose variables.
-#'  For `step_textfeature`, this indicates the variables to be encoded
-#'  into a [tokenlist]. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role For model terms created by this step, what analysis
-#'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be
-#'  used as predictors in a model.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_predictors
+#' @template args-trained
+#' @template args-columns
 #' @param extract_functions A named list of feature extracting functions.
 #'  default to \code{\link[textfeatures]{count_functions}} from the textfeatures
 #'  package. See details for more information.
 #' @param prefix A prefix for generated column names, default to "textfeature".
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
+#' @details
+#' This step will take a character column and returns a number of numeric
+#' columns equal to the number of functions in the list passed to the
+#' `extract_functions` argument. The default is a list of functions from the
+#' textfeatures package.
+#'
+#' All the functions passed to `extract_functions` must take a character vector
+#' as input and return a numeric vector of the same length, otherwise an error
+#' will be thrown.
+#'
+#' @family character to numeric steps
+#' 
 #' @examples
 #' if (requireNamespace("textfeatures", quietly = TRUE)) {
 #'   library(recipes)
@@ -63,18 +60,8 @@
 #'     prep() %>%
 #'     bake(new_data = NULL)
 #' }
+#' 
 #' @export
-#' @details
-#' This step will take a character column and returns a number of numeric
-#' columns equal to the number of functions in the list passed to the
-#' `extract_functions` argument. The default is a list of functions from the
-#' textfeatures package.
-#'
-#' All the functions passed to `extract_functions` must take a character vector
-#' as input and return a numeric vector of the same length, otherwise an error
-#' will be thrown.
-#'
-#' @family character to numeric steps
 step_textfeature <-
   function(recipe,
            ...,

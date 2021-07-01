@@ -4,32 +4,20 @@
 #'  will take multiple [tokenlist]s and combine them into one
 #'  [tokenlist].
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose variables.
-#'  For `step_tokenmerge`, this indicates the variables to be encoded
-#'  into a [tokenlist]. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role For model terms created by this step, what analysis
-#'  role should they be assigned?. By default, the function assumes
-#'  that the new columns created by the original variables will be
-#'  used as predictors in a model.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_predictors
+#' @template args-trained
+#' @template args-columns
 #' @param prefix A prefix for generated column names, default to "tokenmerge".
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
+#' 
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -46,10 +34,8 @@
 #'
 #' tidy(okc_rec, number = 1)
 #' tidy(okc_obj, number = 1)
+#' 
 #' @export
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_tokenmerge <-
   function(recipe,
            ...,

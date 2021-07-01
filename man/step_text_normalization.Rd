@@ -19,22 +19,22 @@ step_text_normalization(
 \method{tidy}{step_text_normalization}(x, ...)
 }
 \arguments{
-\item{recipe}{A recipe object. The step will be added to the
+\item{recipe}{A \link{recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
-variables will be transformed. See \code{\link[recipes:selections]{recipes::selections()}} for more
-details. For the \code{tidy} method, these are not currently used.}
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
+for more details.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
 
-\item{trained}{A logical to indicate if the recipe has been
-baked.}
+\item{trained}{A logical to indicate if the quantities for
+preprocessing have been estimated.}
 
-\item{columns}{A list of tibble results that define the
-encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\item{columns}{A character string of variable names that will
+be populated (eventually) by the \code{terms} argument. This is \code{NULL}
+until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{normalization_form}{A single character string determining the Unicode
 Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
@@ -42,12 +42,10 @@ Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
 See \code{\link[stringi:stri_trans_nf]{stringi::stri_trans_nfc()}} for more details.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using \code{skip = TRUE} as it may affect the computations for
-subsequent operations.}
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
@@ -83,6 +81,7 @@ if (requireNamespace("stringi", quietly = TRUE)) {
   tidy(rec, number = 1)
   tidy(prepped, number = 1)
 }
+
 }
 \seealso{
 \code{\link[=step_texthash]{step_texthash()}} for feature hashing.

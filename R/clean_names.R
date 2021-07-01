@@ -3,22 +3,26 @@
 #' `step_clean_names` creates a *specification* of a recipe step that will
 #'  clean variable names so the names consist only of letters, numbers, and the
 #'  underscore.
-#'
-#' @inheritParams step_untokenize
-#' @param ... One or more selector functions to choose which
-#'  variables' names will be cleaned. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
+#
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_no-new
+#' @template args-trained
 #' @param clean A named character vector to clean variable names. This is `NULL`
 #'  until computed by [recipes::prep.recipe()].
-#' @return An updated version of `recipe` with the new step
-#'  added to the sequence of existing steps (if any). For the `tidy` method, a
-#'  tibble with columns `terms` (the new clean variable names) and `value`
-#'  (the original variable names).
-#' @export
-#'
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
+#' @details
+#'  For the `tidy` method, a tibble with columns `terms` (the new clean 
+#'  variable names) and `value` (the original variable names).
+#' 
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
+#'
 #' @examples
 #' library(recipes)
 #' data(airquality)
@@ -37,6 +41,8 @@
 #'   bake(rec, air_tr)
 #'   bake(rec, air_te)
 #' }
+#' 
+#' @export
 step_clean_names <-
   function(recipe,
            ...,

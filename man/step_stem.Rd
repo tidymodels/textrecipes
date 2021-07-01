@@ -20,23 +20,22 @@ step_stem(
 \method{tidy}{step_stem}(x, ...)
 }
 \arguments{
-\item{recipe}{A recipe object. The step will be added to the
+\item{recipe}{A \link{recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose variables.
-For \code{step_stem}, this indicates the variables to be encoded
-into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
-details. For the \code{tidy} method, these are not currently used.}
+\item{...}{One or more selector functions to choose which
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
+for more details.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
 
-\item{trained}{A logical to indicate if the recipe has been
-baked.}
+\item{trained}{A logical to indicate if the quantities for
+preprocessing have been estimated.}
 
-\item{columns}{A list of tibble results that define the
-encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\item{columns}{A character string of variable names that will
+be populated (eventually) by the \code{terms} argument. This is \code{NULL}
+until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{options}{A list of options passed to the stemmer function.}
 
@@ -44,12 +43,10 @@ encoding. This is \code{NULL} until the step is trained by
 it will default to "SnowballC".}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using \code{skip = TRUE} as it may affect the computations for
-subsequent operations.}
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
@@ -112,6 +109,7 @@ bake(okc_obj, new_data = NULL, essay0) \%>\%
 bake(okc_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(essay0)
+
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

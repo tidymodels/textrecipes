@@ -3,17 +3,11 @@
 #' [step_tokenize()] creates a *specification* of a recipe step that
 #'  will convert a character predictor into a [tokenlist].
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose variables.
-#'  For [step_tokenize()], this indicates the variables to be encoded
-#'  into a [tokenlist]. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role Not used by this step since no new variables are
-#'  created.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_no-new
+#' @template args-trained
+#' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
 #'  being trained. Only applicable for engine == "tokenizers.bpe".
 #' @param options A list of options passed to the tokenizer.
@@ -24,45 +18,11 @@
 #' @param custom_token User supplied tokenizer. Use of this argument
 #'  will overwrite the token and engine arguments. Must take a character vector
 #'  as input and output a list of character vectors.
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @examples
-#' library(recipes)
-#' library(modeldata)
-#' data(okc_text)
-#'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0)
-#'
-#' okc_obj <- okc_rec %>%
-#'   prep()
-#'
-#' bake(okc_obj, new_data = NULL, essay0) %>%
-#'   slice(1:2)
-#'
-#' bake(okc_obj, new_data = NULL) %>%
-#'   slice(2) %>%
-#'   pull(essay0)
-#'
-#' tidy(okc_rec, number = 1)
-#' tidy(okc_obj, number = 1)
-#'
-#' okc_obj_chars <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0, token = "characters") %>%
-#'   prep()
-#'
-#' bake(okc_obj, new_data = NULL) %>%
-#'   slice(2) %>%
-#'   pull(essay0)
-#' @export
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
 #' @details
 #' 
 #' ```{r, echo=FALSE}
@@ -210,10 +170,39 @@
 #'   show_tokens(text)
 #' ```
 #'
-#'@return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
+#' 
+#' @examples
+#' library(recipes)
+#' library(modeldata)
+#' data(okc_text)
+#'
+#' okc_rec <- recipe(~., data = okc_text) %>%
+#'   step_tokenize(essay0)
+#'
+#' okc_obj <- okc_rec %>%
+#'   prep()
+#'
+#' bake(okc_obj, new_data = NULL, essay0) %>%
+#'   slice(1:2)
+#'
+#' bake(okc_obj, new_data = NULL) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
+#'
+#' tidy(okc_rec, number = 1)
+#' tidy(okc_obj, number = 1)
+#'
+#' okc_obj_chars <- recipe(~., data = okc_text) %>%
+#'   step_tokenize(essay0, token = "characters") %>%
+#'   prep()
+#'
+#' bake(okc_obj, new_data = NULL) %>%
+#'   slice(2) %>%
+#'   pull(essay0)
+#'
+#' @export
 step_tokenize <-
   function(recipe,
            ...,

@@ -3,32 +3,23 @@
 #' `step_text_normalization` creates a *specification* of a recipe step that
 #'  will perform Unicode Normalization
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose which
-#'  variables will be transformed. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role Not used by this step since no new variables are
-#'  created.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_no-new
+#' @template args-trained
+#' @template args-columns
 #' @param normalization_form A single character string determining the Unicode
 #'  Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
 #'  "nfkc_casefold". Defaults to "nfc".
 #'  See [stringi::stri_trans_nfc()] for more details.
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it.
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
+#' @seealso [step_texthash()] for feature hashing.
+#' @family character to character steps
+#' 
 #' @examples
 #' if (requireNamespace("stringi", quietly = TRUE)) {
 #'   library(recipes)
@@ -51,10 +42,8 @@
 #'   tidy(rec, number = 1)
 #'   tidy(prepped, number = 1)
 #' }
+#' 
 #' @export
-#'
-#' @seealso [step_texthash()] for feature hashing.
-#' @family character to character steps
 step_text_normalization <-
   function(recipe,
            ...,

@@ -3,31 +3,27 @@
 #' `step_pos_filter` creates a *specification* of a recipe step that
 #'  will filter a [tokenlist] based on part of speech tags.
 #'
-#' @param recipe A recipe object. The step will be added to the
-#'  sequence of operations for this recipe.
-#' @param ... One or more selector functions to choose variables.
-#'  For `step_pos_filter`, this indicates the variables to be encoded
-#'  into a [tokenlist]. See [recipes::selections()] for more
-#'  details. For the `tidy` method, these are not currently used.
-#' @param role Not used by this step since no new variables are
-#'  created.
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-recipe
+#' @template args-dots
+#' @template args-role_no-new
+#' @template args-trained
+#' @template args-columns
 #' @param keep_tags Character variable of part of speech tags to keep. See
 #' details for complete list of tags. Defaults to "NOUN".
-#' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [recipes::bake.recipe()]? While all
-#'  operations are baked when [recipes::prep.recipe()] is run, some
-#'  operations may not be able to be conducted on new data (e.g.
-#'  processing the outcome variable(s)). Care should be taken when
-#'  using `skip = TRUE` as it may affect the computations for
-#'  subsequent operations.
-#' @param id A character string that is unique to this step to identify it.
-#' @param trained A logical to indicate if the recipe has been
-#'  baked.
-#' @return An updated version of `recipe` with the new step added
-#'  to the sequence of existing steps (if any).
+#' @template args-skip
+#' @template args-id
+#' 
+#' @template returns
+#' 
+#' @details
+#' Possible part of speech tags for `spacyr` engine are: "ADJ", "ADP", "ADV",
+#' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
+#' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
+#' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
+#' 
+#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @family tokenlist to tokenlist steps
+#' 
 #' @examples
 #' \dontrun{
 #' library(recipes)
@@ -46,15 +42,8 @@
 #'
 #' bake(okc_obj, new_data = NULL)
 #' }
+#' 
 #' @export
-#' @details
-#' Possible part of speech tags for `spacyr` engine are: "ADJ", "ADP", "ADV",
-#' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
-#' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
-#' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
-#'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
 step_pos_filter <-
   function(recipe,
            ...,

@@ -21,25 +21,24 @@ step_texthash(
 \method{tidy}{step_texthash}(x, ...)
 }
 \arguments{
-\item{recipe}{A recipe object. The step will be added to the
+\item{recipe}{A \link{recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose variables.
-For \code{step_texthash}, this indicates the variables to be encoded
-into a \link{tokenlist}. See \code{\link[recipes:selections]{recipes::selections()}} for more
-details. For the \code{tidy} method, these are not currently used.}
+\item{...}{One or more selector functions to choose which
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
+for more details.}
 
 \item{role}{For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
 that the new columns created by the original variables will be
 used as predictors in a model.}
 
-\item{trained}{A logical to indicate if the recipe has been
-baked.}
+\item{trained}{A logical to indicate if the quantities for
+preprocessing have been estimated.}
 
-\item{columns}{A list of tibble results that define the
-encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\item{columns}{A character string of variable names that will
+be populated (eventually) by the \code{terms} argument. This is \code{NULL}
+until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{signed}{A logical, indicating whether to use a signed
 hash-function to reduce collisions when hashing. Defaults to TRUE.}
@@ -51,12 +50,10 @@ Defaults to 1024.}
 resulting new variables. See notes below.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using \code{skip = TRUE} as it may affect the computations for
-subsequent operations.}
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
@@ -86,9 +83,10 @@ chance of collision.
 
 The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by
-\code{-}. The variable names are padded with zeros. For example,
-if \code{num_terms < 10}, their names will be \code{hash1} - \code{hash9}.
-If \code{num_terms = 101}, their names will be \code{hash001} - \code{hash101}.
+\code{-}. The variable names are padded with zeros. For example if
+\code{prefix = "hash"}, and if \code{num_terms < 10}, their names will be
+\code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
+\code{hash001} - \code{hash101}.
 }
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
@@ -109,6 +107,7 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
   tidy(okc_rec, number = 2)
   tidy(okc_obj, number = 2)
 }
+
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford;

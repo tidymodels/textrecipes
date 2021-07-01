@@ -18,44 +18,44 @@ step_clean_names(
 \method{tidy}{step_clean_names}(x, ...)
 }
 \arguments{
-\item{recipe}{A recipe object. The step will be added to the
+\item{recipe}{A \link{recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
-variables' names will be cleaned. See \code{\link[recipes:selections]{recipes::selections()}} for more
-details. For the \code{tidy} method, these are not currently used.}
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
+for more details.}
 
 \item{role}{Not used by this step since no new variables are
 created.}
 
-\item{trained}{A logical to indicate if the recipe has been
-baked.}
+\item{trained}{A logical to indicate if the quantities for
+preprocessing have been estimated.}
 
 \item{clean}{A named character vector to clean variable names. This is \code{NULL}
 until computed by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all
-operations are baked when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using \code{skip = TRUE} as it may affect the computations for
-subsequent operations.}
+recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
 \item{x}{A \code{step_clean_names} object.}
 }
 \value{
-An updated version of \code{recipe} with the new step
-added to the sequence of existing steps (if any). For the \code{tidy} method, a
-tibble with columns \code{terms} (the new clean variable names) and \code{value}
-(the original variable names).
+An updated version of \code{recipe} with the new step added
+to the sequence of existing steps (if any).
 }
 \description{
 \code{step_clean_names} creates a \emph{specification} of a recipe step that will
 clean variable names so the names consist only of letters, numbers, and the
 underscore.
+}
+\details{
+For the \code{tidy} method, a tibble with columns \code{terms} (the new clean
+variable names) and \code{value} (the original variable names).
 }
 \examples{
 library(recipes)
@@ -75,6 +75,7 @@ if (requireNamespace("janitor", quietly = TRUE)) {
   bake(rec, air_tr)
   bake(rec, air_te)
 }
+
 }
 \seealso{
 \code{\link[=step_clean_levels]{step_clean_levels()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},
