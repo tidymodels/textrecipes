@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param language A character to indicate the language of stopwords
 #'  by ISO 639-1 coding scheme.
 #' @param keep A logical. Specifies whether to keep the stopwords or discard

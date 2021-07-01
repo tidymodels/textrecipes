@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param options A list of options passed to the stemmer function.
 #' @param custom_stemmer A custom stemming function. If none is provided
 #'  it will default to "SnowballC".

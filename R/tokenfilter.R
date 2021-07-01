@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param max_times An integer. Maximal number of times a word can appear
 #'  before getting removed.
 #' @param min_times An integer. Minimum number of times a word can appear

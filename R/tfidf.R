@@ -7,9 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param vocabulary A character vector of strings to be considered.
 #' @param res The words that will be used to calculate the term
 #'  frequency will be stored here once this preprocessing step has

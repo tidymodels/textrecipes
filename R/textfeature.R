@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param extract_functions A named list of feature extracting functions.
 #'  default to \code{\link[textfeatures]{count_functions}} from the textfeatures
 #'  package. See details for more information.

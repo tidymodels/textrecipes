@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
 #'  being trained. Only applicable for engine == "tokenizers.bpe".
 #' @param options A list of options passed to the tokenizer.

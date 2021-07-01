@@ -32,9 +32,9 @@ created.}
 \item{trained}{A logical to indicate if the quantities for
 preprocessing have been estimated.}
 
-\item{columns}{A list of tibble results that define the
-encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\item{columns}{A character string of variable names that will
+be populated (eventually) by the \code{terms} argument. This is \code{NULL}
+until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{normalization_form}{A single character string determining the Unicode
 Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or

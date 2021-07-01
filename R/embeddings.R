@@ -7,8 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the encoding. This is
-#'   `NULL` until the step is trained by [recipes::prep.recipe()].
+#' @template args-columns
 #' @param embeddings A tibble of pre-trained word embeddings, such as those
 #'   returned by the embedding_glove function function from the textdata
 #'   package The first column should contain tokens, and additional columns

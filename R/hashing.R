@@ -7,9 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param signed A logical, indicating whether to use a signed
 #' hash-function to reduce collisions when hashing. Defaults to TRUE.
 #' @param num_terms An integer, the number of variables to output.

@@ -7,9 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param prefix A prefix for generated column names, default to "tokenmerge".
 #' @template args-skip
 #' @template args-id

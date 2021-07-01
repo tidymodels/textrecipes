@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param sequence_length A numeric, number of characters to keep before
 #'      discarding. Defaults to 100.
 #' @param padding 'pre' or 'post', pad either before or after each sequence.

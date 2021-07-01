@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param normalization_form A single character string determining the Unicode
 #'  Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
 #'  "nfkc_casefold". Defaults to "nfc".

@@ -7,9 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param weight_scheme A character determining the weighting scheme for
 #'  the term frequency calculations. Must be one of "binary",
 #'  "raw count", "term frequency", "log normalization" or

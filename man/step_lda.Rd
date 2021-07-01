@@ -39,9 +39,9 @@ used as predictors in a model.}
 \item{trained}{A logical to indicate if the quantities for
 preprocessing have been estimated.}
 
-\item{columns}{A list of tibble results that define the
-encoding. This is \code{NULL} until the step is trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\item{columns}{A character string of variable names that will
+be populated (eventually) by the \code{terms} argument. This is \code{NULL}
+until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{lda_models}{A WarpLDA model object from the text2vec package. If left
 to NULL, the default, will it train its model based on the training data.

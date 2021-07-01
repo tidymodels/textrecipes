@@ -7,9 +7,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param lda_models A WarpLDA model object from the text2vec package. If left
 #' to NULL, the default, will it train its model based on the training data.
 #' Look at the examples for how to fit a WarpLDA model.

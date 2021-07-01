@@ -6,9 +6,7 @@
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
-#' @param columns A list of tibble results that define the
-#'  encoding. This is `NULL` until the step is trained by
-#'  [recipes::prep.recipe()].
+#' @template args-columns
 #' @param num_tokens The number of tokens in the n-gram. This must be an integer
 #'  greater than or equal to 1. Defaults to 3.
 #' @param min_num_tokens The minimum number of tokens in the n-gram.
