@@ -55,8 +55,8 @@
 #'
 #'   bake(grants_obj, grants_test)
 #'
-#'   tidy(okc_rec, number = 1)
-#'   tidy(okc_obj, number = 1)
+#'   tidy(grants_rec, number = 1)
+#'   tidy(grants_rec, number = 1)
 #' }
 #' 
 #' @export

@@ -3,7 +3,7 @@
 \name{step_dummy_hash}
 \alias{step_dummy_hash}
 \alias{tidy.step_dummy_hash}
-\title{Term frequency of tokens}
+\title{Indicator variables via feature hashing}
 \usage{
 step_dummy_hash(
   recipe,
@@ -65,15 +65,17 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_dummy_hash} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} into multiple variables using the
-hashing trick.
+will convert factors or character columns into a series of binary
+(or signed binary) indicator columns.
 }
 \details{
 Feature hashing, or the hashing trick, is a transformation of a
 text variable into a new set of numerical variables. This is done by
-applying a hashing function over the tokens and using the hash values
-as feature indices. This allows for a low memory representation of the
-text. This implementation is done using the MurmurHash3 method.
+applying a hashing function over the values of the factor levels and
+using the hash values as feature indices. This allows for a low memory
+representation of the data and can be very helpful when a qualitative
+predictor has many levels or is expected to have new levels during
+prediction. This implementation is done using the MurmurHash3 method.
 
 The argument \code{num_terms} controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this
@@ -102,8 +104,8 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
 
   bake(grants_obj, grants_test)
 
-  tidy(okc_rec, number = 1)
-  tidy(okc_obj, number = 1)
+  tidy(grants_rec, number = 1)
+  tidy(grants_rec, number = 1)
 }
 
 }
@@ -112,12 +114,5 @@ Kilian Weinberger; Anirban Dasgupta; John Langford;
 Alex Smola; Josh Attenberg (2009).
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
-
-Other tokenlist to numeric steps: 
-\code{\link{step_texthash}()},
-\code{\link{step_tfidf}()},
-\code{\link{step_tf}()},
-\code{\link{step_word_embeddings}()}
+\code{\link[recipes:step_dummy]{recipes::step_dummy()}}
 }
-\concept{tokenlist to numeric steps}
