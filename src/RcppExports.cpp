@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // rcpp_ngram
 List rcpp_ngram(List x, int n, int n_min, String delim);
 RcppExport SEXP _textrecipes_rcpp_ngram(SEXP xSEXP, SEXP nSEXP, SEXP n_minSEXP, SEXP delimSEXP) {
