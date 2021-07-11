@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 0.4.1
 
 ## Bug fixes
 

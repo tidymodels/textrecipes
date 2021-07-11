@@ -1,13 +1,12 @@
 ## Release Summary
 
-This is the 9th CRAN release of textrecipes.
+This is the 10th CRAN release of textrecipes.
 
-Add 2 new function and extra functionality to old functions.
-
+Fixed bug occurring when large input is used in R 4.1.0.
 
 ## Test environments
-* local R installation, R 4.0.2
-* ubuntu 16.04 (on travis-ci), R 4.0.2
+* local R installation, R 4.1.0
+* ubuntu 16.04 (on travis-ci), R 4.1.0
 * win-builder (devel)
 
 ## R CMD check results
