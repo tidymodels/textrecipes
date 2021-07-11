@@ -27,7 +27,6 @@ Imports:
     Rcpp,
     rlang,
     SnowballC,
-    stringr,
     tibble,
     tidyr,
     tokenizers,
