@@ -97,7 +97,7 @@ the term frequency-inverse document frequency of tokens." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@ the term frequency-inverse document frequency of tokens." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@ the term frequency-inverse document frequency of tokens." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -187,15 +187,14 @@ the term frequency-inverse document frequency of tokens.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
+      <td><p>A <a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_tfidf</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+      <td><p>One or more selector functions to choose which
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -206,14 +205,14 @@ used as predictors in a model.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the recipe has been
-baked.</p></td>
+      <td><p>A logical to indicate if the quantities for
+preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+      <td><p>A character string of variable names that will
+be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
+until the step is trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>vocabulary</th>
@@ -250,12 +249,10 @@ resulting new variables. See notes below.</p></td>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using <code>skip = TRUE</code> as it may affect the computations for
-subsequent operations.</p></td>
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all operations are baked
+when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -290,8 +287,10 @@ differentiate between observations.</p>
 (# documents where the term appears))</p>
 <p>The new components will have names that begin with <code>prefix</code>, then
 the name of the variable, followed by the tokens all separated by
-<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>. The new variables will be created alphabetically according to
-token.</p>
+<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>. The variable names are padded with zeros. For example if
+<code>prefix = "hash"</code>, and if <code>num_terms &lt; 10</code>, their names will be
+<code>hash1</code> - <code>hash9</code>. If <code>num_terms = 101</code>, their names will be
+<code>hash001</code> - <code>hash101</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
@@ -314,69 +313,70 @@ token.</p>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, <span class='va'>okc_text</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 750 x 9,265</span><span>
-#&gt;    essay1 essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>i ju… </span><span style='color: #555555;'>"</span><span>writ… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>musi… </span><span style='color: #555555;'>"</span><span>frie… </span><span style='color: #555555;'>"</span><span>roma… </span><span style='color: #555555;'>"</span><span>usua… </span><span style='color: #555555;'>"</span><span>i ha… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>eati… </span><span style='color: #555555;'>"</span><span>pick… </span><span style='color: #555555;'>"</span><span>i lo… </span><span style='color: #555555;'>"</span><span>non-… </span><span style='color: #555555;'>"</span><span>dese… </span><span style='color: #555555;'>"</span><span>ever… </span><span style='color: #555555;'>"</span><span>maki… </span><span style='color: #555555;'>"</span><span>this… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>rais… </span><span style='color: #555555;'>"</span><span>proc… </span><span style='color: #555555;'>"</span><span>my s… </span><span style='color: #555555;'>"</span><span>sush… </span><span style='color: #555555;'>"</span><span>my c… </span><span style='color: #555555;'>"</span><span>movi… </span><span style='color: #555555;'>"</span><span>at h… </span><span style='color: #555555;'>"</span><span>on m… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>i ju… </span><span style='color: #555555;'>"</span><span>i've… </span><span style='color: #555555;'>"</span><span>my f… </span><span style='color: #555555;'>"</span><span>nove… </span><span style='color: #555555;'>"</span><span>fami… </span><span style='color: #555555;'>"</span><span>how … </span><span style='color: #555555;'>"</span><span>havi… </span><span style='color: #555555;'>"</span><span>is t… </span><span style='color: #555555;'>"</span><span>you'…
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>bein… </span><span style='color: #555555;'>"</span><span>that… </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>- fr… </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>prob… </span><span style='color: #555555;'>"</span><span>uhh.… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>guit… </span><span style='color: #555555;'>"</span><span>a li… </span><span style='color: #555555;'>"</span><span>hang… </span><span style='color: #555555;'>"</span><span>i'm … </span><span style='color: #555555;'>"</span><span>if y…
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>eith… </span><span style='color: #555555;'>"</span><span>i do… </span><span style='color: #555555;'>"</span><span>1) m… </span><span style='color: #555555;'>"</span><span>the … </span><span style='color: #555555;'>"</span><span>out … </span><span style='color: #555555;'>"</span><span>i ow… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>i wo… </span><span style='color: #555555;'>"</span><span>well… </span><span style='color: #555555;'>"</span><span>dimp… </span><span style='color: #555555;'>"</span><span>book… </span><span style='color: #555555;'>"</span><span>1-la… </span><span style='color: #555555;'>"</span><span>sex&lt;… </span><span style='color: #555555;'>"</span><span>depe… </span><span style='color: #555555;'>"</span><span>i li… </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>phot… </span><span style='color: #555555;'>"</span><span>eati… </span><span style='color: #555555;'>"</span><span>my g… </span><span style='color: #555555;'>"</span><span>donn… </span><span style='color: #555555;'>"</span><span>sush… </span><span style='color: #555555;'>"</span><span>love… </span><span style='color: #555555;'>"</span><span>drin… </span><span style='color: #555555;'>"</span><span>hm..… </span><span style='color: #555555;'>"</span><span>.</span><span style='color: #555555;'>"</span><span>   
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>"</span><span>occu… </span><span style='color: #555555;'>"</span><span>livi… </span><span style='color: #555555;'>"</span><span>long… </span><span style='color: #555555;'>"</span><span>film… </span><span style='color: #555555;'>"</span><span>yuzu… </span><span style='color: #555555;'>"</span><span>menu… </span><span style='color: #555555;'>"</span><span>ofte… </span><span style='color: #555555;'>"</span><span>but … </span><span style='color: #555555;'>"</span><span>you …
-#&gt; </span><span style='color: #555555;'># … with 740 more rows, and 9,256 more variables: tfidf_essay0______ </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_______ </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0________________________ </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_____coming </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0__blank </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0__updates_ </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_01 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0aare </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0abilly </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0aboondocks </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0abrothers </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0aconfidential </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0aconversation </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0adebates </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0afly </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0afriends </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0agiants </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0ahop </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0ahunters </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0aking </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0amovies </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0amusic </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0aparties </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0arailroading </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0ashows </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_0atrips </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_0aweapons </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `tfidf_essay0_10,000` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_100 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1000 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_105 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_110 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1193 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_125 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_12s </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1337 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1400 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_150 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_16 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_16th </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_17 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_18 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_180 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1886866717 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_19 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1904 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1964 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1966 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1982 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1988 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1991 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1992 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1996 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_1998 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_1st </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_20 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_200 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2000s </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2001 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_2005 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2007 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2008 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_2009 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2010 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2011 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_2012 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_202 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2021 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_20s </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_20snot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_20th </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_21 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_22 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_23 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_23yo </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_24 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_245lb </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_25 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_250 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_26 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_27 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_27ish </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_27s </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_28 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_28th </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_29 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_2cedd </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2cehksxolna </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_2fbowling </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, tfidf_essay0_2fdarts </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   tfidf_essay0_2fodd </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, …</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 750 x 9,265</span>
+#&gt;    essay1   essay2   essay3   essay4   essay5   essay6   essay7  essay8  essay9 
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'> 1</span> <span style='color: #949494;'>"</span>i just… <span style='color: #949494;'>"</span>writin… <span style='color: #949494;'>"</span>that i… <span style='color: #949494;'>"</span>music:… <span style='color: #949494;'>"</span>friend… <span style='color: #949494;'>"</span>romanc… <span style='color: #949494;'>"</span>usual… <span style='color: #949494;'>"</span>i hav… <span style='color: #949494;'>"</span>you'r…
+#&gt; <span style='color: #BCBCBC;'> 2</span> <span style='color: #949494;'>"</span>eating… <span style='color: #949494;'>"</span>pickin… <span style='color: #949494;'>"</span>i look… <span style='color: #949494;'>"</span>non-fi… <span style='color: #949494;'>"</span>desert… <span style='color: #949494;'>"</span>everyt… <span style='color: #949494;'>"</span>makin… <span style='color: #949494;'>"</span>this … <span style='color: #949494;'>"</span>you'r…
+#&gt; <span style='color: #BCBCBC;'> 3</span> <span style='color: #949494;'>"</span>raisin… <span style='color: #949494;'>"</span>procra… <span style='color: #949494;'>"</span>my smi… <span style='color: #949494;'>"</span>sushi,… <span style='color: #949494;'>"</span>my cel… <span style='color: #949494;'>"</span>moving… <span style='color: #949494;'>"</span>at ho… <span style='color: #949494;'>"</span>on ma… <span style='color: #949494;'>"</span>you t…
+#&gt; <span style='color: #BCBCBC;'> 4</span> <span style='color: #949494;'>"</span>i just… <span style='color: #949494;'>"</span>i've b… <span style='color: #949494;'>"</span>my fas… <span style='color: #949494;'>"</span>novels… <span style='color: #949494;'>"</span>family… <span style='color: #949494;'>"</span>how to… <span style='color: #949494;'>"</span>havin… <span style='color: #949494;'>"</span>is th… <span style='color: #949494;'>"</span>you'd…
+#&gt; <span style='color: #BCBCBC;'> 5</span> <span style='color: #949494;'>"</span>i'm a … <span style='color: #949494;'>"</span>being … <span style='color: #949494;'>"</span>that w… <span style='color: #949494;'>"</span>books … <span style='color: #949494;'>"</span>- frie… <span style='color: #949494;'>"</span>the un… <span style='color: #949494;'>"</span>proba… <span style='color: #949494;'>"</span>uhh..… <span style='color: #949494;'>"</span>you s…
+#&gt; <span style='color: #BCBCBC;'> 6</span> <span style='color: #949494;'>"</span>i'm cu… <span style='color: #949494;'>"</span>i'm re… <span style='color: #949494;'>"</span>the wa… <span style='color: #949494;'>"</span>books … <span style='color: #949494;'>"</span>guitar… <span style='color: #949494;'>"</span>a litt… <span style='color: #949494;'>"</span>hangi… <span style='color: #949494;'>"</span>i'm p… <span style='color: #949494;'>"</span>if yo…
+#&gt; <span style='color: #BCBCBC;'> 7</span> <span style='color: #949494;'>"</span>well, … <span style='color: #949494;'>"</span>well, … <span style='color: #949494;'>"</span>either… <span style='color: #949494;'>"</span>i don'… <span style='color: #949494;'>"</span>1) my … <span style='color: #949494;'>"</span>the en… <span style='color: #949494;'>"</span>out w… <span style='color: #949494;'>"</span>i own… <span style='color: #949494;'>"</span>you a…
+#&gt; <span style='color: #BCBCBC;'> 8</span> <span style='color: #949494;'>"</span>i work… <span style='color: #949494;'>"</span>welll.… <span style='color: #949494;'>"</span>dimple… <span style='color: #949494;'>"</span>book-t… <span style='color: #949494;'>"</span>1-laug… <span style='color: #949494;'>"</span>sex&lt;br… <span style='color: #949494;'>"</span>depen… <span style='color: #949494;'>"</span>i lik… <span style='color: #949494;'>"</span>you a…
+#&gt; <span style='color: #BCBCBC;'> 9</span> <span style='color: #949494;'>"</span>photog… <span style='color: #949494;'>"</span>eating… <span style='color: #949494;'>"</span>my gla… <span style='color: #949494;'>"</span>donnie… <span style='color: #949494;'>"</span>sushi.… <span style='color: #949494;'>"</span>love.<span style='color: #949494;'>"</span>  <span style='color: #949494;'>"</span>drink… <span style='color: #949494;'>"</span>hm...<span style='color: #949494;'>"</span> <span style='color: #949494;'>"</span>.<span style='color: #949494;'>"</span>    
+#&gt; <span style='color: #BCBCBC;'>10</span> <span style='color: #949494;'>"</span>occupy… <span style='color: #949494;'>"</span>living… <span style='color: #949494;'>"</span>long h… <span style='color: #949494;'>"</span>films&lt;… <span style='color: #949494;'>"</span>yuzu, … <span style='color: #949494;'>"</span>menus,… <span style='color: #949494;'>"</span>often… <span style='color: #949494;'>"</span>but i… <span style='color: #949494;'>"</span>you a…
+#&gt; <span style='color: #949494;'># … with 740 more rows, and 9,256 more variables: tfidf_essay0______ &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_______ &lt;dbl&gt;, tfidf_essay0________________________ &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_____coming &lt;dbl&gt;, tfidf_essay0__blank &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0__updates_ &lt;dbl&gt;, tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0aboondocks &lt;dbl&gt;, tfidf_essay0_0abrothers &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0aconfidential &lt;dbl&gt;, tfidf_essay0_0aconversation &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0adebates &lt;dbl&gt;, tfidf_essay0_0afly &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0afriends &lt;dbl&gt;, tfidf_essay0_0agiants &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0ahop &lt;dbl&gt;, tfidf_essay0_0ahunters &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0aking &lt;dbl&gt;, tfidf_essay0_0amovies &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0amusic &lt;dbl&gt;, tfidf_essay0_0aparties &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0arailroading &lt;dbl&gt;, tfidf_essay0_0ashows &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_0atrips &lt;dbl&gt;, tfidf_essay0_0aweapons &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1 &lt;dbl&gt;, tfidf_essay0_10 &lt;dbl&gt;, tfidf_essay0_10,000 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_100 &lt;dbl&gt;, tfidf_essay0_1000 &lt;dbl&gt;, tfidf_essay0_105 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_11 &lt;dbl&gt;, tfidf_essay0_110 &lt;dbl&gt;, tfidf_essay0_1193 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_12 &lt;dbl&gt;, tfidf_essay0_125 &lt;dbl&gt;, tfidf_essay0_12s &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_13 &lt;dbl&gt;, tfidf_essay0_1337 &lt;dbl&gt;, tfidf_essay0_14 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1400 &lt;dbl&gt;, tfidf_essay0_15 &lt;dbl&gt;, tfidf_essay0_150 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_16 &lt;dbl&gt;, tfidf_essay0_16th &lt;dbl&gt;, tfidf_essay0_17 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_18 &lt;dbl&gt;, tfidf_essay0_180 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1886866717 &lt;dbl&gt;, tfidf_essay0_19 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1904 &lt;dbl&gt;, tfidf_essay0_1964 &lt;dbl&gt;, tfidf_essay0_1966 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1982 &lt;dbl&gt;, tfidf_essay0_1988 &lt;dbl&gt;, tfidf_essay0_1991 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1992 &lt;dbl&gt;, tfidf_essay0_1996 &lt;dbl&gt;, tfidf_essay0_1998 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_1st &lt;dbl&gt;, tfidf_essay0_2 &lt;dbl&gt;, tfidf_essay0_20 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_200 &lt;dbl&gt;, tfidf_essay0_2000s &lt;dbl&gt;, tfidf_essay0_2001 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_2005 &lt;dbl&gt;, tfidf_essay0_2007 &lt;dbl&gt;, tfidf_essay0_2008 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_2009 &lt;dbl&gt;, tfidf_essay0_2010 &lt;dbl&gt;, tfidf_essay0_2011 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_2012 &lt;dbl&gt;, tfidf_essay0_202 &lt;dbl&gt;, tfidf_essay0_2021 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_20s &lt;dbl&gt;, tfidf_essay0_20snot &lt;dbl&gt;, tfidf_essay0_20th &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_21 &lt;dbl&gt;, tfidf_essay0_22 &lt;dbl&gt;, tfidf_essay0_23 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_23yo &lt;dbl&gt;, tfidf_essay0_24 &lt;dbl&gt;, tfidf_essay0_245lb &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_25 &lt;dbl&gt;, tfidf_essay0_250 &lt;dbl&gt;, tfidf_essay0_26 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_27 &lt;dbl&gt;, tfidf_essay0_27ish &lt;dbl&gt;, tfidf_essay0_27s &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_28 &lt;dbl&gt;, tfidf_essay0_28th &lt;dbl&gt;, tfidf_essay0_29 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_2cedd &lt;dbl&gt;, tfidf_essay0_2cehksxolna &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_2fbowling &lt;dbl&gt;, tfidf_essay0_2fdarts &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   tfidf_essay0_2fodd &lt;dbl&gt;, …</span></div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;   terms  id         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 tfidf_1CWtZ</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0 tfidf_ATltc</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;   terms      id         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     tfidf_1CWtZ</div><div class='input'><span class='co'># }</span>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0     tfidf_ATltc</div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

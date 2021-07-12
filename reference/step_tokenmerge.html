@@ -97,7 +97,7 @@ tokenlist." />
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@ tokenlist." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@ tokenlist." />
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -182,15 +182,14 @@ will take multiple <a href='tokenlist.html'>tokenlist</a>s and combine them into
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
+      <td><p>A <a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>One or more selector functions to choose variables.
-For <code>step_tokenmerge</code>, this indicates the variables to be encoded
-into a <a href='tokenlist.html'>tokenlist</a>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more
-details. For the <code>tidy</code> method, these are not currently used.</p></td>
+      <td><p>One or more selector functions to choose which
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -201,14 +200,14 @@ used as predictors in a model.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the recipe has been
-baked.</p></td>
+      <td><p>A logical to indicate if the quantities for
+preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>columns</th>
-      <td><p>A list of tibble results that define the
-encoding. This is <code>NULL</code> until the step is trained by
-<code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
+      <td><p>A character string of variable names that will
+be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
+until the step is trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
       <th>prefix</th>
@@ -217,16 +216,14 @@ encoding. This is <code>NULL</code> until the step is trained by
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all
-operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some
-operations may not be able to be conducted on new data (e.g.
-processing the outcome variable(s)). Care should be taken when
-using <code>skip = TRUE</code> as it may affect the computations for
-subsequent operations.</p></td>
+recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code>? While all operations are baked
+when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is run, some operations may not be able to be
+conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>A character string that is unique to this step to identify it</p></td>
+      <td><p>A character string that is unique to this step to identify it.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -262,31 +259,32 @@ to the sequence of existing steps (if any).</p>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 750 x 9</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 750 x 9</span>
 #&gt;    essay2   essay3  essay4  essay5  essay6  essay7  essay8  essay9    tokenmerge
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;tknlist&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>writin… </span><span style='color: #555555;'>"</span><span>that … </span><span style='color: #555555;'>"</span><span>music… </span><span style='color: #555555;'>"</span><span>frien… </span><span style='color: #555555;'>"</span><span>roman… </span><span style='color: #555555;'>"</span><span>usual… </span><span style='color: #555555;'>"</span><span>i hav… </span><span style='color: #555555;'>"</span><span>you'r… [240 tokens]
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>pickin… </span><span style='color: #555555;'>"</span><span>i loo… </span><span style='color: #555555;'>"</span><span>non-f… </span><span style='color: #555555;'>"</span><span>deser… </span><span style='color: #555555;'>"</span><span>every… </span><span style='color: #555555;'>"</span><span>makin… </span><span style='color: #555555;'>"</span><span>this … </span><span style='color: #555555;'>"</span><span>you'r…  [28 tokens]
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>procra… </span><span style='color: #555555;'>"</span><span>my sm… </span><span style='color: #555555;'>"</span><span>sushi… </span><span style='color: #555555;'>"</span><span>my ce… </span><span style='color: #555555;'>"</span><span>movin… </span><span style='color: #555555;'>"</span><span>at ho… </span><span style='color: #555555;'>"</span><span>on ma… </span><span style='color: #555555;'>"</span><span>you t… [385 tokens]
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>i've b… </span><span style='color: #555555;'>"</span><span>my fa… </span><span style='color: #555555;'>"</span><span>novel… </span><span style='color: #555555;'>"</span><span>famil… </span><span style='color: #555555;'>"</span><span>how t… </span><span style='color: #555555;'>"</span><span>havin… </span><span style='color: #555555;'>"</span><span>is th… </span><span style='color: #555555;'>"</span><span>you'd… [104 tokens]
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>"</span><span>being … </span><span style='color: #555555;'>"</span><span>that … </span><span style='color: #555555;'>"</span><span>books… </span><span style='color: #555555;'>"</span><span>- fri… </span><span style='color: #555555;'>"</span><span>the u… </span><span style='color: #555555;'>"</span><span>proba… </span><span style='color: #555555;'>"</span><span>uhh..… </span><span style='color: #555555;'>"</span><span>you s…  [87 tokens]
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>i'm re… </span><span style='color: #555555;'>"</span><span>the w… </span><span style='color: #555555;'>"</span><span>books… </span><span style='color: #555555;'>"</span><span>guita… </span><span style='color: #555555;'>"</span><span>a lit… </span><span style='color: #555555;'>"</span><span>hangi… </span><span style='color: #555555;'>"</span><span>i'm p… </span><span style='color: #555555;'>"</span><span>if yo… [352 tokens]
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>well, … </span><span style='color: #555555;'>"</span><span>eithe… </span><span style='color: #555555;'>"</span><span>i don… </span><span style='color: #555555;'>"</span><span>1) my… </span><span style='color: #555555;'>"</span><span>the e… </span><span style='color: #555555;'>"</span><span>out w… </span><span style='color: #555555;'>"</span><span>i own… </span><span style='color: #555555;'>"</span><span>you a… [374 tokens]
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>welll.… </span><span style='color: #555555;'>"</span><span>dimpl… </span><span style='color: #555555;'>"</span><span>book-… </span><span style='color: #555555;'>"</span><span>1-lau… </span><span style='color: #555555;'>"</span><span>sex&lt;b… </span><span style='color: #555555;'>"</span><span>depen… </span><span style='color: #555555;'>"</span><span>i lik… </span><span style='color: #555555;'>"</span><span>you a… [228 tokens]
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>eating… </span><span style='color: #555555;'>"</span><span>my gl… </span><span style='color: #555555;'>"</span><span>donni… </span><span style='color: #555555;'>"</span><span>sushi… </span><span style='color: #555555;'>"</span><span>love.</span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>drink… </span><span style='color: #555555;'>"</span><span>hm...</span><span style='color: #555555;'>"</span><span> </span><span style='color: #555555;'>"</span><span>.</span><span style='color: #555555;'>"</span><span>       [5 tokens]
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>"</span><span>living… </span><span style='color: #555555;'>"</span><span>long … </span><span style='color: #555555;'>"</span><span>films… </span><span style='color: #555555;'>"</span><span>yuzu,… </span><span style='color: #555555;'>"</span><span>menus… </span><span style='color: #555555;'>"</span><span>often… </span><span style='color: #555555;'>"</span><span>but i… </span><span style='color: #555555;'>"</span><span>you a… [610 tokens]
-#&gt; </span><span style='color: #555555;'># … with 740 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;tknlist&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> <span style='color: #949494;'>"</span>writin… <span style='color: #949494;'>"</span>that … <span style='color: #949494;'>"</span>music… <span style='color: #949494;'>"</span>frien… <span style='color: #949494;'>"</span>roman… <span style='color: #949494;'>"</span>usual… <span style='color: #949494;'>"</span>i hav… <span style='color: #949494;'>"</span>you'r… [240 tokens]
+#&gt; <span style='color: #BCBCBC;'> 2</span> <span style='color: #949494;'>"</span>pickin… <span style='color: #949494;'>"</span>i loo… <span style='color: #949494;'>"</span>non-f… <span style='color: #949494;'>"</span>deser… <span style='color: #949494;'>"</span>every… <span style='color: #949494;'>"</span>makin… <span style='color: #949494;'>"</span>this … <span style='color: #949494;'>"</span>you'r…  [28 tokens]
+#&gt; <span style='color: #BCBCBC;'> 3</span> <span style='color: #949494;'>"</span>procra… <span style='color: #949494;'>"</span>my sm… <span style='color: #949494;'>"</span>sushi… <span style='color: #949494;'>"</span>my ce… <span style='color: #949494;'>"</span>movin… <span style='color: #949494;'>"</span>at ho… <span style='color: #949494;'>"</span>on ma… <span style='color: #949494;'>"</span>you t… [385 tokens]
+#&gt; <span style='color: #BCBCBC;'> 4</span> <span style='color: #949494;'>"</span>i've b… <span style='color: #949494;'>"</span>my fa… <span style='color: #949494;'>"</span>novel… <span style='color: #949494;'>"</span>famil… <span style='color: #949494;'>"</span>how t… <span style='color: #949494;'>"</span>havin… <span style='color: #949494;'>"</span>is th… <span style='color: #949494;'>"</span>you'd… [104 tokens]
+#&gt; <span style='color: #BCBCBC;'> 5</span> <span style='color: #949494;'>"</span>being … <span style='color: #949494;'>"</span>that … <span style='color: #949494;'>"</span>books… <span style='color: #949494;'>"</span>- fri… <span style='color: #949494;'>"</span>the u… <span style='color: #949494;'>"</span>proba… <span style='color: #949494;'>"</span>uhh..… <span style='color: #949494;'>"</span>you s…  [87 tokens]
+#&gt; <span style='color: #BCBCBC;'> 6</span> <span style='color: #949494;'>"</span>i'm re… <span style='color: #949494;'>"</span>the w… <span style='color: #949494;'>"</span>books… <span style='color: #949494;'>"</span>guita… <span style='color: #949494;'>"</span>a lit… <span style='color: #949494;'>"</span>hangi… <span style='color: #949494;'>"</span>i'm p… <span style='color: #949494;'>"</span>if yo… [352 tokens]
+#&gt; <span style='color: #BCBCBC;'> 7</span> <span style='color: #949494;'>"</span>well, … <span style='color: #949494;'>"</span>eithe… <span style='color: #949494;'>"</span>i don… <span style='color: #949494;'>"</span>1) my… <span style='color: #949494;'>"</span>the e… <span style='color: #949494;'>"</span>out w… <span style='color: #949494;'>"</span>i own… <span style='color: #949494;'>"</span>you a… [374 tokens]
+#&gt; <span style='color: #BCBCBC;'> 8</span> <span style='color: #949494;'>"</span>welll.… <span style='color: #949494;'>"</span>dimpl… <span style='color: #949494;'>"</span>book-… <span style='color: #949494;'>"</span>1-lau… <span style='color: #949494;'>"</span>sex&lt;b… <span style='color: #949494;'>"</span>depen… <span style='color: #949494;'>"</span>i lik… <span style='color: #949494;'>"</span>you a… [228 tokens]
+#&gt; <span style='color: #BCBCBC;'> 9</span> <span style='color: #949494;'>"</span>eating… <span style='color: #949494;'>"</span>my gl… <span style='color: #949494;'>"</span>donni… <span style='color: #949494;'>"</span>sushi… <span style='color: #949494;'>"</span>love.<span style='color: #949494;'>"</span> <span style='color: #949494;'>"</span>drink… <span style='color: #949494;'>"</span>hm...<span style='color: #949494;'>"</span> <span style='color: #949494;'>"</span>.<span style='color: #949494;'>"</span>       [5 tokens]
+#&gt; <span style='color: #BCBCBC;'>10</span> <span style='color: #949494;'>"</span>living… <span style='color: #949494;'>"</span>long … <span style='color: #949494;'>"</span>films… <span style='color: #949494;'>"</span>yuzu,… <span style='color: #949494;'>"</span>menus… <span style='color: #949494;'>"</span>often… <span style='color: #949494;'>"</span>but i… <span style='color: #949494;'>"</span>you a… [610 tokens]
+#&gt; <span style='color: #949494;'># … with 740 more rows</span></div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span>
 #&gt;   terms  value id            
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_vLaRB
-#&gt; </span><span style='color: #555555;'>2</span><span> essay1 </span><span style='color: #BB0000;'>NA</span><span>    tokenize_vLaRB</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    tokenize_LSEdi
+#&gt; <span style='color: #BCBCBC;'>2</span> essay1 <span style='color: #BB0000;'>NA</span>    tokenize_LSEdi</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span>
 #&gt;   terms      value id            
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;quos&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> essay0     words tokenize_vLaRB
-#&gt; </span><span style='color: #555555;'>2</span><span> essay1     words tokenize_vLaRB</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0     words tokenize_LSEdi
+#&gt; <span style='color: #BCBCBC;'>2</span> essay1     words tokenize_LSEdi</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

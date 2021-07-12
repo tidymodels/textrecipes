@@ -53,7 +53,7 @@
         <a class="navbar-brand" href="index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -91,7 +91,7 @@
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -291,19 +291,19 @@
 <p>can be replaced with the following recipe to achive the same results</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lda_tokenizer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/tokenizers.html">word_tokenizer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">essay0</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, 
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text_var</span>, 
                 custom_token <span class="op">=</span> <span class="va">lda_tokenizer</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">text_var</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h2>
 <p>This project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <ul>
-<li><p>For questions and discussions about tidymodels packages, modeling, and machine learning, please <a href="https://rstd.io/tidymodels-community">post on RStudio Community</a>.</p></li>
+<li><p>For questions and discussions about tidymodels packages, modeling, and machine learning, please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=tidymodels,question">post on RStudio Community</a>.</p></li>
 <li><p>If you think you have encountered a bug, please <a href="https://github.com/tidymodels/textrecipes/issues">submit an issue</a>.</p></li>
-<li><p>Either way, learn how to create and share a <a href="https://rstd.io/reprex">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
+<li><p>Either way, learn how to create and share a <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
 <li><p>Check out further details on <a href="https://www.tidymodels.org/contribute/">contributing guidelines for tidymodels packages</a> and <a href="https://www.tidymodels.org/help/">how to get help</a>.</p></li>
 </ul>
 </div>
@@ -349,7 +349,7 @@
 <li><a href="https://codecov.io/github/tidymodels/textrecipes?branch=master"><img src="https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://CRAN.R-project.org/package=textrecipes"><img src="http://www.r-pkg.org/badges/version/textrecipes" alt="CRAN status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=textrecipes"><img src="http://cranlogs.r-pkg.org/badges/textrecipes" alt="Downloads"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 </ul>
 </div>
 </div>

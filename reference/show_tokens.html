@@ -6,26 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NA • textrecipes</title>
+<title>Show token output of recipe — show_tokens • textrecipes</title>
 
 <!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="tidyverse.css" rel="stylesheet">
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -39,17 +39,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
-<link href="tidyverse-2.css" rel="stylesheet">
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
+<link href="../tidyverse-2.css" rel="stylesheet">
 
 <!--optional theme-->
-<link href=".css" rel="stylesheet">
+<link href="../.css" rel="stylesheet">
 
 
 
 
-<meta property="og:title" content="NA" />
+<meta property="og:title" content="Show token output of recipe — show_tokens" />
+<meta property="og:description" content="Returns the tokens as a list of character vector of a recipe. This function
+can be useful for diagnostics doing recipe construction but should not be
+used in final recipe steps. Note that this function will both prep() and
+bake() the recipe it is used on." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -78,7 +82,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -91,7 +95,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="index.html">textrecipes</a>
+        <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
@@ -101,13 +105,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -117,18 +121,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/Working-with-n-grams.html">Working with n-grams</a>
+      <a href="../articles/Working-with-n-grams.html">Working with n-grams</a>
     </li>
     <li>
-      <a href="articles/cookbook---using-more-complex-recipes-involving-text.html">Cookbook - Using more complex recipes involving text</a>
+      <a href="../articles/cookbook---using-more-complex-recipes-involving-text.html">Cookbook - Using more complex recipes involving text</a>
     </li>
     <li>
-      <a href="articles/tokenlist.html">Under the hood - tokenlist</a>
+      <a href="../articles/tokenlist.html">Under the hood - tokenlist</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes/">
@@ -147,30 +151,58 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>NA</h1>
+    <h1>Show token output of recipe</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/show_tokens.R'><code>R/show_tokens.R</code></a></small>
+    <div class="hidden name"><code>show_tokens.Rd</code></div>
     </div>
 
+    <div class="ref-description">
+    <p>Returns the tokens as a list of character vector of a recipe. This function
+can be useful for diagnostics doing recipe construction but should not be
+used in final recipe steps. Note that this function will both prep() and
+bake() the recipe it is used on.</p>
+    </div>
 
-<p>Please briefly describe your problem and what output you expect. If you have a question, please don’t use this form. Instead, ask on <a href="https://stackoverflow.com/" class="uri">https://stackoverflow.com/</a> or <a href="https://community.rstudio.com/" class="uri">https://community.rstudio.com/</a>.</p>
-<p>Please include a minimal reproducible example (AKA a reprex). If you’ve never heard of a <a href="https://reprex.tidyverse.org/">reprex</a> before, start by reading <a href="https://www.tidyverse.org/help/#reprex" class="uri">https://www.tidyverse.org/help/#reprex</a>.</p>
-<hr>
-<p>Brief description of the problem</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># insert reprex here</span></code></pre></div>
+    <pre class="usage"><span class='fu'>show_tokens</span><span class='op'>(</span><span class='va'>rec</span>, <span class='va'>var</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>rec</th>
+      <td><p>A recipe object</p></td>
+    </tr>
+    <tr>
+      <th>var</th>
+      <td><p>name of variable</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list of character vectors</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>text_tibble</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"This is words"</span>, <span class='st'>"They are nice!"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>text</span>, data <span class='op'>=</span> <span class='va'>text_tibble</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>show_tokens</span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "this"  "is"    "words"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "they" "are"  "nice"
+#&gt; </div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
-
 
 
       <footer>
