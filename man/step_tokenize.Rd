@@ -193,11 +193,11 @@ purposes.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text,
   ) \%>\%
   show_tokens(text)
 }\if{html}{\out{</div>}}\preformatted{## [[1]]
-##  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"  
+##  [1] "▁Th" "is"  "▁"   "is"  "▁"   "w"   "o"   "r"  
 ##  [9] "d"   "s"  
 ## 
 ## [[2]]
-##  [1] "_Th" "e"   "y"   "_"   "a"   "r"   "e"   "_"  
+##  [1] "▁Th" "e"   "y"   "▁"   "a"   "r"   "e"   "▁"  
 ##  [9] "n"   "i"   "c"   "e"   "!"
 }
 }
