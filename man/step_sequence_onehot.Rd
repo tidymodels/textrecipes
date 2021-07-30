@@ -88,20 +88,20 @@ Characters not in the vocabulary will be encoded as 0.
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~essay0, data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_tokenfilter(essay0) \%>\%
-  step_sequence_onehot(essay0)
+tate_rec <- recipe(~medium, data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_tokenfilter(medium) \%>\%
+  step_sequence_onehot(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL)
+bake(tate_obj, new_data = NULL)
 
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+tidy(tate_rec, number = 1)
+tidy(tate_obj, number = 1)
 
 }
 \seealso{

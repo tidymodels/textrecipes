@@ -21,19 +21,19 @@
 #' @examples
 #' library(recipes)
 #' library(modeldata)
-#' data(okc_text)
+#' data(tate_text)
 #'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0, essay1) %>%
-#'   step_tokenmerge(essay0, essay1)
+#' tate_rec <- recipe(~., data = tate_text) %>%
+#'   step_tokenize(medium, artist) %>%
+#'   step_tokenmerge(medium, artist)
 #'
-#' okc_obj <- okc_rec %>%
+#' tate_obj <- tate_rec %>%
 #'   prep()
 #'
-#' bake(okc_obj, new_data = NULL)
+#' bake(tate_obj, new_data = NULL)
 #'
-#' tidy(okc_rec, number = 1)
-#' tidy(okc_obj, number = 1)
+#' tidy(tate_rec, number = 1)
+#' tidy(tate_obj, number = 1)
 #' 
 #' @export
 step_tokenmerge <-

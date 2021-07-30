@@ -32,42 +32,42 @@
 #' @examples
 #' library(recipes)
 #' library(modeldata)
-#' data(okc_text)
+#' data(tate_text)
 #'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0) %>%
-#'   step_stem(essay0)
+#' tate_rec <- recipe(~., data = tate_text) %>%
+#'   step_tokenize(medium) %>%
+#'   step_stem(medium)
 #'
-#' okc_obj <- okc_rec %>%
+#' tate_obj <- tate_rec %>%
 #'   prep()
 #'
-#' bake(okc_obj, new_data = NULL, essay0) %>%
+#' bake(tate_obj, new_data = NULL, medium) %>%
 #'   slice(1:2)
 #'
-#' bake(okc_obj, new_data = NULL) %>%
+#' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
-#'   pull(essay0)
+#'   pull(medium)
 #'
-#' tidy(okc_rec, number = 2)
-#' tidy(okc_obj, number = 2)
+#' tidy(tate_rec, number = 2)
+#' tidy(tate_obj, number = 2)
 #'
 #' # Using custom stemmer. Here a custom stemmer that removes the last letter
 #' # if it is a "s".
 #' remove_s <- function(x) gsub("s$", "", x)
 #'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0) %>%
-#'   step_stem(essay0, custom_stemmer = remove_s)
+#' tate_rec <- recipe(~., data = tate_text) %>%
+#'   step_tokenize(medium) %>%
+#'   step_stem(medium, custom_stemmer = remove_s)
 #'
-#' okc_obj <- okc_rec %>%
+#' tate_obj <- tate_rec %>%
 #'   prep()
 #'
-#' bake(okc_obj, new_data = NULL, essay0) %>%
+#' bake(tate_obj, new_data = NULL, medium) %>%
 #'   slice(1:2)
 #'
-#' bake(okc_obj, new_data = NULL) %>%
+#' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
-#'   pull(essay0)
+#'   pull(medium)
 #' 
 #' @export
 step_stem <-

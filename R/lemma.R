@@ -32,14 +32,14 @@
 #'   "With many cats and ladies."
 #' ))
 #'
-#' okc_rec <- recipe(~text, data = short_data) %>%
+#' rec_spec <- recipe(~text, data = short_data) %>%
 #'   step_tokenize(text, engine = "spacyr") %>%
 #'   step_lemma(text) %>%
 #'   step_tf(text)
 #'
-#' okc_obj <- prep(okc_rec)
+#' rec_prepped <- prep(rec_spec)
 #'
-#' bake(okc_obj, new_data = NULL)
+#' bake(rec_prepped, new_data = NULL)
 #' }
 #' 
 #' @export

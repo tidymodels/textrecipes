@@ -110,19 +110,19 @@ the name of the variable, followed by the tokens all separated by
 \donttest{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_tf(essay0)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_tf(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, okc_text)
+bake(tate_obj, tate_text)
 
-tidy(okc_rec, number = 2)
-tidy(okc_obj, number = 2)
+tidy(tate_rec, number = 2)
+tidy(tate_obj, number = 2)
 }
 
 }
