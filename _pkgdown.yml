@@ -49,3 +49,6 @@ reference:
   - title: Tokenlist functions
     contents:
     - tokenlist
+  - title: Tidy Methods
+    contents:
+    - tidy.recipe
