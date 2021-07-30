@@ -134,7 +134,7 @@
 #' value, typically in the thousands, but is set to 22 here for demonstration
 #' purposes.
 #' 
-#' ```{r}
+#' ```{r, eval=FALSE}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(
 #'     text, 
@@ -142,6 +142,17 @@
 #'     training_options = list(vocab_size = 22)
 #'   ) %>%
 #'   show_tokens(text)
+#' ```
+#' 
+#' ```{r, echo=FALSE}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(
+#'     text, 
+#'     engine = "tokenizers.bpe", 
+#'     training_options = list(vocab_size = 22)
+#'   ) %>%
+#'   show_tokens(text) %>%
+#'   lapply(function(x) gsub("▁", "_", x))
 #' ```
 #' 
 #' ## udpipe
