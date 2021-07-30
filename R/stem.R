@@ -156,7 +156,7 @@ print.step_stem <-
     invisible(x)
   }
 
-#' @rdname step_stem
+#' @rdname tidy.recipe
 #' @param x A `step_stem` object.
 #' @export
 tidy.step_stem <- function(x, ...) {

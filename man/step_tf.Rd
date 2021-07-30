@@ -2,7 +2,6 @@
 % Please edit documentation in R/tf.R
 \name{step_tf}
 \alias{step_tf}
-\alias{tidy.step_tf}
 \title{Term frequency of tokens}
 \usage{
 step_tf(
@@ -19,8 +18,6 @@ step_tf(
   skip = FALSE,
   id = rand_id("tf")
 )
-
-\method{tidy}{step_tf}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -66,8 +63,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_tf} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

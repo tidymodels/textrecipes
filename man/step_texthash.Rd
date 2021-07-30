@@ -2,7 +2,6 @@
 % Please edit documentation in R/hashing.R
 \name{step_texthash}
 \alias{step_texthash}
-\alias{tidy.step_texthash}
 \title{Term frequency of tokens}
 \usage{
 step_texthash(
@@ -17,8 +16,6 @@ step_texthash(
   skip = FALSE,
   id = rand_id("texthash")
 )
-
-\method{tidy}{step_texthash}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -56,8 +53,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_texthash} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

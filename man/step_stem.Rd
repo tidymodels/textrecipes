@@ -2,7 +2,6 @@
 % Please edit documentation in R/stem.R
 \name{step_stem}
 \alias{step_stem}
-\alias{tidy.step_stem}
 \title{Stemming of \link{tokenlist} variables}
 \usage{
 step_stem(
@@ -16,8 +15,6 @@ step_stem(
   skip = FALSE,
   id = rand_id("stem")
 )
-
-\method{tidy}{step_stem}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -49,8 +46,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_stem} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

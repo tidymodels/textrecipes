@@ -2,7 +2,6 @@
 % Please edit documentation in R/untokenize.R
 \name{step_untokenize}
 \alias{step_untokenize}
-\alias{tidy.step_untokenize}
 \title{Untokenization of \link{tokenlist} variables}
 \usage{
 step_untokenize(
@@ -15,8 +14,6 @@ step_untokenize(
   skip = FALSE,
   id = rand_id("untokenize")
 )
-
-\method{tidy}{step_untokenize}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -46,8 +43,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_untokenize} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

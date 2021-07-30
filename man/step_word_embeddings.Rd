@@ -2,7 +2,6 @@
 % Please edit documentation in R/embeddings.R
 \name{step_word_embeddings}
 \alias{step_word_embeddings}
-\alias{tidy.step_word_embeddings}
 \title{Pretrained word embeddings of tokens}
 \usage{
 step_word_embeddings(
@@ -18,8 +17,6 @@ step_word_embeddings(
   skip = FALSE,
   id = rand_id("word_embeddings")
 )
-
-\method{tidy}{step_word_embeddings}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -62,8 +59,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_word_embeddings} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

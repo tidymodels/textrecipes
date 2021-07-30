@@ -2,7 +2,6 @@
 % Please edit documentation in R/text_normalization.R
 \name{step_text_normalization}
 \alias{step_text_normalization}
-\alias{tidy.step_text_normalization}
 \title{Normalization of \link{tokenlist} variables}
 \usage{
 step_text_normalization(
@@ -15,8 +14,6 @@ step_text_normalization(
   skip = FALSE,
   id = rand_id("text_normalization")
 )
-
-\method{tidy}{step_text_normalization}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -48,8 +45,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_text_normalization} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

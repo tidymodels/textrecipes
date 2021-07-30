@@ -131,7 +131,7 @@ print.step_pos_filter <-
     invisible(x)
   }
 
-#' @rdname step_pos_filter
+#' @rdname tidy.recipe
 #' @param x A `step_pos_filter` object.
 #' @export
 tidy.step_pos_filter <- function(x, ...) {

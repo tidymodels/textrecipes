@@ -2,7 +2,6 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
-\alias{tidy.step_stopwords}
 \title{Filtering of stopwords from a \link{tokenlist} variable}
 \usage{
 step_stopwords(
@@ -18,8 +17,6 @@ step_stopwords(
   skip = FALSE,
   id = rand_id("stopwords")
 )
-
-\method{tidy}{step_stopwords}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -58,8 +55,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_stopwords} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

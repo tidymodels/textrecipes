@@ -2,7 +2,6 @@
 % Please edit documentation in R/textfeature.R
 \name{step_textfeature}
 \alias{step_textfeature}
-\alias{tidy.step_textfeature}
 \title{Generate the basic set of text features}
 \usage{
 step_textfeature(
@@ -16,8 +15,6 @@ step_textfeature(
   skip = FALSE,
   id = rand_id("textfeature")
 )
-
-\method{tidy}{step_textfeature}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -52,8 +49,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_textfeature} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

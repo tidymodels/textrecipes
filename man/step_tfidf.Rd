@@ -2,7 +2,6 @@
 % Please edit documentation in R/tfidf.R
 \name{step_tfidf}
 \alias{step_tfidf}
-\alias{tidy.step_tfidf}
 \title{Term frequency-inverse document frequency of tokens}
 \usage{
 step_tfidf(
@@ -20,8 +19,6 @@ step_tfidf(
   skip = FALSE,
   id = rand_id("tfidf")
 )
-
-\method{tidy}{step_tfidf}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -70,8 +67,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_tfidf} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

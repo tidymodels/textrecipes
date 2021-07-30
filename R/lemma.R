@@ -126,7 +126,7 @@ print.step_lemma <-
     invisible(x)
   }
 
-#' @rdname step_lemma
+#' @rdname tidy.recipe
 #' @param x A `step_lemma` object.
 #' @export
 tidy.step_lemma <- function(x, ...) {

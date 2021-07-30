@@ -318,7 +318,7 @@ print.step_tokenize <-
     invisible(x)
   }
 
-#' @rdname step_tokenize
+#' @rdname tidy.recipe
 #' @param x A `step_tokenize` object.
 #' @export
 tidy.step_tokenize <- function(x, ...) {

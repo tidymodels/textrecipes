@@ -140,7 +140,7 @@ print.step_text_normalization <-
     invisible(x)
   }
 
-#' @rdname step_text_normalization
+#' @rdname tidy.recipe
 #' @param x A `step_text_normalization` object.
 #' @export
 tidy.step_text_normalization <- function(x, ...) {

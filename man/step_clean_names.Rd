@@ -2,7 +2,6 @@
 % Please edit documentation in R/clean_names.R
 \name{step_clean_names}
 \alias{step_clean_names}
-\alias{tidy.step_clean_names}
 \title{Clean variable names}
 \usage{
 step_clean_names(
@@ -14,8 +13,6 @@ step_clean_names(
   skip = FALSE,
   id = rand_id("clean_names")
 )
-
-\method{tidy}{step_clean_names}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -41,8 +38,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_clean_names} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

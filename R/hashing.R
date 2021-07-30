@@ -164,7 +164,7 @@ print.step_texthash <-
     invisible(x)
   }
 
-#' @rdname step_texthash
+#' @rdname tidy.recipe
 #' @param x A `step_texthash` object.
 #' @export
 tidy.step_texthash <- function(x, ...) {

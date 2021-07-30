@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Reorganize documentation for all recipe step `tidy` methods (#126).
+
 # textrecipes 0.4.1
 
 ## Bug fixes

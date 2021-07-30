@@ -176,7 +176,7 @@ print.step_sequence_onehot <-
     invisible(x)
   }
 
-#' @rdname step_sequence_onehot
+#' @rdname tidy.recipe
 #' @param x A `step_sequence_onehot` object.
 #' @export
 tidy.step_sequence_onehot <- function(x, ...) {

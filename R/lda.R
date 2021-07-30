@@ -182,7 +182,7 @@ print.step_lda <-
     invisible(x)
   }
 
-#' @rdname step_lda
+#' @rdname tidy.recipe
 #' @param x A `step_lda` object.
 #' @export
 tidy.step_lda <- function(x, ...) {

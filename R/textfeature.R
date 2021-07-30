@@ -160,7 +160,7 @@ print.step_textfeature <-
     invisible(x)
   }
 
-#' @rdname step_textfeature
+#' @rdname tidy.recipe
 #' @param x A `step_textfeature` object.
 #' @export
 tidy.step_textfeature <- function(x, ...) {

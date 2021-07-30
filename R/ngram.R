@@ -142,7 +142,7 @@ print.step_ngram <-
     invisible(x)
   }
 
-#' @rdname step_ngram
+#' @rdname tidy.recipe
 #' @param x A `step_ngram` object.
 #' @export
 tidy.step_ngram <- function(x, ...) {

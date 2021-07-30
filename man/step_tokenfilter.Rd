@@ -2,7 +2,6 @@
 % Please edit documentation in R/tokenfilter.R
 \name{step_tokenfilter}
 \alias{step_tokenfilter}
-\alias{tidy.step_tokenfilter}
 \title{Filter the tokens based on term frequency}
 \usage{
 step_tokenfilter(
@@ -19,8 +18,6 @@ step_tokenfilter(
   skip = FALSE,
   id = rand_id("tokenfilter")
 )
-
-\method{tidy}{step_tokenfilter}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -62,8 +59,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_tokenfilter} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

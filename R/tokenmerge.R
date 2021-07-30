@@ -118,7 +118,7 @@ print.step_tokenmerge <-
     invisible(x)
   }
 
-#' @rdname step_tokenmerge
+#' @rdname tidy.recipe
 #' @param x A `step_tokenmerge` object.
 #' @export
 tidy.step_tokenmerge <- function(x, ...) {

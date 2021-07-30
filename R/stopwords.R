@@ -170,7 +170,7 @@ print.step_stopwords <-
     invisible(x)
   }
 
-#' @rdname step_stopwords
+#' @rdname tidy.recipe
 #' @param x A `step_stopwords` object.
 #' @export
 tidy.step_stopwords <- function(x, ...) {

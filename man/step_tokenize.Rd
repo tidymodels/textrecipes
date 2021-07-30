@@ -2,7 +2,6 @@
 % Please edit documentation in R/tokenize.R
 \name{step_tokenize}
 \alias{step_tokenize}
-\alias{tidy.step_tokenize}
 \title{Tokenization of character variables}
 \usage{
 step_tokenize(
@@ -19,8 +18,6 @@ step_tokenize(
   skip = FALSE,
   id = rand_id("tokenize")
 )
-
-\method{tidy}{step_tokenize}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -62,8 +59,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_tokenize} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

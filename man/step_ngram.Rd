@@ -2,7 +2,6 @@
 % Please edit documentation in R/ngram.R
 \name{step_ngram}
 \alias{step_ngram}
-\alias{tidy.step_ngram}
 \title{Generate ngrams from tokenlist}
 \usage{
 step_ngram(
@@ -17,8 +16,6 @@ step_ngram(
   skip = FALSE,
   id = rand_id("ngram")
 )
-
-\method{tidy}{step_ngram}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -54,8 +51,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_ngram} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

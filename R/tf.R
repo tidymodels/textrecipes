@@ -194,7 +194,7 @@ print.step_tf <-
     invisible(x)
   }
 
-#' @rdname step_tf
+#' @rdname tidy.recipe
 #' @param x A `step_tf` object.
 #' @export
 tidy.step_tf <- function(x, ...) {

@@ -126,7 +126,7 @@ print.step_untokenize <-
     invisible(x)
   }
 
-#' @rdname step_untokenize
+#' @rdname tidy.recipe
 #' @param x A `step_untokenize` object.
 #' @export
 tidy.step_untokenize <- function(x, ...) {

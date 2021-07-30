@@ -2,7 +2,6 @@
 % Please edit documentation in R/lda.R
 \name{step_lda}
 \alias{step_lda}
-\alias{tidy.step_lda}
 \title{Calculates lda dimension estimates}
 \source{
 \url{https://arxiv.org/abs/1301.3781}
@@ -20,8 +19,6 @@ step_lda(
   skip = FALSE,
   id = rand_id("lda")
 )
-
-\method{tidy}{step_lda}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -58,8 +55,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_lda} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
