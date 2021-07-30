@@ -259,7 +259,7 @@ to the sequence of existing steps (if any).</p>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 750 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 750 × 9</span>
 #&gt;    essay2   essay3  essay4  essay5  essay6  essay7  essay8  essay9    tokenmerge
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;tknlist&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> <span style='color: #949494;'>"</span>writin… <span style='color: #949494;'>"</span>that … <span style='color: #949494;'>"</span>music… <span style='color: #949494;'>"</span>frien… <span style='color: #949494;'>"</span>roman… <span style='color: #949494;'>"</span>usual… <span style='color: #949494;'>"</span>i hav… <span style='color: #949494;'>"</span>you'r… [240 tokens]
@@ -274,16 +274,16 @@ to the sequence of existing steps (if any).</p>
 #&gt; <span style='color: #BCBCBC;'>10</span> <span style='color: #949494;'>"</span>living… <span style='color: #949494;'>"</span>long … <span style='color: #949494;'>"</span>films… <span style='color: #949494;'>"</span>yuzu,… <span style='color: #949494;'>"</span>menus… <span style='color: #949494;'>"</span>often… <span style='color: #949494;'>"</span>but i… <span style='color: #949494;'>"</span>you a… [610 tokens]
 #&gt; <span style='color: #949494;'># … with 740 more rows</span></div><div class='input'>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 3</span>
 #&gt;   terms  value id            
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
-#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    tokenize_dImo4
-#&gt; <span style='color: #BCBCBC;'>2</span> essay1 <span style='color: #BB0000;'>NA</span>    tokenize_dImo4</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0 <span style='color: #BB0000;'>NA</span>    tokenize_3b6z6
+#&gt; <span style='color: #BCBCBC;'>2</span> essay1 <span style='color: #BB0000;'>NA</span>    tokenize_3b6z6</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>okc_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 3</span>
 #&gt;   terms      value id            
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
-#&gt; <span style='color: #BCBCBC;'>1</span> essay0     words tokenize_dImo4
-#&gt; <span style='color: #BCBCBC;'>2</span> essay1     words tokenize_dImo4</div><div class='input'>
+#&gt; <span style='color: #BCBCBC;'>1</span> essay0     words tokenize_3b6z6
+#&gt; <span style='color: #BCBCBC;'>2</span> essay1     words tokenize_3b6z6</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
