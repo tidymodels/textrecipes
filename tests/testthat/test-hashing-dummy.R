@@ -4,7 +4,7 @@ library(textrecipes)
 library(recipes)
 data(grants, package = "modeldata")
 
-test_data <- grants_test[1:20, "sponsor_code", drop = FALSE]
+test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
 
 
 rec <- recipe(~., data = test_data)
@@ -27,6 +27,17 @@ test_that("hashing gives double outputs", {
   
   expect_equal(dim(tidy(rec, 1)), c(1, 4))
   expect_equal(dim(tidy(obj, 1)), c(1, 4))
+})
+
+test_that("hashing multiple factors", {
+  res <- rec %>%
+    step_dummy_hash(all_nominal_predictors(), num_terms = 12) %>%
+    prep() %>% 
+    juice()
+  
+  expect_equal(ncol(res), 24)
+  expect_equal(sum(grepl("^contract", names(res))), 12)
+  expect_equal(sum(grepl("^sponsor", names(res))), 12)
 })
 
 test_that("hashing output width changes accordingly with num_terms", {

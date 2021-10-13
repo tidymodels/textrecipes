@@ -10,7 +10,8 @@
 #' @template args-trained
 #' @template args-columns
 #' @param signed A logical, indicating whether to use a signed
-#' hash-function to reduce collisions when hashing. Defaults to TRUE.
+#' hash-function (generating values of -1, 0, or 1), to reduce collisions when 
+#' hashing. Defaults to TRUE.
 #' @param num_terms An integer, the number of variables to output.
 #'  Defaults to 32.
 #' @template args-prefix
@@ -39,6 +40,9 @@
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
 #'  Alex Smola; Josh Attenberg (2009).
 #'  
+#'  Kuhn and Johnson (2019), Chapter 7, 
+#'  \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
+#'  
 #' @seealso [recipes::step_dummy()]
 #' 
 #' @examples
@@ -56,7 +60,7 @@
 #'   bake(grants_obj, grants_test)
 #'
 #'   tidy(grants_rec, number = 1)
-#'   tidy(grants_rec, number = 1)
+#'   tidy(grants_obj, number = 1)
 #' }
 #' 
 #' @export
@@ -131,18 +135,16 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
   # for backward compat
   
   for (i in seq_along(col_names)) {
-    tf_text <- hashing_function(
-      as.character(new_data[[ col_names[i] ]]),
-      paste0(
-        col_names[i], "_",
-        names0(object$num_terms, object$prefix)
-      ),
+    tf_text <- 
+      hashing_function(
+        as.character(new_data[[ col_names[i] ]]),
+        paste0(col_names[i], "_", names0(object$num_terms, object$prefix)
+        ),
       object$signed,
       object$num_terms
     )
     
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    new_data <- new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     
     new_data <- vctrs::vec_cbind(tf_text, new_data)
   }
@@ -164,7 +166,7 @@ print.step_dummy_hash <-
 tidy.step_dummy_hash <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = x$columns,
       value = x$signed,
       length = x$num_terms
     )

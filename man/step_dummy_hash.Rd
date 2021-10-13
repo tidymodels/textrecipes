@@ -41,7 +41,8 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{signed}{A logical, indicating whether to use a signed
-hash-function to reduce collisions when hashing. Defaults to TRUE.}
+hash-function (generating values of -1, 0, or 1), to reduce collisions when
+hashing. Defaults to TRUE.}
 
 \item{num_terms}{An integer, the number of variables to output.
 Defaults to 32.}
@@ -105,13 +106,16 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
   bake(grants_obj, grants_test)
 
   tidy(grants_rec, number = 1)
-  tidy(grants_rec, number = 1)
+  tidy(grants_obj, number = 1)
 }
 
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford;
 Alex Smola; Josh Attenberg (2009).
+
+Kuhn and Johnson (2019), Chapter 7,
+\url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
 }
 \seealso{
 \code{\link[recipes:step_dummy]{recipes::step_dummy()}}
