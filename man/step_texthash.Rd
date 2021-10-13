@@ -2,7 +2,6 @@
 % Please edit documentation in R/hashing.R
 \name{step_texthash}
 \alias{step_texthash}
-\alias{tidy.step_texthash}
 \title{Term frequency of tokens}
 \usage{
 step_texthash(
@@ -17,8 +16,6 @@ step_texthash(
   skip = FALSE,
   id = rand_id("texthash")
 )
-
-\method{tidy}{step_texthash}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -56,8 +53,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_texthash} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -92,20 +87,20 @@ the name of the variable, followed by the tokens all separated by
 if (requireNamespace("text2vec", quietly = TRUE)) {
   library(recipes)
   library(modeldata)
-  data(okc_text)
+  data(tate_text)
 
-  okc_rec <- recipe(~., data = okc_text) \%>\%
-    step_tokenize(essay0) \%>\%
-    step_tokenfilter(essay0, max_tokens = 10) \%>\%
-    step_texthash(essay0)
+  tate_rec <- recipe(~., data = tate_text) \%>\%
+    step_tokenize(medium) \%>\%
+    step_tokenfilter(medium, max_tokens = 10) \%>\%
+    step_texthash(medium)
 
-  okc_obj <- okc_rec \%>\%
+  tate_obj <- tate_rec \%>\%
     prep()
 
-  bake(okc_obj, okc_text)
+  bake(tate_obj, tate_text)
 
-  tidy(okc_rec, number = 2)
-  tidy(okc_obj, number = 2)
+  tidy(tate_rec, number = 2)
+  tidy(tate_obj, number = 2)
 }
 
 }

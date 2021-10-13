@@ -2,7 +2,6 @@
 % Please edit documentation in R/lemma.R
 \name{step_lemma}
 \alias{step_lemma}
-\alias{tidy.step_lemma}
 \title{Lemmatization of \link{tokenlist} variables}
 \usage{
 step_lemma(
@@ -14,8 +13,6 @@ step_lemma(
   skip = FALSE,
   id = rand_id("lemma")
 )
-
-\method{tidy}{step_lemma}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -42,8 +39,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_lemma} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -69,14 +64,14 @@ short_data <- data.frame(text = c(
   "With many cats and ladies."
 ))
 
-okc_rec <- recipe(~text, data = short_data) \%>\%
+rec_spec <- recipe(~text, data = short_data) \%>\%
   step_tokenize(text, engine = "spacyr") \%>\%
   step_lemma(text) \%>\%
   step_tf(text)
 
-okc_obj <- prep(okc_rec)
+rec_prepped <- prep(rec_spec)
 
-bake(okc_obj, new_data = NULL)
+bake(rec_prepped, new_data = NULL)
 }
 
 }

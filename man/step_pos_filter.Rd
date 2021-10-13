@@ -2,7 +2,6 @@
 % Please edit documentation in R/pos_filter.R
 \name{step_pos_filter}
 \alias{step_pos_filter}
-\alias{tidy.step_pos_filter}
 \title{Part of speech filtering of \link{tokenlist} variables}
 \usage{
 step_pos_filter(
@@ -15,8 +14,6 @@ step_pos_filter(
   skip = FALSE,
   id = rand_id("pos_filter")
 )
-
-\method{tidy}{step_pos_filter}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -46,8 +43,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_pos_filter} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -72,14 +67,14 @@ short_data <- data.frame(text = c(
   "With many cats and ladies."
 ))
 
-okc_rec <- recipe(~text, data = short_data) \%>\%
+rec_spec <- recipe(~text, data = short_data) \%>\%
   step_tokenize(text, engine = "spacyr") \%>\%
   step_pos_filter(text, keep_tags = "NOUN") \%>\%
   step_tf(text)
 
-okc_obj <- prep(okc_rec)
+rec_prepped <- prep(rec_spec)
 
-bake(okc_obj, new_data = NULL)
+bake(rec_prepped, new_data = NULL)
 }
 
 }

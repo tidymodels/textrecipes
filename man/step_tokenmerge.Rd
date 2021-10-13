@@ -2,7 +2,6 @@
 % Please edit documentation in R/tokenmerge.R
 \name{step_tokenmerge}
 \alias{step_tokenmerge}
-\alias{tidy.step_tokenmerge}
 \title{Generate the basic set of text features}
 \usage{
 step_tokenmerge(
@@ -15,8 +14,6 @@ step_tokenmerge(
   skip = FALSE,
   id = rand_id("tokenmerge")
 )
-
-\method{tidy}{step_tokenmerge}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -47,8 +44,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_tokenmerge} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -62,19 +57,19 @@ will take multiple \link{tokenlist}s and combine them into one
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0, essay1) \%>\%
-  step_tokenmerge(essay0, essay1)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium, artist) \%>\%
+  step_tokenmerge(medium, artist)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL)
+bake(tate_obj, new_data = NULL)
 
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+tidy(tate_rec, number = 1)
+tidy(tate_obj, number = 1)
 
 }
 \seealso{

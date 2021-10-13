@@ -2,7 +2,6 @@
 % Please edit documentation in R/lda.R
 \name{step_lda}
 \alias{step_lda}
-\alias{tidy.step_lda}
 \title{Calculates lda dimension estimates}
 \source{
 \url{https://arxiv.org/abs/1301.3781}
@@ -20,8 +19,6 @@ step_lda(
   skip = FALSE,
   id = rand_id("lda")
 )
-
-\method{tidy}{step_lda}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -58,8 +55,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_lda} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -74,39 +69,39 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
 \donttest{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_lda(essay0)
+tate_rec <- recipe(~ ., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_lda(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(1:2)
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+tidy(tate_rec, number = 1)
+tidy(tate_obj, number = 1)
 
 # Changing the number of topics.
-recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0, essay1) \%>\%
-  step_lda(essay0, essay1, num_topics = 20) \%>\%
+recipe(~ ., data = tate_text) \%>\%
+  step_tokenize(medium, artist) \%>\%
+  step_lda(medium, artist, num_topics = 20) \%>\%
   prep() \%>\%
   bake(new_data = NULL) \%>\%
   slice(1:2)
 
 # Supplying A pre-trained LDA model trained using text2vec
 library(text2vec)
-tokens <- word_tokenizer(tolower(okc_text$essay5))
-it <- itoken(tokens, ids = seq_along(okc_text$essay5))
+tokens <- word_tokenizer(tolower(tate_text$medium))
+it <- itoken(tokens, ids = seq_along(tate_text$medium))
 v <- create_vocabulary(it)
 dtm <- create_dtm(it, vocab_vectorizer(v))
 lda_model <- LDA$new(n_topics = 15)
 
-recipe(~ ., data = okc_text) \%>\%
-  step_tokenize(essay0, essay1) \%>\%
-  step_lda(essay0, essay1, lda_models = lda_model) \%>\%
+recipe(~ ., data = tate_text) \%>\%
+  step_tokenize(medium, artist) \%>\%
+  step_lda(medium, artist, lda_models = lda_model) \%>\%
   prep() \%>\%
   bake(new_data = NULL) \%>\%
   slice(1:2)

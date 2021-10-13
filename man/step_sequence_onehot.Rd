@@ -2,7 +2,6 @@
 % Please edit documentation in R/sequence_onehot.R
 \name{step_sequence_onehot}
 \alias{step_sequence_onehot}
-\alias{tidy.step_sequence_onehot}
 \title{Generate the basic set of text features}
 \source{
 \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
@@ -22,8 +21,6 @@ step_sequence_onehot(
   skip = FALSE,
   id = rand_id("sequence_onehot")
 )
-
-\method{tidy}{step_sequence_onehot}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -68,8 +65,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_sequence_onehot} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -88,20 +83,20 @@ Characters not in the vocabulary will be encoded as 0.
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~essay0, data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_tokenfilter(essay0) \%>\%
-  step_sequence_onehot(essay0)
+tate_rec <- recipe(~medium, data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_tokenfilter(medium) \%>\%
+  step_sequence_onehot(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL)
+bake(tate_obj, new_data = NULL)
 
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+tidy(tate_rec, number = 1)
+tidy(tate_obj, number = 1)
 
 }
 \seealso{

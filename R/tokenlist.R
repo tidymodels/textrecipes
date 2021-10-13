@@ -19,8 +19,8 @@
 #'
 #' library(tokenizers)
 #' library(modeldata)
-#' data(okc_text)
-#' tokens <- tokenize_words(okc_text$essay0)
+#' data(tate_text)
+#' tokens <- tokenize_words(as.character(tate_text$medium))
 #'
 #' tokenlist(tokens)
 #' 

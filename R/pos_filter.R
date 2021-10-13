@@ -33,14 +33,14 @@
 #'   "With many cats and ladies."
 #' ))
 #'
-#' okc_rec <- recipe(~text, data = short_data) %>%
+#' rec_spec <- recipe(~text, data = short_data) %>%
 #'   step_tokenize(text, engine = "spacyr") %>%
 #'   step_pos_filter(text, keep_tags = "NOUN") %>%
 #'   step_tf(text)
 #'
-#' okc_obj <- prep(okc_rec)
+#' rec_prepped <- prep(rec_spec)
 #'
-#' bake(okc_obj, new_data = NULL)
+#' bake(rec_prepped, new_data = NULL)
 #' }
 #' 
 #' @export
@@ -131,7 +131,7 @@ print.step_pos_filter <-
     invisible(x)
   }
 
-#' @rdname step_pos_filter
+#' @rdname tidy.recipe
 #' @param x A `step_pos_filter` object.
 #' @export
 tidy.step_pos_filter <- function(x, ...) {

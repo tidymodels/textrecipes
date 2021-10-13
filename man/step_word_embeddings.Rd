@@ -2,7 +2,6 @@
 % Please edit documentation in R/embeddings.R
 \name{step_word_embeddings}
 \alias{step_word_embeddings}
-\alias{tidy.step_word_embeddings}
 \title{Pretrained word embeddings of tokens}
 \usage{
 step_word_embeddings(
@@ -18,8 +17,6 @@ step_word_embeddings(
   skip = FALSE,
   id = rand_id("word_embeddings")
 )
-
-\method{tidy}{step_word_embeddings}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -42,9 +39,9 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{embeddings}{A tibble of pre-trained word embeddings, such as those
-returned by the embedding_glove function function from the textdata
-package The first column should contain tokens, and additional columns
-should contain embeddings vectors.}
+returned by the embedding_glove function from the textdata package. The
+first column should contain tokens, and additional columns should contain
+embeddings vectors.}
 
 \item{aggregation}{A character giving the name of the aggregation function to
 use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".}
@@ -62,8 +59,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_word_embeddings} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

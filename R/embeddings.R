@@ -10,9 +10,9 @@
 #' @template args-trained
 #' @template args-columns
 #' @param embeddings A tibble of pre-trained word embeddings, such as those
-#'   returned by the embedding_glove function function from the textdata
-#'   package The first column should contain tokens, and additional columns
-#'   should contain embeddings vectors.
+#'   returned by the embedding_glove function from the textdata package. The
+#'   first column should contain tokens, and additional columns should contain
+#'   embeddings vectors.
 #' @param aggregation A character giving the name of the aggregation function to
 #'   use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".
 #' @param aggregation_default A numeric denoting the default value for case with
@@ -167,7 +167,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   # for backward compat
 
   for (i in seq_along(col_names)) {
-    arggregation_fun <- switch(
+    aggregation_fun <- switch(
       object$aggregation,
       sum = function(x, ...) {
         if (length(x) == 0) {
@@ -198,7 +198,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
     embeddings_columns <- tokenlist_embedding(
       new_data[, col_names[i], drop = TRUE],
       object$embeddings,
-      arggregation_fun
+      aggregation_fun
     )
 
     colnames(embeddings_columns) <- paste(
@@ -226,7 +226,7 @@ print.step_word_embeddings <- function(x,
   invisible(x)
 }
 
-#' @rdname step_word_embeddings
+#' @rdname tidy.recipe
 #' @param x A `step_word_embeddings` object.
 #' @export
 tidy.step_word_embeddings <- function(x, ...) {

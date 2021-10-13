@@ -2,7 +2,6 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
-\alias{tidy.step_stopwords}
 \title{Filtering of stopwords from a \link{tokenlist} variable}
 \usage{
 step_stopwords(
@@ -18,8 +17,6 @@ step_stopwords(
   skip = FALSE,
   id = rand_id("stopwords")
 )
-
-\method{tidy}{step_stopwords}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -58,8 +55,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_stopwords} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -82,38 +77,38 @@ combination of these two arguments.
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
 if (requireNamespace("stopwords", quietly = TRUE)) {
-  okc_rec <- recipe(~., data = okc_text) \%>\%
-    step_tokenize(essay0) \%>\%
-    step_stopwords(essay0)
+  tate_rec <- recipe(~., data = tate_text) \%>\%
+    step_tokenize(medium) \%>\%
+    step_stopwords(medium)
 
-  okc_obj <- okc_rec \%>\%
+  tate_obj <- tate_rec \%>\%
     prep()
 
-  bake(okc_obj, new_data = NULL, essay0) \%>\%
+  bake(tate_obj, new_data = NULL, medium) \%>\%
     slice(1:2)
 
-  bake(okc_obj, new_data = NULL) \%>\%
+  bake(tate_obj, new_data = NULL) \%>\%
     slice(2) \%>\%
-    pull(essay0)
+    pull(medium)
 
-  tidy(okc_rec, number = 2)
-  tidy(okc_obj, number = 2)
+  tidy(tate_rec, number = 2)
+  tidy(tate_obj, number = 2)
 }
 
 # With a custom stopwords list
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_stopwords(essay0, custom_stopword_source = c("twice", "upon"))
-okc_obj <- okc_rec \%>\%
-  prep(traimomg = okc_text)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_stopwords(medium, custom_stopword_source = c("twice", "upon"))
+tate_obj <- tate_rec \%>\%
+  prep(traimomg = tate_text)
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0)
+  pull(medium)
 
 }
 \seealso{

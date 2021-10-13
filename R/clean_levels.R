@@ -138,7 +138,7 @@ print.step_clean_levels <-
     invisible(x)
   }
 
-#' @rdname step_clean_levels
+#' @rdname tidy.recipe
 #' @param x A `step_clean_levels` object.
 #' @export
 tidy.step_clean_levels <- function(x, ...) {

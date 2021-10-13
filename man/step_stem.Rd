@@ -2,7 +2,6 @@
 % Please edit documentation in R/stem.R
 \name{step_stem}
 \alias{step_stem}
-\alias{tidy.step_stem}
 \title{Stemming of \link{tokenlist} variables}
 \usage{
 step_stem(
@@ -16,8 +15,6 @@ step_stem(
   skip = FALSE,
   id = rand_id("stem")
 )
-
-\method{tidy}{step_stem}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -49,8 +46,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_stem} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -73,42 +68,42 @@ will therefore not work reliably on ngrams or sentences.
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_stem(essay0)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_stem(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL, essay0) \%>\%
+bake(tate_obj, new_data = NULL, medium) \%>\%
   slice(1:2)
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0)
+  pull(medium)
 
-tidy(okc_rec, number = 2)
-tidy(okc_obj, number = 2)
+tidy(tate_rec, number = 2)
+tidy(tate_obj, number = 2)
 
 # Using custom stemmer. Here a custom stemmer that removes the last letter
 # if it is a "s".
 remove_s <- function(x) gsub("s$", "", x)
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_stem(essay0, custom_stemmer = remove_s)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_stem(medium, custom_stemmer = remove_s)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL, essay0) \%>\%
+bake(tate_obj, new_data = NULL, medium) \%>\%
   slice(1:2)
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0)
+  pull(medium)
 
 }
 \seealso{

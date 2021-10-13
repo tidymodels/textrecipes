@@ -134,7 +134,7 @@
 #' value, typically in the thousands, but is set to 22 here for demonstration
 #' purposes.
 #' 
-#' ```{r}
+#' ```{r, eval=FALSE}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(
 #'     text, 
@@ -142,6 +142,17 @@
 #'     training_options = list(vocab_size = 22)
 #'   ) %>%
 #'   show_tokens(text)
+#' ```
+#' 
+#' ```{r, echo=FALSE}
+#' recipe(~ text, data = text_tibble) %>%
+#'   step_tokenize(
+#'     text, 
+#'     engine = "tokenizers.bpe", 
+#'     training_options = list(vocab_size = 22)
+#'   ) %>%
+#'   show_tokens(text) %>%
+#'   lapply(function(x) gsub("▁", "_", x))
 #' ```
 #' 
 #' ## udpipe
@@ -176,31 +187,31 @@
 #' @examples
 #' library(recipes)
 #' library(modeldata)
-#' data(okc_text)
+#' data(tate_text)
 #'
-#' okc_rec <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0)
+#' tate_rec <- recipe(~., data = tate_text) %>%
+#'   step_tokenize(medium)
 #'
-#' okc_obj <- okc_rec %>%
+#' tate_obj <- tate_rec %>%
 #'   prep()
 #'
-#' bake(okc_obj, new_data = NULL, essay0) %>%
+#' bake(tate_obj, new_data = NULL, medium) %>%
 #'   slice(1:2)
 #'
-#' bake(okc_obj, new_data = NULL) %>%
+#' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
-#'   pull(essay0)
+#'   pull(medium)
 #'
-#' tidy(okc_rec, number = 1)
-#' tidy(okc_obj, number = 1)
+#' tidy(tate_rec, number = 1)
+#' tidy(tate_obj, number = 1)
 #'
-#' okc_obj_chars <- recipe(~., data = okc_text) %>%
-#'   step_tokenize(essay0, token = "characters") %>%
+#' tate_obj_chars <- recipe(~., data = tate_text) %>%
+#'   step_tokenize(medium, token = "characters") %>%
 #'   prep()
 #'
-#' bake(okc_obj, new_data = NULL) %>%
+#' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
-#'   pull(essay0)
+#'   pull(medium)
 #'
 #' @export
 step_tokenize <-
@@ -307,7 +318,7 @@ print.step_tokenize <-
     invisible(x)
   }
 
-#' @rdname step_tokenize
+#' @rdname tidy.recipe
 #' @param x A `step_tokenize` object.
 #' @export
 tidy.step_tokenize <- function(x, ...) {

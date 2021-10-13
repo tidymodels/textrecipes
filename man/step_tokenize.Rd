@@ -2,7 +2,6 @@
 % Please edit documentation in R/tokenize.R
 \name{step_tokenize}
 \alias{step_tokenize}
-\alias{tidy.step_tokenize}
 \title{Tokenization of character variables}
 \usage{
 step_tokenize(
@@ -19,8 +18,6 @@ step_tokenize(
   skip = FALSE,
   id = rand_id("tokenize")
 )
-
-\method{tidy}{step_tokenize}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -62,8 +59,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_tokenize} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -193,11 +188,11 @@ purposes.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text,
   ) \%>\%
   show_tokens(text)
 }\if{html}{\out{</div>}}\preformatted{## [[1]]
-##  [1] "▁Th" "is"  "▁"   "is"  "▁"   "w"   "o"   "r"  
+##  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"  
 ##  [9] "d"   "s"  
 ## 
 ## [[2]]
-##  [1] "▁Th" "e"   "y"   "▁"   "a"   "r"   "e"   "▁"  
+##  [1] "_Th" "e"   "y"   "_"   "a"   "r"   "e"   "_"  
 ##  [9] "n"   "i"   "c"   "e"   "!"
 }
 }
@@ -237,31 +232,31 @@ recipe(~ text, data = text_tibble) \%>\%
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL, essay0) \%>\%
+bake(tate_obj, new_data = NULL, medium) \%>\%
   slice(1:2)
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0)
+  pull(medium)
 
-tidy(okc_rec, number = 1)
-tidy(okc_obj, number = 1)
+tidy(tate_rec, number = 1)
+tidy(tate_obj, number = 1)
 
-okc_obj_chars <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0, token = "characters") \%>\%
+tate_obj_chars <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium, token = "characters") \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0)
+  pull(medium)
 
 }
 \seealso{

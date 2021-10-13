@@ -2,7 +2,6 @@
 % Please edit documentation in R/clean_levels.R
 \name{step_clean_levels}
 \alias{step_clean_levels}
-\alias{tidy.step_clean_levels}
 \title{Clean categorical levels}
 \usage{
 step_clean_levels(
@@ -14,8 +13,6 @@ step_clean_levels(
   skip = FALSE,
   id = rand_id("clean_levels")
 )
-
-\method{tidy}{step_clean_levels}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -42,8 +39,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_clean_levels} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added

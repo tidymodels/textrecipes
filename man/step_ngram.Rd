@@ -2,7 +2,6 @@
 % Please edit documentation in R/ngram.R
 \name{step_ngram}
 \alias{step_ngram}
-\alias{tidy.step_ngram}
 \title{Generate ngrams from tokenlist}
 \usage{
 step_ngram(
@@ -17,8 +16,6 @@ step_ngram(
   skip = FALSE,
   id = rand_id("ngram")
 )
-
-\method{tidy}{step_ngram}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -54,8 +51,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_ngram} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
@@ -75,24 +70,24 @@ fashion with respect to the number of tokens in the n-gram. If
 \examples{
 library(recipes)
 library(modeldata)
-data(okc_text)
+data(tate_text)
 
-okc_rec <- recipe(~., data = okc_text) \%>\%
-  step_tokenize(essay0) \%>\%
-  step_ngram(essay0)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_ngram(medium)
 
-okc_obj <- okc_rec \%>\%
+tate_obj <- tate_rec \%>\%
   prep()
 
-bake(okc_obj, new_data = NULL, essay0) \%>\%
+bake(tate_obj, new_data = NULL, medium) \%>\%
   slice(1:2)
 
-bake(okc_obj, new_data = NULL) \%>\%
+bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
-  pull(essay0)
+  pull(medium)
 
-tidy(okc_rec, number = 2)
-tidy(okc_obj, number = 2)
+tidy(tate_rec, number = 2)
+tidy(tate_obj, number = 2)
 
 }
 \seealso{
