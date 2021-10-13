@@ -25,8 +25,8 @@ test_that("hashing gives double outputs", {
       all()
   )
   
-  expect_equal(dim(tidy(rec, 1)), c(1, 4))
-  expect_equal(dim(tidy(obj, 1)), c(1, 4))
+  expect_equal(dim(tidy(rec, 1)), c(1, 5))
+  expect_equal(dim(tidy(obj, 1)), c(1, 5))
 })
 
 test_that("hashing multiple factors", {
@@ -38,6 +38,17 @@ test_that("hashing multiple factors", {
   expect_equal(ncol(res), 24)
   expect_equal(sum(grepl("^contract", names(res))), 12)
   expect_equal(sum(grepl("^sponsor", names(res))), 12)
+})
+
+
+test_that("hashing collapsed multiple factors", {
+  res <- rec %>%
+    step_dummy_hash(all_nominal_predictors(), num_terms = 4, collapse = TRUE) %>%
+    prep() %>% 
+    juice()
+  
+  expect_equal(ncol(res), 4)
+  expect_equal(mean(grepl("^contract_value_band_sponsor", names(res))), 1)
 })
 
 test_that("hashing output width changes accordingly with num_terms", {

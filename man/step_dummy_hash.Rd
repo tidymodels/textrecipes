@@ -13,6 +13,7 @@ step_dummy_hash(
   columns = NULL,
   signed = TRUE,
   num_terms = 32,
+  collapse = FALSE,
   prefix = "hash",
   skip = FALSE,
   id = rand_id("dummy_hash")
@@ -46,6 +47,9 @@ hashing. Defaults to TRUE.}
 
 \item{num_terms}{An integer, the number of variables to output.
 Defaults to 32.}
+
+\item{collapse}{A logical; should all of the selected columns be collapsed
+into a single column to create a single set of hashed features?}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}

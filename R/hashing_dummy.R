@@ -14,6 +14,8 @@
 #' hashing. Defaults to TRUE.
 #' @param num_terms An integer, the number of variables to output.
 #'  Defaults to 32.
+#' @param collapse A logical; should all of the selected columns be collapsed
+#' into a single column to create a single set of hashed features?
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
@@ -72,6 +74,7 @@ step_dummy_hash <-
            columns = NULL,
            signed = TRUE,
            num_terms = 32,
+           collapse = FALSE, 
            prefix = "hash",
            skip = FALSE,
            id = rand_id("dummy_hash")) {
@@ -86,6 +89,7 @@ step_dummy_hash <-
         columns = columns,
         signed = signed,
         num_terms = num_terms,
+        collapse = collapse,
         prefix = prefix,
         skip = skip,
         id = id
@@ -94,8 +98,8 @@ step_dummy_hash <-
   }
 
 step_dummy_hash_new <-
-  function(terms, role, trained, columns, signed, num_terms, prefix, skip,
-           id) {
+  function(terms, role, trained, columns, signed, collapse ,num_terms, prefix, 
+           skip, id) {
     step(
       subclass = "dummy_hash",
       terms = terms,
@@ -104,6 +108,7 @@ step_dummy_hash_new <-
       columns = columns,
       signed = signed,
       num_terms = num_terms,
+      collapse = collapse,
       prefix = prefix,
       skip = skip,
       id = id
@@ -123,6 +128,7 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
     columns = col_names,
     signed = x$signed,
     num_terms = x$num_terms,
+    collapse = x$collapse,
     prefix = x$prefix,
     skip = x$skip,
     id = x$id
@@ -132,21 +138,36 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_dummy_hash <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
-  
-  for (i in seq_along(col_names)) {
+  hash_cols <- col_names
+
+  if (object$collapse) {
+    new_name <- paste0(col_names, collapse = "_")
+    new_data <- 
+      new_data %>% 
+      dplyr::rowwise() %>% 
+      dplyr::mutate(
+        !!new_name := 
+          paste0(dplyr::c_across(dplyr::all_of(hash_cols)), collapse = "")
+      )
+    hash_cols <- new_name
+  }
+
+  for (i in seq_along(hash_cols)) {
     tf_text <- 
       hashing_function(
-        as.character(new_data[[ col_names[i] ]]),
-        paste0(col_names[i], "_", names0(object$num_terms, object$prefix)
+        as.character(new_data[[ hash_cols[i] ]]),
+        paste0(hash_cols[i], "_", names0(object$num_terms, object$prefix)
         ),
       object$signed,
       object$num_terms
     )
     
-    new_data <- new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    new_data <- new_data[, !(colnames(new_data) %in% hash_cols[i]), drop = FALSE]
     
     new_data <- vctrs::vec_cbind(tf_text, new_data)
+  }
+  if (object$collapse) {
+    new_data <- new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
   }
   
   as_tibble(new_data)
@@ -168,14 +189,16 @@ tidy.step_dummy_hash <- function(x, ...) {
     res <- tibble(
       terms = x$columns,
       value = x$signed,
-      length = x$num_terms
+      num_terms = x$num_terms,
+      collapse = x$collapse
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
       terms = term_names,
       value = na_lgl,
-      length = na_int
+      num_terms = na_int,
+      collapse = na_lgl
     )
   }
   res$id <- x$id

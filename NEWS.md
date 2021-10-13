@@ -2,6 +2,8 @@
 
 * Reorganize documentation for all recipe step `tidy` methods (#126).
 
+* `step_dummy_hash()` generates binary indicators (possibly signed) from simple factor or character vectors. 
+
 # textrecipes 0.4.1
 
 ## Bug fixes
@@ -9,8 +11,6 @@
 * Fixed a bug in `step_tokenfilter()` and `step_sequence_onehot()` that sometimes caused crashes in R 4.1.0.
 
 # textrecipes 0.4.0
-
-* `step_dummy_hash()` generates binary indicators (possibly signed) from simple factor or character vectors. 
 
 ## Breaking Changes
 
