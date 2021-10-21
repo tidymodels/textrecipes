@@ -28,6 +28,9 @@
     <loc>https://textrecipes.tidymodels.org/reference/step_clean_names.html</loc>
   </url>
   <url>
+    <loc>https://textrecipes.tidymodels.org/reference/step_dummy_hash.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/reference/step_lda.html</loc>
   </url>
   <url>

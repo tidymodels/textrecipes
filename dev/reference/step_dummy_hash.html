@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate the basic set of text features — step_tokenmerge • textrecipes</title>
+<title>Indicator variables via feature hashing — step_dummy_hash • textrecipes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,10 +49,10 @@
 
 
 
-<meta property="og:title" content="Generate the basic set of text features — step_tokenmerge" />
-<meta property="og:description" content="step_tokenmerge creates a specification of a recipe step that
-will take multiple tokenlists and combine them into one
-tokenlist." />
+<meta property="og:title" content="Indicator variables via feature hashing — step_dummy_hash" />
+<meta property="og:description" content="step_dummy_hash creates a specification of a recipe step that
+will convert factors or character columns into a series of binary
+(or signed binary) indicator columns." />
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -152,27 +152,33 @@ tokenlist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate the basic set of text features</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/tokenmerge.R'><code>R/tokenmerge.R</code></a></small>
-    <div class="hidden name"><code>step_tokenmerge.Rd</code></div>
+    <h1>Indicator variables via feature hashing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/hashing_dummy.R'><code>R/hashing_dummy.R</code></a></small>
+    <div class="hidden name"><code>step_dummy_hash.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_tokenmerge</code> creates a <em>specification</em> of a recipe step that
-will take multiple <a href='tokenlist.html'>tokenlist</a>s and combine them into one
-<a href='tokenlist.html'>tokenlist</a>.</p>
+    <p><code>step_dummy_hash</code> creates a <em>specification</em> of a recipe step that
+will convert factors or character columns into a series of binary
+(or signed binary) indicator columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_tokenmerge</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>step_dummy_hash</span><span class='op'>(</span>
   <span class='va'>recipe</span>,
   <span class='va'>...</span>,
   role <span class='op'>=</span> <span class='st'>"predictor"</span>,
   trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
   columns <span class='op'>=</span> <span class='cn'>NULL</span>,
-  prefix <span class='op'>=</span> <span class='st'>"tokenmerge"</span>,
+  signed <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  num_terms <span class='op'>=</span> <span class='fl'>32</span>,
+  collapse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  prefix <span class='op'>=</span> <span class='st'>"hash"</span>,
   skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"tokenmerge"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"dummy_hash"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for step_dummy_hash</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,8 +213,25 @@ be populated (eventually) by the <code>terms</code> argument. This is <code>NULL
 until the step is trained by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>signed</th>
+      <td><p>A logical, indicating whether to use a signed
+hash-function (generating values of -1, 0, or 1), to reduce collisions when
+hashing. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>num_terms</th>
+      <td><p>An integer, the number of variables to output.
+Defaults to 32.</p></td>
+    </tr>
+    <tr>
+      <th>collapse</th>
+      <td><p>A logical; should all of the selected columns be collapsed
+into a single column to create a single set of hashed features?</p></td>
+    </tr>
+    <tr>
       <th>prefix</th>
-      <td><p>A prefix for generated column names, default to "tokenmerge".</p></td>
+      <td><p>A character string that will be the prefix to the
+resulting new variables. See notes below.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -222,61 +245,67 @@ Care should be taken when using <code>skip = FALSE</code>.</p></td>
       <th>id</th>
       <td><p>A character string that is unique to this step to identify it.</p></td>
     </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A <code>step_dummy_hash</code> object.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Feature hashing, or the hashing trick, is a transformation of a
+text variable into a new set of numerical variables. This is done by
+applying a hashing function over the values of the factor levels and
+using the hash values as feature indices. This allows for a low memory
+representation of the data and can be very helpful when a qualitative
+predictor has many levels or is expected to have new levels during
+prediction. This implementation is done using the MurmurHash3 method.</p>
+<p>The argument <code>num_terms</code> controls the number of indices that the hashing
+function will map to. This is the tuning parameter for this
+transformation. Since the hashing function can map two different tokens
+to the same index, will a higher value of <code>num_terms</code> result in a lower
+chance of collision.</p>
+<p>The new components will have names that begin with <code>prefix</code>, then
+the name of the variable, followed by the tokens all separated by
+<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>. The variable names are padded with zeros. For example if
+<code>prefix = "hash"</code>, and if <code>num_terms &lt; 10</code>, their names will be
+<code>hash1</code> - <code>hash9</code>. If <code>num_terms = 101</code>, their names will be
+<code>hash001</code> - <code>hash101</code>.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Kilian Weinberger; Anirban Dasgupta; John Langford;
+Alex Smola; Josh Attenberg (2009).</p>
+<p>Kuhn and Johnson (2019), Chapter 7,
+<a href='https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html'>https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='step_tokenize.html'>step_tokenize()</a></code> to turn character into tokenlist.</p>
-<p>Other tokenlist to tokenlist steps: 
-<code><a href='step_lemma.html'>step_lemma</a>()</code>,
-<code><a href='step_ngram.html'>step_ngram</a>()</code>,
-<code><a href='step_pos_filter.html'>step_pos_filter</a>()</code>,
-<code><a href='step_stem.html'>step_stem</a>()</code>,
-<code><a href='step_stopwords.html'>step_stopwords</a>()</code>,
-<code><a href='step_tokenfilter.html'>step_tokenfilter</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='https://recipes.tidymodels.org/reference/step_dummy.html'>recipes::step_dummy()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>tate_text</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"text2vec"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>grants</span><span class='op'>)</span>
 
-<span class='va'>tate_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>tate_text</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span><span class='op'>(</span><span class='va'>medium</span>, <span class='va'>artist</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_tokenmerge</span><span class='op'>(</span><span class='va'>medium</span>, <span class='va'>artist</span><span class='op'>)</span>
+  <span class='va'>grants_rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>sponsor_code</span>, data <span class='op'>=</span> <span class='va'>grants_other</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>step_dummy_hash</span><span class='op'>(</span><span class='va'>sponsor_code</span><span class='op'>)</span>
 
-<span class='va'>tate_obj</span> <span class='op'>&lt;-</span> <span class='va'>tate_rec</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='va'>grants_obj</span> <span class='op'>&lt;-</span> <span class='va'>grants_rec</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>tate_obj</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,284 × 4</span>
-#&gt;        id title                                                  year tokenmerge
-#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>                                                 <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;tknlist&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>21</span>926 Proposals for a Habitat                                <span style='text-decoration: underline;'>1</span>990 [9 tokens]
-#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>20</span>472 Michael                                                <span style='text-decoration: underline;'>1</span>990 [5 tokens]
-#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>20</span>474 Geoffrey                                               <span style='text-decoration: underline;'>1</span>990 [5 tokens]
-#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>20</span>473 Jake                                                   <span style='text-decoration: underline;'>1</span>990 [5 tokens]
-#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>20</span>513 To the Studios                                         <span style='text-decoration: underline;'>1</span>990 [6 tokens]
-#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>21</span>389 Phaëthon                                               <span style='text-decoration: underline;'>1</span>990 [7 tokens]
-#&gt; <span style='color: #BCBCBC;'> 7</span> <span style='text-decoration: underline;'>121</span>187 Untitled                                               <span style='text-decoration: underline;'>1</span>990 [6 tokens]
-#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>19</span>455 Green VIII                                             <span style='text-decoration: underline;'>1</span>990 [5 tokens]
-#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>20</span>938 Present Bound                                          <span style='text-decoration: underline;'>1</span>990 [8 tokens]
-#&gt; <span style='color: #BCBCBC;'>10</span> <span style='text-decoration: underline;'>105</span>941 Joseph Beuys: A Private Collection. A11 Artforum, Mu…  <span style='text-decoration: underline;'>1</span>990 [5 tokens]
-#&gt; <span style='color: #949494;'># … with 4,274 more rows</span></div><div class='input'>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>tate_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 3</span>
-#&gt;   terms  value id            
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
-#&gt; <span style='color: #BCBCBC;'>1</span> medium <span style='color: #BB0000;'>NA</span>    tokenize_9G3Y5
-#&gt; <span style='color: #BCBCBC;'>2</span> artist <span style='color: #BB0000;'>NA</span>    tokenize_9G3Y5</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>tate_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 3</span>
-#&gt;   terms      value id            
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
-#&gt; <span style='color: #BCBCBC;'>1</span> medium     words tokenize_9G3Y5
-#&gt; <span style='color: #BCBCBC;'>2</span> artist     words tokenize_9G3Y5</div><div class='input'>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>grants_obj</span>, <span class='va'>grants_test</span><span class='op'>)</span>
+
+  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>grants_rec</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>grants_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 5</span>
+#&gt;   terms        value num_terms collapse id              
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span> sponsor_code TRUE         32 FALSE    dummy_hash_mb92Q</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

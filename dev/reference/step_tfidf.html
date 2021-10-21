@@ -307,18 +307,18 @@ the name of the variable, followed by the tokens all separated by
 
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>tate_obj</span>, <span class='va'>tate_text</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,284 × 956</span>
-#&gt;        id artist             title  year tfidf_medium_1 tfidf_medium_10 tfidf_medium_100
-#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>21</span>926 Absalon            Prop…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>20</span>472 Auerbach, Frank    Mich…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>20</span>474 Auerbach, Frank    Geof…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>20</span>473 Auerbach, Frank    Jake   <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>20</span>513 Auerbach, Frank    To t…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>21</span>389 Ayres, OBE Gillian Phaë…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 7</span> <span style='text-decoration: underline;'>121</span>187 Barlow, Phyllida   Unti…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>19</span>455 Baselitz, Georg    Gree…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>20</span>938 Beattie, Basil     Pres…  <span style='text-decoration: underline;'>1</span>990              0               0                0
-#&gt; <span style='color: #BCBCBC;'>10</span> <span style='text-decoration: underline;'>105</span>941 Beuys, Joseph      Jose…  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt;        id artist  title     year tfidf_medium_1 tfidf_medium_10 tfidf_medium_100
+#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>21</span>926 Absalon Proposa…  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>20</span>472 Auerba… Michael   <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>20</span>474 Auerba… Geoffrey  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>20</span>473 Auerba… Jake      <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>20</span>513 Auerba… To the …  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>21</span>389 Ayres,… Phaëthon  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 7</span> <span style='text-decoration: underline;'>121</span>187 Barlow… Untitled  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>19</span>455 Baseli… Green V…  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>20</span>938 Beatti… Present…  <span style='text-decoration: underline;'>1</span>990              0               0                0
+#&gt; <span style='color: #BCBCBC;'>10</span> <span style='text-decoration: underline;'>105</span>941 Beuys,… Joseph …  <span style='text-decoration: underline;'>1</span>990              0               0                0
 #&gt; <span style='color: #949494;'># … with 4,274 more rows, and 949 more variables: tfidf_medium_11 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   tfidf_medium_12 &lt;dbl&gt;, tfidf_medium_13 &lt;dbl&gt;, tfidf_medium_133 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   tfidf_medium_14 &lt;dbl&gt;, tfidf_medium_15 &lt;dbl&gt;, tfidf_medium_151 &lt;dbl&gt;,</span>
@@ -330,11 +330,11 @@ the name of the variable, followed by the tokens all separated by
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 2</span>
 #&gt;   terms  id         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
-#&gt; <span style='color: #BCBCBC;'>1</span> medium tfidf_BSJsJ</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>tate_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> medium tfidf_24Bw4</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>tate_obj</span>, number <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 2</span>
 #&gt;   terms      id         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;quos&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
-#&gt; <span style='color: #BCBCBC;'>1</span> medium     tfidf_BSJsJ</div><div class='input'><span class='co'># }</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> medium     tfidf_24Bw4</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
