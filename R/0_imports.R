@@ -1,23 +1,13 @@
-#' @importFrom recipes add_step step terms_select sel2char ellipse_check names0
-#' @importFrom recipes printer check_type rand_id bake prep names0 is_trained
-#'
-#' @importFrom tibble as_tibble tibble enframe
-#'
-#' @importFrom purrr map map_dfc map_chr map_lgl map_dfr pmap keep
-#'
-#' @importFrom rlang %||% na_chr na_int expr na_lgl .data :=
-#'
-#' @importFrom dplyr bind_cols inner_join mutate_all select rename_all
-#' @importFrom dplyr summarize_all recode_factor
-#'
 #' @importFrom generics tidy
-#'
-#' @importFrom tidyr unnest
-#'
 #' @importFrom Matrix sparseMatrix
-#'
-#' @importFrom vctrs vec_assert new_vctr vec_cast vec_ptype_abbr
-#' @importFrom vctrs obj_print_footer vec_restore
+#' @importFrom purrr keep map map_chr map_dfc map_dfr map_lgl pmap
+#' @importFrom recipes add_step bake check_type ellipse_check is_trained names0
+#' @importFrom recipes prep printer rand_id sel2char step terms_select
+#' @importFrom rlang .data %||% expr na_chr na_int na_lgl
+#' @importFrom tibble as_tibble enframe tibble
+#' @importFrom tidyr unnest
+#' @importFrom vctrs new_vctr obj_print_footer vec_assert vec_cast
+#' @importFrom vctrs vec_ptype_abbr vec_restore
 NULL
 
 utils::globalVariables("tokens")
