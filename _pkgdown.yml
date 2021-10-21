@@ -39,6 +39,7 @@ reference:
     contents:
     - step_textfeature
     - step_sequence_onehot
+    - step_dummy_hash
   - title: Step Functions - character to character
     contents:
     - step_text_normalization

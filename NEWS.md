@@ -2,6 +2,8 @@
 
 * Reorganize documentation for all recipe step `tidy` methods (#126).
 
+* `step_dummy_hash()` generates binary indicators (possibly signed) from simple factor or character vectors. 
+
 # textrecipes 0.4.1
 
 ## Bug fixes

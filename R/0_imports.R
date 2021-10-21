@@ -1,5 +1,3 @@
-#' @importFrom dplyr bind_cols inner_join mutate_all recode_factor rename_all
-#' @importFrom dplyr select summarize_all
 #' @importFrom generics tidy
 #' @importFrom Matrix sparseMatrix
 #' @importFrom purrr keep map map_chr map_dfc map_dfr map_lgl pmap
