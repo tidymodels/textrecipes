@@ -88,7 +88,7 @@ step_clean_levels_new <-
 
 #' @export
 prep.step_clean_levels <- function(x, training, info = NULL, ...) {
-  col_names <- terms_select(x$terms, info = info)
+  col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], quant = FALSE)
 
   if (length(col_names) > 0) {
@@ -113,7 +113,7 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
 bake.step_clean_levels <- function(object, new_data, ...) {
   if (!is.null(object$clean)) {
     for (i in names(object$clean)) {
-      new_data[[i]] <- recode_factor(new_data[[i]], !!!object$clean[[i]])
+      new_data[[i]] <- dplyr::recode_factor(new_data[[i]], !!!object$clean[[i]])
     }
   }
 
