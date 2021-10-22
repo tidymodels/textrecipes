@@ -79,7 +79,7 @@ step_clean_names_new <-
 
 #' @export
 prep.step_clean_names <- function(x, training, info = NULL, ...) {
-  col_names <- terms_select(x$terms, info = info)
+  col_names <- recipes_eval_select(x$terms, training, info)
 
   if (length(col_names) > 0) {
     cleaned <- janitor::make_clean_names(col_names)

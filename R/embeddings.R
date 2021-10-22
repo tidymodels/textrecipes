@@ -143,7 +143,7 @@ step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
 
 #' @export
 prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
-  col_names <- terms_select(x$terms, info = info)
+  col_names <- recipes_eval_select(x$terms, training, info)
 
   check_list(training[, col_names])
 

@@ -107,7 +107,7 @@ step_textfeature_new <-
 
 #' @export
 prep.step_textfeature <- function(x, training, info = NULL, ...) {
-  col_names <- terms_select(x$terms, info = info)
+  col_names <- recipes_eval_select(x$terms, training, info)
 
   training <- factor_to_text(training, col_names)
 

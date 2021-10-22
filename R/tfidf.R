@@ -128,7 +128,7 @@ step_tfidf_new <-
 
 #' @export
 prep.step_tfidf <- function(x, training, info = NULL, ...) {
-  col_names <- terms_select(x$terms, info = info)
+  col_names <- recipes_eval_select(x$terms, training, info)
 
   check_list(training[, col_names])
 
