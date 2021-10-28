@@ -8,7 +8,7 @@
 [![R build
 status](https://github.com/tidymodels/textrecipes/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/textrecipes/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels/textrecipes/branch/master/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=master)
+coverage](https://codecov.io/gh/tidymodels/textrecipes/branch/main/graph/badge.svg)](https://codecov.io/github/tidymodels/textrecipes?branch=main)
 [![CRAN
 status](http://www.r-pkg.org/badges/version/textrecipes)](https://CRAN.R-project.org/package=textrecipes)
 [![Downloads](http://cranlogs.r-pkg.org/badges/textrecipes)](https://CRAN.R-project.org/package=textrecipes)

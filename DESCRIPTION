@@ -2,15 +2,12 @@ Package: textrecipes
 Title: Extra 'Recipes' for Text Processing
 Version: 0.4.1.9000
 Authors@R: 
-    person(given = "Emil",
-           family = "Hvitfeldt",
-           role = c("aut", "cre"),
-           email = "emilhhvitfeldt@gmail.com",
+    person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0679-1945"))
-Description: Converting text to numerical features requires
-    specifically created procedures, which are implemented as steps
-    according to the 'recipes' package. These steps allows for
-    tokenization, filtering, counting (tf and tfidf) and feature hashing.
+Description: Converting text to numerical features requires specifically
+    created procedures, which are implemented as steps according to the
+    'recipes' package. These steps allows for tokenization, filtering,
+    counting (tf and tfidf) and feature hashing.
 License: MIT + file LICENSE
 URL: https://github.com/tidymodels/textrecipes,
     https://textrecipes.tidymodels.org
@@ -39,18 +36,20 @@ Suggests:
     rmarkdown,
     spacyr,
     stopwords,
+    stringi,
     testthat (>= 2.1.0),
     text2vec,
     textfeatures (>= 0.3.3),
-    stringi,
     tokenizers.bpe,
     udpipe
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
     knitr
+Config/Needs/website: 
+    tidyverse/tidytemplate
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 SystemRequirements: GNU make, C++11
-LazyData: true
