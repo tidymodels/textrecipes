@@ -4,6 +4,8 @@
 
 * `step_dummy_hash()` generates binary indicators (possibly signed) from simple factor or character vectors. 
 
+* Added `all_tokenized()` and `all_tokenized_predictors()` to more easily select tokenized columns (#132).
+
 # textrecipes 0.4.1
 
 ## Bug fixes
