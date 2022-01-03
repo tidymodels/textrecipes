@@ -63,7 +63,7 @@ step_clean_levels <-
     add_step(
       recipe,
       step_clean_levels_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         clean = clean,
@@ -111,6 +111,11 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_clean_levels <- function(object, new_data, ...) {
+  if (length(object$clean) == 0L) {
+    # Empty selection
+    return(new_data)
+  }
+  
   if (!is.null(object$clean)) {
     for (i in names(object$clean)) {
       new_data[[i]] <- dplyr::recode_factor(new_data[[i]], !!!object$clean[[i]])
@@ -143,12 +148,16 @@ print.step_clean_levels <-
 #' @export
 tidy.step_clean_levels <- function(x, ...) {
   if (is_trained(x)) {
-    res <- purrr::map_dfr(
-      x$clean, 
-      tibble::enframe,
-      name = "original", 
-      .id = "terms"
-    )
+    if (is.null(x$clean)) {
+      res <- tibble(terms = character())
+    } else {
+      res <- purrr::map_dfr(
+        x$clean, 
+        tibble::enframe,
+        name = "original", 
+        .id = "terms"
+      )
+    }
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names)
