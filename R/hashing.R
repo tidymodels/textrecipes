@@ -68,7 +68,7 @@ step_texthash <-
            trained = FALSE,
            columns = NULL,
            signed = TRUE,
-           num_terms = 1024,
+           num_terms = 1024L,
            prefix = "hash",
            skip = FALSE,
            id = rand_id("texthash")) {
@@ -77,7 +77,7 @@ step_texthash <-
     add_step(
       recipe,
       step_texthash_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -170,7 +170,7 @@ print.step_texthash <-
 tidy.step_texthash <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       value = x$signed,
       length = x$num_terms
     )
