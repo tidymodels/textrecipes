@@ -54,7 +54,7 @@ step_clean_names <-
     add_step(
       recipe,
       step_clean_names_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         clean = clean,
@@ -131,7 +131,12 @@ print.step_clean_names <-
 #' @export
 tidy.step_clean_names <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble::tibble(terms = unname(x$clean), value = names(x$clean))
+    if (is.null(x$clean)) {
+      res <- tibble(terms = character())
+    } else {
+      res <- tibble::tibble(terms = unname(x$clean), value = names(x$clean))
+    }
+    
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names)
