@@ -54,7 +54,7 @@ step_lemma <-
     add_step(
       recipe,
       step_lemma_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -132,14 +132,14 @@ print.step_lemma <-
 tidy.step_lemma <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       is_custom_stemmer = is.null(x$custom_stemmer)
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
       terms = term_names,
-      value = na_chr
+      is_custom_stemmer = is.null(x$custom_stemmer)
     )
   }
   res$id <- x$id
