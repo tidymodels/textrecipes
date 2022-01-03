@@ -73,7 +73,7 @@ step_dummy_hash <-
            trained = FALSE,
            columns = NULL,
            signed = TRUE,
-           num_terms = 32,
+           num_terms = 32L,
            collapse = FALSE, 
            prefix = "hash",
            skip = FALSE,
@@ -83,7 +83,7 @@ step_dummy_hash <-
     add_step(
       recipe,
       step_dummy_hash_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -137,6 +137,11 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_dummy_hash <- function(object, new_data, ...) {
+  if (length(object$columns) == 0L) {
+    # Empty selection
+    return(new_data)
+  }
+  
   col_names <- object$columns
   hash_cols <- col_names
 
@@ -187,7 +192,7 @@ print.step_dummy_hash <-
 tidy.step_dummy_hash <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$columns,
+      terms = unname(x$columns),
       value = x$signed,
       num_terms = x$num_terms,
       collapse = x$collapse
