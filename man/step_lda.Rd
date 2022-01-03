@@ -14,7 +14,7 @@ step_lda(
   trained = FALSE,
   columns = NULL,
   lda_models = NULL,
-  num_topics = 10,
+  num_topics = 10L,
   prefix = "lda",
   skip = FALSE,
   id = rand_id("lda")
