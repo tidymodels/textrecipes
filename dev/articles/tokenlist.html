@@ -36,6 +36,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -50,19 +52,13 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="partof">part of <a href="https://tidymodels.org" class="external-link">tidymodels</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -88,7 +84,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/textrecipes/">
+  <a href="https://github.com/tidymodels/textrecipes/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -109,7 +105,7 @@
       <h1 data-toc-skip>Under the hood - tokenlist</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/tokenlist.Rmd"><code>vignettes/tokenlist.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/tokenlist.Rmd" class="external-link"><code>vignettes/tokenlist.Rmd</code></a></small>
       <div class="hidden name"><code>tokenlist.Rmd</code></div>
 
     </div>
@@ -117,7 +113,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes" class="external-link">textrecipes</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: recipes</span>
 <span class="co">#&gt; Loading required package: dplyr</span>
 <span class="co">#&gt; </span>
@@ -136,14 +132,16 @@
 <p><strong>textrecipes</strong> have been using lists of character vectors to carry around the tokens. A simple S3 vector class has been implemented with the <strong>vctrs</strong> package to handle that list of tokens, henceforth to be known as a <code>tokenlist</code>.</p>
 <p>If you are only using this package for preprocessing then you most likely won’t even notice that this change has happened. However if you are thinking of contributing to <strong>textrecipes</strong> then knowing about <code>tokenlist</code>s will be essential.</p>
 <p>A <code>tokenlist</code> is based around a simple list of character vectors, and has 3 attributes, <code>lemma</code>, <code>pos</code> and <code>tokens</code>.</p>
-<div id="tokens-attribute" class="section level1">
-<h1 class="hasAnchor">
-<a href="#tokens-attribute" class="anchor"></a><code>tokens</code> attribute</h1>
+<div class="section level1">
+<h1 id="tokens-attribute">
+<code>tokens</code> attribute<a class="anchor" aria-label="anchor" href="#tokens-attribute"></a>
+</h1>
 <p>The <code>tokens</code> attribute is a vector of the unique tokens contained in the data list. This attribute is calculated automatically when using <code><a href="../reference/tokenlist.html">tokenlist()</a></code>. If a function is applied to the tokenlist where the resulting unique tokens can be derived then <code>new_tokenlist()</code> can be used to create a tokenlist with known <code>tokens</code> attribute.</p>
 </div>
-<div id="lemma-and-pos-attributes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#lemma-and-pos-attributes" class="anchor"></a><code>lemma</code> and <code>pos</code> attributes</h1>
+<div class="section level1">
+<h1 id="lemma-and-pos-attributes">
+<code>lemma</code> and <code>pos</code> attributes<a class="anchor" aria-label="anchor" href="#lemma-and-pos-attributes"></a>
+</h1>
 <p>Both the <code>lemma</code> and <code>pos</code> attribute are used in the same way. They default to <code>NULL</code> but can be filled depending on which engine is being used in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>. The attribute is a list of characters in the exact shape and size as the tokenlist and should have a one-to-one relationship.</p>
 <p>If a specific element is removed in the tokenlist then the corresponding element in <code>lemma</code> and <code>pos</code> should be removed.</p>
 </div>
@@ -165,8 +163,8 @@
 
 <div class="author">
   <p>
-    Developed by Emil Hvitfeldt.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -175,6 +173,8 @@
 
   
 
+
+  
 
   </body>
 </html>

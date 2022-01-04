@@ -36,6 +36,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -50,19 +52,13 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">textrecipes</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
+          <span class="partof">part of <a href="https://tidymodels.org" class="external-link">tidymodels</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.1.9000</span>
         </div>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -88,7 +84,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidymodels/textrecipes/">
+  <a href="https://github.com/tidymodels/textrecipes/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -109,7 +105,7 @@
       <h1 data-toc-skip>Working with n-grams</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/Working-with-n-grams.Rmd"><code>vignettes/Working-with-n-grams.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/Working-with-n-grams.Rmd" class="external-link"><code>vignettes/Working-with-n-grams.Rmd</code></a></small>
       <div class="hidden name"><code>Working-with-n-grams.Rmd</code></div>
 
     </div>
@@ -117,7 +113,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes" class="external-link">textrecipes</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: recipes</span>
 <span class="co">#&gt; Loading required package: dplyr</span>
 <span class="co">#&gt; </span>
@@ -133,19 +129,19 @@
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     step</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lincolnmullen.com/software/tokenizers/">tokenizers</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lincolnmullen.com/software/tokenizers/" class="external-link">tokenizers</a></span><span class="op">)</span></code></pre></div>
 <p>If you want to use n-grams with textrecipes you have 2 options:</p>
 <ul>
 <li>Use a tokenizer in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> that tokenizes to n-grams.</li>
 <li>Tokenize to words with <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> and use <code><a href="../reference/step_ngram.html">step_ngram()</a></code> to turn them into n-grams.</li>
 </ul>
 <p>Both of these methods come with pros and cons so it will be worthwhile for you to be aware of both.</p>
-<p>before we get started let’s make sure we are on the same page of what we mean when we are talking about n-grams. We normally tokenize our text into words, which we can do with <code><a href="https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html">tokenize_words()</a></code> from the tokenizers package (this is the default engine and token for <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> in textrecipes)</p>
+<p>before we get started let’s make sure we are on the same page of what we mean when we are talking about n-grams. We normally tokenize our text into words, which we can do with <code><a href="https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenize_words()</a></code> from the tokenizers package (this is the default engine and token for <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> in textrecipes)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">abc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"The Bank is a place where you put your money;"</span>,
+<code class="sourceCode R"><span class="va">abc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"The Bank is a place where you put your money;"</span>,
          <span class="st">"The Bee is an insect that gathers honey."</span><span class="op">)</span>
 
-<span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html">tokenize_words</a></span><span class="op">(</span><span class="va">abc</span><span class="op">)</span>
+<span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenize_words</a></span><span class="op">(</span><span class="va">abc</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;  [1] "the"   "bank"  "is"    "a"     "place" "where" "you"   "put"   "your" </span>
 <span class="co">#&gt; [10] "money"</span>
@@ -153,9 +149,9 @@
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; [1] "the"     "bee"     "is"      "an"      "insect"  "that"    "gathers"</span>
 <span class="co">#&gt; [8] "honey"</span></code></pre></div>
-<p>N-grams are a contiguous sequence of n tokens. So to get 2-gram (or bigrams as they are also called) we can use the <code><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenize_ngrams()</a></code> function to get them</p>
+<p>N-grams are a contiguous sequence of n tokens. So to get 2-gram (or bigrams as they are also called) we can use the <code><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams()</a></code> function to get them</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] "the bank"    "bank is"     "is a"        "a place"     "place where"</span>
 <span class="co">#&gt; [6] "where you"   "you put"     "put your"    "your money" </span>
@@ -165,7 +161,7 @@
 <span class="co">#&gt; [5] "insect that"   "that gathers"  "gathers honey"</span></code></pre></div>
 <p>Notice how the words appear in multiple n-grams as the window slides across them. And why changing the <code>n</code> argument we can any kind of n-gram (notice how <code>n = 1</code> is the special case of tokenizing to words).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] "the bank is"     "bank is a"       "is a place"      "a place where"  </span>
 <span class="co">#&gt; [5] "place where you" "where you put"   "you put your"    "put your money" </span>
@@ -174,7 +170,7 @@
 <span class="co">#&gt; [1] "the bee is"          "bee is an"           "is an insect"       </span>
 <span class="co">#&gt; [4] "an insect that"      "insect that gathers" "that gathers honey"</span>
 
-<span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;  [1] "the"   "bank"  "is"    "a"     "place" "where" "you"   "put"   "your" </span>
 <span class="co">#&gt; [10] "money"</span>
@@ -184,7 +180,7 @@
 <span class="co">#&gt; [8] "honey"</span></code></pre></div>
 <p>It can also be beneficial to specify a delimiter between the tokens in your n-gram.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">3</span>, ngram_delim <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">3</span>, ngram_delim <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] "the_bank_is"     "bank_is_a"       "is_a_place"      "a_place_where"  </span>
 <span class="co">#&gt; [5] "place_where_you" "where_you_put"   "you_put_your"    "put_your_money" </span>
@@ -192,38 +188,37 @@
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; [1] "the_bee_is"          "bee_is_an"           "is_an_insect"       </span>
 <span class="co">#&gt; [4] "an_insect_that"      "insect_that_gathers" "that_gathers_honey"</span></code></pre></div>
-<div id="only-using-step_tokenize" class="section level1">
-<h1 class="hasAnchor">
-<a href="#only-using-step_tokenize" class="anchor"></a>Only using <code>step_tokenize()</code>
+<div class="section level1">
+<h1 id="only-using-step_tokenize">Only using <code>step_tokenize()</code><a class="anchor" aria-label="anchor" href="#only-using-step_tokenize"></a>
 </h1>
-<p>The first methods work by using n-gram <code>token</code> from one of the built-in engine in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> to get a full list of available tokens type <code>?step_tokenize()</code> and go down to <code>Details</code>. We can use the <code>token="ngrams"</code> along with <code>engine = "tokenizers"</code>(the default) to tokenize to n-grams. We finish this <code><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe()</a></code> with <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> and <code><a href="../reference/step_tf.html">step_tf()</a></code>. The filtering doesn’t do anything to the data of this size but it is a good practice to use <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> before using <code><a href="../reference/step_tf.html">step_tf()</a></code> or <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> to control the size of the resulting data.frame.</p>
+<p>The first methods work by using n-gram <code>token</code> from one of the built-in engine in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> to get a full list of available tokens type <code>?step_tokenize()</code> and go down to <code>Details</code>. We can use the <code>token="ngrams"</code> along with <code>engine = "tokenizers"</code>(the default) to tokenize to n-grams. We finish this <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe()</a></code> with <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> and <code><a href="../reference/step_tf.html">step_tf()</a></code>. The filtering doesn’t do anything to the data of this size but it is a good practice to use <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> before using <code><a href="../reference/step_tf.html">step_tf()</a></code> or <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> to control the size of the resulting data.frame.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
 
-<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, token <span class="op">=</span> <span class="st">"ngrams"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, token <span class="op">=</span> <span class="st">"ngrams"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
 
-<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html" class="external-link">juice</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: max_features was set to '100', but only 14 was available and selected.</span>
 
 <span class="va">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 × 14</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span>
 <span class="co">#&gt;   `tf_text_a place where` `tf_text_an insect… `tf_text_bank is… `tf_text_bee is…</span>
-<span class="co">#&gt;                     &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                       1                   0                 1                0</span>
-<span class="co">#&gt; 2                       0                   1                 0                1</span>
-<span class="co">#&gt; # … with 10 more variables: tf_text_insect that gathers &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_is a place &lt;dbl&gt;, tf_text_is an insect &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_place where you &lt;dbl&gt;, tf_text_put your money &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_that gathers honey &lt;dbl&gt;, tf_text_the bank is &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_the bee is &lt;dbl&gt;, tf_text_where you put &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_you put your &lt;dbl&gt;</span>
+<span class="co">#&gt;                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                       1                   0                 1                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                       0                   1                 0                1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: tf_text_insect that gathers &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_is a place &lt;dbl&gt;, tf_text_is an insect &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_place where you &lt;dbl&gt;, tf_text_put your money &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_that gathers honey &lt;dbl&gt;, tf_text_the bank is &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_the bee is &lt;dbl&gt;, tf_text_where you put &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_you put your &lt;dbl&gt;</span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "tf_text_a place where"       "tf_text_an insect that"     </span>
 <span class="co">#&gt;  [3] "tf_text_bank is a"           "tf_text_bee is an"          </span>
 <span class="co">#&gt;  [5] "tf_text_insect that gathers" "tf_text_is a place"         </span>
@@ -233,32 +228,32 @@
 <span class="co">#&gt; [13] "tf_text_where you put"       "tf_text_you put your"</span></code></pre></div>
 <p>If you need to pass arguments to the underlying tokenizer function you can pass a named list to the <code>options</code> argument in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
 
-<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, token <span class="op">=</span> <span class="st">"ngrams"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span>, 
-                                                       ngram_delim <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, token <span class="op">=</span> <span class="st">"ngrams"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span>, 
+                                                       ngram_delim <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
 
-<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html" class="external-link">juice</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: max_features was set to '100', but only 16 was available and selected.</span>
 
 <span class="va">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 × 16</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span>
 <span class="co">#&gt;   tf_text_a_place tf_text_an_insect tf_text_bank_is tf_text_bee_is</span>
-<span class="co">#&gt;             &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;</span>
-<span class="co">#&gt; 1               1                 0               1              0</span>
-<span class="co">#&gt; 2               0                 1               0              1</span>
-<span class="co">#&gt; # … with 12 more variables: tf_text_gathers_honey &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_insect_that &lt;dbl&gt;, tf_text_is_a &lt;dbl&gt;, tf_text_is_an &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_place_where &lt;dbl&gt;, tf_text_put_your &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_that_gathers &lt;dbl&gt;, tf_text_the_bank &lt;dbl&gt;, tf_text_the_bee &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_where_you &lt;dbl&gt;, tf_text_you_put &lt;dbl&gt;, tf_text_your_money &lt;dbl&gt;</span>
+<span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>               1                 0               1              0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>               0                 1               0              1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 12 more variables: tf_text_gathers_honey &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that &lt;dbl&gt;, tf_text_is_a &lt;dbl&gt;, tf_text_is_an &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_place_where &lt;dbl&gt;, tf_text_put_your &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_that_gathers &lt;dbl&gt;, tf_text_the_bank &lt;dbl&gt;, tf_text_the_bee &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you &lt;dbl&gt;, tf_text_you_put &lt;dbl&gt;, tf_text_your_money &lt;dbl&gt;</span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "tf_text_a_place"       "tf_text_an_insect"     "tf_text_bank_is"      </span>
 <span class="co">#&gt;  [4] "tf_text_bee_is"        "tf_text_gathers_honey" "tf_text_insect_that"  </span>
 <span class="co">#&gt;  [7] "tf_text_is_a"          "tf_text_is_an"         "tf_text_place_where"  </span>
@@ -267,35 +262,35 @@
 <span class="co">#&gt; [16] "tf_text_your_money"</span></code></pre></div>
 <p>Lastly you can also supply a custom tokenizer to <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> using the <code>custom_token</code> argument.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
 
 <span class="va">bigram</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">tokenizers</span><span class="fu">::</span><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenize_ngrams</a></span><span class="op">(</span><span class="va">x</span>, lowercase <span class="op">=</span> <span class="cn">FALSE</span>, n <span class="op">=</span> <span class="fl">2</span>, ngram_delim <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
+  <span class="fu">tokenizers</span><span class="fu">::</span><span class="fu"><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams</a></span><span class="op">(</span><span class="va">x</span>, lowercase <span class="op">=</span> <span class="cn">FALSE</span>, n <span class="op">=</span> <span class="fl">2</span>, ngram_delim <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, custom_token <span class="op">=</span> <span class="va">bigram</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, custom_token <span class="op">=</span> <span class="va">bigram</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
 
-<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html" class="external-link">juice</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: max_features was set to '100', but only 16 was available and selected.</span>
 
 <span class="va">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 × 16</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span>
 <span class="co">#&gt;   tf_text_a.place tf_text_an.insect tf_text_Bank.is tf_text_Bee.is</span>
-<span class="co">#&gt;             &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;</span>
-<span class="co">#&gt; 1               1                 0               1              0</span>
-<span class="co">#&gt; 2               0                 1               0              1</span>
-<span class="co">#&gt; # … with 12 more variables: tf_text_gathers.honey &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_insect.that &lt;dbl&gt;, tf_text_is.a &lt;dbl&gt;, tf_text_is.an &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_place.where &lt;dbl&gt;, tf_text_put.your &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_that.gathers &lt;dbl&gt;, tf_text_The.Bank &lt;dbl&gt;, tf_text_The.Bee &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_where.you &lt;dbl&gt;, tf_text_you.put &lt;dbl&gt;, tf_text_your.money &lt;dbl&gt;</span>
+<span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>               1                 0               1              0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>               0                 1               0              1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 12 more variables: tf_text_gathers.honey &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect.that &lt;dbl&gt;, tf_text_is.a &lt;dbl&gt;, tf_text_is.an &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_place.where &lt;dbl&gt;, tf_text_put.your &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_that.gathers &lt;dbl&gt;, tf_text_The.Bank &lt;dbl&gt;, tf_text_The.Bee &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_where.you &lt;dbl&gt;, tf_text_you.put &lt;dbl&gt;, tf_text_your.money &lt;dbl&gt;</span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "tf_text_a.place"       "tf_text_an.insect"     "tf_text_Bank.is"      </span>
 <span class="co">#&gt;  [4] "tf_text_Bee.is"        "tf_text_gathers.honey" "tf_text_insect.that"  </span>
 <span class="co">#&gt;  [7] "tf_text_is.a"          "tf_text_is.an"         "tf_text_place.where"  </span>
@@ -309,43 +304,42 @@
 </ul>
 <p>Cons:</p>
 <ul>
-<li>Minimal flexibility, (<code><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html">tokenizers::tokenize_ngrams()</a></code> don’t let you control how the words are tokenized.)</li>
+<li>Minimal flexibility, (<code><a href="https://lincolnmullen.com/software/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenizers::tokenize_ngrams()</a></code> don’t let you control how the words are tokenized.)</li>
 <li>You are not able to tune the number of tokens in your n-gram</li>
 </ul>
 </div>
-<div id="using-step_tokenize-and-step_ngram" class="section level1">
-<h1 class="hasAnchor">
-<a href="#using-step_tokenize-and-step_ngram" class="anchor"></a>Using <code>step_tokenize()</code> and <code>step_ngram()</code>
+<div class="section level1">
+<h1 id="using-step_tokenize-and-step_ngram">Using <code>step_tokenize()</code> and <code>step_ngram()</code><a class="anchor" aria-label="anchor" href="#using-step_tokenize-and-step_ngram"></a>
 </h1>
 <p>As of version 0.2.0 you can use <code><a href="../reference/step_ngram.html">step_ngram()</a></code> along with <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> to gain higher control over how your n-grams are being generated.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
 
-<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span><span class="op">(</span><span class="va">text</span>, num_tokens <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span><span class="op">(</span><span class="va">text</span>, num_tokens <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
 
-<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html" class="external-link">juice</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: max_features was set to '100', but only 14 was available and selected.</span>
 
 <span class="va">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 × 14</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span>
 <span class="co">#&gt;   tf_text_a_place_where tf_text_an_insect_that tf_text_bank_is… tf_text_bee_is_…</span>
-<span class="co">#&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                     1                      0                1                0</span>
-<span class="co">#&gt; 2                     0                      1                0                1</span>
-<span class="co">#&gt; # … with 10 more variables: tf_text_insect_that_gathers &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_is_a_place &lt;dbl&gt;, tf_text_is_an_insect &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_place_where_you &lt;dbl&gt;, tf_text_put_your_money &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_that_gathers_honey &lt;dbl&gt;, tf_text_the_bank_is &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_the_bee_is &lt;dbl&gt;, tf_text_where_you_put &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_you_put_your &lt;dbl&gt;</span>
+<span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                     1                      0                1                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                     0                      1                0                1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: tf_text_insect_that_gathers &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_is_a_place &lt;dbl&gt;, tf_text_is_an_insect &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_place_where_you &lt;dbl&gt;, tf_text_put_your_money &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_that_gathers_honey &lt;dbl&gt;, tf_text_the_bank_is &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bee_is &lt;dbl&gt;, tf_text_where_you_put &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_you_put_your &lt;dbl&gt;</span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "tf_text_a_place_where"       "tf_text_an_insect_that"     </span>
 <span class="co">#&gt;  [3] "tf_text_bank_is_a"           "tf_text_bee_is_an"          </span>
 <span class="co">#&gt;  [5] "tf_text_insect_that_gathers" "tf_text_is_a_place"         </span>
@@ -355,33 +349,33 @@
 <span class="co">#&gt; [13] "tf_text_where_you_put"       "tf_text_you_put_your"</span></code></pre></div>
 <p>Now you are able to perform additional steps between the tokenization and the n-gram creation such as stemming the tokens.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">abc_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">abc</span><span class="op">)</span>
 
-<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span><span class="op">(</span><span class="va">text</span>, num_tokens <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text</span>, data <span class="op">=</span> <span class="va">abc_tibble</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_ngram.html">step_ngram</a></span><span class="op">(</span><span class="va">text</span>, num_tokens <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
 
-<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html">juice</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/juice.html" class="external-link">juice</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: max_features was set to '100', but only 14 was available and selected.</span>
 
 <span class="va">abc_ngram</span>
-<span class="co">#&gt; # A tibble: 2 × 14</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span>
 <span class="co">#&gt;   tf_text_a_place_where tf_text_an_insect_that tf_text_bank_i_a tf_text_bee_i_an</span>
-<span class="co">#&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1                     1                      0                1                0</span>
-<span class="co">#&gt; 2                     0                      1                0                1</span>
-<span class="co">#&gt; # … with 10 more variables: tf_text_i_a_place &lt;dbl&gt;, tf_text_i_an_insect &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_insect_that_gather &lt;dbl&gt;, tf_text_place_where_you &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_put_your_monei &lt;dbl&gt;, tf_text_that_gather_honei &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_the_bank_i &lt;dbl&gt;, tf_text_the_bee_i &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_text_where_you_put &lt;dbl&gt;, tf_text_you_put_your &lt;dbl&gt;</span>
+<span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                     1                      0                1                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                     0                      1                0                1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: tf_text_i_a_place &lt;dbl&gt;, tf_text_i_an_insect &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that_gather &lt;dbl&gt;, tf_text_place_where_you &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_put_your_monei &lt;dbl&gt;, tf_text_that_gather_honei &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bank_i &lt;dbl&gt;, tf_text_the_bee_i &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you_put &lt;dbl&gt;, tf_text_you_put_your &lt;dbl&gt;</span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "tf_text_a_place_where"      "tf_text_an_insect_that"    </span>
 <span class="co">#&gt;  [3] "tf_text_bank_i_a"           "tf_text_bee_i_an"          </span>
 <span class="co">#&gt;  [5] "tf_text_i_a_place"          "tf_text_i_an_insect"       </span>
@@ -419,8 +413,8 @@
 
 <div class="author">
   <p>
-    Developed by Emil Hvitfeldt.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -429,6 +423,8 @@
 
   
 
+
+  
 
   </body>
 </html>
