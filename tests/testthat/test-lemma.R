@@ -80,14 +80,14 @@ test_that("empty selection tidy method works", {
   
   expect_identical(
     tidy(rec, number = 1),
-    tibble(terms = character(), is_custom_stemmer = logical(), id = character())
+    tibble(terms = character(), id = character())
   )
   
   rec <- prep(rec, mtcars)
   
   expect_identical(
     tidy(rec, number = 1),
-    tibble(terms = character(), is_custom_stemmer = logical(), id = character())
+    tibble(terms = character(), id = character())
   )
 })
 

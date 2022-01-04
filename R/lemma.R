@@ -131,16 +131,10 @@ print.step_lemma <-
 #' @export
 tidy.step_lemma <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(
-      terms = unname(x$columns),
-      is_custom_stemmer = is.null(x$custom_stemmer)
-    )
+    res <- tibble(terms = unname(x$columns))
   } else {
     term_names <- sel2char(x$terms)
-    res <- tibble(
-      terms = term_names,
-      is_custom_stemmer = is.null(x$custom_stemmer)
-    )
+    res <- tibble(terms = term_names)
   }
   res$id <- x$id
   res
