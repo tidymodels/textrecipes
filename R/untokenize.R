@@ -57,7 +57,7 @@ step_untokenize <-
     add_step(
       recipe,
       step_untokenize_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -132,7 +132,7 @@ print.step_untokenize <-
 tidy.step_untokenize <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       value = x$sep
     )
   } else {

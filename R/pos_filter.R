@@ -56,7 +56,7 @@ step_pos_filter <-
     add_step(
       recipe,
       step_pos_filter_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -136,7 +136,7 @@ print.step_pos_filter <-
 #' @export
 tidy.step_pos_filter <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms)
+    res <- tibble(terms = unname(x$columns))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(

@@ -83,7 +83,7 @@ step_stem <-
     add_step(
       recipe,
       step_stem_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         options = options,
@@ -162,14 +162,14 @@ print.step_stem <-
 tidy.step_stem <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       is_custom_stemmer = is.null(x$custom_stemmer)
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
       terms = term_names,
-      value = na_chr
+      is_custom_stemmer = is.null(x$custom_stemmer)
     )
   }
   res$id <- x$id

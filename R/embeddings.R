@@ -109,7 +109,7 @@ step_word_embeddings <- function(recipe,
   add_step(
     recipe,
     step_word_embeddings_new(
-      terms = ellipse_check(...),
+      terms = enquos(...),
       role = role,
       trained = trained,
       columns = columns,
@@ -163,6 +163,11 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_word_embeddings <- function(object, new_data, ...) {
+  if (length(object$column) == 0L) {
+    # Empty selection
+    return(new_data)
+  }
+  
   col_names <- object$columns
   # for backward compat
 
@@ -232,7 +237,7 @@ print.step_word_embeddings <- function(x,
 tidy.step_word_embeddings <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns %||% character()),
       embeddings_rows = nrow(x$embeddings),
       aggregation = x$aggregation
     )

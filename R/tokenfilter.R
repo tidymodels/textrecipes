@@ -86,7 +86,7 @@ step_tokenfilter <-
     add_step(
       recipe,
       step_tokenfilter_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -127,7 +127,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   check_list(training[, col_names])
 
   retain_words <- list()
-  n_words <- list()
+  n_words <- integer()
 
   for (i in seq_along(col_names)) {
     retain_words[[i]] <- tokenfilter_fun(
@@ -187,7 +187,7 @@ print.step_tokenfilter <-
 tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       value = x$max_tokens
     )
   } else {

@@ -90,7 +90,7 @@ step_tfidf <-
     add_step(
       recipe,
       step_tfidf_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         vocabulary = vocabulary,
@@ -191,7 +191,7 @@ print.step_tfidf <-
 #' @export
 tidy.step_tfidf <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms)
+    res <- tibble(terms = unname(x$columns))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names)

@@ -77,7 +77,7 @@ step_sequence_onehot <-
     add_step(
       recipe,
       step_sequence_onehot_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -181,12 +181,19 @@ print.step_sequence_onehot <-
 #' @export
 tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {
-    term_names <- sel2char(x$terms)
-    res <- tibble(
-      terms = rep(term_names, each = lengths(x$vocabulary)),
-      vocabulary = unlist(lapply(x$vocabulary, seq_along)),
-      token = unlist(x$vocabulary)
-    )
+    if (length(x$columns) == 0) {
+      res <- tibble(
+        terms = character(),
+        vocabulary = character(),
+        token = integer()
+      )
+    } else {
+      res <- tibble(
+        terms = rep(x$columns, each = lengths(x$vocabulary)),
+        vocabulary = unlist(lapply(x$vocabulary, seq_along)),
+        token = unlist(x$vocabulary)
+      )
+    }
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(

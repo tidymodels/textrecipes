@@ -12,7 +12,7 @@ step_dummy_hash(
   trained = FALSE,
   columns = NULL,
   signed = TRUE,
-  num_terms = 32,
+  num_terms = 32L,
   collapse = FALSE,
   prefix = "hash",
   skip = FALSE,

@@ -11,7 +11,7 @@ step_texthash(
   trained = FALSE,
   columns = NULL,
   signed = TRUE,
-  num_terms = 1024,
+  num_terms = 1024L,
   prefix = "hash",
   skip = FALSE,
   id = rand_id("texthash")

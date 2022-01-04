@@ -66,7 +66,7 @@ step_ngram <-
     add_step(
       recipe,
       step_ngram_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         num_tokens = num_tokens,
@@ -147,7 +147,7 @@ print.step_ngram <-
 #' @export
 tidy.step_ngram <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = x$terms)
+    res <- tibble(terms = unname(x$columns))
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(

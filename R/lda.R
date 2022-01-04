@@ -76,7 +76,7 @@ step_lda <-
            trained = FALSE,
            columns = NULL,
            lda_models = NULL,
-           num_topics = 10,
+           num_topics = 10L,
            prefix = "lda",
            skip = FALSE,
            id = rand_id("lda")
@@ -87,7 +87,7 @@ step_lda <-
     add_step(
       recipe,
       step_lda_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -193,7 +193,7 @@ tidy.step_lda <- function(x, ...) {
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(terms = term_names,
-                  num_topics = NA)
+                  num_topics = x$num_topics)
   }
   res$id <- x$id
   res
