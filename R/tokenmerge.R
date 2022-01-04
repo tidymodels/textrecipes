@@ -48,7 +48,7 @@ step_tokenmerge <-
     add_step(
       recipe,
       step_tokenmerge_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -93,10 +93,15 @@ prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_tokenmerge <- function(object, new_data, ...) {
+  if (length(object$column) == 0L) {
+    # Empty selection
+    return(new_data)
+  }
+  
   col_names <- object$columns
   # for backward compat
 
-  new_col <- as.list(unname(new_data[, col_names, drop = FALSE])) %>%
+  new_col <- as.list(unname(as.data.frame(new_data[, col_names, drop = FALSE]))) %>%
     map(get_tokens) %>%
     pmap(c)
   new_col <- tibble(tokenlist(new_col))
@@ -123,7 +128,7 @@ print.step_tokenmerge <-
 #' @export
 tidy.step_tokenmerge <- function(x, ...) {
   if (is_trained(x)) {
-    term_names <- sel2char(x$terms)
+    term_names <- unname(x$columns)
     res <- tibble(terms = term_names)
   } else {
     term_names <- sel2char(x$terms)
