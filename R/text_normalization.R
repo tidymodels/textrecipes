@@ -58,7 +58,7 @@ step_text_normalization <-
     add_step(
       recipe,
       step_text_normalization_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         normalization_form = normalization_form,
@@ -146,14 +146,14 @@ print.step_text_normalization <-
 tidy.step_text_normalization <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       normalization_form = x$normalization_form
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
       terms = term_names,
-      value = na_chr
+      normalization_form = na_chr
     )
   }
   res$id <- x$id
