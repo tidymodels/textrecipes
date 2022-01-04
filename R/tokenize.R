@@ -230,7 +230,7 @@ step_tokenize <-
     add_step(
       recipe,
       step_tokenize_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -324,7 +324,7 @@ print.step_tokenize <-
 tidy.step_tokenize <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       value = x$token
     )
   } else {
