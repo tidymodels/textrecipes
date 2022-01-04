@@ -1,7 +1,3 @@
-context("S3 methods")
-
-# ------------------------------------------------------------------------------
-
 library(recipes)
 library(textrecipes)
 
