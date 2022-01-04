@@ -97,7 +97,7 @@ step_tf <-
     add_step(
       recipe,
       step_tf_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         res = res,
@@ -200,7 +200,7 @@ print.step_tf <-
 tidy.step_tf <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       value = x$weight_scheme
     )
   } else {

@@ -1,5 +1,3 @@
-context("test-tf")
-
 library(recipes)
 library(textrecipes)
 
@@ -20,8 +18,8 @@ test_that("step_tf works as intended", {
   obj <- rec %>%
     prep()
 
-  rec_answer <- unname(bake(obj, new_data = NULL))
-  manual_answer <- unname(tibble(
+  rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
+  manual_answer <- unname(data.frame(
     am = c(0, 0, 0, 1),
     and = c(0, 0, 1, 0),
     anywhere = c(0, 1, 0, 0),
@@ -73,8 +71,8 @@ test_that("step_tf works with other weighting schemes", {
   obj <- rec %>%
     prep()
 
-  rec_answer <- unname(bake(obj, new_data = NULL))
-  manual_answer <- unname(tibble(
+  rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
+  manual_answer <- unname(data.frame(
     am = c(0 / 8, 0 / 6, 0 / 8, 1 / 8),
     and = c(0 / 8, 0 / 6, 1 / 8, 0 / 8),
     anywhere = c(0 / 8, 1 / 6, 0 / 8, 0 / 8),
@@ -106,4 +104,45 @@ test_that("printing", {
     step_tf(text)
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
+})
+
+test_that("empty selection prep/bake is a no-op", {
+  rec1 <- recipe(mpg ~ ., mtcars)
+  rec2 <- step_tf(rec1)
+  
+  rec1 <- prep(rec1, mtcars)
+  rec2 <- prep(rec2, mtcars)
+  
+  baked1 <- bake(rec1, mtcars)
+  baked2 <- bake(rec2, mtcars)
+  
+  expect_identical(baked1, baked1)
+})
+
+test_that("empty selection tidy method works", {
+  rec <- recipe(mpg ~ ., mtcars)
+  rec <- step_tf(rec)
+  
+  expect_identical(
+    tidy(rec, number = 1),
+    tibble(terms = character(), value = character(), id = character())
+  )
+  
+  rec <- prep(rec, mtcars)
+  
+  expect_identical(
+    tidy(rec, number = 1),
+    tibble(terms = character(), value = character(), id = character())
+  )
+})
+
+test_that("empty printing", {
+  rec <- recipe(mpg ~ ., mtcars)
+  rec <- step_tf(rec)
+  
+  expect_snapshot(rec)
+  
+  rec <- prep(rec, mtcars)
+  
+  expect_snapshot(rec)
 })
