@@ -50,6 +50,13 @@ reference:
   - title: Tokenlist functions
     contents:
     - tokenlist
+    - show_tokens
+  - title: Data Sets
+    contents:
+    - emoji_samples
+  - title: Selectors
+    contents:
+    - all_tokenized
   - title: Tidy Methods
     contents:
     - tidy.recipe
