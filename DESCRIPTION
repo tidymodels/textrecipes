@@ -42,6 +42,8 @@ Suggests:
     textfeatures (>= 0.3.3),
     tokenizers.bpe,
     udpipe
+Remotes:
+    tidymodels/recipes
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
