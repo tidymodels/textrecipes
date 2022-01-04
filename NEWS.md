@@ -6,6 +6,8 @@
 
 * Added `all_tokenized()` and `all_tokenized_predictors()` to more easily select tokenized columns (#132).
 
+* All recipe steps now officially support empty selections to be more aligned with dplyr and other packages that use tidyselect (#141).
+
 # textrecipes 0.4.1
 
 ## Bug fixes
