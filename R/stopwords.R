@@ -86,7 +86,7 @@ step_stopwords <-
     add_step(
       recipe,
       step_stopwords_new(
-        terms = ellipse_check(...),
+        terms = enquos(...),
         role = role,
         trained = trained,
         columns = columns,
@@ -176,7 +176,7 @@ print.step_stopwords <-
 tidy.step_stopwords <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = x$terms,
+      terms = unname(x$columns),
       value = x$stopword_source,
       keep = x$keep
     )
