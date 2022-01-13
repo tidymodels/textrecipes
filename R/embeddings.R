@@ -100,7 +100,7 @@ step_word_embeddings <- function(recipe,
     )
     rlang::abort(
       embeddings_message,
-      .subclass = "bad_embeddings"
+      class = "bad_embeddings"
     )
   }
 
