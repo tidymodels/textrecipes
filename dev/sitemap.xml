@@ -1,132 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://textrecipes.tidymodels.org/CODE_OF_CONDUCT.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/ISSUE_TEMPLATE.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/ISSUE_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/LICENSE-text.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/LICENSE.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/articles/Working-with-n-grams.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/articles/Working-with-n-grams.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/articles/cookbook---using-more-complex-recipes-involving-text.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/articles/cookbook---using-more-complex-recipes-involving-text.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/articles/index.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/articles/tokenlist.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/articles/tokenlist.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/authors.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/index.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/news/index.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/all_tokenized.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/all_tokenized.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/emoji_samples.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/emoji_samples.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/index.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/pipe.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/rcpp_ngram.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/rcpp_ngram.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/reexports.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/required_pkgs.step.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/required_pkgs.step.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/show_tokens.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/show_tokens.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_clean_levels.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_clean_levels.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_clean_names.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_clean_names.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_dummy_hash.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_lda.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_lda.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_lemma.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_lemma.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_ngram.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_ngram.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_pos_filter.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_sequence_onehot.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_stem.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_stem.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_stopwords.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_stopwords.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_text_normalization.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_text_normalization.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_textfeature.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_textfeature.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_texthash.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_texthash.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_tf.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tf.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_tfidf.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tfidf.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_tokenfilter.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenfilter.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_tokenize.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_tokenmerge.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_untokenize.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_untokenize.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/step_word_embeddings.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_word_embeddings.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/textrecipes-package.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/textrecipes-package.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/tidy.recipe.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/tidy.recipe.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/tokenlist.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/tokenlist.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/tunable.step.html</loc>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/tunable.step.html</loc>
   </url>
 </urlset>
