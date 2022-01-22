@@ -19,15 +19,6 @@
 #' 
 #' @template returns
 #' 
-#' @details
-#' 
-#' This tokenizer is trained on the training set and will thus need to be passed
-#' training arguments. These are passed to the `training_options` argument and 
-#' the most important one is `vocab_size`. The determines the number of unique
-#' tokens the tokenizer will produce. It is generally set to a much higher
-#' value, typically in the thousands, but is set to 22 here for demonstration
-#' purposes.
-#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
 #' 
@@ -185,18 +176,4 @@ tidy.step_bpe_tokenize <- function(x, ...) {
 #' @export
 required_pkgs.step_bpe_tokenize <- function(x, ...) {
   c("tokenizers.bpe", "textrecipes")
-}
-
-#' @rdname tunable.step
-#' @export
-tunable.step_bpe_tokenize <- function(x, ...) {
-  #tibble::tibble(
-  #  name = c("token"),
-  #  call_info = list(
-  #    list(pkg = "dials", fun = "token")
-  #  ),
-  #  source = "recipe",
-  #  component = "step_bpe_tokenize",
-  #  component_id = x$id
-  #)
 }

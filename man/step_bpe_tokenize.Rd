@@ -60,14 +60,6 @@ to the sequence of existing steps (if any).
 will convert a character predictor into a \link{tokenlist} using Byte Pair
 Encoding.
 }
-\details{
-This tokenizer is trained on the training set and will thus need to be passed
-training arguments. These are passed to the \code{training_options} argument and
-the most important one is \code{vocab_size}. The determines the number of unique
-tokens the tokenizer will produce. It is generally set to a much higher
-value, typically in the thousands, but is set to 22 here for demonstration
-purposes.
-}
 \examples{
 library(recipes)
 library(modeldata)
