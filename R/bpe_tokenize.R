@@ -9,6 +9,8 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
+#' @param vocabulary_size Integer, indicating the number of tokens in the final
+#'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
 #' @param options A list of options passed to the tokenizer.
 #' @param res The fitted [tokenizers.bpe::bpe()] model tokenizer will be stored
 #'   here once this preprocessing step has be trained by [prep.recipe()].
@@ -57,6 +59,7 @@ step_bpe_tokenize <-
            role = NA,
            trained = FALSE,
            columns = NULL,
+           vocabulary_size = 1000,
            options = list(),
            res = NULL,
            skip = FALSE,
@@ -68,6 +71,7 @@ step_bpe_tokenize <-
         role = role,
         trained = trained,
         columns = columns,
+        vocabulary_size = vocabulary_size,
         options = options,
         res = res,
         skip = skip,
@@ -77,13 +81,15 @@ step_bpe_tokenize <-
   }
 
 step_bpe_tokenize_new <-
-  function(terms, role, trained, columns, options, res, skip, id) {
+  function(terms, role, trained, columns, options, vocabulary_size, res, skip, 
+           id) {
     step(
       subclass = "bpe_tokenize",
       terms = terms,
       role = role,
       trained = trained,
       columns = columns,
+      vocabulary_size = vocabulary_size,
       options = options,
       res = res,
       skip = skip,
@@ -101,10 +107,19 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
   
   tokenizers <- list()
   
+  bpe_options <- x$training_options
+  if (!is.null(bpe_options$vocab_size)) {
+    rlang::abort(
+      "Please supply the vocabulary size using the `vocabulary_size` argument."
+    )
+  }
+  bpe_options$vocab_size <- x$vocabulary_size
+  
   for (i in seq_along(col_names)) {
+    
     tokenizers[[i]] <- tokenizers_bpe_words(
       training[, col_names[[i]], drop = TRUE], 
-      x$training_options
+      bpe_options
     )
   }
   
@@ -113,7 +128,8 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    options = x$options,
+    vocabulary_size = x$vocabulary_size,
+    options = x$training_options,
     res = tokenizers,
     skip = x$skip,
     id = x$id
