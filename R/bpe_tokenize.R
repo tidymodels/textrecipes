@@ -158,14 +158,12 @@ print.step_bpe_tokenize <-
 tidy.step_bpe_tokenize <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
-      terms = unname(x$columns),
-      value = x$token
+      terms = unname(x$columns)
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
-      terms = term_names,
-      value = na_chr
+      terms = term_names
     )
   }
   res$id <- x$id
