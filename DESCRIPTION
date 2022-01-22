@@ -10,7 +10,8 @@ Description: Converting text to numerical features requires specifically
     counting (tf and tfidf) and feature hashing.
 License: MIT + file LICENSE
 URL: https://github.com/tidymodels/textrecipes,
-    https://textrecipes.tidymodels.org
+    https://textrecipes.tidymodels.org,
+    https://textrecipes.tidymodels.org/
 BugReports: https://github.com/tidymodels/textrecipes/issues
 Depends: 
     R (>= 2.10),
@@ -48,8 +49,7 @@ LinkingTo:
     Rcpp
 VignetteBuilder: 
     knitr
-Config/Needs/website: 
-    tidyverse/tidytemplate
+Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
