@@ -121,6 +121,15 @@ test_that("arguments are passed to tokenizers.bpe", {
   )
 })
 
+test_that("Errors if vocabulary size is set to low.", {
+  expect_error(
+    recipe(~text1, data = test_data) %>%
+      step_bpe_tokenize(text1, vocabulary_size = 10) %>%
+      prep(),
+    "unique character count of 23"
+  )
+})
+
 
 test_that("printing", {
   rec <- recipe(~., data = test_data) %>%

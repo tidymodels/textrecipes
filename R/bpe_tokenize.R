@@ -107,11 +107,11 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
   bpe_options$vocab_size <- x$vocabulary_size
   
   for (i in seq_along(col_names)) {
+    text <- training[, col_names[[i]], drop = TRUE]
     
-    tokenizers[[i]] <- tokenizers_bpe_words(
-      training[, col_names[[i]], drop = TRUE], 
-      bpe_options
-    )
+    check_bpe_vocab_size(text, x$vocabulary_size, col_names[[i]])
+    
+    tokenizers[[i]] <- tokenizers_bpe_words(text, bpe_options)
   }
   
   step_bpe_tokenize_new(
@@ -125,6 +125,26 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
     skip = x$skip,
     id = x$id
   )
+}
+
+check_bpe_vocab_size <- function(text, vocabulary_size, column) {
+  text_count <- strsplit(as.character(text), "")
+  text_count <- unlist(text_count)
+  text_count <- unique(text_count)
+  text_count <- length(text_count)
+
+  if (vocabulary_size < text_count) {
+    rlang::abort(
+      paste0(
+        "`vocabulary_size` of ",
+        vocabulary_size,
+        " is too small for column `",
+        column,
+        "` which has a unique character count of ",
+        text_count
+      )
+    )
+  }
 }
 
 #' @export
