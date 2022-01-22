@@ -15,6 +15,7 @@ reference:
 - title: Step Functions - Tokenization
   contents:
   - step_tokenize
+  - step_bpe_tokenize
 - title: Step Functions - Un-Tokenization
   contents:
   - step_untokenize
