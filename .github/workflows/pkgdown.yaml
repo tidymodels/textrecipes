@@ -28,6 +28,13 @@ jobs:
           extra-packages: pkgdown
           needs: website
 
+      - name: Install spacy
+        run: |
+          Rscript -e "reticulate::install_miniconda()"
+          echo "options(reticulate.conda_binary = reticulate:::miniconda_conda())" >> .Rprofile
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
+          Rscript -e "spacyr::spacy_install(prompt = FALSE)"
+
       - name: Deploy package
         run: |
           git config --local user.name "$GITHUB_ACTOR"
