@@ -12,41 +12,41 @@ development:
   mode: auto
 
 reference:
-- title: Step Functions - character to tokenlist
+- title: Step Functions - Tokenization
   contents:
   - step_tokenize
-- title: Step Functions - tokenlist to character
+- title: Step Functions - Un-Tokenization
   contents:
   - step_untokenize
-- title: Step Functions - tokenlist to tokenlist
+- title: Step Functions - Token Modification
   contents:
+  - step_lemma
+  - step_ngram
+  - step_pos_filter
   - step_stem
   - step_stopwords
-  - step_lemma
   - step_tokenfilter
   - step_tokenmerge
-  - step_pos_filter
-  - step_ngram
-- title: Step Functions - tokenlist to numeric
+- title: Step Functions - Numeric Variables From Tokens
   contents:
   - step_lda
-  - step_tfidf
-  - step_tf
   - step_texthash
+  - step_tf
+  - step_tfidf
   - step_word_embeddings
-- title: Step Functions - character to numeric
+- title: Step Functions - Numeric Variables From Characters
   contents:
-  - step_textfeature
-  - step_sequence_onehot
   - step_dummy_hash
-- title: Step Functions - character to character
+  - step_sequence_onehot
+  - step_textfeature
+- title: Step Functions - Text Normalization
   contents:
   - step_text_normalization
-- title: Step Functions - text cleaning
+- title: Step Functions - Text Cleaning
   contents:
   - step_clean_levels
   - step_clean_names
-- title: Tokenlist functions
+- title: Token Functions
   contents:
   - tokenlist
   - show_tokens
