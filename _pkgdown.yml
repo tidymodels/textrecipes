@@ -2,61 +2,60 @@ url: https://textrecipes.tidymodels.org
 
 template:
   package: tidytemplate
-  params:
-    part_of: <a href="https://tidymodels.org">tidymodels</a>
-    footer: textrecipes is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
-
+  bootstrap: 5
+  bslib:
+    primary: "#CA225E"
+  includes:
+      in_header: |
+        <script defer data-domain="textrecipes.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>  
 development:
   mode: auto
 
-home:
-  strip_header: true
-
 reference:
-  - title: Step Functions - character to tokenlist
-    contents:
-    - step_tokenize
-  - title: Step Functions - tokenlist to character
-    contents:
-    - step_untokenize
-  - title: Step Functions - tokenlist to tokenlist
-    contents:
-    - step_stem
-    - step_stopwords
-    - step_lemma
-    - step_tokenfilter
-    - step_tokenmerge
-    - step_pos_filter
-    - step_ngram
-  - title: Step Functions - tokenlist to numeric
-    contents:
-    - step_lda
-    - step_tfidf
-    - step_tf
-    - step_texthash
-    - step_word_embeddings
-  - title: Step Functions - character to numeric
-    contents:
-    - step_textfeature
-    - step_sequence_onehot
-    - step_dummy_hash
-  - title: Step Functions - character to character
-    contents:
-    - step_text_normalization
-  - title: Step Functions - text cleaning
-    contents:
-    - step_clean_levels
-    - step_clean_names
-  - title: Tokenlist functions
-    contents:
-    - tokenlist
-    - show_tokens
-  - title: Data Sets
-    contents:
-    - emoji_samples
-  - title: Selectors
-    contents:
-    - all_tokenized
-  - title: Tidy Methods
-    contents:
-    - tidy.recipe
+- title: Step Functions - character to tokenlist
+  contents:
+  - step_tokenize
+- title: Step Functions - tokenlist to character
+  contents:
+  - step_untokenize
+- title: Step Functions - tokenlist to tokenlist
+  contents:
+  - step_stem
+  - step_stopwords
+  - step_lemma
+  - step_tokenfilter
+  - step_tokenmerge
+  - step_pos_filter
+  - step_ngram
+- title: Step Functions - tokenlist to numeric
+  contents:
+  - step_lda
+  - step_tfidf
+  - step_tf
+  - step_texthash
+  - step_word_embeddings
+- title: Step Functions - character to numeric
+  contents:
+  - step_textfeature
+  - step_sequence_onehot
+  - step_dummy_hash
+- title: Step Functions - character to character
+  contents:
+  - step_text_normalization
+- title: Step Functions - text cleaning
+  contents:
+  - step_clean_levels
+  - step_clean_names
+- title: Tokenlist functions
+  contents:
+  - tokenlist
+  - show_tokens
+- title: Selectors
+  contents:
+  - all_tokenized
+- title: Data Sets
+  contents:
+  - emoji_samples
+- title: Tidy Methods
+  contents:
+  - tidy.recipe
