@@ -111,7 +111,7 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
     
     check_bpe_vocab_size(text, x$vocabulary_size, col_names[[i]])
     
-    tokenizers[[i]] <- tokenizers_bpe_words(text, bpe_options)
+    tokenizers[[i]] <- tokenizers_bpe_tokens(text, bpe_options)
   }
   
   step_bpe_tokenize_new(

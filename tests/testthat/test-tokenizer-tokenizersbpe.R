@@ -62,7 +62,7 @@ text2_out <- list(
 test_that("tokenizer works", {
   skip_if_not_installed("tokenizers.bpe")
 
-  fun1 <- tokenizers_bpe_words(text1)
+  fun1 <- tokenizers_bpe_tokens(text1)
 
   out <- fun1(text1)
 
@@ -80,7 +80,7 @@ test_that("tokenizer works", {
     vctrs::field(out, "pos")
   )
 
-  fun2 <- tokenizers_bpe_words(text2)
+  fun2 <- tokenizers_bpe_tokens(text2)
 
   out <- fun2(text2)
 

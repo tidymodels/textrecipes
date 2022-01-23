@@ -435,7 +435,7 @@ tokenizer_switch <- function(name, object, data) {
     }
 
     res <- switch(name,
-      words = tokenizers_bpe_words(data, object$training_options)
+      words = tokenizers_bpe_tokens(data, object$training_options)
     )
     return(res)
   }
