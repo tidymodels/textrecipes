@@ -23,6 +23,7 @@
 #' @family character to tokenlist steps
 #' 
 #' @examples
+#' if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
@@ -42,7 +43,7 @@
 #'
 #' tidy(tate_rec, number = 1)
 #' tidy(tate_obj, number = 1)
-#'
+#' }
 #' @export
 step_bpe_tokenize <-
   function(recipe,
@@ -55,6 +56,9 @@ step_bpe_tokenize <-
            res = NULL,
            skip = FALSE,
            id = rand_id("bpe_tokenize")) {
+    
+    recipes::recipes_pkg_check(required_pkgs.step_bpe_tokenize())
+    
     add_step(
       recipe,
       step_bpe_tokenize_new(

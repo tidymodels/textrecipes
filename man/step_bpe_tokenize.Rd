@@ -61,6 +61,7 @@ will convert a character predictor into a \link{tokenlist} using Byte Pair
 Encoding.
 }
 \examples{
+if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -80,7 +81,7 @@ bake(tate_obj, new_data = NULL) \%>\%
 
 tidy(tate_rec, number = 1)
 tidy(tate_obj, number = 1)
-
+}
 }
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
