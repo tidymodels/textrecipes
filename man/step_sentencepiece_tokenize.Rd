@@ -10,7 +10,7 @@ step_sentencepiece_tokenize(
   role = NA,
   trained = FALSE,
   columns = NULL,
-  vocabulary_size = 1000,
+  vocabulary_size = 8000,
   options = list(),
   res = NULL,
   skip = FALSE,
@@ -36,7 +36,7 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{vocabulary_size}{Integer, indicating the number of tokens in the final
-vocabulary. Defaults to 1000. Highly encouraged to be tuned.}
+vocabulary. Defaults to 8000. Highly encouraged to be tuned.}
 
 \item{options}{A list of options passed to the tokenizer.}
 

@@ -10,7 +10,7 @@
 #' @template args-trained
 #' @template args-columns
 #' @param vocabulary_size Integer, indicating the number of tokens in the final
-#'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
+#'   vocabulary. Defaults to 8000. Highly encouraged to be tuned.
 #' @param options A list of options passed to the tokenizer.
 #' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will 
 #'   be stored here once this preprocessing step has be trained by 
@@ -52,7 +52,7 @@ step_sentencepiece_tokenize <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           vocabulary_size = 1000,
+           vocabulary_size = 8000,
            options = list(),
            res = NULL,
            skip = FALSE,
