@@ -102,7 +102,7 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
   
   tokenizers <- list()
   
-  bpe_options <- x$training_options
+  bpe_options <- x$options
   if (!is.null(bpe_options$vocab_size)) {
     rlang::abort(
       "Please supply the vocabulary size using the `vocabulary_size` argument."
@@ -124,7 +124,7 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     vocabulary_size = x$vocabulary_size,
-    options = x$training_options,
+    options = x$options,
     res = tokenizers,
     skip = x$skip,
     id = x$id
