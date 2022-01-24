@@ -1,8 +1,8 @@
 #' Sentencepiece Tokenization of character variables
 #'
-#' [step_sentencepiece_tokenize()] creates a *specification* of a recipe step that
-#'  will convert a character predictor into a [tokenlist] using Byte Pair
-#'  Encoding.
+#' [step_sentencepiece_tokenize()] creates a *specification* of a recipe step
+#' that will convert a character predictor into a [tokenlist] using Byte Pair
+#' Encoding.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -10,7 +10,7 @@
 #' @template args-trained
 #' @template args-columns
 #' @param vocabulary_size Integer, indicating the number of tokens in the final
-#'   vocabulary. Defaults to 8000. Highly encouraged to be tuned.
+#'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
 #' @param options A list of options passed to the tokenizer.
 #' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will 
 #'   be stored here once this preprocessing step has be trained by 
@@ -19,6 +19,11 @@
 #' @template args-id
 #' 
 #' @template returns
+#' 
+#' @details 
+#' If you are running into errors, you can investigate the progress of the
+#' compiled code by setting `options = list(verbose = TRUE)`. This can reveal
+#' if sentencepiece ran correctly or not.
 #' 
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
@@ -52,7 +57,7 @@ step_sentencepiece_tokenize <-
            role = NA,
            trained = FALSE,
            columns = NULL,
-           vocabulary_size = 8000,
+           vocabulary_size = 1000,
            options = list(),
            res = NULL,
            skip = FALSE,
@@ -103,7 +108,7 @@ prep.step_sentencepiece_tokenize <- function(x, training, info = NULL, ...) {
   
   tokenizers <- list()
   
-  sentencepiece_options <- x$training_options
+  sentencepiece_options <- x$options
   if (!is.null(sentencepiece_options$vocab_size)) {
     rlang::abort(
       "Please supply the vocabulary size using the `vocabulary_size` argument."
@@ -125,7 +130,7 @@ prep.step_sentencepiece_tokenize <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     vocabulary_size = x$vocabulary_size,
-    options = x$training_options,
+    options = x$options,
     res = tokenizers,
     skip = x$skip,
     id = x$id

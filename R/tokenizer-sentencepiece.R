@@ -3,6 +3,11 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
   temp_dir0 <- tempdir()
   temp_file0 <- tempfile(tmpdir = temp_dir0)
 
+  # Delete existing model
+  if (file.exists(file.path(tempdir(), "sentencepiece.model"))) {
+    file.remove(file.path(tempdir(), "sentencepiece.model"))
+  }
+  
   writeLines(text = text, con = temp_file0)
 
   token_expr <- expr(
@@ -17,9 +22,7 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
     token_expr <- mod_call_args(token_expr, args = options)
   }
   
-  ddd <- utils::capture.output(type = "message", {
-    model <- eval(token_expr)
-  })
+  model <- eval(token_expr)
   
   file_con <- file(model$model_path, "rb")
   binary_file <- readBin(

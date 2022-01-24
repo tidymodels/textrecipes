@@ -10,7 +10,7 @@ step_sentencepiece_tokenize(
   role = NA,
   trained = FALSE,
   columns = NULL,
-  vocabulary_size = 8000,
+  vocabulary_size = 1000,
   options = list(),
   res = NULL,
   skip = FALSE,
@@ -36,7 +36,7 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{vocabulary_size}{Integer, indicating the number of tokens in the final
-vocabulary. Defaults to 8000. Highly encouraged to be tuned.}
+vocabulary. Defaults to 1000. Highly encouraged to be tuned.}
 
 \item{options}{A list of options passed to the tokenizer.}
 
@@ -57,9 +57,14 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_sentencepiece_tokenize]{step_sentencepiece_tokenize()}} creates a \emph{specification} of a recipe step that
-will convert a character predictor into a \link{tokenlist} using Byte Pair
+\code{\link[=step_sentencepiece_tokenize]{step_sentencepiece_tokenize()}} creates a \emph{specification} of a recipe step
+that will convert a character predictor into a \link{tokenlist} using Byte Pair
 Encoding.
+}
+\details{
+If you are running into errors, you can investigate the progress of the
+compiled code by setting \code{options = list(verbose = TRUE)}. This can reveal
+if sentencepiece ran correctly or not.
 }
 \examples{
 if (requireNamespace("sentencepiece", quietly = TRUE)) {
