@@ -8,6 +8,8 @@
 
 * All recipe steps now officially support empty selections to be more aligned with dplyr and other packages that use tidyselect (#141).
 
+* `step_ngram()` has been given a speed increase to put it in line with other packages performance. 
+
 # textrecipes 0.4.1
 
 ## Bug fixes
