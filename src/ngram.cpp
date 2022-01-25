@@ -12,15 +12,18 @@ CharacterVector ngram_single(CharacterVector x, int n, String delim) {
   
   CharacterVector res (range);
   
-  if (range != 0) {
-    for (int i = 0; i < range; ++i) {
-     res[i] = x[i];
-      for(int j = 1; j < n; ++j) {
-        res[i] += delim;
-        res[i] += x[i + j];
-      }
+  if (range == 0) {
+    return(res);
+  }
+  
+  for (int i = 0; i < range; ++i) {
+    res[i] = x[i];
+    for(int j = 1; j < n; ++j) {
+      res[i] += delim;
+      res[i] += x[i + j];
     }
   }
+  
   return(res);
 }
 
@@ -73,7 +76,6 @@ List rcpp_ngram(List x, int n, int n_min, String delim) {
   if (n_min > n) {
     stop("'n_min' must be larger then 'n'.");
   }
-  
   
   int len = x.length();
   List res (len);
