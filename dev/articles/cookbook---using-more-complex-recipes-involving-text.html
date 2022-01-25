@@ -85,7 +85,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Cookbook - Using more complex recipes involving text</h1>
                         <h4 data-toc-skip class="author">Emil Hvitfeldt</h4>
             
-            <h4 data-toc-skip class="date">2022-01-22</h4>
+            <h4 data-toc-skip class="date">2022-01-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd" class="external-link"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="d-none name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -156,18 +156,18 @@
 <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 9,235</span></span>
-<span class="co">#&gt;    tfidf_essay0______ tfidf_essay0____… tfidf_essay0____… tfidf_essay0___…</span>
-<span class="co">#&gt;                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                  0                 0                 0                0</span>
+<span class="co">#&gt;    tfidf_essay0______ tfidf_essay0_____… tfidf_essay0___… tfidf_essay0___…</span>
+<span class="co">#&gt;                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                  0                  0                0                0</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 9,231 more variables:</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0__blank &lt;dbl&gt;, tfidf_essay0__updates_ &lt;dbl&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span></span>
@@ -232,25 +232,25 @@
 <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 500</span></span>
-<span class="co">#&gt;    `tfidf_essay0_a a… `tfidf_essay0_a … `tfidf_essay0_a … `tfidf_essay0_a…</span>
-<span class="co">#&gt;                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                  0                 0                 0                0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                  0                 0                 0                0</span>
+<span class="co">#&gt;    `tfidf_essay0_a a …` `tfidf_essay0_…` `tfidf_essay0_…` `tfidf_essay0_…`</span>
+<span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                    0                0                0                0</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 496 more variables:</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_a br br &lt;dbl&gt;, tfidf_essay0_a class ilink &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_a coupl of &lt;dbl&gt;, tfidf_essay0_a few year &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_a good time &lt;dbl&gt;, tfidf_essay0_a i can &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_a laid back &lt;dbl&gt;, tfidf_essay0_a littl bit &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_a long a &lt;dbl&gt;, tfidf_essay0_a lot and &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_a lot of &lt;dbl&gt;, tfidf_essay0_a lover who &lt;dbl&gt;, …</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a br br` &lt;dbl&gt;, `tfidf_essay0_a class ilink` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a coupl of` &lt;dbl&gt;, `tfidf_essay0_a few year` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a good time` &lt;dbl&gt;, `tfidf_essay0_a i can` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a laid back` &lt;dbl&gt;, `tfidf_essay0_a littl bit` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a long a` &lt;dbl&gt;, `tfidf_essay0_a lot and` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a lot of` &lt;dbl&gt;, `tfidf_essay0_a lover who` &lt;dbl&gt;, …</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
