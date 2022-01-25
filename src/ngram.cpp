@@ -17,11 +17,11 @@ CharacterVector ngram_single(CharacterVector x, int n, std::string delim_string)
   }
   
   for (int i = 0; i < range; ++i) {
-    res[i] = x[i];
+    std::string elt = as<std::string>(x[i]);
     for(int j = 1; j < n; ++j) {
-      res[i] += delim_string;
-      res[i] += x[i + j];
+      elt = elt + delim_string + as<std::string>(x[i + j]);
     }
+    res[i] = elt;
   }
   
   return(res);
