@@ -10,6 +10,8 @@
 
 * `step_ngram()` has been given a speed increase to put it in line with other packages performance. 
 
+* Use `show_tokens()` to more easily debug a recipe involving tokenization.
+
 # textrecipes 0.4.1
 
 ## Bug fixes

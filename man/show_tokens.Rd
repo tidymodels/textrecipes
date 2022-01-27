@@ -4,12 +4,14 @@
 \alias{show_tokens}
 \title{Show token output of recipe}
 \usage{
-show_tokens(rec, var)
+show_tokens(rec, var, n = 6L)
 }
 \arguments{
 \item{rec}{A recipe object}
 
 \item{var}{name of variable}
+
+\item{n}{Number of elements to return.}
 }
 \value{
 A list of character vectors
@@ -26,4 +28,11 @@ text_tibble <- tibble(text = c("This is words", "They are nice!"))
 recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text) \%>\%
   show_tokens(text)
+
+library(modeldata)
+data(tate_text)
+
+recipe(~ ., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  show_tokens(medium)
 }
