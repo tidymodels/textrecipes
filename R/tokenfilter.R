@@ -202,7 +202,7 @@ tidy.step_tokenfilter <- function(x, ...) {
 }
 
 ## Implementation
-tokenfilter_fun <- function(data, max_times, min_times, max_features,
+tokenfilter_fun <- function(data, max_times, min_times, max_tokens,
                             percentage) {
   tf <- table0(unlist(get_tokens(data)))
 
@@ -212,18 +212,18 @@ tokenfilter_fun <- function(data, max_times, min_times, max_features,
 
   ids <- tf <= max_times & tf >= min_times
 
-  if (is.infinite(max_features)) {
+  if (is.infinite(max_tokens)) {
     names(sort(tf[ids], decreasing = TRUE))
   } else {
-    if (max_features > sum(ids)) {
+    if (max_tokens > sum(ids)) {
       rlang::warn(paste0(
-        "max_features was set to '", max_features,
+        "max_tokens was set to '", max_tokens,
         "', but only ", sum(ids),
         " was available and selected."
       ))
-      max_features <- sum(ids)
+      max_tokens <- sum(ids)
     }
-    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_features)])
+    names(sort(tf[ids], decreasing = TRUE)[seq_len(max_tokens)])
   }
 }
 

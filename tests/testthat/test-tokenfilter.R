@@ -83,7 +83,8 @@ test_that("tokenfilter throws warning when max_tokens > words", {
 
   expect_warning(
     rec %>%
-      prep()
+      prep(),
+    "max_tokens"
   )
 })
 

@@ -16,6 +16,8 @@
 
 * `step_tokenize()` will now try to error if vocabulary size is too low when using `engine = "tokenizers.bpe"` (#119).
 
+* Warning given by `step_tokenfilter()` when filtering failed to apply now correctly refers to the right argument name (#137).
+
 # textrecipes 0.4.1
 
 ## Bug fixes
