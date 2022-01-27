@@ -2,7 +2,8 @@
 % Please edit documentation in R/hashing.R, R/hashing_dummy.R, R/lda.R,
 %   R/lemma.R, R/ngram.R, R/pos_filter.R, R/sequence_onehot.R, R/stem.R,
 %   R/stopwords.R, R/text_normalization.R, R/textfeature.R, R/tf.R, R/tfidf.R,
-%   R/tokenfilter.R, R/tokenize.R, R/untokenize.R
+%   R/tokenfilter.R, R/tokenize.R, R/tokenize_bpe.R, R/tokenize_sentencepiece.R,
+%   R/untokenize.R
 \name{required_pkgs.step_texthash}
 \alias{required_pkgs.step_texthash}
 \alias{required_pkgs.step_dummy_hash}
@@ -19,6 +20,8 @@
 \alias{required_pkgs.step_tfidf}
 \alias{required_pkgs.step_tokenfilter}
 \alias{required_pkgs.step_tokenize}
+\alias{required_pkgs.step_tokenize_bpe}
+\alias{required_pkgs.step_tokenize_sentencepiece}
 \alias{required_pkgs.step_untokenize}
 \title{S3 methods for tracking which additional packages are needed for steps.}
 \usage{
@@ -51,6 +54,10 @@
 \method{required_pkgs}{step_tokenfilter}(x, ...)
 
 \method{required_pkgs}{step_tokenize}(x, ...)
+
+\method{required_pkgs}{step_tokenize_bpe}(x, ...)
+
+\method{required_pkgs}{step_tokenize_sentencepiece}(x, ...)
 
 \method{required_pkgs}{step_untokenize}(x, ...)
 }

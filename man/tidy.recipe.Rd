@@ -3,7 +3,7 @@
 %   R/embeddings.R, R/hashing.R, R/lda.R, R/lemma.R, R/ngram.R, R/pos_filter.R,
 %   R/sequence_onehot.R, R/stem.R, R/stopwords.R, R/text_normalization.R,
 %   R/textfeature.R, R/tf.R, R/tfidf.R, R/tidy.R, R/tokenfilter.R, R/tokenize.R,
-%   R/tokenmerge.R, R/untokenize.R
+%   R/tokenize_bpe.R, R/tokenize_sentencepiece.R, R/tokenmerge.R, R/untokenize.R
 \name{tidy.step_clean_levels}
 \alias{tidy.step_clean_levels}
 \alias{tidy.step_clean_names}
@@ -23,6 +23,8 @@
 \alias{tidy.recipe}
 \alias{tidy.step_tokenfilter}
 \alias{tidy.step_tokenize}
+\alias{tidy.step_tokenize_bpe}
+\alias{tidy.step_tokenize_sentencepiece}
 \alias{tidy.step_tokenmerge}
 \alias{tidy.step_untokenize}
 \title{Tidy the Result of a Recipe}
@@ -60,6 +62,10 @@
 \method{tidy}{step_tokenfilter}(x, ...)
 
 \method{tidy}{step_tokenize}(x, ...)
+
+\method{tidy}{step_tokenize_bpe}(x, ...)
+
+\method{tidy}{step_tokenize_sentencepiece}(x, ...)
 
 \method{tidy}{step_tokenmerge}(x, ...)
 

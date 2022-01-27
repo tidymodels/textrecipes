@@ -12,6 +12,8 @@
 
 * Use `show_tokens()` to more easily debug a recipe involving tokenization.
 
+* `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()` and `step_tokenize_sentencepiece()` which wraps {tokenizers.bpe} and {sentencepiece} respectively (#147).
+
 # textrecipes 0.4.1
 
 ## Bug fixes
