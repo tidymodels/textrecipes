@@ -8,6 +8,8 @@
 
 * All recipe steps now officially support empty selections to be more aligned with dplyr and other packages that use tidyselect (#141).
 
+* `step_ngram()` has been given a speed increase to put it in line with other packages performance. 
+
 * `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()` and `step_tokenize_sentencepiece()` which wraps {tokenizers.bpe} and {sentencepiece} respectively (#147).
 
 # textrecipes 0.4.1

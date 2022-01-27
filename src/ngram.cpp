@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-CharacterVector ngram_single(CharacterVector x, int n, String delim) {
+CharacterVector ngram_single(CharacterVector x, int n, std::string delim_string) {
   
   if (n == 1) {
     return(x);
@@ -12,19 +12,22 @@ CharacterVector ngram_single(CharacterVector x, int n, String delim) {
   
   CharacterVector res (range);
   
-  if (range != 0) {
-    for (int i = 0; i < range; ++i) {
-     res[i] = x[i];
-      for(int j = 1; j < n; ++j) {
-        res[i] += delim;
-        res[i] += x[i + j];
-      }
-    }
+  if (range == 0) {
+    return(res);
   }
+  
+  for (int i = 0; i < range; ++i) {
+    std::string elt = as<std::string>(x[i]);
+    for(int j = 1; j < n; ++j) {
+      elt = elt + delim_string + as<std::string>(x[i + j]);
+    }
+    res[i] = elt;
+  }
+  
   return(res);
 }
 
-CharacterVector ngram(CharacterVector x, int n, int n_min, String delim) {
+CharacterVector ngram(CharacterVector x, int n, int n_min, std::string delim_string) {
 
   int res_len = 0;
   int x_len = x.length();
@@ -39,7 +42,7 @@ CharacterVector ngram(CharacterVector x, int n, int n_min, String delim) {
   
   for (int i = n_min; i <= n; ++i) {
     
-    temp_res = ngram_single(x, i, delim);
+    temp_res = ngram_single(x, i, delim_string);
     int temp_res_len = temp_res.size();
       
     for(int j = 0; j < temp_res_len; ++j) {
@@ -62,6 +65,8 @@ CharacterVector ngram(CharacterVector x, int n, int n_min, String delim) {
 // [[Rcpp::export]]
 List rcpp_ngram(List x, int n, int n_min, String delim) {
   
+  std::string delim_string = std::string(delim);
+  
   if (n <= 0) {
     stop("'n' must be a positive integer.");
   }
@@ -74,12 +79,11 @@ List rcpp_ngram(List x, int n, int n_min, String delim) {
     stop("'n_min' must be larger then 'n'.");
   }
   
-  
   int len = x.length();
   List res (len);
   
   for (int i = 0; i < len; ++i) {
-    res[i] = ngram(x[i], n, n_min, delim);
+    res[i] = ngram(x[i], n, n_min, delim_string);
   }
   return(res);
 }
