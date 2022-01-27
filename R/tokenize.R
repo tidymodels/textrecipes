@@ -275,8 +275,14 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
   tokenizers <- list()
 
   for (i in seq_along(col_names)) {
-    tokenizers[[i]] <- x$custom_token %||%
-      tokenizer_switch(x$token, x, training[, col_names[[i]], drop = TRUE])
+    
+    text <- training[, col_names[[i]], drop = TRUE]
+    
+    if (x$engine == "tokenizers.bpe" & !is.null(x$training_options$vocab_size)) {
+      check_bpe_vocab_size(text, x$training_options$vocab_size, col_names[[i]])
+    }
+    
+    tokenizers[[i]] <- x$custom_token %||% tokenizer_switch(x$token, x, text)
   }
 
   step_tokenize_new(
