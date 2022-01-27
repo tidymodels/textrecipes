@@ -109,6 +109,12 @@
     <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize.html</loc>
   </url>
   <url>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize_bpe.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.html</loc>
   </url>
   <url>
