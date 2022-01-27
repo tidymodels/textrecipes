@@ -10,7 +10,6 @@ text <- tibble(text = c(
 ))
 
 test_that("lemmatization works", {
-  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
@@ -27,10 +26,10 @@ test_that("lemmatization works", {
   expect_equal(
     vctrs::field(prepped_data$text, "tokens"),
     list(
-      c("-PRON-", "would", "not", "eat", "-PRON-", "here", "or", "there", "."),
-      c("-PRON-", "would", "not", "eat", "-PRON-", "anywhere", "."),
-      c("-PRON-", "would", "not", "eat", "green", "egg", "and", "ham", "."),
-      c("-PRON-", "do", "not", "like", "-PRON-", ",", "sam", "-", "i", "-", "am", ".")
+      c("I", "would", "not", "eat", "they", "here", "or", "there", "."),
+      c("I", "would", "not", "eat", "they", "anywhere", "."),
+      c("I", "would", "not", "eat", "green", "egg", "and", "ham", "."),
+      c("I", "do", "not", "like", "they", ",", "Sam", "-", "I", "-", "am", ".")
     )
   )
 

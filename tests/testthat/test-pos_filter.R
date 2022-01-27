@@ -10,7 +10,6 @@ text <- tibble(text = c(
 ))
 
 test_that("part of speech filtering works", {
-  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
@@ -30,13 +29,12 @@ test_that("part of speech filtering works", {
       character(),
       character(),
       c("eggs", "ham"),
-      c("am")
+      character()
     )
   )
 })
 
 test_that("part of speech filtering removes everything", {
-  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
@@ -62,7 +60,6 @@ test_that("part of speech filtering removes everything", {
 })
 
 test_that("part of speech filtering works with multiple tags", {
-  skip("skip, wait for final smltar render")
   skip_on_cran()
   skip_if_no_python_or_no_spacy()
 
@@ -79,10 +76,10 @@ test_that("part of speech filtering works with multiple tags", {
   expect_equal(
     vctrs::field(prepped_data$text, "tokens"),
     list(
-      c("would", "eat"),
-      c("would", "eat"),
-      c("would", "eat", "eggs", "ham"),
-      c("do", "like", "am")
+      c("eat"),
+      c("eat"),
+      c("eat", "eggs", "ham"),
+      c("like")
     )
   )
 })
