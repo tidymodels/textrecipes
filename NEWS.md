@@ -14,6 +14,8 @@
 
 * `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()` and `step_tokenize_sentencepiece()` which wraps {tokenizers.bpe} and {sentencepiece} respectively (#147).
 
+* `step_tokenize()` will now try to error if vocabulary size is too low when using `engine = "tokenizers.bpe"` (#119).
+
 # textrecipes 0.4.1
 
 ## Bug fixes
