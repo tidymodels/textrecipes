@@ -1,4 +1,4 @@
-tokenizers_bpe_words <- function(text, options = list()) {
+tokenizers_bpe_tokens <- function(text, options = list()) {
   temp_file0 <- tempfile()
 
   token_expr <- expr(
