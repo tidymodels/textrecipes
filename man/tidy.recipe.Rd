@@ -4,8 +4,8 @@
 %   R/pos_filter.R, R/sentencepiece_tokenize.R, R/sequence_onehot.R, R/stem.R,
 %   R/stopwords.R, R/text_normalization.R, R/textfeature.R, R/tf.R, R/tfidf.R,
 %   R/tidy.R, R/tokenfilter.R, R/tokenize.R, R/tokenmerge.R, R/untokenize.R
-\name{tidy.step_bpe_tokenize}
-\alias{tidy.step_bpe_tokenize}
+\name{tidy.step_tokenize_bpe}
+\alias{tidy.step_tokenize_bpe}
 \alias{tidy.step_clean_levels}
 \alias{tidy.step_clean_names}
 \alias{tidy.step_word_embeddings}
@@ -14,7 +14,7 @@
 \alias{tidy.step_lemma}
 \alias{tidy.step_ngram}
 \alias{tidy.step_pos_filter}
-\alias{tidy.step_sentencepiece_tokenize}
+\alias{tidy.step_tokenize_sentencepiece}
 \alias{tidy.step_sequence_onehot}
 \alias{tidy.step_stem}
 \alias{tidy.step_stopwords}
@@ -29,7 +29,7 @@
 \alias{tidy.step_untokenize}
 \title{Tidy the Result of a Recipe}
 \usage{
-\method{tidy}{step_bpe_tokenize}(x, ...)
+\method{tidy}{step_tokenize_bpe}(x, ...)
 
 \method{tidy}{step_clean_levels}(x, ...)
 
@@ -47,7 +47,7 @@
 
 \method{tidy}{step_pos_filter}(x, ...)
 
-\method{tidy}{step_sentencepiece_tokenize}(x, ...)
+\method{tidy}{step_tokenize_sentencepiece}(x, ...)
 
 \method{tidy}{step_sequence_onehot}(x, ...)
 

@@ -63,16 +63,16 @@ test_that("output is list when length is 1 or 0", {
   data <- tibble(a = rep(c("a", ""), 20))
   
   data_rec <- recipe(~., data = data) %>%
-    step_bpe_tokenize(a) %>%
+    step_tokenize_bpe(a) %>%
     prep()
   
   expect_true(is.list(juice(data_rec, a)[, 1, drop = TRUE]))
 })
 
 
-test_that("step_bpe_tokenize works", {
+test_that("step_tokenize_bpe works", {
   res <- recipe(~text1, data = test_data) %>%
-    step_bpe_tokenize(text1) %>%
+    step_tokenize_bpe(text1) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -82,9 +82,9 @@ test_that("step_bpe_tokenize works", {
   )
 })
 
-test_that("step_bpe_tokenize works with tokenizers.bpe and multiple colunms", {
+test_that("step_tokenize_bpe works with tokenizers.bpe and multiple colunms", {
   res <- recipe(~., data = test_data) %>%
-    step_bpe_tokenize(all_predictors()) %>%
+    step_tokenize_bpe(all_predictors()) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -101,7 +101,7 @@ test_that("step_bpe_tokenize works with tokenizers.bpe and multiple colunms", {
 
 test_that("arguments are passed to tokenizers.bpe", {
   res <- recipe(~text1, data = test_data) %>%
-    step_bpe_tokenize(text1, vocabulary_size = 60) %>%
+    step_tokenize_bpe(text1, vocabulary_size = 60) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -111,7 +111,7 @@ test_that("arguments are passed to tokenizers.bpe", {
   )
   
   res <- recipe(~text1, data = test_data) %>%
-    step_bpe_tokenize(text1, vocabulary_size = 80) %>%
+    step_tokenize_bpe(text1, vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -124,7 +124,7 @@ test_that("arguments are passed to tokenizers.bpe", {
 test_that("Errors if vocabulary size is set to low.", {
   expect_error(
     recipe(~text1, data = test_data) %>%
-      step_bpe_tokenize(text1, vocabulary_size = 10) %>%
+      step_tokenize_bpe(text1, vocabulary_size = 10) %>%
       prep(),
     "unique character count of 23"
   )
@@ -133,14 +133,14 @@ test_that("Errors if vocabulary size is set to low.", {
 
 test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
-    step_bpe_tokenize(text1)
+    step_tokenize_bpe(text1)
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
-  rec2 <- step_bpe_tokenize(rec1)
+  rec2 <- step_tokenize_bpe(rec1)
   
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
@@ -153,7 +153,7 @@ test_that("empty selection prep/bake is a no-op", {
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_bpe_tokenize(rec)
+  rec <- step_tokenize_bpe(rec)
   
   expect_identical(
     tidy(rec, number = 1),
@@ -170,7 +170,7 @@ test_that("empty selection tidy method works", {
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_bpe_tokenize(rec)
+  rec <- step_tokenize_bpe(rec)
   
   expect_snapshot(rec)
   

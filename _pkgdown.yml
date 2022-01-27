@@ -15,8 +15,8 @@ reference:
 - title: Step Functions - Tokenization
   contents:
   - step_tokenize
-  - step_bpe_tokenize
-  - step_sentencepiece_tokenize
+  - step_tokenize_bpe
+  - step_tokenize_sentencepiece
 - title: Step Functions - Un-Tokenization
   contents:
   - step_untokenize

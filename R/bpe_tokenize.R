@@ -1,6 +1,6 @@
 #' BPE Tokenization of character variables
 #'
-#' [step_bpe_tokenize()] creates a *specification* of a recipe step that
+#' [step_tokenize_bpe()] creates a *specification* of a recipe step that
 #'  will convert a character predictor into a [tokenlist] using Byte Pair
 #'  Encoding.
 #'
@@ -29,7 +29,7 @@
 #' data(tate_text)
 #'
 #' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_bpe_tokenize(medium)
+#'   step_tokenize_bpe(medium)
 #'
 #' tate_obj <- tate_rec %>%
 #'   prep()
@@ -45,7 +45,7 @@
 #' tidy(tate_obj, number = 1)
 #' }
 #' @export
-step_bpe_tokenize <-
+step_tokenize_bpe <-
   function(recipe,
            ...,
            role = NA,
@@ -55,13 +55,13 @@ step_bpe_tokenize <-
            options = list(),
            res = NULL,
            skip = FALSE,
-           id = rand_id("bpe_tokenize")) {
+           id = rand_id("tokenize_bpe")) {
     
-    recipes::recipes_pkg_check(required_pkgs.step_bpe_tokenize())
+    recipes::recipes_pkg_check(required_pkgs.step_tokenize_bpe())
     
     add_step(
       recipe,
-      step_bpe_tokenize_new(
+      step_tokenize_bpe_new(
         terms = enquos(...),
         role = role,
         trained = trained,
@@ -75,11 +75,11 @@ step_bpe_tokenize <-
     )
   }
 
-step_bpe_tokenize_new <-
+step_tokenize_bpe_new <-
   function(terms, role, trained, columns, options, vocabulary_size, res, skip, 
            id) {
     step(
-      subclass = "bpe_tokenize",
+      subclass = "tokenize_bpe",
       terms = terms,
       role = role,
       trained = trained,
@@ -93,7 +93,7 @@ step_bpe_tokenize_new <-
   }
 
 #' @export
-prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
+prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   
   training <- factor_to_text(training, col_names)
@@ -118,7 +118,7 @@ prep.step_bpe_tokenize <- function(x, training, info = NULL, ...) {
     tokenizers[[i]] <- tokenizers_bpe_tokens(text, bpe_options)
   }
   
-  step_bpe_tokenize_new(
+  step_tokenize_bpe_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
@@ -152,7 +152,7 @@ check_bpe_vocab_size <- function(text, vocabulary_size, column) {
 }
 
 #' @export
-bake.step_bpe_tokenize <- function(object, new_data, ...) {
+bake.step_tokenize_bpe <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
@@ -169,7 +169,7 @@ bake.step_bpe_tokenize <- function(object, new_data, ...) {
 }
 
 #' @export
-print.step_bpe_tokenize <-
+print.step_tokenize_bpe <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("BPE Tokenization for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
@@ -177,9 +177,9 @@ print.step_bpe_tokenize <-
   }
 
 #' @rdname tidy.recipe
-#' @param x A `step_bpe_tokenize` object.
+#' @param x A `step_tokenize_bpe` object.
 #' @export
-tidy.step_bpe_tokenize <- function(x, ...) {
+tidy.step_tokenize_bpe <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
       terms = unname(x$columns)
@@ -196,6 +196,6 @@ tidy.step_bpe_tokenize <- function(x, ...) {
 
 #' @rdname required_pkgs.step
 #' @export
-required_pkgs.step_bpe_tokenize <- function(x, ...) {
+required_pkgs.step_tokenize_bpe <- function(x, ...) {
   c("tokenizers.bpe", "textrecipes")
 }

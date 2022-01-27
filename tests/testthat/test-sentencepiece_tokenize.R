@@ -59,9 +59,9 @@ text2_out <- list(
   )
 )
 
-test_that("step_sentencepiece_tokenize works", {
+test_that("step_tokenize_sentencepiece works", {
   res <- recipe(~text1, data = test_data) %>%
-    step_sentencepiece_tokenize(text1, vocabulary_size = 80) %>%
+    step_tokenize_sentencepiece(text1, vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -71,9 +71,9 @@ test_that("step_sentencepiece_tokenize works", {
   )
 })
 
-test_that("step_sentencepiece_tokenize works with tokenizers.sentencepiece and multiple colunms", {
+test_that("step_tokenize_sentencepiece works with tokenizers.sentencepiece and multiple colunms", {
   res <- recipe(~., data = test_data) %>%
-    step_sentencepiece_tokenize(all_predictors(), vocabulary_size = 80) %>%
+    step_tokenize_sentencepiece(all_predictors(), vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -90,7 +90,7 @@ test_that("step_sentencepiece_tokenize works with tokenizers.sentencepiece and m
 
 test_that("arguments are passed to tokenizers.sentencepiece", {
   res <- recipe(~text1, data = test_data) %>%
-    step_sentencepiece_tokenize(text1, vocabulary_size = 60) %>%
+    step_tokenize_sentencepiece(text1, vocabulary_size = 60) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -100,7 +100,7 @@ test_that("arguments are passed to tokenizers.sentencepiece", {
   )
   
   res <- recipe(~text1, data = test_data) %>%
-    step_sentencepiece_tokenize(text1, vocabulary_size = 80) %>%
+    step_tokenize_sentencepiece(text1, vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
   
@@ -113,7 +113,7 @@ test_that("arguments are passed to tokenizers.sentencepiece", {
 test_that("Errors if vocabulary size is set to low.", {
   expect_error(
     recipe(~text1, data = test_data) %>%
-      step_sentencepiece_tokenize(text1, vocabulary_size = 10) %>%
+      step_tokenize_sentencepiece(text1, vocabulary_size = 10) %>%
       prep(),
     "unique character count of 23"
   )
@@ -122,14 +122,14 @@ test_that("Errors if vocabulary size is set to low.", {
 
 test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
-    step_sentencepiece_tokenize(text1, vocabulary_size = 100)
+    step_tokenize_sentencepiece(text1, vocabulary_size = 100)
   expect_output(print(rec))
   expect_output(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
-  rec2 <- step_sentencepiece_tokenize(rec1)
+  rec2 <- step_tokenize_sentencepiece(rec1)
   
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
@@ -142,7 +142,7 @@ test_that("empty selection prep/bake is a no-op", {
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_sentencepiece_tokenize(rec)
+  rec <- step_tokenize_sentencepiece(rec)
   
   expect_identical(
     tidy(rec, number = 1),
@@ -159,7 +159,7 @@ test_that("empty selection tidy method works", {
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_sentencepiece_tokenize(rec)
+  rec <- step_tokenize_sentencepiece(rec)
   
   expect_snapshot(rec)
   

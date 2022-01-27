@@ -1,6 +1,6 @@
 #' Sentencepiece Tokenization of character variables
 #'
-#' [step_sentencepiece_tokenize()] creates a *specification* of a recipe step
+#' [step_tokenize_sentencepiece()] creates a *specification* of a recipe step
 #' that will convert a character predictor into a [tokenlist] using Byte Pair
 #' Encoding.
 #'
@@ -35,7 +35,7 @@
 #' data(tate_text)
 #'
 #' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_sentencepiece_tokenize(medium)
+#'   step_tokenize_sentencepiece(medium)
 #'
 #' tate_obj <- tate_rec %>%
 #'   prep()
@@ -51,7 +51,7 @@
 #' tidy(tate_obj, number = 1)
 #' }
 #' @export
-step_sentencepiece_tokenize <-
+step_tokenize_sentencepiece <-
   function(recipe,
            ...,
            role = NA,
@@ -61,13 +61,13 @@ step_sentencepiece_tokenize <-
            options = list(),
            res = NULL,
            skip = FALSE,
-           id = rand_id("sentencepiece_tokenize")) {
+           id = rand_id("tokenize_sentencepiece")) {
     
-    recipes::recipes_pkg_check(required_pkgs.step_sentencepiece_tokenize())
+    recipes::recipes_pkg_check(required_pkgs.step_tokenize_sentencepiece())
     
     add_step(
       recipe,
-      step_sentencepiece_tokenize_new(
+      step_tokenize_sentencepiece_new(
         terms = enquos(...),
         role = role,
         trained = trained,
@@ -81,11 +81,11 @@ step_sentencepiece_tokenize <-
     )
   }
 
-step_sentencepiece_tokenize_new <-
+step_tokenize_sentencepiece_new <-
   function(terms, role, trained, columns, options, vocabulary_size, res, skip, 
            id) {
     step(
-      subclass = "sentencepiece_tokenize",
+      subclass = "tokenize_sentencepiece",
       terms = terms,
       role = role,
       trained = trained,
@@ -99,7 +99,7 @@ step_sentencepiece_tokenize_new <-
   }
 
 #' @export
-prep.step_sentencepiece_tokenize <- function(x, training, info = NULL, ...) {
+prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   
   training <- factor_to_text(training, col_names)
@@ -124,7 +124,7 @@ prep.step_sentencepiece_tokenize <- function(x, training, info = NULL, ...) {
     tokenizers[[i]] <- tokenizers_sentencepiece_tokens(text, sentencepiece_options)
   }
   
-  step_sentencepiece_tokenize_new(
+  step_tokenize_sentencepiece_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
@@ -158,7 +158,7 @@ check_sentencepiece_vocab_size <- function(text, vocabulary_size, column) {
 }
 
 #' @export
-bake.step_sentencepiece_tokenize <- function(object, new_data, ...) {
+bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
   
@@ -175,7 +175,7 @@ bake.step_sentencepiece_tokenize <- function(object, new_data, ...) {
 }
 
 #' @export
-print.step_sentencepiece_tokenize <-
+print.step_tokenize_sentencepiece <-
   function(x, width = max(20, options()$width - 30), ...) {
     cat("Sentencepiece Tokenization for ", sep = "")
     printer(x$columns, x$terms, x$trained, width = width)
@@ -183,9 +183,9 @@ print.step_sentencepiece_tokenize <-
   }
 
 #' @rdname tidy.recipe
-#' @param x A `step_sentencepiece_tokenize` object.
+#' @param x A `step_tokenize_sentencepiece` object.
 #' @export
-tidy.step_sentencepiece_tokenize <- function(x, ...) {
+tidy.step_tokenize_sentencepiece <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
       terms = unname(x$columns)
@@ -202,6 +202,6 @@ tidy.step_sentencepiece_tokenize <- function(x, ...) {
 
 #' @rdname required_pkgs.step
 #' @export
-required_pkgs.step_sentencepiece_tokenize <- function(x, ...) {
+required_pkgs.step_tokenize_sentencepiece <- function(x, ...) {
   c("sentencepiece", "textrecipes")
 }

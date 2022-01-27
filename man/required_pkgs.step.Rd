@@ -4,15 +4,15 @@
 %   R/sequence_onehot.R, R/stem.R, R/stopwords.R, R/text_normalization.R,
 %   R/textfeature.R, R/tf.R, R/tfidf.R, R/tokenfilter.R, R/tokenize.R,
 %   R/untokenize.R
-\name{required_pkgs.step_bpe_tokenize}
-\alias{required_pkgs.step_bpe_tokenize}
+\name{required_pkgs.step_tokenize_bpe}
+\alias{required_pkgs.step_tokenize_bpe}
 \alias{required_pkgs.step_texthash}
 \alias{required_pkgs.step_dummy_hash}
 \alias{required_pkgs.step_lda}
 \alias{required_pkgs.step_lemma}
 \alias{required_pkgs.step_ngram}
 \alias{required_pkgs.step_pos_filter}
-\alias{required_pkgs.step_sentencepiece_tokenize}
+\alias{required_pkgs.step_tokenize_sentencepiece}
 \alias{required_pkgs.step_sequence_onehot}
 \alias{required_pkgs.step_stem}
 \alias{required_pkgs.step_stopwords}
@@ -25,7 +25,7 @@
 \alias{required_pkgs.step_untokenize}
 \title{S3 methods for tracking which additional packages are needed for steps.}
 \usage{
-\method{required_pkgs}{step_bpe_tokenize}(x, ...)
+\method{required_pkgs}{step_tokenize_bpe}(x, ...)
 
 \method{required_pkgs}{step_texthash}(x, ...)
 
@@ -39,7 +39,7 @@
 
 \method{required_pkgs}{step_pos_filter}(x, ...)
 
-\method{required_pkgs}{step_sentencepiece_tokenize}(x, ...)
+\method{required_pkgs}{step_tokenize_sentencepiece}(x, ...)
 
 \method{required_pkgs}{step_sequence_onehot}(x, ...)
 
