@@ -230,7 +230,10 @@ tf_weight <- function(x, scheme, weight) {
     return(x)
   }
   if (scheme == "term frequency") {
-    return(x / rowSums(x))
+    rowsums_x <- rowSums(x)
+    res <- x / rowsums_x
+    res[rowsums_x == 0, ] <- 0
+    return(res)
   }
   if (scheme == "log normalization") {
     return(log(1 + x))

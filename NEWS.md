@@ -18,6 +18,8 @@
 
 * Warning given by `step_tokenfilter()` when filtering failed to apply now correctly refers to the right argument name (#137).
 
+* `step_tf()` now returns 0 instead of NaN when there aren't any tokens present (#118).
+
 # textrecipes 0.4.1
 
 ## Bug fixes

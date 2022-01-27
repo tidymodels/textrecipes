@@ -98,6 +98,24 @@ test_that("step_tf works with other weighting schemes", {
   )
 })
 
+test_that("step_tf term frequency returns 0 with no tokens", {
+  d <- tibble(text = c("a b a d", ""))
+  
+  res <- recipe(~ text, data = d) %>% 
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "term frequency")%>% 
+    prep() %>% 
+    bake(new_data = NULL)
+  
+  exp_res <- tibble(
+    tf_text_a = c(0.5, 0),
+    tf_text_b = c(0.25, 0),
+    tf_text_d = c(0.25, 0)
+  )
+  expect_identical(res, exp_res)
+})
+
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
