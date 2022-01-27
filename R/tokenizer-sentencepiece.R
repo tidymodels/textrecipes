@@ -1,6 +1,9 @@
 tokenizers_sentencepiece_tokens <- function(text, options = list()) {
   
-  temp_dir0 <- tempdir()
+  temp_dir0 <- tempfile()
+  dir.create(temp_dir0)
+  on.exit(unlink(temp_dir0, recursive = TRUE))
+  
   temp_file0 <- tempfile(tmpdir = temp_dir0)
 
   # Delete existing model
