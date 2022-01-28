@@ -63,6 +63,7 @@
 <li><p><code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> has gotten a couple of cousin functions <code><a href="../reference/step_tokenize_bpe.html">step_tokenize_bpe()</a></code> and <code><a href="../reference/step_tokenize_sentencepiece.html">step_tokenize_sentencepiece()</a></code> which wraps {tokenizers.bpe} and {sentencepiece} respectively (<a href="https://github.com/tidymodels/textrecipes/issues/147" class="external-link">#147</a>).</p></li>
 <li><p><code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> will now try to error if vocabulary size is too low when using <code>engine = "tokenizers.bpe"</code> (<a href="https://github.com/tidymodels/textrecipes/issues/119" class="external-link">#119</a>).</p></li>
 <li><p>Warning given by <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> when filtering failed to apply now correctly refers to the right argument name (<a href="https://github.com/tidymodels/textrecipes/issues/137" class="external-link">#137</a>).</p></li>
+<li><p><code><a href="../reference/step_tf.html">step_tf()</a></code> now returns 0 instead of NaN when there aren’t any tokens present (<a href="https://github.com/tidymodels/textrecipes/issues/118" class="external-link">#118</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.1" id="textrecipes-041">textrecipes 0.4.1<a class="anchor" aria-label="anchor" href="#textrecipes-041"></a></h2><p class="text-muted">CRAN release: 2021-07-11</p>
