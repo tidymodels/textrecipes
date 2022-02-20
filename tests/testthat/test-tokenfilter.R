@@ -88,6 +88,38 @@ test_that("tokenfilter throws warning when max_tokens > words", {
   )
 })
 
+test_that("tokenfilter works with filter_fun", {
+  obj <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tokenfilter(text, filter_fun = function(x) nchar(x) >= 5) %>%
+    prep()
+  
+  expect_equal(
+    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    list(
+      c("would", "there"),
+      c("would", "anywhere"),
+      c("would", "green"),
+      character()
+    )
+  )
+  
+  obj <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tokenfilter(text, filter_fun = function(x) grepl("^e", x)) %>%
+    prep()
+  
+  expect_equal(
+    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    list(
+      c("eat"),
+      c("eat"),
+      c("eat", "eggs"),
+      character()
+    )
+  )
+})
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%

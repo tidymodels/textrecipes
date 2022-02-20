@@ -20,6 +20,8 @@
 
 * `step_tf()` now returns 0 instead of NaN when there aren't any tokens present (#118).
 
+* `step_tokenfilter()` now has a new argument `filter_fun` will takes a function which can be used to filter tokens. (#164)
+
 # textrecipes 0.4.1
 
 ## Bug fixes

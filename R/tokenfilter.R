@@ -12,10 +12,14 @@
 #'  before getting removed.
 #' @param min_times An integer. Minimum number of times a word can appear
 #'  before getting removed.
-#' @param percentage A logical. Should max_times and min_times be interpreded
+#' @param percentage A logical. Should max_times and min_times be interpreted
 #'  as a percentage instead of count.
 #' @param max_tokens An integer. Will only keep the top max_tokens tokens
 #'  after filtering done by max_times and min_times. Defaults to 100.
+#' @param filter_fun A function. This function should take a vector of 
+#'  characters, and return a logical vector of the same length. This function
+#'  will be applied to each observation of the data set. Defaults to `NULL`.
+#'  All other arguments will be ignored if this argument is used.
 #' @param res The words that will be keep will be stored here once
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @template args-skip
@@ -26,11 +30,11 @@
 #' @details
 #' This step allow you to limit the tokens you are looking at by filtering
 #' on their occurrence in the corpus. You are able to exclude tokens if they
-#' appear too many times or too fews times in the data. It can be specified
+#' appear too many times or too few times in the data. It can be specified
 #' as counts using `max_times` and `min_times` or as percentages by setting
 #' `percentage` as `TRUE`. In addition one can filter to only use the top
 #' `max_tokens` used tokens. If `max_tokens` is set to `Inf` then all the tokens
-#' will be used. This will generally lead to very large datasets when then
+#' will be used. This will generally lead to very large data sets when then
 #' tokens are words or trigrams. A good strategy is to start with a low token
 #' count and go up according to how much RAM you want to use.
 #'
@@ -73,6 +77,7 @@ step_tokenfilter <-
            min_times = 0,
            percentage = FALSE,
            max_tokens = 100,
+           filter_fun = NULL,
            res = NULL,
            skip = FALSE,
            id = rand_id("tokenfilter")) {
@@ -94,6 +99,7 @@ step_tokenfilter <-
         min_times = min_times,
         percentage = percentage,
         max_tokens = max_tokens,
+        filter_fun = filter_fun,
         res = res,
         skip = skip,
         id = id
@@ -103,7 +109,7 @@ step_tokenfilter <-
 
 step_tokenfilter_new <-
   function(terms, role, trained, columns, max_times, min_times, percentage,
-           max_tokens, res, skip, id) {
+           max_tokens, filter_fun, res, skip, id) {
     step(
       subclass = "tokenfilter",
       terms = terms,
@@ -114,6 +120,7 @@ step_tokenfilter_new <-
       min_times = min_times,
       percentage = percentage,
       max_tokens = max_tokens,
+      filter_fun = filter_fun,
       res = res,
       skip = skip,
       id = id
@@ -129,14 +136,15 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   retain_words <- list()
   n_words <- integer()
 
-  for (i in seq_along(col_names)) {
-    retain_words[[i]] <- tokenfilter_fun(
-      training[, col_names[i], drop = TRUE],
-      x$max_times, x$min_times, x$max_tokens,
-      x$percentage
-    )
-
-    n_words[[i]] <- length(unique(unlist(training[, col_names[i], drop = TRUE])))
+  if (is.null(x$filter_fun)) {
+    for (i in seq_along(col_names)) {
+      retain_words[[i]] <- tokenfilter_fun(
+        training[, col_names[i], drop = TRUE],
+        x$max_times, x$min_times, x$max_tokens,
+        x$percentage
+      )
+      n_words[[i]] <- length(unique(unlist(training[, col_names[i], drop = TRUE])))
+    }
   }
 
   step_tokenfilter_new(
@@ -148,6 +156,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     min_times = x$min_times,
     percentage = x$percentage,
     max_tokens = n_words,
+    filter_fun = x$filter_fun,
     res = retain_words,
     skip = x$skip,
     id = x$id
@@ -160,11 +169,18 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   # for backward compat
 
   for (i in seq_along(col_names)) {
-    filtered_text <- tokenlist_filter(
-      new_data[, col_names[i], drop = TRUE],
-      object$res[[i]],
-      TRUE
-    )
+    if (is.null(object$filter_fun)) {
+      filtered_text <- tokenlist_filter(
+        new_data[, col_names[i], drop = TRUE],
+        object$res[[i]],
+        TRUE
+      )
+    } else {
+      filtered_text <- tokenlist_filter_function(
+        new_data[, col_names[i], drop = TRUE],
+        object$filter_fun
+      )
+    }
 
     new_data[, col_names[i]] <- tibble(filtered_text)
   }
