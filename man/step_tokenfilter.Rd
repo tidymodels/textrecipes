@@ -14,6 +14,7 @@ step_tokenfilter(
   min_times = 0,
   percentage = FALSE,
   max_tokens = 100,
+  filter_fun = NULL,
   res = NULL,
   skip = FALSE,
   id = rand_id("tokenfilter")
@@ -43,11 +44,16 @@ before getting removed.}
 \item{min_times}{An integer. Minimum number of times a word can appear
 before getting removed.}
 
-\item{percentage}{A logical. Should max_times and min_times be interpreded
+\item{percentage}{A logical. Should max_times and min_times be interpreted
 as a percentage instead of count.}
 
 \item{max_tokens}{An integer. Will only keep the top max_tokens tokens
 after filtering done by max_times and min_times. Defaults to 100.}
+
+\item{filter_fun}{A function. This function should take a vector of
+characters, and return a logical vector of the same length. This function
+will be applied to each observation of the data set. Defaults to \code{NULL}.
+All other arguments will be ignored if this argument is used.}
 
 \item{res}{The words that will be keep will be stored here once
 this preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
@@ -71,11 +77,11 @@ will convert a \link{tokenlist} to be filtered based on frequency.
 \details{
 This step allow you to limit the tokens you are looking at by filtering
 on their occurrence in the corpus. You are able to exclude tokens if they
-appear too many times or too fews times in the data. It can be specified
+appear too many times or too few times in the data. It can be specified
 as counts using \code{max_times} and \code{min_times} or as percentages by setting
 \code{percentage} as \code{TRUE}. In addition one can filter to only use the top
 \code{max_tokens} used tokens. If \code{max_tokens} is set to \code{Inf} then all the tokens
-will be used. This will generally lead to very large datasets when then
+will be used. This will generally lead to very large data sets when then
 tokens are words or trigrams. A good strategy is to start with a low token
 count and go up according to how much RAM you want to use.
 
