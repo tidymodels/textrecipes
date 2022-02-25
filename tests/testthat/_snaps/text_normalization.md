@@ -13,7 +13,7 @@
       
       Operations:
       
-      text_normalizationming for <none>
+      Text Normalization for <none>
 
 ---
 
@@ -32,5 +32,5 @@
       
       Operations:
       
-      text_normalizationming for <none> [trained]
+      Text Normalization for <none> [trained]
 
