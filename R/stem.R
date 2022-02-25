@@ -151,8 +151,8 @@ bake.step_stem <- function(object, new_data, ...) {
 #' @export
 print.step_stem <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Stemming for ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Stemming for "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

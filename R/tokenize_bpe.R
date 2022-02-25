@@ -171,8 +171,8 @@ bake.step_tokenize_bpe <- function(object, new_data, ...) {
 #' @export
 print.step_tokenize_bpe <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("BPE Tokenization for ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "BPE Tokenization for "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

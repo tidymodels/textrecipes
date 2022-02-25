@@ -181,8 +181,8 @@ bake.step_tfidf <- function(object, new_data, ...) {
 #' @export
 print.step_tfidf <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Term frequency-inverse document frequency with ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Term frequency-inverse document frequency with "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 
