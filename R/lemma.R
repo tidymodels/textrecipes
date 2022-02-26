@@ -121,8 +121,8 @@ bake.step_lemma <- function(object, new_data, ...) {
 #' @export
 print.step_lemma <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Lemmatization for ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Lemmatization for "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

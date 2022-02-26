@@ -32,5 +32,5 @@
       
       Operations:
       
-      No variable names were cleaned
+      Cleaning variable names for <none> [trained]
 

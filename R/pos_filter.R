@@ -126,8 +126,8 @@ bake.step_pos_filter <- function(object, new_data, ...) {
 #' @export
 print.step_pos_filter <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Part of speech filtering for ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Part of speech filtering for "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

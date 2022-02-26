@@ -159,8 +159,8 @@ bake.step_texthash <- function(object, new_data, ...) {
 #' @export
 print.step_texthash <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Feature hashing with ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Feature hashing with "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

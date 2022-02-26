@@ -165,8 +165,8 @@ bake.step_stopwords <- function(object, new_data, ...) {
 #' @export
 print.step_stopwords <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Stop word removal for ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Stop word removal for "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

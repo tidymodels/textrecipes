@@ -128,18 +128,8 @@ bake.step_clean_levels <- function(object, new_data, ...) {
 #' @export
 print.step_clean_levels <-
   function(x, width = max(20, options()$width - 30), ...) {
-    if (x$trained) {
-      cleaned <- names(x$clean)
-      if (length(cleaned) > 0) {
-        cat("Cleaning factor levels for ", sep = "")
-        printer(cleaned, x$terms, x$trained, width = width)
-      } else {
-        cat("No factor levels were cleaned\n")
-      }
-    } else {
-      cat("Cleaning factor levels for ", sep = "")
-      printer(names(x$objects), x$terms, x$trained, width = width)
-    }
+    title <- "Cleaning factor levels for "
+    print_step(names(x$clean), x$terms, x$trained, title, width)
     invisible(x)
   }
 

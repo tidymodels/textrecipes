@@ -32,5 +32,5 @@
       
       Operations:
       
-      No factor levels were cleaned
+      Cleaning factor levels for <none> [trained]
 

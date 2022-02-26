@@ -189,8 +189,8 @@ bake.step_tf <- function(object, new_data, ...) {
 #' @export
 print.step_tf <-
   function(x, width = max(20, options()$width - 30), ...) {
-    cat("Term frequency with ", sep = "")
-    printer(x$columns, x$terms, x$trained, width = width)
+    title <- "Term frequency with "
+    print_step(x$columns, x$terms, x$trained, title, width)
     invisible(x)
   }
 

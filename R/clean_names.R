@@ -111,18 +111,8 @@ bake.step_clean_names <- function(object, new_data, ...) {
 #' @export
 print.step_clean_names <-
   function(x, width = max(20, options()$width - 30), ...) {
-    if (x$trained) {
-      cleaned <- names(x$clean)
-      if (length(cleaned) > 0) {
-        cat("Cleaning variable names for ", sep = "")
-        printer(cleaned, x$terms, x$trained, width = width)
-      } else {
-        cat("No variable names were cleaned\n")
-      }
-    } else {
-      cat("Cleaning variable names for ", sep = "")
-      printer(names(x$objects), x$terms, x$trained, width = width)
-    }
+    title <- "Cleaning variable names for "
+    print_step(names(x$clean), x$terms, x$trained, title, width)
     invisible(x)
   }
 
