@@ -76,7 +76,6 @@ if (requireNamespace("stringi", quietly = TRUE)) {
   tidy(rec, number = 1)
   tidy(prepped, number = 1)
 }
-
 }
 \seealso{
 \code{\link[=step_texthash]{step_texthash()}} for feature hashing.

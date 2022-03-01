@@ -125,7 +125,7 @@ This tokenizer has arguments that change how the tokenization occurs and can
 accessed using the \code{options} argument by passing a named list. Here we are
 telling \link[tokenizers:basic-tokenizers]{tokenizers::tokenize_words} that we don't want to turn the words to
 lowercase\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
-  step_tokenize(text, 
+  step_tokenize(text,
                 options = list(lowercase = FALSE)) \%>\%
   show_tokens(text)
 }\if{html}{\out{</div>}}\preformatted{## [[1]]
@@ -136,7 +136,7 @@ lowercase\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text,
 }
 
 We can also stop removing punctuation.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
-  step_tokenize(text, 
+  step_tokenize(text,
                 options = list(strip_punct = FALSE,
                                lowercase = FALSE)) \%>\%
   show_tokens(text)
@@ -182,8 +182,8 @@ tokens the tokenizer will produce. It is generally set to a much higher
 value, typically in the thousands, but is set to 22 here for demonstration
 purposes.\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(
-    text, 
-    engine = "tokenizers.bpe", 
+    text,
+    engine = "tokenizers.bpe",
     training_options = list(vocab_size = 22)
   ) \%>\%
   show_tokens(text)
@@ -216,7 +216,7 @@ way of tokenizing.\if{html}{\out{<div class="sourceCode r">}}\preformatted{space
 
 recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(
-    text, 
+    text,
     custom_token = space_tokenizer
   ) \%>\%
   show_tokens(text)
@@ -257,7 +257,6 @@ tate_obj_chars <- recipe(~., data = tate_text) \%>\%
 bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(medium)
-
 }
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.

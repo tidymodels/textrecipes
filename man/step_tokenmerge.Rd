@@ -70,7 +70,6 @@ bake(tate_obj, new_data = NULL)
 
 tidy(tate_rec, number = 1)
 tidy(tate_obj, number = 1)
-
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

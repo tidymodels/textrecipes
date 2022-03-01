@@ -102,7 +102,6 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
   tidy(tate_rec, number = 2)
   tidy(tate_obj, number = 2)
 }
-
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford;

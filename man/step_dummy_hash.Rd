@@ -101,7 +101,7 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
   library(modeldata)
   data(grants)
 
-  grants_rec <- recipe(~ sponsor_code, data = grants_other) \%>\%
+  grants_rec <- recipe(~sponsor_code, data = grants_other) \%>\%
     step_dummy_hash(sponsor_code)
 
   grants_obj <- grants_rec \%>\%
@@ -112,7 +112,6 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
   tidy(grants_rec, number = 1)
   tidy(grants_obj, number = 1)
 }
-
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford;

@@ -97,7 +97,6 @@ bake(tate_obj, new_data = NULL)
 
 tidy(tate_rec, number = 1)
 tidy(tate_obj, number = 1)
-
 }
 \seealso{
 Other character to numeric steps: 
