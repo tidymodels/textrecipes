@@ -43,7 +43,7 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
     step_tokenize(all_predictors()) %>%
     step_lemma(all_predictors())
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     prep(rec)
   )
 })
@@ -56,8 +56,8 @@ test_that("printing", {
     step_tokenize(all_predictors(), engine = "spacyr") %>%
     step_lemma(all_predictors())
 
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

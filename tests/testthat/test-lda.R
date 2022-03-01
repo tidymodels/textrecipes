@@ -42,8 +42,8 @@ test_that("printing", {
     step_tokenize(medium) %>%
     step_lda(medium)
 
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

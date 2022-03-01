@@ -95,22 +95,22 @@ test_that("padding and truncating works correctly", {
     ), nrow = 3, byrow = TRUE)
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, padding = "not pre")
   )
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, truncating = "Wrong")
   )
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, padding = c("pre", "pre"))
   )
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, truncating = "Wrong")
@@ -121,8 +121,8 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_sequence_onehot(text)
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

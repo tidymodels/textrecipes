@@ -230,11 +230,10 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
 })
 
 test_that("printing", {
-  expect_output(
-    print(rec),
-    "Word embeddings aggregated from text"
+  expect_snapshot(
+    print(rec)
   )
-  expect_output(
+  expect_snapshot(
     prep(rec, verbose = TRUE)
   )
 })

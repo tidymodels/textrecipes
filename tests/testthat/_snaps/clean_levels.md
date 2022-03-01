@@ -1,3 +1,40 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          3
+      
+      Operations:
+      
+      Cleaning factor levels for name
+
+---
+
+    Code
+      prep(rec, training = smith_tr, verbose = TRUE)
+    Output
+      oper 1 step clean levels [training] 
+      The retained training set is ~ 0 Mb  in memory.
+      
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          3
+      
+      Training data contained 15 data points and no missing data.
+      
+      Operations:
+      
+      Cleaning factor levels for name [trained]
+
 # empty printing
 
     Code

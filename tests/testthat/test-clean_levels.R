@@ -69,8 +69,8 @@ test_that("factor input", {
 test_that("printing", {
   skip_if_not_installed("janitor")
   rec <- rec %>% step_clean_levels(name)
-  expect_output(print(rec))
-  expect_output(prep(rec, training = smith_tr, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, training = smith_tr, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

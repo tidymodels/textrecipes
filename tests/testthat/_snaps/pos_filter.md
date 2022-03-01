@@ -1,3 +1,10 @@
+# lemmatization errors if lemma attribute doesn't exists
+
+    Code
+      prep(rec)
+    Error <rlang_error>
+      `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
+
 # empty printing
 
     Code

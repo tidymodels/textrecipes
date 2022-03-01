@@ -42,7 +42,7 @@ test_that("tokenization is done correctly", {
 })
 
 test_that("step throws an error if unavaliable tokenizer is picked", {
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_tokenize(text, token = "wrong") %>%
       prep()
@@ -91,7 +91,7 @@ test_that("arguments are passed using options argument", {
 })
 
 test_that("tokenization errors with wrong engines", {
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_tokenize(text, engine = "fake") %>%
       prep()
@@ -127,8 +127,8 @@ test_that("tokenization doesn't includes lemma attribute when unavaliable", {
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text)
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

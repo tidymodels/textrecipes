@@ -111,11 +111,10 @@ test_that("arguments are passed to tokenizers.sentencepiece", {
 })
 
 test_that("Errors if vocabulary size is set to low.", {
-  expect_error(
+  expect_snapshot(error = TRUE,
     recipe(~text1, data = test_data) %>%
       step_tokenize_sentencepiece(text1, vocabulary_size = 10) %>%
-      prep(),
-    "unique character count of 23"
+      prep()
   )
 })
 
@@ -123,8 +122,8 @@ test_that("Errors if vocabulary size is set to low.", {
 test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
     step_tokenize_sentencepiece(text1, vocabulary_size = 100)
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

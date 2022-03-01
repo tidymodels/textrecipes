@@ -26,11 +26,11 @@ test_that("ngram works with varrying number of `n`", {
     )
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     rcpp_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     rcpp_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
   )
 })
@@ -241,8 +241,8 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_ngram(text)
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

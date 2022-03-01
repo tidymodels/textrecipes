@@ -73,10 +73,10 @@ test_that("tokenizer works", {
     text1_out
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     vctrs::field(out, "lemma")
   )
-  expect_error(
+  expect_snapshot(error = TRUE,
     vctrs::field(out, "pos")
   )
 
@@ -150,13 +150,12 @@ test_that("arguments are passed to tokenizers.bpe", {
 })
 
 test_that("Errors if vocabulary size is set to low.", {
-  expect_error(
+  expect_snapshot(error = TRUE,
     recipe(~text, data = tibble(text = "hello")) %>%
       step_tokenize(text,
         engine = "tokenizers.bpe",
         training_options = list(vocab_size = 2)
       ) %>%
-      prep(),
-    "unique character count of 4"
+      prep()
   )
 })

@@ -1,3 +1,10 @@
+# it complains when the selected column isn't a tokenlist
+
+    Code
+      prep(rec)
+    Error <rlang_error>
+      All columns selected for this step should be tokenlists
+
 # empty printing
 
     Code

@@ -47,7 +47,7 @@ test_that("it complains when the selected column isn't a tokenlist", {
   rec <- rec %>%
     step_tokenmerge(text1, text2)
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     prep(rec)
   )
 })

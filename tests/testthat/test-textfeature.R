@@ -49,13 +49,13 @@ test_that("custom extraction functions work works", {
 
   expect_equal(dim(bake(obj, new_data = NULL)), c(nrow(test_data), 3))
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_textfeature(text, extract_functions = list(as.character)) %>%
       prep()
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     rec %>%
       step_textfeature(
         text,
@@ -69,8 +69,8 @@ test_that("printing", {
   skip_if_not_installed("textfeatures")
   rec <- rec %>%
     step_textfeature(text)
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

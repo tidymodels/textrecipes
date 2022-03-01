@@ -15,10 +15,9 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 3, min_times = 2)
 
-  expect_warning(
+  expect_snapshot(
     obj <- rec %>%
-      prep(),
-    "only 3 was available and selected."
+      prep()
   )
 
   expect_equal(
@@ -40,10 +39,9 @@ test_that("removes words correctly with min_times, max_times and procentage", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
 
-  expect_warning(
+  expect_snapshot(
     obj <- rec %>%
-      prep(),
-    "only 12 was available and selected."
+      prep()
   )
 
   expect_equal(
@@ -81,10 +79,9 @@ test_that("tokenfilter throws warning when max_tokens > words", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_tokens = 10000)
 
-  expect_warning(
+  expect_snapshot(
     rec %>%
-      prep(),
-    "max_tokens"
+      prep()
   )
 })
 
@@ -124,10 +121,8 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tokenfilter(text)
-  expect_output(print(rec))
-  expect_warning(
-    expect_output(prep(rec, verbose = TRUE))
-  )
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {
