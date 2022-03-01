@@ -18,9 +18,9 @@
 #'  list of words that cater to the users specific problem.
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' Stop words are words which sometimes are remove before natural language
 #' processing tasks. While stop words usually refers to the most common
@@ -30,10 +30,10 @@
 #' to filter against. With the `keep` argument one can specify to keep the
 #' words instead of removing thus allowing you to select words with a
 #' combination of these two arguments.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -69,7 +69,6 @@
 #' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
 #'   pull(medium)
-#'
 #' @export
 step_stopwords <-
   function(recipe,

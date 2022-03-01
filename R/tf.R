@@ -22,9 +22,9 @@
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' It is strongly advised to use [step_tokenfilter] before using [step_tf] to
 #' limit the number of variables created, otherwise you might run into memory
@@ -47,10 +47,10 @@
 #' done to prevent a bias towards longer documents.
 #'
 #' @template details-prefix
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps
-#'  
+#'
 #' @examples
 #' \donttest{
 #' library(recipes)
@@ -69,7 +69,7 @@
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
 #' }
-#' 
+#'
 #' @export
 step_tf <-
   function(recipe,
@@ -87,8 +87,8 @@ step_tf <-
     if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1) {
       rlang::abort(paste0(
         "`weight_scheme` should be one of: ",
-        "'", 
-        tf_funs, 
+        "'",
+        tf_funs,
         "'",
         collapse = ", "
       ))

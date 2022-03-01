@@ -12,12 +12,12 @@
 #' @param prefix A prefix for generated column names, default to "tokenmerge".
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -34,7 +34,6 @@
 #'
 #' tidy(tate_rec, number = 1)
 #' tidy(tate_obj, number = 1)
-#' 
 #' @export
 step_tokenmerge <-
   function(recipe,
@@ -97,7 +96,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
     # Empty selection
     return(new_data)
   }
-  
+
   col_names <- object$columns
   # for backward compat
 

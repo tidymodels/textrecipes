@@ -16,7 +16,7 @@
 #'  as a percentage instead of count.
 #' @param max_tokens An integer. Will only keep the top max_tokens tokens
 #'  after filtering done by max_times and min_times. Defaults to 100.
-#' @param filter_fun A function. This function should take a vector of 
+#' @param filter_fun A function. This function should take a vector of
 #'  characters, and return a logical vector of the same length. This function
 #'  will be applied to each observation of the data set. Defaults to `NULL`.
 #'  All other arguments will be ignored if this argument is used.
@@ -24,9 +24,9 @@
 #'  this preprocessing step has be trained by [prep.recipe()].
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' This step allow you to limit the tokens you are looking at by filtering
 #' on their occurrence in the corpus. You are able to exclude tokens if they
@@ -43,7 +43,7 @@
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -65,7 +65,6 @@
 #'
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
-#' 
 #' @export
 step_tokenfilter <-
   function(recipe,

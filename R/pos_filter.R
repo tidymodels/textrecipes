@@ -12,18 +12,18 @@
 #' details for complete list of tags. Defaults to "NOUN".
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' Possible part of speech tags for `spacyr` engine are: "ADJ", "ADP", "ADV",
 #' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
 #' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
 #' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' library(recipes)
@@ -42,7 +42,7 @@
 #'
 #' bake(rec_prepped, new_data = NULL)
 #' }
-#' 
+#'
 #' @export
 step_pos_filter <-
   function(recipe,

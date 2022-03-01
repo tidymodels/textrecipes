@@ -46,6 +46,6 @@ word_tbl_filter <- function(x, words, keep) {
 
 table0 <- function(x) {
   res <- dplyr::count(tibble(tokens = x), tokens)
-  
+
   purrr::set_names(res$n, res$tokens)
 }

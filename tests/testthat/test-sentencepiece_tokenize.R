@@ -64,7 +64,7 @@ test_that("step_tokenize_sentencepiece works", {
     step_tokenize_sentencepiece(text1, vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   expect_equal(
     vctrs::field(res$text1, "tokens"),
     text1_out
@@ -76,12 +76,12 @@ test_that("step_tokenize_sentencepiece works with tokenizers.sentencepiece and m
     step_tokenize_sentencepiece(all_predictors(), vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   expect_equal(
     vctrs::field(res$text1, "tokens"),
     text1_out
   )
-  
+
   expect_equal(
     vctrs::field(res$text2, "tokens"),
     text2_out
@@ -93,17 +93,17 @@ test_that("arguments are passed to tokenizers.sentencepiece", {
     step_tokenize_sentencepiece(text1, vocabulary_size = 60) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   expect_equal(
     length(textrecipes:::get_unique_tokens(res$text1)),
     60
   )
-  
+
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize_sentencepiece(text1, vocabulary_size = 80) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   expect_equal(
     length(textrecipes:::get_unique_tokens(res$text1)),
     80
@@ -130,27 +130,27 @@ test_that("printing", {
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tokenize_sentencepiece(rec1)
-  
+
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
-  
+
   baked1 <- bake(rec1, mtcars)
   baked2 <- bake(rec2, mtcars)
-  
+
   expect_identical(baked1, baked1)
 })
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenize_sentencepiece(rec)
-  
+
   expect_identical(
     tidy(rec, number = 1),
     tibble(terms = character(), id = character())
   )
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_identical(
     tidy(rec, number = 1),
     tibble(terms = character(), id = character())
@@ -160,10 +160,10 @@ test_that("empty selection tidy method works", {
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenize_sentencepiece(rec)
-  
+
   expect_snapshot(rec)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_snapshot(rec)
 })
