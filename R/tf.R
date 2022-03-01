@@ -85,13 +85,13 @@ step_tf <-
            skip = FALSE,
            id = rand_id("tf")) {
     if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1) {
-      rlang::abort(paste0(
-        "`weight_scheme` should be one of: ",
-        "'",
-        tf_funs,
-        "'",
-        collapse = ", "
-      ))
+      
+      tf_funs_all <- glue::glue_collapse(tf_funs, sep = ", ", last = ", or ")
+      rlang::abort(
+        glue(
+          "`weight_scheme` should be one of: {tf_funs_all}"
+        )
+      )
     }
 
     add_step(

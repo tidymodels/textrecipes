@@ -119,7 +119,7 @@ vec_restore.textrecipes_tokenlist <- function(x, to, ...,
 #' @export
 format.textrecipes_tokenlist <- function(x, ...) {
   out <- formatC(lengths(vctrs::field(x, "tokens")))
-  paste0("[", out, " tokens]")
+  glue("[{out} tokens]")
 }
 
 #' @export

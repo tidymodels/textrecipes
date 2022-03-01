@@ -2,7 +2,9 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @useDynLib textrecipes, .registration = TRUE
+#' @import rlang
+#' @importFrom glue glue
+#' @importFrom lifecycle deprecated
 #' @importFrom Matrix sparseMatrix
 #' @importFrom purrr keep
 #' @importFrom purrr map
@@ -41,5 +43,6 @@
 #' @importFrom vctrs vec_cast
 #' @importFrom vctrs vec_ptype_abbr
 #' @importFrom vctrs vec_restore
+#' @useDynLib textrecipes, .registration = TRUE
 ## usethis namespace: end
 NULL

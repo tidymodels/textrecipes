@@ -3,7 +3,7 @@
     Code
       rec %>% step_tokenize(text, token = "wrong") %>% prep()
     Error <rlang_error>
-      token should be one of the supported 'characters', token should be one of the supported 'character_shingle', token should be one of the supported 'lines', token should be one of the supported 'ngrams', token should be one of the supported 'paragraphs', token should be one of the supported 'ptb', token should be one of the supported 'regex', token should be one of the supported 'sentences', token should be one of the supported 'skip_ngrams', token should be one of the supported 'tweets', token should be one of the supported 'words', token should be one of the supported 'word_stems'
+      token should be one of the supported: characters, character_shingle, lines, ngrams, paragraphs, ptb, regex, sentences, skip_ngrams, tweets, words, or word_stems
 
 # tokenization errors with wrong engines
 

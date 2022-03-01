@@ -377,13 +377,8 @@ tokenizer_switch <- function(name, object, data) {
         "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
         "tweets", "words", "word_stems"
       )
-
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0("token should be one of the supported ",
-        "'", possible_tokenizers, "'",
-        collapse = ", "
-      ))
-    }
+    
+    check_possible_tokenizers(name, possible_tokenizers)
 
     res <- switch(name,
       characters = tokenizers::tokenize_characters,
@@ -407,15 +402,7 @@ tokenizer_switch <- function(name, object, data) {
 
     possible_tokenizers <- c("words")
 
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0(
-        "token should be one of the supported ",
-        "'",
-        possible_tokenizers,
-        "'",
-        collapse = ", "
-      ))
-    }
+    check_possible_tokenizers(name, possible_tokenizers)
 
     res <- switch(name,
       words = spacyr_tokenizer_words
@@ -428,16 +415,8 @@ tokenizer_switch <- function(name, object, data) {
 
     possible_tokenizers <- c("words")
 
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0(
-        "token should be one of the supported ",
-        "'",
-        possible_tokenizers,
-        "'",
-        collapse = ", "
-      ))
-    }
-
+    check_possible_tokenizers(name, possible_tokenizers)
+    
     res <- switch(name,
       words = tokenizers_bpe_tokens(data, object$training_options)
     )
@@ -449,15 +428,7 @@ tokenizer_switch <- function(name, object, data) {
 
     possible_tokenizers <- c("words")
 
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0(
-        "token should be one of the supported ",
-        "'",
-        possible_tokenizers,
-        "'",
-        collapse = ", "
-      ))
-    }
+    check_possible_tokenizers(name, possible_tokenizers)
 
     res <- switch(name,
       words = udpipe_words(object$training_options$model)

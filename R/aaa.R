@@ -36,6 +36,19 @@ check_list <- function(dat) {
   invisible(all_good)
 }
 
+check_possible_tokenizers <- function(x, dict) {
+  if (!(x %in% dict)) {
+    possible_tokenizers <- glue::glue_collapse(
+      dict, sep = ", ", last = ", or "
+    )
+    rlang::abort(
+      glue(
+        "token should be one of the supported: {possible_tokenizers}"
+      )
+    )
+  }
+}
+
 # same as tokenlist_filter but takes an list as input and returns a tibble with
 # [tokenlist].
 word_tbl_filter <- function(x, words, keep) {

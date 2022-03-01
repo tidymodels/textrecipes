@@ -231,10 +231,10 @@ tokenfilter_fun <- function(data, max_times, min_times, max_tokens,
     names(sort(tf[ids], decreasing = TRUE))
   } else {
     if (max_tokens > sum(ids)) {
-      rlang::warn(paste0(
-        "max_tokens was set to '", max_tokens,
-        "', but only ", sum(ids),
-        " was available and selected."
+      rlang::warn(
+        glue(
+        "max_tokens was set to '{max_tokens}', ",
+        "but only {sum(ids)} was available and selected."
       ))
       max_tokens <- sum(ids)
     }

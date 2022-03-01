@@ -93,8 +93,8 @@ step_word_embeddings <- function(recipe,
       ncol(embeddings) == 1 ||
       !all(map_lgl(embeddings[, 2:ncol(embeddings)], is.numeric))
   ) {
-    embeddings_message <- paste(
-      "embeddings should be a tibble with 1 character or factor column and",
+    embeddings_message <- glue(
+      "embeddings should be a tibble with 1 character or factor column and ",
       "additional numeric columns."
     )
     rlang::abort(

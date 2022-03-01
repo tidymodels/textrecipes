@@ -17,6 +17,7 @@ Depends:
     R (>= 2.10),
     recipes (>= 0.1.15)
 Imports: 
+    lifecycle,
     dplyr,
     generics (>= 0.1.0),
     magrittr,
@@ -28,7 +29,10 @@ Imports:
     tibble,
     tidyr,
     tokenizers,
-    vctrs
+    vctrs,
+    cli,
+    glue,
+    withr
 Suggests: 
     covr,
     janitor,

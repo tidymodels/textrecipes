@@ -244,7 +244,7 @@ check_lda_character <- function(dat) {
 
   if (any(all_good)) {
     rlang::abort(
-      paste0(
+      glue(
         "All columns selected for this step should be tokenlists.",
         "\n",
         "See https://github.com/tidymodels/textrecipes#breaking-changes",

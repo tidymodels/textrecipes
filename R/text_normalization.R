@@ -114,11 +114,13 @@ bake.step_text_normalization <- function(object, new_data, ...) {
     nfkd = stringi::stri_trans_nfkd,
     nfkc = stringi::stri_trans_nfkc,
     nfkc_casefold = stringi::stri_trans_nfkc_casefold,
-    rlang::abort(paste(
-      "'normalization_form' must be one of",
-      "'nfc', 'nfd', 'nfkd', 'nfkc', or 'nfkc_casefold'",
-      "but was ", object$normalization_form
-    ))
+    rlang::abort(
+      glue(
+        "'normalization_form' must be one of",
+        "'nfc', 'nfd', 'nfkd', 'nfkc', or 'nfkc_casefold'",
+        "but was {object$normalization_form}."
+      )
+    )
   )
 
   for (i in seq_along(col_names)) {

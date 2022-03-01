@@ -107,12 +107,13 @@ bake.step_pos_filter <- function(object, new_data, ...) {
     variable <- new_data[, col_names[i], drop = TRUE]
 
     if (is.null(maybe_get_pos(variable))) {
-      rlang::abort(paste0(
-        "`", col_names[i],
-        "` doesn't have a pos attribute. ",
+      rlang::abort(
+        glue(
+        "`{col_names[i]}` doesn't have a pos attribute. ",
         "Make sure the tokenization step includes ",
         "part of speech tagging."
-      ))
+        )
+      )
     } else {
       pos_filter_variable <- tokenlist_pos_filter(variable, object$keep_tags)
     }
