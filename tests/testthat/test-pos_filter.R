@@ -102,7 +102,6 @@ test_that("printing", {
     step_pos_filter(all_predictors())
 
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

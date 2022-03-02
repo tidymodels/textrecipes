@@ -31,27 +31,6 @@
       
       Text feature extraction for text
 
----
-
-    Code
-      prep(rec, verbose = TRUE)
-    Output
-      oper 1 step textfeature [training] 
-      The retained training set is ~ 0 Mb  in memory.
-      
-      Recipe
-      
-      Inputs:
-      
-            role #variables
-       predictor          1
-      
-      Training data contained 4 data points and no missing data.
-      
-      Operations:
-      
-      Text feature extraction for text [trained]
-
 # empty printing
 
     Code

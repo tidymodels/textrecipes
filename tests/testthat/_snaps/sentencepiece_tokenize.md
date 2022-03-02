@@ -22,27 +22,6 @@
       
       Sentencepiece Tokenization for text1
 
----
-
-    Code
-      prep(rec, verbose = TRUE)
-    Output
-      oper 1 step tokenize sentencepiece [training] 
-      The retained training set is ~ 0.01 Mb  in memory.
-      
-      Recipe
-      
-      Inputs:
-      
-            role #variables
-       predictor          2
-      
-      Training data contained 4 data points and no missing data.
-      
-      Operations:
-      
-      Sentencepiece Tokenization for text1 [trained]
-
 # empty printing
 
     Code

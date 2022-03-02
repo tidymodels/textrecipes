@@ -44,29 +44,6 @@
       Tokenization for text
       Sequence 1 hot encoding for text
 
----
-
-    Code
-      prep(rec, verbose = TRUE)
-    Output
-      oper 1 step tokenize [training] 
-      oper 2 step sequence onehot [training] 
-      The retained training set is ~ 0.02 Mb  in memory.
-      
-      Recipe
-      
-      Inputs:
-      
-            role #variables
-       predictor          1
-      
-      Training data contained 4 data points and no missing data.
-      
-      Operations:
-      
-      Tokenization for text [trained]
-      Sequence 1 hot encoding for text [trained]
-
 # empty printing
 
     Code

@@ -73,7 +73,6 @@ test_that("printing", {
     step_tokenize(text) %>%
     step_texthash(text)
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

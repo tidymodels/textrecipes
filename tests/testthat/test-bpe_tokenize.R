@@ -134,7 +134,6 @@ test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
     step_tokenize_bpe(text1)
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

@@ -37,7 +37,6 @@ test_that("printing", {
   skip_if_not_installed("janitor")
   rec <- rec %>% step_clean_names(all_predictors())
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, training = air_tr, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

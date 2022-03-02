@@ -87,7 +87,6 @@ test_that("printing", {
   rec <- rec %>%
     step_dummy_hash(sponsor_code)
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

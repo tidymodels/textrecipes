@@ -14,27 +14,6 @@
       
       Cleaning variable names for all_predictors()
 
----
-
-    Code
-      prep(rec, training = air_tr, verbose = TRUE)
-    Output
-      oper 1 step clean names [training] 
-      The retained training set is ~ 0 Mb  in memory.
-      
-      Recipe
-      
-      Inputs:
-      
-            role #variables
-       predictor          6
-      
-      Training data contained 20 data points and 4 incomplete rows. 
-      
-      Operations:
-      
-      Cleaning variable names for Ozone, Solar.R, Wind, Temp, Month, Day [trained]
-
 # empty printing
 
     Code

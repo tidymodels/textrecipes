@@ -123,7 +123,6 @@ test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
     step_tokenize_sentencepiece(text1, vocabulary_size = 100)
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {

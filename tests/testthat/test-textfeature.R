@@ -70,7 +70,6 @@ test_that("printing", {
   rec <- rec %>%
     step_textfeature(text)
   expect_snapshot(print(rec))
-  expect_snapshot(prep(rec, verbose = TRUE))
 })
 
 test_that("empty selection prep/bake is a no-op", {
