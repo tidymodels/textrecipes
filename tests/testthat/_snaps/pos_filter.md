@@ -22,29 +22,6 @@
       Tokenization for all_predictors()
       Part of speech filtering for all_predictors()
 
----
-
-    Code
-      prep(rec, verbose = TRUE)
-    Output
-      oper 1 step tokenize [training] 
-      oper 2 step pos filter [training] 
-      The retained training set is ~ 0 Mb  in memory.
-      
-      Recipe
-      
-      Inputs:
-      
-            role #variables
-       predictor          1
-      
-      Training data contained 4 data points and no missing data.
-      
-      Operations:
-      
-      Tokenization for text [trained]
-      Part of speech filtering for text [trained]
-
 # empty printing
 
     Code
