@@ -34,5 +34,4 @@ data(tate_text)
 tokens <- tokenize_words(as.character(tate_text$medium))
 
 tokenlist(tokens)
-
 }

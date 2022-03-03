@@ -25,14 +25,14 @@ bake() the recipe it is used on.
 \examples{
 text_tibble <- tibble(text = c("This is words", "They are nice!"))
 
-recipe(~ text, data = text_tibble) \%>\%
+recipe(~text, data = text_tibble) \%>\%
   step_tokenize(text) \%>\%
   show_tokens(text)
 
 library(modeldata)
 data(tate_text)
 
-recipe(~ ., data = tate_text) \%>\%
+recipe(~., data = tate_text) \%>\%
   step_tokenize(medium) \%>\%
   show_tokens(medium)
 }

@@ -100,13 +100,13 @@ test_that("step_tf works with other weighting schemes", {
 
 test_that("step_tf term frequency returns 0 with no tokens", {
   d <- tibble(text = c("a b a d", ""))
-  
-  res <- recipe(~ text, data = d) %>% 
+
+  res <- recipe(~text, data = d) %>%
     step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "term frequency")%>% 
-    prep() %>% 
+    step_tf(text, weight_scheme = "term frequency") %>%
+    prep() %>%
     bake(new_data = NULL)
-  
+
   exp_res <- tibble(
     tf_text_a = c(0.5, 0),
     tf_text_b = c(0.25, 0),
@@ -120,34 +120,33 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tf(text)
-  expect_output(print(rec))
-  expect_output(prep(rec, verbose = TRUE))
+  expect_snapshot(print(rec))
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tf(rec1)
-  
+
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
-  
+
   baked1 <- bake(rec1, mtcars)
   baked2 <- bake(rec2, mtcars)
-  
+
   expect_identical(baked1, baked1)
 })
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tf(rec)
-  
+
   expect_identical(
     tidy(rec, number = 1),
     tibble(terms = character(), value = character(), id = character())
   )
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_identical(
     tidy(rec, number = 1),
     tibble(terms = character(), value = character(), id = character())
@@ -157,10 +156,10 @@ test_that("empty selection tidy method works", {
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tf(rec)
-  
+
   expect_snapshot(rec)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_snapshot(rec)
 })

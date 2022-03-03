@@ -109,28 +109,26 @@ test_that("tokenlist creation works", {
 })
 
 test_that("tokenlist errors with diffent length input", {
-  expect_error(
+  expect_snapshot(error = TRUE,
     tokenlist(list(letters), lemma = list(letters, letters))
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     tokenlist(list(letters), pos = list(letters, letters))
   )
 })
 
 test_that("new_tokenlist errors with wrong input", {
-  expect_error(
+  expect_snapshot(error = TRUE,
     new_tokenlist(letters)
   )
 
-  expect_error(
-    new_tokenlist(list(letters), lemma = letters),
-    "`lemma` must be NULL or a list."
+  expect_snapshot(error = TRUE,
+    new_tokenlist(list(letters), lemma = letters)
   )
 
-  expect_error(
-    new_tokenlist(list(letters), pos = letters),
-    "`pos` must be NULL or a list."
+  expect_snapshot(error = TRUE,
+    new_tokenlist(list(letters), pos = letters)
   )
 })
 
@@ -141,7 +139,7 @@ test_that("subsetting works as intended", {
 
   expect_length(tokenlist(data)[1:2], 2)
   expect_length(tokenlist(data)[2], 1)
-  expect_error(tokenlist(data)[3], class = "vctrs_error_subscript_oob")
+  expect_snapshot(error = TRUE, tokenlist(data)[3])
   expect_equal(tokenlist(data)[0], tokenlist(list()))
 })
 
@@ -210,7 +208,7 @@ test_that("tokenlist_filter works", {
     tkn_list
   )
 
-  expect_error(
+  expect_snapshot(error = TRUE,
     tokenlist_filter(LETTERS, letters)
   )
 })
@@ -289,14 +287,12 @@ test_that("tokenlist_apply works", {
     tokenlist(list(character(), character(), "D"))
   )
 
-  expect_error(
-    tokenlist_apply(tkn_list, letter_filter, let = "D"),
-    "unused argument"
+  expect_snapshot(error = TRUE,
+    tokenlist_apply(tkn_list, letter_filter, let = "D")
   )
 
-  expect_error(
-    tokenlist_apply(letters, toupper),
-    "Input must be a tokenlist"
+  expect_snapshot(error = TRUE,
+    tokenlist_apply(letters, toupper)
   )
 })
 
@@ -342,14 +338,12 @@ test_that("tokenlist_to_dtm works", {
     )
   )
 
-  expect_error(
-    tokenlist_to_dtm(tkn_list),
-    "is missing"
+  expect_snapshot(error = TRUE,
+    tokenlist_to_dtm(tkn_list)
   )
 
-  expect_error(
-    tokenlist_to_dtm(letters),
-    "Input must be a tokenlist"
+  expect_snapshot(error = TRUE,
+    tokenlist_to_dtm(letters)
   )
 })
 
@@ -367,14 +361,12 @@ test_that("tokenlist_lemma works", {
     )
   )
 
-  expect_error(
-    tokenlist_lemma(letters),
-    "Input must be a tokenlist"
+  expect_snapshot(error = TRUE,
+    tokenlist_lemma(letters)
   )
 
-  expect_error(
-    tokenlist_lemma(tokenlist(list(letters))),
-    "attribute not avaliable"
+  expect_snapshot(error = TRUE,
+    tokenlist_lemma(tokenlist(list(letters)))
   )
 })
 
@@ -417,13 +409,11 @@ test_that("tokenlist_pos_filter works", {
     tokenlist(list(letters[1:2]), list(letters[1:2]), list(letters[1:2]))
   )
 
-  expect_error(
-    tokenlist_pos_filter(letters, "NOUN"),
-    "must be a tokenlist"
+  expect_snapshot(error = TRUE,
+    tokenlist_pos_filter(letters, "NOUN")
   )
-  expect_error(
-    tokenlist_pos_filter(tokenlist(data), "NOUN"),
-    "pos attribute not avaliable"
+  expect_snapshot(error = TRUE,
+    tokenlist_pos_filter(tokenlist(data), "NOUN")
   )
 })
 
@@ -522,9 +512,8 @@ test_that("tokenlist_ngram works with n_min and n", {
 })
 
 test_that("tokenlist_ngram errors", {
-  expect_error(
-    tokenlist_ngram(letters),
-    "Input must be a tokenlist"
+  expect_snapshot(error = TRUE,
+    tokenlist_ngram(letters)
   )
 
   data <- list(
@@ -533,18 +522,15 @@ test_that("tokenlist_ngram errors", {
     character(0)
   )
 
-  expect_error(
-    tokenlist_ngram(tokenlist(data), 0, 3, " "),
-    "'n' must be a positive integer."
+  expect_snapshot(error = TRUE,
+    tokenlist_ngram(tokenlist(data), 0, 3, " ")
   )
 
-  expect_error(
-    tokenlist_ngram(tokenlist(data), 3, 0, " "),
-    "'n_min' must be a positive integer."
+  expect_snapshot(error = TRUE,
+    tokenlist_ngram(tokenlist(data), 3, 0, " ")
   )
 
-  expect_error(
-    tokenlist_ngram(tokenlist(data), 1, 2, " "),
-    "'n_min' must be larger then 'n'."
+  expect_snapshot(error = TRUE,
+    tokenlist_ngram(tokenlist(data), 1, 2, " ")
   )
 })

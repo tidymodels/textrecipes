@@ -24,9 +24,9 @@
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to
 #' limit the number of variables created; otherwise you may run into memory
@@ -49,10 +49,10 @@
 #' (# documents where the term appears))
 #'
 #' @template details-prefix
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps
-#' 
+#'
 #' @examples
 #' \donttest{
 #' library(recipes)
@@ -71,7 +71,7 @@
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
 #' }
-#' 
+#'
 #' @export
 step_tfidf <-
   function(recipe,

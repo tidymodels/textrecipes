@@ -1,3 +1,20 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Operations:
+      
+      Tokenization for text
+      Word embeddings aggregated from text
+
 # empty printing
 
     Code

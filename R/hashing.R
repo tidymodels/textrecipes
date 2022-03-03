@@ -16,30 +16,30 @@
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #'  Feature hashing, or the hashing trick, is a transformation of a
 #'  text variable into a new set of numerical variables. This is done by
 #'  applying a hashing function over the tokens and using the hash values
 #'  as feature indices. This allows for a low memory representation of the
 #'  text. This implementation is done using the MurmurHash3 method.
-#' 
+#'
 #'  The argument `num_terms` controls the number of indices that the hashing
 #'  function will map to. This is the tuning parameter for this
 #'  transformation. Since the hashing function can map two different tokens
 #'  to the same index, will a higher value of `num_terms` result in a lower
 #'  chance of collision.
-#'  
+#'
 #' @template details-prefix
-#' 
+#'
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
 #'  Alex Smola; Josh Attenberg (2009).
-#'  
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps
-#' 
+#'
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #'   library(recipes)
@@ -59,7 +59,6 @@
 #'   tidy(tate_rec, number = 2)
 #'   tidy(tate_obj, number = 2)
 #' }
-#' 
 #' @export
 step_texthash <-
   function(recipe,

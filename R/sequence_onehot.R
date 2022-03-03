@@ -21,19 +21,19 @@
 #' @param prefix A prefix for generated column names, default to "seq1hot".
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' The string will be capped by the sequence_length argument, strings shorter then
 #' sequence_length will be padded with empty characters. The encoding will assign
 #' a integer to each character in the vocabulary, and will encode accordingly.
 #' Characters not in the vocabulary will be encoded as 0.
-#' 
+#'
 #' @family character to numeric steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -51,7 +51,6 @@
 #'
 #' tidy(tate_rec, number = 1)
 #' tidy(tate_obj, number = 1)
-#' 
 #' @export
 step_sequence_onehot <-
   function(recipe,
@@ -245,7 +244,7 @@ string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
     }
   }
   res <- matrix(
-    vocabulary[match(res, names(vocabulary))], 
+    vocabulary[match(res, names(vocabulary))],
     nrow = length(x), ncol = sequence_length
   )
   res[is.na(res)] <- 0

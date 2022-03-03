@@ -6,6 +6,6 @@
 #'  more information.
 #'
 #' @name tidy.recipe
-#' 
+#'
 #' @inheritParams recipes::tidy.recipe
 NULL

@@ -14,9 +14,9 @@
 #' @param prefix A prefix for generated column names, default to "textfeature".
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' This step will take a character column and returns a number of numeric
 #' columns equal to the number of functions in the list passed to the
@@ -28,7 +28,7 @@
 #' will be thrown.
 #'
 #' @family character to numeric steps
-#' 
+#'
 #' @examples
 #' if (requireNamespace("textfeatures", quietly = TRUE)) {
 #'   library(recipes)
@@ -60,7 +60,6 @@
 #'     prep() %>%
 #'     bake(new_data = NULL)
 #' }
-#' 
 #' @export
 step_textfeature <-
   function(recipe,

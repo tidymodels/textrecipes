@@ -13,9 +13,9 @@
 #'  it will default to "SnowballC".
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' Words tend to have different forms depending on context, such as
 #' organize, organizes, and organizing. In many situations it is beneficial
@@ -25,10 +25,10 @@
 #'
 #' Note that the stemming will only be done at the end of the word and
 #' will therefore not work reliably on ngrams or sentences.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -68,7 +68,6 @@
 #' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
 #'   pull(medium)
-#' 
 #' @export
 step_stem <-
   function(recipe,

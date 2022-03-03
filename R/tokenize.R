@@ -20,15 +20,15 @@
 #'  as input and output a list of character vectors.
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
-#' 
+#'
 #' ```{r, echo=FALSE}
 #' options(width = 55)
 #' ```
-#' 
+#'
 #' Tokenization is the act of splitting a character string into smaller parts
 #' to be further analyzed. This step uses the `tokenizers` package which
 #' includes heuristics to split the text into paragraphs tokens, word tokens
@@ -40,25 +40,25 @@
 #' `step_tokenize` followed by modifying and filtering steps. This is not always
 #' the case as you sometimes want to do apply pre-tokenization steps, this can
 #' be done with [recipes::step_mutate()].
-#' 
+#'
 #' # Engines
-#' 
+#'
 #' The choice of `engine` determines the possible choices of `token`.
 #'
 #' The following is some small example data used in the following examples
-#' 
+#'
 #' ```{r}
 #' text_tibble <- tibble(
 #'   text = c("This is words", "They are nice!")
 #' )
 #' ```
-#' 
+#'
 #' ## tokenizers
-#' 
-#' The tokenizers package is the default `engine` and it comes with the 
+#'
+#' The tokenizers package is the default `engine` and it comes with the
 #' following unit of `token`. All of these options correspond to a function in
 #' the tokenizers package.
-#' 
+#'
 #' * "words" (default)
 #' * "characters"
 #' * "character_shingles"
@@ -72,110 +72,110 @@
 #' * "ptb" (Penn Treebank)
 #' * "skip_ngrams"
 #' * "word_stems"
-#' 
-#' The default tokenizer is `"word"` which splits the text into a series of 
+#'
+#' The default tokenizer is `"word"` which splits the text into a series of
 #' words. By using `step_tokenize()` without setting any arguments you get word
 #' tokens
-#' 
+#'
 #' ```{r}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(text) %>%
 #'   show_tokens(text)
 #' ```
-#' 
+#'
 #' This tokenizer has arguments that change how the tokenization occurs and can
 #' accessed using the `options` argument by passing a named list. Here we are
 #' telling [tokenizers::tokenize_words] that we don't want to turn the words to
 #' lowercase
-#' 
+#'
 #' ```{r}
 #' recipe(~ text, data = text_tibble) %>%
-#'   step_tokenize(text, 
+#'   step_tokenize(text,
 #'                 options = list(lowercase = FALSE)) %>%
 #'   show_tokens(text)
 #' ```
-#' 
+#'
 #' We can also stop removing punctuation.
-#' 
+#'
 #' ```{r}
 #' recipe(~ text, data = text_tibble) %>%
-#'   step_tokenize(text, 
+#'   step_tokenize(text,
 #'                 options = list(strip_punct = FALSE,
 #'                                lowercase = FALSE)) %>%
 #'   show_tokens(text)
 #' ```
-#' 
+#'
 #' The tokenizer can be changed by setting a different `token`. Here we change
 #' it to return character tokens.
-#' 
+#'
 #' ```{r}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(text, token = "characters") %>%
 #'   show_tokens(text)
 #' ```
-#' 
-#' It is worth noting that not all these token methods are appropriate but are 
+#'
+#' It is worth noting that not all these token methods are appropriate but are
 #' included for completeness.
 #'
 #' ## spacyr
-#' 
+#'
 #' * "words"
 #'
 #' ## tokenizers.bpe
-#' 
+#'
 #' The tokeenizers.bpe engine performs Byte Pair Encoding Text Tokenization.
-#' 
+#'
 #' * "words"
-#' 
+#'
 #' This tokenizer is trained on the training set and will thus need to be passed
-#' training arguments. These are passed to the `training_options` argument and 
+#' training arguments. These are passed to the `training_options` argument and
 #' the most important one is `vocab_size`. The determines the number of unique
 #' tokens the tokenizer will produce. It is generally set to a much higher
 #' value, typically in the thousands, but is set to 22 here for demonstration
 #' purposes.
-#' 
+#'
 #' ```{r, eval=FALSE}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(
-#'     text, 
-#'     engine = "tokenizers.bpe", 
+#'     text,
+#'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
 #'   ) %>%
 #'   show_tokens(text)
 #' ```
-#' 
+#'
 #' ```{r, echo=FALSE}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(
-#'     text, 
-#'     engine = "tokenizers.bpe", 
+#'     text,
+#'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
 #'   ) %>%
 #'   show_tokens(text) %>%
 #'   lapply(function(x) gsub("▁", "_", x))
 #' ```
-#' 
+#'
 #' ## udpipe
-#' 
+#'
 #' * "words"
-#' 
+#'
 #' ## custom_token
-#' 
-#' Sometimes you need to perform tokenization that is not covered by the 
+#'
+#' Sometimes you need to perform tokenization that is not covered by the
 #' supported engines. In that case you can use the `custom_token` argument to
 #' pass a function in that performs the tokenization you want.
-#' 
+#'
 #' Below is an example of a very simple space tokenization. This is a very fast
 #' way of tokenizing.
-#' 
+#'
 #' ```{r}
 #' space_tokenizer <- function(x) {
 #'   strsplit(x, " +")
 #' }
-#' 
+#'
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(
-#'     text, 
+#'     text,
 #'     custom_token = space_tokenizer
 #'   ) %>%
 #'   show_tokens(text)
@@ -183,7 +183,7 @@
 #'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -212,7 +212,6 @@
 #' bake(tate_obj, new_data = NULL) %>%
 #'   slice(2) %>%
 #'   pull(medium)
-#'
 #' @export
 step_tokenize <-
   function(recipe,
@@ -275,13 +274,12 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
   tokenizers <- list()
 
   for (i in seq_along(col_names)) {
-    
     text <- training[, col_names[[i]], drop = TRUE]
-    
+
     if (x$engine == "tokenizers.bpe" & !is.null(x$training_options$vocab_size)) {
       check_bpe_vocab_size(text, x$training_options$vocab_size, col_names[[i]])
     }
-    
+
     tokenizers[[i]] <- x$custom_token %||% tokenizer_switch(x$token, x, text)
   }
 
@@ -379,13 +377,8 @@ tokenizer_switch <- function(name, object, data) {
         "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
         "tweets", "words", "word_stems"
       )
-
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0("token should be one of the supported ",
-        "'", possible_tokenizers, "'",
-        collapse = ", "
-      ))
-    }
+    
+    check_possible_tokenizers(name, possible_tokenizers)
 
     res <- switch(name,
       characters = tokenizers::tokenize_characters,
@@ -409,15 +402,7 @@ tokenizer_switch <- function(name, object, data) {
 
     possible_tokenizers <- c("words")
 
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0(
-        "token should be one of the supported ",
-        "'", 
-        possible_tokenizers, 
-        "'",
-        collapse = ", "
-      ))
-    }
+    check_possible_tokenizers(name, possible_tokenizers)
 
     res <- switch(name,
       words = spacyr_tokenizer_words
@@ -430,16 +415,8 @@ tokenizer_switch <- function(name, object, data) {
 
     possible_tokenizers <- c("words")
 
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0(
-        "token should be one of the supported ",
-        "'",
-        possible_tokenizers,
-        "'",
-        collapse = ", "
-      ))
-    }
-
+    check_possible_tokenizers(name, possible_tokenizers)
+    
     res <- switch(name,
       words = tokenizers_bpe_tokens(data, object$training_options)
     )
@@ -451,15 +428,7 @@ tokenizer_switch <- function(name, object, data) {
 
     possible_tokenizers <- c("words")
 
-    if (!(name %in% possible_tokenizers)) {
-      rlang::abort(paste0(
-        "token should be one of the supported ",
-        "'",
-        possible_tokenizers,
-        "'",
-        collapse = ", "
-      ))
-    }
+    check_possible_tokenizers(name, possible_tokenizers)
 
     res <- switch(name,
       words = udpipe_words(object$training_options$model)

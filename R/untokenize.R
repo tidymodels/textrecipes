@@ -12,16 +12,16 @@
 #'  when pasted together. Defaults to `" "`.
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' This steps will turn a [tokenlist] back into a character vector. This step
 #' is calling `paste` internally to put the tokens back together to a character.
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to character steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -43,7 +43,6 @@
 #'
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
-#' 
 #' @export
 step_untokenize <-
   function(recipe,

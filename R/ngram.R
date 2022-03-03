@@ -18,17 +18,17 @@
 #' @template args-id
 #'
 #' @template returns
-#' 
+#'
 #' @details
 #'  The use of this step will leave the ordering of the tokens meaningless.
 #'  If `min_num_tokens <  num_tokens` then the tokens order in increasing
 #'  fashion with respect to the number of tokens in the n-gram. If
 #'  `min_num_tokens = 1` and `num_tokens = 3` then the output contains all the
 #'  1-grams followed by all the 2-grams followed by all the 3-grams.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -50,7 +50,6 @@
 #'
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
-#' 
 #' @export
 step_ngram <-
   function(recipe,

@@ -104,7 +104,6 @@ bake(tate_obj, new_data = NULL, medium) \%>\%
 bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(medium)
-
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.

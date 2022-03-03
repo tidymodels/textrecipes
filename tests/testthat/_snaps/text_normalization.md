@@ -1,3 +1,19 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Operations:
+      
+      Text Normalization for text
+
 # empty printing
 
     Code

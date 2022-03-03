@@ -1,3 +1,20 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          2
+      
+      Operations:
+      
+      Tokenization for medium
+      Text feature extraction for medium
+
 # empty printing
 
     Code

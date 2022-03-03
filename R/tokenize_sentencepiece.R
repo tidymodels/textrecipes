@@ -12,43 +12,43 @@
 #' @param vocabulary_size Integer, indicating the number of tokens in the final
 #'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
 #' @param options A list of options passed to the tokenizer.
-#' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will 
-#'   be stored here once this preprocessing step has be trained by 
+#' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will
+#'   be stored here once this preprocessing step has be trained by
 #'   [prep.recipe()].
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
-#' @details 
+#'
+#' @details
 #' If you are running into errors, you can investigate the progress of the
 #' compiled code by setting `options = list(verbose = TRUE)`. This can reveal
 #' if sentencepiece ran correctly or not.
-#' 
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
-#' 
+#'
 #' @examples
 #' if (requireNamespace("sentencepiece", quietly = TRUE)) {
-#' library(recipes)
-#' library(modeldata)
-#' data(tate_text)
+#'   library(recipes)
+#'   library(modeldata)
+#'   data(tate_text)
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize_sentencepiece(medium)
+#'   tate_rec <- recipe(~., data = tate_text) %>%
+#'     step_tokenize_sentencepiece(medium)
 #'
-#' tate_obj <- tate_rec %>%
-#'   prep()
+#'   tate_obj <- tate_rec %>%
+#'     prep()
 #'
-#' bake(tate_obj, new_data = NULL, medium) %>%
-#'   slice(1:2)
+#'   bake(tate_obj, new_data = NULL, medium) %>%
+#'     slice(1:2)
 #'
-#' bake(tate_obj, new_data = NULL) %>%
-#'   slice(2) %>%
-#'   pull(medium)
+#'   bake(tate_obj, new_data = NULL) %>%
+#'     slice(2) %>%
+#'     pull(medium)
 #'
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#'   tidy(tate_rec, number = 1)
+#'   tidy(tate_obj, number = 1)
 #' }
 #' @export
 step_tokenize_sentencepiece <-
@@ -62,9 +62,8 @@ step_tokenize_sentencepiece <-
            res = NULL,
            skip = FALSE,
            id = rand_id("tokenize_sentencepiece")) {
-    
     recipes::recipes_pkg_check(required_pkgs.step_tokenize_sentencepiece())
-    
+
     add_step(
       recipe,
       step_tokenize_sentencepiece_new(
@@ -82,7 +81,7 @@ step_tokenize_sentencepiece <-
   }
 
 step_tokenize_sentencepiece_new <-
-  function(terms, role, trained, columns, options, vocabulary_size, res, skip, 
+  function(terms, role, trained, columns, options, vocabulary_size, res, skip,
            id) {
     step(
       subclass = "tokenize_sentencepiece",
@@ -101,13 +100,13 @@ step_tokenize_sentencepiece_new <-
 #' @export
 prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], quant = FALSE)
-  
+
   tokenizers <- list()
-  
+
   sentencepiece_options <- x$options
   if (!is.null(sentencepiece_options$vocab_size)) {
     rlang::abort(
@@ -115,15 +114,15 @@ prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
     )
   }
   sentencepiece_options$vocab_size <- x$vocabulary_size
-  
+
   for (i in seq_along(col_names)) {
     text <- training[, col_names[[i]], drop = TRUE]
-    
+
     check_sentencepiece_vocab_size(text, x$vocabulary_size, col_names[[i]])
-    
+
     tokenizers[[i]] <- tokenizers_sentencepiece_tokens(text, sentencepiece_options)
   }
-  
+
   step_tokenize_sentencepiece_new(
     terms = x$terms,
     role = x$role,
@@ -142,16 +141,12 @@ check_sentencepiece_vocab_size <- function(text, vocabulary_size, column) {
   text_count <- unlist(text_count)
   text_count <- unique(text_count)
   text_count <- length(text_count)
-  
+
   if (vocabulary_size < text_count) {
     rlang::abort(
-      paste0(
-        "`vocabulary_size` of ",
-        vocabulary_size,
-        " is too small for column `",
-        column,
-        "` which has a unique character count of ",
-        text_count
+      glue(
+        "`vocabulary_size` of {vocabulary_size} is too small for column ",
+        "`{column}` which has a unique character count of {text_count}."
       )
     )
   }
@@ -161,7 +156,7 @@ check_sentencepiece_vocab_size <- function(text, vocabulary_size, column) {
 bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   for (i in seq_along(col_names)) {
     new_data[, col_names[i]] <- tokenizer_fun(
       data = new_data[, col_names[i]],
@@ -170,7 +165,7 @@ bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
       token = object$res[[i]]
     )
   }
-  
+
   as_tibble(new_data)
 }
 

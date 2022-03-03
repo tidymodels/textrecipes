@@ -3,7 +3,7 @@
 #' `step_clean_levels` creates a *specification* of a recipe step that will
 #'  clean nominal data (character or factor) so the levels consist only of
 #'  letters, numbers, and the underscore.
-#' 
+#'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
@@ -13,21 +13,21 @@
 #'  original variable is a character vector, it will be converted to a factor.
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
 #'
 #' @details The new levels are cleaned and then reset with
 #'  [dplyr::recode_factor()]. When data to be processed contains novel
 #'  levels (i.e., not contained in the training set), they are converted
 #'  to missing.
-#'  
-#'  For the `tidy` method, a tibble with columns `terms` (the new clean 
+#'
+#'  For the `tidy` method, a tibble with columns `terms` (the new clean
 #'  variable names) and `value` (the original variable names).
 #'
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
-#' 
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -50,7 +50,6 @@
 #'   # novel levels are replaced with missing
 #'   bake(rec, smith_te)
 #' }
-#' 
 #' @export
 step_clean_levels <-
   function(recipe,
@@ -115,7 +114,7 @@ bake.step_clean_levels <- function(object, new_data, ...) {
     # Empty selection
     return(new_data)
   }
-  
+
   if (!is.null(object$clean)) {
     for (i in names(object$clean)) {
       new_data[[i]] <- dplyr::recode_factor(new_data[[i]], !!!object$clean[[i]])
@@ -142,9 +141,9 @@ tidy.step_clean_levels <- function(x, ...) {
       res <- tibble(terms = character())
     } else {
       res <- purrr::map_dfr(
-        x$clean, 
+        x$clean,
         tibble::enframe,
-        name = "original", 
+        name = "original",
         .id = "terms"
       )
     }

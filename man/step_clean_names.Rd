@@ -70,7 +70,6 @@ if (requireNamespace("janitor", quietly = TRUE)) {
   bake(rec, air_tr)
   bake(rec, air_te)
 }
-
 }
 \seealso{
 \code{\link[=step_clean_levels]{step_clean_levels()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},

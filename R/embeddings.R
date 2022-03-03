@@ -22,7 +22,7 @@
 #' @template args-id
 #'
 #' @template returns
-#' 
+#'
 #' @details Word embeddings map words (or other tokens) into a high-dimensional
 #'   feature space. This function maps pre-trained word embeddings onto the
 #'   tokens in your data.
@@ -39,10 +39,10 @@
 #'   embeddings from the textdata package (where the column names are `d1`,
 #'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
 #'   `word_embeddings_sum_d2`, etc.
-#'   
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps
-#' 
+#'
 #' @examples
 #' library(recipes)
 #'
@@ -73,7 +73,6 @@
 #'
 #' tidy(rec, number = 2)
 #' tidy(obj, number = 2)
-#' 
 #' @export
 step_word_embeddings <- function(recipe,
                                  ...,
@@ -94,8 +93,8 @@ step_word_embeddings <- function(recipe,
       ncol(embeddings) == 1 ||
       !all(map_lgl(embeddings[, 2:ncol(embeddings)], is.numeric))
   ) {
-    embeddings_message <- paste(
-      "embeddings should be a tibble with 1 character or factor column and",
+    embeddings_message <- glue(
+      "embeddings should be a tibble with 1 character or factor column and ",
       "additional numeric columns."
     )
     rlang::abort(
@@ -167,13 +166,12 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
     # Empty selection
     return(new_data)
   }
-  
+
   col_names <- object$columns
   # for backward compat
 
   for (i in seq_along(col_names)) {
-    aggregation_fun <- switch(
-      object$aggregation,
+    aggregation_fun <- switch(object$aggregation,
       sum = function(x, ...) {
         if (length(x) == 0) {
           return(object$aggregation_default)

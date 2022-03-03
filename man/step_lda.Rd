@@ -71,7 +71,7 @@ library(recipes)
 library(modeldata)
 data(tate_text)
 
-tate_rec <- recipe(~ ., data = tate_text) \%>\%
+tate_rec <- recipe(~., data = tate_text) \%>\%
   step_tokenize(medium) \%>\%
   step_lda(medium)
 
@@ -84,7 +84,7 @@ tidy(tate_rec, number = 1)
 tidy(tate_obj, number = 1)
 
 # Changing the number of topics.
-recipe(~ ., data = tate_text) \%>\%
+recipe(~., data = tate_text) \%>\%
   step_tokenize(medium, artist) \%>\%
   step_lda(medium, artist, num_topics = 20) \%>\%
   prep() \%>\%
@@ -99,7 +99,7 @@ v <- create_vocabulary(it)
 dtm <- create_dtm(it, vocab_vectorizer(v))
 lda_model <- LDA$new(n_topics = 15)
 
-recipe(~ ., data = tate_text) \%>\%
+recipe(~., data = tate_text) \%>\%
   step_tokenize(medium, artist) \%>\%
   step_lda(medium, artist, lda_models = lda_model) \%>\%
   prep() \%>\%
@@ -107,7 +107,6 @@ recipe(~ ., data = tate_text) \%>\%
   slice(1:2)
 }
 }
-
 }
 \seealso{
 Other character to numeric steps: 

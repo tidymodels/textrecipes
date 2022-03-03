@@ -1,3 +1,19 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          2
+      
+      Operations:
+      
+      Feature hashing with sponsor_code
+
 # empty printing
 
     Code

@@ -16,33 +16,33 @@
 #'   here once this preprocessing step has be trained by [prep.recipe()].
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
-#' 
+#'
 #' @examples
 #' if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
-#' library(recipes)
-#' library(modeldata)
-#' data(tate_text)
+#'   library(recipes)
+#'   library(modeldata)
+#'   data(tate_text)
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize_bpe(medium)
+#'   tate_rec <- recipe(~., data = tate_text) %>%
+#'     step_tokenize_bpe(medium)
 #'
-#' tate_obj <- tate_rec %>%
-#'   prep()
+#'   tate_obj <- tate_rec %>%
+#'     prep()
 #'
-#' bake(tate_obj, new_data = NULL, medium) %>%
-#'   slice(1:2)
+#'   bake(tate_obj, new_data = NULL, medium) %>%
+#'     slice(1:2)
 #'
-#' bake(tate_obj, new_data = NULL) %>%
-#'   slice(2) %>%
-#'   pull(medium)
+#'   bake(tate_obj, new_data = NULL) %>%
+#'     slice(2) %>%
+#'     pull(medium)
 #'
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#'   tidy(tate_rec, number = 1)
+#'   tidy(tate_obj, number = 1)
 #' }
 #' @export
 step_tokenize_bpe <-
@@ -56,9 +56,8 @@ step_tokenize_bpe <-
            res = NULL,
            skip = FALSE,
            id = rand_id("tokenize_bpe")) {
-    
     recipes::recipes_pkg_check(required_pkgs.step_tokenize_bpe())
-    
+
     add_step(
       recipe,
       step_tokenize_bpe_new(
@@ -76,7 +75,7 @@ step_tokenize_bpe <-
   }
 
 step_tokenize_bpe_new <-
-  function(terms, role, trained, columns, options, vocabulary_size, res, skip, 
+  function(terms, role, trained, columns, options, vocabulary_size, res, skip,
            id) {
     step(
       subclass = "tokenize_bpe",
@@ -95,13 +94,13 @@ step_tokenize_bpe_new <-
 #' @export
 prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], quant = FALSE)
-  
+
   tokenizers <- list()
-  
+
   bpe_options <- x$options
   if (!is.null(bpe_options$vocab_size)) {
     rlang::abort(
@@ -109,15 +108,15 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
     )
   }
   bpe_options$vocab_size <- x$vocabulary_size
-  
+
   for (i in seq_along(col_names)) {
     text <- training[, col_names[[i]], drop = TRUE]
-    
+
     check_bpe_vocab_size(text, x$vocabulary_size, col_names[[i]])
-    
+
     tokenizers[[i]] <- tokenizers_bpe_tokens(text, bpe_options)
   }
-  
+
   step_tokenize_bpe_new(
     terms = x$terms,
     role = x$role,
@@ -139,13 +138,9 @@ check_bpe_vocab_size <- function(text, vocabulary_size, column) {
 
   if (vocabulary_size < text_count) {
     rlang::abort(
-      paste0(
-        "`vocabulary_size` of ",
-        vocabulary_size,
-        " is too small for column `",
-        column,
-        "` which has a unique character count of ",
-        text_count
+      glue(
+        "`vocabulary_size` of {vocabulary_size} is too small for column ",
+        "`{column}` which has a unique character count of {text_count}",
       )
     )
   }
@@ -155,7 +150,7 @@ check_bpe_vocab_size <- function(text, vocabulary_size, column) {
 bake.step_tokenize_bpe <- function(object, new_data, ...) {
   col_names <- object$columns
   # for backward compat
-  
+
   for (i in seq_along(col_names)) {
     new_data[, col_names[i]] <- tokenizer_fun(
       data = new_data[, col_names[i]],
@@ -164,7 +159,7 @@ bake.step_tokenize_bpe <- function(object, new_data, ...) {
       token = object$res[[i]]
     )
   }
-  
+
   as_tibble(new_data)
 }
 

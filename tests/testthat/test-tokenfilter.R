@@ -15,10 +15,9 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 3, min_times = 2)
 
-  expect_warning(
+  expect_snapshot(
     obj <- rec %>%
-      prep(),
-    "only 3 was available and selected."
+      prep()
   )
 
   expect_equal(
@@ -40,10 +39,9 @@ test_that("removes words correctly with min_times, max_times and procentage", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
 
-  expect_warning(
+  expect_snapshot(
     obj <- rec %>%
-      prep(),
-    "only 12 was available and selected."
+      prep()
   )
 
   expect_equal(
@@ -81,10 +79,9 @@ test_that("tokenfilter throws warning when max_tokens > words", {
     step_tokenize(text) %>%
     step_tokenfilter(text, max_tokens = 10000)
 
-  expect_warning(
+  expect_snapshot(
     rec %>%
-      prep(),
-    "max_tokens"
+      prep()
   )
 })
 
@@ -93,7 +90,7 @@ test_that("tokenfilter works with filter_fun", {
     step_tokenize(text) %>%
     step_tokenfilter(text, filter_fun = function(x) nchar(x) >= 5) %>%
     prep()
-  
+
   expect_equal(
     bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
     list(
@@ -103,12 +100,12 @@ test_that("tokenfilter works with filter_fun", {
       character()
     )
   )
-  
+
   obj <- recipe(~., data = test_data) %>%
     step_tokenize(text) %>%
     step_tokenfilter(text, filter_fun = function(x) grepl("^e", x)) %>%
     prep()
-  
+
   expect_equal(
     bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
     list(
@@ -124,36 +121,33 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_tokenfilter(text)
-  expect_output(print(rec))
-  expect_warning(
-    expect_output(prep(rec, verbose = TRUE))
-  )
+  expect_snapshot(print(rec))
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tokenfilter(rec1)
-  
+
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
-  
+
   baked1 <- bake(rec1, mtcars)
   baked2 <- bake(rec2, mtcars)
-  
+
   expect_identical(baked1, baked1)
 })
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenfilter(rec)
-  
+
   expect_identical(
     tidy(rec, number = 1),
     tibble(terms = character(), value = integer(), id = character())
   )
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_identical(
     tidy(rec, number = 1),
     tibble(terms = character(), value = integer(), id = character())
@@ -163,10 +157,10 @@ test_that("empty selection tidy method works", {
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenfilter(rec)
-  
+
   expect_snapshot(rec)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_snapshot(rec)
 })

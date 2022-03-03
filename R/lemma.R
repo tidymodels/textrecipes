@@ -10,19 +10,19 @@
 #' @template args-columns
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @details
 #' This stem doesn't perform lemmatization by itself, but rather lets you
 #' extract the lemma attribute of the tokenlist. To be able to use `step_lemma`
 #' you need to use a tokenization method that includes lemmatization. Currently
 #' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and
 #' works well with `step_lemma`.
-#' 
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' library(recipes)
@@ -41,7 +41,7 @@
 #'
 #' bake(rec_prepped, new_data = NULL)
 #' }
-#' 
+#'
 #' @export
 step_lemma <-
   function(recipe,
@@ -102,12 +102,12 @@ bake.step_lemma <- function(object, new_data, ...) {
     variable <- new_data[, col_names[i], drop = TRUE]
 
     if (is.null(maybe_get_lemma(variable))) {
-      rlang::abort(paste0(
-        "`", col_names[i],
-        "` doesn't have a lemma attribute. ",
-        "Make sure the tokenization step includes ",
-        "lemmatization."
-      ))
+      rlang::abort(
+        glue(
+          "`{col_names[i]}` doesn't have a lemma attribute. ",
+          "Make sure the tokenization step includes lemmatization."
+        )
+      )
     } else {
       lemma_variable <- tokenlist_lemma(variable)
     }

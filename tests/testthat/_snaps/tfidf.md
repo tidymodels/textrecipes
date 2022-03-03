@@ -1,3 +1,20 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Operations:
+      
+      Tokenization for text
+      Term frequency-inverse document frequency with text
+
 # empty printing
 
     Code

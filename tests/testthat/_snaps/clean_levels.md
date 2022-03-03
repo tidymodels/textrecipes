@@ -1,3 +1,19 @@
+# printing
+
+    Code
+      print(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          3
+      
+      Operations:
+      
+      Cleaning factor levels for name
+
 # empty printing
 
     Code

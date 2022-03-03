@@ -14,12 +14,12 @@
 #'  See [stringi::stri_trans_nfc()] for more details.
 #' @template args-skip
 #' @template args-id
-#' 
+#'
 #' @template returns
-#' 
+#'
 #' @seealso [step_texthash()] for feature hashing.
 #' @family character to character steps
-#' 
+#'
 #' @examples
 #' if (requireNamespace("stringi", quietly = TRUE)) {
 #'   library(recipes)
@@ -42,7 +42,6 @@
 #'   tidy(rec, number = 1)
 #'   tidy(prepped, number = 1)
 #' }
-#' 
 #' @export
 step_text_normalization <-
   function(recipe,
@@ -109,18 +108,19 @@ bake.step_text_normalization <- function(object, new_data, ...) {
 
   new_data <- factor_to_text(new_data, col_names)
 
-  normalization_fun <- switch(
-    object$normalization_form,
+  normalization_fun <- switch(object$normalization_form,
     nfc = stringi::stri_trans_nfc,
     nfd = stringi::stri_trans_nfd,
     nfkd = stringi::stri_trans_nfkd,
     nfkc = stringi::stri_trans_nfkc,
     nfkc_casefold = stringi::stri_trans_nfkc_casefold,
-    rlang::abort(paste(
-      "'normalization_form' must be one of",
-      "'nfc', 'nfd', 'nfkd', 'nfkc', or 'nfkc_casefold'",
-      "but was ", object$normalization_form
-    ))
+    rlang::abort(
+      glue(
+        "'normalization_form' must be one of",
+        "'nfc', 'nfd', 'nfkd', 'nfkc', or 'nfkc_casefold'",
+        "but was {object$normalization_form}."
+      )
+    )
   )
 
   for (i in seq_along(col_names)) {
