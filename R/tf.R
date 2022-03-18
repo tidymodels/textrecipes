@@ -1,4 +1,4 @@
-#' Term frequency of tokens
+#' Term frequency of Tokens
 #'
 #' `step_tf` creates a *specification* of a recipe step that
 #'  will convert a [tokenlist] into multiple variables containing

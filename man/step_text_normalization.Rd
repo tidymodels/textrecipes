@@ -2,7 +2,7 @@
 % Please edit documentation in R/text_normalization.R
 \name{step_text_normalization}
 \alias{step_text_normalization}
-\title{Normalization of \link{tokenlist} variables}
+\title{Normalization of \link{tokenlist} Variables}
 \usage{
 step_text_normalization(
   recipe,

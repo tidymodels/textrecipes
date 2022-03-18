@@ -2,7 +2,7 @@
 % Please edit documentation in R/pos_filter.R
 \name{step_pos_filter}
 \alias{step_pos_filter}
-\title{Part of speech filtering of \link{tokenlist} variables}
+\title{Part of Speech Filtering of \link{tokenlist} Variables}
 \usage{
 step_pos_filter(
   recipe,

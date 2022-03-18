@@ -1,4 +1,4 @@
-#' Filter the tokens based on term frequency
+#' Filter Tokens Based on Term Frequency
 #'
 #' `step_tokenfilter` creates a *specification* of a recipe step that
 #'  will convert a [tokenlist] to be filtered based on frequency.

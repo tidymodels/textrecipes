@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_levels.R
 \name{step_clean_levels}
 \alias{step_clean_levels}
-\title{Clean categorical levels}
+\title{Clean Categorical Levels}
 \usage{
 step_clean_levels(
   recipe,

@@ -1,4 +1,4 @@
-#' Part of speech filtering of [tokenlist] variables
+#' Part of Speech Filtering of [tokenlist] Variables
 #'
 #' `step_pos_filter` creates a *specification* of a recipe step that
 #'  will filter a [tokenlist] based on part of speech tags.

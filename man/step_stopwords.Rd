@@ -2,7 +2,7 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
-\title{Filtering of stopwords from a \link{tokenlist} variable}
+\title{Filtering of Stop Words for \link{tokenlist} Variables}
 \usage{
 step_stopwords(
   recipe,
@@ -36,13 +36,13 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{language}{A character to indicate the language of stopwords
+\item{language}{A character to indicate the language of stop words
 by ISO 639-1 coding scheme.}
 
-\item{keep}{A logical. Specifies whether to keep the stopwords or discard
+\item{keep}{A logical. Specifies whether to keep the stop words or discard
 them.}
 
-\item{stopword_source}{A character to indicate the stopwords source as
+\item{stopword_source}{A character to indicate the stop words source as
 listed in \code{stopwords::stopwords_getsources}.}
 
 \item{custom_stopword_source}{A character vector to indicate a custom
@@ -62,7 +62,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_stopwords} creates a \emph{specification} of a recipe step that
-will filter a \link{tokenlist} for stopwords(keep or remove).
+will filter a \link{tokenlist} for stop words(keep or remove).
 }
 \details{
 Stop words are words which sometimes are remove before natural language
@@ -104,7 +104,7 @@ if (requireNamespace("stopwords", quietly = TRUE)) {
   tidy(tate_obj, number = 2)
 }
 
-# With a custom stopwords list
+# With a custom stop words list
 
 tate_rec <- recipe(~., data = tate_text) \%>\%
   step_tokenize(medium) \%>\%

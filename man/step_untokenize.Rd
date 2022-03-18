@@ -2,7 +2,7 @@
 % Please edit documentation in R/untokenize.R
 \name{step_untokenize}
 \alias{step_untokenize}
-\title{Untokenization of \link{tokenlist} variables}
+\title{Untokenization of \link{tokenlist} Variables}
 \usage{
 step_untokenize(
   recipe,

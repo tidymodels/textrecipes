@@ -1,4 +1,4 @@
-#' Clean categorical levels
+#' Clean Categorical Levels
 #'
 #' `step_clean_levels` creates a *specification* of a recipe step that will
 #'  clean nominal data (character or factor) so the levels consist only of

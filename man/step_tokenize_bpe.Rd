@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize_bpe.R
 \name{step_tokenize_bpe}
 \alias{step_tokenize_bpe}
-\title{BPE Tokenization of character variables}
+\title{BPE Tokenization of Character Variables}
 \usage{
 step_tokenize_bpe(
   recipe,

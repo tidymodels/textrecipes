@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenfilter.R
 \name{step_tokenfilter}
 \alias{step_tokenfilter}
-\title{Filter the tokens based on term frequency}
+\title{Filter Tokens Based on Term Frequency}
 \usage{
 step_tokenfilter(
   recipe,

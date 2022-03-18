@@ -2,7 +2,7 @@
 % Please edit documentation in R/embeddings.R
 \name{step_word_embeddings}
 \alias{step_word_embeddings}
-\title{Pretrained word embeddings of tokens}
+\title{Pretrained Word Embeddings of Tokens}
 \usage{
 step_word_embeddings(
   recipe,

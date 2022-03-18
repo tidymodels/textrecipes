@@ -2,7 +2,7 @@
 % Please edit documentation in R/textfeature.R
 \name{step_textfeature}
 \alias{step_textfeature}
-\title{Generate the basic set of text features}
+\title{Calculate Set of Text Features}
 \usage{
 step_textfeature(
   recipe,

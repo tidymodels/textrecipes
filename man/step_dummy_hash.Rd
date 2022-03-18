@@ -2,7 +2,7 @@
 % Please edit documentation in R/hashing_dummy.R
 \name{step_dummy_hash}
 \alias{step_dummy_hash}
-\title{Indicator variables via feature hashing}
+\title{Indicator Variables via Feature Hashing}
 \usage{
 step_dummy_hash(
   recipe,

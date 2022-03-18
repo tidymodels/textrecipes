@@ -1,4 +1,4 @@
-#' Indicator variables via feature hashing
+#' Indicator Variables via Feature Hashing
 #'
 #' `step_dummy_hash` creates a *specification* of a recipe step that
 #'  will convert factors or character columns into a series of binary

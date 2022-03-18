@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize_sentencepiece.R
 \name{step_tokenize_sentencepiece}
 \alias{step_tokenize_sentencepiece}
-\title{Sentencepiece Tokenization of character variables}
+\title{Sentencepiece Tokenization of Character Variables}
 \usage{
 step_tokenize_sentencepiece(
   recipe,

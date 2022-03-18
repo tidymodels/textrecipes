@@ -1,4 +1,4 @@
-#' Calculates lda dimension estimates
+#' Calculate LDA Dimension Estimates of Tokens
 #'
 #' @description
 #' `step_lda` creates a *specification* of a recipe step that

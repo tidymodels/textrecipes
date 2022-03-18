@@ -1,4 +1,4 @@
-#' Normalization of [tokenlist] variables
+#' Normalization of [tokenlist] Variables
 #'
 #' `step_text_normalization` creates a *specification* of a recipe step that
 #'  will perform Unicode Normalization

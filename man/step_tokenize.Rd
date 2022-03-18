@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize.R
 \name{step_tokenize}
 \alias{step_tokenize}
-\title{Tokenization of character variables}
+\title{Tokenization of Character Variables}
 \usage{
 step_tokenize(
   recipe,

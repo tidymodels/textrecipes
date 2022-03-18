@@ -2,7 +2,7 @@
 % Please edit documentation in R/stem.R
 \name{step_stem}
 \alias{step_stem}
-\title{Stemming of \link{tokenlist} variables}
+\title{Stemming of \link{tokenlist} Variables}
 \usage{
 step_stem(
   recipe,

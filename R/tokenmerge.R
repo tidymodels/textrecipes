@@ -1,4 +1,4 @@
-#'  Generate the basic set of text features
+#'  Combine Multiple tokenlist Variables Into One
 #'
 #' `step_tokenmerge` creates a *specification* of a recipe step that
 #'  will take multiple [tokenlist]s and combine them into one

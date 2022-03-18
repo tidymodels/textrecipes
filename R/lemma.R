@@ -1,4 +1,4 @@
-#' Lemmatization of [tokenlist] variables
+#' Lemmatization of [tokenlist] Variables
 #'
 #' `step_lemma` creates a *specification* of a recipe step that
 #'  will extract the lemmatization of a tokenlist.

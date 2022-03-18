@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenmerge.R
 \name{step_tokenmerge}
 \alias{step_tokenmerge}
-\title{Generate the basic set of text features}
+\title{Combine Multiple tokenlist Variables Into One}
 \usage{
 step_tokenmerge(
   recipe,

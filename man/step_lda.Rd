@@ -2,7 +2,7 @@
 % Please edit documentation in R/lda.R
 \name{step_lda}
 \alias{step_lda}
-\title{Calculates lda dimension estimates}
+\title{Calculate LDA Dimension Estimates of Tokens}
 \source{
 \url{https://arxiv.org/abs/1301.3781}
 }

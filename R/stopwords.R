@@ -1,18 +1,18 @@
-#' Filtering of stopwords from a [tokenlist] variable
+#' Filtering of Stop Words for [tokenlist] Variables
 #'
 #' `step_stopwords` creates a *specification* of a recipe step that
-#'  will filter a [tokenlist] for stopwords(keep or remove).
+#'  will filter a [tokenlist] for stop words(keep or remove).
 #'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param language A character to indicate the language of stopwords
+#' @param language A character to indicate the language of stop words
 #'  by ISO 639-1 coding scheme.
-#' @param keep A logical. Specifies whether to keep the stopwords or discard
+#' @param keep A logical. Specifies whether to keep the stop words or discard
 #'  them.
-#' @param stopword_source A character to indicate the stopwords source as
+#' @param stopword_source A character to indicate the stop words source as
 #'  listed in `stopwords::stopwords_getsources`.
 #' @param custom_stopword_source A character vector to indicate a custom
 #'  list of words that cater to the users specific problem.
@@ -64,7 +64,7 @@
 #'   tidy(tate_obj, number = 2)
 #' }
 #'
-#' # With a custom stopwords list
+#' # With a custom stop words list
 #'
 #' tate_rec <- recipe(~., data = tate_text) %>%
 #'   step_tokenize(medium) %>%

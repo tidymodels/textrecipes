@@ -1,4 +1,4 @@
-#' Term frequency of tokens
+#' Feature Hashing of Tokens
 #'
 #' `step_texthash` creates a *specification* of a recipe step that
 #'  will convert a [tokenlist] into multiple variables using the

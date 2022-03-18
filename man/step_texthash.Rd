@@ -2,7 +2,7 @@
 % Please edit documentation in R/hashing.R
 \name{step_texthash}
 \alias{step_texthash}
-\title{Term frequency of tokens}
+\title{Feature Hashing of Tokens}
 \usage{
 step_texthash(
   recipe,

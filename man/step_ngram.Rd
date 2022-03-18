@@ -2,7 +2,7 @@
 % Please edit documentation in R/ngram.R
 \name{step_ngram}
 \alias{step_ngram}
-\title{Generate ngrams from tokenlist}
+\title{Generate n-grams From tokenlist Variables}
 \usage{
 step_ngram(
   recipe,

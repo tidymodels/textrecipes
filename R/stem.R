@@ -1,4 +1,4 @@
-#' Stemming of [tokenlist] variables
+#' Stemming of [tokenlist] Variables
 #'
 #' `step_stem` creates a *specification* of a recipe step that
 #'  will convert a [tokenlist] to have its tokens stemmed.

@@ -1,4 +1,4 @@
-#'  Generate the basic set of text features
+#'  Calculate Set of Text Features
 #'
 #' `step_textfeature` creates a *specification* of a recipe step that
 #'  will extract a number of numeric features of a text column.

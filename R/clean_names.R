@@ -1,4 +1,4 @@
-#' Clean variable names
+#' Clean Variable Names
 #'
 #' `step_clean_names` creates a *specification* of a recipe step that will
 #'  clean variable names so the names consist only of letters, numbers, and the

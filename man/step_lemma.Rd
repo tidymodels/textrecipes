@@ -2,7 +2,7 @@
 % Please edit documentation in R/lemma.R
 \name{step_lemma}
 \alias{step_lemma}
-\title{Lemmatization of \link{tokenlist} variables}
+\title{Lemmatization of \link{tokenlist} Variables}
 \usage{
 step_lemma(
   recipe,

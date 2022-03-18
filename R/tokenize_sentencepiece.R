@@ -1,4 +1,4 @@
-#' Sentencepiece Tokenization of character variables
+#' Sentencepiece Tokenization of Character Variables
 #'
 #' [step_tokenize_sentencepiece()] creates a *specification* of a recipe step
 #' that will convert a character predictor into a [tokenlist] using Byte Pair

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tfidf.R
 \name{step_tfidf}
 \alias{step_tfidf}
-\title{Term frequency-inverse document frequency of tokens}
+\title{Term Frequency-Inverse Document Frequency of Tokens}
 \usage{
 step_tfidf(
   recipe,
