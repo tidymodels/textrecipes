@@ -91,8 +91,8 @@ if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other character to tokenlist steps: 
+Other Steps for Tokenization: 
 \code{\link{step_tokenize_sentencepiece}()},
 \code{\link{step_tokenize}()}
 }
-\concept{character to tokenlist steps}
+\concept{Steps for Tokenization}

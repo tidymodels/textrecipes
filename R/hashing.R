@@ -44,7 +44,8 @@
 #'  Alex Smola; Josh Attenberg (2009).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to numeric steps
+#'   [step_text_normalization()] to perform text normalization.
+#' @family Steps for Numeric Variables From Tokens
 #'
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {

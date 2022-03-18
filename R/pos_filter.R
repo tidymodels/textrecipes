@@ -27,7 +27,7 @@
 #' (the selectors or variables selected) and `num_topics` (number of topics).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
+#' @family Steps for Token Modification
 #'
 #' @examples
 #' \dontrun{

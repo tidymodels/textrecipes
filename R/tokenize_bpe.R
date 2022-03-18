@@ -27,7 +27,7 @@
 #' (the selectors or variables selected).
 #'
 #' @seealso [step_untokenize()] to untokenize.
-#' @family character to tokenlist steps
+#' @family Steps for Tokenization
 #'
 #' @examples
 #' if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {

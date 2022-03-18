@@ -54,6 +54,7 @@
 #'  \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
 #'
 #' @seealso [recipes::step_dummy()]
+#' @family Steps for Numeric Variables From Characters
 #'
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {

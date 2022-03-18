@@ -105,8 +105,8 @@ tidy(tate_rec, number = 3)
 tidy(tate_obj, number = 3)
 }
 \seealso{
-Other character to numeric steps: 
-\code{\link{step_lda}()},
+Other Steps for Numeric Variables From Characters: 
+\code{\link{step_dummy_hash}()},
 \code{\link{step_textfeature}()}
 }
-\concept{character to numeric steps}
+\concept{Steps for Numeric Variables From Characters}

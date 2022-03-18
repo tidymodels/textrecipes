@@ -86,4 +86,4 @@ if (requireNamespace("stringi", quietly = TRUE)) {
 \seealso{
 \code{\link[=step_texthash]{step_texthash()}} for feature hashing.
 }
-\concept{character to character steps}
+\concept{Steps for Text Normalization}

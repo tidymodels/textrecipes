@@ -33,7 +33,7 @@
 #' (the selectors or variables selected) and `functions` (name of feature
 #' functions).
 #' 
-#' @family character to numeric steps
+#' @family Steps for Numeric Variables From Characters
 #'
 #' @examples
 #' if (requireNamespace("textfeatures", quietly = TRUE)) {

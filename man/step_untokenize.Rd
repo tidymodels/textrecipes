@@ -87,4 +87,4 @@ tidy(tate_obj, number = 2)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
 }
-\concept{tokenlist to character steps}
+\concept{Steps for Un-Tokenization}

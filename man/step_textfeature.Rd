@@ -107,8 +107,8 @@ if (requireNamespace("textfeatures", quietly = TRUE)) {
 }
 }
 \seealso{
-Other character to numeric steps: 
-\code{\link{step_lda}()},
+Other Steps for Numeric Variables From Characters: 
+\code{\link{step_dummy_hash}()},
 \code{\link{step_sequence_onehot}()}
 }
-\concept{character to numeric steps}
+\concept{Steps for Numeric Variables From Characters}

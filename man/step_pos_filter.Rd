@@ -86,7 +86,7 @@ bake(rec_prepped, new_data = NULL)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
 
-Other tokenlist to tokenlist steps: 
+Other Steps for Token Modification: 
 \code{\link{step_lemma}()},
 \code{\link{step_ngram}()},
 \code{\link{step_stem}()},
@@ -94,4 +94,4 @@ Other tokenlist to tokenlist steps:
 \code{\link{step_tokenfilter}()},
 \code{\link{step_tokenmerge}()}
 }
-\concept{tokenlist to tokenlist steps}
+\concept{Steps for Token Modification}

@@ -38,7 +38,7 @@
 #' (the selectors or variables selected), `vocabulary` (index) and `token` (text
 #' correspoding to the index).
 #'
-#' @family character to numeric steps
+#' @family Steps for Numeric Variables From Characters
 #'
 #' @examples
 #' library(recipes)

@@ -28,7 +28,7 @@
 #'
 #' @template returns
 #'
-#' @family character to numeric steps
+#' @family Steps for Numeric Variables From Tokens
 #'
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {

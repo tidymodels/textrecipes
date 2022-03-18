@@ -26,7 +26,7 @@
 #' collapsing).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to character steps
+#' @family Steps for Un-Tokenization
 #'
 #' @examples
 #' library(recipes)

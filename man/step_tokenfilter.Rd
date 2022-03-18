@@ -118,7 +118,7 @@ tidy(tate_obj, number = 2)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
 
-Other tokenlist to tokenlist steps: 
+Other Steps for Token Modification: 
 \code{\link{step_lemma}()},
 \code{\link{step_ngram}()},
 \code{\link{step_pos_filter}()},
@@ -126,4 +126,4 @@ Other tokenlist to tokenlist steps:
 \code{\link{step_stopwords}()},
 \code{\link{step_tokenmerge}()}
 }
-\concept{tokenlist to tokenlist steps}
+\concept{Steps for Token Modification}

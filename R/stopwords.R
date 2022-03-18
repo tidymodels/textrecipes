@@ -38,7 +38,7 @@
 #' `keep` (whether stop words are removed or kept).
 #' 
 #' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
+#' @family Steps for Token Modification
 #'
 #' @examples
 #' library(recipes)

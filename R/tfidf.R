@@ -56,7 +56,7 @@
 #' @template details-prefix
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to numeric steps
+#' @family Steps for Numeric Variables From Tokens
 #'
 #' @examples
 #' \donttest{

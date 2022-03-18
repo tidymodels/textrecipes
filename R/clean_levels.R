@@ -30,6 +30,7 @@
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
+#' @family Steps for Text Cleaning
 #'
 #' @examples
 #' library(recipes)

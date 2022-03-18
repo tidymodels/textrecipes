@@ -127,9 +127,10 @@ tidy(obj, number = 2)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
 
-Other tokenlist to numeric steps: 
+Other Steps for Numeric Variables From Tokens: 
+\code{\link{step_lda}()},
 \code{\link{step_texthash}()},
 \code{\link{step_tfidf}()},
 \code{\link{step_tf}()}
 }
-\concept{tokenlist to numeric steps}
+\concept{Steps for Numeric Variables From Tokens}

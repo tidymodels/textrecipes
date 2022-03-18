@@ -114,8 +114,10 @@ recipe(~., data = tate_text) \%>\%
 }
 }
 \seealso{
-Other character to numeric steps: 
-\code{\link{step_sequence_onehot}()},
-\code{\link{step_textfeature}()}
+Other Steps for Numeric Variables From Tokens: 
+\code{\link{step_texthash}()},
+\code{\link{step_tfidf}()},
+\code{\link{step_tf}()},
+\code{\link{step_word_embeddings}()}
 }
-\concept{character to numeric steps}
+\concept{Steps for Numeric Variables From Tokens}

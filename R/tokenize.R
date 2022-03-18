@@ -187,7 +187,7 @@
 #' (the selectors or variables selected) and `value` (unit of tokenization).
 #'
 #' @seealso [step_untokenize()] to untokenize.
-#' @family character to tokenlist steps
+#' @family Steps for Tokenization
 #'
 #' @examples
 #' library(recipes)

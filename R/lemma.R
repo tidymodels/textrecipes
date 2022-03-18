@@ -26,7 +26,7 @@
 #' (the selectors or variables selected).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
+#' @family Steps for Token Modification
 #'
 #' @examples
 #' \dontrun{

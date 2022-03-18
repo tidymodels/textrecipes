@@ -88,4 +88,8 @@ if (requireNamespace("janitor", quietly = TRUE)) {
 \code{\link[=step_clean_names]{step_clean_names()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},
 \code{\link[recipes:step_string2factor]{recipes::step_string2factor()}}, \code{\link[recipes:step_regex]{recipes::step_regex()}},
 \code{\link[recipes:step_unknown]{recipes::step_unknown()}}, \code{\link[recipes:step_novel]{recipes::step_novel()}}, \code{\link[recipes:step_other]{recipes::step_other()}}
+
+Other Steps for Text Cleaning: 
+\code{\link{step_clean_names}()}
 }
+\concept{Steps for Text Cleaning}

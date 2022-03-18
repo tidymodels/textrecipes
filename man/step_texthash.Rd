@@ -114,10 +114,12 @@ Alex Smola; Josh Attenberg (2009).
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_text_normalization]{step_text_normalization()}} to perform text normalization.
 
-Other tokenlist to numeric steps: 
+Other Steps for Numeric Variables From Tokens: 
+\code{\link{step_lda}()},
 \code{\link{step_tfidf}()},
 \code{\link{step_tf}()},
 \code{\link{step_word_embeddings}()}
 }
-\concept{tokenlist to numeric steps}
+\concept{Steps for Numeric Variables From Tokens}

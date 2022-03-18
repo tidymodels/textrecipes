@@ -266,8 +266,8 @@ bake(tate_obj, new_data = NULL) \%>\%
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other character to tokenlist steps: 
+Other Steps for Tokenization: 
 \code{\link{step_tokenize_bpe}()},
 \code{\link{step_tokenize_sentencepiece}()}
 }
-\concept{character to tokenlist steps}
+\concept{Steps for Tokenization}

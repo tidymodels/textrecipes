@@ -26,7 +26,7 @@
 #' normalization).
 #'
 #' @seealso [step_texthash()] for feature hashing.
-#' @family character to character steps
+#' @family Steps for Text Normalization
 #'
 #' @examples
 #' if (requireNamespace("stringi", quietly = TRUE)) {
