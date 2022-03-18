@@ -56,7 +56,7 @@ will filter a \link{tokenlist} based on part of speech tags.
 Possible part of speech tags for \code{spacyr} engine are: "ADJ", "ADP", "ADV",
 "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
 "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
-information look here \url{https://spacy.io/api/annotation#pos-tagging}.
+information look here \url{https://github.com/explosion/spaCy/blob/master/spacy/glossary.py}.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
