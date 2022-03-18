@@ -47,6 +47,13 @@
 #' done to prevent a bias towards longer documents.
 #'
 #' @template details-prefix
+#' 
+#' @details
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `value` (the weighting scheme).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps

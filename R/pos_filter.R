@@ -20,6 +20,11 @@
 #' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
 #' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
 #' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `num_topics` (number of topics).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps

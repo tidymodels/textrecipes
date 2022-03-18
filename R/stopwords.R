@@ -30,7 +30,13 @@
 #' to filter against. With the `keep` argument one can specify to keep the
 #' words instead of removing thus allowing you to select words with a
 #' combination of these two arguments.
+#' 
+#' # Tidying
 #'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `value` (name of stop word list), and
+#' `keep` (whether stop words are removed or kept).
+#' 
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
 #'

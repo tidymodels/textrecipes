@@ -74,6 +74,12 @@ to filter against. With the \code{keep} argument one can specify to keep the
 words instead of removing thus allowing you to select words with a
 combination of these two arguments.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{value} (name of stop word list), and
+\code{keep} (whether stop words are removed or kept).
+}
+
 \examples{
 library(recipes)
 library(modeldata)

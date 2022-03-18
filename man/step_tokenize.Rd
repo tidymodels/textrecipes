@@ -229,6 +229,11 @@ recipe(~ text, data = text_tibble) \%>\%
 }
 }
 
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (unit of tokenization).
+}
+
 \examples{
 library(recipes)
 library(modeldata)

@@ -16,8 +16,11 @@
 #' @template returns
 #'
 #' @details
-#'  For the `tidy` method, a tibble with columns `terms` (the new clean
-#'  variable names) and `value` (the original variable names).
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the new clean variable names) and `value` (the original variable names).
 #'
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],

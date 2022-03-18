@@ -54,10 +54,13 @@ The new levels are cleaned and then reset with
 \code{\link[dplyr:recode]{dplyr::recode_factor()}}. When data to be processed contains novel
 levels (i.e., not contained in the training set), they are converted
 to missing.
-
-For the \code{tidy} method, a tibble with columns \code{terms} (the new clean
-variable names) and \code{value} (the original variable names).
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns
+\code{terms} (the selectors or variables selected), \code{original} (the original
+levels) and \code{value} (the cleaned levels) is returned.
+}
+
 \examples{
 library(recipes)
 library(modeldata)

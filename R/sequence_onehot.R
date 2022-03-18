@@ -31,6 +31,12 @@
 #' sequence_length will be padded with empty characters. The encoding will assign
 #' a integer to each character in the vocabulary, and will encode accordingly.
 #' Characters not in the vocabulary will be encoded as 0.
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `vocabulary` (index) and `token` (text
+#' correspoding to the index).
 #'
 #' @family character to numeric steps
 #'
@@ -49,8 +55,8 @@
 #'
 #' bake(tate_obj, new_data = NULL)
 #'
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#' tidy(tate_rec, number = 3)
+#' tidy(tate_obj, number = 3)
 #' @export
 step_sequence_onehot <-
   function(recipe,

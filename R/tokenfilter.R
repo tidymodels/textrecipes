@@ -40,6 +40,11 @@
 #'
 #' It is strongly advised to filter before using [step_tf] or [step_tfidf] to
 #' limit the number of variables created.
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `value` (number of unique tokens).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps

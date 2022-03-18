@@ -55,6 +55,11 @@ you need to use a tokenization method that includes lemmatization. Currently
 using the \code{"spacyr"} engine in \code{\link[=step_tokenize]{step_tokenize()}} provides lemmatization and
 works well with \code{step_lemma}.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 \dontrun{
 library(recipes)

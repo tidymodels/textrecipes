@@ -19,6 +19,13 @@
 #'
 #' @template returns
 #'
+#' @details 
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
 #'

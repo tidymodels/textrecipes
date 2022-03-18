@@ -56,6 +56,12 @@ will convert a \link{tokenlist} into a character predictor.
 This steps will turn a \link{tokenlist} back into a character vector. This step
 is calling \code{paste} internally to put the tokens back together to a character.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (seperator used for
+collapsing).
+}
+
 \examples{
 library(recipes)
 library(modeldata)

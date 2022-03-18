@@ -80,6 +80,12 @@ sequence_length will be padded with empty characters. The encoding will assign
 a integer to each character in the vocabulary, and will encode accordingly.
 Characters not in the vocabulary will be encoded as 0.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{vocabulary} (index) and \code{token} (text
+correspoding to the index).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -95,8 +101,8 @@ tate_obj <- tate_rec \%>\%
 
 bake(tate_obj, new_data = NULL)
 
-tidy(tate_rec, number = 1)
-tidy(tate_obj, number = 1)
+tidy(tate_rec, number = 3)
+tidy(tate_obj, number = 3)
 }
 \seealso{
 Other character to numeric steps: 

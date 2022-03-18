@@ -15,6 +15,13 @@
 #'
 #' @template returns
 #'
+#' @details 
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
 #'
@@ -32,8 +39,8 @@
 #'
 #' bake(tate_obj, new_data = NULL)
 #'
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#' tidy(tate_rec, number = 2)
+#' tidy(tate_obj, number = 2)
 #' @export
 step_tokenmerge <-
   function(recipe,

@@ -16,6 +16,13 @@
 #' @param prefix A prefix for generated column names, default to "lda".
 #' @template args-skip
 #' @template args-id
+#' 
+#' @details 
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `num_topics` (number of topics).
 #'
 #' @source \url{https://arxiv.org/abs/1301.3781}
 #'
@@ -39,8 +46,8 @@
 #'
 #' bake(tate_obj, new_data = NULL) %>%
 #'   slice(1:2)
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#' tidy(tate_rec, number = 2)
+#' tidy(tate_obj, number = 2)
 #'
 #' # Changing the number of topics.
 #' recipe(~., data = tate_text) %>%

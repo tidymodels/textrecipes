@@ -83,6 +83,11 @@ the name of the variable, followed by the tokens all separated by
 \code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
 \code{hash001} - \code{hash101}.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (number of terms).
+}
+
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
   library(recipes)

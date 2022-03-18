@@ -58,6 +58,11 @@ Possible part of speech tags for \code{spacyr} engine are: "ADJ", "ADP", "ADV",
 "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
 information look here \url{https://spacy.io/api/annotation#pos-tagging}.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{num_topics} (number of topics).
+}
+
 \examples{
 \dontrun{
 library(recipes)

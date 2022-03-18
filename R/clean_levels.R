@@ -20,9 +20,12 @@
 #'  [dplyr::recode_factor()]. When data to be processed contains novel
 #'  levels (i.e., not contained in the training set), they are converted
 #'  to missing.
+#'  
+#' # Tidying
 #'
-#'  For the `tidy` method, a tibble with columns `terms` (the new clean
-#'  variable names) and `value` (the original variable names).
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns
+#' `terms` (the selectors or variables selected), `original` (the original 
+#' levels) and `value` (the cleaned levels) is returned.
 #'
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],

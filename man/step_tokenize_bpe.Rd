@@ -60,6 +60,11 @@ to the sequence of existing steps (if any).
 will convert a character predictor into a \link{tokenlist} using Byte Pair
 Encoding.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
   library(recipes)

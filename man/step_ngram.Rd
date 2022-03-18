@@ -67,6 +67,11 @@ fashion with respect to the number of tokens in the n-gram. If
 \code{min_num_tokens = 1} and \code{num_tokens = 3} then the output contains all the
 1-grams followed by all the 2-grams followed by all the 3-grams.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 library(recipes)
 library(modeldata)

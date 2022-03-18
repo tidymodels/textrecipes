@@ -48,10 +48,11 @@ to the sequence of existing steps (if any).
 clean variable names so the names consist only of letters, numbers, and the
 underscore.
 }
-\details{
-For the \code{tidy} method, a tibble with columns \code{terms} (the new clean
-variable names) and \code{value} (the original variable names).
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the new clean variable names) and \code{value} (the original variable names).
 }
+
 \examples{
 library(recipes)
 data(airquality)

@@ -17,6 +17,14 @@
 #'
 #' @template returns
 #'
+#' @details
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `normalization_form` (type of
+#' normalization).
+#'
 #' @seealso [step_texthash()] for feature hashing.
 #' @family character to character steps
 #'

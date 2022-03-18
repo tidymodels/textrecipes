@@ -68,6 +68,12 @@ All the functions passed to \code{extract_functions} must take a character vecto
 as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{functions} (name of feature
+functions).
+}
+
 \examples{
 if (requireNamespace("textfeatures", quietly = TRUE)) {
   library(recipes)

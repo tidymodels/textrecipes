@@ -47,6 +47,11 @@
 #'
 #' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
 #' (# documents where the term appears))
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
 #'
 #' @template details-prefix
 #'

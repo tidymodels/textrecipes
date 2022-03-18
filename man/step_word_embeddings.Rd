@@ -87,6 +87,12 @@ embeddings from the textdata package (where the column names are \code{d1},
 \code{d2}, etc), new columns would be \code{word_embeddings_sum_d1},
 \code{word_embeddings_sum_d2}, etc.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{embedding_rows} (number of rows in
+embedding), and \code{aggregation} (the aggregation method).
+}
+
 \examples{
 library(recipes)
 

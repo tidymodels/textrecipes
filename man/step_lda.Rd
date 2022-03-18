@@ -64,6 +64,11 @@ to the sequence of existing steps (if any).
 \code{step_lda} creates a \emph{specification} of a recipe step that
 will return the lda dimension estimates of a text variable.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{num_topics} (number of topics).
+}
+
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
 \donttest{
@@ -80,8 +85,8 @@ tate_obj <- tate_rec \%>\%
 
 bake(tate_obj, new_data = NULL) \%>\%
   slice(1:2)
-tidy(tate_rec, number = 1)
-tidy(tate_obj, number = 1)
+tidy(tate_rec, number = 2)
+tidy(tate_obj, number = 2)
 
 # Changing the number of topics.
 recipe(~., data = tate_text) \%>\%

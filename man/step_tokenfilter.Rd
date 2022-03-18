@@ -88,6 +88,11 @@ count and go up according to how much RAM you want to use.
 It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf} to
 limit the number of variables created.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (number of unique tokens).
+}
+
 \examples{
 library(recipes)
 library(modeldata)

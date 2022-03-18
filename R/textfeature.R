@@ -26,7 +26,13 @@
 #' All the functions passed to `extract_functions` must take a character vector
 #' as input and return a numeric vector of the same length, otherwise an error
 #' will be thrown.
+#' 
+#' # Tidying
 #'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `functions` (name of feature
+#' functions).
+#' 
 #' @family character to numeric steps
 #'
 #' @examples

@@ -181,6 +181,11 @@
 #'   show_tokens(text)
 #' ```
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `value` (unit of tokenization).
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family character to tokenlist steps
 #'

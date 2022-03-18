@@ -38,7 +38,15 @@
 #'  chance of collision.
 #'
 #' @template details-prefix
+#' 
+#' @details 
+#' # Tidying
 #'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `value` (whether a signed hashing was
+#' performed), `num_terms` (number of terms), and `collapse` (where columns
+#' collapsed).
+#' 
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
 #'  Alex Smola; Josh Attenberg (2009).
 #'

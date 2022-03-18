@@ -25,6 +25,11 @@
 #'  fashion with respect to the number of tokens in the n-gram. If
 #'  `min_num_tokens = 1` and `num_tokens = 3` then the output contains all the
 #'  1-grams followed by all the 2-grams followed by all the 3-grams.
+#'  
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps

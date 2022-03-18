@@ -19,6 +19,12 @@
 #' This steps will turn a [tokenlist] back into a character vector. This step
 #' is calling `paste` internally to put the tokens back together to a character.
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `value` (seperator used for
+#' collapsing).
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to character steps
 #'

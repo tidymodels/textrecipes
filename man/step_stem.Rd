@@ -65,6 +65,12 @@ of heuristics.
 Note that the stemming will only be done at the end of the word and
 will therefore not work reliably on ngrams or sentences.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{is_custom_stemmer} (indicate if
+custom stemmer was used).
+}
+
 \examples{
 library(recipes)
 library(modeldata)

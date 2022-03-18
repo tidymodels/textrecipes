@@ -26,6 +26,12 @@
 #' Note that the stemming will only be done at the end of the word and
 #' will therefore not work reliably on ngrams or sentences.
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `is_custom_stemmer` (indicate if
+#' custom stemmer was used).
+#'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps
 #'
@@ -162,13 +168,13 @@ tidy.step_stem <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
       terms = unname(x$columns),
-      is_custom_stemmer = is.null(x$custom_stemmer)
+      is_custom_stemmer = !is.null(x$custom_stemmer)
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
       terms = term_names,
-      is_custom_stemmer = is.null(x$custom_stemmer)
+      is_custom_stemmer = !is.null(x$custom_stemmer)
     )
   }
   res$id <- x$id

@@ -19,6 +19,11 @@
 #' you need to use a tokenization method that includes lemmatization. Currently
 #' using the `"spacyr"` engine in [step_tokenize()] provides lemmatization and
 #' works well with `step_lemma`.
+#' 
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to tokenlist steps

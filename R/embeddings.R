@@ -39,6 +39,12 @@
 #'   embeddings from the textdata package (where the column names are `d1`,
 #'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
 #'   `word_embeddings_sum_d2`, etc.
+#'   
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `embedding_rows` (number of rows in 
+#' embedding), and `aggregation` (the aggregation method).
 #'
 #' @seealso [step_tokenize()] to turn character into tokenlist.
 #' @family tokenlist to numeric steps

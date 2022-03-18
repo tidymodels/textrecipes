@@ -54,6 +54,12 @@ to the sequence of existing steps (if any).
 \code{step_text_normalization} creates a \emph{specification} of a recipe step that
 will perform Unicode Normalization
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{normalization_form} (type of
+normalization).
+}
+
 \examples{
 if (requireNamespace("stringi", quietly = TRUE)) {
   library(recipes)

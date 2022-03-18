@@ -54,6 +54,11 @@ to the sequence of existing steps (if any).
 will take multiple \link{tokenlist}s and combine them into one
 \link{tokenlist}.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -68,8 +73,8 @@ tate_obj <- tate_rec \%>\%
 
 bake(tate_obj, new_data = NULL)
 
-tidy(tate_rec, number = 1)
-tidy(tate_obj, number = 1)
+tidy(tate_rec, number = 2)
+tidy(tate_obj, number = 2)
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
