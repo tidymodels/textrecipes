@@ -193,7 +193,7 @@ print.step_dummy_hash <-
     invisible(x)
   }
 
-#' @rdname step_dummy_hash
+#' @rdname tidy.recipe
 #' @param x A `step_dummy_hash` object.
 #' @export
 tidy.step_dummy_hash <- function(x, ...) {

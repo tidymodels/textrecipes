@@ -2,7 +2,6 @@
 % Please edit documentation in R/hashing_dummy.R
 \name{step_dummy_hash}
 \alias{step_dummy_hash}
-\alias{tidy.step_dummy_hash}
 \title{Indicator variables via feature hashing}
 \usage{
 step_dummy_hash(
@@ -18,8 +17,6 @@ step_dummy_hash(
   skip = FALSE,
   id = rand_id("dummy_hash")
 )
-
-\method{tidy}{step_dummy_hash}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -61,8 +58,6 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_dummy_hash} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
