@@ -1,21 +1,21 @@
-#' Indicator variables via feature hashing
+#' Indicator Variables via Feature Hashing
 #'
-#' `step_dummy_hash` creates a *specification* of a recipe step that
-#'  will convert factors or character columns into a series of binary
-#'  (or signed binary) indicator columns.
+#' `step_dummy_hash` creates a *specification* of a recipe step that will
+#' convert factors or character columns into a series of binary (or signed
+#' binary) indicator columns.
 #'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param signed A logical, indicating whether to use a signed
-#' hash-function (generating values of -1, 0, or 1), to reduce collisions when
-#' hashing. Defaults to TRUE.
-#' @param num_terms An integer, the number of variables to output.
-#'  Defaults to 32.
+#' @param signed A logical, indicating whether to use a signed hash-function
+#'   (generating values of -1, 0, or 1), to reduce collisions when hashing.
+#'   Defaults to TRUE.
+#' @param num_terms An integer, the number of variables to output. Defaults to
+#'   32.
 #' @param collapse A logical; should all of the selected columns be collapsed
-#' into a single column to create a single set of hashed features?
+#'   into a single column to create a single set of hashed features?
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
@@ -23,30 +23,43 @@
 #' @template returns
 #'
 #' @details
-#'  Feature hashing, or the hashing trick, is a transformation of a
-#'  text variable into a new set of numerical variables. This is done by
-#'  applying a hashing function over the values of the factor levels and
-#'  using the hash values as feature indices. This allows for a low memory
-#'  representation of the data and can be very helpful when a qualitative
-#'  predictor has many levels or is expected to have new levels during
-#'  prediction. This implementation is done using the MurmurHash3 method.
 #'
-#'  The argument `num_terms` controls the number of indices that the hashing
-#'  function will map to. This is the tuning parameter for this
-#'  transformation. Since the hashing function can map two different tokens
-#'  to the same index, will a higher value of `num_terms` result in a lower
-#'  chance of collision.
+#' Feature hashing, or the hashing trick, is a transformation of a text variable
+#' into a new set of numerical variables. This is done by applying a hashing
+#' function over the values of the factor levels and using the hash values as
+#' feature indices. This allows for a low memory representation of the data and
+#' can be very helpful when a qualitative predictor has many levels or is
+#' expected to have new levels during prediction. This implementation is done
+#' using the MurmurHash3 method.
+#'
+#' The argument `num_terms` controls the number of indices that the hashing
+#' function will map to. This is the tuning parameter for this transformation.
+#' Since the hashing function can map two different tokens to the same index,
+#' will a higher value of `num_terms` result in a lower chance of collision.
 #'
 #' @template details-prefix
 #'
-#' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
-#'  Alex Smola; Josh Attenberg (2009).
+#' @details
 #'
-#'  Kuhn and Johnson (2019), Chapter 7,
-#'  \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
+#' # Tidying
 #'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `value` (whether a signed hashing was
+#' performed), `num_terms` (number of terms), and `collapse` (where columns
+#' collapsed).
+#' 
+#' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
+#'   Josh Attenberg (2009).
+#'
+#'   Kuhn and Johnson (2019), Chapter 7,
+#'   \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
+#'
+#'
+#'
+#'   
 #' @seealso [recipes::step_dummy()]
-#'
+#' @family Steps for Numeric Variables From Characters
+#'   
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #'   library(recipes)
@@ -184,7 +197,7 @@ print.step_dummy_hash <-
     invisible(x)
   }
 
-#' @rdname step_dummy_hash
+#' @rdname tidy.recipe
 #' @param x A `step_dummy_hash` object.
 #' @export
 tidy.step_dummy_hash <- function(x, ...) {

@@ -1,27 +1,35 @@
-#' Untokenization of [tokenlist] variables
+#' Untokenization of Token Variables
 #'
-#' `step_untokenize` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into a character predictor.
+#' `step_untokenize` creates a *specification* of a recipe step that will
+#' convert a [`token`][tokenlist()] variable into a character predictor.
 #'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param sep a character to determine how the tokens should be separated
-#'  when pasted together. Defaults to `" "`.
+#' @param sep a character to determine how the tokens should be separated when
+#'   pasted together. Defaults to `" "`.
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
 #' @details
-#' This steps will turn a [tokenlist] back into a character vector. This step
-#' is calling `paste` internally to put the tokens back together to a character.
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to character steps
+#' This steps will turn a [`token`][tokenlist()] vector back into a character
+#' vector. This step is calling `paste` internally to put the tokens back
+#' together to a character.
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `value` (seperator used for
+#' collapsing).
+#'
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
+#' @family Steps for Un-Tokenization
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)

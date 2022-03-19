@@ -22,6 +22,10 @@
 
 * `step_tokenfilter()` now has a new argument `filter_fun` will takes a function which can be used to filter tokens. (#164)
 
+* `tidy.step_stem()` now correctly shows if custom stemmer was used.
+
+* Steps now have a dedicated subsection detailing what happens when `tidy()` is applied. (#163)
+
 # textrecipes 0.4.1
 
 ## Bug fixes

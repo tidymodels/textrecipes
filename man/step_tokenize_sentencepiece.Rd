@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize_sentencepiece.R
 \name{step_tokenize_sentencepiece}
 \alias{step_tokenize_sentencepiece}
-\title{Sentencepiece Tokenization of character variables}
+\title{Sentencepiece Tokenization of Character Variables}
 \usage{
 step_tokenize_sentencepiece(
   recipe,
@@ -58,14 +58,19 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{\link[=step_tokenize_sentencepiece]{step_tokenize_sentencepiece()}} creates a \emph{specification} of a recipe step
-that will convert a character predictor into a \link{tokenlist} using Byte Pair
-Encoding.
+that will convert a character predictor into a \code{\link[=tokenlist]{token}}
+variable using Byte Pair Encoding.
 }
 \details{
 If you are running into errors, you can investigate the progress of the
-compiled code by setting \code{options = list(verbose = TRUE)}. This can reveal
-if sentencepiece ran correctly or not.
+compiled code by setting \code{options = list(verbose = TRUE)}. This can reveal if
+sentencepiece ran correctly or not.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 if (requireNamespace("sentencepiece", quietly = TRUE)) {
   library(recipes)
@@ -92,8 +97,8 @@ if (requireNamespace("sentencepiece", quietly = TRUE)) {
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other character to tokenlist steps: 
+Other Steps for Tokenization: 
 \code{\link{step_tokenize_bpe}()},
 \code{\link{step_tokenize}()}
 }
-\concept{character to tokenlist steps}
+\concept{Steps for Tokenization}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_names.R
 \name{step_clean_names}
 \alias{step_clean_names}
-\title{Clean variable names}
+\title{Clean Variable Names}
 \usage{
 step_clean_names(
   recipe,
@@ -44,14 +44,15 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_clean_names} creates a \emph{specification} of a recipe step that will
-clean variable names so the names consist only of letters, numbers, and the
+\code{step_clean_names} creates a \emph{specification} of a recipe step that will clean
+variable names so the names consist only of letters, numbers, and the
 underscore.
 }
-\details{
-For the \code{tidy} method, a tibble with columns \code{terms} (the new clean
-variable names) and \code{value} (the original variable names).
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the new clean variable names) and \code{value} (the original variable names).
 }
+
 \examples{
 library(recipes)
 data(airquality)
@@ -75,4 +76,8 @@ if (requireNamespace("janitor", quietly = TRUE)) {
 \code{\link[=step_clean_levels]{step_clean_levels()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},
 \code{\link[recipes:step_string2factor]{recipes::step_string2factor()}}, \code{\link[recipes:step_regex]{recipes::step_regex()}},
 \code{\link[recipes:step_unknown]{recipes::step_unknown()}}, \code{\link[recipes:step_novel]{recipes::step_novel()}}, \code{\link[recipes:step_other]{recipes::step_other()}}
+
+Other Steps for Text Cleaning: 
+\code{\link{step_clean_levels}()}
 }
+\concept{Steps for Text Cleaning}

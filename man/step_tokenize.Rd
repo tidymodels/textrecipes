@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize.R
 \name{step_tokenize}
 \alias{step_tokenize}
-\title{Tokenization of character variables}
+\title{Tokenization of Character Variables}
 \usage{
 step_tokenize(
   recipe,
@@ -48,9 +48,9 @@ being trained. Only applicable for engine == "tokenizers.bpe".}
 \item{engine}{Package that will be used for tokenization. See details for
 options. Defaults to "tokenizers".}
 
-\item{custom_token}{User supplied tokenizer. Use of this argument
-will overwrite the token and engine arguments. Must take a character vector
-as input and output a list of character vectors.}
+\item{custom_token}{User supplied tokenizer. Use of this argument will
+overwrite the token and engine arguments. Must take a character vector as
+input and output a list of character vectors.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -65,16 +65,16 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that
-will convert a character predictor into a \link{tokenlist}.
+\code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that will
+convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
-Tokenization is the act of splitting a character string into smaller parts
-to be further analyzed. This step uses the \code{tokenizers} package which
-includes heuristics to split the text into paragraphs tokens, word tokens
-among others. \code{textrecipes} keeps the tokens in a \link{tokenlist} and other
-steps will do their tasks on those \link{tokenlist}s before transforming them
-back to numeric.
+Tokenization is the act of splitting a character string into smaller parts to
+be further analyzed. This step uses the \code{tokenizers} package which includes
+heuristics on how to to split the text into paragraphs tokens, word tokens,
+among others. \code{textrecipes} keeps the tokens as a \code{\link[=tokenlist]{token}}
+variable and other steps will do their tasks on those \code{\link[=tokenlist]{token}}
+variable before transforming them back to numeric variables.
 
 Working will \code{textrecipes} will almost always start by calling
 \code{step_tokenize} followed by modifying and filtering steps. This is not always
@@ -229,6 +229,11 @@ recipe(~ text, data = text_tibble) \%>\%
 }
 }
 
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (unit of tokenization).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -261,8 +266,8 @@ bake(tate_obj, new_data = NULL) \%>\%
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other character to tokenlist steps: 
+Other Steps for Tokenization: 
 \code{\link{step_tokenize_bpe}()},
 \code{\link{step_tokenize_sentencepiece}()}
 }
-\concept{character to tokenlist steps}
+\concept{Steps for Tokenization}

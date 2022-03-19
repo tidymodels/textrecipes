@@ -2,8 +2,7 @@
 % Please edit documentation in R/hashing_dummy.R
 \name{step_dummy_hash}
 \alias{step_dummy_hash}
-\alias{tidy.step_dummy_hash}
-\title{Indicator variables via feature hashing}
+\title{Indicator Variables via Feature Hashing}
 \usage{
 step_dummy_hash(
   recipe,
@@ -18,8 +17,6 @@ step_dummy_hash(
   skip = FALSE,
   id = rand_id("dummy_hash")
 )
-
-\method{tidy}{step_dummy_hash}(x, ...)
 }
 \arguments{
 \item{recipe}{A \link{recipe} object. The step will be added to the
@@ -41,12 +38,12 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{signed}{A logical, indicating whether to use a signed
-hash-function (generating values of -1, 0, or 1), to reduce collisions when
-hashing. Defaults to TRUE.}
+\item{signed}{A logical, indicating whether to use a signed hash-function
+(generating values of -1, 0, or 1), to reduce collisions when hashing.
+Defaults to TRUE.}
 
-\item{num_terms}{An integer, the number of variables to output.
-Defaults to 32.}
+\item{num_terms}{An integer, the number of variables to output. Defaults to
+32.}
 
 \item{collapse}{A logical; should all of the selected columns be collapsed
 into a single column to create a single set of hashed features?}
@@ -61,32 +58,29 @@ conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
 \item{id}{A character string that is unique to this step to identify it.}
-
-\item{x}{A \code{step_dummy_hash} object.}
 }
 \value{
 An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_dummy_hash} creates a \emph{specification} of a recipe step that
-will convert factors or character columns into a series of binary
-(or signed binary) indicator columns.
+\code{step_dummy_hash} creates a \emph{specification} of a recipe step that will
+convert factors or character columns into a series of binary (or signed
+binary) indicator columns.
 }
 \details{
-Feature hashing, or the hashing trick, is a transformation of a
-text variable into a new set of numerical variables. This is done by
-applying a hashing function over the values of the factor levels and
-using the hash values as feature indices. This allows for a low memory
-representation of the data and can be very helpful when a qualitative
-predictor has many levels or is expected to have new levels during
-prediction. This implementation is done using the MurmurHash3 method.
+Feature hashing, or the hashing trick, is a transformation of a text variable
+into a new set of numerical variables. This is done by applying a hashing
+function over the values of the factor levels and using the hash values as
+feature indices. This allows for a low memory representation of the data and
+can be very helpful when a qualitative predictor has many levels or is
+expected to have new levels during prediction. This implementation is done
+using the MurmurHash3 method.
 
 The argument \code{num_terms} controls the number of indices that the hashing
-function will map to. This is the tuning parameter for this
-transformation. Since the hashing function can map two different tokens
-to the same index, will a higher value of \code{num_terms} result in a lower
-chance of collision.
+function will map to. This is the tuning parameter for this transformation.
+Since the hashing function can map two different tokens to the same index,
+will a higher value of \code{num_terms} result in a lower chance of collision.
 
 The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by
@@ -95,6 +89,13 @@ the name of the variable, followed by the tokens all separated by
 \code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
 \code{hash001} - \code{hash101}.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{value} (whether a signed hashing was
+performed), \code{num_terms} (number of terms), and \code{collapse} (where columns
+collapsed).
+}
+
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
   library(recipes)
@@ -114,12 +115,17 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
 }
 }
 \references{
-Kilian Weinberger; Anirban Dasgupta; John Langford;
-Alex Smola; Josh Attenberg (2009).
+Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
+Josh Attenberg (2009).
 
 Kuhn and Johnson (2019), Chapter 7,
 \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
 }
 \seealso{
 \code{\link[recipes:step_dummy]{recipes::step_dummy()}}
+
+Other Steps for Numeric Variables From Characters: 
+\code{\link{step_sequence_onehot}()},
+\code{\link{step_textfeature}()}
 }
+\concept{Steps for Numeric Variables From Characters}

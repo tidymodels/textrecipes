@@ -2,7 +2,7 @@
 % Please edit documentation in R/text_normalization.R
 \name{step_text_normalization}
 \alias{step_text_normalization}
-\title{Normalization of \link{tokenlist} variables}
+\title{Normalization of Character Variables}
 \usage{
 step_text_normalization(
   recipe,
@@ -35,8 +35,8 @@ until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.
 
 \item{normalization_form}{A single character string determining the Unicode
 Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
-"nfkc_casefold". Defaults to "nfc".
-See \code{\link[stringi:stri_trans_nf]{stringi::stri_trans_nfc()}} for more details.}
+"nfkc_casefold". Defaults to "nfc". See \code{\link[stringi:stri_trans_nf]{stringi::stri_trans_nfc()}} for
+more details.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -52,8 +52,14 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_text_normalization} creates a \emph{specification} of a recipe step that
-will perform Unicode Normalization
+will perform Unicode Normalization on chracter variables.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{normalization_form} (type of
+normalization).
+}
+
 \examples{
 if (requireNamespace("stringi", quietly = TRUE)) {
   library(recipes)
@@ -80,4 +86,4 @@ if (requireNamespace("stringi", quietly = TRUE)) {
 \seealso{
 \code{\link[=step_texthash]{step_texthash()}} for feature hashing.
 }
-\concept{character to character steps}
+\concept{Steps for Text Normalization}

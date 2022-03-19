@@ -1,8 +1,8 @@
-#'  Generate the basic set of text features
+#' Combine Multiple Token Variables Into One
 #'
-#' `step_tokenmerge` creates a *specification* of a recipe step that
-#'  will take multiple [tokenlist]s and combine them into one
-#'  [tokenlist].
+#' `step_tokenmerge` creates a *specification* of a recipe step that will take
+#' multiple [`token`][tokenlist()] variables and combine them into one
+#' [`token`][tokenlist()] variable.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -15,9 +15,16 @@
 #'
 #' @template returns
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
+#' @details
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
+#'
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
+#' @family Steps for Token Modification
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -32,8 +39,8 @@
 #'
 #' bake(tate_obj, new_data = NULL)
 #'
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#' tidy(tate_rec, number = 2)
+#' tidy(tate_obj, number = 2)
 #' @export
 step_tokenmerge <-
   function(recipe,

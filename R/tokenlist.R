@@ -1,4 +1,4 @@
-#' Create tokenlist object
+#' Create Token Object
 #'
 #' A [tokenlist] object is a thin wrapper around a list of character vectors,
 #' with a few attributes.
@@ -8,7 +8,7 @@
 #' @param pos List of character vectors, must be same size and shape as `x`.
 #'
 #' @return a [tokenlist] object.
-#'
+#'   
 #' @examples
 #' abc <- list(letters, LETTERS)
 #' tokenlist(abc)

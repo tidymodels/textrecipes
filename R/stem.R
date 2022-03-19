@@ -1,7 +1,7 @@
-#' Stemming of [tokenlist] variables
+#' Stemming of Token Variables
 #'
-#' `step_stem` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] to have its tokens stemmed.
+#' `step_stem` creates a *specification* of a recipe step that will convert a
+#' [`token`][tokenlist()] variable to have its stemmed version.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -9,26 +9,32 @@
 #' @template args-trained
 #' @template args-columns
 #' @param options A list of options passed to the stemmer function.
-#' @param custom_stemmer A custom stemming function. If none is provided
-#'  it will default to "SnowballC".
+#' @param custom_stemmer A custom stemming function. If none is provided it will
+#'   default to "SnowballC".
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
 #' @details
-#' Words tend to have different forms depending on context, such as
-#' organize, organizes, and organizing. In many situations it is beneficial
-#' to have these words condensed into one to allow for a smaller pool of
-#' words. Stemming is the act of chopping off the end of words using a set
-#'  of heuristics.
 #'
-#' Note that the stemming will only be done at the end of the word and
-#' will therefore not work reliably on ngrams or sentences.
+#' Words tend to have different forms depending on context, such as organize,
+#' organizes, and organizing. In many situations it is beneficial to have these
+#' words condensed into one to allow for a smaller pool of words. Stemming is
+#' the act of chopping off the end of words using a set of heuristics.
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
+#' Note that the stemming will only be done at the end of the word and will
+#' therefore not work reliably on ngrams or sentences.
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `is_custom_stemmer` (indicate if
+#' custom stemmer was used).
+#'
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
+#' @family Steps for Token Modification
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -162,13 +168,13 @@ tidy.step_stem <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
       terms = unname(x$columns),
-      is_custom_stemmer = is.null(x$custom_stemmer)
+      is_custom_stemmer = !is.null(x$custom_stemmer)
     )
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
       terms = term_names,
-      is_custom_stemmer = is.null(x$custom_stemmer)
+      is_custom_stemmer = !is.null(x$custom_stemmer)
     )
   }
   res$id <- x$id

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenfilter.R
 \name{step_tokenfilter}
 \alias{step_tokenfilter}
-\title{Filter the tokens based on term frequency}
+\title{Filter Tokens Based on Term Frequency}
 \usage{
 step_tokenfilter(
   recipe,
@@ -38,25 +38,25 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{max_times}{An integer. Maximal number of times a word can appear
-before getting removed.}
+\item{max_times}{An integer. Maximal number of times a word can appear before
+getting removed.}
 
-\item{min_times}{An integer. Minimum number of times a word can appear
-before getting removed.}
+\item{min_times}{An integer. Minimum number of times a word can appear before
+getting removed.}
 
-\item{percentage}{A logical. Should max_times and min_times be interpreted
-as a percentage instead of count.}
+\item{percentage}{A logical. Should max_times and min_times be interpreted as
+a percentage instead of count.}
 
-\item{max_tokens}{An integer. Will only keep the top max_tokens tokens
-after filtering done by max_times and min_times. Defaults to 100.}
+\item{max_tokens}{An integer. Will only keep the top max_tokens tokens after
+filtering done by max_times and min_times. Defaults to 100.}
 
 \item{filter_fun}{A function. This function should take a vector of
 characters, and return a logical vector of the same length. This function
 will be applied to each observation of the data set. Defaults to \code{NULL}.
 All other arguments will be ignored if this argument is used.}
 
-\item{res}{The words that will be keep will be stored here once
-this preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
+\item{res}{The words that will be keep will be stored here once this
+preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -71,23 +71,28 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tokenfilter} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} to be filtered based on frequency.
+\code{step_tokenfilter} creates a \emph{specification} of a recipe step that will
+convert a \code{\link[=tokenlist]{token}} variable to be filtered based on frequency.
 }
 \details{
-This step allow you to limit the tokens you are looking at by filtering
-on their occurrence in the corpus. You are able to exclude tokens if they
-appear too many times or too few times in the data. It can be specified
-as counts using \code{max_times} and \code{min_times} or as percentages by setting
-\code{percentage} as \code{TRUE}. In addition one can filter to only use the top
-\code{max_tokens} used tokens. If \code{max_tokens} is set to \code{Inf} then all the tokens
-will be used. This will generally lead to very large data sets when then
-tokens are words or trigrams. A good strategy is to start with a low token
-count and go up according to how much RAM you want to use.
+This step allow you to limit the tokens you are looking at by filtering on
+their occurrence in the corpus. You are able to exclude tokens if they appear
+too many times or too few times in the data. It can be specified as counts
+using \code{max_times} and \code{min_times} or as percentages by setting \code{percentage}
+as \code{TRUE}. In addition one can filter to only use the top \code{max_tokens} used
+tokens. If \code{max_tokens} is set to \code{Inf} then all the tokens will be used.
+This will generally lead to very large data sets when then tokens are words
+or trigrams. A good strategy is to start with a low token count and go up
+according to how much RAM you want to use.
 
 It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf} to
 limit the number of variables created.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (number of unique tokens).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -111,9 +116,9 @@ tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other tokenlist to tokenlist steps: 
+Other Steps for Token Modification: 
 \code{\link{step_lemma}()},
 \code{\link{step_ngram}()},
 \code{\link{step_pos_filter}()},
@@ -121,4 +126,4 @@ Other tokenlist to tokenlist steps:
 \code{\link{step_stopwords}()},
 \code{\link{step_tokenmerge}()}
 }
-\concept{tokenlist to tokenlist steps}
+\concept{Steps for Token Modification}

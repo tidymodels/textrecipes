@@ -2,7 +2,7 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
-\title{Filtering of stopwords from a \link{tokenlist} variable}
+\title{Filtering of Stop Words for Tokens Variables}
 \usage{
 step_stopwords(
   recipe,
@@ -36,17 +36,17 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{language}{A character to indicate the language of stopwords
-by ISO 639-1 coding scheme.}
+\item{language}{A character to indicate the language of stop words by ISO
+639-1 coding scheme.}
 
-\item{keep}{A logical. Specifies whether to keep the stopwords or discard
+\item{keep}{A logical. Specifies whether to keep the stop words or discard
 them.}
 
-\item{stopword_source}{A character to indicate the stopwords source as
+\item{stopword_source}{A character to indicate the stop words source as
 listed in \code{stopwords::stopwords_getsources}.}
 
-\item{custom_stopword_source}{A character vector to indicate a custom
-list of words that cater to the users specific problem.}
+\item{custom_stopword_source}{A character vector to indicate a custom list of
+words that cater to the users specific problem.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -61,19 +61,25 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_stopwords} creates a \emph{specification} of a recipe step that
-will filter a \link{tokenlist} for stopwords(keep or remove).
+\code{step_stopwords} creates a \emph{specification} of a recipe step that will filter
+a \code{\link[=tokenlist]{token}} variable for stop words.
 }
 \details{
 Stop words are words which sometimes are remove before natural language
-processing tasks. While stop words usually refers to the most common
-words in the language there is no universal stop word list.
+processing tasks. While stop words usually refers to the most common words in
+the language there is no universal stop word list.
 
 The argument \code{custom_stopword_source} allows you to pass a character vector
-to filter against. With the \code{keep} argument one can specify to keep the
-words instead of removing thus allowing you to select words with a
-combination of these two arguments.
+to filter against. With the \code{keep} argument one can specify to keep the words
+instead of removing thus allowing you to select words with a combination of
+these two arguments.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{value} (name of stop word list), and
+\code{keep} (whether stop words are removed or kept).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -98,7 +104,7 @@ if (requireNamespace("stopwords", quietly = TRUE)) {
   tidy(tate_obj, number = 2)
 }
 
-# With a custom stopwords list
+# With a custom stop words list
 
 tate_rec <- recipe(~., data = tate_text) \%>\%
   step_tokenize(medium) \%>\%
@@ -111,9 +117,9 @@ bake(tate_obj, new_data = NULL) \%>\%
   pull(medium)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other tokenlist to tokenlist steps: 
+Other Steps for Token Modification: 
 \code{\link{step_lemma}()},
 \code{\link{step_ngram}()},
 \code{\link{step_pos_filter}()},
@@ -121,4 +127,4 @@ Other tokenlist to tokenlist steps:
 \code{\link{step_tokenfilter}()},
 \code{\link{step_tokenmerge}()}
 }
-\concept{tokenlist to tokenlist steps}
+\concept{Steps for Token Modification}

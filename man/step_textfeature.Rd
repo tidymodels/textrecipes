@@ -2,7 +2,7 @@
 % Please edit documentation in R/textfeature.R
 \name{step_textfeature}
 \alias{step_textfeature}
-\title{Generate the basic set of text features}
+\title{Calculate Set of Text Features}
 \usage{
 step_textfeature(
   recipe,
@@ -37,8 +37,8 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{extract_functions}{A named list of feature extracting functions.
-default to \code{\link[textfeatures]{count_functions}} from the textfeatures
-package. See details for more information.}
+default to \code{\link[textfeatures]{count_functions}} from the
+textfeatures package. See details for more information.}
 
 \item{prefix}{A prefix for generated column names, default to "textfeature".}
 
@@ -55,8 +55,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_textfeature} creates a \emph{specification} of a recipe step that
-will extract a number of numeric features of a text column.
+\code{step_textfeature} creates a \emph{specification} of a recipe step that will
+extract a number of numeric features of a text column.
 }
 \details{
 This step will take a character column and returns a number of numeric
@@ -68,6 +68,12 @@ All the functions passed to \code{extract_functions} must take a character vecto
 as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{functions} (name of feature
+functions).
+}
+
 \examples{
 if (requireNamespace("textfeatures", quietly = TRUE)) {
   library(recipes)
@@ -101,8 +107,8 @@ if (requireNamespace("textfeatures", quietly = TRUE)) {
 }
 }
 \seealso{
-Other character to numeric steps: 
-\code{\link{step_lda}()},
+Other Steps for Numeric Variables From Characters: 
+\code{\link{step_dummy_hash}()},
 \code{\link{step_sequence_onehot}()}
 }
-\concept{character to numeric steps}
+\concept{Steps for Numeric Variables From Characters}

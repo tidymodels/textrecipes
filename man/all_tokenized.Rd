@@ -10,8 +10,9 @@ all_tokenized()
 all_tokenized_predictors()
 }
 \description{
-\code{all_tokenized()} selects all tokenlist columns, \code{all_tokenized_predictors()}
-selects all predictor tokenlist columns.
+\code{all_tokenized()} selects all \code{\link[=tokenlist]{token}} variables,
+\code{all_tokenized_predictors()} selects all predictor \code{\link[=tokenlist]{token}}
+variables.
 }
 \seealso{
 \code{\link[recipes:has_role]{recipes::has_role()}}

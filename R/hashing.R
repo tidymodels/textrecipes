@@ -1,18 +1,18 @@
-#' Term frequency of tokens
+#' Feature Hashing of Tokens
 #'
-#' `step_texthash` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into multiple variables using the
-#'  hashing trick.
+#' `step_texthash` creates a *specification* of a recipe step that will convert
+#' a [`token`][tokenlist()] variable into multiple numeric variables using the
+#' hashing trick.
 #'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param signed A logical, indicating whether to use a signed
-#' hash-function to reduce collisions when hashing. Defaults to TRUE.
-#' @param num_terms An integer, the number of variables to output.
-#'  Defaults to 1024.
+#' @param signed A logical, indicating whether to use a signed hash-function to
+#'   reduce collisions when hashing. Defaults to TRUE.
+#' @param num_terms An integer, the number of variables to output. Defaults to
+#'   1024.
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
@@ -20,26 +20,32 @@
 #' @template returns
 #'
 #' @details
-#'  Feature hashing, or the hashing trick, is a transformation of a
-#'  text variable into a new set of numerical variables. This is done by
-#'  applying a hashing function over the tokens and using the hash values
-#'  as feature indices. This allows for a low memory representation of the
-#'  text. This implementation is done using the MurmurHash3 method.
 #'
-#'  The argument `num_terms` controls the number of indices that the hashing
-#'  function will map to. This is the tuning parameter for this
-#'  transformation. Since the hashing function can map two different tokens
-#'  to the same index, will a higher value of `num_terms` result in a lower
-#'  chance of collision.
+#' Feature hashing, or the hashing trick, is a transformation of a text variable
+#' into a new set of numerical variables. This is done by applying a hashing
+#' function over the tokens and using the hash values as feature indices. This
+#' allows for a low memory representation of the text. This implementation is
+#' done using the MurmurHash3 method.
+#'
+#' The argument `num_terms` controls the number of indices that the hashing
+#' function will map to. This is the tuning parameter for this transformation.
+#' Since the hashing function can map two different tokens to the same index,
+#' will a higher value of `num_terms` result in a lower chance of collision.
 #'
 #' @template details-prefix
 #'
-#' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
-#'  Alex Smola; Josh Attenberg (2009).
+#' @details # Tidying
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to numeric steps
+#'   When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#'   (the selectors or variables selected) and `value` (number of terms).
+#'   
+#' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
+#'   Josh Attenberg (2009).
 #'
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
+#'   [step_text_normalization()] to perform text normalization.
+#' @family Steps for Numeric Variables From Tokens
+#'   
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #'   library(recipes)

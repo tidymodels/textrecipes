@@ -1,7 +1,7 @@
-#' Part of speech filtering of [tokenlist] variables
+#' Part of Speech Filtering of Token Variables
 #'
-#' `step_pos_filter` creates a *specification* of a recipe step that
-#'  will filter a [tokenlist] based on part of speech tags.
+#' `step_pos_filter` creates a *specification* of a recipe step that will filter
+#' a [`token`][tokenlist()] variable based on part of speech tags.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -9,21 +9,28 @@
 #' @template args-trained
 #' @template args-columns
 #' @param keep_tags Character variable of part of speech tags to keep. See
-#' details for complete list of tags. Defaults to "NOUN".
+#'   details for complete list of tags. Defaults to "NOUN".
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
 #' @details
+#'
 #' Possible part of speech tags for `spacyr` engine are: "ADJ", "ADP", "ADV",
 #' "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
 #' "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
-#' information look here \url{https://spacy.io/api/annotation#pos-tagging}.
+#' information look here
+#' \url{https://github.com/explosion/spaCy/blob/master/spacy/glossary.py}.
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to tokenlist steps
+#' # Tidying
 #'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `num_topics` (number of topics).
+#'
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
+#' @family Steps for Token Modification
+#'   
 #' @examples
 #' \dontrun{
 #' library(recipes)

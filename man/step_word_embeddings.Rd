@@ -2,7 +2,7 @@
 % Please edit documentation in R/embeddings.R
 \name{step_word_embeddings}
 \alias{step_word_embeddings}
-\title{Pretrained word embeddings of tokens}
+\title{Pretrained Word Embeddings of Tokens}
 \usage{
 step_word_embeddings(
   recipe,
@@ -66,27 +66,32 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_word_embeddings} creates a \emph{specification} of a recipe step that will
-convert a \link{tokenlist} into word-embedding dimensions by aggregating the
-vectors of each token from a pre-trained embedding.
+convert a \code{\link[=tokenlist]{token}} variable into word-embedding dimensions by
+aggregating the vectors of each token from a pre-trained embedding.
 }
 \details{
-Word embeddings map words (or other tokens) into a high-dimensional
-feature space. This function maps pre-trained word embeddings onto the
-tokens in your data.
+Word embeddings map words (or other tokens) into a high-dimensional feature
+space. This function maps pre-trained word embeddings onto the tokens in your
+data.
 
 The argument \code{embeddings} provides the pre-trained vectors. Each dimension
 present in this tibble becomes a new feature column, with each column
 aggregated across each row of your text using the function supplied in the
 \code{aggregation} argument.
 
-The new components will have names that begin with \code{prefix}, then the name
-of the aggregation function, then the name of the variable from the
-embeddings tibble (usually something like "d7"). For example, using the
-default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
-embeddings from the textdata package (where the column names are \code{d1},
-\code{d2}, etc), new columns would be \code{word_embeddings_sum_d1},
-\code{word_embeddings_sum_d2}, etc.
+The new components will have names that begin with \code{prefix}, then the name of
+the aggregation function, then the name of the variable from the embeddings
+tibble (usually something like "d7"). For example, using the default
+"word_embeddings" prefix, the "sum" aggregation, and the GloVe embeddings
+from the textdata package (where the column names are \code{d1}, \code{d2}, etc), new
+columns would be \code{word_embeddings_sum_d1}, \code{word_embeddings_sum_d2}, etc.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{embedding_rows} (number of rows in
+embedding), and \code{aggregation} (the aggregation method).
+}
+
 \examples{
 library(recipes)
 
@@ -119,11 +124,12 @@ tidy(rec, number = 2)
 tidy(obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other tokenlist to numeric steps: 
+Other Steps for Numeric Variables From Tokens: 
+\code{\link{step_lda}()},
 \code{\link{step_texthash}()},
 \code{\link{step_tfidf}()},
 \code{\link{step_tf}()}
 }
-\concept{tokenlist to numeric steps}
+\concept{Steps for Numeric Variables From Tokens}

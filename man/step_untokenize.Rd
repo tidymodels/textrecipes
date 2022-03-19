@@ -2,7 +2,7 @@
 % Please edit documentation in R/untokenize.R
 \name{step_untokenize}
 \alias{step_untokenize}
-\title{Untokenization of \link{tokenlist} variables}
+\title{Untokenization of Token Variables}
 \usage{
 step_untokenize(
   recipe,
@@ -33,8 +33,8 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{sep}{a character to determine how the tokens should be separated
-when pasted together. Defaults to \code{" "}.}
+\item{sep}{a character to determine how the tokens should be separated when
+pasted together. Defaults to \code{" "}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -49,13 +49,20 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_untokenize} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} into a character predictor.
+\code{step_untokenize} creates a \emph{specification} of a recipe step that will
+convert a \code{\link[=tokenlist]{token}} variable into a character predictor.
 }
 \details{
-This steps will turn a \link{tokenlist} back into a character vector. This step
-is calling \code{paste} internally to put the tokens back together to a character.
+This steps will turn a \code{\link[=tokenlist]{token}} vector back into a character
+vector. This step is calling \code{paste} internally to put the tokens back
+together to a character.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{value} (seperator used for
+collapsing).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -79,6 +86,6 @@ tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 }
-\concept{tokenlist to character steps}
+\concept{Steps for Un-Tokenization}

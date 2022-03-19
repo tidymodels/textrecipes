@@ -2,7 +2,7 @@
 % Please edit documentation in R/lda.R
 \name{step_lda}
 \alias{step_lda}
-\title{Calculates lda dimension estimates}
+\title{Calculate LDA Dimension Estimates of Tokens}
 \source{
 \url{https://arxiv.org/abs/1301.3781}
 }
@@ -61,9 +61,14 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_lda} creates a \emph{specification} of a recipe step that
-will return the lda dimension estimates of a text variable.
+\code{step_lda} creates a \emph{specification} of a recipe step that will
+return the lda dimension estimates of a text variable.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{num_topics} (number of topics).
+}
+
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
 \donttest{
@@ -80,8 +85,8 @@ tate_obj <- tate_rec \%>\%
 
 bake(tate_obj, new_data = NULL) \%>\%
   slice(1:2)
-tidy(tate_rec, number = 1)
-tidy(tate_obj, number = 1)
+tidy(tate_rec, number = 2)
+tidy(tate_obj, number = 2)
 
 # Changing the number of topics.
 recipe(~., data = tate_text) \%>\%
@@ -109,8 +114,10 @@ recipe(~., data = tate_text) \%>\%
 }
 }
 \seealso{
-Other character to numeric steps: 
-\code{\link{step_sequence_onehot}()},
-\code{\link{step_textfeature}()}
+Other Steps for Numeric Variables From Tokens: 
+\code{\link{step_texthash}()},
+\code{\link{step_tfidf}()},
+\code{\link{step_tf}()},
+\code{\link{step_word_embeddings}()}
 }
-\concept{character to numeric steps}
+\concept{Steps for Numeric Variables From Tokens}

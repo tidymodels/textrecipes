@@ -1,8 +1,8 @@
-#'  Term frequency-inverse document frequency of tokens
+#' Term Frequency-Inverse Document Frequency of Tokens
 #'
-#' `step_tfidf` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into multiple variables containing
-#'  the term frequency-inverse document frequency of tokens.
+#' `step_tfidf` creates a *specification* of a recipe step that will convert a
+#' [`token`][tokenlist()] variable into multiple variables containing the term
+#' frequency-inverse document frequency of tokens.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -10,17 +10,17 @@
 #' @template args-trained
 #' @template args-columns
 #' @param vocabulary A character vector of strings to be considered.
-#' @param res The words that will be used to calculate the term
-#'  frequency will be stored here once this preprocessing step has
-#'  be trained by [prep.recipe()].
+#' @param res The words that will be used to calculate the term frequency will
+#'   be stored here once this preprocessing step has be trained by
+#'   [prep.recipe()].
 #' @param smooth_idf TRUE smooth IDF weights by adding one to document
-#'  frequencies, as if an extra document was seen containing every term
-#'  in the collection exactly once. This prevents division by zero.
-#' @param norm A character, defines the type of normalization to apply to
-#'  term vectors. "l1" by default, i.e., scale by the number of words in the
-#'  document. Must be one of c("l1", "l2", "none").
+#'   frequencies, as if an extra document was seen containing every term in the
+#'   collection exactly once. This prevents division by zero.
+#' @param norm A character, defines the type of normalization to apply to term
+#'   vectors. "l1" by default, i.e., scale by the number of words in the
+#'   document. Must be one of c("l1", "l2", "none").
 #' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e.,
-#'  replace the term frequency with 1 + log(TF). Defaults to FALSE.
+#'   replace the term frequency with 1 + log(TF). Defaults to FALSE.
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
@@ -28,6 +28,7 @@
 #' @template returns
 #'
 #' @details
+#'
 #' It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to
 #' limit the number of variables created; otherwise you may run into memory
 #' issues. A good strategy is to start with a low token count and increase
@@ -39,20 +40,24 @@
 #' Term frequency measures how many times each token appears in each
 #' observation.
 #'
-#' Inverse document frequency is a measure of how informative a word
-#' is, e.g., how common or rare the word is across all the
-#' observations. If a word appears in all the observations it might not
-#' give that much insight, but if it only appears in some it might help
-#' differentiate between observations.
+#' Inverse document frequency is a measure of how informative a word is, e.g.,
+#' how common or rare the word is across all the observations. If a word appears
+#' in all the observations it might not give that much insight, but if it only
+#' appears in some it might help differentiate between observations.
 #'
-#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
-#' (# documents where the term appears))
+#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (#
+#' documents where the term appears))
+#'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
 #'
 #' @template details-prefix
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
-#' @family tokenlist to numeric steps
-#'
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
+#' @family Steps for Numeric Variables From Tokens
+#'   
 #' @examples
 #' \donttest{
 #' library(recipes)

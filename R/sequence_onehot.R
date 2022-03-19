@@ -1,7 +1,7 @@
-#'  Generate the basic set of text features
+#' Positional One-Hot encoding of Tokens
 #'
-#' `step_sequence_onehot` creates a *specification* of a recipe step that
-#'  will take a string and do one hot encoding for each character by position.
+#' `step_sequence_onehot` creates a *specification* of a recipe step that will
+#' take a string and do one hot encoding for each character by position.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -9,31 +9,40 @@
 #' @template args-trained
 #' @template args-columns
 #' @param sequence_length A numeric, number of characters to keep before
-#'      discarding. Defaults to 100.
+#'   discarding. Defaults to 100.
 #' @param padding 'pre' or 'post', pad either before or after each sequence.
-#'  defaults to 'pre'.
+#'   defaults to 'pre'.
 #' @param truncating 'pre' or 'post', remove values from sequences larger than
-#'  sequence_length either in the beginning or in the end of the sequence.
-#'  Defaults too 'pre'.
+#'   sequence_length either in the beginning or in the end of the sequence.
+#'   Defaults too 'pre'.
 #' @param vocabulary A character vector, characters to be mapped to integers.
-#'  Characters not in the vocabulary will be encoded as 0. Defaults to
-#'  `letters`.
+#'   Characters not in the vocabulary will be encoded as 0. Defaults to
+#'   `letters`.
 #' @param prefix A prefix for generated column names, default to "seq1hot".
 #' @template args-skip
 #' @template args-id
 #'
-#' @source \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
+#' @source
+#' \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}
+#'
 #'
 #' @template returns
 #'
 #' @details
-#' The string will be capped by the sequence_length argument, strings shorter then
-#' sequence_length will be padded with empty characters. The encoding will assign
-#' a integer to each character in the vocabulary, and will encode accordingly.
-#' Characters not in the vocabulary will be encoded as 0.
 #'
-#' @family character to numeric steps
+#' The string will be capped by the sequence_length argument, strings shorter
+#' then sequence_length will be padded with empty characters. The encoding will
+#' assign a integer to each character in the vocabulary, and will encode
+#' accordingly. Characters not in the vocabulary will be encoded as 0.
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `vocabulary` (index) and `token` (text
+#' correspoding to the index).
+#'
+#' @family Steps for Numeric Variables From Characters
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -49,8 +58,8 @@
 #'
 #' bake(tate_obj, new_data = NULL)
 #'
-#' tidy(tate_rec, number = 1)
-#' tidy(tate_obj, number = 1)
+#' tidy(tate_rec, number = 3)
+#' tidy(tate_obj, number = 3)
 #' @export
 step_sequence_onehot <-
   function(recipe,

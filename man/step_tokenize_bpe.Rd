@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize_bpe.R
 \name{step_tokenize_bpe}
 \alias{step_tokenize_bpe}
-\title{BPE Tokenization of character variables}
+\title{BPE Tokenization of Character Variables}
 \usage{
 step_tokenize_bpe(
   recipe,
@@ -56,10 +56,15 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize_bpe]{step_tokenize_bpe()}} creates a \emph{specification} of a recipe step that
-will convert a character predictor into a \link{tokenlist} using Byte Pair
-Encoding.
+\code{\link[=step_tokenize_bpe]{step_tokenize_bpe()}} creates a \emph{specification} of a recipe step that will
+convert a character predictor into a \code{\link[=tokenlist]{token}} variable using
+Byte Pair Encoding.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
   library(recipes)
@@ -86,8 +91,8 @@ if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other character to tokenlist steps: 
+Other Steps for Tokenization: 
 \code{\link{step_tokenize_sentencepiece}()},
 \code{\link{step_tokenize}()}
 }
-\concept{character to tokenlist steps}
+\concept{Steps for Tokenization}

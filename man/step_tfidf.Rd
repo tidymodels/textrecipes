@@ -2,7 +2,7 @@
 % Please edit documentation in R/tfidf.R
 \name{step_tfidf}
 \alias{step_tfidf}
-\title{Term frequency-inverse document frequency of tokens}
+\title{Term Frequency-Inverse Document Frequency of Tokens}
 \usage{
 step_tfidf(
   recipe,
@@ -42,16 +42,16 @@ until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.
 
 \item{vocabulary}{A character vector of strings to be considered.}
 
-\item{res}{The words that will be used to calculate the term
-frequency will be stored here once this preprocessing step has
-be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
+\item{res}{The words that will be used to calculate the term frequency will
+be stored here once this preprocessing step has be trained by
+\code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{smooth_idf}{TRUE smooth IDF weights by adding one to document
-frequencies, as if an extra document was seen containing every term
-in the collection exactly once. This prevents division by zero.}
+frequencies, as if an extra document was seen containing every term in the
+collection exactly once. This prevents division by zero.}
 
-\item{norm}{A character, defines the type of normalization to apply to
-term vectors. "l1" by default, i.e., scale by the number of words in the
+\item{norm}{A character, defines the type of normalization to apply to term
+vectors. "l1" by default, i.e., scale by the number of words in the
 document. Must be one of c("l1", "l2", "none").}
 
 \item{sublinear_tf}{A logical, apply sublinear term-frequency scaling, i.e.,
@@ -73,9 +73,9 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tfidf} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} into multiple variables containing
-the term frequency-inverse document frequency of tokens.
+\code{step_tfidf} creates a \emph{specification} of a recipe step that will convert a
+\code{\link[=tokenlist]{token}} variable into multiple variables containing the term
+frequency-inverse document frequency of tokens.
 }
 \details{
 It is strongly advised to use \link{step_tokenfilter} before using \link{step_tfidf} to
@@ -89,14 +89,13 @@ the term frequency (TF) and the inverse document frequency (IDF).
 Term frequency measures how many times each token appears in each
 observation.
 
-Inverse document frequency is a measure of how informative a word
-is, e.g., how common or rare the word is across all the
-observations. If a word appears in all the observations it might not
-give that much insight, but if it only appears in some it might help
-differentiate between observations.
+Inverse document frequency is a measure of how informative a word is, e.g.,
+how common or rare the word is across all the observations. If a word appears
+in all the observations it might not give that much insight, but if it only
+appears in some it might help differentiate between observations.
 
-The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
-(# documents where the term appears))
+The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (#
+documents where the term appears))
 
 The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by
@@ -105,6 +104,11 @@ the name of the variable, followed by the tokens all separated by
 \code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
 \code{hash001} - \code{hash101}.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected).
+}
+
 \examples{
 \donttest{
 library(recipes)
@@ -126,11 +130,12 @@ tidy(tate_obj, number = 2)
 
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other tokenlist to numeric steps: 
+Other Steps for Numeric Variables From Tokens: 
+\code{\link{step_lda}()},
 \code{\link{step_texthash}()},
 \code{\link{step_tf}()},
 \code{\link{step_word_embeddings}()}
 }
-\concept{tokenlist to numeric steps}
+\concept{Steps for Numeric Variables From Tokens}

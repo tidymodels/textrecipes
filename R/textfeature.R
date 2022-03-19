@@ -1,7 +1,7 @@
-#'  Generate the basic set of text features
+#' Calculate Set of Text Features
 #'
-#' `step_textfeature` creates a *specification* of a recipe step that
-#'  will extract a number of numeric features of a text column.
+#' `step_textfeature` creates a *specification* of a recipe step that will
+#' extract a number of numeric features of a text column.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -9,8 +9,8 @@
 #' @template args-trained
 #' @template args-columns
 #' @param extract_functions A named list of feature extracting functions.
-#'  default to \code{\link[textfeatures]{count_functions}} from the textfeatures
-#'  package. See details for more information.
+#'   default to \code{\link[textfeatures]{count_functions}} from the
+#'   textfeatures package. See details for more information.
 #' @param prefix A prefix for generated column names, default to "textfeature".
 #' @template args-skip
 #' @template args-id
@@ -18,6 +18,7 @@
 #' @template returns
 #'
 #' @details
+#'
 #' This step will take a character column and returns a number of numeric
 #' columns equal to the number of functions in the list passed to the
 #' `extract_functions` argument. The default is a list of functions from the
@@ -27,8 +28,14 @@
 #' as input and return a numeric vector of the same length, otherwise an error
 #' will be thrown.
 #'
-#' @family character to numeric steps
+#' # Tidying
 #'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `functions` (name of feature
+#' functions).
+#'
+#' @family Steps for Numeric Variables From Characters
+#'   
 #' @examples
 #' if (requireNamespace("textfeatures", quietly = TRUE)) {
 #'   library(recipes)

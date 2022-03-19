@@ -1,8 +1,8 @@
-#' BPE Tokenization of character variables
+#' BPE Tokenization of Character Variables
 #'
-#' [step_tokenize_bpe()] creates a *specification* of a recipe step that
-#'  will convert a character predictor into a [tokenlist] using Byte Pair
-#'  Encoding.
+#' [step_tokenize_bpe()] creates a *specification* of a recipe step that will
+#' convert a character predictor into a [`token`][tokenlist()] variable using
+#' Byte Pair Encoding.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -19,8 +19,15 @@
 #'
 #' @template returns
 #'
+#' @details
+#'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
+#' 
 #' @seealso [step_untokenize()] to untokenize.
-#' @family character to tokenlist steps
+#' @family Steps for Tokenization
 #'
 #' @examples
 #' if (requireNamespace("tokenizers.bpe", quietly = TRUE)) {

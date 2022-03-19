@@ -1,7 +1,7 @@
-#' Normalization of [tokenlist] variables
+#' Normalization of Character Variables
 #'
 #' `step_text_normalization` creates a *specification* of a recipe step that
-#'  will perform Unicode Normalization
+#' will perform Unicode Normalization on chracter variables.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -9,17 +9,25 @@
 #' @template args-trained
 #' @template args-columns
 #' @param normalization_form A single character string determining the Unicode
-#'  Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
-#'  "nfkc_casefold". Defaults to "nfc".
-#'  See [stringi::stri_trans_nfc()] for more details.
+#'   Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
+#'   "nfkc_casefold". Defaults to "nfc". See [stringi::stri_trans_nfc()] for
+#'   more details.
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
-#' @seealso [step_texthash()] for feature hashing.
-#' @family character to character steps
+#' @details
 #'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected) and `normalization_form` (type of
+#' normalization).
+#'
+#' @seealso [step_texthash()] for feature hashing.
+#' @family Steps for Text Normalization
+#'   
 #' @examples
 #' if (requireNamespace("stringi", quietly = TRUE)) {
 #'   library(recipes)

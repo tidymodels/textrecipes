@@ -1,8 +1,8 @@
-#' Sentencepiece Tokenization of character variables
+#' Sentencepiece Tokenization of Character Variables
 #'
 #' [step_tokenize_sentencepiece()] creates a *specification* of a recipe step
-#' that will convert a character predictor into a [tokenlist] using Byte Pair
-#' Encoding.
+#' that will convert a character predictor into a [`token`][tokenlist()]
+#' variable using Byte Pair Encoding.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -21,12 +21,18 @@
 #' @template returns
 #'
 #' @details
-#' If you are running into errors, you can investigate the progress of the
-#' compiled code by setting `options = list(verbose = TRUE)`. This can reveal
-#' if sentencepiece ran correctly or not.
 #'
+#' If you are running into errors, you can investigate the progress of the
+#' compiled code by setting `options = list(verbose = TRUE)`. This can reveal if
+#' sentencepiece ran correctly or not.
+#'
+#' # Tidying
+#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected).
+#' 
 #' @seealso [step_untokenize()] to untokenize.
-#' @family character to tokenlist steps
+#' @family Steps for Tokenization
 #'
 #' @examples
 #' if (requireNamespace("sentencepiece", quietly = TRUE)) {

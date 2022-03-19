@@ -2,7 +2,7 @@
 % Please edit documentation in R/stem.R
 \name{step_stem}
 \alias{step_stem}
-\title{Stemming of \link{tokenlist} variables}
+\title{Stemming of Token Variables}
 \usage{
 step_stem(
   recipe,
@@ -36,8 +36,8 @@ until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.
 
 \item{options}{A list of options passed to the stemmer function.}
 
-\item{custom_stemmer}{A custom stemming function. If none is provided
-it will default to "SnowballC".}
+\item{custom_stemmer}{A custom stemming function. If none is provided it will
+default to "SnowballC".}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -52,19 +52,24 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_stem} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} to have its tokens stemmed.
+\code{step_stem} creates a \emph{specification} of a recipe step that will convert a
+\code{\link[=tokenlist]{token}} variable to have its stemmed version.
 }
 \details{
-Words tend to have different forms depending on context, such as
-organize, organizes, and organizing. In many situations it is beneficial
-to have these words condensed into one to allow for a smaller pool of
-words. Stemming is the act of chopping off the end of words using a set
-of heuristics.
+Words tend to have different forms depending on context, such as organize,
+organizes, and organizing. In many situations it is beneficial to have these
+words condensed into one to allow for a smaller pool of words. Stemming is
+the act of chopping off the end of words using a set of heuristics.
 
-Note that the stemming will only be done at the end of the word and
-will therefore not work reliably on ngrams or sentences.
+Note that the stemming will only be done at the end of the word and will
+therefore not work reliably on ngrams or sentences.
 }
+\section{Tidying}{
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected) and \code{is_custom_stemmer} (indicate if
+custom stemmer was used).
+}
+
 \examples{
 library(recipes)
 library(modeldata)
@@ -106,9 +111,9 @@ bake(tate_obj, new_data = NULL) \%>\%
   pull(medium)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other tokenlist to tokenlist steps: 
+Other Steps for Token Modification: 
 \code{\link{step_lemma}()},
 \code{\link{step_ngram}()},
 \code{\link{step_pos_filter}()},
@@ -116,4 +121,4 @@ Other tokenlist to tokenlist steps:
 \code{\link{step_tokenfilter}()},
 \code{\link{step_tokenmerge}()}
 }
-\concept{tokenlist to tokenlist steps}
+\concept{Steps for Token Modification}
