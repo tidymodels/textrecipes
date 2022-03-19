@@ -21,15 +21,16 @@
 #' @template returns
 #'
 #' @details
+#'
 #' If you are running into errors, you can investigate the progress of the
-#' compiled code by setting `options = list(verbose = TRUE)`. This can reveal
-#' if sentencepiece ran correctly or not.
-#' 
+#' compiled code by setting `options = list(verbose = TRUE)`. This can reveal if
+#' sentencepiece ran correctly or not.
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected).
-#'
+#' 
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'

@@ -1,4 +1,4 @@
-#'  Combine Multiple Token Variables Into One
+#' Combine Multiple Token Variables Into One
 #'
 #' `step_tokenmerge` creates a *specification* of a recipe step that will take
 #' multiple [`token`][tokenlist()] variables and combine them into one
@@ -15,8 +15,8 @@
 #'
 #' @template returns
 #'
-#' @details 
-#' 
+#' @details
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
@@ -24,7 +24,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
-#'
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)

@@ -8,7 +8,7 @@
 #' @param pos List of character vectors, must be same size and shape as `x`.
 #'
 #' @return a [tokenlist] object.
-#'
+#'   
 #' @examples
 #' abc <- list(letters, LETTERS)
 #' tokenlist(abc)

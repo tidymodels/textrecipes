@@ -48,9 +48,9 @@ being trained. Only applicable for engine == "tokenizers.bpe".}
 \item{engine}{Package that will be used for tokenization. See details for
 options. Defaults to "tokenizers".}
 
-\item{custom_token}{User supplied tokenizer. Use of this argument
-will overwrite the token and engine arguments. Must take a character vector
-as input and output a list of character vectors.}
+\item{custom_token}{User supplied tokenizer. Use of this argument will
+overwrite the token and engine arguments. Must take a character vector as
+input and output a list of character vectors.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -65,8 +65,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that
-will convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
+\code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that will
+convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
 Tokenization is the act of splitting a character string into smaller parts to

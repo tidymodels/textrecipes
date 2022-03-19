@@ -1,15 +1,15 @@
 #' Clean Variable Names
 #'
-#' `step_clean_names` creates a *specification* of a recipe step that will
-#'  clean variable names so the names consist only of letters, numbers, and the
-#'  underscore.
+#' `step_clean_names` creates a *specification* of a recipe step that will clean
+#' variable names so the names consist only of letters, numbers, and the
+#' underscore.
 #
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
 #' @param clean A named character vector to clean variable names. This is `NULL`
-#'  until computed by [recipes::prep.recipe()].
+#'   until computed by [recipes::prep.recipe()].
 #' @template args-skip
 #' @template args-id
 #'
@@ -21,7 +21,7 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the new clean variable names) and `value` (the original variable names).
-#'
+#' 
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]

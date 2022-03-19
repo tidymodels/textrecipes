@@ -50,15 +50,14 @@ clean nominal data (character or factor) so the levels consist only of
 letters, numbers, and the underscore.
 }
 \details{
-The new levels are cleaned and then reset with
-\code{\link[dplyr:recode]{dplyr::recode_factor()}}. When data to be processed contains novel
-levels (i.e., not contained in the training set), they are converted
-to missing.
+The new levels are cleaned and then reset with \code{\link[dplyr:recode]{dplyr::recode_factor()}}. When
+data to be processed contains novel levels (i.e., not contained in the
+training set), they are converted to missing.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns
-\code{terms} (the selectors or variables selected), \code{original} (the original
-levels) and \code{value} (the cleaned levels) is returned.
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
+(the selectors or variables selected), \code{original} (the original levels) and
+\code{value} (the cleaned levels) is returned.
 }
 
 \examples{

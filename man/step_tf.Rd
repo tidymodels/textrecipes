@@ -39,19 +39,19 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{weight_scheme}{A character determining the weighting scheme for
-the term frequency calculations. Must be one of "binary",
-"raw count", "term frequency", "log normalization" or
-"double normalization". Defaults to "raw count".}
+\item{weight_scheme}{A character determining the weighting scheme for the
+term frequency calculations. Must be one of "binary", "raw count", "term
+frequency", "log normalization" or "double normalization". Defaults to "raw
+count".}
 
-\item{weight}{A numeric weight used if \code{weight_scheme} is set to
-"double normalization". Defaults to 0.5.}
+\item{weight}{A numeric weight used if \code{weight_scheme} is set to "double
+normalization". Defaults to 0.5.}
 
 \item{vocabulary}{A character vector of strings to be considered.}
 
-\item{res}{The words that will be used to calculate the term
-frequency will be stored here once this preprocessing step has
-be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
+\item{res}{The words that will be used to calculate the term frequency will
+be stored here once this preprocessing step has be trained by
+\code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
@@ -80,19 +80,19 @@ issues. A good strategy is to start with a low token count and go up
 according to how much RAM you want to use.
 
 Term frequency is a weight of how many times each token appear in each
-observation. There are different ways to calculate the weight and this
-step can do it in a couple of ways. Setting the argument \code{weight_scheme} to
-"binary" will result in a set of binary variables denoting if a token
-is present in the observation. "raw count" will count the times a token
-is present in the observation. "term frequency" will divide the count
-with the total number of words in the document to limit the effect
-of the document length as longer documents tends to have the word present
-more times but not necessarily at a higher percentage. "log normalization"
-takes the log of 1 plus the count, adding 1 is done to avoid taking log of
-0. Finally "double normalization" is the raw frequency divided by the raw
-frequency of the most occurring term in the document. This is then
-multiplied by \code{weight} and \code{weight} is added to the result. This is again
-done to prevent a bias towards longer documents.
+observation. There are different ways to calculate the weight and this step
+can do it in a couple of ways. Setting the argument \code{weight_scheme} to
+"binary" will result in a set of binary variables denoting if a token is
+present in the observation. "raw count" will count the times a token is
+present in the observation. "term frequency" will divide the count with the
+total number of words in the document to limit the effect of the document
+length as longer documents tends to have the word present more times but not
+necessarily at a higher percentage. "log normalization" takes the log of 1
+plus the count, adding 1 is done to avoid taking log of 0. Finally "double
+normalization" is the raw frequency divided by the raw frequency of the most
+occurring term in the document. This is then multiplied by \code{weight} and
+\code{weight} is added to the result. This is again done to prevent a bias towards
+longer documents.
 
 The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by

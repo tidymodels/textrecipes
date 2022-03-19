@@ -37,8 +37,8 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{extract_functions}{A named list of feature extracting functions.
-default to \code{\link[textfeatures]{count_functions}} from the textfeatures
-package. See details for more information.}
+default to \code{\link[textfeatures]{count_functions}} from the
+textfeatures package. See details for more information.}
 
 \item{prefix}{A prefix for generated column names, default to "textfeature".}
 
@@ -55,8 +55,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_textfeature} creates a \emph{specification} of a recipe step that
-will extract a number of numeric features of a text column.
+\code{step_textfeature} creates a \emph{specification} of a recipe step that will
+extract a number of numeric features of a text column.
 }
 \details{
 This step will take a character column and returns a number of numeric

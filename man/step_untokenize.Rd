@@ -33,8 +33,8 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{sep}{a character to determine how the tokens should be separated
-when pasted together. Defaults to \code{" "}.}
+\item{sep}{a character to determine how the tokens should be separated when
+pasted together. Defaults to \code{" "}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

@@ -10,10 +10,10 @@
 #' @template args-trained
 #' @template args-columns
 #' @param num_tokens The number of tokens in the n-gram. This must be an integer
-#'  greater than or equal to 1. Defaults to 3.
-#' @param min_num_tokens The minimum number of tokens in the n-gram.
-#'  This must be an integer greater than or equal to 1 and smaller than `n`.
-#'  Defaults to 3.
+#'   greater than or equal to 1. Defaults to 3.
+#' @param min_num_tokens The minimum number of tokens in the n-gram. This must
+#'   be an integer greater than or equal to 1 and smaller than `n`. Defaults to
+#'   3.
 #' @param delim The separator between words in an n-gram. Defaults to "_".
 #' @template args-skip
 #' @template args-id
@@ -21,12 +21,13 @@
 #' @template returns
 #'
 #' @details
-#'  The use of this step will leave the ordering of the tokens meaningless.
-#'  If `min_num_tokens <  num_tokens` then the tokens order in increasing
-#'  fashion with respect to the number of tokens in the n-gram. If
-#'  `min_num_tokens = 1` and `num_tokens = 3` then the output contains all the
-#'  1-grams followed by all the 2-grams followed by all the 3-grams.
-#'  
+#'
+#' The use of this step will leave the ordering of the tokens meaningless. If
+#' `min_num_tokens <  num_tokens` then the tokens order in increasing fashion
+#' with respect to the number of tokens in the n-gram. If `min_num_tokens = 1`
+#' and `num_tokens = 3` then the output contains all the 1-grams followed by all
+#' the 2-grams followed by all the 3-grams.
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
@@ -34,7 +35,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
-#'
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)

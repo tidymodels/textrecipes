@@ -1,7 +1,7 @@
 #' Lemmatization of Token Variables
 #'
-#' `step_lemma` creates a *specification* of a recipe step that
-#'  will extract the lemmatization of a [`token`][tokenlist()] variable.
+#' `step_lemma` creates a *specification* of a recipe step that will extract the
+#' lemmatization of a [`token`][tokenlist()] variable.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -14,12 +14,13 @@
 #' @template returns
 #'
 #' @details
+#'
 #' This stem doesn't perform lemmatization by itself, but rather lets you
 #' extract the lemma attribute of the [`token`][tokenlist()] variable. To be
 #' able to use `step_lemma` you need to use a tokenization method that includes
 #' lemmatization. Currently using the `"spacyr"` engine in [step_tokenize()]
 #' provides lemmatization and works well with `step_lemma`.
-#' 
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
@@ -27,7 +28,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
-#'
+#'   
 #' @examples
 #' \dontrun{
 #' library(recipes)

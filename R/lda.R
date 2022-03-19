@@ -1,8 +1,7 @@
 #' Calculate LDA Dimension Estimates of Tokens
 #'
-#' @description
-#' `step_lda` creates a *specification* of a recipe step that
-#' will return the lda dimension estimates of a text variable.
+#' @description `step_lda` creates a *specification* of a recipe step that will
+#'   return the lda dimension estimates of a text variable.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -10,15 +9,15 @@
 #' @template args-trained
 #' @template args-columns
 #' @param lda_models A WarpLDA model object from the text2vec package. If left
-#' to NULL, the default, will it train its model based on the training data.
-#' Look at the examples for how to fit a WarpLDA model.
+#'   to NULL, the default, will it train its model based on the training data.
+#'   Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
 #' @param prefix A prefix for generated column names, default to "lda".
 #' @template args-skip
 #' @template args-id
-#' 
-#' @details 
-#' 
+#'
+#' @details
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
@@ -29,7 +28,7 @@
 #' @template returns
 #'
 #' @family Steps for Numeric Variables From Tokens
-#'
+#'   
 #' @examples
 #' if (requireNamespace("text2vec", quietly = TRUE)) {
 #' \donttest{

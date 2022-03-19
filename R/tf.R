@@ -9,16 +9,16 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param weight_scheme A character determining the weighting scheme for
-#'  the term frequency calculations. Must be one of "binary",
-#'  "raw count", "term frequency", "log normalization" or
-#'  "double normalization". Defaults to "raw count".
-#' @param weight A numeric weight used if `weight_scheme` is set to
-#'  "double normalization". Defaults to 0.5.
+#' @param weight_scheme A character determining the weighting scheme for the
+#'   term frequency calculations. Must be one of "binary", "raw count", "term
+#'   frequency", "log normalization" or "double normalization". Defaults to "raw
+#'   count".
+#' @param weight A numeric weight used if `weight_scheme` is set to "double
+#'   normalization". Defaults to 0.5.
 #' @param vocabulary A character vector of strings to be considered.
-#' @param res The words that will be used to calculate the term
-#'  frequency will be stored here once this preprocessing step has
-#'  be trained by [prep.recipe()].
+#' @param res The words that will be used to calculate the term frequency will
+#'   be stored here once this preprocessing step has be trained by
+#'   [prep.recipe()].
 #' @template args-prefix
 #' @template args-skip
 #' @template args-id
@@ -26,30 +26,31 @@
 #' @template returns
 #'
 #' @details
+#'
 #' It is strongly advised to use [step_tokenfilter] before using [step_tf] to
 #' limit the number of variables created, otherwise you might run into memory
 #' issues. A good strategy is to start with a low token count and go up
 #' according to how much RAM you want to use.
 #'
 #' Term frequency is a weight of how many times each token appear in each
-#' observation. There are different ways to calculate the weight and this
-#' step can do it in a couple of ways. Setting the argument `weight_scheme` to
-#' "binary" will result in a set of binary variables denoting if a token
-#' is present in the observation. "raw count" will count the times a token
-#' is present in the observation. "term frequency" will divide the count
-#' with the total number of words in the document to limit the effect
-#' of the document length as longer documents tends to have the word present
-#' more times but not necessarily at a higher percentage. "log normalization"
-#' takes the log of 1 plus the count, adding 1 is done to avoid taking log of
-#' 0. Finally "double normalization" is the raw frequency divided by the raw
-#' frequency of the most occurring term in the document. This is then
-#' multiplied by `weight` and `weight` is added to the result. This is again
-#' done to prevent a bias towards longer documents.
+#' observation. There are different ways to calculate the weight and this step
+#' can do it in a couple of ways. Setting the argument `weight_scheme` to
+#' "binary" will result in a set of binary variables denoting if a token is
+#' present in the observation. "raw count" will count the times a token is
+#' present in the observation. "term frequency" will divide the count with the
+#' total number of words in the document to limit the effect of the document
+#' length as longer documents tends to have the word present more times but not
+#' necessarily at a higher percentage. "log normalization" takes the log of 1
+#' plus the count, adding 1 is done to avoid taking log of 0. Finally "double
+#' normalization" is the raw frequency divided by the raw frequency of the most
+#' occurring term in the document. This is then multiplied by `weight` and
+#' `weight` is added to the result. This is again done to prevent a bias towards
+#' longer documents.
 #'
 #' @template details-prefix
-#' 
+#'
 #' @details
-#' 
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
@@ -57,7 +58,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
-#'
+#'   
 #' @examples
 #' \donttest{
 #' library(recipes)

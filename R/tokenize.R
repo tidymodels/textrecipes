@@ -1,7 +1,7 @@
 #' Tokenization of Character Variables
 #'
-#' [step_tokenize()] creates a *specification* of a recipe step that
-#'  will convert a character predictor into a [`token`][tokenlist()] variable.
+#' [step_tokenize()] creates a *specification* of a recipe step that will
+#' convert a character predictor into a [`token`][tokenlist()] variable.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -9,18 +9,18 @@
 #' @template args-trained
 #' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
-#'  being trained. Only applicable for engine == "tokenizers.bpe".
+#'   being trained. Only applicable for engine == "tokenizers.bpe".
 #' @param options A list of options passed to the tokenizer.
 #' @param token Unit for tokenizing. See details for options. Defaults to
-#' "words".
+#'   "words".
 #' @param engine Package that will be used for tokenization. See details for
-#' options. Defaults to "tokenizers".
-#' @param custom_token User supplied tokenizer. Use of this argument
-#'  will overwrite the token and engine arguments. Must take a character vector
-#'  as input and output a list of character vectors.
+#'   options. Defaults to "tokenizers".
+#' @param custom_token User supplied tokenizer. Use of this argument will
+#'   overwrite the token and engine arguments. Must take a character vector as
+#'   input and output a list of character vectors.
 #' @template args-skip
 #' @template args-id
-#'
+#'   
 #' @template returns
 #'
 #' @details
@@ -40,7 +40,7 @@
 #' `step_tokenize` followed by modifying and filtering steps. This is not always
 #' the case as you sometimes want to do apply pre-tokenization steps, this can
 #' be done with [recipes::step_mutate()].
-#'
+#' 
 #' # Engines
 #'
 #' The choice of `engine` determines the possible choices of `token`.
@@ -58,7 +58,7 @@
 #' The tokenizers package is the default `engine` and it comes with the
 #' following unit of `token`. All of these options correspond to a function in
 #' the tokenizers package.
-#'
+#' 
 #' * "words" (default)
 #' * "characters"
 #' * "character_shingles"
@@ -87,7 +87,7 @@
 #' accessed using the `options` argument by passing a named list. Here we are
 #' telling [tokenizers::tokenize_words] that we don't want to turn the words to
 #' lowercase
-#'
+#' 
 #' ```{r}
 #' recipe(~ text, data = text_tibble) %>%
 #'   step_tokenize(text,

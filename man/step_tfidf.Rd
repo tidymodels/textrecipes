@@ -42,16 +42,16 @@ until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.
 
 \item{vocabulary}{A character vector of strings to be considered.}
 
-\item{res}{The words that will be used to calculate the term
-frequency will be stored here once this preprocessing step has
-be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
+\item{res}{The words that will be used to calculate the term frequency will
+be stored here once this preprocessing step has be trained by
+\code{\link[=prep.recipe]{prep.recipe()}}.}
 
 \item{smooth_idf}{TRUE smooth IDF weights by adding one to document
-frequencies, as if an extra document was seen containing every term
-in the collection exactly once. This prevents division by zero.}
+frequencies, as if an extra document was seen containing every term in the
+collection exactly once. This prevents division by zero.}
 
-\item{norm}{A character, defines the type of normalization to apply to
-term vectors. "l1" by default, i.e., scale by the number of words in the
+\item{norm}{A character, defines the type of normalization to apply to term
+vectors. "l1" by default, i.e., scale by the number of words in the
 document. Must be one of c("l1", "l2", "none").}
 
 \item{sublinear_tf}{A logical, apply sublinear term-frequency scaling, i.e.,
@@ -89,14 +89,13 @@ the term frequency (TF) and the inverse document frequency (IDF).
 Term frequency measures how many times each token appears in each
 observation.
 
-Inverse document frequency is a measure of how informative a word
-is, e.g., how common or rare the word is across all the
-observations. If a word appears in all the observations it might not
-give that much insight, but if it only appears in some it might help
-differentiate between observations.
+Inverse document frequency is a measure of how informative a word is, e.g.,
+how common or rare the word is across all the observations. If a word appears
+in all the observations it might not give that much insight, but if it only
+appears in some it might help differentiate between observations.
 
-The IDF is defined as follows: idf = log(1 + (# documents in the corpus) /
-(# documents where the term appears))
+The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (#
+documents where the term appears))
 
 The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by

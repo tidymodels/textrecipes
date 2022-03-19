@@ -38,9 +38,9 @@ until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.
 \item{num_tokens}{The number of tokens in the n-gram. This must be an integer
 greater than or equal to 1. Defaults to 3.}
 
-\item{min_num_tokens}{The minimum number of tokens in the n-gram.
-This must be an integer greater than or equal to 1 and smaller than \code{n}.
-Defaults to 3.}
+\item{min_num_tokens}{The minimum number of tokens in the n-gram. This must
+be an integer greater than or equal to 1 and smaller than \code{n}. Defaults to
+3.}
 
 \item{delim}{The separator between words in an n-gram. Defaults to "_".}
 
@@ -62,11 +62,11 @@ to the sequence of existing steps (if any).
 ngrams.
 }
 \details{
-The use of this step will leave the ordering of the tokens meaningless.
-If \code{min_num_tokens <  num_tokens} then the tokens order in increasing
-fashion with respect to the number of tokens in the n-gram. If
-\code{min_num_tokens = 1} and \code{num_tokens = 3} then the output contains all the
-1-grams followed by all the 2-grams followed by all the 3-grams.
+The use of this step will leave the ordering of the tokens meaningless. If
+\code{min_num_tokens <  num_tokens} then the tokens order in increasing fashion
+with respect to the number of tokens in the n-gram. If \code{min_num_tokens = 1}
+and \code{num_tokens = 3} then the output contains all the 1-grams followed by all
+the 2-grams followed by all the 3-grams.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

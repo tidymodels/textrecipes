@@ -1,45 +1,46 @@
 #' Filtering of Stop Words for Tokens Variables
 #'
-#' `step_stopwords` creates a *specification* of a recipe step that
-#'  will filter a [`token`][tokenlist()] variable for stop words.
+#' `step_stopwords` creates a *specification* of a recipe step that will filter
+#' a [`token`][tokenlist()] variable for stop words.
 #'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param language A character to indicate the language of stop words
-#'  by ISO 639-1 coding scheme.
+#' @param language A character to indicate the language of stop words by ISO
+#'   639-1 coding scheme.
 #' @param keep A logical. Specifies whether to keep the stop words or discard
-#'  them.
+#'   them.
 #' @param stopword_source A character to indicate the stop words source as
-#'  listed in `stopwords::stopwords_getsources`.
-#' @param custom_stopword_source A character vector to indicate a custom
-#'  list of words that cater to the users specific problem.
+#'   listed in `stopwords::stopwords_getsources`.
+#' @param custom_stopword_source A character vector to indicate a custom list of
+#'   words that cater to the users specific problem.
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
 #' @details
+#'
 #' Stop words are words which sometimes are remove before natural language
-#' processing tasks. While stop words usually refers to the most common
-#' words in the language there is no universal stop word list.
+#' processing tasks. While stop words usually refers to the most common words in
+#' the language there is no universal stop word list.
 #'
 #' The argument `custom_stopword_source` allows you to pass a character vector
-#' to filter against. With the `keep` argument one can specify to keep the
-#' words instead of removing thus allowing you to select words with a
-#' combination of these two arguments.
-#' 
+#' to filter against. With the `keep` argument one can specify to keep the words
+#' instead of removing thus allowing you to select words with a combination of
+#' these two arguments.
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected), `value` (name of stop word list), and
 #' `keep` (whether stop words are removed or kept).
-#' 
+#'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
-#'
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)

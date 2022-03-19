@@ -49,14 +49,15 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_pos_filter} creates a \emph{specification} of a recipe step that
-will filter a \code{\link[=tokenlist]{token}} variable based on part of speech tags.
+\code{step_pos_filter} creates a \emph{specification} of a recipe step that will filter
+a \code{\link[=tokenlist]{token}} variable based on part of speech tags.
 }
 \details{
 Possible part of speech tags for \code{spacyr} engine are: "ADJ", "ADP", "ADV",
 "AUX", "CONJ", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON",
 "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X" and "SPACE". For more
-information look here \url{https://github.com/explosion/spaCy/blob/master/spacy/glossary.py}.
+information look here
+\url{https://github.com/explosion/spaCy/blob/master/spacy/glossary.py}.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

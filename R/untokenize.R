@@ -8,14 +8,15 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param sep a character to determine how the tokens should be separated
-#'  when pasted together. Defaults to `" "`.
+#' @param sep a character to determine how the tokens should be separated when
+#'   pasted together. Defaults to `" "`.
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
 #' @details
+#'
 #' This steps will turn a [`token`][tokenlist()] vector back into a character
 #' vector. This step is calling `paste` internally to put the tokens back
 #' together to a character.
@@ -28,7 +29,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Un-Tokenization
-#'
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)

@@ -63,8 +63,8 @@ variable using Byte Pair Encoding.
 }
 \details{
 If you are running into errors, you can investigate the progress of the
-compiled code by setting \code{options = list(verbose = TRUE)}. This can reveal
-if sentencepiece ran correctly or not.
+compiled code by setting \code{options = list(verbose = TRUE)}. This can reveal if
+sentencepiece ran correctly or not.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

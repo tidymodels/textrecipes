@@ -35,8 +35,8 @@ until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.
 
 \item{normalization_form}{A single character string determining the Unicode
 Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
-"nfkc_casefold". Defaults to "nfc".
-See \code{\link[stringi:stri_trans_nf]{stringi::stri_trans_nfc()}} for more details.}
+"nfkc_casefold". Defaults to "nfc". See \code{\link[stringi:stri_trans_nf]{stringi::stri_trans_nfc()}} for
+more details.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

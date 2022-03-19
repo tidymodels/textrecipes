@@ -8,39 +8,40 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param max_times An integer. Maximal number of times a word can appear
-#'  before getting removed.
-#' @param min_times An integer. Minimum number of times a word can appear
-#'  before getting removed.
-#' @param percentage A logical. Should max_times and min_times be interpreted
-#'  as a percentage instead of count.
-#' @param max_tokens An integer. Will only keep the top max_tokens tokens
-#'  after filtering done by max_times and min_times. Defaults to 100.
+#' @param max_times An integer. Maximal number of times a word can appear before
+#'   getting removed.
+#' @param min_times An integer. Minimum number of times a word can appear before
+#'   getting removed.
+#' @param percentage A logical. Should max_times and min_times be interpreted as
+#'   a percentage instead of count.
+#' @param max_tokens An integer. Will only keep the top max_tokens tokens after
+#'   filtering done by max_times and min_times. Defaults to 100.
 #' @param filter_fun A function. This function should take a vector of
-#'  characters, and return a logical vector of the same length. This function
-#'  will be applied to each observation of the data set. Defaults to `NULL`.
-#'  All other arguments will be ignored if this argument is used.
-#' @param res The words that will be keep will be stored here once
-#'  this preprocessing step has be trained by [prep.recipe()].
+#'   characters, and return a logical vector of the same length. This function
+#'   will be applied to each observation of the data set. Defaults to `NULL`.
+#'   All other arguments will be ignored if this argument is used.
+#' @param res The words that will be keep will be stored here once this
+#'   preprocessing step has be trained by [prep.recipe()].
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
 #' @details
-#' This step allow you to limit the tokens you are looking at by filtering
-#' on their occurrence in the corpus. You are able to exclude tokens if they
-#' appear too many times or too few times in the data. It can be specified
-#' as counts using `max_times` and `min_times` or as percentages by setting
-#' `percentage` as `TRUE`. In addition one can filter to only use the top
-#' `max_tokens` used tokens. If `max_tokens` is set to `Inf` then all the tokens
-#' will be used. This will generally lead to very large data sets when then
-#' tokens are words or trigrams. A good strategy is to start with a low token
-#' count and go up according to how much RAM you want to use.
+#'
+#' This step allow you to limit the tokens you are looking at by filtering on
+#' their occurrence in the corpus. You are able to exclude tokens if they appear
+#' too many times or too few times in the data. It can be specified as counts
+#' using `max_times` and `min_times` or as percentages by setting `percentage`
+#' as `TRUE`. In addition one can filter to only use the top `max_tokens` used
+#' tokens. If `max_tokens` is set to `Inf` then all the tokens will be used.
+#' This will generally lead to very large data sets when then tokens are words
+#' or trigrams. A good strategy is to start with a low token count and go up
+#' according to how much RAM you want to use.
 #'
 #' It is strongly advised to filter before using [step_tf] or [step_tfidf] to
 #' limit the number of variables created.
-#' 
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
@@ -48,7 +49,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
-#'
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)

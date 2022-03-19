@@ -23,32 +23,33 @@
 #'
 #' @template returns
 #'
-#' @details Word embeddings map words (or other tokens) into a high-dimensional
-#'   feature space. This function maps pre-trained word embeddings onto the
-#'   tokens in your data.
+#' @details
 #'
-#'   The argument `embeddings` provides the pre-trained vectors. Each dimension
-#'   present in this tibble becomes a new feature column, with each column
-#'   aggregated across each row of your text using the function supplied in the
-#'   `aggregation` argument.
+#' Word embeddings map words (or other tokens) into a high-dimensional feature
+#' space. This function maps pre-trained word embeddings onto the tokens in your
+#' data.
 #'
-#'   The new components will have names that begin with `prefix`, then the name
-#'   of the aggregation function, then the name of the variable from the
-#'   embeddings tibble (usually something like "d7"). For example, using the
-#'   default "word_embeddings" prefix, the "sum" aggregation, and the GloVe
-#'   embeddings from the textdata package (where the column names are `d1`,
-#'   `d2`, etc), new columns would be `word_embeddings_sum_d1`,
-#'   `word_embeddings_sum_d2`, etc.
-#'   
+#' The argument `embeddings` provides the pre-trained vectors. Each dimension
+#' present in this tibble becomes a new feature column, with each column
+#' aggregated across each row of your text using the function supplied in the
+#' `aggregation` argument.
+#'
+#' The new components will have names that begin with `prefix`, then the name of
+#' the aggregation function, then the name of the variable from the embeddings
+#' tibble (usually something like "d7"). For example, using the default
+#' "word_embeddings" prefix, the "sum" aggregation, and the GloVe embeddings
+#' from the textdata package (where the column names are `d1`, `d2`, etc), new
+#' columns would be `word_embeddings_sum_d1`, `word_embeddings_sum_d2`, etc.
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected), `embedding_rows` (number of rows in 
+#' (the selectors or variables selected), `embedding_rows` (number of rows in
 #' embedding), and `aggregation` (the aggregation method).
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
-#'
+#'   
 #' @examples
 #' library(recipes)
 #'

@@ -81,8 +81,7 @@
 \item{...}{Not currently used.}
 }
 \description{
-\code{tidy} will return a data frame that contains information
-regarding a recipe or operation within the recipe (when a \code{tidy}
-method for the operation exists). See \link[recipes:tidy.recipe]{recipes::tidy.recipe} for
-more information.
+\code{tidy} will return a data frame that contains information regarding a recipe
+or operation within the recipe (when a \code{tidy} method for the operation
+exists). See \link[recipes:tidy.recipe]{recipes::tidy.recipe} for more information.
 }

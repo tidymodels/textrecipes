@@ -71,14 +71,14 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_sequence_onehot} creates a \emph{specification} of a recipe step that
-will take a string and do one hot encoding for each character by position.
+\code{step_sequence_onehot} creates a \emph{specification} of a recipe step that will
+take a string and do one hot encoding for each character by position.
 }
 \details{
-The string will be capped by the sequence_length argument, strings shorter then
-sequence_length will be padded with empty characters. The encoding will assign
-a integer to each character in the vocabulary, and will encode accordingly.
-Characters not in the vocabulary will be encoded as 0.
+The string will be capped by the sequence_length argument, strings shorter
+then sequence_length will be padded with empty characters. The encoding will
+assign a integer to each character in the vocabulary, and will encode
+accordingly. Characters not in the vocabulary will be encoded as 0.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

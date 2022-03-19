@@ -1,37 +1,38 @@
 #' Clean Categorical Levels
 #'
 #' `step_clean_levels` creates a *specification* of a recipe step that will
-#'  clean nominal data (character or factor) so the levels consist only of
-#'  letters, numbers, and the underscore.
+#' clean nominal data (character or factor) so the levels consist only of
+#' letters, numbers, and the underscore.
 #'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
 #' @param clean A named character vector to clean and recode categorical levels.
-#'  This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
-#'  original variable is a character vector, it will be converted to a factor.
+#'   This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
+#'   original variable is a character vector, it will be converted to a factor.
 #' @template args-skip
 #' @template args-id
 #'
 #' @template returns
 #'
-#' @details The new levels are cleaned and then reset with
-#'  [dplyr::recode_factor()]. When data to be processed contains novel
-#'  levels (i.e., not contained in the training set), they are converted
-#'  to missing.
-#'  
+#' @details
+#'
+#' The new levels are cleaned and then reset with [dplyr::recode_factor()]. When
+#' data to be processed contains novel levels (i.e., not contained in the
+#' training set), they are converted to missing.
+#'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns
-#' `terms` (the selectors or variables selected), `original` (the original 
-#' levels) and `value` (the cleaned levels) is returned.
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
+#' (the selectors or variables selected), `original` (the original levels) and
+#' `value` (the cleaned levels) is returned.
 #'
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
-#'  [recipes::step_string2factor()], [recipes::step_regex()],
-#'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
+#'   [recipes::step_string2factor()], [recipes::step_regex()],
+#'   [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @family Steps for Text Cleaning
-#'
+#'   
 #' @examples
 #' library(recipes)
 #' library(modeldata)
