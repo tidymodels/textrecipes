@@ -2,7 +2,7 @@
 % Please edit documentation in R/stem.R
 \name{step_stem}
 \alias{step_stem}
-\title{Stemming of \link{tokenlist} Variables}
+\title{Stemming of Token Variables}
 \usage{
 step_stem(
   recipe,
@@ -53,7 +53,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_stem} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} to have its tokens stemmed.
+will convert a \code{\link[=tokenlist]{token}} variable to have its stemmed version.
 }
 \details{
 Words tend to have different forms depending on context, such as
@@ -112,7 +112,7 @@ bake(tate_obj, new_data = NULL) \%>\%
   pull(medium)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_lemma}()},

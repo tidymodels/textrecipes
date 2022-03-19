@@ -1,7 +1,7 @@
-#' Part of Speech Filtering of [tokenlist] Variables
+#' Part of Speech Filtering of Token Variables
 #'
 #' `step_pos_filter` creates a *specification* of a recipe step that
-#'  will filter a [tokenlist] based on part of speech tags.
+#'  will filter a [`token`][tokenlist()] variable based on part of speech tags.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -26,7 +26,7 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `num_topics` (number of topics).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
 #'
 #' @examples

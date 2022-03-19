@@ -2,7 +2,7 @@
 % Please edit documentation in R/lemma.R
 \name{step_lemma}
 \alias{step_lemma}
-\title{Lemmatization of \link{tokenlist} Variables}
+\title{Lemmatization of Token Variables}
 \usage{
 step_lemma(
   recipe,
@@ -46,14 +46,14 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_lemma} creates a \emph{specification} of a recipe step that
-will extract the lemmatization of a tokenlist.
+will extract the lemmatization of a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
 This stem doesn't perform lemmatization by itself, but rather lets you
-extract the lemma attribute of the tokenlist. To be able to use \code{step_lemma}
-you need to use a tokenization method that includes lemmatization. Currently
-using the \code{"spacyr"} engine in \code{\link[=step_tokenize]{step_tokenize()}} provides lemmatization and
-works well with \code{step_lemma}.
+extract the lemma attribute of the \code{\link[=tokenlist]{token}} variable. To be
+able to use \code{step_lemma} you need to use a tokenization method that includes
+lemmatization. Currently using the \code{"spacyr"} engine in \code{\link[=step_tokenize]{step_tokenize()}}
+provides lemmatization and works well with \code{step_lemma}.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
@@ -81,7 +81,7 @@ bake(rec_prepped, new_data = NULL)
 
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_ngram}()},

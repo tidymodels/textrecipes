@@ -1,8 +1,8 @@
 #' Pretrained Word Embeddings of Tokens
 #'
 #' `step_word_embeddings` creates a *specification* of a recipe step that will
-#' convert a [tokenlist] into word-embedding dimensions by aggregating the
-#' vectors of each token from a pre-trained embedding.
+#' convert a [`token`][tokenlist()] variable into word-embedding dimensions by
+#' aggregating the vectors of each token from a pre-trained embedding.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -46,7 +46,7 @@
 #' (the selectors or variables selected), `embedding_rows` (number of rows in 
 #' embedding), and `aggregation` (the aggregation method).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
 #'
 #' @examples

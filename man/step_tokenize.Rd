@@ -66,15 +66,15 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that
-will convert a character predictor into a \link{tokenlist}.
+will convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
-Tokenization is the act of splitting a character string into smaller parts
-to be further analyzed. This step uses the \code{tokenizers} package which
-includes heuristics to split the text into paragraphs tokens, word tokens
-among others. \code{textrecipes} keeps the tokens in a \link{tokenlist} and other
-steps will do their tasks on those \link{tokenlist}s before transforming them
-back to numeric.
+Tokenization is the act of splitting a character string into smaller parts to
+be further analyzed. This step uses the \code{tokenizers} package which includes
+heuristics on how to to split the text into paragraphs tokens, word tokens,
+among others. \code{textrecipes} keeps the tokens as a \code{\link[=tokenlist]{token}}
+variable and other steps will do their tasks on those \code{\link[=tokenlist]{token}}
+variable before transforming them back to numeric variables.
 
 Working will \code{textrecipes} will almost always start by calling
 \code{step_tokenize} followed by modifying and filtering steps. This is not always

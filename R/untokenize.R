@@ -1,7 +1,7 @@
-#' Untokenization of [tokenlist] Variables
+#' Untokenization of Token Variables
 #'
-#' `step_untokenize` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into a character predictor.
+#' `step_untokenize` creates a *specification* of a recipe step that will
+#' convert a [`token`][tokenlist()] variable into a character predictor.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -16,8 +16,9 @@
 #' @template returns
 #'
 #' @details
-#' This steps will turn a [tokenlist] back into a character vector. This step
-#' is calling `paste` internally to put the tokens back together to a character.
+#' This steps will turn a [`token`][tokenlist()] vector back into a character
+#' vector. This step is calling `paste` internally to put the tokens back
+#' together to a character.
 #'
 #' # Tidying
 #'
@@ -25,7 +26,7 @@
 #' (the selectors or variables selected) and `value` (seperator used for
 #' collapsing).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Un-Tokenization
 #'
 #' @examples

@@ -1,4 +1,4 @@
-#' Create tokenlist object
+#' Create Token Object
 #'
 #' A [tokenlist] object is a thin wrapper around a list of character vectors,
 #' with a few attributes.

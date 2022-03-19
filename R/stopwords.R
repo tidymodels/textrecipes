@@ -1,7 +1,7 @@
-#' Filtering of Stop Words for [tokenlist] Variables
+#' Filtering of Stop Words for Tokens Variables
 #'
 #' `step_stopwords` creates a *specification* of a recipe step that
-#'  will filter a [tokenlist] for stop words(keep or remove).
+#'  will filter a [`token`][tokenlist()] variable for stop words.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -37,7 +37,7 @@
 #' (the selectors or variables selected), `value` (name of stop word list), and
 #' `keep` (whether stop words are removed or kept).
 #' 
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
 #'
 #' @examples

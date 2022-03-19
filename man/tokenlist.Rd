@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenlist.R
 \name{tokenlist}
 \alias{tokenlist}
-\title{Create tokenlist object}
+\title{Create Token Object}
 \usage{
 tokenlist(tokens = list(), lemma = NULL, pos = NULL)
 }

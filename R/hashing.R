@@ -1,8 +1,8 @@
 #' Feature Hashing of Tokens
 #'
-#' `step_texthash` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into multiple variables using the
-#'  hashing trick.
+#' `step_texthash` creates a *specification* of a recipe step that will convert
+#' a [`token`][tokenlist()] variable into multiple numeric variables using the
+#' hashing trick.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -43,7 +43,7 @@
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford;
 #'  Alex Smola; Josh Attenberg (2009).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #'   [step_text_normalization()] to perform text normalization.
 #' @family Steps for Numeric Variables From Tokens
 #'

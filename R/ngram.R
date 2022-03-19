@@ -1,7 +1,8 @@
-#' Generate n-grams From tokenlist Variables
+#' Generate n-grams From Token Variables
 #'
-#' `step_ngram` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into a list of ngram of tokens.
+#' `step_ngram` creates a *specification* of a recipe step that will convert a
+#' [`token`][tokenlist()] variable into a [`token`][tokenlist()] variable of
+#' ngrams.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -31,7 +32,7 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
 #'
 #' @examples

@@ -66,8 +66,8 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_word_embeddings} creates a \emph{specification} of a recipe step that will
-convert a \link{tokenlist} into word-embedding dimensions by aggregating the
-vectors of each token from a pre-trained embedding.
+convert a \code{\link[=tokenlist]{token}} variable into word-embedding dimensions by
+aggregating the vectors of each token from a pre-trained embedding.
 }
 \details{
 Word embeddings map words (or other tokens) into a high-dimensional
@@ -125,7 +125,7 @@ tidy(rec, number = 2)
 tidy(obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Numeric Variables From Tokens: 
 \code{\link{step_lda}()},

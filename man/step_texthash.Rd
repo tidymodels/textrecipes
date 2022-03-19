@@ -59,8 +59,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_texthash} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} into multiple variables using the
+\code{step_texthash} creates a \emph{specification} of a recipe step that will convert
+a \code{\link[=tokenlist]{token}} variable into multiple numeric variables using the
 hashing trick.
 }
 \details{
@@ -113,7 +113,7 @@ Kilian Weinberger; Anirban Dasgupta; John Langford;
 Alex Smola; Josh Attenberg (2009).
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 \code{\link[=step_text_normalization]{step_text_normalization()}} to perform text normalization.
 
 Other Steps for Numeric Variables From Tokens: 

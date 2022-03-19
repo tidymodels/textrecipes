@@ -50,7 +50,7 @@ check_possible_tokenizers <- function(x, dict) {
 }
 
 # same as tokenlist_filter but takes an list as input and returns a tibble with
-# [tokenlist].
+# [`token`][tokenlist()].
 word_tbl_filter <- function(x, words, keep) {
   tibble(
     map(x, tokenlist_filter, words, keep)

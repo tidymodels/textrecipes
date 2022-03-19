@@ -58,8 +58,8 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{\link[=step_tokenize_sentencepiece]{step_tokenize_sentencepiece()}} creates a \emph{specification} of a recipe step
-that will convert a character predictor into a \link{tokenlist} using Byte Pair
-Encoding.
+that will convert a character predictor into a \code{\link[=tokenlist]{token}}
+variable using Byte Pair Encoding.
 }
 \details{
 If you are running into errors, you can investigate the progress of the

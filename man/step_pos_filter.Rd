@@ -2,7 +2,7 @@
 % Please edit documentation in R/pos_filter.R
 \name{step_pos_filter}
 \alias{step_pos_filter}
-\title{Part of Speech Filtering of \link{tokenlist} Variables}
+\title{Part of Speech Filtering of Token Variables}
 \usage{
 step_pos_filter(
   recipe,
@@ -50,7 +50,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_pos_filter} creates a \emph{specification} of a recipe step that
-will filter a \link{tokenlist} based on part of speech tags.
+will filter a \code{\link[=tokenlist]{token}} variable based on part of speech tags.
 }
 \details{
 Possible part of speech tags for \code{spacyr} engine are: "ADJ", "ADP", "ADV",
@@ -84,7 +84,7 @@ bake(rec_prepped, new_data = NULL)
 
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_lemma}()},

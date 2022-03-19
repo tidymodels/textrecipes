@@ -69,9 +69,9 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tf} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} into multiple variables containing
-the token counts.
+\code{step_tf} creates a \emph{specification} of a recipe step that will convert a
+\code{\link[=tokenlist]{token}} variable into multiple variables containing the token
+counts.
 }
 \details{
 It is strongly advised to use \link{step_tokenfilter} before using \link{step_tf} to
@@ -127,7 +127,7 @@ tidy(tate_obj, number = 2)
 
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Numeric Variables From Tokens: 
 \code{\link{step_lda}()},

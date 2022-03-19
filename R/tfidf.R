@@ -1,8 +1,8 @@
 #'  Term Frequency-Inverse Document Frequency of Tokens
 #'
-#' `step_tfidf` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into multiple variables containing
-#'  the term frequency-inverse document frequency of tokens.
+#' `step_tfidf` creates a *specification* of a recipe step that will convert a
+#' [`token`][tokenlist()] variable into multiple variables containing the term
+#' frequency-inverse document frequency of tokens.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -55,7 +55,7 @@
 #'
 #' @template details-prefix
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
 #'
 #' @examples

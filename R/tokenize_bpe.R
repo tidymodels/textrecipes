@@ -1,8 +1,8 @@
 #' BPE Tokenization of Character Variables
 #'
-#' [step_tokenize_bpe()] creates a *specification* of a recipe step that
-#'  will convert a character predictor into a [tokenlist] using Byte Pair
-#'  Encoding.
+#' [step_tokenize_bpe()] creates a *specification* of a recipe step that will
+#' convert a character predictor into a [`token`][tokenlist()] variable using
+#' Byte Pair Encoding.
 #'
 #' @template args-recipe
 #' @template args-dots

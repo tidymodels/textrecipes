@@ -1,7 +1,7 @@
 #' Filter Tokens Based on Term Frequency
 #'
-#' `step_tokenfilter` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] to be filtered based on frequency.
+#' `step_tokenfilter` creates a *specification* of a recipe step that will
+#' convert a [`token`][tokenlist()] variable to be filtered based on frequency.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -46,7 +46,7 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `value` (number of unique tokens).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
 #'
 #' @examples

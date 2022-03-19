@@ -2,7 +2,7 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
-\title{Filtering of Stop Words for \link{tokenlist} Variables}
+\title{Filtering of Stop Words for Tokens Variables}
 \usage{
 step_stopwords(
   recipe,
@@ -62,7 +62,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_stopwords} creates a \emph{specification} of a recipe step that
-will filter a \link{tokenlist} for stop words(keep or remove).
+will filter a \code{\link[=tokenlist]{token}} variable for stop words.
 }
 \details{
 Stop words are words which sometimes are remove before natural language
@@ -117,7 +117,7 @@ bake(tate_obj, new_data = NULL) \%>\%
   pull(medium)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_lemma}()},

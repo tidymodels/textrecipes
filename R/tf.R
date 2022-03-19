@@ -1,8 +1,8 @@
 #' Term frequency of Tokens
 #'
-#' `step_tf` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] into multiple variables containing
-#'  the token counts.
+#' `step_tf` creates a *specification* of a recipe step that will convert a
+#' [`token`][tokenlist()] variable into multiple variables containing the token
+#' counts.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -55,7 +55,7 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `value` (the weighting scheme).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
 #'
 #' @examples

@@ -2,7 +2,7 @@
 % Please edit documentation in R/text_normalization.R
 \name{step_text_normalization}
 \alias{step_text_normalization}
-\title{Normalization of \link{tokenlist} Variables}
+\title{Normalization of Character Variables}
 \usage{
 step_text_normalization(
   recipe,
@@ -52,7 +52,7 @@ to the sequence of existing steps (if any).
 }
 \description{
 \code{step_text_normalization} creates a \emph{specification} of a recipe step that
-will perform Unicode Normalization
+will perform Unicode Normalization on chracter variables.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

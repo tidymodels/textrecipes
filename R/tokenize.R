@@ -1,7 +1,7 @@
 #' Tokenization of Character Variables
 #'
 #' [step_tokenize()] creates a *specification* of a recipe step that
-#'  will convert a character predictor into a [tokenlist].
+#'  will convert a character predictor into a [`token`][tokenlist()] variable.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -29,12 +29,12 @@
 #' options(width = 55)
 #' ```
 #'
-#' Tokenization is the act of splitting a character string into smaller parts
-#' to be further analyzed. This step uses the `tokenizers` package which
-#' includes heuristics to split the text into paragraphs tokens, word tokens
-#' among others. `textrecipes` keeps the tokens in a [tokenlist] and other
-#' steps will do their tasks on those [tokenlist]s before transforming them
-#' back to numeric.
+#' Tokenization is the act of splitting a character string into smaller parts to
+#' be further analyzed. This step uses the `tokenizers` package which includes
+#' heuristics on how to to split the text into paragraphs tokens, word tokens,
+#' among others. `textrecipes` keeps the tokens as a [`token`][tokenlist()]
+#' variable and other steps will do their tasks on those [`token`][tokenlist()]
+#' variable before transforming them back to numeric variables.
 #'
 #' Working will `textrecipes` will almost always start by calling
 #' `step_tokenize` followed by modifying and filtering steps. This is not always

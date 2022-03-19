@@ -71,8 +71,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tokenfilter} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} to be filtered based on frequency.
+\code{step_tokenfilter} creates a \emph{specification} of a recipe step that will
+convert a \code{\link[=tokenlist]{token}} variable to be filtered based on frequency.
 }
 \details{
 This step allow you to limit the tokens you are looking at by filtering
@@ -116,7 +116,7 @@ tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_lemma}()},

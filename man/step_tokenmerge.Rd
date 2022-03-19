@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenmerge.R
 \name{step_tokenmerge}
 \alias{step_tokenmerge}
-\title{Combine Multiple tokenlist Variables Into One}
+\title{Combine Multiple Token Variables Into One}
 \usage{
 step_tokenmerge(
   recipe,
@@ -50,9 +50,9 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tokenmerge} creates a \emph{specification} of a recipe step that
-will take multiple \link{tokenlist}s and combine them into one
-\link{tokenlist}.
+\code{step_tokenmerge} creates a \emph{specification} of a recipe step that will take
+multiple \code{\link[=tokenlist]{token}} variables and combine them into one
+\code{\link[=tokenlist]{token}} variable.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
@@ -77,7 +77,7 @@ tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_lemma}()},

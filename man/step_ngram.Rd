@@ -2,7 +2,7 @@
 % Please edit documentation in R/ngram.R
 \name{step_ngram}
 \alias{step_ngram}
-\title{Generate n-grams From tokenlist Variables}
+\title{Generate n-grams From Token Variables}
 \usage{
 step_ngram(
   recipe,
@@ -57,8 +57,9 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_ngram} creates a \emph{specification} of a recipe step that
-will convert a \link{tokenlist} into a list of ngram of tokens.
+\code{step_ngram} creates a \emph{specification} of a recipe step that will convert a
+\code{\link[=tokenlist]{token}} variable into a \code{\link[=tokenlist]{token}} variable of
+ngrams.
 }
 \details{
 The use of this step will leave the ordering of the tokens meaningless.
@@ -95,7 +96,7 @@ tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 }
 \seealso{
-\code{\link[=step_tokenize]{step_tokenize()}} to turn character into tokenlist.
+\code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
 Other Steps for Token Modification: 
 \code{\link{step_lemma}()},

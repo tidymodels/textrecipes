@@ -1,7 +1,7 @@
-#' Stemming of [tokenlist] Variables
+#' Stemming of Token Variables
 #'
 #' `step_stem` creates a *specification* of a recipe step that
-#'  will convert a [tokenlist] to have its tokens stemmed.
+#'  will convert a [`token`][tokenlist()] variable to have its stemmed version.
 #'
 #' @template args-recipe
 #' @template args-dots
@@ -32,7 +32,7 @@
 #' (the selectors or variables selected) and `is_custom_stemmer` (indicate if
 #' custom stemmer was used).
 #'
-#' @seealso [step_tokenize()] to turn character into tokenlist.
+#' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
 #'
 #' @examples
