@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="textrecipes">
 <title>Cookbook - Using more complex recipes involving text • textrecipes</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,107 +13,82 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
-<!--optional theme--><link href="../.css" rel="stylesheet">
-<meta property="og:title" content="Cookbook - Using more complex recipes involving text">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Cookbook - Using more complex recipes involving text">
 <meta property="og:description" content="textrecipes">
 <meta property="og:image" content="https://textrecipes.tidymodels.org/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script>
+<![endif]--><script defer data-domain="textrecipes.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body>
+    <a href="#container" class="visually-hidden-focusable">Skip to content</a>
+    
 
-      <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">textrecipes</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
-        </div>
-      </div>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">textrecipes</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Working-with-n-grams.html">Working with n-grams</a>
+    <a class="dropdown-item" href="../articles/cookbook---using-more-complex-recipes-involving-text.html">Cookbook - Using more complex recipes involving text</a>
+    <a class="dropdown-item" href="../articles/tokenlist.html">Under the hood - tokenlist</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/Working-with-n-grams.html">Working with n-grams</a>
-    </li>
-    <li>
-      <a href="../articles/cookbook---using-more-complex-recipes-involving-text.html">Cookbook - Using more complex recipes involving text</a>
-    </li>
-    <li>
-      <a href="../articles/tokenlist.html">Under the hood - tokenlist</a>
-    </li>
-  </ul>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-        <li>
-  <a href="https://github.com/tidymodels/textrecipes/">
-    <span class="fab fa-github fa-lg"></span>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tidymodels/textrecipes/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article" id="container">
 
-      
 
-      </header><script src="cookbook---using-more-complex-recipes-involving-text_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Cookbook - Using more complex recipes involving text</h1>
-                        <h4 class="author">Emil Hvitfeldt</h4>
+
+
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Cookbook - Using more complex recipes involving text</h1>
+                        <h4 data-toc-skip class="author">Emil Hvitfeldt</h4>
             
-            <h4 class="date">2021-07-12</h4>
+            <h4 data-toc-skip class="date">2022-03-20</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
-      <div class="hidden name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd" class="external-link"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
+      <div class="d-none name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
     </div>
 
     
@@ -120,265 +96,180 @@
 <p>Working to get textual data converted into numerical can be done in many different ways. The steps included in <code>textrecipes</code> should hopefully give you the flexibility to perform most of your desired text preprocessing tasks. This vignette will showcase examples that combine multiple steps.</p>
 <p>This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be <code>dplyr</code>, <code>recipes</code> and <code>textrecipes</code>. Examples will be performed on the <code>okc_text</code> data-set which is packaged with <code>textrecipes</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes">recipes</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://modeldata.tidymodels.org">modeldata</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"okc_text"</span><span class="op">)</span></code></pre></div>
-<div id="counting-select-words" class="section level2">
-<h2 class="hasAnchor">
-<a href="#counting-select-words" class="anchor"></a>Counting select words</h2>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes" class="external-link">textrecipes</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://modeldata.tidymodels.org" class="external-link">modeldata</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"okc_text"</span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="counting-select-words">Counting select words<a class="anchor" aria-label="anchor" href="#counting-select-words"></a>
+</h2>
 <p>Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments <code>custom_stopword_source</code> and <code>keep = TRUE</code> in <code>step_stopwords</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"you"</span>, <span class="st">"i"</span>, <span class="st">"sad"</span>, <span class="st">"happy"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"you"</span>, <span class="st">"i"</span>, <span class="st">"sad"</span>, <span class="st">"happy"</span><span class="op">)</span>
 
-<span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">words</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">words</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span>
 
-<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span>
    
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"tf_essay0"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 750 x 4</span>
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tf_essay0"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 4</span></span>
 <span class="co">#&gt;    tf_essay0_happy tf_essay0_i tf_essay0_sad tf_essay0_you</span>
-<span class="co">#&gt;              &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1               0           1             0             3</span>
-<span class="co">#&gt;  2               0           1             0             0</span>
-<span class="co">#&gt;  3               0          21             0             1</span>
-<span class="co">#&gt;  4               1           5             0             0</span>
-<span class="co">#&gt;  5               0           3             0             3</span>
-<span class="co">#&gt;  6               0           8             0             0</span>
-<span class="co">#&gt;  7               0          15             0             5</span>
-<span class="co">#&gt;  8               0           7             0             0</span>
-<span class="co">#&gt;  9               0           0             0             0</span>
-<span class="co">#&gt; 10               0          14             0             1</span>
-<span class="co">#&gt; # … with 740 more rows</span></code></pre></div>
+<span class="co">#&gt;              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>               0           1             0             3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>               0           1             0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>               0          21             0             1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>               1           5             0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>               0           3             0             3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>               0           8             0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>               0          15             0             5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>               0           7             0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>               0           0             0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>               0          14             0             1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows</span></span></code></pre></div>
 </div>
-<div id="removing-words-in-addition-to-the-stop-words-list" class="section level2">
-<h2 class="hasAnchor">
-<a href="#removing-words-in-addition-to-the-stop-words-list" class="anchor"></a>Removing words in addition to the stop words list</h2>
+<div class="section level2">
+<h2 id="removing-words-in-addition-to-the-stop-words-list">Removing words in addition to the stop words list<a class="anchor" aria-label="anchor" href="#removing-words-in-addition-to-the-stop-words-list"></a>
+</h2>
 <p>You might know of certain words you don’t want included which isn’t a part of the stop word list of choice. This can easily be done by applying the <code>step_stopwords</code> step twice, once for the stop words and once for your special words.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stopwords_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"was"</span>, <span class="st">"she's"</span>, <span class="st">"who"</span>, <span class="st">"had"</span>, <span class="st">"some"</span>, <span class="st">"same"</span>, <span class="st">"you"</span>, <span class="st">"most"</span>, 
+<code class="sourceCode R"><span class="va">stopwords_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"was"</span>, <span class="st">"she's"</span>, <span class="st">"who"</span>, <span class="st">"had"</span>, <span class="st">"some"</span>, <span class="st">"same"</span>, <span class="st">"you"</span>, <span class="st">"most"</span>, 
                     <span class="st">"it's"</span>, <span class="st">"they"</span>, <span class="st">"for"</span>, <span class="st">"i'll"</span>, <span class="st">"which"</span>, <span class="st">"shan't"</span>, <span class="st">"we're"</span>, 
                     <span class="st">"such"</span>, <span class="st">"more"</span>, <span class="st">"with"</span>, <span class="st">"there's"</span>, <span class="st">"each"</span><span class="op">)</span>
 
-<span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sad"</span>, <span class="st">"happy"</span><span class="op">)</span>
+<span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sad"</span>, <span class="st">"happy"</span><span class="op">)</span>
 
-<span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">stopwords_list</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">words</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">stopwords_list</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">words</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span>
 
-<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span>
    
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 750 x 9,235</span>
-<span class="co">#&gt;    tfidf_essay0____… tfidf_essay0____… tfidf_essay0_________… tfidf_essay0_____…</span>
-<span class="co">#&gt;                &lt;dbl&gt;             &lt;dbl&gt;                  &lt;dbl&gt;              &lt;dbl&gt;</span>
-<span class="co">#&gt;  1                 0                 0                      0                  0</span>
-<span class="co">#&gt;  2                 0                 0                      0                  0</span>
-<span class="co">#&gt;  3                 0                 0                      0                  0</span>
-<span class="co">#&gt;  4                 0                 0                      0                  0</span>
-<span class="co">#&gt;  5                 0                 0                      0                  0</span>
-<span class="co">#&gt;  6                 0                 0                      0                  0</span>
-<span class="co">#&gt;  7                 0                 0                      0                  0</span>
-<span class="co">#&gt;  8                 0                 0                      0                  0</span>
-<span class="co">#&gt;  9                 0                 0                      0                  0</span>
-<span class="co">#&gt; 10                 0                 0                      0                  0</span>
-<span class="co">#&gt; # … with 740 more rows, and 9,231 more variables: tfidf_essay0__blank &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0__updates_ &lt;dbl&gt;, tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0aboondocks &lt;dbl&gt;, tfidf_essay0_0abrothers &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0aconfidential &lt;dbl&gt;, tfidf_essay0_0aconversation &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0adebates &lt;dbl&gt;, tfidf_essay0_0afly &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0afriends &lt;dbl&gt;, tfidf_essay0_0agiants &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0ahop &lt;dbl&gt;, tfidf_essay0_0ahunters &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0aking &lt;dbl&gt;, tfidf_essay0_0amovies &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0amusic &lt;dbl&gt;, tfidf_essay0_0aparties &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0arailroading &lt;dbl&gt;, tfidf_essay0_0ashows &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_0atrips &lt;dbl&gt;, tfidf_essay0_0aweapons &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1 &lt;dbl&gt;, tfidf_essay0_10 &lt;dbl&gt;, tfidf_essay0_10,000 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_100 &lt;dbl&gt;, tfidf_essay0_1000 &lt;dbl&gt;, tfidf_essay0_105 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_11 &lt;dbl&gt;, tfidf_essay0_110 &lt;dbl&gt;, tfidf_essay0_1193 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_12 &lt;dbl&gt;, tfidf_essay0_125 &lt;dbl&gt;, tfidf_essay0_12s &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_13 &lt;dbl&gt;, tfidf_essay0_1337 &lt;dbl&gt;, tfidf_essay0_14 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1400 &lt;dbl&gt;, tfidf_essay0_15 &lt;dbl&gt;, tfidf_essay0_150 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_16 &lt;dbl&gt;, tfidf_essay0_16th &lt;dbl&gt;, tfidf_essay0_17 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_18 &lt;dbl&gt;, tfidf_essay0_180 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1886866717 &lt;dbl&gt;, tfidf_essay0_19 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1904 &lt;dbl&gt;, tfidf_essay0_1964 &lt;dbl&gt;, tfidf_essay0_1966 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1982 &lt;dbl&gt;, tfidf_essay0_1988 &lt;dbl&gt;, tfidf_essay0_1991 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1992 &lt;dbl&gt;, tfidf_essay0_1996 &lt;dbl&gt;, tfidf_essay0_1998 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_1st &lt;dbl&gt;, tfidf_essay0_2 &lt;dbl&gt;, tfidf_essay0_20 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_200 &lt;dbl&gt;, tfidf_essay0_2000s &lt;dbl&gt;, tfidf_essay0_2001 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2005 &lt;dbl&gt;, tfidf_essay0_2007 &lt;dbl&gt;, tfidf_essay0_2008 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2009 &lt;dbl&gt;, tfidf_essay0_2010 &lt;dbl&gt;, tfidf_essay0_2011 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2012 &lt;dbl&gt;, tfidf_essay0_202 &lt;dbl&gt;, tfidf_essay0_2021 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_20s &lt;dbl&gt;, tfidf_essay0_20snot &lt;dbl&gt;, tfidf_essay0_20th &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_21 &lt;dbl&gt;, tfidf_essay0_22 &lt;dbl&gt;, tfidf_essay0_23 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_23yo &lt;dbl&gt;, tfidf_essay0_24 &lt;dbl&gt;, tfidf_essay0_245lb &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_25 &lt;dbl&gt;, tfidf_essay0_250 &lt;dbl&gt;, tfidf_essay0_26 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_27 &lt;dbl&gt;, tfidf_essay0_27ish &lt;dbl&gt;, tfidf_essay0_27s &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_28 &lt;dbl&gt;, tfidf_essay0_28th &lt;dbl&gt;, tfidf_essay0_29 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2cedd &lt;dbl&gt;, tfidf_essay0_2cehksxolna &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2fbowling &lt;dbl&gt;, tfidf_essay0_2fdarts &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2fodd &lt;dbl&gt;, tfidf_essay0_2foutdoor &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_2nd &lt;dbl&gt;, tfidf_essay0_2wqv9 &lt;dbl&gt;, tfidf_essay0_3 &lt;dbl&gt;, …</span></code></pre></div>
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 9,235</span></span>
+<span class="co">#&gt;    tfidf_essay0______ tfidf_essay0_____… tfidf_essay0___… tfidf_essay0___…</span>
+<span class="co">#&gt;                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                  0                  0                0                0</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 9,231 more variables:</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0__blank &lt;dbl&gt;, tfidf_essay0__updates_ &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_0aare &lt;dbl&gt;, tfidf_essay0_0abilly &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_0aboondocks &lt;dbl&gt;, tfidf_essay0_0abrothers &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_0aconfidential &lt;dbl&gt;, tfidf_essay0_0aconversation &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tfidf_essay0_0adebates &lt;dbl&gt;, tfidf_essay0_0afly &lt;dbl&gt;, …</span></span></code></pre></div>
 </div>
-<div id="letter-distributions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#letter-distributions" class="anchor"></a>Letter distributions</h2>
+<div class="section level2">
+<h2 id="letter-distributions">Letter distributions<a class="anchor" aria-label="anchor" href="#letter-distributions"></a>
+</h2>
 <p>Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the <code>step_stopwords</code> step.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, token <span class="op">=</span> <span class="st">"characters"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">letters</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, token <span class="op">=</span> <span class="st">"characters"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, custom_stopword_source <span class="op">=</span> <span class="va">letters</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span>
 
-<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span>
    
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"tf_essay0"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 750 x 26</span>
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tf_essay0"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 26</span></span>
 <span class="co">#&gt;    tf_essay0_a tf_essay0_b tf_essay0_c tf_essay0_d tf_essay0_e tf_essay0_f</span>
-<span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt;  1          80          32          22          25          79          13</span>
-<span class="co">#&gt;  2           8           3           5           5           8           0</span>
-<span class="co">#&gt;  3         127          30          36          59         148          36</span>
-<span class="co">#&gt;  4          28           3           5          10          34           6</span>
-<span class="co">#&gt;  5          19           9           6           6          34           9</span>
-<span class="co">#&gt;  6          97          21          22          34         130          26</span>
-<span class="co">#&gt;  7         110          25          32          46         146          23</span>
-<span class="co">#&gt;  8          66          13           9          23          69          12</span>
-<span class="co">#&gt;  9           1           0           0           0           1           0</span>
-<span class="co">#&gt; 10         250          76         115         106         274          53</span>
-<span class="co">#&gt; # … with 740 more rows, and 20 more variables: tf_essay0_g &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_essay0_h &lt;dbl&gt;, tf_essay0_i &lt;dbl&gt;, tf_essay0_j &lt;dbl&gt;, tf_essay0_k &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_essay0_l &lt;dbl&gt;, tf_essay0_m &lt;dbl&gt;, tf_essay0_n &lt;dbl&gt;, tf_essay0_o &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_essay0_p &lt;dbl&gt;, tf_essay0_q &lt;dbl&gt;, tf_essay0_r &lt;dbl&gt;, tf_essay0_s &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_essay0_t &lt;dbl&gt;, tf_essay0_u &lt;dbl&gt;, tf_essay0_v &lt;dbl&gt;, tf_essay0_w &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tf_essay0_x &lt;dbl&gt;, tf_essay0_y &lt;dbl&gt;, tf_essay0_z &lt;dbl&gt;</span></code></pre></div>
+<span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          80          32          22          25          79          13</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           8           3           5           5           8           0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>         127          30          36          59         148          36</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>          28           3           5          10          34           6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>          19           9           6           6          34           9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>          97          21          22          34         130          26</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>         110          25          32          46         146          23</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>          66          13           9          23          69          12</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>           1           0           0           0           1           0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>         250          76         115         106         274          53</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 20 more variables: tf_essay0_g &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_essay0_h &lt;dbl&gt;, tf_essay0_i &lt;dbl&gt;, tf_essay0_j &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_essay0_k &lt;dbl&gt;, tf_essay0_l &lt;dbl&gt;, tf_essay0_m &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_essay0_n &lt;dbl&gt;, tf_essay0_o &lt;dbl&gt;, tf_essay0_p &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_essay0_q &lt;dbl&gt;, tf_essay0_r &lt;dbl&gt;, tf_essay0_s &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_essay0_t &lt;dbl&gt;, tf_essay0_u &lt;dbl&gt;, tf_essay0_v &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   tf_essay0_w &lt;dbl&gt;, tf_essay0_x &lt;dbl&gt;, tf_essay0_y &lt;dbl&gt;, …</span></span></code></pre></div>
 </div>
-<div id="tf-idf-of-ngrams-of-stemmed-tokens" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tf-idf-of-ngrams-of-stemmed-tokens" class="anchor"></a>TF-IDF of ngrams of stemmed tokens</h2>
+<div class="section level2">
+<h2 id="tf-idf-of-ngrams-of-stemmed-tokens">TF-IDF of ngrams of stemmed tokens<a class="anchor" aria-label="anchor" href="#tf-idf-of-ngrams-of-stemmed-tokens"></a>
+</h2>
 <p>Sometimes fairly complicated computations. Here we would like the term frequency inverse document frequency (TF-IDF) of the most common 500 ngrams done on stemmed tokens. It is quite a handful and would seldom be included as a option in most other libraries. But the modularity of <code>textrecipes</code> makes this task fairly easy.</p>
 <p>First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using <code>step_untokenize</code> so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, token <span class="op">=</span> <span class="st">"words"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_untokenize.html">step_untokenize</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, token <span class="op">=</span> <span class="st">"ngrams"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">essay0</span>, max_tokens <span class="op">=</span> <span class="fl">500</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, token <span class="op">=</span> <span class="st">"words"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_untokenize.html">step_untokenize</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, token <span class="op">=</span> <span class="st">"ngrams"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">essay0</span>, max_tokens <span class="op">=</span> <span class="fl">500</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">essay0</span><span class="op">)</span>
 
-<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span>
    
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 750 x 500</span>
-<span class="co">#&gt;    `tfidf_essay0_a a … `tfidf_essay0_a a… `tfidf_essay0_a bi… `tfidf_essay0_a b…</span>
-<span class="co">#&gt;                  &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;              &lt;dbl&gt;</span>
-<span class="co">#&gt;  1                   0                  0                   0                  0</span>
-<span class="co">#&gt;  2                   0                  0                   0                  0</span>
-<span class="co">#&gt;  3                   0                  0                   0                  0</span>
-<span class="co">#&gt;  4                   0                  0                   0                  0</span>
-<span class="co">#&gt;  5                   0                  0                   0                  0</span>
-<span class="co">#&gt;  6                   0                  0                   0                  0</span>
-<span class="co">#&gt;  7                   0                  0                   0                  0</span>
-<span class="co">#&gt;  8                   0                  0                   0                  0</span>
-<span class="co">#&gt;  9                   0                  0                   0                  0</span>
-<span class="co">#&gt; 10                   0                  0                   0                  0</span>
-<span class="co">#&gt; # … with 740 more rows, and 496 more variables: tfidf_essay0_a br br &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a class ilink &lt;dbl&gt;, tfidf_essay0_a coupl of &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a few year &lt;dbl&gt;, tfidf_essay0_a good time &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a i can &lt;dbl&gt;, tfidf_essay0_a laid back &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a littl bit &lt;dbl&gt;, tfidf_essay0_a long a &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a lot and &lt;dbl&gt;, tfidf_essay0_a lot of &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a lover who &lt;dbl&gt;, tfidf_essay0_a man who &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a much a &lt;dbl&gt;, tfidf_essay0_a part of &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_a sens of &lt;dbl&gt;, tfidf_essay0_a well a &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_about me i &lt;dbl&gt;, tfidf_essay0_all kind of &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_all over the &lt;dbl&gt;, tfidf_essay0_all the time &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_also like to &lt;dbl&gt;, tfidf_essay0_am a veri &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_am look for &lt;dbl&gt;, tfidf_essay0_am not a &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and a class &lt;dbl&gt;, tfidf_essay0_and am a &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and enjoi the &lt;dbl&gt;, tfidf_essay0_and go to &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and have a &lt;dbl&gt;, tfidf_essay0_and have been &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and have fun &lt;dbl&gt;, tfidf_essay0_and i am &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and i don't &lt;dbl&gt;, tfidf_essay0_and i have &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and i like &lt;dbl&gt;, tfidf_essay0_and i love &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and i try &lt;dbl&gt;, tfidf_essay0_and i'm not &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and like to &lt;dbl&gt;, tfidf_essay0_and live in &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and look for &lt;dbl&gt;, tfidf_essay0_and love it &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and love the &lt;dbl&gt;, tfidf_essay0_and love to &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and rais in &lt;dbl&gt;, tfidf_essay0_and try new &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and try to &lt;dbl&gt;, tfidf_essay0_and work in &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_and would love &lt;dbl&gt;, tfidf_essay0_at least onc &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_at the same &lt;dbl&gt;, tfidf_essay0_back in the &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_back to the &lt;dbl&gt;, tfidf_essay0_bai area for &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_bai area i &lt;dbl&gt;, tfidf_essay0_be abl to &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_be in the &lt;dbl&gt;, tfidf_essay0_big fan of &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_bit of a &lt;dbl&gt;, tfidf_essay0_born and rais &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br a class &lt;dbl&gt;, tfidf_essay0_br br a &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br also &lt;dbl&gt;, tfidf_essay0_br br and &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br at &lt;dbl&gt;, tfidf_essay0_br br br &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br for &lt;dbl&gt;, tfidf_essay0_br br here &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br i &lt;dbl&gt;, tfidf_essay0_br br i'm &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br i'v &lt;dbl&gt;, tfidf_essay0_br br if &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br im &lt;dbl&gt;, tfidf_essay0_br br imagin &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br in &lt;dbl&gt;, tfidf_essay0_br br my &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br oh &lt;dbl&gt;, tfidf_essay0_br br on &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br so &lt;dbl&gt;, tfidf_essay0_br br the &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br to &lt;dbl&gt;, tfidf_essay0_br br what &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br br when &lt;dbl&gt;, tfidf_essay0_br br you &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i also &lt;dbl&gt;, tfidf_essay0_br i am &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i believ &lt;dbl&gt;, tfidf_essay0_br i can &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i do &lt;dbl&gt;, tfidf_essay0_br i don't &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i enjoi &lt;dbl&gt;, tfidf_essay0_br i grew &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i have &lt;dbl&gt;, tfidf_essay0_br i just &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i like &lt;dbl&gt;, tfidf_essay0_br i love &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i realli &lt;dbl&gt;, tfidf_essay0_br i think &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   tfidf_essay0_br i wa &lt;dbl&gt;, …</span></code></pre></div>
+<span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_essay0"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 750 × 500</span></span>
+<span class="co">#&gt;    `tfidf_essay0_a a …` `tfidf_essay0_…` `tfidf_essay0_…` `tfidf_essay0_…`</span>
+<span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                    0                0                0                0</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 740 more rows, and 496 more variables:</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a br br` &lt;dbl&gt;, `tfidf_essay0_a class ilink` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a coupl of` &lt;dbl&gt;, `tfidf_essay0_a few year` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a good time` &lt;dbl&gt;, `tfidf_essay0_a i can` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a laid back` &lt;dbl&gt;, `tfidf_essay0_a littl bit` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a long a` &lt;dbl&gt;, `tfidf_essay0_a lot and` &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `tfidf_essay0_a lot of` &lt;dbl&gt;, `tfidf_essay0_a lover who` &lt;dbl&gt;, …</span></span></code></pre></div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="tidyverse">
-  <p>textrecipes is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
+   </div>
+  <footer><div class="container">
+  <div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Emil Hvitfeldt.</p>
 </div>
 
-<div class="author">
-  <p>
-    Developed by Emil Hvitfeldt.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
-  </p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-      </footer>
-</div>
-
-  
-
-
-  </body>
+  </div></footer>
+</body>
 </html>

@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://textrecipes.tidymodels.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/articles/Working-with-n-grams.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/articles/cookbook---using-more-complex-recipes-involving-text.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/articles/tokenlist.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/reference/all_tokenized.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/reference/emoji_samples.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://textrecipes.tidymodels.org/reference/pipe.html</loc>
@@ -23,6 +65,9 @@
   </url>
   <url>
     <loc>https://textrecipes.tidymodels.org/reference/step_clean_names.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/reference/step_dummy_hash.html</loc>
   </url>
   <url>
     <loc>https://textrecipes.tidymodels.org/reference/step_lda.html</loc>
@@ -67,6 +112,15 @@
     <loc>https://textrecipes.tidymodels.org/reference/step_tokenize.html</loc>
   </url>
   <url>
+    <loc>https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.html</loc>
+  </url>
+  <url>
+    <loc>https://textrecipes.tidymodels.org/reference/step_tokenize_wordpiece.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/reference/step_tokenmerge.html</loc>
   </url>
   <url>
@@ -79,18 +133,12 @@
     <loc>https://textrecipes.tidymodels.org/reference/textrecipes-package.html</loc>
   </url>
   <url>
+    <loc>https://textrecipes.tidymodels.org/reference/tidy.recipe.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/reference/tokenlist.html</loc>
   </url>
   <url>
     <loc>https://textrecipes.tidymodels.org/reference/tunable.step.html</loc>
-  </url>
-  <url>
-    <loc>https://textrecipes.tidymodels.org/articles/Working-with-n-grams.html</loc>
-  </url>
-  <url>
-    <loc>https://textrecipes.tidymodels.org/articles/cookbook---using-more-complex-recipes-involving-text.html</loc>
-  </url>
-  <url>
-    <loc>https://textrecipes.tidymodels.org/articles/tokenlist.html</loc>
   </url>
 </urlset>
