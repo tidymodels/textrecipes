@@ -26,6 +26,8 @@
 
 * Steps now have a dedicated subsection detailing what happens when `tidy()` is applied. (#163)
 
+* Added `keep_original_cols` argument to `step_lda`, `step_texthash()`, `step_tf()`, `step_tfidf()`, `step_word_embeddings()`, `step_dummy_hash()`, `step_sequence_onehot()`, and `step_textfeatures()` (#635).
+
 # textrecipes 0.4.1
 
 ## Bug fixes
