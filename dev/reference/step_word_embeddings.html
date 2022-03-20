@@ -75,6 +75,7 @@ aggregating the vectors of each token from a pre-trained embedding.</p>
   aggregation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum"</span>, <span class="st">"mean"</span>, <span class="st">"min"</span>, <span class="st">"max"</span><span class="op">)</span>,
   aggregation_default <span class="op">=</span> <span class="fl">0</span>,
   prefix <span class="op">=</span> <span class="st">"w_embed"</span>,
+  keep_original_cols <span class="op">=</span> <span class="cn">FALSE</span>,
   skip <span class="op">=</span> <span class="cn">FALSE</span>,
   id <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/rand_id.html" class="external-link">rand_id</a></span><span class="op">(</span><span class="st">"word_embeddings"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
@@ -115,6 +116,9 @@ no words are matched in embedding. Defaults to 0.</p></dd>
 <dt>prefix</dt>
 <dd><p>A character string that will be the prefix to the
 resulting new variables. See notes below.</p></dd>
+<dt>keep_original_cols</dt>
+<dd><p>A logical to keep the original variables in the
+output. Defaults to <code>FALSE</code>.</p></dd>
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
@@ -200,12 +204,12 @@ embedding), and <code>aggregation</code> (the aggregation method).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms embeddings_rows aggregation id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_d7qKt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_l7dzP</span>
 <span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms embeddings_rows aggregation id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_d7qKt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_l7dzP</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

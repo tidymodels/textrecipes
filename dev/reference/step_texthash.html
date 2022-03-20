@@ -74,6 +74,7 @@ hashing trick.</p>
   signed <span class="op">=</span> <span class="cn">TRUE</span>,
   num_terms <span class="op">=</span> <span class="fl">1024L</span>,
   prefix <span class="op">=</span> <span class="st">"hash"</span>,
+  keep_original_cols <span class="op">=</span> <span class="cn">FALSE</span>,
   skip <span class="op">=</span> <span class="cn">FALSE</span>,
   id <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/rand_id.html" class="external-link">rand_id</a></span><span class="op">(</span><span class="st">"texthash"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
@@ -109,6 +110,9 @@ reduce collisions when hashing. Defaults to TRUE.</p></dd>
 <dt>prefix</dt>
 <dd><p>A character string that will be the prefix to the
 resulting new variables. See notes below.</p></dd>
+<dt>keep_original_cols</dt>
+<dd><p>A logical to keep the original variables in the
+output. Defaults to <code>FALSE</code>.</p></dd>
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
@@ -185,7 +189,7 @@ Josh Attenberg (2009).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value id               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium   952 tokenfilter_aKWNl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium   952 tokenfilter_1Uzra</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
