@@ -13,7 +13,7 @@ step_dummy_hash(
   signed = TRUE,
   num_terms = 32L,
   collapse = FALSE,
-  prefix = "hash",
+  prefix = "dummyhash",
   keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("dummy_hash")

@@ -38,9 +38,9 @@
 #' The new components will have names that begin with `prefix`, then the name of
 #' the aggregation function, then the name of the variable from the embeddings
 #' tibble (usually something like "d7"). For example, using the default
-#' "word_embeddings" prefix, the "sum" aggregation, and the GloVe embeddings
-#' from the textdata package (where the column names are `d1`, `d2`, etc), new
-#' columns would be `word_embeddings_sum_d1`, `word_embeddings_sum_d2`, etc.
+#' "wordembedding" prefix, and the GloVe embeddings from the textdata package
+#' (where the column names are `d1`, `d2`, etc), new columns would be
+#' `wordembedding_d1`, `wordembedding_d1`, etc.
 #'
 #' # Tidying
 #'
@@ -90,7 +90,7 @@ step_word_embeddings <- function(recipe,
                                  embeddings,
                                  aggregation = c("sum", "mean", "min", "max"),
                                  aggregation_default = 0,
-                                 prefix = "w_embed",
+                                 prefix = "wordembed",
                                  keep_original_cols = FALSE,
                                  skip = FALSE,
                                  id = rand_id("word_embeddings")) {
@@ -218,7 +218,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
 
     colnames(embeddings_columns) <- paste(
       object$prefix,
-      object$aggregation,
+      col_names[i],
       colnames(embeddings_columns),
       sep = "_"
     )

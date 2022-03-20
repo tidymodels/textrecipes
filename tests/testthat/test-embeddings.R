@@ -63,7 +63,7 @@ sentence_embeddings_sum <- sentence_embeddings_long %>%
   dplyr::summarize_all(sum) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("w_embed", "sum", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_sum <- test_data %>%
   dplyr::left_join(sentence_embeddings_sum, by = "text")
@@ -74,7 +74,7 @@ sentence_embeddings_mean <- sentence_embeddings_long %>%
   dplyr::summarize_all(mean) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("w_embed", "mean", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_mean <- test_data %>%
   dplyr::left_join(sentence_embeddings_mean, by = "text")
@@ -85,7 +85,7 @@ sentence_embeddings_min <- sentence_embeddings_long %>%
   dplyr::summarize_all(min) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("w_embed", "min", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_min <- test_data %>%
   dplyr::left_join(sentence_embeddings_min, by = "text")
@@ -96,7 +96,7 @@ sentence_embeddings_max <- sentence_embeddings_long %>%
   dplyr::summarize_all(max) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("w_embed", "max", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_max <- test_data %>%
   dplyr::left_join(sentence_embeddings_max, by = "text")
@@ -113,7 +113,7 @@ juiced <- bake(obj, new_data = NULL)
 test_that("step_word_embeddings adds the appropriate number of columns.", {
   ncol_given <- ncol(embeddings) - 1L
   ncol_juiced <- juiced %>%
-    select(contains("w_embed_")) %>%
+    select(contains("wordembed_")) %>%
     ncol()
   expect_identical(ncol_juiced, ncol_given)
 })
@@ -121,7 +121,7 @@ test_that("step_word_embeddings adds the appropriate number of columns.", {
 test_that("step_word_embeddings gives numeric output.", {
   expect_true(
     juiced %>%
-      select(contains("embedding")) %>%
+      select(contains("wordembed")) %>%
       lapply(is.numeric) %>%
       unlist() %>%
       all()
@@ -358,8 +358,8 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(koc_pred),
     c(
-      "text", "w_embed_mean_d1", "w_embed_mean_d2", "w_embed_mean_d3", 
-      "w_embed_mean_d4", "w_embed_mean_d5"
+      "text", "wordembed_text_d1", "wordembed_text_d2", "wordembed_text_d3", 
+      "wordembed_text_d4", "wordembed_text_d5"
     )
   )
 })

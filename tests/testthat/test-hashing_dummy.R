@@ -33,10 +33,9 @@ test_that("hashing multiple factors", {
     juice()
 
   expect_equal(ncol(res), 24)
-  expect_equal(sum(grepl("^contract", names(res))), 12)
-  expect_equal(sum(grepl("^sponsor", names(res))), 12)
+  expect_equal(sum(grepl("contract", names(res))), 12)
+  expect_equal(sum(grepl("sponsor", names(res))), 12)
 })
-
 
 test_that("hashing collapsed multiple factors", {
   res <- rec %>%
@@ -45,7 +44,7 @@ test_that("hashing collapsed multiple factors", {
     juice()
 
   expect_equal(ncol(res), 4)
-  expect_equal(mean(grepl("^contract_value_band_sponsor", names(res))), 1)
+  expect_equal(mean(grepl("contract_value_band_sponsor", names(res))), 1)
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
@@ -56,7 +55,7 @@ test_that("hashing output width changes accordingly with num_terms", {
 
   expect_equal(
     bake(rec, new_data = NULL) %>%
-      select(contains("hash")) %>%
+      select(contains("dummyhash")) %>%
       ncol(),
     256
   )
@@ -75,10 +74,10 @@ test_that("hashing output width changes accordingly with num_terms", {
     prep() %>%
     bake(new_data = NULL)
 
-  expect_true(all(unsigned$sponsor_code_hash1 == abs(signed$sponsor_code_hash1)))
-  expect_true(all(unsigned$sponsor_code_hash2 == abs(signed$sponsor_code_hash2)))
-  expect_false(all(unsigned$sponsor_code_hash1 == signed$sponsor_code_hash1))
-  expect_false(all(unsigned$sponsor_code_hash2 == signed$sponsor_code_hash2))
+  expect_true(all(unsigned$dummyhash_sponsor_code_1 == abs(signed$dummyhash_sponsor_code_1)))
+  expect_true(all(unsigned$dummyhash_sponsor_code_2 == abs(signed$dummyhash_sponsor_code_2)))
+  expect_false(all(unsigned$dummyhash_sponsor_code_1 == signed$dummyhash_sponsor_code_1))
+  expect_false(all(unsigned$dummyhash_sponsor_code_2 == signed$dummyhash_sponsor_code_2))
 })
 
 test_that("printing", {
@@ -99,8 +98,8 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(koc_pred),
     c(
-      "sponsor_code_hash1", "sponsor_code_hash2", "sponsor_code_hash3", 
-      "sponsor_code_hash4", "contract_value_band", "sponsor_code"
+      "dummyhash_sponsor_code_1", "dummyhash_sponsor_code_2", "dummyhash_sponsor_code_3", 
+      "dummyhash_sponsor_code_4", "contract_value_band", "sponsor_code"
     )
   )
 })

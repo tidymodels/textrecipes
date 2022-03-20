@@ -57,8 +57,8 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(koc_pred),
     c(
-      "medium", "artist", "lda_medium_w1", "lda_medium_w2", "lda_medium_w3", 
-      "lda_medium_w4", "lda_medium_w5"
+      "medium", "artist", "lda_medium_1", "lda_medium_2", "lda_medium_3", 
+      "lda_medium_4", "lda_medium_5"
     )
   )
 })

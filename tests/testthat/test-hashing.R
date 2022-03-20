@@ -61,10 +61,10 @@ test_that("hashing output width changes accordingly with num_terms", {
     prep() %>%
     bake(new_data = NULL)
 
-  all(unsigned$text_hash1 == signed$text_hash1)
-  all(unsigned$text_hash2 == signed$text_hash2)
-  expect_false(all(unsigned$text_hash1 == signed$text_hash1))
-  expect_false(all(unsigned$text_hash2 == signed$text_hash2))
+  all(unsigned$texthash_text_1 == signed$texthash_text_1)
+  all(unsigned$texthash_text_2 == signed$texthash_text_2)
+  expect_false(all(unsigned$texthash_text_1 == signed$texthash_text_1))
+  expect_false(all(unsigned$texthash_text_2 == signed$texthash_text_2))
 })
 
 test_that("printing", {
@@ -87,7 +87,8 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(koc_pred),
     c(
-      "text_hash1", "text_hash2", "text_hash3", "text_hash4", "text"
+      "texthash_text_1", "texthash_text_2", "texthash_text_3",
+      "texthash_text_4", "text"
     )
   )
 })

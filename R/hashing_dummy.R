@@ -88,7 +88,7 @@ step_dummy_hash <-
            signed = TRUE,
            num_terms = 32L,
            collapse = FALSE,
-           prefix = "hash",
+           prefix = "dummyhash",
            keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("dummy_hash")) {
@@ -178,7 +178,11 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     tf_text <-
       hashing_function(
         as.character(new_data[[hash_cols[i]]]),
-        paste0(hash_cols[i], "_", names0(object$num_terms, object$prefix)),
+        paste0(
+          object$prefix, "_", 
+          hash_cols[i], "_", 
+          names0(object$num_terms, "")
+        ),
         object$signed,
         object$num_terms
       )

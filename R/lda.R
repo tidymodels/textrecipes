@@ -232,7 +232,7 @@ word_dims <- function(tokens, n = 10, n_iter = 20) {
   lda_model <- text2vec::LDA$new(n_topics = n)
   d <- lda_model$fit_transform(dtm, n_iter = n_iter)
   d <- as.data.frame(d, stringsAsFactors = FALSE)
-  names(d) <- paste0("w", seq_len(ncol(d)))
+  names(d) <- seq_len(ncol(d))
   row.names(d) <- NULL
   attr(d, "dict") <- lda_model
   d
@@ -245,7 +245,7 @@ word_dims_newtext <- function(lda_model, tokens, n_iter = 20) {
   dtm <- text2vec::create_dtm(it, text2vec::vocab_vectorizer(v))
   d <- lda_model$fit_transform(dtm, n_iter = n_iter)
   d <- as.data.frame(d, stringsAsFactors = FALSE)
-  names(d) <- paste0("w", seq_len(ncol(d)))
+  names(d) <- seq_len(ncol(d))
   row.names(d) <- NULL
   d
 }

@@ -13,7 +13,7 @@ step_word_embeddings(
   embeddings,
   aggregation = c("sum", "mean", "min", "max"),
   aggregation_default = 0,
-  prefix = "w_embed",
+  prefix = "wordembed",
   keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("word_embeddings")
@@ -86,9 +86,9 @@ aggregated across each row of your text using the function supplied in the
 The new components will have names that begin with \code{prefix}, then the name of
 the aggregation function, then the name of the variable from the embeddings
 tibble (usually something like "d7"). For example, using the default
-"word_embeddings" prefix, the "sum" aggregation, and the GloVe embeddings
-from the textdata package (where the column names are \code{d1}, \code{d2}, etc), new
-columns would be \code{word_embeddings_sum_d1}, \code{word_embeddings_sum_d2}, etc.
+"wordembedding" prefix, and the GloVe embeddings from the textdata package
+(where the column names are \code{d1}, \code{d2}, etc), new columns would be
+\code{wordembedding_d1}, \code{wordembedding_d1}, etc.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

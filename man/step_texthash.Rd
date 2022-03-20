@@ -12,7 +12,7 @@ step_texthash(
   columns = NULL,
   signed = TRUE,
   num_terms = 1024L,
-  prefix = "hash",
+  prefix = "texthash",
   keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("texthash")

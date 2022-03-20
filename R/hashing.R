@@ -75,7 +75,7 @@ step_texthash <-
            columns = NULL,
            signed = TRUE,
            num_terms = 1024L,
-           prefix = "hash",
+           prefix = "texthash",
            keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("texthash")) {
@@ -150,8 +150,9 @@ bake.step_texthash <- function(object, new_data, ...) {
     tf_text <- hashing_function(
       get_tokens(new_data[, col_names[i], drop = TRUE]),
       paste0(
+        object$prefix, "_",
         col_names[i], "_",
-        names0(object$num_terms, object$prefix)
+        names0(object$num_terms, "")
       ),
       object$signed,
       object$num_terms
