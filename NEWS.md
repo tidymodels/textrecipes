@@ -26,7 +26,9 @@
 
 * Steps now have a dedicated subsection detailing what happens when `tidy()` is applied. (#163)
 
-* Added `keep_original_cols` argument to `step_lda`, `step_texthash()`, `step_tf()`, `step_tfidf()`, `step_word_embeddings()`, `step_dummy_hash()`, `step_sequence_onehot()`, and `step_textfeatures()` (#635).
+* Added `keep_original_cols` argument to `step_lda`, `step_texthash()`, `step_tf()`, `step_tfidf()`, `step_word_embeddings()`, `step_dummy_hash()`, `step_sequence_onehot()`, and `step_textfeatures()` (#139).
+
+* Steps with `prefix` argument now creates names according to the pattern `prefix_variablename_name/number`. (#124)
 
 # textrecipes 0.4.1
 
