@@ -13,6 +13,7 @@ step_texthash(
   signed = TRUE,
   num_terms = 1024L,
   prefix = "hash",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("texthash")
 )
@@ -45,6 +46,9 @@ reduce collisions when hashing. Defaults to TRUE.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

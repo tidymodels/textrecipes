@@ -12,6 +12,7 @@ step_textfeature(
   columns = NULL,
   extract_functions = textfeatures::count_functions,
   prefix = "textfeature",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("textfeature")
 )
@@ -41,6 +42,9 @@ default to \code{\link[textfeatures]{count_functions}} from the
 textfeatures package. See details for more information.}
 
 \item{prefix}{A prefix for generated column names, default to "textfeature".}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

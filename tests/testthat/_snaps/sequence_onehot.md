@@ -44,6 +44,14 @@
       Tokenization for text
       Sequence 1 hot encoding for text
 
+# can prep recipes with no keep_original_cols
+
+    Code
+      koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
+    Warning <rlang_warning>
+      'keep_original_cols' was added to `step_sequence_onehot()` after this recipe was created.
+      Regenerate your recipe to avoid this warning.
+
 # empty printing
 
     Code

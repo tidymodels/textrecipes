@@ -14,6 +14,7 @@
 #' @param num_terms An integer, the number of variables to output. Defaults to
 #'   1024.
 #' @template args-prefix
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -75,6 +76,7 @@ step_texthash <-
            signed = TRUE,
            num_terms = 1024L,
            prefix = "hash",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("texthash")) {
     recipes::recipes_pkg_check(required_pkgs.step_texthash())
@@ -89,6 +91,7 @@ step_texthash <-
         signed = signed,
         num_terms = num_terms,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -101,8 +104,8 @@ hash_funs <- c(
 )
 
 step_texthash_new <-
-  function(terms, role, trained, columns, signed, num_terms, prefix, skip,
-           id) {
+  function(terms, role, trained, columns, signed, num_terms, prefix, 
+           keep_original_cols, skip, id) {
     step(
       subclass = "texthash",
       terms = terms,
@@ -112,6 +115,7 @@ step_texthash_new <-
       signed = signed,
       num_terms = num_terms,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -131,6 +135,7 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
     signed = x$signed,
     num_terms = x$num_terms,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -152,8 +157,11 @@ bake.step_texthash <- function(object, new_data, ...) {
       object$num_terms
     )
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
 
     new_data <- vctrs::vec_cbind(tf_text, new_data)
   }

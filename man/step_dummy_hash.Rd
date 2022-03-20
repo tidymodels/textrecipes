@@ -14,6 +14,7 @@ step_dummy_hash(
   num_terms = 32L,
   collapse = FALSE,
   prefix = "hash",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("dummy_hash")
 )
@@ -50,6 +51,9 @@ into a single column to create a single set of hashed features?}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
