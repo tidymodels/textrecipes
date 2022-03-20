@@ -63,8 +63,8 @@
 #'
 #'   bake(tate_obj, tate_text)
 #'
-#'   tidy(tate_rec, number = 2)
-#'   tidy(tate_obj, number = 2)
+#'   tidy(tate_rec, number = 3)
+#'   tidy(tate_obj, number = 3)
 #' }
 #' @export
 step_texthash <-

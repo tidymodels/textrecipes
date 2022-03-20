@@ -107,8 +107,8 @@ if (requireNamespace("text2vec", quietly = TRUE)) {
 
   bake(tate_obj, tate_text)
 
-  tidy(tate_rec, number = 2)
-  tidy(tate_obj, number = 2)
+  tidy(tate_rec, number = 3)
+  tidy(tate_obj, number = 3)
 }
 }
 \references{
