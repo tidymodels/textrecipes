@@ -47,7 +47,8 @@ Suggests:
     text2vec,
     textfeatures (>= 0.3.3),
     tokenizers.bpe,
-    udpipe
+    udpipe,
+    wordpiece
 LinkingTo: 
     Rcpp
 VignetteBuilder: 

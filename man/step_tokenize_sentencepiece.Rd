@@ -59,7 +59,7 @@ to the sequence of existing steps (if any).
 \description{
 \code{\link[=step_tokenize_sentencepiece]{step_tokenize_sentencepiece()}} creates a \emph{specification} of a recipe step
 that will convert a character predictor into a \code{\link[=tokenlist]{token}}
-variable using Byte Pair Encoding.
+variable using SentencePiece tokenization.
 }
 \details{
 If you are running into errors, you can investigate the progress of the
@@ -99,6 +99,7 @@ if (requireNamespace("sentencepiece", quietly = TRUE)) {
 
 Other Steps for Tokenization: 
 \code{\link{step_tokenize_bpe}()},
+\code{\link{step_tokenize_wordpiece}()},
 \code{\link{step_tokenize}()}
 }
 \concept{Steps for Tokenization}

@@ -268,6 +268,7 @@ bake(tate_obj, new_data = NULL) \%>\%
 
 Other Steps for Tokenization: 
 \code{\link{step_tokenize_bpe}()},
-\code{\link{step_tokenize_sentencepiece}()}
+\code{\link{step_tokenize_sentencepiece}()},
+\code{\link{step_tokenize_wordpiece}()}
 }
 \concept{Steps for Tokenization}

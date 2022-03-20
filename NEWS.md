@@ -12,7 +12,7 @@
 
 * Use `show_tokens()` to more easily debug a recipe involving tokenization.
 
-* `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()` and `step_tokenize_sentencepiece()` which wraps {tokenizers.bpe} and {sentencepiece} respectively (#147).
+* `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()`,  `step_tokenize_sentencepiece()` and `step_tokenize_wordpiece()` which wraps {tokenizers.bpe}, {sentencepiece} and {wordpiece} respectively (#147).
 
 * `step_tokenize()` will now try to error if vocabulary size is too low when using `engine = "tokenizers.bpe"` (#119).
 
