@@ -13,6 +13,7 @@
 #'   Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
 #' @param prefix A prefix for generated column names, default to "lda".
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -82,6 +83,7 @@ step_lda <-
            lda_models = NULL,
            num_topics = 10L,
            prefix = "lda",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("lda")) {
     recipes::recipes_pkg_check(required_pkgs.step_lda())
@@ -96,6 +98,7 @@ step_lda <-
         lda_models = lda_models,
         num_topics = num_topics,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -104,7 +107,7 @@ step_lda <-
 
 step_lda_new <-
   function(terms, role, trained, columns, lda_models, num_topics, prefix,
-           skip, id) {
+           keep_original_cols, skip, id) {
     step(
       subclass = "lda",
       terms = terms,
@@ -114,6 +117,7 @@ step_lda_new <-
       lda_models = lda_models,
       num_topics = num_topics,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -146,6 +150,7 @@ prep.step_lda <- function(x, training, info = NULL, ...) {
     lda_models = model_list,
     num_topics = x$num_topics,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -170,8 +175,11 @@ bake.step_lda <- function(object, new_data, ...) {
 
     new_data <- vctrs::vec_cbind(new_data, tf_text)
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
   }
 
   as_tibble(new_data)

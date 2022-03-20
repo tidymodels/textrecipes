@@ -18,6 +18,7 @@
 #' @param aggregation_default A numeric denoting the default value for case with
 #'   no words are matched in embedding. Defaults to 0.
 #' @template args-prefix
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -90,6 +91,7 @@ step_word_embeddings <- function(recipe,
                                  aggregation = c("sum", "mean", "min", "max"),
                                  aggregation_default = 0,
                                  prefix = "w_embed",
+                                 keep_original_cols = FALSE,
                                  skip = FALSE,
                                  id = rand_id("word_embeddings")) {
   # Validate the special inputs here to make sure nothing goes haywire further
@@ -123,6 +125,7 @@ step_word_embeddings <- function(recipe,
       aggregation = aggregation,
       aggregation_default = aggregation_default,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -131,7 +134,7 @@ step_word_embeddings <- function(recipe,
 
 step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
                                      aggregation, aggregation_default, prefix,
-                                     skip, id) {
+                                     keep_original_cols, skip, id) {
   recipes::step(
     subclass = "word_embeddings",
     terms = terms,
@@ -142,6 +145,7 @@ step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
     aggregation = aggregation,
     aggregation_default = aggregation_default,
     prefix = prefix,
+    keep_original_cols = keep_original_cols,
     skip = skip,
     id = id
   )
@@ -162,6 +166,7 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
     aggregation = x$aggregation,
     aggregation_default = x$aggregation_default,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -220,8 +225,11 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
 
     new_data <- vctrs::vec_cbind(new_data, embeddings_columns)
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
   }
 
   as_tibble(new_data)

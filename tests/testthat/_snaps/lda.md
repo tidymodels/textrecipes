@@ -15,6 +15,14 @@
       Tokenization for medium
       Text feature extraction for medium
 
+# can prep recipes with no keep_original_cols
+
+    Code
+      koc_trained <- prep(koc_rec, training = tate_text, verbose = FALSE)
+    Warning <rlang_warning>
+      'keep_original_cols' was added to `step_lda()` after this recipe was created.
+      Regenerate your recipe to avoid this warning.
+
 # empty printing
 
     Code

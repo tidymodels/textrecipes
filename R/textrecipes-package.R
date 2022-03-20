@@ -17,6 +17,7 @@
 #' @importFrom recipes add_step
 #' @importFrom recipes bake
 #' @importFrom recipes check_type
+#' @importFrom recipes get_keep_original_cols
 #' @importFrom recipes is_trained
 #' @importFrom recipes names0
 #' @importFrom recipes prep

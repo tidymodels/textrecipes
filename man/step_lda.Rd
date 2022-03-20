@@ -16,6 +16,7 @@ step_lda(
   lda_models = NULL,
   num_topics = 10L,
   prefix = "lda",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("lda")
 )
@@ -47,6 +48,9 @@ Look at the examples for how to fit a WarpLDA model.}
 \item{num_topics}{integer desired number of latent topics.}
 
 \item{prefix}{A prefix for generated column names, default to "lda".}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

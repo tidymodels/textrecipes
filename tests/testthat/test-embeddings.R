@@ -345,6 +345,43 @@ test_that("aggregation_default argument works", {
   )
 })
 
+test_that("keep_original_cols works", {
+  koc_rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "mean", 
+                         keep_original_cols = TRUE)
+  
+  koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
+  
+  koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
+  
+  expect_equal(
+    colnames(koc_pred),
+    c(
+      "text", "w_embed_mean_d1", "w_embed_mean_d2", "w_embed_mean_d3", 
+      "w_embed_mean_d4", "w_embed_mean_d5"
+    )
+  )
+})
+
+test_that("can prep recipes with no keep_original_cols", {
+  koc_rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "mean", 
+                         keep_original_cols = TRUE)
+  
+  koc_rec$steps[[2]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
+  )
+  
+  expect_error(
+    pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
+    NA
+  )
+})
+
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_word_embeddings(rec1, embeddings = embeddings)

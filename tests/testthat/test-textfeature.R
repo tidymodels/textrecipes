@@ -72,6 +72,39 @@ test_that("printing", {
   expect_snapshot(print(rec))
 })
 
+test_that("keep_original_cols works", {
+  koc_rec <- rec %>%
+    step_textfeature(text, extract_functions = list(nchar = nchar),
+                     keep_original_cols = TRUE)
+  
+  koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
+  
+  koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
+  
+  expect_equal(
+    colnames(koc_pred),
+    c(
+      "text", "textfeature_text_nchar"
+    )
+  )
+})
+
+test_that("can prep recipes with no keep_original_cols", {
+  koc_rec <- rec %>%
+    step_textfeature(text, keep_original_cols = TRUE)
+  
+  koc_rec$steps[[1]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
+  )
+  
+  expect_error(
+    pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
+    NA
+  )
+})
+
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_textfeature(rec1)

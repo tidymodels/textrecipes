@@ -19,6 +19,7 @@
 #'   Characters not in the vocabulary will be encoded as 0. Defaults to
 #'   `letters`.
 #' @param prefix A prefix for generated column names, default to "seq1hot".
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -72,6 +73,7 @@ step_sequence_onehot <-
            truncating = "pre",
            vocabulary = NULL,
            prefix = "seq1hot",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("sequence_onehot")) {
     if (length(padding) != 1 || !(padding %in% c("pre", "post"))) {
@@ -94,6 +96,7 @@ step_sequence_onehot <-
         truncating = truncating,
         vocabulary = vocabulary,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -102,7 +105,7 @@ step_sequence_onehot <-
 
 step_sequence_onehot_new <-
   function(terms, role, trained, columns, sequence_length, padding, truncating,
-           vocabulary, prefix, skip, id) {
+           vocabulary, prefix, keep_original_cols, skip, id) {
     step(
       subclass = "sequence_onehot",
       terms = terms,
@@ -114,6 +117,7 @@ step_sequence_onehot_new <-
       truncating = truncating,
       vocabulary = vocabulary,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -142,6 +146,7 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
     truncating = x$truncating,
     vocabulary = token_list,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -168,8 +173,11 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
       seq_len(ncol(out_text))
     )
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
 
     new_data <- vctrs::vec_cbind(new_data, as_tibble(out_text))
   }

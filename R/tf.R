@@ -20,6 +20,7 @@
 #'   be stored here once this preprocessing step has be trained by
 #'   [prep.recipe()].
 #' @template args-prefix
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -90,6 +91,7 @@ step_tf <-
            vocabulary = NULL,
            res = NULL,
            prefix = "tf",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("tf")) {
     if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1) {
@@ -114,6 +116,7 @@ step_tf <-
         weight = weight,
         vocabulary = vocabulary,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -127,7 +130,7 @@ tf_funs <- c(
 
 step_tf_new <-
   function(terms, role, trained, columns, weight_scheme, weight, vocabulary,
-           res, prefix, skip, id) {
+           res, prefix, keep_original_cols, skip, id) {
     step(
       subclass = "tf",
       terms = terms,
@@ -139,6 +142,7 @@ step_tf_new <-
       vocabulary = vocabulary,
       res = res,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -167,6 +171,7 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
     vocabulary = x$vocabulary,
     res = token_list,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -186,9 +191,12 @@ bake.step_tf <- function(object, new_data, ...) {
       object$weight
     )
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
-
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
+    
     new_data <- vctrs::vec_cbind(new_data, tf_text)
   }
   as_tibble(new_data)

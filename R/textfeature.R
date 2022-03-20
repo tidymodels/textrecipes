@@ -12,6 +12,7 @@
 #'   default to \code{\link[textfeatures]{count_functions}} from the
 #'   textfeatures package. See details for more information.
 #' @param prefix A prefix for generated column names, default to "textfeature".
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -76,6 +77,7 @@ step_textfeature <-
            columns = NULL,
            extract_functions = textfeatures::count_functions,
            prefix = "textfeature",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("textfeature")) {
     recipes::recipes_pkg_check(required_pkgs.step_textfeature())
@@ -89,6 +91,7 @@ step_textfeature <-
         columns = columns,
         extract_functions = extract_functions,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -97,7 +100,7 @@ step_textfeature <-
 
 step_textfeature_new <-
   function(terms, role, trained, columns, extract_functions, prefix,
-           skip, id) {
+           keep_original_cols, skip, id) {
     step(
       subclass = "textfeature",
       terms = terms,
@@ -106,6 +109,7 @@ step_textfeature_new <-
       columns = columns,
       extract_functions = extract_functions,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -128,6 +132,7 @@ prep.step_textfeature <- function(x, training, info = NULL, ...) {
     columns = col_names,
     extract_functions = x$extract_functions,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -152,8 +157,11 @@ bake.step_textfeature <- function(object, new_data, ...) {
 
     new_data <- vctrs::vec_cbind(new_data, tf_text)
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
   }
   as_tibble(new_data)
 }

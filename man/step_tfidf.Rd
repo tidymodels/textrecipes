@@ -16,6 +16,7 @@ step_tfidf(
   norm = "l1",
   sublinear_tf = FALSE,
   prefix = "tfidf",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("tfidf")
 )
@@ -59,6 +60,9 @@ replace the term frequency with 1 + log(TF). Defaults to FALSE.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

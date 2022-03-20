@@ -22,6 +22,7 @@
 #' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e.,
 #'   replace the term frequency with 1 + log(TF). Defaults to FALSE.
 #' @template args-prefix
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -90,6 +91,7 @@ step_tfidf <-
            norm = "l1",
            sublinear_tf = FALSE,
            prefix = "tfidf",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("tfidf")) {
     add_step(
@@ -105,6 +107,7 @@ step_tfidf <-
         sublinear_tf = sublinear_tf,
         columns = columns,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -113,7 +116,7 @@ step_tfidf <-
 
 step_tfidf_new <-
   function(terms, role, trained, columns, vocabulary, res, smooth_idf, norm,
-           sublinear_tf, prefix, skip, id) {
+           sublinear_tf, prefix, keep_original_cols, skip, id) {
     step(
       subclass = "tfidf",
       terms = terms,
@@ -126,6 +129,7 @@ step_tfidf_new <-
       norm = norm,
       sublinear_tf = sublinear_tf,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -155,6 +159,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     norm = x$norm,
     sublinear_tf = x$sublinear_tf,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -175,8 +180,11 @@ bake.step_tfidf <- function(object, new_data, ...) {
       object$sublinear_tf
     )
 
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+    }
 
     new_data <- vctrs::vec_cbind(new_data, tfidf_text)
   }

@@ -17,6 +17,7 @@
 #' @param collapse A logical; should all of the selected columns be collapsed
 #'   into a single column to create a single set of hashed features?
 #' @template args-prefix
+#' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
@@ -88,6 +89,7 @@ step_dummy_hash <-
            num_terms = 32L,
            collapse = FALSE,
            prefix = "hash",
+           keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("dummy_hash")) {
     recipes::recipes_pkg_check(required_pkgs.step_dummy_hash())
@@ -103,6 +105,7 @@ step_dummy_hash <-
         num_terms = num_terms,
         collapse = collapse,
         prefix = prefix,
+        keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
       )
@@ -111,7 +114,7 @@ step_dummy_hash <-
 
 step_dummy_hash_new <-
   function(terms, role, trained, columns, signed, collapse, num_terms, prefix,
-           skip, id) {
+           keep_original_cols, skip, id) {
     step(
       subclass = "dummy_hash",
       terms = terms,
@@ -122,6 +125,7 @@ step_dummy_hash_new <-
       num_terms = num_terms,
       collapse = collapse,
       prefix = prefix,
+      keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
     )
@@ -142,6 +146,7 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
     num_terms = x$num_terms,
     collapse = x$collapse,
     prefix = x$prefix,
+    keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
   )
@@ -178,8 +183,12 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
         object$num_terms
       )
 
-    new_data <- new_data[, !(colnames(new_data) %in% hash_cols[i]), drop = FALSE]
-
+    keep_original_cols <- get_keep_original_cols(object)
+    if (!keep_original_cols) {
+      new_data <- 
+        new_data[, !(colnames(new_data) %in% hash_cols[i]), drop = FALSE]
+    }
+    
     new_data <- vctrs::vec_cbind(tf_text, new_data)
   }
   if (object$collapse) {

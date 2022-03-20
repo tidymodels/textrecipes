@@ -18,6 +18,7 @@ step_sequence_onehot(
   truncating = "pre",
   vocabulary = NULL,
   prefix = "seq1hot",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("sequence_onehot")
 )
@@ -57,6 +58,9 @@ Characters not in the vocabulary will be encoded as 0. Defaults to
 \code{letters}.}
 
 \item{prefix}{A prefix for generated column names, default to "seq1hot".}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
