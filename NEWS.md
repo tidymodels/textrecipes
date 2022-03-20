@@ -1,18 +1,24 @@
-# textrecipes (development version)
+# textrecipes 0.5.0
 
-* Reorganize documentation for all recipe step `tidy` methods (#126).
+## New steps
 
 * `step_dummy_hash()` generates binary indicators (possibly signed) from simple factor or character vectors. 
 
+* `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()`,  `step_tokenize_sentencepiece()` and `step_tokenize_wordpiece()` which wraps {tokenizers.bpe}, {sentencepiece} and {wordpiece} respectively (#147).
+
+## Improvements and Other Changes
+
 * Added `all_tokenized()` and `all_tokenized_predictors()` to more easily select tokenized columns (#132).
+
+* Use `show_tokens()` to more easily debug a recipe involving tokenization.
+
+* Reorganize documentation for all recipe step `tidy` methods (#126).
+
+* Steps now have a dedicated subsection detailing what happens when `tidy()` is applied. (#163)
 
 * All recipe steps now officially support empty selections to be more aligned with dplyr and other packages that use tidyselect (#141).
 
 * `step_ngram()` has been given a speed increase to put it in line with other packages performance. 
-
-* Use `show_tokens()` to more easily debug a recipe involving tokenization.
-
-* `step_tokenize()` has gotten a couple of cousin functions `step_tokenize_bpe()`,  `step_tokenize_sentencepiece()` and `step_tokenize_wordpiece()` which wraps {tokenizers.bpe}, {sentencepiece} and {wordpiece} respectively (#147).
 
 * `step_tokenize()` will now try to error if vocabulary size is too low when using `engine = "tokenizers.bpe"` (#119).
 
@@ -24,9 +30,9 @@
 
 * `tidy.step_stem()` now correctly shows if custom stemmer was used.
 
-* Steps now have a dedicated subsection detailing what happens when `tidy()` is applied. (#163)
-
 * Added `keep_original_cols` argument to `step_lda`, `step_texthash()`, `step_tf()`, `step_tfidf()`, `step_word_embeddings()`, `step_dummy_hash()`, `step_sequence_onehot()`, and `step_textfeatures()` (#139).
+
+## Breaking Changes
 
 * Steps with `prefix` argument now creates names according to the pattern `prefix_variablename_name/number`. (#124)
 

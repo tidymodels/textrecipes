@@ -1,6 +1,6 @@
 Package: textrecipes
 Title: Extra 'Recipes' for Text Processing
-Version: 0.4.1.9000
+Version: 0.5.0
 Authors@R: 
     person("Emil", "Hvitfeldt", , "emilhhvitfeldt@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0679-1945"))
@@ -30,9 +30,7 @@ Imports:
     tidyr,
     tokenizers,
     vctrs,
-    cli,
-    glue,
-    withr
+    glue
 Suggests: 
     covr,
     janitor,
@@ -53,8 +51,6 @@ LinkingTo:
     Rcpp
 VignetteBuilder: 
     knitr
-Remotes:
-    tidymodels/recipes
 Config/Needs/website: tidyverse/tidytemplate, reticulate
 Config/testthat/edition: 3
 Encoding: UTF-8
