@@ -115,6 +115,9 @@
     <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.html</loc>
   </url>
   <url>
+    <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize_wordpiece.html</loc>
+  </url>
+  <url>
     <loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.html</loc>
   </url>
   <url>
