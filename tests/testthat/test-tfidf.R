@@ -47,8 +47,8 @@ test_that("step_tfidf works as intended", {
     as.matrix(manual_answer)
   )
 
-  expect_equal(dim(tidy(rec, 2)), c(1, 2))
-  expect_equal(dim(tidy(obj, 2)), c(1, 2))
+  expect_equal(dim(tidy(rec, 2)), c(1, 4))
+  expect_equal(dim(tidy(obj, 2)), c(17, 4))
 })
 
 test_that("step_tfidf works with vocabulary argument", {
@@ -148,14 +148,24 @@ test_that("empty selection tidy method works", {
 
   expect_identical(
     tidy(rec, number = 1),
-    tibble(terms = character(), id = character())
+    tibble(
+      terms = character(),
+      token = character(),
+      weight = double(),
+      id = character()
+    )
   )
 
   rec <- prep(rec, mtcars)
 
   expect_identical(
     tidy(rec, number = 1),
-    tibble(terms = character(), id = character())
+    tibble(
+      terms = character(),
+      token = character(),
+      weight = double(),
+      id = character()
+    )
   )
 })
 

@@ -110,7 +110,8 @@ the name of the variable, followed by the tokens all separated by
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected).
+(the selectors or variables selected), \code{token} (name of the tokens),
+\code{weight} (the calculated IDF weight) is returned.
 }
 
 \examples{

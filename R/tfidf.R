@@ -52,7 +52,8 @@
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected).
+#' (the selectors or variables selected), `token` (name of the tokens), 
+#' `weight` (the calculated IDF weight) is returned. 
 #'
 #' @template details-prefix
 #'
@@ -206,10 +207,27 @@ print.step_tfidf <-
 #' @export
 tidy.step_tfidf <- function(x, ...) {
   if (is_trained(x)) {
-    res <- tibble(terms = unname(x$columns))
+    if (length(x$columns) == 0) {
+      res <- tibble(
+        terms = character(),
+        token = character(),
+        weight = double()
+      )
+    } else {
+      res <- purrr::map2_dfr(
+        x$columns, x$res, 
+        ~ tibble(terms = .x, 
+                 token = names(.y), 
+                 weight = unname(.y))
+        )
+    }
   } else {
     term_names <- sel2char(x$terms)
-    res <- tibble(terms = term_names)
+    res <- tibble(
+      terms = term_names,
+      token = NA_character_,
+      weight = na_dbl
+    )
   }
   res$id <- x$id
   res
