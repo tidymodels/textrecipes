@@ -41,89 +41,47 @@ install_github("tidymodels/textrecipes")
 
 In the following example we will go through the steps needed, to convert
 a character variable to the TF-IDF of its tokenized words after removing
-stopwords, and, limiting ourself to only the 100 most used words. The
-preprocessing will be conducted on the variable `essay0` and `essay1`.
+stopwords, and, limiting ourself to only the 10 most used words. The
+preprocessing will be conducted on the variable `medium` and `artist`.
 
 ``` r
 library(recipes)
 library(textrecipes)
 library(modeldata)
 
-data(okc_text)
+data("tate_text")
 
-okc_rec <- recipe(~  essay0 + essay1, data = okc_text) %>%
-  step_tokenize(essay0, essay1) %>% # Tokenizes to words by default
-  step_stopwords(essay0, essay1) %>% # Uses the english snowball list by default
-  step_tokenfilter(essay0, essay1, max_tokens = 100) %>%
-  step_tfidf(essay0, essay1)
+okc_rec <- recipe(~ medium + artist, data = tate_text) %>%
+  step_tokenize(medium, artist) %>%
+  step_stopwords(medium, artist) %>%
+  step_tokenfilter(medium, artist, max_tokens = 10) %>%
+  step_tfidf(medium, artist)
    
 okc_obj <- okc_rec %>%
   prep()
    
-str(bake(okc_obj, okc_text), list.len = 15)
-#> tibble [750 × 200] (S3: tbl_df/tbl/data.frame)
-#>  $ tfidf_essay0_also      : num [1:750] 0 0 0.0252 0.2232 0 ...
-#>  $ tfidf_essay0_always    : num [1:750] 0 0 0 0 0 ...
-#>  $ tfidf_essay0_amp       : num [1:750] 0.47 0.583 0 0 0 ...
-#>  $ tfidf_essay0_anything  : num [1:750] 0 0 0.113 0 0 ...
-#>  $ tfidf_essay0_area      : num [1:750] 0 0 0 0 0 ...
-#>  $ tfidf_essay0_around    : num [1:750] 0 0 0.0348 0 0 ...
-#>  $ tfidf_essay0_art       : num [1:750] 0 0 0 0 0 ...
-#>  $ tfidf_essay0_back      : num [1:750] 0 0 0 0 0 ...
-#>  $ tfidf_essay0_bay       : num [1:750] 0 0 0 0 0 ...
-#>  $ tfidf_essay0_believe   : num [1:750] 0 0 0 0 0.314 ...
-#>  $ tfidf_essay0_big       : num [1:750] 0.0781 0 0 0 0 ...
-#>  $ tfidf_essay0_bit       : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...
-#>  $ tfidf_essay0_br        : num [1:750] 0.121 0.565 0.121 0 0 ...
-#>  $ tfidf_essay0_can       : num [1:750] 0.0488 0 0.0244 0 0 ...
-#>  $ tfidf_essay0_city      : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...
-#>   [list output truncated]
-```
-
-## Type chart
-
-**textrecipes** includes a little departure in design from **recipes**,
-in the sense that it allows for some input and output to be in the form
-of list columns. To avoid confusion, here is a table of steps with their
-expected input and output respectively. Notice how you need to end with
-numeric for future analysis to work.
-
-| Step                        | Input         | Output        |
-|-----------------------------|---------------|---------------|
-| `step_tokenize()`           | character     | `tokenlist()` |
-| `step_untokenize()`         | `tokenlist()` | character     |
-| `step_lemma()`              | `tokenlist()` | `tokenlist()` |
-| `step_stem()`               | `tokenlist()` | `tokenlist()` |
-| `step_stopwords()`          | `tokenlist()` | `tokenlist()` |
-| `step_pos_filter()`         | `tokenlist()` | `tokenlist()` |
-| `step_ngram()`              | `tokenlist()` | `tokenlist()` |
-| `step_tokenfilter()`        | `tokenlist()` | `tokenlist()` |
-| `step_tokenmerge()`         | `tokenlist()` | `tokenlist()` |
-| `step_tfidf()`              | `tokenlist()` | numeric       |
-| `step_tf()`                 | `tokenlist()` | numeric       |
-| `step_texthash()`           | `tokenlist()` | numeric       |
-| `step_word_embeddings()`    | `tokenlist()` | numeric       |
-| `step_lda()`                | `tokenlist()` | numeric       |
-| `step_textfeature()`        | character     | numeric       |
-| `step_sequence_onehot()`    | character     | numeric       |
-| `step_text_normalization()` | character     | character     |
-
-This means that valid sequences includes
-
-``` r
-recipe(~ ., data = data) %>%
-  step_tokenize(text) %>%
-  step_stem(text) %>%
-  step_stopwords(text) %>%
-  step_topwords(text) %>%
-  step_tf(text)
-
-# or
-
-recipe(~ ., data = data) %>%
-  step_tokenize(text) %>%
-  step_stem(text) %>%
-  step_tfidf(text)
+str(bake(okc_obj, tate_text))
+#> tibble [4,284 × 20] (S3: tbl_df/tbl/data.frame)
+#>  $ tfidf_medium_colour     : num [1:4284] 2.31 0 0 0 0 ...
+#>  $ tfidf_medium_etching    : num [1:4284] 0 0.86 0.86 0.86 0 ...
+#>  $ tfidf_medium_gelatin    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_medium_lithograph : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_medium_paint      : num [1:4284] 0 0 0 0 2.35 ...
+#>  $ tfidf_medium_paper      : num [1:4284] 0 0.422 0.422 0.422 0 ...
+#>  $ tfidf_medium_photograph : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_medium_print      : num [1:4284] 0 0 0 0 0 ...
+#>  $ tfidf_medium_screenprint: num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_medium_silver     : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_akram      : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_beuys      : num [1:4284] 0 0 0 0 0 ...
+#>  $ tfidf_artist_ferrari    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_john       : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_joseph     : num [1:4284] 0 0 0 0 0 ...
+#>  $ tfidf_artist_león       : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_richard    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_schütte    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_thomas     : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
+#>  $ tfidf_artist_zaatari    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...
 ```
 
 ## Breaking changes
