@@ -110,6 +110,24 @@ test_that("can prep recipes with no keep_original_cols", {
   )
 })
 
+test_that("idf valeus are trained on training data and applied on test data", {
+  data <- tibble(text = c("i g", "i i i"))
+  
+  rec <- recipe(~text, data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text) %>%
+    prep()
+  
+  expect_equal(
+    bake(rec, data %>% slice(1)),
+    bake(rec, data) %>% slice(1)
+  )
+  
+  expect_equal(
+    rec$steps[[2]]$res[[1]],
+    c(g = log(1 + 2 / 1), i = log(1 + 2 / 2))
+  )
+})
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)

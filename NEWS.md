@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* `step_tfidf()` now correctly saves the idf values and applies them to the testing data set.
+
 # textrecipes 0.5.0
 
 ## New steps

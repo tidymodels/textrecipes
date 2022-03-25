@@ -141,11 +141,13 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
 
   check_list(training[, col_names])
 
-  token_list <- list()
+  idf_weights <- list()
 
   for (i in seq_along(col_names)) {
-    token_list[[i]] <- x$vocabulary %||%
-      sort(get_unique_tokens(training[, col_names[i], drop = TRUE]))
+    column <- training[, col_names[i], drop = TRUE]
+    vocabulary <- x$vocabulary %||% sort(get_unique_tokens(column))
+    column_dtm <- tokenlist_to_dtm(column, vocabulary)
+    idf_weights[[i]] <- calc_idf(column_dtm, x$smooth_idf)
   }
 
   step_tfidf_new(
@@ -154,7 +156,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     vocabulary = x$vocabulary,
-    res = token_list,
+    res = idf_weights,
     smooth_idf = x$smooth_idf,
     norm = x$norm,
     sublinear_tf = x$sublinear_tf,
@@ -214,25 +216,24 @@ tidy.step_tfidf <- function(x, ...) {
 }
 
 # Implementation
-tfidf_function <- function(data, names, labels, smooth_idf, norm,
+tfidf_function <- function(data, weights, labels, smooth_idf, norm,
                            sublinear_tf) {
-  counts <- tokenlist_to_dtm(data, names)
+  counts <- tokenlist_to_dtm(data, names(weights))
 
-  tfidf <- dtm_to_tfidf(counts, smooth_idf, norm, sublinear_tf)
+  tfidf <- dtm_to_tfidf(counts, weights, smooth_idf, norm, sublinear_tf)
 
-  colnames(tfidf) <- paste0(labels, "_", names)
+  colnames(tfidf) <- paste0(labels, "_", names(weights))
   as_tibble(tfidf)
 }
 
-dtm_to_tfidf <- function(dtm, smooth_idf, norm, sublinear_tf) {
+dtm_to_tfidf <- function(dtm, idf_weights, smooth_idf, norm, sublinear_tf) {
   dtm <- normalize(dtm, norm)
 
   if (sublinear_tf) {
     dtm@x <- 1 + log(dtm@x)
   }
 
-  out <- dtm %*% Matrix::Diagonal(x = log(smooth_idf + nrow(dtm) /
-    Matrix::colSums(dtm > 0)))
+  out <- dtm %*% Matrix::Diagonal(x = idf_weights)
   as.matrix(out)
 }
 
@@ -250,6 +251,10 @@ normalize <- function(dtm, norm = c("l1", "l2", "none")) {
   norm_vec[is.infinite(norm_vec)] <- 0
 
   Matrix::Diagonal(x = norm_vec) %*% dtm
+}
+
+calc_idf <- function(dtm, smooth) {
+  log(smooth + nrow(dtm) / Matrix::colSums(dtm > 0))
 }
 
 #' @rdname required_pkgs.step
