@@ -1,8 +1,8 @@
 ## Release Summary
 
-This is the 11th CRAN release of textrecipes.
+This is the 12th CRAN release of textrecipes.
 
-Added new functions, improved documentation and fixed some bugs.
+Fixes a major bug in `step_tfidf()`
 
 ## R CMD check results
 
