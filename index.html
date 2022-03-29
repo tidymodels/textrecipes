@@ -18,8 +18,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
-<link href="deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.1/font.css" rel="stylesheet">
+<link href="deps/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extra Recipes for Text Processing">
@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">textrecipes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,166 +110,56 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 100 most used words. The preprocessing will be conducted on the variable <code>essay0</code> and <code>essay1</code>.</p>
+<p>In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 10 most used words. The preprocessing will be conducted on the variable <code>medium</code> and <code>artist</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes" class="external-link">textrecipes</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://modeldata.tidymodels.org" class="external-link">modeldata</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">okc_text</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"tate_text"</span><span class="op">)</span>
 
-<span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span>  <span class="va">essay0</span> <span class="op">+</span> <span class="va">essay1</span>, data <span class="op">=</span> <span class="va">okc_text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">essay0</span>, <span class="va">essay1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># Tokenizes to words by default</span>
-  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">essay0</span>, <span class="va">essay1</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># Uses the english snowball list by default</span>
-  <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">essay0</span>, <span class="va">essay1</span>, max_tokens <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">essay0</span>, <span class="va">essay1</span><span class="op">)</span>
+<span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">medium</span> <span class="op">+</span> <span class="va">artist</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span>, max_tokens <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span>
    
 <span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span>
    
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">okc_text</span><span class="op">)</span>, list.len <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>
-<span class="co">#&gt; tibble [750 × 200] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ tfidf_essay0_also      : num [1:750] 0 0 0.0252 0.2232 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_always    : num [1:750] 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_amp       : num [1:750] 0.47 0.583 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_anything  : num [1:750] 0 0 0.113 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_area      : num [1:750] 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_around    : num [1:750] 0 0 0.0348 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_art       : num [1:750] 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_back      : num [1:750] 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_bay       : num [1:750] 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_believe   : num [1:750] 0 0 0 0 0.314 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_big       : num [1:750] 0.0781 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_bit       : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_br        : num [1:750] 0.121 0.565 0.121 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_can       : num [1:750] 0.0488 0 0.0244 0 0 ...</span>
-<span class="co">#&gt;  $ tfidf_essay0_city      : num [1:750] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;   [list output truncated]</span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="type-chart">Type chart<a class="anchor" aria-label="anchor" href="#type-chart"></a>
-</h2>
-<p><strong>textrecipes</strong> includes a little departure in design from <strong>recipes</strong>, in the sense that it allows for some input and output to be in the form of list columns. To avoid confusion, here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.</p>
-<table class="table">
-<thead><tr class="header">
-<th>Step</th>
-<th>Input</th>
-<th>Output</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code><a href="reference/step_tokenize.html">step_tokenize()</a></code></td>
-<td>character</td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_untokenize.html">step_untokenize()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td>character</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_lemma.html">step_lemma()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_stem.html">step_stem()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_stopwords.html">step_stopwords()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_pos_filter.html">step_pos_filter()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_ngram.html">step_ngram()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_tokenfilter.html">step_tokenfilter()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_tokenmerge.html">step_tokenmerge()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_tfidf.html">step_tfidf()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td>numeric</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_tf.html">step_tf()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td>numeric</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_texthash.html">step_texthash()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td>numeric</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_word_embeddings.html">step_word_embeddings()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td>numeric</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_lda.html">step_lda()</a></code></td>
-<td><code><a href="reference/tokenlist.html">tokenlist()</a></code></td>
-<td>numeric</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_textfeature.html">step_textfeature()</a></code></td>
-<td>character</td>
-<td>numeric</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_sequence_onehot.html">step_sequence_onehot()</a></code></td>
-<td>character</td>
-<td>numeric</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_text_normalization.html">step_text_normalization()</a></code></td>
-<td>character</td>
-<td>character</td>
-</tr>
-</tbody>
-</table>
-<p>This means that valid sequences includes</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">step_topwords</span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_tf.html">step_tf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-
-<span class="co"># or</span>
-
-<span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">tate_text</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; tibble [4,284 × 20] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ tfidf_medium_colour     : num [1:4284] 2.31 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_etching    : num [1:4284] 0 0.86 0.86 0.86 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_gelatin    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_lithograph : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_paint      : num [1:4284] 0 0 0 0 2.35 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_paper      : num [1:4284] 0 0.422 0.422 0.422 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_photograph : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_print      : num [1:4284] 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_screenprint: num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_medium_silver     : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_akram      : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_beuys      : num [1:4284] 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_ferrari    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_john       : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_joseph     : num [1:4284] 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_león       : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_richard    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_schütte    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_thomas     : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;  $ tfidf_artist_zaatari    : num [1:4284] 0 0 0 0 0 0 0 0 0 0 ...</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="breaking-changes">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes"></a>
 </h2>
 <p>As of version 0.4.0, <code><a href="reference/step_lda.html">step_lda()</a></code> no longer accepts character variables and instead takes tokenlist variables.</p>
 <p>the following recipe</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">text_var</span><span class="op">)</span></code></pre></div>
 <p>can be replaced with the following recipe to achive the same results</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lda_tokenizer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/tokenizers.html" class="external-link">word_tokenizer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text_var</span>, 
