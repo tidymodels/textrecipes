@@ -129,6 +129,34 @@ test_that("idf valeus are trained on training data and applied on test data", {
   )
 })
 
+test_that("Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e", {
+  # Test that recipes trained with version <= 0.5.0 keep previous behavoir and
+  # throw warning about the data leakage.
+  
+  data <- tibble(text = c("i g", "i i i"))
+  
+  rec <- recipe(~text, data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text) %>%
+    prep()
+  
+  rec$steps[[2]]$res <- list(c("g", "i"))
+  
+  expect_snapshot(
+    expect_equal(
+      bake(rec, data) %>% slice(1),
+      tibble(tfidf_text_g = log(1 + 2 / 1) / 2, tfidf_text_i = log(1 + 2 / 2) / 2)
+    )
+  )
+  
+  expect_snapshot(
+    expect_equal(
+      bake(rec, data %>% slice(1)),
+      tibble(tfidf_text_g = log(1 + 2 / 2) / 2, tfidf_text_i = log(1 + 2 / 2) / 2)
+    )
+  )
+})
+
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tfidf(rec1)

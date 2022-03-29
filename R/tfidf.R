@@ -236,11 +236,18 @@ tidy.step_tfidf <- function(x, ...) {
 # Implementation
 tfidf_function <- function(data, weights, labels, smooth_idf, norm,
                            sublinear_tf) {
-  counts <- tokenlist_to_dtm(data, names(weights))
+
+  # Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
+  if (is.numeric(weights)) {
+    dict <- names(weights)
+  } else {
+    dict <- weights
+  }
+  counts <- tokenlist_to_dtm(data, dict)
 
   tfidf <- dtm_to_tfidf(counts, weights, smooth_idf, norm, sublinear_tf)
 
-  colnames(tfidf) <- paste0(labels, "_", names(weights))
+  colnames(tfidf) <- paste0(labels, "_", dict)
   as_tibble(tfidf)
 }
 
@@ -250,8 +257,18 @@ dtm_to_tfidf <- function(dtm, idf_weights, smooth_idf, norm, sublinear_tf) {
   if (sublinear_tf) {
     dtm@x <- 1 + log(dtm@x)
   }
-
-  out <- dtm %*% Matrix::Diagonal(x = idf_weights)
+  if (is.character(idf_weights)) {
+    rlang::warn(
+      c(
+        "Please retrain this recipe with version 0.5.1 or higher.",
+        "A data leakage bug has been fixed for `step_tfidf()`."
+      )
+    )
+    idf_weights <- log(smooth_idf + nrow(dtm) / Matrix::colSums(dtm > 0))
+    out <- dtm %*% Matrix::Diagonal(x = idf_weights)
+  } else {
+    out <- dtm %*% Matrix::Diagonal(x = idf_weights)
+  }
   as.matrix(out)
 }
 
