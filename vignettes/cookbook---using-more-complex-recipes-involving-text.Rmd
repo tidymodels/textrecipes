@@ -18,14 +18,13 @@ knitr::opts_chunk$set(
 
 Working to get textual data converted into numerical can be done in many different ways. The steps included in `textrecipes` should hopefully give you the flexibility to perform most of your desired text preprocessing tasks. This vignette will showcase examples that combine multiple steps.  
 
-This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be `dplyr`, `recipes` and `textrecipes`. Examples will be performed on the `okc_text` data-set which is packaged with `textrecipes`.
+This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be `recipes` and `textrecipes`. Examples will be performed on the `tate_text` data-set which is packaged with `modeldata`.
 
 ```{r, message=FALSE}
-library(dplyr)
 library(recipes)
 library(textrecipes)
 library(modeldata)
-data("okc_text")
+data("tate_text")
 ```
 
 ## Counting select words
@@ -33,18 +32,18 @@ data("okc_text")
 Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments `custom_stopword_source` and `keep = TRUE` in `step_stopwords`. 
 
 ```{r}
-words <- c("you", "i", "sad", "happy")
+words <- c("or", "and", "on")
 
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0) %>%
-  step_stopwords(essay0, custom_stopword_source = words, keep = TRUE) %>% 
-  step_tf(essay0)
+okc_rec <- recipe(~ ., data = tate_text) %>%
+  step_tokenize(medium) %>%
+  step_stopwords(medium, custom_stopword_source = words, keep = TRUE) %>% 
+  step_tf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
    
-bake(okc_obj, okc_text) %>%
-  select(starts_with("tf_essay0"))
+bake(okc_obj, tate_text) %>%
+  select(starts_with("tf_medium"))
 ```
 
 ## Removing words in addition to the stop words list
@@ -58,17 +57,17 @@ stopwords_list <- c("was", "she's", "who", "had", "some", "same", "you", "most",
 
 words <- c("sad", "happy")
 
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0) %>%
-  step_stopwords(essay0, custom_stopword_source = stopwords_list) %>% 
-  step_stopwords(essay0, custom_stopword_source = words) %>% 
-  step_tfidf(essay0)
+okc_rec <- recipe(~ ., data = tate_text) %>%
+  step_tokenize(medium) %>%
+  step_stopwords(medium, custom_stopword_source = stopwords_list) %>% 
+  step_stopwords(medium, custom_stopword_source = words) %>% 
+  step_tfidf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
    
-bake(okc_obj, okc_text) %>%
-  select(starts_with("tfidf_essay0"))
+bake(okc_obj, tate_text) %>%
+  select(starts_with("tfidf_medium"))
 ```
 
 ## Letter distributions
@@ -76,16 +75,16 @@ bake(okc_obj, okc_text) %>%
 Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the `step_stopwords` step.
 
 ```{r}
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0, token = "characters") %>%
-  step_stopwords(essay0, custom_stopword_source = letters, keep = TRUE) %>%
-  step_tf(essay0)
+okc_rec <- recipe(~ ., data = tate_text) %>%
+  step_tokenize(medium, token = "characters") %>%
+  step_stopwords(medium, custom_stopword_source = letters, keep = TRUE) %>%
+  step_tf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
    
-bake(okc_obj, okc_text) %>%
-  select(starts_with("tf_essay0"))
+bake(okc_obj, tate_text) %>%
+  select(starts_with("tf_medium"))
 ```
 
 ## TF-IDF of ngrams of stemmed tokens
@@ -95,19 +94,17 @@ Sometimes fairly complicated computations. Here we would like the term frequency
 First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using `step_untokenize` so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.
 
 ```{r}
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0, token = "words") %>%
-  step_stem(essay0) %>%
-  step_untokenize(essay0) %>%
-  step_tokenize(essay0, token = "ngrams") %>%
-  step_tokenfilter(essay0, max_tokens = 500) %>%
-  step_tfidf(essay0)
+okc_rec <- recipe(~ ., data = tate_text) %>%
+  step_tokenize(medium, token = "words") %>%
+  step_stem(medium) %>%
+  step_untokenize(medium) %>%
+  step_tokenize(medium, token = "ngrams") %>%
+  step_tokenfilter(medium, max_tokens = 500) %>%
+  step_tfidf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
    
-bake(okc_obj, okc_text) %>%
-  select(starts_with("tfidf_essay0"))
+bake(okc_obj, tate_text) %>%
+  select(starts_with("tfidf_medium"))
 ```
-
-
