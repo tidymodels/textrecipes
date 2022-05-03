@@ -37,7 +37,6 @@
 #' @importFrom tibble as_tibble
 #' @importFrom tibble enframe
 #' @importFrom tibble tibble
-#' @importFrom tidyr unnest
 #' @importFrom vctrs new_vctr
 #' @importFrom vctrs obj_print_footer
 #' @importFrom vctrs vec_assert

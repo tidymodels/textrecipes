@@ -27,7 +27,6 @@ Imports:
     rlang,
     SnowballC,
     tibble,
-    tidyr,
     tokenizers,
     vctrs,
     glue
