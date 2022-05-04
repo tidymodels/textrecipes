@@ -1,4 +1,8 @@
-# textrecipes (development version)
+# textrecipes 0.5.2
+
+* Remove use of okc_text in vignette
+
+* Fix bug in printing of tokenlists
 
 # textrecipes 0.5.1
 
