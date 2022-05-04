@@ -1,8 +1,8 @@
 ## Release Summary
 
-This is the 12th CRAN release of textrecipes.
+This is the 13th CRAN release of textrecipes.
 
-Fixes a major bug in `step_tfidf()`
+removes use of okc_text data completely
 
 ## R CMD check results
 
