@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 0.5.2
 
 * Remove use of okc_text in vignette
 
