@@ -310,9 +310,11 @@ tokenlist_embedding <- function(x, emb, fun) {
   keep_id <- !is.na(j)
   split_id <- factor(i[keep_id], seq_x)
 
-  emb[match(unlisted_tokens, emb[[1]]), -1] %>%
+  token_index <- match(unlisted_tokens, emb[[1]])
+  
+  emb[token_index, -1] %>%
     dplyr::mutate("id" = split_id) %>%
-    tidyr::drop_na() %>%
+    dplyr::filter(!is.na(token_index)) %>%
     dplyr::group_by(.data$id, .drop = FALSE) %>%
     dplyr::summarise_all(fun, na.rm = TRUE) %>%
     dplyr::select(-.data$id)
