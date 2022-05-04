@@ -15,6 +15,25 @@
       Tokenization for medium
       Text feature extraction for medium
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          2
+      
+      Training data contained 100 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for medium [trained]
+      Text feature extraction for medium [trained]
+
 # can prep recipes with no keep_original_cols
 
     Code

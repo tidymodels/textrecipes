@@ -14,6 +14,24 @@
       
       Feature hashing with sponsor_code
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          2
+      
+      Training data contained 20 data points and no missing data.
+      
+      Operations:
+      
+      Feature hashing with sponsor_code [trained]
+
 # can prep recipes with no keep_original_cols
 
     Code

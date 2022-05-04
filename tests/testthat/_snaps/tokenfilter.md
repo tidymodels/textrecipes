@@ -50,6 +50,27 @@
       Tokenization for text
       Text filtering for text
 
+---
+
+    Code
+      prep(rec)
+    Warning <rlang_warning>
+      max_tokens was set to '100', but only 17 was available and selected.
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for text [trained]
+      Text filtering for text [trained]
+
 # empty printing
 
     Code

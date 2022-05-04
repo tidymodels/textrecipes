@@ -128,6 +128,7 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text)
   expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
 })
 
 test_that("empty selection prep/bake is a no-op", {

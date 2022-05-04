@@ -15,6 +15,25 @@
       Tokenization for text
       Stop word removal for text
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for text [trained]
+      Stop word removal for text [trained]
+
 # empty printing
 
     Code

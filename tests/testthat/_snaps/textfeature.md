@@ -31,6 +31,24 @@
       
       Text feature extraction for text
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      Text feature extraction for text [trained]
+
 # can prep recipes with no keep_original_cols
 
     Code

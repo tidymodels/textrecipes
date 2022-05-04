@@ -29,6 +29,25 @@
       Tokenization for text
       ngramming for text
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 2 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for text [trained]
+      ngramming for text [trained]
+
 # empty printing
 
     Code

@@ -121,6 +121,7 @@ test_that("printing", {
     step_tokenize(text) %>%
     step_tf(text)
   expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
 })
 
 test_that("keep_original_cols works", {

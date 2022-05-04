@@ -52,6 +52,14 @@ test_that("it complains when the selected column isn't a tokenlist", {
   )
 })
 
+test_that("printing", {
+  rec <- rec %>%
+    step_tokenize(text1, text2) %>%
+    step_tokenmerge(text1, text2)
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})
+
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tokenmerge(rec1)
