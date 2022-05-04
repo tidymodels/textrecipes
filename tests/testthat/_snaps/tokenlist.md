@@ -34,6 +34,15 @@
     Error <rlang_error>
       `pos` must be NULL or a list.
 
+# Printing works
+
+    Code
+      tokenlist(list(letters, letters))
+    Output
+      <textrecipes_tokenlist[2]>
+      [1] [26 tokens] [26 tokens]
+      # Unique Tokens: 26
+
 # subsetting works as intended
 
     Code

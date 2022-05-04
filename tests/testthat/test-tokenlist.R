@@ -132,6 +132,14 @@ test_that("new_tokenlist errors with wrong input", {
   )
 })
 
+## Printing -------------------------------------------------------------------
+
+test_that("Printing works", {
+  expect_snapshot(
+    tokenlist(list(letters, letters))
+  )
+})
+
 ## Subsetting -----------------------------------------------------------------
 
 test_that("subsetting works as intended", {
