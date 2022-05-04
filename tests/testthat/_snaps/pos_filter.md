@@ -22,6 +22,25 @@
       Tokenization for all_predictors()
       Part of speech filtering for all_predictors()
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for text [trained]
+      Part of speech filtering for text [trained]
+
 # empty printing
 
     Code
