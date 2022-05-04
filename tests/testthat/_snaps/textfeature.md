@@ -3,7 +3,7 @@
     Code
       rec %>% step_textfeature(text, extract_functions = list(as.character)) %>% prep()
     Error <vctrs_error_subscript_oob>
-      Can't subset columns past the end.
+      Can't subset columns that don't exist.
       x Column `text` doesn't exist.
 
 ---
@@ -12,7 +12,7 @@
       rec %>% step_textfeature(text, extract_functions = list(function(x) 1)) %>%
         prep()
     Error <vctrs_error_subscript_oob>
-      Can't subset columns past the end.
+      Can't subset columns that don't exist.
       x Column `text` doesn't exist.
 
 # printing
