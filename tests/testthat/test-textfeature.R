@@ -70,6 +70,7 @@ test_that("printing", {
   rec <- rec %>%
     step_textfeature(text)
   expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
 })
 
 test_that("keep_original_cols works", {

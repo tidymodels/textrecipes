@@ -148,6 +148,7 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
 
 test_that("printing", {
   expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
 })
 
 test_that("NA tokens work.", {

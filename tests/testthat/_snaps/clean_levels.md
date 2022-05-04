@@ -14,6 +14,24 @@
       
       Cleaning factor levels for name
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          3
+      
+      Training data contained 15 data points and no missing data.
+      
+      Operations:
+      
+      Cleaning factor levels for name [trained]
+
 # empty printing
 
     Code

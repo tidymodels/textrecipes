@@ -15,6 +15,25 @@
       Tokenization for text
       Term frequency-inverse document frequency with text
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for text [trained]
+      Term frequency-inverse document frequency with text [trained]
+
 # can prep recipes with no keep_original_cols
 
     Code

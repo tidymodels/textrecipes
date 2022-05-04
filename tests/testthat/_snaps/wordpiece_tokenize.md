@@ -14,6 +14,24 @@
       
       wordpiece Tokenization for text1
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          2
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      wordpiece Tokenization for text1 [trained]
+
 # empty printing
 
     Code

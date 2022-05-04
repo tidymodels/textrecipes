@@ -28,6 +28,24 @@
       
       Tokenization for text
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 4 data points and no missing data.
+      
+      Operations:
+      
+      Tokenization for text [trained]
+
 # empty printing
 
     Code

@@ -14,6 +14,24 @@
       
       Text Normalization for text
 
+---
+
+    Code
+      prep(rec)
+    Output
+      Recipe
+      
+      Inputs:
+      
+            role #variables
+       predictor          1
+      
+      Training data contained 2 data points and no missing data.
+      
+      Operations:
+      
+      Text Normalization for text [trained]
+
 # empty printing
 
     Code
