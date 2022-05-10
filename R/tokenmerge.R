@@ -118,7 +118,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
 
   new_data <- vctrs::vec_cbind(new_data, new_col)
 
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

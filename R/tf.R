@@ -199,7 +199,7 @@ bake.step_tf <- function(object, new_data, ...) {
     
     new_data <- vctrs::vec_cbind(new_data, tf_text)
   }
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

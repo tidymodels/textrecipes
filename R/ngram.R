@@ -137,7 +137,7 @@ bake.step_ngram <- function(object, new_data, ...) {
     new_data[, col_names[i]] <- tibble(ngrammed_tokenlist)
   }
   new_data <- factor_to_text(new_data, col_names)
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

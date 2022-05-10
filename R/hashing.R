@@ -167,7 +167,7 @@ bake.step_texthash <- function(object, new_data, ...) {
     new_data <- vctrs::vec_cbind(tf_text, new_data)
   }
 
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export
