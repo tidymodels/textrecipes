@@ -128,7 +128,7 @@ bake.step_pos_filter <- function(object, new_data, ...) {
     new_data[, col_names[i]] <- tibble(pos_filter_variable)
   }
   new_data <- factor_to_text(new_data, col_names)
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

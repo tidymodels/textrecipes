@@ -181,7 +181,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
 
     new_data <- vctrs::vec_cbind(new_data, as_tibble(out_text))
   }
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

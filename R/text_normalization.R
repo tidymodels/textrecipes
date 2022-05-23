@@ -137,7 +137,7 @@ bake.step_text_normalization <- function(object, new_data, ...) {
     )
   }
   new_data <- factor_to_text(new_data, col_names)
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

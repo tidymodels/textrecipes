@@ -182,7 +182,7 @@ bake.step_lda <- function(object, new_data, ...) {
     }
   }
 
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

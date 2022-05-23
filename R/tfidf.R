@@ -191,7 +191,7 @@ bake.step_tfidf <- function(object, new_data, ...) {
 
     new_data <- vctrs::vec_cbind(new_data, tfidf_text)
   }
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

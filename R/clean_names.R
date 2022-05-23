@@ -107,7 +107,7 @@ bake.step_clean_names <- function(object, new_data, ...) {
     colnames(new_data) <- dplyr::recode(colnames(new_data), !!!object$clean)
   }
 
-  as_tibble(new_data)
+  new_data
 }
 
 

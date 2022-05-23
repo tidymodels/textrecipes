@@ -121,7 +121,7 @@ bake.step_lemma <- function(object, new_data, ...) {
     new_data[, col_names[i]] <- tibble(lemma_variable)
   }
   new_data <- factor_to_text(new_data, col_names)
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

@@ -316,7 +316,7 @@ bake.step_tokenize <- function(object, new_data, ...) {
       token = object$custom_token[[i]]
     )
   }
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export

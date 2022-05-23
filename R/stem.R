@@ -150,7 +150,7 @@ bake.step_stem <- function(object, new_data, ...) {
     new_data[, col_names[i]] <- tibble(stemmed_tokenlist)
   }
   new_data <- factor_to_text(new_data, col_names)
-  as_tibble(new_data)
+  new_data
 }
 
 #' @export
