@@ -100,6 +100,12 @@ performed), \code{num_terms} (number of terms), and \code{collapse} (where colum
 collapsed).
 }
 
+\section{Case weights}{
+
+
+The underlying operation does not allow for case weights.
+}
+
 \examples{
 if (requireNamespace("text2vec", quietly = TRUE)) {
   library(recipes)

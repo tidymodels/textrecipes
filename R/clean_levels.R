@@ -27,6 +27,8 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected), `original` (the original levels) and
 #' `value` (the cleaned levels) is returned.
+#' 
+#' @template case-weights-not-supported
 #'
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
 #'   [recipes::step_string2factor()], [recipes::step_regex()],

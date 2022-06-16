@@ -23,6 +23,8 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `num_topics` (number of topics).
+#' 
+#' @template case-weights-not-supported
 #'
 #' @source \url{https://arxiv.org/abs/1301.3781}
 #'

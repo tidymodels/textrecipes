@@ -48,6 +48,8 @@
 #' (the selectors or variables selected), `embedding_rows` (number of rows in
 #' embedding), and `aggregation` (the aggregation method).
 #'
+#' @template case-weights-not-supported
+#'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
 #'   
