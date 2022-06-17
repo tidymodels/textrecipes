@@ -46,6 +46,8 @@ Suggests:
     tokenizers.bpe,
     udpipe,
     wordpiece
+Remotes:
+    tidymodels/recipes
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
