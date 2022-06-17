@@ -84,52 +84,79 @@ convert a <code><a href="tokenlist.html">token</a></code> variable to be filtere
     <dl><dt>recipe</dt>
 <dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>One or more selector functions to choose which
 variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
 for more details.</p></dd>
+
+
 <dt>role</dt>
 <dd><p>Not used by this step since no new variables are
 created.</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for
 preprocessing have been estimated.</p></dd>
+
+
 <dt>columns</dt>
 <dd><p>A character string of variable names that will
 be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
 until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+
+
 <dt>max_times</dt>
 <dd><p>An integer. Maximal number of times a word can appear before
 getting removed.</p></dd>
+
+
 <dt>min_times</dt>
 <dd><p>An integer. Minimum number of times a word can appear before
 getting removed.</p></dd>
+
+
 <dt>percentage</dt>
 <dd><p>A logical. Should max_times and min_times be interpreted as
 a percentage instead of count.</p></dd>
+
+
 <dt>max_tokens</dt>
 <dd><p>An integer. Will only keep the top max_tokens tokens after
 filtering done by max_times and min_times. Defaults to 100.</p></dd>
+
+
 <dt>filter_fun</dt>
 <dd><p>A function. This function should take a vector of
 characters, and return a logical vector of the same length. This function
 will be applied to each observation of the data set. Defaults to <code>NULL</code>.
 All other arguments will be ignored if this argument is used.</p></dd>
+
+
 <dt>res</dt>
 <dd><p>The words that will be keep will be stored here once this
 preprocessing step has be trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep.recipe()</a></code>.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
 when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An updated version of <code>recipe</code> with the new step added
+    
+
+<p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
@@ -150,6 +177,13 @@ limit the number of variables created.</p>
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
     <p>When you <code><a href="tidy.recipe.html">tidy()</a></code> this step, a tibble with columns <code>terms</code>
 (the selectors or variables selected) and <code>value</code> (number of unique tokens).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
+    
+
+
+<p>The underlying operation does not allow for case weights.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -195,12 +229,12 @@ limit the number of variables created.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value id               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium    <span style="color: #BB0000;">NA</span> tokenfilter_N38xh</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium    <span style="color: #BB0000;">NA</span> tokenfilter_yWcP1</span>
 <span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value id               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium   952 tokenfilter_N38xh</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium   952 tokenfilter_yWcP1</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -214,7 +248,7 @@ limit the number of variables created.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

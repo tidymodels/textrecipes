@@ -82,44 +82,67 @@ a <code><a href="tokenlist.html">token</a></code> variable for stop words.</p>
     <dl><dt>recipe</dt>
 <dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>One or more selector functions to choose which
 variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
 for more details.</p></dd>
+
+
 <dt>role</dt>
 <dd><p>Not used by this step since no new variables are
 created.</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for
 preprocessing have been estimated.</p></dd>
+
+
 <dt>columns</dt>
 <dd><p>A character string of variable names that will
 be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
 until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+
+
 <dt>language</dt>
 <dd><p>A character to indicate the language of stop words by ISO
 639-1 coding scheme.</p></dd>
+
+
 <dt>keep</dt>
 <dd><p>A logical. Specifies whether to keep the stop words or discard
 them.</p></dd>
+
+
 <dt>stopword_source</dt>
 <dd><p>A character to indicate the stop words source as
 listed in <code><a href="https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html" class="external-link">stopwords::stopwords_getsources</a></code>.</p></dd>
+
+
 <dt>custom_stopword_source</dt>
 <dd><p>A character vector to indicate a custom list of
 words that cater to the users specific problem.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
 when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An updated version of <code>recipe</code> with the new step added
+    
+
+<p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
@@ -137,6 +160,13 @@ these two arguments.</p>
     <p>When you <code><a href="tidy.recipe.html">tidy()</a></code> this step, a tibble with columns <code>terms</code>
 (the selectors or variables selected), <code>value</code> (name of stop word list), and
 <code>keep</code> (whether stop words are removed or kept).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
+    
+
+
+<p>The underlying operation does not allow for case weights.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -177,7 +207,7 @@ these two arguments.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value    keep  id             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium snowball FALSE stopwords_x6PGO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium snowball FALSE stopwords_NKRN0</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># With a custom stop words list</span></span>
 <span class="r-in"></span>
@@ -206,7 +236,7 @@ these two arguments.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

@@ -86,51 +86,76 @@ aggregating the vectors of each token from a pre-trained embedding.</p>
     <dl><dt>recipe</dt>
 <dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>One or more selector functions to choose which
 variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
 for more details.</p></dd>
+
+
 <dt>role</dt>
 <dd><p>For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
 that the new columns created by the original variables will be
 used as predictors in a model.</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for
 preprocessing have been estimated.</p></dd>
+
+
 <dt>columns</dt>
 <dd><p>A character string of variable names that will
 be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
 until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+
+
 <dt>embeddings</dt>
 <dd><p>A tibble of pre-trained word embeddings, such as those
 returned by the embedding_glove function from the textdata package. The
 first column should contain tokens, and additional columns should contain
 embeddings vectors.</p></dd>
+
+
 <dt>aggregation</dt>
 <dd><p>A character giving the name of the aggregation function to
 use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".</p></dd>
+
+
 <dt>aggregation_default</dt>
 <dd><p>A numeric denoting the default value for case with
 no words are matched in embedding. Defaults to 0.</p></dd>
+
+
 <dt>prefix</dt>
 <dd><p>A character string that will be the prefix to the
 resulting new variables. See notes below.</p></dd>
+
+
 <dt>keep_original_cols</dt>
 <dd><p>A logical to keep the original variables in the
 output. Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
 when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An updated version of <code>recipe</code> with the new step added
+    
+
+<p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
@@ -154,6 +179,13 @@ tibble (usually something like "d7"). For example, using the default
     <p>When you <code><a href="tidy.recipe.html">tidy()</a></code> this step, a tibble with columns <code>terms</code>
 (the selectors or variables selected), <code>embedding_rows</code> (number of rows in
 embedding), and <code>aggregation</code> (the aggregation method).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
+    
+
+
+<p>The underlying operation does not allow for case weights.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -204,12 +236,12 @@ embedding), and <code>aggregation</code> (the aggregation method).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms embeddings_rows aggregation id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_5euxd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_tlJdQ</span>
 <span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms embeddings_rows aggregation id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_5euxd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_tlJdQ</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -223,7 +255,7 @@ embedding), and <code>aggregation</code> (the aggregation method).</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>
