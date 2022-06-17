@@ -71,6 +71,12 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 (the selectors or variables selected).
 }
 
+\section{Case weights}{
+
+
+The underlying operation does not allow for case weights.
+}
+
 \examples{
 if (requireNamespace("sentencepiece", quietly = TRUE)) {
   library(recipes)

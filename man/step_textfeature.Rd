@@ -78,6 +78,12 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 functions).
 }
 
+\section{Case weights}{
+
+
+The underlying operation does not allow for case weights.
+}
+
 \examples{
 if (requireNamespace("textfeatures", quietly = TRUE)) {
   library(recipes)

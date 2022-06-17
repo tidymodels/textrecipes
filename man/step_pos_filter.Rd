@@ -64,6 +64,12 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 (the selectors or variables selected) and \code{num_topics} (number of topics).
 }
 
+\section{Case weights}{
+
+
+The underlying operation does not allow for case weights.
+}
+
 \examples{
 \dontrun{
 library(recipes)

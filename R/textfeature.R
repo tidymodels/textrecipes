@@ -35,6 +35,8 @@
 #' (the selectors or variables selected) and `functions` (name of feature
 #' functions).
 #'
+#'@template case-weights-not-supported
+#'
 #' @family Steps for Numeric Variables From Characters
 #'   
 #' @examples

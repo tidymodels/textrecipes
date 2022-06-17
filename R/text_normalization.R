@@ -25,6 +25,8 @@
 #' (the selectors or variables selected) and `normalization_form` (type of
 #' normalization).
 #'
+#' @template case-weights-not-supported
+#'
 #' @seealso [step_texthash()] for feature hashing.
 #' @family Steps for Text Normalization
 #'   

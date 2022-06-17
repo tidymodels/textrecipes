@@ -34,11 +34,13 @@
 #' will a higher value of `num_terms` result in a lower chance of collision.
 #'
 #' @template details-prefix
-#'
+#' 
 #' @details # Tidying
 #'
 #'   When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #'   (the selectors or variables selected) and `value` (number of terms).
+#' 
+#'  @template case-weights-not-supported
 #'   
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
 #'   Josh Attenberg (2009).

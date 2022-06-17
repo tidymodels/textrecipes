@@ -39,7 +39,7 @@
 #' will a higher value of `num_terms` result in a lower chance of collision.
 #'
 #' @template details-prefix
-#'
+#' 
 #' @details
 #'
 #' # Tidying
@@ -48,6 +48,8 @@
 #' (the selectors or variables selected), `value` (whether a signed hashing was
 #' performed), `num_terms` (number of terms), and `collapse` (where columns
 #' collapsed).
+#' 
+#' @template case-weights-not-supported
 #' 
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
 #'   Josh Attenberg (2009).

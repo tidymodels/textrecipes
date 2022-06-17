@@ -41,6 +41,8 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected), `vocabulary` (index) and `token` (text
 #' correspoding to the index).
+#' 
+#' @template case-weights-not-supported
 #'
 #' @family Steps for Numeric Variables From Characters
 #'   
