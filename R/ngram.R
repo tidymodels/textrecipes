@@ -126,7 +126,7 @@ prep.step_ngram <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_ngram <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
     ngrammed_tokenlist <- tokenlist_ngram(

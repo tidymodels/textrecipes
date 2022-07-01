@@ -121,6 +121,7 @@ bake.step_clean_levels <- function(object, new_data, ...) {
     # Empty selection
     return(new_data)
   }
+  check_new_data(names(object$clean), object, new_data)
 
   if (!is.null(object$clean)) {
     for (i in names(object$clean)) {

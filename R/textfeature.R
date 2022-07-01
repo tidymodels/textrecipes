@@ -143,7 +143,7 @@ prep.step_textfeature <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_textfeature <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   new_data <- factor_to_text(new_data, col_names)
 

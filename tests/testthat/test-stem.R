@@ -71,6 +71,23 @@ test_that("arguments are passed by options", {
   )
 })
 
+test_that("bake method errors when needed non-standard role columns are missing", {
+  tokenized_test_data <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    prep() %>%
+    bake(new_data = NULL)
+  
+  rec <- recipe(tokenized_test_data) %>%
+    update_role(text, new_role = "predictor") %>%
+    step_stem(text) %>%
+    update_role(text, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
+  
+  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
+               class = "new_data_missing_column")
+})
 
 test_that("printing", {
   rec <- rec %>%

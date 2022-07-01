@@ -33,8 +33,9 @@ install.packages("textrecipes")
 Install the development version from GitHub with:
 
 ``` r
-require("devtools")
-install_github("tidymodels/textrecipes")
+# Or the development version from GitHub:
+# install.packages("devtools")
+devtools::install_github("tidymodels/textrecipes")
 ```
 
 ## Example

@@ -163,6 +163,8 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
 
   col_names <- object$columns
   hash_cols <- col_names
+  
+  check_new_data(col_names, object, new_data)
 
   if (object$collapse) {
     new_name <- paste0(col_names, collapse = "_")

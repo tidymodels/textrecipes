@@ -138,7 +138,7 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_stem <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   stem_fun <- object$custom_stemmer %||%
     SnowballC::wordStem

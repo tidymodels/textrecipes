@@ -129,6 +129,17 @@ test_that("Errors if vocabulary size is set to low.", {
   )
 })
 
+test_that("bake method errors when needed non-standard role columns are missing", {
+  rec <- recipe(~text1, data = test_data) %>%
+    step_tokenize_bpe(text1) %>%
+    update_role(text1, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = test_data, verbose = FALSE)
+  
+  expect_error(bake(trained, new_data = test_data[, -1]),
+               class = "new_data_missing_column")
+})
 
 test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
