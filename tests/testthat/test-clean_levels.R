@@ -66,6 +66,19 @@ test_that("factor input", {
   expect_equal(sum(is.na(cleaned_te$name)), 5)
 })
 
+test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("janitor")
+  rec <- recipe(~name, data = smith_tr) %>%
+    step_clean_levels(name) %>%
+    update_role(name, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = smith_tr, verbose = FALSE)
+  
+  expect_error(bake(trained, new_data = smith_tr[, -1]),
+               class = "new_data_missing_column")
+})
+
 test_that("printing", {
   skip_if_not_installed("janitor")
   rec <- rec %>% step_clean_levels(name)

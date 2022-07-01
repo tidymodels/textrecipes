@@ -36,6 +36,25 @@ test_that("step_lda works with num_topics argument", {
   expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
 })
 
+test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("text2vec")
+  tokenized_test_data <- rec %>%
+    step_tokenize(medium) %>%
+    prep() %>%
+    bake(new_data = NULL)
+  
+  rec <- recipe(tokenized_test_data) %>%
+    update_role(medium, new_role = "predictor") %>%
+    step_lda(medium, num_topics = 10) %>%
+    update_role(medium, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
+  
+  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
+               class = "new_data_missing_column")
+})
+
 test_that("printing", {
   skip_if_not_installed("text2vec")
   rec <- rec %>%

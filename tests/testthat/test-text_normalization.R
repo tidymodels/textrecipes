@@ -2,7 +2,7 @@ library(testthat)
 library(recipes)
 library(tibble)
 
-ex_dat <- data.frame(text = c("sch\U00f6n", "scho\U0308n"))
+ex_dat <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 
 test_that("simple sqrt trans", {
   skip_if_not_installed("stringi")
@@ -17,6 +17,18 @@ test_that("simple sqrt trans", {
   expect_equal(rec_trans$text, factor(exp_res$text))
 })
 
+test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("stringi")
+  rec <- recipe(~text, data = ex_dat) %>%
+    step_text_normalization(text) %>%
+    update_role(text, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = ex_dat, verbose = FALSE)
+  
+  expect_error(bake(trained, new_data = ex_dat[, -1]),
+               class = "new_data_missing_column")
+})
 
 test_that("printing", {
   skip_if_not_installed("stringi")

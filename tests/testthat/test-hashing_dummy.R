@@ -3,6 +3,7 @@ library(recipes)
 data(grants, package = "modeldata")
 
 test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+test_data <- tibble::as_tibble(test_data)
 
 rec <- recipe(~., data = test_data)
 
@@ -78,6 +79,18 @@ test_that("hashing output width changes accordingly with num_terms", {
   expect_true(all(unsigned$dummyhash_sponsor_code_2 == abs(signed$dummyhash_sponsor_code_2)))
   expect_false(all(unsigned$dummyhash_sponsor_code_1 == signed$dummyhash_sponsor_code_1))
   expect_false(all(unsigned$dummyhash_sponsor_code_2 == signed$dummyhash_sponsor_code_2))
+})
+
+test_that("bake method errors when needed non-standard role columns are missing", {
+  rec <- recipe(~sponsor_code, data = test_data) %>%
+    step_dummy_hash(sponsor_code) %>%
+    update_role(sponsor_code, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = test_data, verbose = FALSE)
+  
+  expect_error(bake(trained, new_data = test_data[, -2]),
+               class = "new_data_missing_column")
 })
 
 test_that("printing", {
