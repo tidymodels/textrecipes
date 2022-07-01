@@ -146,7 +146,7 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_texthash <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
     tf_text <- hashing_function(

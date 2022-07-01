@@ -157,7 +157,7 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_sequence_onehot <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(

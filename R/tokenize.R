@@ -308,7 +308,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
     new_data[, col_names[i]] <- tokenizer_fun(

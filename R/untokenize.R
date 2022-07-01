@@ -111,7 +111,7 @@ prep.step_untokenize <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_untokenize <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
     tokens <- get_tokens(new_data[, col_names[i], drop = TRUE])

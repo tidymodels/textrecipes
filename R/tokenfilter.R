@@ -173,7 +173,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_tokenfilter <- function(object, new_data, ...) {
   col_names <- object$columns
-  # for backward compat
+  check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
     if (is.null(object$filter_fun)) {

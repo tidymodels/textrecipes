@@ -149,6 +149,7 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_stopwords <- function(object, new_data, ...) {
   col_names <- object$columns
+  check_new_data(col_names, object, new_data)
 
   stopword_list <- object$custom_stopword_source %||%
     stopwords::stopwords(

@@ -107,8 +107,8 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
   }
 
   col_names <- object$columns
-  # for backward compat
-
+  check_new_data(col_names, object, new_data)
+  
   new_col <- as.list(unname(as.data.frame(new_data[, col_names, drop = FALSE]))) %>%
     map(get_tokens) %>%
     pmap(c)
