@@ -1,8 +1,6 @@
 ## Release Summary
 
-This is the 13th CRAN release of textrecipes.
-
-removes use of okc_text data completely
+This is the 14th CRAN release of textrecipes.
 
 ## R CMD check results
 
