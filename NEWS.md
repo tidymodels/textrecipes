@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 1.0.0
 
 * Indicate which steps support case weights (none), to align documentation with other packages.
 
