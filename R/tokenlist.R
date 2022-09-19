@@ -315,7 +315,7 @@ tokenlist_embedding <- function(x, emb, fun) {
   emb[token_index, -1] %>%
     dplyr::mutate("id" = split_id) %>%
     dplyr::filter(!is.na(token_index)) %>%
-    dplyr::group_by(.data$id, .drop = FALSE) %>%
+    dplyr::group_by(id, .drop = FALSE) %>%
     dplyr::summarise_all(fun, na.rm = TRUE) %>%
-    dplyr::select(-.data$id)
+    dplyr::select(-"id")
 }
