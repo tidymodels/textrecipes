@@ -29,7 +29,7 @@
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @family Steps for Text Cleaning
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("janitor")
 #' library(recipes)
 #' data(airquality)
 #'
@@ -38,15 +38,13 @@
 #'
 #' rec <- recipe(~., data = air_tr)
 #'
-#' if (requireNamespace("janitor", quietly = TRUE)) {
-#'   rec <- rec %>%
-#'     step_clean_names(all_predictors())
-#'   rec <- prep(rec, training = air_tr)
-#'   tidy(rec, number = 1)
+#' rec <- rec %>%
+#'   step_clean_names(all_predictors())
+#' rec <- prep(rec, training = air_tr)
+#' tidy(rec, number = 1)
 #'
-#'   bake(rec, air_tr)
-#'   bake(rec, air_te)
-#' }
+#' bake(rec, air_tr)
+#' bake(rec, air_te)
 #' @export
 step_clean_names <-
   function(recipe,

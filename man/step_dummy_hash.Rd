@@ -107,22 +107,22 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-if (requireNamespace("text2vec", quietly = TRUE)) {
-  library(recipes)
-  library(modeldata)
-  data(grants)
+\dontshow{if (rlang::is_installed("text2vec")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(recipes)
+library(modeldata)
+data(grants)
 
-  grants_rec <- recipe(~sponsor_code, data = grants_other) \%>\%
-    step_dummy_hash(sponsor_code)
+grants_rec <- recipe(~sponsor_code, data = grants_other) \%>\%
+  step_dummy_hash(sponsor_code)
 
-  grants_obj <- grants_rec \%>\%
-    prep()
+grants_obj <- grants_rec \%>\%
+  prep()
 
-  bake(grants_obj, grants_test)
+bake(grants_obj, grants_test)
 
-  tidy(grants_rec, number = 1)
-  tidy(grants_obj, number = 1)
-}
+tidy(grants_rec, number = 1)
+tidy(grants_obj, number = 1)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;

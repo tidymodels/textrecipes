@@ -32,9 +32,7 @@
 #'
 #' @family Steps for Numeric Variables From Tokens
 #'   
-#' @examples
-#' if (requireNamespace("text2vec", quietly = TRUE)) {
-#' \donttest{
+#' @examplesIf rlang::is_installed("text2vec")
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
@@ -73,8 +71,6 @@
 #'   prep() %>%
 #'   bake(new_data = NULL) %>%
 #'   slice(1:2)
-#' }
-#' }
 #' @export
 step_lda <-
   function(recipe,

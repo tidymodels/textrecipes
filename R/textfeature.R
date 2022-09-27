@@ -39,37 +39,35 @@
 #'
 #' @family Steps for Numeric Variables From Characters
 #'   
-#' @examples
-#' if (requireNamespace("textfeatures", quietly = TRUE)) {
-#'   library(recipes)
-#'   library(modeldata)
-#'   data(tate_text)
+#' @examplesIf rlang::is_installed("textfeatures")
+#' library(recipes)
+#' library(modeldata)
+#' data(tate_text)
 #'
-#'   tate_rec <- recipe(~., data = tate_text) %>%
-#'     step_textfeature(medium)
+#' tate_rec <- recipe(~., data = tate_text) %>%
+#'   step_textfeature(medium)
 #'
-#'   tate_obj <- tate_rec %>%
-#'     prep()
+#' tate_obj <- tate_rec %>%
+#'   prep()
 #'
-#'   bake(tate_obj, new_data = NULL) %>%
-#'     slice(1:2)
+#' bake(tate_obj, new_data = NULL) %>%
+#'   slice(1:2)
 #'
-#'   bake(tate_obj, new_data = NULL) %>%
-#'     pull(textfeature_medium_n_words)
+#' bake(tate_obj, new_data = NULL) %>%
+#'   pull(textfeature_medium_n_words)
 #'
-#'   tidy(tate_rec, number = 1)
-#'   tidy(tate_obj, number = 1)
+#' tidy(tate_rec, number = 1)
+#' tidy(tate_obj, number = 1)
 #'
-#'   # Using custom extraction functions
-#'   nchar_round_10 <- function(x) round(nchar(x) / 10) * 10
+#' # Using custom extraction functions
+#' nchar_round_10 <- function(x) round(nchar(x) / 10) * 10
 #'
-#'   recipe(~., data = tate_text) %>%
-#'     step_textfeature(medium,
-#'       extract_functions = list(nchar10 = nchar_round_10)
-#'     ) %>%
-#'     prep() %>%
-#'     bake(new_data = NULL)
-#' }
+#' recipe(~., data = tate_text) %>%
+#'   step_textfeature(medium,
+#'     extract_functions = list(nchar10 = nchar_round_10)
+#'   ) %>%
+#'   prep() %>%
+#'   bake(new_data = NULL)
 #' @export
 step_textfeature <-
   function(recipe,

@@ -63,23 +63,21 @@
 #' @seealso [recipes::step_dummy()]
 #' @family Steps for Numeric Variables From Characters
 #'   
-#' @examples
-#' if (requireNamespace("text2vec", quietly = TRUE)) {
-#'   library(recipes)
-#'   library(modeldata)
-#'   data(grants)
+#' @examplesIf rlang::is_installed("text2vec")
+#' library(recipes)
+#' library(modeldata)
+#' data(grants)
 #'
-#'   grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
-#'     step_dummy_hash(sponsor_code)
+#' grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
+#'   step_dummy_hash(sponsor_code)
 #'
-#'   grants_obj <- grants_rec %>%
-#'     prep()
+#' grants_obj <- grants_rec %>%
+#'   prep()
 #'
-#'   bake(grants_obj, grants_test)
+#' bake(grants_obj, grants_test)
 #'
-#'   tidy(grants_rec, number = 1)
-#'   tidy(grants_obj, number = 1)
-#' }
+#' tidy(grants_rec, number = 1)
+#' tidy(grants_obj, number = 1)
 #' @export
 step_dummy_hash <-
   function(recipe,

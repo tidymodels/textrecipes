@@ -67,27 +67,27 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-if (requireNamespace("stringi", quietly = TRUE)) {
-  library(recipes)
+\dontshow{if (rlang::is_installed("stringi")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(recipes)
 
-  sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
+sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 
-  rec <- recipe(~., data = sample_data) \%>\%
-    step_text_normalization(text)
+rec <- recipe(~., data = sample_data) \%>\%
+  step_text_normalization(text)
 
-  prepped <- rec \%>\%
-    prep()
+prepped <- rec \%>\%
+  prep()
 
-  bake(prepped, new_data = NULL, text) \%>\%
-    slice(1:2)
+bake(prepped, new_data = NULL, text) \%>\%
+  slice(1:2)
 
-  bake(prepped, new_data = NULL) \%>\%
-    slice(2) \%>\%
-    pull(text)
+bake(prepped, new_data = NULL) \%>\%
+  slice(2) \%>\%
+  pull(text)
 
-  tidy(rec, number = 1)
-  tidy(prepped, number = 1)
-}
+tidy(rec, number = 1)
+tidy(prepped, number = 1)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=step_texthash]{step_texthash()}} for feature hashing.

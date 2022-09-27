@@ -94,24 +94,24 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 }
 
 \examples{
-if (requireNamespace("text2vec", quietly = TRUE)) {
-  library(recipes)
-  library(modeldata)
-  data(tate_text)
+\dontshow{if (rlang::is_installed("text2vec")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(recipes)
+library(modeldata)
+data(tate_text)
 
-  tate_rec <- recipe(~., data = tate_text) \%>\%
-    step_tokenize(medium) \%>\%
-    step_tokenfilter(medium, max_tokens = 10) \%>\%
-    step_texthash(medium)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize(medium) \%>\%
+  step_tokenfilter(medium, max_tokens = 10) \%>\%
+  step_texthash(medium)
 
-  tate_obj <- tate_rec \%>\%
-    prep()
+tate_obj <- tate_rec \%>\%
+  prep()
 
-  bake(tate_obj, tate_text)
+bake(tate_obj, tate_text)
 
-  tidy(tate_rec, number = 3)
-  tidy(tate_obj, number = 3)
-}
+tidy(tate_rec, number = 3)
+tidy(tate_obj, number = 3)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
