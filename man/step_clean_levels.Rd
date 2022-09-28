@@ -67,6 +67,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
+\dontshow{if (rlang::is_installed("janitor")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(Smithsonian)
@@ -76,18 +77,17 @@ smith_te <- Smithsonian[16:20, ]
 
 rec <- recipe(~., data = smith_tr)
 
-if (requireNamespace("janitor", quietly = TRUE)) {
-  rec <- rec \%>\%
-    step_clean_levels(name)
-  rec <- prep(rec, training = smith_tr)
+rec <- rec \%>\%
+  step_clean_levels(name)
+rec <- prep(rec, training = smith_tr)
 
-  cleaned <- bake(rec, smith_tr)
+cleaned <- bake(rec, smith_tr)
 
-  tidy(rec, number = 1)
+tidy(rec, number = 1)
 
-  # novel levels are replaced with missing
-  bake(rec, smith_te)
-}
+# novel levels are replaced with missing
+bake(rec, smith_te)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=step_clean_names]{step_clean_names()}}, \code{\link[recipes:step_factor2string]{recipes::step_factor2string()}},

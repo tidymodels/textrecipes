@@ -30,28 +30,26 @@
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'
-#' @examples
-#' if (requireNamespace("wordpiece", quietly = TRUE)) {
-#'   library(recipes)
-#'   library(modeldata)
-#'   data(tate_text)
+#' @examplesIf rlang::is_installed("wordpiece")
+#' library(recipes)
+#' library(modeldata)
+#' data(tate_text)
 #'
-#'   tate_rec <- recipe(~., data = tate_text) %>%
-#'     step_tokenize_wordpiece(medium)
+#' tate_rec <- recipe(~., data = tate_text) %>%
+#'   step_tokenize_wordpiece(medium)
 #'
-#'   tate_obj <- tate_rec %>%
-#'     prep()
+#' tate_obj <- tate_rec %>%
+#'   prep()
 #'
-#'   bake(tate_obj, new_data = NULL, medium) %>%
-#'     slice(1:2)
+#' bake(tate_obj, new_data = NULL, medium) %>%
+#'   slice(1:2)
 #'
-#'   bake(tate_obj, new_data = NULL) %>%
-#'     slice(2) %>%
-#'     pull(medium)
+#' bake(tate_obj, new_data = NULL) %>%
+#'   slice(2) %>%
+#'   pull(medium)
 #'
-#'   tidy(tate_rec, number = 1)
-#'   tidy(tate_obj, number = 1)
-#' }
+#' tidy(tate_rec, number = 1)
+#' tidy(tate_obj, number = 1)
 #' @export
 step_tokenize_wordpiece <-
   function(recipe,

@@ -118,13 +118,11 @@ tokens
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text) \%>\%
   show_tokens(text)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## [[1]]
-## [1] "this"  "is"    "words"
-## 
-## [[2]]
-## [1] "they" "are"  "nice"
+#> [[1]]
+#> [1] "this"  "is"    "words"
+#> 
+#> [[2]]
+#> [1] "they" "are"  "nice"
 }\if{html}{\out{</div>}}
 
 This tokenizer has arguments that change how the tokenization occurs and can
@@ -136,13 +134,11 @@ lowercase
   step_tokenize(text,
                 options = list(lowercase = FALSE)) \%>\%
   show_tokens(text)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## [[1]]
-## [1] "This"  "is"    "words"
-## 
-## [[2]]
-## [1] "They" "are"  "nice"
+#> [[1]]
+#> [1] "This"  "is"    "words"
+#> 
+#> [[2]]
+#> [1] "They" "are"  "nice"
 }\if{html}{\out{</div>}}
 
 We can also stop removing punctuation.
@@ -152,13 +148,11 @@ We can also stop removing punctuation.
                 options = list(strip_punct = FALSE,
                                lowercase = FALSE)) \%>\%
   show_tokens(text)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## [[1]]
-## [1] "This"  "is"    "words"
-## 
-## [[2]]
-## [1] "They" "are"  "nice" "!"
+#> [[1]]
+#> [1] "This"  "is"    "words"
+#> 
+#> [[2]]
+#> [1] "They" "are"  "nice" "!"
 }\if{html}{\out{</div>}}
 
 The tokenizer can be changed by setting a different \code{token}. Here we change
@@ -167,13 +161,11 @@ it to return character tokens.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
   step_tokenize(text, token = "characters") \%>\%
   show_tokens(text)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## [[1]]
-##  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
-## 
-## [[2]]
-##  [1] "t" "h" "e" "y" "a" "r" "e" "n" "i" "c" "e"
+#> [[1]]
+#>  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
+#> 
+#> [[2]]
+#>  [1] "t" "h" "e" "y" "a" "r" "e" "n" "i" "c" "e"
 }\if{html}{\out{</div>}}
 
 It is worth noting that not all these token methods are appropriate but are
@@ -209,12 +201,12 @@ purposes.
   show_tokens(text)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## [[1]]
-##  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"   "d"   "s"  
-## 
-## [[2]]
-##  [1] "_Th" "e"   "y"   "_"   "a"   "r"   "e"   "_"   "n"   "i"   "c"   "e"  
-## [13] "!"
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> [[1]]
+#>  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"   "d"   "s"  
+#> 
+#> [[2]]
+#>  [1] "_Th" "e"   "y"   "_"   "a"   "r"   "e"   "_"   "n"   "i"   "c"   "e"  
+#> [13] "!"
 }\if{html}{\out{</div>}}
 }
 
@@ -243,13 +235,11 @@ recipe(~ text, data = text_tibble) \%>\%
     custom_token = space_tokenizer
   ) \%>\%
   show_tokens(text)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## [[1]]
-## [1] "This"  "is"    "words"
-## 
-## [[2]]
-## [1] "They"  "are"   "nice!"
+#> [[1]]
+#> [1] "This"  "is"    "words"
+#> 
+#> [[2]]
+#> [1] "They"  "are"   "nice!"
 }\if{html}{\out{</div>}}
 }
 }

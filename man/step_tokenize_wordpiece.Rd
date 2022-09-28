@@ -71,27 +71,27 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-if (requireNamespace("wordpiece", quietly = TRUE)) {
-  library(recipes)
-  library(modeldata)
-  data(tate_text)
+\dontshow{if (rlang::is_installed("wordpiece")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(recipes)
+library(modeldata)
+data(tate_text)
 
-  tate_rec <- recipe(~., data = tate_text) \%>\%
-    step_tokenize_wordpiece(medium)
+tate_rec <- recipe(~., data = tate_text) \%>\%
+  step_tokenize_wordpiece(medium)
 
-  tate_obj <- tate_rec \%>\%
-    prep()
+tate_obj <- tate_rec \%>\%
+  prep()
 
-  bake(tate_obj, new_data = NULL, medium) \%>\%
-    slice(1:2)
+bake(tate_obj, new_data = NULL, medium) \%>\%
+  slice(1:2)
 
-  bake(tate_obj, new_data = NULL) \%>\%
-    slice(2) \%>\%
-    pull(medium)
+bake(tate_obj, new_data = NULL) \%>\%
+  slice(2) \%>\%
+  pull(medium)
 
-  tidy(tate_rec, number = 1)
-  tidy(tate_obj, number = 1)
-}
+tidy(tate_rec, number = 1)
+tidy(tate_obj, number = 1)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.

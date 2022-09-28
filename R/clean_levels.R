@@ -35,7 +35,7 @@
 #'   [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @family Steps for Text Cleaning
 #'   
-#' @examples
+#' @examplesIf rlang::is_installed("janitor")
 #' library(recipes)
 #' library(modeldata)
 #' data(Smithsonian)
@@ -45,18 +45,16 @@
 #'
 #' rec <- recipe(~., data = smith_tr)
 #'
-#' if (requireNamespace("janitor", quietly = TRUE)) {
-#'   rec <- rec %>%
-#'     step_clean_levels(name)
-#'   rec <- prep(rec, training = smith_tr)
+#' rec <- rec %>%
+#'   step_clean_levels(name)
+#' rec <- prep(rec, training = smith_tr)
 #'
-#'   cleaned <- bake(rec, smith_tr)
+#' cleaned <- bake(rec, smith_tr)
 #'
-#'   tidy(rec, number = 1)
+#' tidy(rec, number = 1)
 #'
-#'   # novel levels are replaced with missing
-#'   bake(rec, smith_te)
-#' }
+#' # novel levels are replaced with missing
+#' bake(rec, smith_te)
 #' @export
 step_clean_levels <-
   function(recipe,
