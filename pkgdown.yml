@@ -1,11 +1,11 @@
 pandoc: 2.14.2
-pkgdown: 2.0.5
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   Working-with-n-grams: Working-with-n-grams.html
   cookbook---using-more-complex-recipes-involving-text: cookbook---using-more-complex-recipes-involving-text.html
   tokenlist: tokenlist.html
-last_built: 2022-07-02T18:18Z
+last_built: 2022-10-06T03:57Z
 urls:
   reference: https://textrecipes.tidymodels.org/reference
   article: https://textrecipes.tidymodels.org/articles
