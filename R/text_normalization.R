@@ -1,7 +1,7 @@
 #' Normalization of Character Variables
 #'
 #' `step_text_normalization` creates a *specification* of a recipe step that
-#' will perform Unicode Normalization on chracter variables.
+#' will perform Unicode Normalization on character variables.
 #'
 #' @template args-recipe
 #' @template args-dots
