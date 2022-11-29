@@ -23,7 +23,6 @@ Imports:
     magrittr,
     Matrix,
     purrr,
-    Rcpp,
     rlang,
     SnowballC,
     tibble,
@@ -47,7 +46,7 @@ Suggests:
     udpipe,
     wordpiece
 LinkingTo: 
-    Rcpp
+    cpp11
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate, reticulate
@@ -55,5 +54,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1.9000
-SystemRequirements: GNU make, C++11
+RoxygenNote: 7.2.2
+SystemRequirements: c("GNU make", "C++11"), C++11
