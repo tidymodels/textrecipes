@@ -126,20 +126,20 @@
 
     Code
       tokenlist_ngram(tokenlist(data), 0, 3, " ")
-    Error <Rcpp::exception>
-      'n' must be a positive integer.
+    Error <simpleError>
+      n must be a positive integer.
 
 ---
 
     Code
       tokenlist_ngram(tokenlist(data), 3, 0, " ")
-    Error <Rcpp::exception>
-      'n_min' must be a positive integer.
+    Error <simpleError>
+      n_min must be a positive integer.
 
 ---
 
     Code
       tokenlist_ngram(tokenlist(data), 1, 2, " ")
-    Error <Rcpp::exception>
-      'n_min' must be larger then 'n'.
+    Error <simpleError>
+      n_min must be larger then n.
 

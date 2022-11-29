@@ -6,12 +6,12 @@ test_data <- list(
 
 test_that("ngram works with varrying number of `n`", {
   expect_equal(
-    rcpp_ngram(test_data, n = 1L, n_min = 1, delim = "_"),
+    cpp11_ngram(test_data, n = 1L, n_min = 1, delim = "_"),
     test_data
   )
 
   expect_equal(
-    rcpp_ngram(test_data, n = 2L, n_min = 2L, delim = "_"),
+    cpp11_ngram(test_data, n = 2L, n_min = 2L, delim = "_"),
     list(
       c("not_eat", "eat_them", "them_here", "here_or", "or_there."),
       c("not_eat", "eat_them", "them_anywhere.")
@@ -19,7 +19,7 @@ test_that("ngram works with varrying number of `n`", {
   )
 
   expect_equal(
-    rcpp_ngram(test_data, n = 3L, n_min = 3L, delim = "_"),
+    cpp11_ngram(test_data, n = 3L, n_min = 3L, delim = "_"),
     list(
       c("not_eat_them", "eat_them_here", "them_here_or", "here_or_there."),
       c("not_eat_them", "eat_them_anywhere.")
@@ -27,11 +27,11 @@ test_that("ngram works with varrying number of `n`", {
   )
 
   expect_snapshot(error = TRUE,
-    rcpp_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
+    cpp11_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
   )
 
   expect_snapshot(error = TRUE,
-    rcpp_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
+    cpp11_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
   )
 })
 
@@ -45,12 +45,12 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 
   expect_equal(
-    rcpp_ngram(tknlist, 1, 1, " "),
+    cpp11_ngram(tknlist, 1, 1, " "),
     tknlist
   )
 
   expect_equal(
-    rcpp_ngram(tknlist, 2, 2, " "),
+    cpp11_ngram(tknlist, 2, 2, " "),
     list(
       c("a b", "b c", "c d", "d e"),
       c("a b"),
@@ -60,7 +60,7 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 
   expect_equal(
-    rcpp_ngram(tknlist, 3, 3, " "),
+    cpp11_ngram(tknlist, 3, 3, " "),
     list(
       c("a b c", "b c d", "c d e"),
       character(0),
@@ -70,7 +70,7 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 
   expect_equal(
-    rcpp_ngram(tknlist, 2, 1, " "),
+    cpp11_ngram(tknlist, 2, 1, " "),
     list(
       c("a", "b", "c", "d", "e", "a b", "b c", "c d", "d e"),
       c("a", "b", "a b"),
@@ -80,7 +80,7 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 
   expect_equal(
-    rcpp_ngram(tknlist, 3, 1, " "),
+    cpp11_ngram(tknlist, 3, 1, " "),
     list(
       c("a", "b", "c", "d", "e", "a b", "b c", "c d", "d e", "a b c", "b c d", "c d e"),
       c("a", "b", "a b"),
@@ -90,7 +90,7 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 
   expect_equal(
-    rcpp_ngram(tknlist, 3, 2, " "),
+    cpp11_ngram(tknlist, 3, 2, " "),
     list(
       c("a b", "b c", "c d", "d e", "a b c", "b c d", "c d e"),
       c("a b"),
@@ -103,7 +103,7 @@ test_that("tokenlist_ngram works with n_min and n", {
 
 test_that("ngram works with delim", {
   expect_equal(
-    rcpp_ngram(test_data, n = 3L, n_min = 3L, delim = ""),
+    cpp11_ngram(test_data, n = 3L, n_min = 3L, delim = ""),
     list(
       c("noteatthem", "eatthemhere", "themhereor", "hereorthere."),
       c("noteatthem", "eatthemanywhere.")
@@ -111,7 +111,7 @@ test_that("ngram works with delim", {
   )
 
   expect_equal(
-    rcpp_ngram(test_data, n = 3L, n_min = 3L, delim = " "),
+    cpp11_ngram(test_data, n = 3L, n_min = 3L, delim = " "),
     list(
       c("not eat them", "eat them here", "them here or", "here or there."),
       c("not eat them", "eat them anywhere.")
@@ -121,17 +121,17 @@ test_that("ngram works with delim", {
 
 test_that("ngram returns length zero vectors when length(x) < n", {
   expect_equal(
-    rcpp_ngram(list(c("a", "b")), n = 3L, n_min = 3L, delim = "_"),
+    cpp11_ngram(list(c("a", "b")), n = 3L, n_min = 3L, delim = "_"),
     list(character())
   )
 
   expect_equal(
-    rcpp_ngram(list(c("a")), n = 3L, n_min = 3L, delim = "_"),
+    cpp11_ngram(list(c("a")), n = 3L, n_min = 3L, delim = "_"),
     list(character())
   )
 
   expect_equal(
-    rcpp_ngram(list(character()), n = 3L, n_min = 3L, delim = "_"),
+    cpp11_ngram(list(character()), n = 3L, n_min = 3L, delim = "_"),
     list(character())
   )
 })
