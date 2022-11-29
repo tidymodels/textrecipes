@@ -22,7 +22,7 @@ test_that("hashing gives double outputs", {
   expect_true(
     bake(obj, new_data = NULL) %>%
       select(contains("hash")) %>%
-      lapply(is.double) %>%
+      lapply(is.integer) %>%
       unlist() %>%
       all()
   )
