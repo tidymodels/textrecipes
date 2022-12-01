@@ -136,3 +136,9 @@ tidy.step_clean_names <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_clean_names <- function(x, ...) {
+  c("textrecipes", "janitor")
+}

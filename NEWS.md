@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* All steps now have `required_pkgs()` methods.
+
 # textrecipes 1.0.1
 
 * Examples no longer include `if (require(...))` code.
