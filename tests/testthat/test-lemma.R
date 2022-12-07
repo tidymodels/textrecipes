@@ -48,26 +48,6 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
   )
 })
 
-test_that("bake method errors when needed non-standard role columns are missing", {
-  skip_on_cran()
-  skip_if_no_python_or_no_spacy()
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text, engine = "spacyr") %>%
-    prep() %>%
-    bake(new_data = NULL)
-  
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_lemma(text) %>%
-    update_role(text, new_role = "potato") %>%
-    update_role_requirements(role = "potato", bake = FALSE)
-  
-  trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
-})
-
 test_that("printing", {
   skip_on_cran()
   skip_if_no_python_or_no_spacy()

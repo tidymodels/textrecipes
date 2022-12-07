@@ -2,6 +2,8 @@
 
 * `step_sequence_onehot()`, `step_dummy_hash()`, `step_dummy_texthash()` now return integers. `step_tf()` returns integer when `weight_scheme` is `"binary"` or `"raw count"`.
 
+* All steps now have `required_pkgs()` methods.
+
 # textrecipes 1.0.1
 
 * Examples no longer include `if (require(...))` code.

@@ -13,7 +13,6 @@
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_lgl
 #' @importFrom purrr pmap
-#' @importFrom Rcpp sourceCpp
 #' @importFrom recipes add_step
 #' @importFrom recipes bake
 #' @importFrom recipes check_new_data

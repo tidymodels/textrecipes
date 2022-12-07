@@ -219,7 +219,7 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
   apply_expr <- expr(lapply(tokens, fun))
 
   if (length(arguments) > 0) {
-    apply_expr <- mod_call_args(apply_expr, args = arguments)
+    apply_expr <- rlang::call_modify(apply_expr, !!!arguments)
   }
 
   tokenlist(eval(apply_expr))
@@ -297,7 +297,7 @@ tokenlist_ngram <- function(x, n, n_min, delim) {
     rlang::abort("Input must be a tokenlist.")
   }
 
-  tokenlist(rcpp_ngram(get_tokens(x), n, n_min, delim))
+  tokenlist(cpp11_ngram(get_tokens(x), n, n_min, delim))
 }
 
 tokenlist_embedding <- function(x, emb, fun) {

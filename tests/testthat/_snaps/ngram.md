@@ -1,16 +1,16 @@
 # ngram works with varrying number of `n`
 
     Code
-      rcpp_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
-    Error <Rcpp::exception>
-      'n' must be a positive integer.
+      cpp11_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
+    Error <simpleError>
+      n must be a positive integer.
 
 ---
 
     Code
-      rcpp_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
-    Error <Rcpp::exception>
-      'n' must be a positive integer.
+      cpp11_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
+    Error <simpleError>
+      n must be a positive integer.
 
 # printing
 
