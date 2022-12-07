@@ -297,7 +297,7 @@ tokenlist_ngram <- function(x, n, n_min, delim) {
     rlang::abort("Input must be a tokenlist.")
   }
 
-  tokenlist(rcpp_ngram(get_tokens(x), n, n_min, delim))
+  tokenlist(cpp11_ngram(get_tokens(x), n, n_min, delim))
 }
 
 tokenlist_embedding <- function(x, emb, fun) {
