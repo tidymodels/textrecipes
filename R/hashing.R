@@ -157,7 +157,8 @@ bake.step_texthash <- function(object, new_data, ...) {
       object$signed,
       object$num_terms
     )
-
+    
+    tf_text <- purrr::map_dfc(tf_text, as.integer)
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <- 

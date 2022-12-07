@@ -235,7 +235,7 @@ string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
   vocabulary <- char_key(vocabulary)
   x <- get_tokens(x)
 
-  res <- matrix(NA, nrow = length(x), ncol = sequence_length)
+  res <- matrix(NA_integer_, nrow = length(x), ncol = sequence_length)
 
   for (i in seq_along(x)) {
     len_x <- length(x[[i]])
@@ -266,7 +266,7 @@ string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
     vocabulary[match(res, names(vocabulary))],
     nrow = length(x), ncol = sequence_length
   )
-  res[is.na(res)] <- 0
+  res[is.na(res)] <- 0L
   res
 }
 

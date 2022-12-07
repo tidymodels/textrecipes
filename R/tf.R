@@ -193,6 +193,10 @@ bake.step_tf <- function(object, new_data, ...) {
       object$weight
     )
 
+    if (object$weight_scheme %in% c("binary", "raw count")) {
+      tf_text <- purrr::map_dfc(tf_text, as.integer)
+    }
+    
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <- 

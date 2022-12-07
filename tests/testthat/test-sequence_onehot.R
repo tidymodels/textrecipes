@@ -23,7 +23,7 @@ test_that("sequence encoding is done correctly", {
 
   expect_equal(dim(juiced_data), c(nrow(test_data), 10))
 
-  expect_true(all(vapply(juiced_data, function(x) all(is.numeric(x)),
+  expect_true(all(vapply(juiced_data, function(x) all(is.integer(x)),
     FUN.VALUE = logical(1)
   )))
 

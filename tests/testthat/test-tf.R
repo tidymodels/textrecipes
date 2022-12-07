@@ -20,32 +20,32 @@ test_that("step_tf works as intended", {
 
   rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
   manual_answer <- unname(data.frame(
-    am = c(0, 0, 0, 1),
-    and = c(0, 0, 1, 0),
-    anywhere = c(0, 1, 0, 0),
-    do = c(0, 0, 0, 1),
-    eat = c(1, 1, 1, 0),
-    eggs = c(0, 0, 1, 0),
-    green = c(0, 0, 1, 0),
-    ham = c(0, 0, 1, 0),
-    here = c(1, 0, 0, 0),
-    i = c(1, 1, 1, 2),
-    like = c(0, 0, 0, 1),
-    not = c(1, 1, 1, 1),
-    or = c(1, 0, 0, 0),
-    sam = c(0, 0, 0, 1),
-    them = c(1, 1, 0, 1),
-    there = c(1, 0, 0, 0),
-    would = c(1, 1, 1, 0)
+    am = c(0L, 0L, 0L, 1L),
+    and = c(0L, 0L, 1L, 0L),
+    anywhere = c(0L, 1L, 0L, 0L),
+    do = c(0L, 0L, 0L, 1L),
+    eat = c(1L, 1L, 1L, 0L),
+    eggs = c(0L, 0L, 1L, 0L),
+    green = c(0L, 0L, 1L, 0L),
+    ham = c(0L, 0L, 1L, 0L),
+    here = c(1L, 0L, 0L, 0L),
+    i = c(1L, 1L, 1L, 2L),
+    like = c(0L, 0L, 0L, 1L),
+    not = c(1L, 1L, 1L, 1L),
+    or = c(1L, 0L, 0L, 0L),
+    sam = c(0L, 0L, 0L, 1L),
+    them = c(1L, 1L, 0L, 1L),
+    there = c(1L, 0L, 0L, 0L),
+    would = c(1L, 1L, 1L, 0L)
   ))
 
-  expect_equal(
+  expect_identical(
     as.matrix(rec_answer),
     as.matrix(manual_answer)
   )
 
-  expect_equal(dim(tidy(rec, 2)), c(1, 3))
-  expect_equal(dim(tidy(obj, 2)), c(1, 3))
+  expect_identical(dim(tidy(rec, 2)), c(1L, 3L))
+  expect_identical(dim(tidy(obj, 2)), c(1L, 3L))
 })
 
 test_that("step_tf works with vocabulary argument", {
@@ -92,7 +92,7 @@ test_that("step_tf works with other weighting schemes", {
     would = c(1 / 8, 1 / 6, 1 / 8, 0 / 8)
   ))
 
-  expect_equal(
+  expect_identical(
     as.matrix(rec_answer),
     as.matrix(manual_answer)
   )
@@ -150,7 +150,7 @@ test_that("keep_original_cols works", {
   
   koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
   
-  expect_equal(
+  expect_identical(
     colnames(koc_pred),
     c("text", "tf_text_am", "tf_text_and", "tf_text_anywhere", "tf_text_do", 
       "tf_text_eat", "tf_text_eggs", "tf_text_green", "tf_text_ham", 
