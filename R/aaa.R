@@ -10,21 +10,6 @@ factor_to_text <- function(data, names) {
   data
 }
 
-## This function takes the default arguments of `cl` (call object) and replaces
-## them with the matching ones in `options` and remove any in `removals`
-mod_call_args <- function(cl, args, removals = NULL) {
-  if (!is.null(removals)) {
-    for (i in removals) {
-      cl[[i]] <- NULL
-    }
-  }
-  arg_names <- names(args)
-  for (i in arg_names) {
-    cl[[i]] <- args[[i]]
-  }
-  cl
-}
-
 check_list <- function(dat) {
   all_good <- vapply(dat, is.list, logical(1))
 
