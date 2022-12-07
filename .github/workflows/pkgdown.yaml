@@ -37,8 +37,8 @@ jobs:
         run: |
           Rscript -e "reticulate::install_miniconda()"
           echo "options(reticulate.conda_binary = reticulate:::miniconda_conda())" >> .Rprofile
-          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
-          Rscript -e "spacyr::spacy_install(prompt = FALSE)"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.10.0')"
+          Rscript -e "spacyr::spacy_install(prompt = FALSE, python_version = "3.10.0")"
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
