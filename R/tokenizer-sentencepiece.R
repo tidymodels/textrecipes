@@ -21,7 +21,7 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
   )
 
   if (length(options) > 0) {
-    token_expr <- mod_call_args(token_expr, args = options)
+    token_expr <- rlang::call_modify(token_expr, !!!options)
   }
 
   model <- eval(token_expr)

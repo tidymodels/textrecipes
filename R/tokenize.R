@@ -362,7 +362,7 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   )
 
   if (length(options) > 0) {
-    token_expr <- mod_call_args(token_expr, args = options)
+    token_expr <- rlang::call_modify(token_expr, !!!options)
   }
 
   token_list <- eval(token_expr)
