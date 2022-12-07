@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.4/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.4/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Cookbook - Using more complex recipes involving text">
@@ -84,9 +84,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Cookbook - Using more complex recipes involving text</h1>
-                        <h4 data-toc-skip class="author">Emil Hvitfeldt</h4>
+                        <h4 data-toc-skip class="author">Emil
+Hvitfeldt</h4>
             
-            <h4 data-toc-skip class="date">2022-10-06</h4>
+            <h4 data-toc-skip class="date">2022-12-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd" class="external-link"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="d-none name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -94,8 +95,17 @@
 
     
     
-<p>Working to get textual data converted into numerical can be done in many different ways. The steps included in <code>textrecipes</code> should hopefully give you the flexibility to perform most of your desired text preprocessing tasks. This vignette will showcase examples that combine multiple steps.</p>
-<p>This vignette will not do any modeling with the processed text as its purpose it to showcase the flexibility and modularity. Therefore the only packages needed will be <code>recipes</code> and <code>textrecipes</code>. Examples will be performed on the <code>tate_text</code> data-set which is packaged with <code>modeldata</code>.</p>
+<p>Working to get textual data converted into numerical can be done in
+many different ways. The steps included in <code>textrecipes</code>
+should hopefully give you the flexibility to perform most of your
+desired text preprocessing tasks. This vignette will showcase examples
+that combine multiple steps.</p>
+<p>This vignette will not do any modeling with the processed text as its
+purpose it to showcase the flexibility and modularity. Therefore the
+only packages needed will be <code>recipes</code> and
+<code>textrecipes</code>. Examples will be performed on the
+<code>tate_text</code> data-set which is packaged with
+<code>modeldata</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes" class="external-link">textrecipes</a></span><span class="op">)</span></span>
@@ -104,7 +114,10 @@
 <div class="section level2">
 <h2 id="counting-select-words">Counting select words<a class="anchor" aria-label="anchor" href="#counting-select-words"></a>
 </h2>
-<p>Sometimes it is enough to know the counts of a handful of specific words. This can be easily be achieved by using the arguments <code>custom_stopword_source</code> and <code>keep = TRUE</code> in <code>step_stopwords</code>.</p>
+<p>Sometimes it is enough to know the counts of a handful of specific
+words. This can be easily be achieved by using the arguments
+<code>custom_stopword_source</code> and <code>keep = TRUE</code> in
+<code>step_stopwords</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"or"</span>, <span class="st">"and"</span>, <span class="st">"on"</span><span class="op">)</span></span>
 <span></span>
@@ -136,7 +149,10 @@
 <div class="section level2">
 <h2 id="removing-words-in-addition-to-the-stop-words-list">Removing words in addition to the stop words list<a class="anchor" aria-label="anchor" href="#removing-words-in-addition-to-the-stop-words-list"></a>
 </h2>
-<p>You might know of certain words you don’t want included which isn’t a part of the stop word list of choice. This can easily be done by applying the <code>step_stopwords</code> step twice, once for the stop words and once for your special words.</p>
+<p>You might know of certain words you don’t want included which isn’t a
+part of the stop word list of choice. This can easily be done by
+applying the <code>step_stopwords</code> step twice, once for the stop
+words and once for your special words.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stopwords_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"was"</span>, <span class="st">"she's"</span>, <span class="st">"who"</span>, <span class="st">"had"</span>, <span class="st">"some"</span>, <span class="st">"same"</span>, <span class="st">"you"</span>, <span class="st">"most"</span>, </span>
 <span>                    <span class="st">"it's"</span>, <span class="st">"they"</span>, <span class="st">"for"</span>, <span class="st">"i'll"</span>, <span class="st">"which"</span>, <span class="st">"shan't"</span>, <span class="st">"we're"</span>, </span>
@@ -179,7 +195,10 @@
 <div class="section level2">
 <h2 id="letter-distributions">Letter distributions<a class="anchor" aria-label="anchor" href="#letter-distributions"></a>
 </h2>
-<p>Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the <code>step_stopwords</code> step.</p>
+<p>Another thing one might want to look at is the use of different
+letters in a certain text. For this we can use the built-in character
+tokenizer and keep only the characters using the
+<code>step_stopwords</code> step.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">medium</span>, token <span class="op">=</span> <span class="st">"characters"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -215,8 +234,16 @@
 <div class="section level2">
 <h2 id="tf-idf-of-ngrams-of-stemmed-tokens">TF-IDF of ngrams of stemmed tokens<a class="anchor" aria-label="anchor" href="#tf-idf-of-ngrams-of-stemmed-tokens"></a>
 </h2>
-<p>Sometimes fairly complicated computations. Here we would like the term frequency inverse document frequency (TF-IDF) of the most common 500 ngrams done on stemmed tokens. It is quite a handful and would seldom be included as a option in most other libraries. But the modularity of <code>textrecipes</code> makes this task fairly easy.</p>
-<p>First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using <code>step_untokenize</code> so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.</p>
+<p>Sometimes fairly complicated computations. Here we would like the
+term frequency inverse document frequency (TF-IDF) of the most common
+500 ngrams done on stemmed tokens. It is quite a handful and would
+seldom be included as a option in most other libraries. But the
+modularity of <code>textrecipes</code> makes this task fairly easy.</p>
+<p>First we will tokenize according to words, then stemming those words.
+We will then paste together the stemmed tokens using
+<code>step_untokenize</code> so we are back at string that we then
+tokenize again but this time using the ngram tokenizers. Lastly just
+filtering and tfidf as usual.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">medium</span>, token <span class="op">=</span> <span class="st">"words"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
