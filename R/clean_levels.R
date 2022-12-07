@@ -160,3 +160,9 @@ tidy.step_clean_levels <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_clean_levels <- function(x, ...) {
+  c("textrecipes", "janitor")
+}

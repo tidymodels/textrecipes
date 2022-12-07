@@ -267,3 +267,9 @@ tidy.step_word_embeddings <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+#' @rdname required_pkgs.step
+#' @export
+required_pkgs.step_word_embeddings <- function(x, ...) {
+  "textrecipes"
+}
