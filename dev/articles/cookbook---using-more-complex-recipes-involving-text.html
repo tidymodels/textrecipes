@@ -133,7 +133,7 @@ words. This can be easily be achieved by using the arguments
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tf_medium"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,284 × 3</span></span></span>
 <span><span class="co">#&gt;    tf_medium_and tf_medium_on tf_medium_or</span></span>
-<span><span class="co">#&gt;            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt;            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>             1            0            1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>             0            1            0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>             0            1            0</span></span>
@@ -212,7 +212,7 @@ tokenizer and keep only the characters using the
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tf_medium"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,284 × 26</span></span></span>
 <span><span class="co">#&gt;    tf_me…¹ tf_me…² tf_me…³ tf_me…⁴ tf_me…⁵ tf_me…⁶ tf_me…⁷ tf_me…⁸ tf_me…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       1       0       2       3       4       0       0       0       3</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       1       0       1       0       2       0       1       1       1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       1       0       1       0       2       0       1       1       1</span></span>
@@ -223,13 +223,13 @@ tokenizer and keep only the characters using the
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       1       0       1       1       1       0       0       0       0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       5       0       1       1       0       0       0       0       2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       1       0       0       0       1       0       0       0       1</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,274 more rows, 17 more variables: tf_medium_j &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_k &lt;dbl&gt;, tf_medium_l &lt;dbl&gt;, tf_medium_m &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_n &lt;dbl&gt;, tf_medium_o &lt;dbl&gt;, tf_medium_p &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_q &lt;dbl&gt;, tf_medium_r &lt;dbl&gt;, tf_medium_s &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_t &lt;dbl&gt;, tf_medium_u &lt;dbl&gt;, tf_medium_v &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_w &lt;dbl&gt;, tf_medium_x &lt;dbl&gt;, tf_medium_y &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_z &lt;dbl&gt;, and abbreviated variable names ¹​tf_medium_a, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,274 more rows, 17 more variables: tf_medium_j &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_k &lt;int&gt;, tf_medium_l &lt;int&gt;, tf_medium_m &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_n &lt;int&gt;, tf_medium_o &lt;int&gt;, tf_medium_p &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_q &lt;int&gt;, tf_medium_r &lt;int&gt;, tf_medium_s &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_t &lt;int&gt;, tf_medium_u &lt;int&gt;, tf_medium_v &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_w &lt;int&gt;, tf_medium_x &lt;int&gt;, tf_medium_y &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_z &lt;int&gt;, and abbreviated variable names ¹​tf_medium_a, …</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tf-idf-of-ngrams-of-stemmed-tokens">TF-IDF of ngrams of stemmed tokens<a class="anchor" aria-label="anchor" href="#tf-idf-of-ngrams-of-stemmed-tokens"></a>
