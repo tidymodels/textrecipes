@@ -20,7 +20,7 @@ test_that("output is not a list", {
   obj <- rec %>%
     prep()
 
-  expect_true(is.factor(juice(obj, a)[, 1, drop = TRUE]))
+  expect_true(is.factor(bake(obj, new_data = NULL, a)[, 1, drop = TRUE]))
 
   expect_equal(dim(tidy(rec, 2)), c(1, 3))
   expect_equal(dim(tidy(obj, 2)), c(1, 3))

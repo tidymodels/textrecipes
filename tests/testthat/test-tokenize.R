@@ -17,7 +17,7 @@ test_that("output is list when length is 1 or 0", {
     step_tokenize(a) %>%
     prep()
 
-  expect_true(is.list(juice(data_rec, a)[, 1, drop = TRUE]))
+  expect_true(is.list(bake(data_rec, new_data = NULL, a)[, 1, drop = TRUE]))
 })
 
 test_that("tokenization is done correctly", {
