@@ -26,7 +26,7 @@ test_that("merging is done correctly", {
   obj <- rec %>%
     prep()
 
-  juiced_data <- bake(obj, new_data = NULL)
+  baked_data <- bake(obj, new_data = NULL)
 
   rec2 <- recipe(~., data = test_data) %>%
     step_tokenize(text1, text2) %>%
@@ -34,7 +34,7 @@ test_that("merging is done correctly", {
     bake(new_data = NULL)
 
   expect_equal(
-    lengths(vctrs::field(juiced_data$tokenmerge, "tokens")),
+    lengths(vctrs::field(baked_data$tokenmerge, "tokens")),
     lengths(vctrs::field(rec2$text1, "tokens")) +
       lengths(vctrs::field(rec2$text2, "tokens"))
   )

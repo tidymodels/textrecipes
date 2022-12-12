@@ -30,19 +30,19 @@ rec <- rec_base %>%
 obj <- rec %>%
   prep()
 
-juiced <- bake(obj, new_data = NULL)
+baked <- bake(obj, new_data = NULL)
 
 test_that("step_word_embeddings adds the appropriate number of columns.", {
   ncol_given <- ncol(embeddings) - 1L
-  ncol_juiced <- juiced %>%
+  ncol_baked <- baked %>%
     select(contains("wordembed_")) %>%
     ncol()
-  expect_identical(ncol_juiced, ncol_given)
+  expect_identical(ncol_baked, ncol_given)
 })
 
 test_that("step_word_embeddings gives numeric output.", {
   expect_true(
-    juiced %>%
+    baked %>%
       select(contains("wordembed")) %>%
       lapply(is.numeric) %>%
       unlist() %>%
@@ -69,13 +69,13 @@ test_that("step_word_embeddings tidy method works.", {
 test_that("step_word_embeddings aggregates vectors as expected.", {
   # By default, step_word_embeddings sums the vectors of the tokens it is given.
   expect_equal(
-    as.data.frame(juiced),
+    as.data.frame(baked),
     as.data.frame(select(sentence_embeddings_sum, -text)),
     tolerance = eps
   )
 
   # Also allow the user to choose an aggregation function.
-  juiced_max <- rec_base %>%
+  baked_max <- rec_base %>%
     step_tokenize(text) %>%
     step_word_embeddings(
       text,
@@ -85,12 +85,12 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     bake(new_data = NULL)
 
   expect_equal(
-    as.data.frame(juiced_max),
+    as.data.frame(baked_max),
     as.data.frame(select(sentence_embeddings_max, -text)),
     tolerance = eps
   )
 
-  juiced_min <- rec_base %>%
+  baked_min <- rec_base %>%
     step_tokenize(text) %>%
     step_word_embeddings(
       text,
@@ -100,12 +100,12 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     bake(new_data = NULL)
 
   expect_equal(
-    as.data.frame(juiced_min),
+    as.data.frame(baked_min),
     as.data.frame(select(sentence_embeddings_min, -text)),
     tolerance = eps
   )
 
-  juiced_mean <- rec_base %>%
+  baked_mean <- rec_base %>%
     step_tokenize(text) %>%
     step_word_embeddings(
       text,
@@ -115,7 +115,7 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     bake(new_data = NULL)
 
   expect_equal(
-    as.data.frame(juiced_mean),
+    as.data.frame(baked_mean),
     as.data.frame(select(sentence_embeddings_mean, -text)),
     tolerance = eps
   )

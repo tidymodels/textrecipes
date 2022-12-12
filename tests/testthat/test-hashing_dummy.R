@@ -31,7 +31,7 @@ test_that("hashing multiple factors", {
   res <- rec %>%
     step_dummy_hash(all_nominal_predictors(), num_terms = 12) %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
 
   expect_equal(ncol(res), 24)
   expect_equal(sum(grepl("contract", names(res))), 12)
@@ -42,7 +42,7 @@ test_that("hashing collapsed multiple factors", {
   res <- rec %>%
     step_dummy_hash(all_nominal_predictors(), num_terms = 4, collapse = TRUE) %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
 
   expect_equal(ncol(res), 4)
   expect_equal(mean(grepl("contract_value_band_sponsor", names(res))), 1)

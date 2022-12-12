@@ -19,11 +19,11 @@ test_that("textfeature extraction is done correctly", {
   obj <- rec %>%
     prep()
 
-  juiced_data <- bake(obj, new_data = NULL)
+  baked_data <- bake(obj, new_data = NULL)
 
-  expect_equal(dim(juiced_data), c(nrow(test_data), length(count_functions)))
+  expect_equal(dim(baked_data), c(nrow(test_data), length(count_functions)))
 
-  expect_true(all(vapply(juiced_data, function(x) all(is.numeric(x)),
+  expect_true(all(vapply(baked_data, function(x) all(is.numeric(x)),
     FUN.VALUE = logical(1)
   )))
 
