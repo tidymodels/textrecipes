@@ -161,6 +161,7 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
 
   col_names <- object$columns
   hash_cols <- col_names
+  hash_cols <- unname(hash_cols)
   
   check_new_data(col_names, object, new_data)
 
