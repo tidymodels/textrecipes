@@ -105,7 +105,6 @@ the tokenizers package.
 \item "lines"
 \item "paragraphs"
 \item "regex"
-\item "tweets"
 \item "ptb" (Penn Treebank)
 \item "skip_ngrams"
 \item "word_stems"
