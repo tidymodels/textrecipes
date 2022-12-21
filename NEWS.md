@@ -1,4 +1,4 @@
-# textrecipes (development version)
+# textrecipes 1.0.2
 
 * Setting `token = "tweets"` in `step_tokenize()` have been deprecated due to `tokenizers::tokenize_tweets()` being deprecated. (#209)
 
