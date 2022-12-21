@@ -68,7 +68,6 @@
 #' * "lines"
 #' * "paragraphs"
 #' * "regex"
-#' * "tweets"
 #' * "ptb" (Penn Treebank)
 #' * "skip_ngrams"
 #' * "word_stems"
@@ -382,7 +381,7 @@ tokenizer_switch <- function(name, object, data) {
       c(
         "characters", "character_shingle", "lines", "ngrams",
         "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
-        "tweets", "words", "word_stems"
+        "words", "word_stems"
       )
     
     check_possible_tokenizers(name, possible_tokenizers)
@@ -397,7 +396,6 @@ tokenizer_switch <- function(name, object, data) {
       regex = tokenizers::tokenize_regex,
       sentences = tokenizers::tokenize_sentences,
       skip_ngrams = tokenizers::tokenize_skip_ngrams,
-      tweets = tokenizers::tokenize_tweets,
       words = tokenizers::tokenize_words,
       word_stems = tokenizers::tokenize_word_stems
     )

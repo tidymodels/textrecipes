@@ -1,8 +1,8 @@
 ## Release Summary
 
-This is the 15th CRAN release of textrecipes. 
+This is the 16th CRAN release of textrecipes. 
 
-Minor change due to contact from tidyselect authors to avoid errors in next version of tidyselect.
+Minor change due to contact from tokenizers authors regarding deprecation of `tokenize_tweets()`
 
 ## R CMD check results
 
