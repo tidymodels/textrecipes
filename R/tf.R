@@ -193,10 +193,10 @@ bake.step_tf <- function(object, new_data, ...) {
       object$weight
     )
 
-    if (object$weight_scheme %in% c("binary", "raw count")) {
-      tf_text <- purrr::map_dfc(tf_text, as.integer)
-    }
-    
+    # if (object$weight_scheme %in% c("binary", "raw count")) {
+    #   tf_text <- purrr::map_dfc(tf_text, as.integer)
+    # }
+    # 
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <- 
@@ -237,10 +237,24 @@ tidy.step_tf <- function(x, ...) {
 }
 
 tf_function <- function(data, names, labels, weights, weight) {
-  counts <- as.matrix(tokenlist_to_dtm(data, names))
+  # counts <- as.matrix(tokenlist_to_dtm(data, names))
+  
+  tokens <- get_tokens(data)
+  data_len <- length(data)
+  dict <- get_unique_tokens(data)
+  i <- rep(seq_along(tokens), lengths(tokens))
+  j <- match(unlist(tokens), dict)
+  
+  tf <- split(i, factor(j, levels = seq_along(dict)))
 
-  tf <- tf_weight(counts, weights, weight)
-  colnames(tf) <- paste0(labels, "_", names)
+  tf <- lapply(tf, function(x) {
+    positions <- x
+    values <- rep(1, length(positions))
+    sparsevctrs:::new_sparse_vector(values, positions, data_len)
+  })
+  
+  # tf <- tf_weight(counts, weights, weight)
+  names(tf) <- paste0(labels, "_", names)
   as_tibble(tf)
 }
 
