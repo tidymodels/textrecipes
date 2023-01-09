@@ -10,7 +10,6 @@ Description: Converting text to numerical features requires specifically
     counting (tf and tfidf) and feature hashing.
 License: MIT + file LICENSE
 URL: https://github.com/tidymodels/textrecipes,
-    https://textrecipes.tidymodels.org,
     https://textrecipes.tidymodels.org/
 BugReports: https://github.com/tidymodels/textrecipes/issues
 Depends: 
