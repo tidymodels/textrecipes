@@ -103,7 +103,7 @@ prep.step_tokenize_wordpiece <- function(x, training, info = NULL, ...) {
   
   training <- factor_to_text(training, col_names)
   
-  check_type(training[, col_names], quant = FALSE)
+  check_type(training[, col_names], types = c("string", "factor", "ordered"))
   
   step_tokenize_wordpiece_new(
     terms = x$terms,
