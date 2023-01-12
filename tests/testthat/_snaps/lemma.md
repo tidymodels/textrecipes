@@ -2,8 +2,10 @@
 
     Code
       prep(rec)
-    Error <rlang_error>
-      `text` doesn't have a lemma attribute. Make sure the tokenization step includes lemmatization.
+    Error <recipes_error_step>
+      
+      Caused by error in `bake()`:
+      ! `text` doesn't have a lemma attribute. Make sure the tokenization step includes lemmatization.
 
 # printing
 

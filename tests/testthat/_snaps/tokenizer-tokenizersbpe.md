@@ -17,6 +17,8 @@
     Code
       recipe(~text, data = tibble(text = "hello")) %>% step_tokenize(text, engine = "tokenizers.bpe",
         training_options = list(vocab_size = 2)) %>% prep()
-    Error <rlang_error>
-      `vocabulary_size` of 2 is too small for column `text` which has a unique character count of 4
+    Error <recipes_error_step>
+      
+      Caused by error in `prep()`:
+      ! `vocabulary_size` of 2 is too small for column `text` which has a unique character count of 4
 

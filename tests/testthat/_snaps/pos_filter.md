@@ -2,8 +2,10 @@
 
     Code
       prep(rec)
-    Error <rlang_error>
-      `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
+    Error <recipes_error_step>
+      
+      Caused by error in `bake()`:
+      ! `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
 
 # printing
 

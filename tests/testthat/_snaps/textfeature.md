@@ -2,8 +2,10 @@
 
     Code
       rec %>% step_textfeature(text, extract_functions = list(as.character)) %>% prep()
-    Error <vctrs_error_subscript_oob>
-      Can't subset columns that don't exist.
+    Error <recipes_error_step>
+      
+      Caused by error in `prep()`:
+      ! Can't subset columns that don't exist.
       x Column `text` doesn't exist.
 
 ---
@@ -11,8 +13,10 @@
     Code
       rec %>% step_textfeature(text, extract_functions = list(function(x) 1)) %>%
         prep()
-    Error <vctrs_error_subscript_oob>
-      Can't subset columns that don't exist.
+    Error <recipes_error_step>
+      
+      Caused by error in `prep()`:
+      ! Can't subset columns that don't exist.
       x Column `text` doesn't exist.
 
 # printing

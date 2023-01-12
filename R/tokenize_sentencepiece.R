@@ -142,7 +142,10 @@ prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
   )
 }
 
-check_sentencepiece_vocab_size <- function(text, vocabulary_size, column) {
+check_sentencepiece_vocab_size <- function(text, 
+                                           vocabulary_size,
+                                           column,
+                                           call = caller_env()) {
   text_count <- strsplit(as.character(text), "")
   text_count <- unlist(text_count)
   text_count <- unique(text_count)
@@ -153,7 +156,8 @@ check_sentencepiece_vocab_size <- function(text, vocabulary_size, column) {
       glue(
         "`vocabulary_size` of {vocabulary_size} is too small for column ",
         "`{column}` which has a unique character count of {text_count}."
-      )
+      ),
+      call = call
     )
   }
 }
