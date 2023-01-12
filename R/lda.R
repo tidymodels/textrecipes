@@ -127,7 +127,7 @@ prep.step_lda <- function(x, training, info = NULL, ...) {
 
   check_lda_character(training[, col_names])
 
-  check_list(training[, col_names])
+  check_type(training[, col_names], types = "tokenlist")
 
   model_list <- list()
 

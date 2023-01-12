@@ -125,7 +125,7 @@ step_texthash_new <-
 prep.step_texthash <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_list(training[, col_names])
+  check_type(training[, col_names], types = "tokenlist")
 
   step_texthash_new(
     terms = x$terms,

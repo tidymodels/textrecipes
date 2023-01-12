@@ -86,7 +86,7 @@ step_tokenmerge_new <-
 prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_list(training[, col_names])
+  check_type(training[, col_names], types = "tokenlist")
 
   step_tokenmerge_new(
     terms = x$terms,
