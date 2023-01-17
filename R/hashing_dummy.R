@@ -135,7 +135,7 @@ step_dummy_hash_new <-
 prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  recipes::check_type(training[, col_names], quant = FALSE)
+  check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   step_dummy_hash_new(
     terms = x$terms,

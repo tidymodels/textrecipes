@@ -104,7 +104,7 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
 
   training <- factor_to_text(training, col_names)
 
-  check_type(training[, col_names], quant = FALSE)
+  check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   tokenizers <- list()
 
@@ -137,7 +137,10 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   )
 }
 
-check_bpe_vocab_size <- function(text, vocabulary_size, column) {
+check_bpe_vocab_size <- function(text, 
+                                 vocabulary_size,
+                                 column, 
+                                 call = caller_env()) {
   text_count <- strsplit(as.character(text), "")
   text_count <- unlist(text_count)
   text_count <- unique(text_count)
@@ -148,7 +151,8 @@ check_bpe_vocab_size <- function(text, vocabulary_size, column) {
       glue(
         "`vocabulary_size` of {vocabulary_size} is too small for column ",
         "`{column}` which has a unique character count of {text_count}",
-      )
+      ),
+      call = call
     )
   }
 }

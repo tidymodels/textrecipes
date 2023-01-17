@@ -157,7 +157,7 @@ step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
 prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_list(training[, col_names])
+  check_type(training[, col_names], types = "tokenlist")
 
   step_word_embeddings_new(
     terms = x$terms,

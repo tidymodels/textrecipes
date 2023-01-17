@@ -3,8 +3,10 @@
     Code
       recipe(~text1, data = test_data) %>% step_tokenize_sentencepiece(text1,
         vocabulary_size = 10) %>% prep()
-    Error <rlang_error>
-      `vocabulary_size` of 10 is too small for column `text1` which has a unique character count of 23.
+    Error <recipes_error_step>
+      
+      Caused by error in `prep()`:
+      ! `vocabulary_size` of 10 is too small for column `text1` which has a unique character count of 23.
 
 # printing
 

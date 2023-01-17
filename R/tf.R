@@ -154,7 +154,7 @@ step_tf_new <-
 prep.step_tf <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_list(training[, col_names])
+  check_type(training[, col_names], types = "tokenlist")
 
   token_list <- list()
 

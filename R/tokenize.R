@@ -275,7 +275,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 
   training <- factor_to_text(training, col_names)
 
-  check_type(training[, col_names], quant = FALSE)
+  check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   tokenizers <- list()
 
@@ -375,7 +375,7 @@ tokenizer_fun <- function(data, name, options, token, ...) {
   out
 }
 
-tokenizer_switch <- function(name, object, data) {
+tokenizer_switch <- function(name, object, data, call = caller_env()) {
   if (object$engine == "tokenizers") {
     possible_tokenizers <-
       c(
@@ -441,7 +441,7 @@ tokenizer_switch <- function(name, object, data) {
     return(res)
   }
 
-  rlang::abort("`engine` argument is not valid.")
+  rlang::abort("`engine` argument is not valid.", call = call)
 }
 
 #' @rdname required_pkgs.step

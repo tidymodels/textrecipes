@@ -121,7 +121,7 @@ prep.step_textfeature <- function(x, training, info = NULL, ...) {
 
   training <- factor_to_text(training, col_names)
 
-  check_type(training[, col_names], quant = FALSE)
+  check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   purrr::walk(x$extract_functions, validate_string2num)
 

@@ -93,7 +93,8 @@ step_clean_levels_new <-
 #' @export
 prep.step_clean_levels <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  check_type(training[, col_names], quant = FALSE)
+  
+  check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   if (length(col_names) > 0) {
     orig <- purrr::map(training[, col_names], levels)

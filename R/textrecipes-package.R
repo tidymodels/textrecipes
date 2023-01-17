@@ -29,6 +29,7 @@
 #' @importFrom rlang :=
 #' @importFrom rlang .data
 #' @importFrom rlang %||%
+#' @importFrom rlang caller_env
 #' @importFrom rlang enquos
 #' @importFrom rlang expr
 #' @importFrom rlang na_chr

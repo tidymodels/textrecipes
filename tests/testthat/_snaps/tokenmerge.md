@@ -2,8 +2,10 @@
 
     Code
       prep(rec)
-    Error <rlang_error>
-      All columns selected for this step should be tokenlists
+    Error <recipes_error_step>
+      
+      Caused by error in `prep()`:
+      ! All columns selected for the step should be tokenlist.
 
 # printing
 
