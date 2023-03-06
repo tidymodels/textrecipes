@@ -3,7 +3,7 @@
     Code
       rec %>% step_tokenize(text, token = "wrong") %>% prep()
     Error <recipes_error_step>
-      
+      Error in `step_tokenize()`:
       Caused by error in `prep()`:
       ! token should be one of the supported: characters, character_shingle, lines, ngrams, paragraphs, ptb, regex, sentences, skip_ngrams, words, or word_stems
 
@@ -12,7 +12,7 @@
     Code
       rec %>% step_tokenize(text, engine = "fake") %>% prep()
     Error <recipes_error_step>
-      
+      Error in `step_tokenize()`:
       Caused by error in `prep()`:
       ! `engine` argument is not valid.
 
@@ -20,69 +20,67 @@
 
     Code
       print(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          1
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
       
-      Operations:
-      
-      Tokenization for text
+      -- Operations 
+      * Tokenization for: text
 
 ---
 
     Code
       prep(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          1
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
       
-      Training data contained 4 data points and no missing data.
+      -- Training information 
+      Training data contained 4 data points and no incomplete rows.
       
-      Operations:
-      
-      Tokenization for text [trained]
+      -- Operations 
+      * Tokenization for: text | Trained
 
 # empty printing
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Operations:
-      
-      Tokenization for <none>
+      -- Operations 
+      * Tokenization for: <none>
 
 ---
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Training data contained 32 data points and no missing data.
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
       
-      Operations:
-      
-      Tokenization for <none> [trained]
+      -- Operations 
+      * Tokenization for: <none> | Trained
 

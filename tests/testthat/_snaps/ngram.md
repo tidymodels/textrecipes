@@ -16,71 +16,69 @@
 
     Code
       print(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          1
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
       
-      Operations:
-      
-      Tokenization for text
-      ngramming for text
+      -- Operations 
+      * Tokenization for: text
+      * ngramming for: text
 
 ---
 
     Code
       prep(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          1
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
       
-      Training data contained 2 data points and no missing data.
+      -- Training information 
+      Training data contained 2 data points and no incomplete rows.
       
-      Operations:
-      
-      Tokenization for text [trained]
-      ngramming for text [trained]
+      -- Operations 
+      * Tokenization for: text | Trained
+      * ngramming for: text | Trained
 
 # empty printing
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Operations:
-      
-      ngramming for <none>
+      -- Operations 
+      * ngramming for: <none>
 
 ---
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Training data contained 32 data points and no missing data.
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
       
-      Operations:
-      
-      ngramming for <none> [trained]
+      -- Operations 
+      * ngramming for: <none> | Trained
 

@@ -3,7 +3,7 @@
     Code
       prep(rec)
     Error <recipes_error_step>
-      
+      Error in `step_pos_filter()`:
       Caused by error in `bake()`:
       ! `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
 
@@ -11,71 +11,69 @@
 
     Code
       print(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          1
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
       
-      Operations:
-      
-      Tokenization for all_predictors()
-      Part of speech filtering for all_predictors()
+      -- Operations 
+      * Tokenization for: all_predictors()
+      * Part of speech filtering for: all_predictors()
 
 ---
 
     Code
       prep(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          1
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
       
-      Training data contained 4 data points and no missing data.
+      -- Training information 
+      Training data contained 4 data points and no incomplete rows.
       
-      Operations:
-      
-      Tokenization for text [trained]
-      Part of speech filtering for text [trained]
+      -- Operations 
+      * Tokenization for: text | Trained
+      * Part of speech filtering for: text | Trained
 
 # empty printing
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Operations:
-      
-      Part of speech filtering for <none>
+      -- Operations 
+      * Part of speech filtering for: <none>
 
 ---
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Training data contained 32 data points and no missing data.
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
       
-      Operations:
-      
-      Part of speech filtering for <none> [trained]
+      -- Operations 
+      * Part of speech filtering for: <none> | Trained
 
