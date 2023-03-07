@@ -2,69 +2,67 @@
 
     Code
       print(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          6
+      -- Inputs 
+      Number of variables by role
+      predictor: 6
       
-      Operations:
-      
-      Cleaning variable names for all_predictors()
+      -- Operations 
+      * Cleaning variable names for: all_predictors()
 
 ---
 
     Code
       prep(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          6
+      -- Inputs 
+      Number of variables by role
+      predictor: 6
       
-      Training data contained 20 data points and 4 incomplete rows. 
+      -- Training information 
+      Training data contained 20 data points and 4 incomplete rows.
       
-      Operations:
-      
-      Cleaning variable names for Ozone, Solar.R, Wind, Temp, Month, Day [trained]
+      -- Operations 
+      * Cleaning variable names for: Ozone, Solar.R, Wind, Temp, Month, Day | Trained
 
 # empty printing
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Operations:
-      
-      Cleaning variable names for <none>
+      -- Operations 
+      * Cleaning variable names for: <none>
 
 ---
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Training data contained 32 data points and no missing data.
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
       
-      Operations:
-      
-      Cleaning variable names for <none> [trained]
+      -- Operations 
+      * Cleaning variable names for: <none> | Trained
 

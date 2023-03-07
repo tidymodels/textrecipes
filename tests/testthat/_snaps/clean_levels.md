@@ -2,69 +2,67 @@
 
     Code
       print(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          3
+      -- Inputs 
+      Number of variables by role
+      predictor: 3
       
-      Operations:
-      
-      Cleaning factor levels for name
+      -- Operations 
+      * Cleaning factor levels for: name
 
 ---
 
     Code
       prep(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          3
+      -- Inputs 
+      Number of variables by role
+      predictor: 3
       
-      Training data contained 15 data points and no missing data.
+      -- Training information 
+      Training data contained 15 data points and no incomplete rows.
       
-      Operations:
-      
-      Cleaning factor levels for name [trained]
+      -- Operations 
+      * Cleaning factor levels for: name | Trained
 
 # empty printing
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Operations:
-      
-      Cleaning factor levels for <none>
+      -- Operations 
+      * Cleaning factor levels for: <none>
 
 ---
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Training data contained 32 data points and no missing data.
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
       
-      Operations:
-      
-      Cleaning factor levels for <none> [trained]
+      -- Operations 
+      * Cleaning factor levels for: <none> | Trained
 

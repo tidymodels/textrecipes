@@ -2,37 +2,36 @@
 
     Code
       print(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          2
+      -- Inputs 
+      Number of variables by role
+      predictor: 2
       
-      Operations:
-      
-      Tokenization for medium
-      Text feature extraction for medium
+      -- Operations 
+      * Tokenization for: medium
+      * Text feature extraction for: medium
 
 ---
 
     Code
       prep(rec)
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-       predictor          2
+      -- Inputs 
+      Number of variables by role
+      predictor: 2
       
-      Training data contained 100 data points and no missing data.
+      -- Training information 
+      Training data contained 100 data points and no incomplete rows.
       
-      Operations:
-      
-      Tokenization for medium [trained]
-      Text feature extraction for medium [trained]
+      -- Operations 
+      * Tokenization for: medium | Trained
+      * Text feature extraction for: medium | Trained
 
 # can prep recipes with no keep_original_cols
 
@@ -46,35 +45,34 @@
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Operations:
-      
-      Text feature extraction for <none>
+      -- Operations 
+      * Text feature extraction for: <none>
 
 ---
 
     Code
       rec
-    Output
-      Recipe
+    Message <cliMessage>
       
-      Inputs:
+      -- Recipe ----------------------------------------------------------------------
       
-            role #variables
-         outcome          1
-       predictor         10
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
       
-      Training data contained 32 data points and no missing data.
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
       
-      Operations:
-      
-      Text feature extraction for <none> [trained]
+      -- Operations 
+      * Text feature extraction for: <none> | Trained
 
