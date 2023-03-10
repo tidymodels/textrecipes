@@ -235,7 +235,7 @@ tokenlist_to_dtm <- function(x, dict) {
   i <- rep(seq_along(tokens), lengths(tokens))
   j <- match(unlist(tokens), dict)
 
-  out <- sparseMatrix(
+  out <- Matrix::sparseMatrix(
     i = i[!is.na(j)],
     j = j[!is.na(j)],
     dims = c(length(tokens), length(dict)),
