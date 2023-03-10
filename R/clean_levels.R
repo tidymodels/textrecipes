@@ -27,14 +27,14 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected), `original` (the original levels) and
 #' `value` (the cleaned levels) is returned.
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_clean_names()], [recipes::step_factor2string()],
 #'   [recipes::step_string2factor()], [recipes::step_regex()],
 #'   [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @family Steps for Text Cleaning
-#'   
+#'
 #' @examplesIf rlang::is_installed("janitor")
 #' library(recipes)
 #' library(modeldata)
@@ -93,7 +93,7 @@ step_clean_levels_new <-
 #' @export
 prep.step_clean_levels <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  
+
   check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   if (length(col_names) > 0) {

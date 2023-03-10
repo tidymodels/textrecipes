@@ -49,13 +49,15 @@ test_that("custom extraction functions work works", {
 
   expect_equal(dim(bake(obj, new_data = NULL)), c(nrow(test_data), 3))
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     rec %>%
       step_textfeature(text, extract_functions = list(as.character)) %>%
       prep()
   )
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     rec %>%
       step_textfeature(
         text,
@@ -70,11 +72,13 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_textfeature(text) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
@@ -87,13 +91,15 @@ test_that("printing", {
 
 test_that("keep_original_cols works", {
   koc_rec <- rec %>%
-    step_textfeature(text, extract_functions = list(nchar = nchar),
-                     keep_original_cols = TRUE)
-  
+    step_textfeature(text,
+      extract_functions = list(nchar = nchar),
+      keep_original_cols = TRUE
+    )
+
   koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  
+
   koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-  
+
   expect_equal(
     colnames(koc_pred),
     c(
@@ -105,13 +111,13 @@ test_that("keep_original_cols works", {
 test_that("can prep recipes with no keep_original_cols", {
   koc_rec <- rec %>%
     step_textfeature(text, keep_original_cols = TRUE)
-  
+
   koc_rec$steps[[1]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
   )
-  
+
   expect_error(
     pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
     NA

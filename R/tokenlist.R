@@ -8,7 +8,7 @@
 #' @param pos List of character vectors, must be same size and shape as `x`.
 #'
 #' @return a [tokenlist] object.
-#'   
+#'
 #' @examples
 #' abc <- list(letters, LETTERS)
 #' tokenlist(abc)
@@ -114,7 +114,6 @@ vec_restore.textrecipes_tokenlist <- function(x, to, ...,
   )
 }
 
-
 # Printing --------------------------------------------------------------------
 #' @export
 format.textrecipes_tokenlist <- function(x, ...) {
@@ -209,7 +208,6 @@ tokenlist_filter_function <- function(x, fn) {
   tokenlist(out, lemma = lemma, pos = pos)
 }
 
-
 tokenlist_apply <- function(x, fun, arguments = NULL) {
   if (!is_tokenlist(x)) {
     rlang::abort("Input must be a tokenlist.")
@@ -235,7 +233,7 @@ tokenlist_to_dtm <- function(x, dict) {
   i <- rep(seq_along(tokens), lengths(tokens))
   j <- match(unlist(tokens), dict)
 
-  out <- sparseMatrix(
+  out <- Matrix::sparseMatrix(
     i = i[!is.na(j)],
     j = j[!is.na(j)],
     dims = c(length(tokens), length(dict)),
@@ -311,7 +309,7 @@ tokenlist_embedding <- function(x, emb, fun) {
   split_id <- factor(i[keep_id], seq_x)
 
   token_index <- match(unlisted_tokens, emb[[1]])
-  
+
   emb[token_index, -1] %>%
     dplyr::mutate("id" = split_id) %>%
     dplyr::filter(!is.na(token_index)) %>%

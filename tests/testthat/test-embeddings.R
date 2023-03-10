@@ -50,7 +50,6 @@ test_that("step_word_embeddings gives numeric output.", {
   )
 })
 
-
 # Run the tests. ----------------------------------------------------------
 
 test_that("step_word_embeddings tidy method works.", {
@@ -151,17 +150,19 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_word_embeddings(text, embeddings = embeddings) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = tokenized_test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
@@ -284,17 +285,19 @@ test_that("aggregation_default argument works", {
 test_that("keep_original_cols works", {
   koc_rec <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
-    step_word_embeddings(text, embeddings = embeddings, aggregation = "mean", 
-                         keep_original_cols = TRUE)
-  
+    step_word_embeddings(text,
+      embeddings = embeddings, aggregation = "mean",
+      keep_original_cols = TRUE
+    )
+
   koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  
+
   koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-  
+
   expect_equal(
     colnames(koc_pred),
     c(
-      "text", "wordembed_text_d1", "wordembed_text_d2", "wordembed_text_d3", 
+      "text", "wordembed_text_d1", "wordembed_text_d2", "wordembed_text_d3",
       "wordembed_text_d4", "wordembed_text_d5"
     )
   )
@@ -303,15 +306,17 @@ test_that("keep_original_cols works", {
 test_that("can prep recipes with no keep_original_cols", {
   koc_rec <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
-    step_word_embeddings(text, embeddings = embeddings, aggregation = "mean", 
-                         keep_original_cols = TRUE)
-  
+    step_word_embeddings(text,
+      embeddings = embeddings, aggregation = "mean",
+      keep_original_cols = TRUE
+    )
+
   koc_rec$steps[[2]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
   )
-  
+
   expect_error(
     pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
     NA

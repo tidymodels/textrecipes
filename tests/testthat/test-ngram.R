@@ -1,4 +1,3 @@
-
 test_data <- list(
   c("not", "eat", "them", "here", "or", "there."),
   c("not", "eat", "them", "anywhere.")
@@ -26,15 +25,16 @@ test_that("ngram works with varrying number of `n`", {
     )
   )
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     cpp11_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
   )
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     cpp11_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
   )
 })
-
 
 test_that("tokenlist_ngram works with n_min and n", {
   tknlist <- list(
@@ -100,7 +100,6 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 })
 
-
 test_that("ngram works with delim", {
   expect_equal(
     cpp11_ngram(test_data, n = 3L, n_min = 3L, delim = ""),
@@ -135,7 +134,6 @@ test_that("ngram returns length zero vectors when length(x) < n", {
     list(character())
   )
 })
-
 
 library(recipes)
 library(textrecipes)
@@ -242,17 +240,19 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_ngram(text) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = tokenized_test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {

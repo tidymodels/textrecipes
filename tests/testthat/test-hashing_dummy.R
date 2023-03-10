@@ -86,11 +86,13 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_dummy_hash(sponsor_code) %>%
     update_role(sponsor_code, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = test_data[, -2]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = test_data[, -2]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
@@ -104,15 +106,15 @@ test_that("printing", {
 test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_dummy_hash(sponsor_code, num_terms = 4, keep_original_cols = TRUE)
-  
+
   koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  
+
   koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-  
+
   expect_equal(
     colnames(koc_pred),
     c(
-      "dummyhash_sponsor_code_1", "dummyhash_sponsor_code_2", "dummyhash_sponsor_code_3", 
+      "dummyhash_sponsor_code_1", "dummyhash_sponsor_code_2", "dummyhash_sponsor_code_3",
       "dummyhash_sponsor_code_4", "contract_value_band", "sponsor_code"
     )
   )
@@ -121,13 +123,13 @@ test_that("keep_original_cols works", {
 test_that("can prep recipes with no keep_original_cols", {
   koc_rec <- rec %>%
     step_dummy_hash(sponsor_code, keep_original_cols = TRUE)
-  
+
   koc_rec$steps[[1]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
   )
-  
+
   expect_error(
     pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
     NA

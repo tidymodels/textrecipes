@@ -3,7 +3,7 @@
 #' `all_tokenized()` selects all [`token`][tokenlist()] variables,
 #' `all_tokenized_predictors()` selects all predictor [`token`][tokenlist()]
 #' variables.
-#' 
+#'
 #' @seealso [recipes::has_role()]
 #' @export
 all_tokenized <- function() {

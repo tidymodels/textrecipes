@@ -69,7 +69,6 @@ test_that("output is list when length is 1 or 0", {
   expect_true(is.list(bake(data_rec, new_data = NULL, a)[, 1, drop = TRUE]))
 })
 
-
 test_that("step_tokenize_bpe works", {
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize_bpe(text1) %>%
@@ -122,7 +121,8 @@ test_that("arguments are passed to tokenizers.bpe", {
 })
 
 test_that("Errors if vocabulary size is set to low.", {
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     recipe(~text1, data = test_data) %>%
       step_tokenize_bpe(text1, vocabulary_size = 10) %>%
       prep()
@@ -134,11 +134,13 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize_bpe(text1) %>%
     update_role(text1, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {

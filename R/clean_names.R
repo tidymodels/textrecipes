@@ -16,14 +16,14 @@
 #' @template returns
 #'
 #' @details
-#' 
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the new clean variable names) and `value` (the original variable names).
-#' 
+#'
 #' @template case-weights-not-supported
-#' 
+#'
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],
 #'  [recipes::step_string2factor()], [recipes::step_regex()],
 #'  [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
@@ -109,7 +109,6 @@ bake.step_clean_names <- function(object, new_data, ...) {
 
   new_data
 }
-
 
 #' @export
 print.step_clean_names <-

@@ -41,11 +41,11 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected), `vocabulary` (index) and `token` (text
 #' correspoding to the index).
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @family Steps for Numeric Variables From Characters
-#'   
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -177,7 +177,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
 
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
-      new_data <- 
+      new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
 

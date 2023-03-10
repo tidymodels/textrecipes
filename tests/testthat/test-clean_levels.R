@@ -72,11 +72,13 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_clean_levels(name) %>%
     update_role(name, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = smith_tr, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = smith_tr[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = smith_tr[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {

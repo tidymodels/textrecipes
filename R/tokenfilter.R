@@ -46,12 +46,12 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `value` (number of unique tokens).
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
-#'   
+#'
 #' @examples
 #' library(recipes)
 #' library(modeldata)
@@ -241,9 +241,10 @@ tokenfilter_fun <- function(data, max_times, min_times, max_tokens,
     if (max_tokens > sum(ids)) {
       rlang::warn(
         glue(
-        "max_tokens was set to '{max_tokens}', ",
-        "but only {sum(ids)} was available and selected."
-      ))
+          "max_tokens was set to '{max_tokens}', ",
+          "but only {sum(ids)} was available and selected."
+        )
+      )
       max_tokens <- sum(ids)
     }
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_tokens)])

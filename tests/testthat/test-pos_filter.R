@@ -89,7 +89,8 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
     step_tokenize(all_predictors()) %>%
     step_pos_filter(all_predictors())
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     prep(rec)
   )
 })

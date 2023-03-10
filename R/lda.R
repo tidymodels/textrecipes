@@ -23,7 +23,7 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `num_topics` (number of topics).
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @source \url{https://arxiv.org/abs/1301.3781}
@@ -31,7 +31,7 @@
 #' @template returns
 #'
 #' @family Steps for Numeric Variables From Tokens
-#'   
+#'
 #' @examplesIf rlang::is_installed("text2vec")
 #' library(recipes)
 #' library(modeldata)
@@ -175,7 +175,7 @@ bake.step_lda <- function(object, new_data, ...) {
 
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
-      new_data <- 
+      new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
   }

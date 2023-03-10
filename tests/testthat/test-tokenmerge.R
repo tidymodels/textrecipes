@@ -47,27 +47,29 @@ test_that("it complains when the selected column isn't a tokenlist", {
   rec <- rec %>%
     step_tokenmerge(text1, text2)
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     prep(rec)
   )
 })
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text1 + text2, data = test_data) %>%
+  tokenized_test_data <- recipe(~ text1 + text2, data = test_data) %>%
     step_tokenize(text1, text2) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text1, text2, new_role = "predictor") %>%
     step_tokenmerge(text1, text2) %>%
     update_role(text1, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
+
   expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {

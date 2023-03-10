@@ -29,7 +29,7 @@
 #'
 #' @seealso [step_texthash()] for feature hashing.
 #' @family Steps for Text Normalization
-#'   
+#'
 #' @examplesIf rlang::is_installed("stringi")
 #' library(recipes)
 #'
@@ -167,7 +167,6 @@ tidy.step_text_normalization <- function(x, ...) {
   res$id <- x$id
   res
 }
-
 
 #' @rdname required_pkgs.step
 #' @export

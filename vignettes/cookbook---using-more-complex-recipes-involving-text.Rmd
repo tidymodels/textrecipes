@@ -34,14 +34,14 @@ Sometimes it is enough to know the counts of a handful of specific words. This c
 ```{r}
 words <- c("or", "and", "on")
 
-okc_rec <- recipe(~ ., data = tate_text) %>%
+okc_rec <- recipe(~., data = tate_text) %>%
   step_tokenize(medium) %>%
-  step_stopwords(medium, custom_stopword_source = words, keep = TRUE) %>% 
+  step_stopwords(medium, custom_stopword_source = words, keep = TRUE) %>%
   step_tf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
-   
+
 bake(okc_obj, tate_text) %>%
   select(starts_with("tf_medium"))
 ```
@@ -51,21 +51,23 @@ bake(okc_obj, tate_text) %>%
 You might know of certain words you don't want included which isn't a part of the stop word list of choice. This can easily be done by applying the `step_stopwords` step twice, once for the stop words and once for your special words.
 
 ```{r}
-stopwords_list <- c("was", "she's", "who", "had", "some", "same", "you", "most", 
-                    "it's", "they", "for", "i'll", "which", "shan't", "we're", 
-                    "such", "more", "with", "there's", "each")
+stopwords_list <- c(
+  "was", "she's", "who", "had", "some", "same", "you", "most",
+  "it's", "they", "for", "i'll", "which", "shan't", "we're",
+  "such", "more", "with", "there's", "each"
+)
 
 words <- c("sad", "happy")
 
-okc_rec <- recipe(~ ., data = tate_text) %>%
+okc_rec <- recipe(~., data = tate_text) %>%
   step_tokenize(medium) %>%
-  step_stopwords(medium, custom_stopword_source = stopwords_list) %>% 
-  step_stopwords(medium, custom_stopword_source = words) %>% 
+  step_stopwords(medium, custom_stopword_source = stopwords_list) %>%
+  step_stopwords(medium, custom_stopword_source = words) %>%
   step_tfidf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
-   
+
 bake(okc_obj, tate_text) %>%
   select(starts_with("tfidf_medium"))
 ```
@@ -75,14 +77,14 @@ bake(okc_obj, tate_text) %>%
 Another thing one might want to look at is the use of different letters in a certain text. For this we can use the built-in character tokenizer and keep only the characters using the `step_stopwords` step.
 
 ```{r}
-okc_rec <- recipe(~ ., data = tate_text) %>%
+okc_rec <- recipe(~., data = tate_text) %>%
   step_tokenize(medium, token = "characters") %>%
   step_stopwords(medium, custom_stopword_source = letters, keep = TRUE) %>%
   step_tf(medium)
 
 okc_obj <- okc_rec %>%
   prep()
-   
+
 bake(okc_obj, tate_text) %>%
   select(starts_with("tf_medium"))
 ```
@@ -94,7 +96,7 @@ Sometimes fairly complicated computations. Here we would like the term frequency
 First we will tokenize according to words, then stemming those words. We will then paste together the stemmed tokens using `step_untokenize` so we are back at string that we then tokenize again but this time using the ngram tokenizers. Lastly just filtering and tfidf as usual.
 
 ```{r}
-okc_rec <- recipe(~ ., data = tate_text) %>%
+okc_rec <- recipe(~., data = tate_text) %>%
   step_tokenize(medium, token = "words") %>%
   step_stem(medium) %>%
   step_untokenize(medium) %>%
@@ -104,7 +106,7 @@ okc_rec <- recipe(~ ., data = tate_text) %>%
 
 okc_obj <- okc_rec %>%
   prep()
-   
+
 bake(okc_obj, tate_text) %>%
   select(starts_with("tfidf_medium"))
 ```
