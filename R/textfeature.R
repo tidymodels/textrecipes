@@ -35,10 +35,10 @@
 #' (the selectors or variables selected) and `functions` (name of feature
 #' functions).
 #'
-#'@template case-weights-not-supported
+#' @template case-weights-not-supported
 #'
 #' @family Steps for Numeric Variables From Characters
-#'   
+#'
 #' @examplesIf rlang::is_installed("textfeatures")
 #' library(recipes)
 #' library(modeldata)
@@ -159,7 +159,7 @@ bake.step_textfeature <- function(object, new_data, ...) {
 
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
-      new_data <- 
+      new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
   }

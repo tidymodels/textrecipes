@@ -8,7 +8,7 @@
 #' @param pos List of character vectors, must be same size and shape as `x`.
 #'
 #' @return a [tokenlist] object.
-#'   
+#'
 #' @examples
 #' abc <- list(letters, LETTERS)
 #' tokenlist(abc)
@@ -311,7 +311,7 @@ tokenlist_embedding <- function(x, emb, fun) {
   split_id <- factor(i[keep_id], seq_x)
 
   token_index <- match(unlisted_tokens, emb[[1]])
-  
+
   emb[token_index, -1] %>%
     dplyr::mutate("id" = split_id) %>%
     dplyr::filter(!is.na(token_index)) %>%

@@ -111,7 +111,8 @@ test_that("arguments are passed to tokenizers.sentencepiece", {
 })
 
 test_that("Errors if vocabulary size is set to low.", {
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     recipe(~text1, data = test_data) %>%
       step_tokenize_sentencepiece(text1, vocabulary_size = 10) %>%
       prep()
@@ -123,11 +124,13 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize_sentencepiece(text1, vocabulary_size = 100) %>%
     update_role(text1, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {

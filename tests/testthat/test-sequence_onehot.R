@@ -95,22 +95,26 @@ test_that("padding and truncating works correctly", {
     ), nrow = 3, byrow = TRUE)
   )
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, padding = "not pre")
   )
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, truncating = "Wrong")
   )
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, padding = c("pre", "pre"))
   )
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     rec %>%
       step_tokenize(text) %>%
       step_sequence_onehot(text, truncating = "Wrong")
@@ -122,17 +126,19 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_sequence_onehot(text) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = tokenized_test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
@@ -147,15 +153,15 @@ test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_tokenize(text) %>%
     step_sequence_onehot(text, sequence_length = 5, keep_original_cols = TRUE)
-  
+
   koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  
+
   koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-  
+
   expect_equal(
     colnames(koc_pred),
     c(
-      "text", "seq1hot_text_1", "seq1hot_text_2", "seq1hot_text_3", 
+      "text", "seq1hot_text_1", "seq1hot_text_2", "seq1hot_text_3",
       "seq1hot_text_4", "seq1hot_text_5"
     )
   )
@@ -165,13 +171,13 @@ test_that("can prep recipes with no keep_original_cols", {
   koc_rec <- rec %>%
     step_tokenize(text) %>%
     step_sequence_onehot(text, sequence_length = 5, keep_original_cols = TRUE)
-  
+
   koc_rec$steps[[2]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
   )
-  
+
   expect_error(
     pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
     NA

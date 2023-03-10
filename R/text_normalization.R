@@ -29,7 +29,7 @@
 #'
 #' @seealso [step_texthash()] for feature hashing.
 #' @family Steps for Text Normalization
-#'   
+#'
 #' @examplesIf rlang::is_installed("stringi")
 #' library(recipes)
 #'

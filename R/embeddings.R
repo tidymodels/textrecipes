@@ -52,7 +52,7 @@
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
-#'   
+#'
 #' @examples
 #' library(recipes)
 #'
@@ -229,7 +229,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
 
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
-      new_data <- 
+      new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
   }

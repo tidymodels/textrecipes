@@ -25,9 +25,9 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected).
-#' 
+#'
 #' @template case-weights-not-supported
-#' 
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'
@@ -137,9 +137,9 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   )
 }
 
-check_bpe_vocab_size <- function(text, 
+check_bpe_vocab_size <- function(text,
                                  vocabulary_size,
-                                 column, 
+                                 column,
                                  call = caller_env()) {
   text_count <- strsplit(as.character(text), "")
   text_count <- unlist(text_count)

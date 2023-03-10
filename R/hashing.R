@@ -34,21 +34,21 @@
 #' will a higher value of `num_terms` result in a lower chance of collision.
 #'
 #' @template details-prefix
-#' 
+#'
 #' @details # Tidying
 #'
 #'   When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #'   (the selectors or variables selected) and `value` (number of terms).
-#' 
+#'
 #'  @template case-weights-not-supported
-#'   
+#'
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
 #'   Josh Attenberg (2009).
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #'   [step_text_normalization()] to perform text normalization.
 #' @family Steps for Numeric Variables From Tokens
-#'   
+#'
 #' @examplesIf rlang::is_installed("text2vec")
 #' library(recipes)
 #' library(modeldata)
@@ -104,7 +104,7 @@ hash_funs <- c(
 )
 
 step_texthash_new <-
-  function(terms, role, trained, columns, signed, num_terms, prefix, 
+  function(terms, role, trained, columns, signed, num_terms, prefix,
            keep_original_cols, skip, id) {
     step(
       subclass = "texthash",
@@ -157,11 +157,11 @@ bake.step_texthash <- function(object, new_data, ...) {
       object$signed,
       object$num_terms
     )
-    
+
     tf_text <- purrr::map_dfc(tf_text, as.integer)
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
-      new_data <- 
+      new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
 

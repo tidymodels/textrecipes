@@ -42,17 +42,19 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(medium) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(medium, new_role = "predictor") %>%
     step_lda(medium, num_topics = 10) %>%
     update_role(medium, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = tokenized_test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
@@ -69,15 +71,15 @@ test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_tokenize(medium) %>%
     step_lda(medium, num_topics = 5, keep_original_cols = TRUE)
-  
+
   koc_trained <- prep(koc_rec, training = tate_text, verbose = FALSE)
-  
+
   koc_pred <- bake(koc_trained, new_data = tate_text, all_predictors())
-  
+
   expect_equal(
     colnames(koc_pred),
     c(
-      "medium", "artist", "lda_medium_1", "lda_medium_2", "lda_medium_3", 
+      "medium", "artist", "lda_medium_1", "lda_medium_2", "lda_medium_3",
       "lda_medium_4", "lda_medium_5"
     )
   )
@@ -87,13 +89,13 @@ test_that("can prep recipes with no keep_original_cols", {
   koc_rec <- rec %>%
     step_tokenize(medium) %>%
     step_lda(medium, num_topics = 5, keep_original_cols = TRUE)
-  
+
   koc_rec$steps[[2]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     koc_trained <- prep(koc_rec, training = tate_text, verbose = FALSE)
   )
-  
+
   expect_error(
     pca_pred <- bake(koc_trained, new_data = tate_text, all_predictors()),
     NA

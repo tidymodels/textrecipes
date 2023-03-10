@@ -56,12 +56,12 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected) and `value` (the weighting scheme).
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
-#'   
+#'
 #' @examples
 #' \donttest{
 #' library(recipes)
@@ -97,7 +97,6 @@ step_tf <-
            skip = FALSE,
            id = rand_id("tf")) {
     if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1) {
-      
       tf_funs_all <- glue::glue_collapse(tf_funs, sep = ", ", last = ", or ")
       rlang::abort(
         glue(
@@ -196,13 +195,13 @@ bake.step_tf <- function(object, new_data, ...) {
     if (object$weight_scheme %in% c("binary", "raw count")) {
       tf_text <- purrr::map_dfc(tf_text, as.integer)
     }
-    
+
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
-      new_data <- 
+      new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
-    
+
     new_data <- vctrs::vec_cbind(new_data, tf_text)
   }
   new_data

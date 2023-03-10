@@ -70,17 +70,19 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_tfidf(text) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
-  expect_error(bake(trained, new_data = tokenized_test_data[, -1]),
-               class = "new_data_missing_column")
+
+  expect_error(
+    bake(trained, new_data = tokenized_test_data[, -1]),
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
@@ -95,19 +97,21 @@ test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_tokenize(text) %>%
     step_tfidf(text, keep_original_cols = TRUE)
-  
+
   koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  
+
   koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-  
+
   expect_equal(
     colnames(koc_pred),
     c(
-      c("text", "tfidf_text_am", "tfidf_text_and", "tfidf_text_anywhere", 
-        "tfidf_text_do", "tfidf_text_eat", "tfidf_text_eggs", "tfidf_text_green", 
-        "tfidf_text_ham", "tfidf_text_here", "tfidf_text_i", "tfidf_text_like", 
-        "tfidf_text_not", "tfidf_text_or", "tfidf_text_sam", "tfidf_text_them", 
-        "tfidf_text_there", "tfidf_text_would")
+      c(
+        "text", "tfidf_text_am", "tfidf_text_and", "tfidf_text_anywhere",
+        "tfidf_text_do", "tfidf_text_eat", "tfidf_text_eggs", "tfidf_text_green",
+        "tfidf_text_ham", "tfidf_text_here", "tfidf_text_i", "tfidf_text_like",
+        "tfidf_text_not", "tfidf_text_or", "tfidf_text_sam", "tfidf_text_them",
+        "tfidf_text_there", "tfidf_text_would"
+      )
     )
   )
 })
@@ -116,13 +120,13 @@ test_that("can prep recipes with no keep_original_cols", {
   koc_rec <- rec %>%
     step_tokenize(text) %>%
     step_tfidf(text, keep_original_cols = TRUE)
-  
+
   koc_rec$steps[[2]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
   )
-  
+
   expect_error(
     pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
     NA
@@ -131,17 +135,17 @@ test_that("can prep recipes with no keep_original_cols", {
 
 test_that("idf valeus are trained on training data and applied on test data", {
   data <- tibble(text = c("i g", "i i i"))
-  
+
   rec <- recipe(~text, data) %>%
     step_tokenize(text) %>%
     step_tfidf(text) %>%
     prep()
-  
+
   expect_equal(
     bake(rec, data %>% slice(1)),
     bake(rec, data) %>% slice(1)
   )
-  
+
   expect_equal(
     rec$steps[[2]]$res[[1]],
     c(g = log(1 + 2 / 1), i = log(1 + 2 / 2))
@@ -151,23 +155,23 @@ test_that("idf valeus are trained on training data and applied on test data", {
 test_that("Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e", {
   # Test that recipes trained with version <= 0.5.0 keep previous behavoir and
   # throw warning about the data leakage.
-  
+
   data <- tibble(text = c("i g", "i i i"))
-  
+
   rec <- recipe(~text, data) %>%
     step_tokenize(text) %>%
     step_tfidf(text) %>%
     prep()
-  
+
   rec$steps[[2]]$res <- list(c("g", "i"))
-  
+
   expect_snapshot(
     expect_equal(
       bake(rec, data) %>% slice(1),
       tibble(tfidf_text_g = log(1 + 2 / 1) / 2, tfidf_text_i = log(1 + 2 / 2) / 2)
     )
   )
-  
+
   expect_snapshot(
     expect_equal(
       bake(rec, data %>% slice(1)),

@@ -24,9 +24,9 @@
 #'
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected).
-#' 
+#'
 #' @template case-weights-not-supported
-#' 
+#'
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'
@@ -63,7 +63,7 @@ step_tokenize_wordpiece <-
            skip = FALSE,
            id = rand_id("tokenize_wordpiece")) {
     recipes::recipes_pkg_check(required_pkgs.step_tokenize_wordpiece())
-    
+
     add_step(
       recipe,
       step_tokenize_wordpiece_new(
@@ -100,11 +100,11 @@ step_tokenize_wordpiece_new <-
 #' @export
 prep.step_tokenize_wordpiece <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  
+
   training <- factor_to_text(training, col_names)
-  
+
   check_type(training[, col_names], types = c("string", "factor", "ordered"))
-  
+
   step_tokenize_wordpiece_new(
     terms = x$terms,
     role = x$role,
@@ -122,7 +122,7 @@ prep.step_tokenize_wordpiece <- function(x, training, info = NULL, ...) {
 bake.step_tokenize_wordpiece <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
-  
+
   for (i in seq_along(col_names)) {
     new_data[, col_names[i]] <- tokenizer_fun(
       data = new_data[, col_names[i]],
@@ -138,7 +138,7 @@ bake.step_tokenize_wordpiece <- function(object, new_data, ...) {
       }
     )
   }
-  
+
   new_data
 }
 

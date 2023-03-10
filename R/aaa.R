@@ -13,7 +13,8 @@ factor_to_text <- function(data, names) {
 check_possible_tokenizers <- function(x, dict, call = caller_env(2)) {
   if (!(x %in% dict)) {
     possible_tokenizers <- glue::glue_collapse(
-      dict, sep = ", ", last = ", or "
+      dict,
+      sep = ", ", last = ", or "
     )
     rlang::abort(
       glue(

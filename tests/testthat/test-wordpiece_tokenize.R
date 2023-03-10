@@ -18,14 +18,14 @@ text2 <- c(
 test_data <- tibble(text1, text2)
 
 text1_out <- list(
-  c("i", "would", "not", "eat", "them", "here", "or", "there",  "."),
+  c("i", "would", "not", "eat", "them", "here", "or", "there", "."),
   c("i", "would", "not", "eat", "them", "anywhere", "."),
   c("i", "would", "not", "eat", "green", "eggs", "and", "ham", "."),
   c("i", "do", "not", "like", "them", ",", "sam", "-", "i", "-", "am", ".")
 )
 
 text2_out <- list(
-  c("you", "would", "not", "eat", "them", "here", "or", "there","."),
+  c("you", "would", "not", "eat", "them", "here", "or", "there", "."),
   c("you", "would", "not", "eat", "them", "anywhere", "."),
   c("you", "would", "not", "eat", "green", "eggs", "and", "ham", "."),
   c("you", "do", "not", "like", "them", ",", "sam", "-", "i", "-", "am", ".")
@@ -61,15 +61,16 @@ test_that("step_tokenize_wordpiece works with tokenizers.wordpiece and multiple 
 })
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  rec <- recipe(~text1 + text2, data = test_data) %>%
+  rec <- recipe(~ text1 + text2, data = test_data) %>%
     step_tokenize_wordpiece(text1, text2) %>%
     update_role(text1, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = test_data, verbose = FALSE)
-  
+
   expect_error(bake(trained, new_data = test_data[, -1]),
-               class = "new_data_missing_column")
+    class = "new_data_missing_column"
+  )
 })
 
 test_that("printing", {
