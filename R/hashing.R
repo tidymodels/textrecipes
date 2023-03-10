@@ -216,7 +216,6 @@ list_to_hash <- function(x, n, signed) {
   as.matrix(text2vec::create_dtm(it, vectorizer))
 }
 
-
 #' S3 methods for tracking which additional packages are needed for steps.
 #'
 #' Recipe-adjacent packages always list themselves as a required package so that

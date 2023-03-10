@@ -32,7 +32,6 @@ test_that("can clean names", {
   expect_equal(tidy_exp_tr, tidy(cleaned, number = 1))
 })
 
-
 test_that("printing", {
   skip_if_not_installed("janitor")
   rec <- rec %>% step_clean_names(all_predictors())

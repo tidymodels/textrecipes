@@ -102,7 +102,6 @@ test_that("can prep recipes with no keep_original_cols", {
   )
 })
 
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_lda(rec1)

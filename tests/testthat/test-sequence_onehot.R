@@ -38,7 +38,6 @@ test_that("sequence encoding is done correctly", {
   )
 })
 
-
 test_that("padding and truncating works correctly", {
   data <- tibble(text = c(
     "a b c d e f g",
@@ -183,7 +182,6 @@ test_that("can prep recipes with no keep_original_cols", {
     NA
   )
 })
-
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)

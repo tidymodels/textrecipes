@@ -36,7 +36,6 @@ test_that("ngram works with varrying number of `n`", {
   )
 })
 
-
 test_that("tokenlist_ngram works with n_min and n", {
   tknlist <- list(
     c("a", "b", "c", "d", "e"),
@@ -101,7 +100,6 @@ test_that("tokenlist_ngram works with n_min and n", {
   )
 })
 
-
 test_that("ngram works with delim", {
   expect_equal(
     cpp11_ngram(test_data, n = 3L, n_min = 3L, delim = ""),
@@ -136,7 +134,6 @@ test_that("ngram returns length zero vectors when length(x) < n", {
     list(character())
   )
 })
-
 
 library(recipes)
 library(textrecipes)

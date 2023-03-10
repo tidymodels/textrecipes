@@ -35,7 +35,6 @@ test_that("tokenizer works", {
     lengths(vctrs::field(out, "tokens"))
   )
 
-
   expect_false(
     isTRUE(all.equal(
       vctrs::field(out, "lemma"),

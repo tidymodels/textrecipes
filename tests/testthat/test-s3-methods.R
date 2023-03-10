@@ -15,7 +15,6 @@ embeddings <- tibble(
   d3 = c(0, 0, 1)
 )
 
-
 r01 <- recipe(~., data = test_data)
 r02 <- r01 %>% step_text_normalization(text)
 r03 <- r01 %>% step_textfeature(text)

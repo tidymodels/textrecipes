@@ -50,7 +50,6 @@ test_that("step_word_embeddings gives numeric output.", {
   )
 })
 
-
 # Run the tests. ----------------------------------------------------------
 
 test_that("step_word_embeddings tidy method works.", {

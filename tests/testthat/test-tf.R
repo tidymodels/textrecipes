@@ -62,7 +62,6 @@ test_that("step_tf works with vocabulary argument", {
   )
 })
 
-
 test_that("step_tf works with other weighting schemes", {
   rec <- rec %>%
     step_tokenize(text) %>%
@@ -179,7 +178,6 @@ test_that("can prep recipes with no keep_original_cols", {
     NA
   )
 })
-
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)

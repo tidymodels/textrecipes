@@ -114,7 +114,6 @@ vec_restore.textrecipes_tokenlist <- function(x, to, ...,
   )
 }
 
-
 # Printing --------------------------------------------------------------------
 #' @export
 format.textrecipes_tokenlist <- function(x, ...) {
@@ -208,7 +207,6 @@ tokenlist_filter_function <- function(x, fn) {
 
   tokenlist(out, lemma = lemma, pos = pos)
 }
-
 
 tokenlist_apply <- function(x, fun, arguments = NULL) {
   if (!is_tokenlist(x)) {

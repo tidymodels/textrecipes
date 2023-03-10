@@ -205,7 +205,6 @@ test_that("tokenlist_filter works", {
     tokenlist(list(character(), character()))
   )
 
-
   expect_equal(
     tokenlist_filter(tkn_list, letters[1:10], keep = TRUE),
     tokenlist(list(letters[1:10], character()))
@@ -452,7 +451,6 @@ test_that("tokenlist_ngram works", {
   ngrams <- tokenlist_ngram(pos_tokenlist, 3, 3, "_")
 
   expect_s3_class(ngrams, "textrecipes_tokenlist")
-
 
   expect_equal(
     vctrs::field(ngrams, "tokens"),

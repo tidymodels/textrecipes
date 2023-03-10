@@ -69,7 +69,6 @@ test_that("output is list when length is 1 or 0", {
   expect_true(is.list(bake(data_rec, new_data = NULL, a)[, 1, drop = TRUE]))
 })
 
-
 test_that("step_tokenize_bpe works", {
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize_bpe(text1) %>%
