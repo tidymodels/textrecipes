@@ -96,15 +96,6 @@ step_tf <-
            keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("tf")) {
-    if (!(weight_scheme %in% tf_funs) | length(weight_scheme) != 1) {
-      tf_funs_all <- glue::glue_collapse(tf_funs, sep = ", ", last = ", or ")
-      rlang::abort(
-        glue(
-          "`weight_scheme` should be one of: {tf_funs_all}"
-        )
-      )
-    }
-
     add_step(
       recipe,
       step_tf_new(
@@ -275,7 +266,7 @@ required_pkgs.step_tf <- function(x, ...) {
 #' @export
 tunable.step_tf <- function(x, ...) {
   tibble::tibble(
-    name = c("weight_scheme", "num_terms"),
+    name = c("weight_scheme", "weight"),
     call_info = list(
       list(pkg = "dials", fun = "weight_scheme"),
       list(pkg = "dials", fun = "weight")

@@ -185,3 +185,33 @@ test_that("empty printing", {
 
   expect_snapshot(rec)
 })
+
+test_that("tunable", {
+  rec <-
+    recipe(~., data = mtcars) %>%
+    step_tokenfilter(all_predictors())
+  rec_param <- tunable.step_tokenfilter(rec$steps[[1]])
+  expect_equal(rec_param$name, c("max_times", "min_times", "max_tokens"))
+  expect_true(all(rec_param$source == "recipe"))
+  expect_true(is.list(rec_param$call_info))
+  expect_equal(nrow(rec_param), 3)
+  expect_equal(
+    names(rec_param),
+    c("name", "call_info", "source", "component", "component_id")
+  )
+})
+
+test_that("tunable is setup to works with extract_parameter_set_dials works", {
+  rec <- recipe(~., data = mtcars) %>%
+    step_tokenfilter(
+      all_predictors(),
+      max_times = hardhat::tune(),
+      min_times = hardhat::tune(),
+      max_tokens = hardhat::tune()
+    )
+  
+  params <- extract_parameter_set_dials(rec)
+  
+  expect_s3_class(params, "parameters")
+  expect_identical(nrow(params), 3L)
+})

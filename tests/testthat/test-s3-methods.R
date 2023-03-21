@@ -35,15 +35,6 @@ r14 <- r05 %>% step_tokenfilter(text, min_times = 2)
 r15 <- r05 %>% step_pos_filter(text)
 r16 <- r05 %>% step_ngram(text)
 
-nothing <-
-  tibble::tibble(
-    name = character(0),
-    call_info = list(),
-    source = character(0),
-    component = character(0),
-    component_id = character(0)
-  )
-
 # ------------------------------------------------------------------------------
 
 test_that("required packages", {
@@ -63,26 +54,4 @@ test_that("required packages", {
   expect_equal(required_pkgs(r14), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r15), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r16), c("recipes", "textrecipes"))
-})
-
-test_that("tunable arguments", {
-  expect_equal(tunable(r01), nothing)
-  expect_equal(tunable(r02), nothing)
-  expect_equal(tunable(r03), nothing)
-  expect_equal(tunable(r04), nothing)
-  expect_equal(tunable(r05)$name, "token")
-  expect_equal(tunable(r06)$name, "token")
-  expect_equal(tunable(r07)$name, c("token", "weight_scheme", "num_terms"))
-  expect_equal(tunable(r08)$name, "token")
-  expect_equal(tunable(r09)$name, "token")
-  expect_equal(tunable(r10)$name, c("token", "signed", "num_terms"))
-  expect_equal(tunable(r11)$name, "token")
-  expect_equal(tunable(r12)$name, "token")
-  expect_equal(tunable(r13)$name, "token")
-  expect_equal(
-    tunable(r14)$name,
-    c("token", "max_times", "min_times", "max_tokens")
-  )
-  expect_equal(tunable(r15)$name, "token")
-  expect_equal(tunable(r16)$name, c("token", "num_tokens"))
 })
