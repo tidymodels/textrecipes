@@ -181,3 +181,32 @@ test_that("empty printing", {
 
   expect_snapshot(rec)
 })
+
+test_that("tunable", {
+  rec <-
+    recipe(~., data = mtcars) %>%
+    step_texthash(all_predictors())
+  rec_param <- tunable.step_texthash(rec$steps[[1]])
+  expect_equal(rec_param$name, c("signed", "num_terms"))
+  expect_true(all(rec_param$source == "recipe"))
+  expect_true(is.list(rec_param$call_info))
+  expect_equal(nrow(rec_param), 2)
+  expect_equal(
+    names(rec_param),
+    c("name", "call_info", "source", "component", "component_id")
+  )
+})
+
+test_that("tunable is setup to works with extract_parameter_set_dials works", {
+  rec <- recipe(~., data = mtcars) %>%
+    step_texthash(
+      all_predictors(),
+      signed = hardhat::tune(),
+      num_terms = hardhat::tune()
+    )
+  
+  params <- extract_parameter_set_dials(rec)
+  
+  expect_s3_class(params, "parameters")
+  expect_identical(nrow(params), 2L)
+})

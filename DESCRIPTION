@@ -32,6 +32,8 @@ Imports:
     glue
 Suggests: 
     covr,
+    dials,
+    hardhat,
     janitor,
     knitr,
     modeldata,
