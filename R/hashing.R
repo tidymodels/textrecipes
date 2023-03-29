@@ -40,7 +40,13 @@
 #'   When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #'   (the selectors or variables selected) and `value` (number of terms).
 #'
-#'  @template case-weights-not-supported
+#' ```{r, echo = FALSE, results="asis"}
+#' step <- "step_texthash"
+#' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
+#' cat(result)
+#' ```
+#'
+#' @template case-weights-not-supported
 #'
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
 #'   Josh Attenberg (2009).
