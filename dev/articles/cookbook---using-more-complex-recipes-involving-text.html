@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Emil
 Hvitfeldt</h4>
             
-            <h4 data-toc-skip class="date">2023-03-22</h4>
+            <h4 data-toc-skip class="date">2023-03-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd" class="external-link"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="d-none name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -144,7 +144,7 @@ words. This can be easily be achieved by using the arguments
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>             0            1            0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>             1            1            0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>             0            1            0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,274 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4,274 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="removing-words-in-addition-to-the-stop-words-list">Removing words in addition to the stop words list<a class="anchor" aria-label="anchor" href="#removing-words-in-addition-to-the-stop-words-list"></a>
@@ -174,25 +174,25 @@ words and once for your special words.</p>
 <span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_medium"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,284 × 951</span></span></span>
-<span><span class="co">#&gt;    tfidf…¹ tfidf…² tfidf…³ tfidf…⁴ tfidf…⁵ tfidf…⁶ tfidf…⁷ tfidf…⁸ tfidf…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,274 more rows, 942 more variables: tfidf_medium_151 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_16 &lt;dbl&gt;, tfidf_medium_160 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_16mm &lt;dbl&gt;, tfidf_medium_18 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_19 &lt;dbl&gt;, tfidf_medium_2 &lt;dbl&gt;, tfidf_medium_20 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_2000 &lt;dbl&gt;, tfidf_medium_201 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_21 &lt;dbl&gt;, tfidf_medium_22 &lt;dbl&gt;, tfidf_medium_220 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_23 &lt;dbl&gt;, tfidf_medium_24 &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    tfidf_medium_1 tfidf_medium_10 tfidf_medium_100 tfidf_medium_11</span></span>
+<span><span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>              0               0                0               0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4,274 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 947 more variables: tfidf_medium_12 &lt;dbl&gt;, tfidf_medium_13 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_133 &lt;dbl&gt;, tfidf_medium_14 &lt;dbl&gt;, tfidf_medium_15 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_151 &lt;dbl&gt;, tfidf_medium_16 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_160 &lt;dbl&gt;, tfidf_medium_16mm &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_18 &lt;dbl&gt;, tfidf_medium_19 &lt;dbl&gt;, tfidf_medium_2 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tfidf_medium_20 &lt;dbl&gt;, tfidf_medium_2000 &lt;dbl&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="letter-distributions">Letter distributions<a class="anchor" aria-label="anchor" href="#letter-distributions"></a>
@@ -213,25 +213,25 @@ tokenizer and keep only the characters using the
 <span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tf_medium"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,284 × 26</span></span></span>
-<span><span class="co">#&gt;    tf_me…¹ tf_me…² tf_me…³ tf_me…⁴ tf_me…⁵ tf_me…⁶ tf_me…⁷ tf_me…⁸ tf_me…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       1       0       2       3       4       0       0       0       3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       1       0       1       0       2       0       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       1       0       1       0       2       0       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       1       0       1       0       2       0       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       3       0       1       0       0       0       0       0       2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       3       0       1       0       0       0       0       0       2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       3       0       2       0       1       0       0       0       2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       1       0       1       1       1       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       5       0       1       1       0       0       0       0       2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       1       0       0       0       1       0       0       0       1</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,274 more rows, 17 more variables: tf_medium_j &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_k &lt;int&gt;, tf_medium_l &lt;int&gt;, tf_medium_m &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_n &lt;int&gt;, tf_medium_o &lt;int&gt;, tf_medium_p &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_q &lt;int&gt;, tf_medium_r &lt;int&gt;, tf_medium_s &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_t &lt;int&gt;, tf_medium_u &lt;int&gt;, tf_medium_v &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_w &lt;int&gt;, tf_medium_x &lt;int&gt;, tf_medium_y &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_z &lt;int&gt;, and abbreviated variable names ¹​tf_medium_a, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    tf_medium_a tf_medium_b tf_medium_c tf_medium_d tf_medium_e tf_medium_f</span></span>
+<span><span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>           1           0           2           3           4           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           1           0           1           0           2           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>           1           0           1           0           2           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>           1           0           1           0           2           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>           3           0           1           0           0           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>           3           0           1           0           0           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>           3           0           2           0           1           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>           1           0           1           1           1           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>           5           0           1           1           0           0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>           1           0           0           0           1           0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4,274 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 20 more variables: tf_medium_g &lt;int&gt;, tf_medium_h &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_i &lt;int&gt;, tf_medium_j &lt;int&gt;, tf_medium_k &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_l &lt;int&gt;, tf_medium_m &lt;int&gt;, tf_medium_n &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_o &lt;int&gt;, tf_medium_p &lt;int&gt;, tf_medium_q &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_r &lt;int&gt;, tf_medium_s &lt;int&gt;, tf_medium_t &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_medium_u &lt;int&gt;, tf_medium_v &lt;int&gt;, tf_medium_w &lt;int&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tf-idf-of-ngrams-of-stemmed-tokens">TF-IDF of ngrams of stemmed tokens<a class="anchor" aria-label="anchor" href="#tf-idf-of-ngrams-of-stemmed-tokens"></a>
@@ -261,25 +261,25 @@ filtering and tfidf as usual.</p>
 <span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"tfidf_medium"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,284 × 499</span></span></span>
-<span><span class="co">#&gt;    tfidf…¹ tfidf…² tfidf…³ tfidf…⁴ tfidf…⁵ tfidf…⁶ tfidf…⁷ tfidf…⁸ tfidf…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       0       0       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,274 more rows, 490 more variables:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 photograph black` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 photograph colour` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 project black` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 project colour` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 work on` &lt;dbl&gt;, `tfidf_medium_3 flat screen` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_3 monitor colour` &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    tfidf_medium_100 digit …¹ tfidf_medium_16 mm b…² tfidf_medium_16 mm p…³</span></span>
+<span><span class="co">#&gt;                        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                         0                      0                      0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4,274 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated names: ¹​`tfidf_medium_100 digit print`,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`tfidf_medium_16 mm black`, ³​`tfidf_medium_16 mm project`</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 496 more variables: `tfidf_medium_16 mm shown` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_16mm shown a` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 aluminium panel` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tfidf_medium_2 digit print` &lt;dbl&gt;, …</span></span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

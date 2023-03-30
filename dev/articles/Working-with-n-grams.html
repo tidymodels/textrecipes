@@ -215,17 +215,16 @@ of the resulting data.frame.</p>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
-<span><span class="co">#&gt;   tf_tex…¹ tf_te…² tf_te…³ tf_te…⁴ tf_te…⁵ tf_te…⁶ tf_te…⁷ tf_te…⁸ tf_te…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1       0       1       0       0       1       0       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        0       1       0       1       1       0       1       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: `tf_text_that gathers honey` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt;   `tf_text_a place where` `tf_text_an insect that` `tf_text_bank is a`</span></span>
+<span><span class="co">#&gt;                     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                       1                        0                   1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                       0                        1                   0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: `tf_text_bee is an` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_insect that gathers` &lt;int&gt;, `tf_text_is a place` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_is an insect` &lt;int&gt;, `tf_text_place where you` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_put your money` &lt;int&gt;, `tf_text_that gathers honey` &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_the bank is` &lt;int&gt;, `tf_text_the bee is` &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_where you put` &lt;int&gt;, `tf_text_you put your` &lt;int&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​`tf_text_a place where`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`tf_text_an insect that`, ³​`tf_text_bank is a`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`tf_text_bee is an`, ⁵​`tf_text_insect that gathers`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​`tf_text_is a place`, ⁷​`tf_text_is an insect`, …</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_where you put` &lt;int&gt;, `tf_text_you put your` &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a place where"       "tf_text_an insect that"     </span></span>
@@ -257,17 +256,16 @@ you can pass a named list to the <code>options</code> argument in
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span></span>
-<span><span class="co">#&gt;   tf_tex…¹ tf_te…² tf_te…³ tf_te…⁴ tf_te…⁵ tf_te…⁶ tf_te…⁷ tf_te…⁸ tf_te…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1       0       1       0       0       0       1       0       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        0       1       0       1       1       1       0       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 7 more variables: tf_text_put_your &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt;   tf_text_a_place tf_text_an_insect tf_text_bank_is tf_text_bee_is</span></span>
+<span><span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>               1                 0               1              0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>               0                 1               0              1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more variables: tf_text_gathers_honey &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that &lt;int&gt;, tf_text_is_a &lt;int&gt;, tf_text_is_an &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_place_where &lt;int&gt;, tf_text_put_your &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_that_gathers &lt;int&gt;, tf_text_the_bank &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bee &lt;int&gt;, tf_text_where_you &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you_put &lt;int&gt;, tf_text_your_money &lt;int&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​tf_text_a_place, ²​tf_text_an_insect,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​tf_text_bank_is, ⁴​tf_text_bee_is, ⁵​tf_text_gathers_honey,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​tf_text_insect_that, ⁷​tf_text_is_a, ⁸​tf_text_is_an, …</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you_put &lt;int&gt;, tf_text_your_money &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a_place"       "tf_text_an_insect"    </span></span>
@@ -301,17 +299,16 @@ argument.</p>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span></span>
-<span><span class="co">#&gt;   tf_tex…¹ tf_te…² tf_te…³ tf_te…⁴ tf_te…⁵ tf_te…⁶ tf_te…⁷ tf_te…⁸ tf_te…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1       0       1       0       0       0       1       0       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        0       1       0       1       1       1       0       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 7 more variables: tf_text_put.your &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt;   tf_text_a.place tf_text_an.insect tf_text_Bank.is tf_text_Bee.is</span></span>
+<span><span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>               1                 0               1              0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>               0                 1               0              1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more variables: tf_text_gathers.honey &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect.that &lt;int&gt;, tf_text_is.a &lt;int&gt;, tf_text_is.an &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_place.where &lt;int&gt;, tf_text_put.your &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_that.gathers &lt;int&gt;, tf_text_The.Bank &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_The.Bee &lt;int&gt;, tf_text_where.you &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you.put &lt;int&gt;, tf_text_your.money &lt;int&gt;, and abbreviated</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​tf_text_a.place, ²​tf_text_an.insect,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​tf_text_Bank.is, ⁴​tf_text_Bee.is, ⁵​tf_text_gathers.honey,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​tf_text_insect.that, ⁷​tf_text_is.a, ⁸​tf_text_is.an, …</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you.put &lt;int&gt;, tf_text_your.money &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a.place"       "tf_text_an.insect"    </span></span>
@@ -358,17 +355,16 @@ n-grams are being generated.</p>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
-<span><span class="co">#&gt;   tf_tex…¹ tf_te…² tf_te…³ tf_te…⁴ tf_te…⁵ tf_te…⁶ tf_te…⁷ tf_te…⁸ tf_te…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1       0       1       0       0       1       0       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        0       1       0       1       1       0       1       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: tf_text_that_gathers_honey &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt;   tf_text_a_place_where tf_text_an_insect_that tf_text_bank_is_a</span></span>
+<span><span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                     1                      0                 1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                     0                      1                 0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: tf_text_bee_is_an &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that_gathers &lt;int&gt;, tf_text_is_a_place &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_is_an_insect &lt;int&gt;, tf_text_place_where_you &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_put_your_money &lt;int&gt;, tf_text_that_gathers_honey &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bank_is &lt;int&gt;, tf_text_the_bee_is &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you_put &lt;int&gt;, tf_text_you_put_your &lt;int&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​tf_text_a_place_where,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​tf_text_an_insect_that, ³​tf_text_bank_is_a, ⁴​tf_text_bee_is_an,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​tf_text_insect_that_gathers, ⁶​tf_text_is_a_place,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁷​tf_text_is_an_insect, ⁸​tf_text_place_where_you, …</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you_put &lt;int&gt;, tf_text_you_put_your &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a_place_where"       "tf_text_an_insect_that"     </span></span>
@@ -398,17 +394,16 @@ and the n-gram creation such as stemming the tokens.</p>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
-<span><span class="co">#&gt;   tf_tex…¹ tf_te…² tf_te…³ tf_te…⁴ tf_te…⁵ tf_te…⁶ tf_te…⁷ tf_te…⁸ tf_te…⁹</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1       0       1       0       1       0       0       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        0       1       0       1       0       1       1       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: tf_text_that_gather_honei &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bank_i &lt;int&gt;, tf_text_the_bee_i &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you_put &lt;int&gt;, tf_text_you_put_your &lt;int&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​tf_text_a_place_where,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​tf_text_an_insect_that, ³​tf_text_bank_i_a, ⁴​tf_text_bee_i_an,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​tf_text_i_a_place, ⁶​tf_text_i_an_insect,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁷​tf_text_insect_that_gather, ⁸​tf_text_place_where_you, …</span></span></span>
+<span><span class="co">#&gt;   tf_text_a_place_where tf_text_an_insect_that tf_text_bank_i_a</span></span>
+<span><span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                     1                      0                1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                     0                      1                0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: tf_text_bee_i_an &lt;int&gt;, tf_text_i_a_place &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_i_an_insect &lt;int&gt;, tf_text_insect_that_gather &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_place_where_you &lt;int&gt;, tf_text_put_your_monei &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_that_gather_honei &lt;int&gt;, tf_text_the_bank_i &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bee_i &lt;int&gt;, tf_text_where_you_put &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you_put_your &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a_place_where"      "tf_text_an_insect_that"    </span></span>
