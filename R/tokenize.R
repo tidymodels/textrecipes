@@ -458,7 +458,7 @@ required_pkgs.step_tokenize <- function(x, ...) {
   }
 }
 
-#' @rdname tunable.step
+#' @rdname tunable_textrecipes
 #' @export
 tunable.step_tokenize <- function(x, ...) {
   tibble::tibble(

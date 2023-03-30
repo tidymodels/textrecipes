@@ -245,8 +245,7 @@ required_pkgs.step_dummy_hash <- function(x, ...) {
   c("text2vec", "textrecipes")
 }
 
-#' @rdname tunable.step
-#' @keywords internal
+#' @rdname tunable_textrecipes
 #' @export
 tunable.step_dummy_hash <- function(x, ...) {
   tibble::tibble(

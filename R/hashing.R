@@ -229,14 +229,7 @@ required_pkgs.step_texthash <- function(x, ...) {
   c("text2vec", "textrecipes")
 }
 
-#' Find recommended methods for generating parameter values
-#'
-#' [tunable()] determines which parameters in an object _can_ be tuned along
-#' with information about the parameters.
-#' @param x A recipe step
-#' @param ... Not currently used.
-#' @rdname tunable.step
-#' @keywords internal
+#' @rdname tunable_textrecipes
 #' @export
 tunable.step_texthash <- function(x, ...) {
   tibble::tibble(

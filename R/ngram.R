@@ -173,7 +173,7 @@ required_pkgs.step_ngram <- function(x, ...) {
   c("textrecipes")
 }
 
-#' @rdname tunable.step
+#' @rdname tunable_textrecipes
 #' @export
 tunable.step_ngram <- function(x, ...) {
   tibble::tibble(
