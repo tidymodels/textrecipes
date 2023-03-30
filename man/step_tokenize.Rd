@@ -248,6 +248,13 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 (the selectors or variables selected) and \code{value} (unit of tokenization).
 }
 
+\section{Tuning Parameters}{
+This step has 1 tuning parameters:
+\itemize{
+\item \code{token}: Token Unit (type: character, default: words)
+}
+}
+
 \section{Case weights}{
 
 

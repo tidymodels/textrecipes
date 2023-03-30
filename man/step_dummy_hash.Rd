@@ -100,6 +100,14 @@ performed), \code{num_terms} (number of terms), and \code{collapse} (where colum
 collapsed).
 }
 
+\section{Tuning Parameters}{
+This step has 2 tuning parameters:
+\itemize{
+\item \code{signed}: Signed Hash Value (type: logical, default: TRUE)
+\item \code{num_terms}: # Hash Features (type: integer, default: 32)
+}
+}
+
 \section{Case weights}{
 
 

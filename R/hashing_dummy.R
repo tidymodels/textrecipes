@@ -48,6 +48,12 @@
 #' (the selectors or variables selected), `value` (whether a signed hashing was
 #' performed), `num_terms` (number of terms), and `collapse` (where columns
 #' collapsed).
+#' 
+#' ```{r, echo = FALSE, results="asis"}
+#' step <- "step_dummy_hash"
+#' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
+#' cat(result)
+#' ```
 #'
 #' @template case-weights-not-supported
 #'

@@ -89,8 +89,20 @@ the name of the variable, followed by the tokens all separated by
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
 (the selectors or variables selected) and \code{value} (number of terms).
+}
 
-@template case-weights-not-supported
+\section{Tuning Parameters}{
+This step has 2 tuning parameters:
+\itemize{
+\item \code{signed}: Signed Hash Value (type: logical, default: TRUE)
+\item \code{num_terms}: # Hash Features (type: integer, default: 1024)
+}
+}
+
+\section{Case weights}{
+
+
+The underlying operation does not allow for case weights.
 }
 
 \examples{

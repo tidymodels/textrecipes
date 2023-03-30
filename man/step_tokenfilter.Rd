@@ -93,6 +93,15 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 (the selectors or variables selected) and \code{value} (number of unique tokens).
 }
 
+\section{Tuning Parameters}{
+This step has 3 tuning parameters:
+\itemize{
+\item \code{max_times}: Maximum Token Frequency (type: integer, default: Inf)
+\item \code{min_times}: Minimum Token Frequency (type: integer, default: 0)
+\item \code{max_tokens}: # Retained Tokens (type: integer, default: 100)
+}
+}
+
 \section{Case weights}{
 
 

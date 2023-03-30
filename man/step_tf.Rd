@@ -110,6 +110,14 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 (the selectors or variables selected) and \code{value} (the weighting scheme).
 }
 
+\section{Tuning Parameters}{
+This step has 2 tuning parameters:
+\itemize{
+\item \code{weight_scheme}: Term Frequency Weight Method (type: character, default: raw count)
+\item \code{weight}: Weight (type: double, default: 0.5)
+}
+}
+
 \section{Case weights}{
 
 
