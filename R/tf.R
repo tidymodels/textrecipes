@@ -268,7 +268,7 @@ required_pkgs.step_tf <- function(x, ...) {
   c("textrecipes")
 }
 
-#' @rdname tunable.step
+#' @rdname tunable_textrecipes
 #' @export
 tunable.step_tf <- function(x, ...) {
   tibble::tibble(

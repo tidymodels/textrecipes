@@ -263,7 +263,7 @@ required_pkgs.step_tokenfilter <- function(x, ...) {
   c("textrecipes")
 }
 
-#' @rdname tunable.step
+#' @rdname tunable_textrecipes
 #' @export
 tunable.step_tokenfilter <- function(x, ...) {
   tibble::tibble(
