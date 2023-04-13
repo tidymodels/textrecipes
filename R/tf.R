@@ -198,6 +198,8 @@ bake.step_tf <- function(object, new_data, ...) {
       new_data <-
         new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
     }
+    
+    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vctrs::vec_cbind(new_data, tf_text)
   }
