@@ -1,3 +1,12 @@
+# check_name() is used
+
+    Code
+      prep(rec, training = dat)
+    Error <recipes_error_step>
+      Error in `step_lda()`:
+      Caused by error in `check_name()`:
+      ! Name collision occured in `step_lda`. The following variable names already exists: lda_text_1.
+
 # printing
 
     Code

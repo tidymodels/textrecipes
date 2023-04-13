@@ -57,6 +57,22 @@ test_that("bake method errors when needed non-standard role columns are missing"
   )
 })
 
+test_that("check_name() is used", {
+  skip_if_not_installed("text2vec")
+  dat <- tate_text[seq_len(100), ]
+  dat$text <- dat$medium
+  dat$lda_text_1 <- dat$text
+  
+  rec <- recipe(~., data = dat) %>%
+    step_tokenize(text) %>%
+    step_lda(text)
+  
+  expect_snapshot(
+    error = TRUE,
+    prep(rec, training = dat)
+  )
+})
+
 test_that("printing", {
   skip_if_not_installed("text2vec")
   rec <- rec %>%
