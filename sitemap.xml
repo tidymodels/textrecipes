@@ -7,9 +7,6 @@
     <loc>https://textrecipes.tidymodels.org/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/ISSUE_TEMPLATE.html</loc>
-  </url>
-  <url>
     <loc>https://textrecipes.tidymodels.org/LICENSE-text.html</loc>
   </url>
   <url>
@@ -136,6 +133,6 @@
     <loc>https://textrecipes.tidymodels.org/reference/tokenlist.html</loc>
   </url>
   <url>
-    <loc>https://textrecipes.tidymodels.org/reference/tunable.step.html</loc>
+    <loc>https://textrecipes.tidymodels.org/reference/tunable_textrecipes.html</loc>
   </url>
 </urlset>
