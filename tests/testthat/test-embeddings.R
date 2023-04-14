@@ -165,6 +165,20 @@ test_that("bake method errors when needed non-standard role columns are missing"
   )
 })
 
+test_that("check_name() is used", {
+  dat <- test_data
+  dat$wordembed_text_d1 <- dat$text
+  
+  rec <- recipe(~., data = dat) %>%
+    step_tokenize(text) %>%
+    step_word_embeddings(text, embeddings = embeddings)
+  
+  expect_snapshot(
+    error = TRUE,
+    prep(rec, training = dat)
+  )
+})
+
 test_that("printing", {
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

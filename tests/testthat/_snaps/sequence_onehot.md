@@ -27,6 +27,15 @@
     Error <rlang_error>
       `truncating` should be one of: 'pre', 'post'
 
+# check_name() is used
+
+    Code
+      prep(rec, training = dat)
+    Error <recipes_error_step>
+      Error in `step_sequence_onehot()`:
+      Caused by error in `check_name()`:
+      ! Name collision occured in `step_sequence_onehot`. The following variable names already exists: seq1hot_text_1.
+
 # printing
 
     Code

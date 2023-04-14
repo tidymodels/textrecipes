@@ -170,6 +170,8 @@ bake.step_lda <- function(object, new_data, ...) {
     colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text),
       sep = "_"
     )
+    
+    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vctrs::vec_cbind(new_data, tf_text)
 

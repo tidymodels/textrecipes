@@ -7,6 +7,15 @@
       Caused by error in `prep()`:
       ! All columns selected for the step should be tokenlist.
 
+# check_name() is used
+
+    Code
+      prep(rec, training = dat)
+    Error <recipes_error_step>
+      Error in `step_tokenmerge()`:
+      Caused by error in `check_name()`:
+      ! Name collision occured in `step_tokenmerge`. The following variable names already exists: tokenmerge.
+
 # printing
 
     Code

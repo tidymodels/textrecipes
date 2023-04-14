@@ -81,6 +81,19 @@ test_that("bake method errors when needed non-standard role columns are missing"
   )
 })
 
+test_that("check_name() is used", {
+  dat <- test_data
+  dat$textfeature_text_n_words <- dat$text
+  
+  rec <- recipe(~., data = dat) %>%
+    step_textfeature(text)
+  
+  expect_snapshot(
+    error = TRUE,
+    prep(rec, training = dat)
+  )
+})
+
 test_that("printing", {
   skip_if_not_installed("textfeatures")
   rec <- rec %>%

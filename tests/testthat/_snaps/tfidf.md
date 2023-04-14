@@ -1,3 +1,12 @@
+# check_name() is used
+
+    Code
+      prep(rec, training = dat)
+    Error <recipes_error_step>
+      Error in `step_tfidf()`:
+      Caused by error in `check_name()`:
+      ! Name collision occured in `step_tfidf`. The following variable names already exists: tfidf_text_i.
+
 # printing
 
     Code

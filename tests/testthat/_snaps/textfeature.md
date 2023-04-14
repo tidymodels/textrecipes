@@ -19,6 +19,15 @@
       ! Can't subset columns that don't exist.
       x Column `text` doesn't exist.
 
+# check_name() is used
+
+    Code
+      prep(rec, training = dat)
+    Error <recipes_error_step>
+      Error in `step_textfeature()`:
+      Caused by error in `check_name()`:
+      ! Name collision occured in `step_textfeature`. The following variable names already exists: textfeature_text_n_words.
+
 # printing
 
     Code
