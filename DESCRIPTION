@@ -32,7 +32,7 @@ Imports:
     glue
 Suggests: 
     covr,
-    dials,
+    dials (>= 1.2.0),
     hardhat,
     janitor,
     knitr,
