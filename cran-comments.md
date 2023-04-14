@@ -1,13 +1,14 @@
 ## Release Summary
 
-This is the 16th CRAN release of textrecipes. 
-
-Minor change due to contact from tokenizers authors regarding deprecation of `tokenize_tweets()`
+This is the 17th CRAN release of textrecipes. 
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 note
 
-## Downstream dependencies
+## revdepcheck results
 
-There are no downstream dependencies to be checked.
+We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
