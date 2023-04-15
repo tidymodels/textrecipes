@@ -1,6 +1,6 @@
 Package: textrecipes
 Title: Extra 'Recipes' for Text Processing
-Version: 1.0.2.9000
+Version: 1.0.3.9000
 Authors@R: c(
     person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0679-1945")),
@@ -32,7 +32,7 @@ Imports:
     glue
 Suggests: 
     covr,
-    dials,
+    dials (>= 1.2.0),
     hardhat,
     janitor,
     knitr,
@@ -58,4 +58,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-SystemRequirements: c("GNU make", "C++11"), C++11
+SystemRequirements: "GNU make"

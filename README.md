@@ -56,10 +56,10 @@ okc_rec <- recipe(~ medium + artist, data = tate_text) %>%
   step_stopwords(medium, artist) %>%
   step_tokenfilter(medium, artist, max_tokens = 10) %>%
   step_tfidf(medium, artist)
-   
+
 okc_obj <- okc_rec %>%
   prep()
-   
+
 str(bake(okc_obj, tate_text))
 #> tibble [4,284 × 20] (S3: tbl_df/tbl/data.frame)
 #>  $ tfidf_medium_colour     : num [1:4284] 2.31 0 0 0 0 ...
@@ -92,7 +92,7 @@ and instead takes tokenlist variables.
 the following recipe
 
 ``` r
-recipe(~ text_var, data = data) %>%
+recipe(~text_var, data = data) %>%
   step_lda(text_var)
 ```
 
@@ -100,9 +100,10 @@ can be replaced with the following recipe to achive the same results
 
 ``` r
 lda_tokenizer <- function(x) text2vec::word_tokenizer(tolower(x))
-recipe(~ text_var, data = data) %>%
-  step_tokenize(text_var, 
-                custom_token = lda_tokenizer) %>%
+recipe(~text_var, data = data) %>%
+  step_tokenize(text_var,
+    custom_token = lda_tokenizer
+  ) %>%
   step_lda(text_var)
 ```
 
