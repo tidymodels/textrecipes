@@ -123,11 +123,9 @@ bake.step_pos_filter <- function(object, new_data, ...) {
           "part of speech tagging."
         )
       )
-    } else {
-      pos_filter_variable <- tokenlist_pos_filter(variable, object$keep_tags)
     }
 
-    new_data[[col_names[i]]] <- tibble(pos_filter_variable)
+    new_data[[col_names[i]]] <- tokenlist_pos_filter(variable, object$keep_tags)
   }
   new_data <- factor_to_text(new_data, col_names)
   new_data

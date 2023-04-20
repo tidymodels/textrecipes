@@ -195,7 +195,7 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
       )
     }
 
-    new_data[[col_names[i]]] <- tibble(filtered_text)
+    new_data[[col_names[i]]] <- filtered_text
   }
   new_data <- factor_to_text(new_data, col_names)
 
