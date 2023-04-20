@@ -136,7 +136,7 @@ bake.step_ngram <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     ngrammed_tokenlist <- tokenlist_ngram(
-      x = new_data[, col_names[i], drop = TRUE],
+      x = new_data[[col_names[i]]],
       n = object$num_tokens,
       n_min = object$min_num_tokens,
       delim = object$delim

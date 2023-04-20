@@ -161,7 +161,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     out_text <- string2encoded_matrix(
-      x = new_data[, col_names[i], drop = TRUE],
+      x = new_data[[col_names[i]]],
       vocabulary = object$vocabulary[[i]],
       sequence_length = object$sequence_length,
       padding = object$padding,

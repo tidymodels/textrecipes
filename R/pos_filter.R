@@ -113,7 +113,7 @@ bake.step_pos_filter <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
-    variable <- new_data[, col_names[i], drop = TRUE]
+    variable <- new_data[[col_names[i]]]
 
     if (is.null(maybe_get_pos(variable))) {
       rlang::abort(
@@ -123,11 +123,9 @@ bake.step_pos_filter <- function(object, new_data, ...) {
           "part of speech tagging."
         )
       )
-    } else {
-      pos_filter_variable <- tokenlist_pos_filter(variable, object$keep_tags)
     }
 
-    new_data[, col_names[i]] <- tibble(pos_filter_variable)
+    new_data[[col_names[i]]] <- tokenlist_pos_filter(variable, object$keep_tags)
   }
   new_data <- factor_to_text(new_data, col_names)
   new_data

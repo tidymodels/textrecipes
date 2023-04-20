@@ -182,7 +182,7 @@ bake.step_tf <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     tf_text <- tf_function(
-      new_data[, col_names[i], drop = TRUE],
+      new_data[[col_names[i]]],
       object$res[[i]],
       paste0(object$prefix, "_", col_names[i]),
       object$weight_scheme,

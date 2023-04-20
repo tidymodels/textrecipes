@@ -155,13 +155,11 @@ bake.step_stopwords <- function(object, new_data, ...) {
     )
 
   for (i in seq_along(col_names)) {
-    filtered_text <- tokenlist_filter(
-      new_data[, col_names[i], drop = TRUE],
+    new_data[[col_names[i]]] <- tokenlist_filter(
+      new_data[[col_names[i]]],
       stopword_list,
       object$keep
     )
-
-    new_data[, col_names[i]] <- tibble(filtered_text)
   }
   new_data <- factor_to_text(new_data, col_names)
 

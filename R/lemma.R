@@ -107,7 +107,7 @@ bake.step_lemma <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
-    variable <- new_data[, col_names[i], drop = TRUE]
+    variable <- new_data[[col_names[i]]]
 
     if (is.null(maybe_get_lemma(variable))) {
       rlang::abort(
@@ -120,7 +120,7 @@ bake.step_lemma <- function(object, new_data, ...) {
       lemma_variable <- tokenlist_lemma(variable)
     }
 
-    new_data[, col_names[i]] <- tibble(lemma_variable)
+    new_data[[col_names[i]]] <- tibble(lemma_variable)
   }
   new_data <- factor_to_text(new_data, col_names)
   new_data

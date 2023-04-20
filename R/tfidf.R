@@ -177,7 +177,7 @@ bake.step_tfidf <- function(object, new_data, ...) {
 
   for (i in seq_along(col_names)) {
     tfidf_text <- tfidf_function(
-      new_data[, col_names[i], drop = TRUE],
+      new_data[[col_names[i]]],
       object$res[[i]],
       paste0(object$prefix, "_", col_names[i]),
       object$smooth_idf,

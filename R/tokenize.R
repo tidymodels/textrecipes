@@ -286,7 +286,7 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
   tokenizers <- list()
 
   for (i in seq_along(col_names)) {
-    text <- training[, col_names[[i]], drop = TRUE]
+    text <- training[[col_names[[i]]]]
 
     if (x$engine == "tokenizers.bpe" & !is.null(x$training_options$vocab_size)) {
       check_bpe_vocab_size(text, x$training_options$vocab_size, col_names[[i]])
@@ -316,9 +316,8 @@ bake.step_tokenize <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- tokenizer_fun(
-      data = new_data[, col_names[i]],
-      name = col_names[i],
+    new_data[[col_names[i]]] <- tokenizer_fun(
+      x = new_data[[col_names[i]]],
       options = object$options,
       token = object$custom_token[[i]]
     )
@@ -355,14 +354,13 @@ tidy.step_tokenize <- function(x, ...) {
 }
 
 ## Implementation
-tokenizer_fun <- function(data, name, options, token, ...) {
-  check_type(data[, name], quant = FALSE)
-
-  data <- factor_to_text(data, name)
-
+tokenizer_fun <- function(x, options, token, ...) {
+  if (is.factor(x)) {
+    x <- as.character.factor(x)
+  }
   token_expr <- expr(
     token(
-      x = data[, 1, drop = TRUE]
+      x = x
     )
   )
 
@@ -370,14 +368,11 @@ tokenizer_fun <- function(data, name, options, token, ...) {
     token_expr <- rlang::call_modify(token_expr, !!!options)
   }
 
-  token_list <- eval(token_expr)
+  out <- eval(token_expr)
 
-  if (is_tokenlist(token_list)) {
-    out <- tibble::tibble(token_list)
-  } else {
-    out <- tibble::tibble(tokenlist(token_list))
+  if (!is_tokenlist(out)) {
+    out <- tokenlist(out)
   }
-  names(out) <- name
   out
 }
 

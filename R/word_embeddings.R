@@ -213,7 +213,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
     )
 
     emb_columns <- tokenlist_embedding(
-      new_data[, col_names[i], drop = TRUE],
+      new_data[[col_names[i]]],
       object$embeddings,
       aggregation_fun
     )

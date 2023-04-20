@@ -122,7 +122,7 @@ prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
   sentencepiece_options$vocab_size <- x$vocabulary_size
 
   for (i in seq_along(col_names)) {
-    text <- training[, col_names[[i]], drop = TRUE]
+    text <- training[[col_names[[i]]]]
 
     check_sentencepiece_vocab_size(text, x$vocabulary_size, col_names[[i]])
 
@@ -168,9 +168,8 @@ bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- tokenizer_fun(
-      data = new_data[, col_names[i]],
-      name = col_names[i],
+    new_data[[col_names[i]]] <- tokenizer_fun(
+      x = new_data[[col_names[i]]],
       options = object$options,
       token = object$res[[i]]
     )
