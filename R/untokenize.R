@@ -114,8 +114,8 @@ bake.step_untokenize <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
-    tokens <- get_tokens(new_data[, col_names[i], drop = TRUE])
-    new_data[, col_names[i]] <- map_chr(
+    tokens <- get_tokens(new_data[[col_names[i]]])
+    new_data[[col_names[i]]] <- map_chr(
       .x = tokens,
       .f = paste,
       collapse = object$sep

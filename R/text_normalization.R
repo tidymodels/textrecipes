@@ -132,9 +132,7 @@ bake.step_text_normalization <- function(object, new_data, ...) {
   )
 
   for (i in seq_along(col_names)) {
-    new_data[, col_names[i]] <- normalization_fun(
-      getElement(new_data, col_names[i])
-    )
+    new_data[[col_names[i]]] <- normalization_fun(new_data[[col_names[i]]])
   }
   new_data <- factor_to_text(new_data, col_names)
   new_data

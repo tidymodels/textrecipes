@@ -152,11 +152,11 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   if (is.null(x$filter_fun)) {
     for (i in seq_along(col_names)) {
       retain_words[[i]] <- tokenfilter_fun(
-        training[, col_names[i], drop = TRUE],
+        training[[col_names[i]]],
         x$max_times, x$min_times, x$max_tokens,
         x$percentage
       )
-      n_words[[i]] <- length(unique(unlist(training[, col_names[i], drop = TRUE])))
+      n_words[[i]] <- length(unique(unlist(training[[col_names[i]]])))
     }
   }
 
@@ -184,18 +184,18 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   for (i in seq_along(col_names)) {
     if (is.null(object$filter_fun)) {
       filtered_text <- tokenlist_filter(
-        new_data[, col_names[i], drop = TRUE],
+        new_data[[col_names[i]]],
         object$res[[i]],
         TRUE
       )
     } else {
       filtered_text <- tokenlist_filter_function(
-        new_data[, col_names[i], drop = TRUE],
+        new_data[[col_names[i]]],
         object$filter_fun
       )
     }
 
-    new_data[, col_names[i]] <- tibble(filtered_text)
+    new_data[[col_names[i]]] <- tibble(filtered_text)
   }
   new_data <- factor_to_text(new_data, col_names)
 

@@ -160,7 +160,7 @@ bake.step_lda <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   for (i in seq_along(col_names)) {
-    tokens <- get_tokens(new_data[, col_names[i], drop = TRUE])
+    tokens <- get_tokens(new_data[[col_names[i]]])
 
     ddd <- utils::capture.output(
       tf_text <- word_dims_newtext(object$lda_models[[i]], tokens)
