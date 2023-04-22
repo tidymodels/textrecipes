@@ -176,27 +176,21 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_word_embeddings <- function(object, new_data, ...) {
-  if (length(object$column) == 0L) {
-    # Empty selection
-    return(new_data)
-  }
-
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
   aggregation_fun <- get_aggregation_fun(object)
   
-  for (i in seq_along(col_names)) {
-
+  for (col_name in col_names) {
     emb_columns <- tokenlist_embedding(
-      new_data[[col_names[i]]],
+      new_data[[col_name]],
       object$embeddings,
       aggregation_fun
     )
 
     colnames(emb_columns) <- paste(
       object$prefix,
-      col_names[i],
+      col_name,
       colnames(emb_columns),
       sep = "_"
     )
@@ -208,7 +202,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <-
-        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+        new_data[, !(colnames(new_data) %in% col_name), drop = FALSE]
     }
   }
 
