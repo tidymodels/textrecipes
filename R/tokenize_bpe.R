@@ -116,12 +116,12 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   }
   bpe_options$vocab_size <- x$vocabulary_size
 
-  for (i in seq_along(col_names)) {
-    text <- training[, col_names[[i]], drop = TRUE]
+  for (col_name in col_names) {
+    text <- training[[col_name]]
 
-    check_bpe_vocab_size(text, x$vocabulary_size, col_names[[i]])
+    check_bpe_vocab_size(text, x$vocabulary_size, col_name)
 
-    tokenizers[[i]] <- tokenizers_bpe_tokens(text, bpe_options)
+    tokenizers[[col_name]] <- tokenizers_bpe_tokens(text, bpe_options)
   }
 
   step_tokenize_bpe_new(
