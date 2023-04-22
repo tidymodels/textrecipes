@@ -184,33 +184,9 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
+  aggregation_fun <- get_aggregation_fun(object)
+  
   for (i in seq_along(col_names)) {
-    aggregation_fun <- switch(object$aggregation,
-      sum = function(x, ...) {
-        if (length(x) == 0) {
-          return(object$aggregation_default)
-        }
-        sum(x, ...)
-      },
-      mean = function(x, ...) {
-        if (length(x) == 0) {
-          return(object$aggregation_default)
-        }
-        mean(x, ...)
-      },
-      min = function(x, ...) {
-        if (length(x) == 0) {
-          return(object$aggregation_default)
-        }
-        min(x, ...)
-      },
-      max = function(x, ...) {
-        if (length(x) == 0) {
-          return(object$aggregation_default)
-        }
-        max(x, ...)
-      }
-    )
 
     emb_columns <- tokenlist_embedding(
       new_data[[col_names[i]]],
@@ -237,6 +213,23 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   }
 
   new_data
+}
+
+get_aggregation_fun <- function(object) {
+  fun <- switch(
+    EXPR = object$aggregation,
+    sum = sum,
+    mean = mean,
+    min = min,
+    max = max
+  )
+  
+  function(x, ...) {
+    if (length(x) == 0) {
+      return(object$aggregation_default)
+    }
+    fun(x, ...)
+  }
 }
 
 #' @export
