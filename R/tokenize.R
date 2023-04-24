@@ -316,7 +316,7 @@ bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  if (is.null(names(object$res))) {
+  if (is.null(names(object$custom_token))) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$custom_token) <- col_names
   }
