@@ -158,6 +158,8 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
       )
       n_words[[col_name]] <- length(unique(unlist(training[[col_name]])))
     }
+  } else {
+    
   }
 
   step_tokenfilter_new(
@@ -181,6 +183,11 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
+  if (is.null(names(object$res)) && is.null(object$filter_fun)) {
+    # Backwards compatibility with 1.0.3
+    names(object$res) <- col_names
+  }
+  
   for (col_name in col_names) {
     if (is.null(object$filter_fun)) {
       filtered_text <- tokenlist_filter(

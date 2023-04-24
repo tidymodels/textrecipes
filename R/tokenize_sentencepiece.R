@@ -169,7 +169,12 @@ check_sentencepiece_vocab_size <- function(text,
 bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
-
+  
+  if (is.null(names(object$res))) {
+    # Backwards compatibility with 1.0.3
+    names(object$res) <- col_names
+  }
+  
   for (col_name in col_names) {
     new_data[[col_name]] <- tokenizer_fun(
       x = new_data[[col_name]],
