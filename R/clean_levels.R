@@ -116,16 +116,18 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_clean_levels <- function(object, new_data, ...) {
-  if (length(object$clean) == 0L) {
-    # Empty selection
-    return(new_data)
-  }
+  col_names <- names(object$clean)
   check_new_data(names(object$clean), object, new_data)
 
-  if (!is.null(object$clean)) {
-    for (i in names(object$clean)) {
-      new_data[[i]] <- dplyr::recode_factor(new_data[[i]], !!!object$clean[[i]])
-    }
+  if (is.null(names(object$clean))) {
+    # Backwards compatibility with 1.0.3 (#230)
+    names(object$clean) <- col_names
+  }
+  
+  for (col_name in col_names) {
+    new_data[[col_name]] <- dplyr::recode_factor(
+      new_data[[col_name]], !!!object$clean[[col_name]]
+    )
   }
 
   new_data
