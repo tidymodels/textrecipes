@@ -171,7 +171,7 @@ bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
   
   if (is.null(names(object$res))) {
-    # Backwards compatibility with 1.0.3
+    # Backwards compatibility with 1.0.3 (#230)
     names(object$res) <- col_names
   }
   
