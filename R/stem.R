@@ -143,9 +143,9 @@ bake.step_stem <- function(object, new_data, ...) {
   stem_fun <- object$custom_stemmer %||%
     SnowballC::wordStem
 
-  for (i in seq_along(col_names)) {
-    new_data[[col_names[i]]] <- tokenlist_apply(
-      new_data[[col_names[i]]],
+  for (col_name in col_names) {
+    new_data[[col_name]] <- tokenlist_apply(
+      new_data[[col_name]],
       stem_fun, object$options
     )
   }

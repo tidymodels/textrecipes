@@ -154,9 +154,9 @@ bake.step_stopwords <- function(object, new_data, ...) {
       source = object$stopword_source
     )
 
-  for (i in seq_along(col_names)) {
-    new_data[[col_names[i]]] <- tokenlist_filter(
-      new_data[[col_names[i]]],
+  for (col_name in col_names) {
+    new_data[[col_name]] <- tokenlist_filter(
+      new_data[[col_name]],
       stopword_list,
       object$keep
     )

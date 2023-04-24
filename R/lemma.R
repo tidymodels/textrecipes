@@ -106,13 +106,13 @@ bake.step_lemma <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (i in seq_along(col_names)) {
-    variable <- new_data[[col_names[i]]]
+  for (col_name in col_names) {
+    variable <- new_data[[col_name]]
 
     if (is.null(maybe_get_lemma(variable))) {
       rlang::abort(
         glue(
-          "`{col_names[i]}` doesn't have a lemma attribute. ",
+          "`{col_name}` doesn't have a lemma attribute. ",
           "Make sure the tokenization step includes lemmatization."
         )
       )
@@ -120,7 +120,7 @@ bake.step_lemma <- function(object, new_data, ...) {
       lemma_variable <- tokenlist_lemma(variable)
     }
 
-    new_data[[col_names[i]]] <- tibble(lemma_variable)
+    new_data[[col_name]] <- tibble(lemma_variable)
   }
   new_data <- factor_to_text(new_data, col_names)
   new_data

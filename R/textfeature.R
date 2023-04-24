@@ -145,13 +145,13 @@ bake.step_textfeature <- function(object, new_data, ...) {
 
   new_data <- factor_to_text(new_data, col_names)
 
-  for (i in seq_along(col_names)) {
-    tf_text <- map_dfc(
-      object$extract_functions,
-      ~ .x(new_data[[col_names[i]]])
-    )
+  for (col_name in col_names) {
+    tf_text <- map_dfc(object$extract_functions, ~ .x(new_data[[col_name]]))
 
-    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text),
+    colnames(tf_text) <- paste(
+      object$prefix,
+      col_name, 
+      colnames(tf_text),
       sep = "_"
     )
 
@@ -162,7 +162,7 @@ bake.step_textfeature <- function(object, new_data, ...) {
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <-
-        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+        new_data[, !(colnames(new_data) %in% col_name), drop = FALSE]
     }
   }
   new_data

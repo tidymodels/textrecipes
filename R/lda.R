@@ -131,11 +131,11 @@ prep.step_lda <- function(x, training, info = NULL, ...) {
 
   model_list <- list()
 
-  for (i in seq_along(col_names)) {
-    tokens <- get_tokens(training[, col_names[i], drop = TRUE])
+  for (col_name in col_names) {
+    tokens <- get_tokens(training[[col_name]])
 
     ddd <- utils::capture.output(
-      model_list[[i]] <- x$lda_models %||%
+      model_list[[col_name]] <- x$lda_models %||%
         attr(word_dims(tokens, n = x$num_topics), "dict")
     )
   }
@@ -159,15 +159,20 @@ bake.step_lda <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (i in seq_along(col_names)) {
-    tokens <- get_tokens(new_data[[col_names[i]]])
+  if (is.null(names(object$lda_models))) {
+    # Backwards compatibility with 1.0.3 (#230)
+    names(object$lda_models) <- col_names
+  }
+  
+  for (col_name in col_names) {
+    tokens <- get_tokens(new_data[[col_name]])
 
     ddd <- utils::capture.output(
-      tf_text <- word_dims_newtext(object$lda_models[[i]], tokens)
+      tf_text <- word_dims_newtext(object$lda_models[[col_name]], tokens)
     )
 
     attr(tf_text, "dict") <- NULL
-    colnames(tf_text) <- paste(object$prefix, col_names[i], colnames(tf_text),
+    colnames(tf_text) <- paste(object$prefix, col_name, colnames(tf_text),
       sep = "_"
     )
     
@@ -178,7 +183,7 @@ bake.step_lda <- function(object, new_data, ...) {
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <-
-        new_data[, !(colnames(new_data) %in% col_names[i]), drop = FALSE]
+        new_data[, !(colnames(new_data) %in% col_name), drop = FALSE]
     }
   }
 

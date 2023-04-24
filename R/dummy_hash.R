@@ -183,13 +183,13 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     hash_cols <- new_name
   }
 
-  for (i in seq_along(hash_cols)) {
+  for (hash_col in hash_cols) {
     tf_text <-
       hashing_function(
-        as.character(new_data[[hash_cols[i]]]),
+        as.character(new_data[[hash_col]]),
         paste0(
           object$prefix, "_",
-          hash_cols[i], "_",
+          hash_col, "_",
           names0(object$num_terms, "")
         ),
         object$signed,
@@ -200,7 +200,7 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {
       new_data <-
-        new_data[, !(colnames(new_data) %in% hash_cols[i]), drop = FALSE]
+        new_data[, !(colnames(new_data) %in% hash_col), drop = FALSE]
     }
 
     tf_text <- check_name(tf_text, new_data, object, names(tf_text))

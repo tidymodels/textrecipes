@@ -285,14 +285,15 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
 
   tokenizers <- list()
 
-  for (i in seq_along(col_names)) {
-    text <- training[[col_names[[i]]]]
+  for (col_name in col_names) {
+    text <- training[[col_name]]
 
     if (x$engine == "tokenizers.bpe" & !is.null(x$training_options$vocab_size)) {
-      check_bpe_vocab_size(text, x$training_options$vocab_size, col_names[[i]])
+      check_bpe_vocab_size(text, x$training_options$vocab_size, col_name)
     }
 
-    tokenizers[[i]] <- x$custom_token %||% tokenizer_switch(x$token, x, text)
+    tokenizers[[col_name]] <- x$custom_token %||% 
+      tokenizer_switch(x$token, x, text)
   }
 
   step_tokenize_new(
@@ -315,11 +316,16 @@ bake.step_tokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (i in seq_along(col_names)) {
-    new_data[[col_names[i]]] <- tokenizer_fun(
-      x = new_data[[col_names[i]]],
+  if (is.null(names(object$custom_token))) {
+    # Backwards compatibility with 1.0.3 (#230)
+    names(object$custom_token) <- col_names
+  }
+  
+  for (col_name in col_names) {
+    new_data[[col_name]] <- tokenizer_fun(
+      x = new_data[[col_name]],
       options = object$options,
-      token = object$custom_token[[i]]
+      token = object$custom_token[[col_name]]
     )
   }
   new_data
