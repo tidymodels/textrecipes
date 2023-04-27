@@ -131,3 +131,5 @@ test_that("empty printing", {
 
   expect_snapshot(rec)
 })
+
+# Infrastructure ---------------------------------------------------------------

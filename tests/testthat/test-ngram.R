@@ -331,3 +331,5 @@ test_that("tunable is setup to works with extract_parameter_set_dials works", {
   expect_s3_class(params, "parameters")
   expect_identical(nrow(params), 1L)
 })
+
+# Infrastructure ---------------------------------------------------------------
