@@ -13,8 +13,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_tokenmerge()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_tokenmerge`. The following variable names already exists: tokenmerge.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  tokenmerge
 
 # printing
 

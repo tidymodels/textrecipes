@@ -4,8 +4,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_texthash()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_texthash`. The following variable names already exists: texthash_text_0001.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  texthash_text_0001
 
 # printing
 

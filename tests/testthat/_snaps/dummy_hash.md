@@ -4,8 +4,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_dummy_hash()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_dummy_hash`. The following variable names already exists: dummyhash_text_01.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  dummyhash_text_01
 
 # printing
 
