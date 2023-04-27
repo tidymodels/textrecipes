@@ -8,41 +8,6 @@
       ! Name collision occured. The following variable names already exists:
       i  lda_text_1
 
-# printing
-
-    Code
-      print(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 2
-      
-      -- Operations 
-      * Tokenization for: medium
-      * Text feature extraction for: medium
-
----
-
-    Code
-      prep(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 2
-      
-      -- Training information 
-      Training data contained 100 data points and no incomplete rows.
-      
-      -- Operations 
-      * Tokenization for: medium | Trained
-      * Text feature extraction for: medium | Trained
-
 # can prep recipes with no keep_original_cols
 
     Code
@@ -85,4 +50,39 @@
       
       -- Operations 
       * Text feature extraction for: <none> | Trained
+
+# printing
+
+    Code
+      print(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 2
+      
+      -- Operations 
+      * Tokenization for: medium
+      * Text feature extraction for: medium
+
+---
+
+    Code
+      prep(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 2
+      
+      -- Training information 
+      Training data contained 100 data points and no incomplete rows.
+      
+      -- Operations 
+      * Tokenization for: medium | Trained
+      * Text feature extraction for: medium | Trained
 
