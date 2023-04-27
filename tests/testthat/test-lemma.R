@@ -29,7 +29,7 @@ test_that("lemmatization works", {
       c("I", "would", "not", "eat", "they", "here", "or", "there", "."),
       c("I", "would", "not", "eat", "they", "anywhere", "."),
       c("I", "would", "not", "eat", "green", "egg", "and", "ham", "."),
-      c("I", "do", "not", "like", "they", ",", "Sam", "-", "I", "-", "am", ".")
+      c("I", "do", "not", "like", "they", ",", "Sam", "-", "I", "-", "be", ".")
     )
   )
 

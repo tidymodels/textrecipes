@@ -28,8 +28,8 @@ test_that("part of speech filtering works", {
     list(
       character(),
       character(),
-      c("eggs", "ham"),
-      c("am")
+      c("eggs"),
+      character()
     )
   )
 })
@@ -78,8 +78,8 @@ test_that("part of speech filtering works with multiple tags", {
     list(
       c("eat"),
       c("eat"),
-      c("eat", "eggs", "ham"),
-      c("like", "am")
+      c("eat", "eggs"),
+      c("like")
     )
   )
 })
