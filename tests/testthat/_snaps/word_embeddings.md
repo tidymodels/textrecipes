@@ -4,8 +4,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_word_embeddings()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_word_embeddings`. The following variable names already exists: wordembed_text_d1.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  wordembed_text_d1
 
 # printing
 
