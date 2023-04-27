@@ -25,8 +25,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_textfeature()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_textfeature`. The following variable names already exists: textfeature_text_n_words.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  textfeature_text_n_words
 
 # printing
 

@@ -33,8 +33,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_sequence_onehot()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_sequence_onehot`. The following variable names already exists: seq1hot_text_1.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  seq1hot_text_1
 
 # printing
 

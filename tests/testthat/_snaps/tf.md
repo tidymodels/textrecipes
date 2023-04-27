@@ -4,8 +4,9 @@
       prep(rec, training = dat)
     Error <recipes_error_step>
       Error in `step_tf()`:
-      Caused by error in `check_name()`:
-      ! Name collision occured in `step_tf`. The following variable names already exists: tf_text_i.
+      Caused by error in `bake()`:
+      ! Name collision occured. The following variable names already exists:
+      i  tf_text_i
 
 # printing
 
