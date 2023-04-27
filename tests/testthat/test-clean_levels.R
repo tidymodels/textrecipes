@@ -66,21 +66,6 @@ test_that("factor input", {
   expect_equal(sum(is.na(cleaned_te$name)), 5)
 })
 
-test_that("bake method errors when needed non-standard role columns are missing", {
-  skip_if_not_installed("janitor")
-  rec <- recipe(~name, data = smith_tr) %>%
-    step_clean_levels(name) %>%
-    update_role(name, new_role = "potato") %>%
-    update_role_requirements(role = "potato", bake = FALSE)
-
-  trained <- prep(rec, training = smith_tr, verbose = FALSE)
-
-  expect_error(
-    bake(trained, new_data = smith_tr[, -1]),
-    class = "new_data_missing_column"
-  )
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_clean_levels(rec1)
@@ -112,6 +97,21 @@ test_that("empty selection tidy method works", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("janitor")
+  rec <- recipe(~name, data = smith_tr) %>%
+    step_clean_levels(name) %>%
+    update_role(name, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = smith_tr, verbose = FALSE)
+  
+  expect_error(
+    bake(trained, new_data = smith_tr[, -1]),
+    class = "new_data_missing_column"
+  )
+})
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)

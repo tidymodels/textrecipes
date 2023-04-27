@@ -81,20 +81,6 @@ test_that("hashing output width changes accordingly with num_terms", {
   expect_false(all(unsigned$dummyhash_sponsor_code_2 == signed$dummyhash_sponsor_code_2))
 })
 
-test_that("bake method errors when needed non-standard role columns are missing", {
-  rec <- recipe(~sponsor_code, data = test_data) %>%
-    step_dummy_hash(sponsor_code) %>%
-    update_role(sponsor_code, new_role = "potato") %>%
-    update_role_requirements(role = "potato", bake = FALSE)
-
-  trained <- prep(rec, training = test_data, verbose = FALSE)
-
-  expect_error(
-    bake(trained, new_data = test_data[, -2]),
-    class = "new_data_missing_column"
-  )
-})
-
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
   dat <- test_data
@@ -215,6 +201,20 @@ test_that("tunable is setup to works with extract_parameter_set_dials works", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("bake method errors when needed non-standard role columns are missing", {
+  rec <- recipe(~sponsor_code, data = test_data) %>%
+    step_dummy_hash(sponsor_code) %>%
+    update_role(sponsor_code, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = test_data, verbose = FALSE)
+  
+  expect_error(
+    bake(trained, new_data = test_data[, -2]),
+    class = "new_data_missing_column"
+  )
+})
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)

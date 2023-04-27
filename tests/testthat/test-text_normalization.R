@@ -17,21 +17,6 @@ test_that("simple sqrt trans", {
   expect_equal(rec_trans$text, factor(exp_res$text))
 })
 
-test_that("bake method errors when needed non-standard role columns are missing", {
-  skip_if_not_installed("stringi")
-  rec <- recipe(~text, data = ex_dat) %>%
-    step_text_normalization(text) %>%
-    update_role(text, new_role = "potato") %>%
-    update_role_requirements(role = "potato", bake = FALSE)
-
-  trained <- prep(rec, training = ex_dat, verbose = FALSE)
-
-  expect_error(
-    bake(trained, new_data = ex_dat[, -1]),
-    class = "new_data_missing_column"
-  )
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_text_normalization(rec1)
@@ -71,6 +56,21 @@ test_that("empty selection tidy method works", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("stringi")
+  rec <- recipe(~text, data = ex_dat) %>%
+    step_text_normalization(text) %>%
+    update_role(text, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = ex_dat, verbose = FALSE)
+  
+  expect_error(
+    bake(trained, new_data = ex_dat[, -1]),
+    class = "new_data_missing_column"
+  )
+})
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)

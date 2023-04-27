@@ -67,20 +67,6 @@ test_that("custom extraction functions work works", {
   )
 })
 
-test_that("bake method errors when needed non-standard role columns are missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_textfeature(text) %>%
-    update_role(text, new_role = "potato") %>%
-    update_role_requirements(role = "potato", bake = FALSE)
-
-  trained <- prep(rec, training = test_data, verbose = FALSE)
-
-  expect_error(
-    bake(trained, new_data = test_data[, -1]),
-    class = "new_data_missing_column"
-  )
-})
-
 test_that("check_name() is used", {
   dat <- test_data
   dat$textfeature_text_n_words <- dat$text
@@ -160,6 +146,20 @@ test_that("empty selection tidy method works", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("bake method errors when needed non-standard role columns are missing", {
+  rec <- recipe(~text, data = test_data) %>%
+    step_textfeature(text) %>%
+    update_role(text, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = test_data, verbose = FALSE)
+  
+  expect_error(
+    bake(trained, new_data = test_data[, -1]),
+    class = "new_data_missing_column"
+  )
+})
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
