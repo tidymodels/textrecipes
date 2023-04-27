@@ -163,7 +163,7 @@ test_that("ngramming is done correctly", {
     )
   )
 
-  expect_equal(dim(tidy(rec, 2)), c(1, 3))
+  expect_equal(dim(tidy(rec, 2)), c(1, 2))
   expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
@@ -212,7 +212,7 @@ test_that("ngramming works with min_num_tokens", {
     )
   )
 
-  expect_equal(dim(tidy(rec, 2)), c(1, 3))
+  expect_equal(dim(tidy(rec, 2)), c(1, 2))
   expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
@@ -313,7 +313,7 @@ test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_ngram(rec)
   
-  expect <- tibble(terms = character(), value = character(), id = character())
+  expect <- tibble(terms = character(), id = character())
   
   expect_identical(tidy(rec, number = 1), expect)
   
