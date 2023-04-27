@@ -163,18 +163,18 @@ test_that("empty selection tidy method works", {
   )
 })
 
+# Infrastructure ---------------------------------------------------------------
+
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenize_sentencepiece(rec)
-
+  
   expect_snapshot(rec)
-
+  
   rec <- prep(rec, mtcars)
-
+  
   expect_snapshot(rec)
 })
-
-# Infrastructure ---------------------------------------------------------------
 
 test_that("printing", {
   rec <- recipe(~., data = test_data) %>%
