@@ -32,36 +32,6 @@ test_that("can clean names", {
   expect_equal(tidy_exp_tr, tidy(cleaned, number = 1))
 })
 
-test_that("empty selection prep/bake is a no-op", {
-  rec1 <- recipe(mpg ~ ., mtcars)
-  rec2 <- step_clean_names(rec1)
-
-  rec1 <- prep(rec1, mtcars)
-  rec2 <- prep(rec2, mtcars)
-
-  baked1 <- bake(rec1, mtcars)
-  baked2 <- bake(rec2, mtcars)
-
-  expect_identical(baked1, baked1)
-})
-
-test_that("empty selection tidy method works", {
-  rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_clean_names(rec)
-
-  expect_identical(
-    tidy(rec, number = 1),
-    tibble(terms = character(), id = character())
-  )
-
-  rec <- prep(rec, mtcars)
-
-  expect_identical(
-    tidy(rec, number = 1),
-    tibble(terms = character(), id = character())
-  )
-})
-
 # Infrastructure ---------------------------------------------------------------
 
 test_that("empty printing", {
@@ -73,6 +43,32 @@ test_that("empty printing", {
   rec <- prep(rec, mtcars)
   
   expect_snapshot(rec)
+})
+
+test_that("empty selection prep/bake is a no-op", {
+  rec1 <- recipe(mpg ~ ., mtcars)
+  rec2 <- step_clean_names(rec1)
+  
+  rec1 <- prep(rec1, mtcars)
+  rec2 <- prep(rec2, mtcars)
+  
+  baked1 <- bake(rec1, mtcars)
+  baked2 <- bake(rec2, mtcars)
+  
+  expect_identical(baked1, baked1)
+})
+
+test_that("empty selection tidy method works", {
+  rec <- recipe(mpg ~ ., mtcars)
+  rec <- step_clean_names(rec)
+  
+  expect <- tibble(terms = character(), id = character())
+  
+  expect_identical(tidy(rec, number = 1), expect)
+  
+  rec <- prep(rec, mtcars)
+  
+  expect_identical(tidy(rec, number = 1), expect)
 })
 
 test_that("printing", {

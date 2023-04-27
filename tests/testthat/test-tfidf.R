@@ -166,46 +166,6 @@ test_that("Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
   )
 })
 
-test_that("empty selection prep/bake is a no-op", {
-  rec1 <- recipe(mpg ~ ., mtcars)
-  rec2 <- step_tfidf(rec1)
-
-  rec1 <- prep(rec1, mtcars)
-  rec2 <- prep(rec2, mtcars)
-
-  baked1 <- bake(rec1, mtcars)
-  baked2 <- bake(rec2, mtcars)
-
-  expect_identical(baked1, baked1)
-})
-
-test_that("empty selection tidy method works", {
-  rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_tfidf(rec)
-
-  expect_identical(
-    tidy(rec, number = 1),
-    tibble(
-      terms = character(),
-      token = character(),
-      weight = double(),
-      id = character()
-    )
-  )
-
-  rec <- prep(rec, mtcars)
-
-  expect_identical(
-    tidy(rec, number = 1),
-    tibble(
-      terms = character(),
-      token = character(),
-      weight = double(),
-      id = character()
-    )
-  )
-})
-
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
@@ -237,6 +197,37 @@ test_that("empty printing", {
   rec <- prep(rec, mtcars)
   
   expect_snapshot(rec)
+})
+
+test_that("empty selection prep/bake is a no-op", {
+  rec1 <- recipe(mpg ~ ., mtcars)
+  rec2 <- step_tfidf(rec1)
+  
+  rec1 <- prep(rec1, mtcars)
+  rec2 <- prep(rec2, mtcars)
+  
+  baked1 <- bake(rec1, mtcars)
+  baked2 <- bake(rec2, mtcars)
+  
+  expect_identical(baked1, baked1)
+})
+
+test_that("empty selection tidy method works", {
+  rec <- recipe(mpg ~ ., mtcars)
+  rec <- step_tfidf(rec)
+  
+  expect <- tibble(
+    terms = character(),
+    token = character(),
+    weight = double(),
+    id = character()
+  )
+  
+  expect_identical(tidy(rec, number = 1), expect)
+  
+  rec <- prep(rec, mtcars)
+  
+  expect_identical(tidy(rec, number = 1), expect)
 })
 
 test_that("printing", {
