@@ -49,17 +49,6 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
   )
 })
 
-test_that("printing", {
-  skip_on_cran()
-  skip_if_no_python_or_no_spacy()
-  rec <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors(), engine = "spacyr") %>%
-    step_lemma(all_predictors())
-
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_lemma(rec1)
@@ -102,3 +91,14 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  skip_on_cran()
+  skip_if_no_python_or_no_spacy()
+  rec <- recipe(~text, data = text) %>%
+    step_tokenize(all_predictors(), engine = "spacyr") %>%
+    step_lemma(all_predictors())
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

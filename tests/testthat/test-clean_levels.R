@@ -81,13 +81,6 @@ test_that("bake method errors when needed non-standard role columns are missing"
   )
 })
 
-test_that("printing", {
-  skip_if_not_installed("janitor")
-  rec <- rec %>% step_clean_levels(name)
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_clean_levels(rec1)
@@ -130,3 +123,11 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  skip_if_not_installed("janitor")
+  rec <- rec %>% step_clean_levels(name)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

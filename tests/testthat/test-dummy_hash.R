@@ -110,14 +110,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("printing", {
-  skip_if_not_installed("text2vec")
-  rec <- rec %>%
-    step_dummy_hash(sponsor_code)
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_dummy_hash(sponsor_code, num_terms = 4, keep_original_cols = TRUE)
@@ -234,3 +226,12 @@ test_that("tunable is setup to works with extract_parameter_set_dials works", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  skip_if_not_installed("text2vec")
+  rec <- rec %>%
+    step_dummy_hash(sponsor_code)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

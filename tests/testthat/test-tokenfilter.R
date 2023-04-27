@@ -137,14 +137,6 @@ test_that("bake method errors when needed non-standard role columns are missing"
   )
 })
 
-test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
-    step_tokenfilter(text)
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tokenfilter(rec1)
@@ -217,3 +209,12 @@ test_that("tunable is setup to works with extract_parameter_set_dials works", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_tokenfilter(text)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

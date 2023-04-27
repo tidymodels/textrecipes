@@ -94,14 +94,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("printing", {
-  skip_if_not_installed("textfeatures")
-  rec <- rec %>%
-    step_textfeature(text)
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_textfeature(text,
@@ -179,3 +171,12 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  skip_if_not_installed("textfeatures")
+  rec <- rec %>%
+    step_textfeature(text)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

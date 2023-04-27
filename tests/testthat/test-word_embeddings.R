@@ -179,11 +179,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("printing", {
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("NA tokens work.", {
   new_text <- tibble(
     text = c("am", "and", NA)
@@ -389,3 +384,8 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

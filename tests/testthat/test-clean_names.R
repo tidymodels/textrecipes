@@ -32,13 +32,6 @@ test_that("can clean names", {
   expect_equal(tidy_exp_tr, tidy(cleaned, number = 1))
 })
 
-test_that("printing", {
-  skip_if_not_installed("janitor")
-  rec <- rec %>% step_clean_names(all_predictors())
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_clean_names(rec1)
@@ -81,3 +74,11 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  skip_if_not_installed("janitor")
+  rec <- rec %>% step_clean_names(all_predictors())
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

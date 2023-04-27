@@ -154,14 +154,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
-    step_sequence_onehot(text)
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("keep_original_cols works", {
   koc_rec <- rec %>%
     step_tokenize(text) %>%
@@ -249,3 +241,12 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  rec <- rec %>%
+    step_tokenize(text) %>%
+    step_sequence_onehot(text)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})

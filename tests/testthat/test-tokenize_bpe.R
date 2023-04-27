@@ -143,13 +143,6 @@ test_that("bake method errors when needed non-standard role columns are missing"
   )
 })
 
-test_that("printing", {
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize_bpe(text1)
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
-})
-
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tokenize_bpe(rec1)
@@ -192,3 +185,11 @@ test_that("empty printing", {
 })
 
 # Infrastructure ---------------------------------------------------------------
+
+test_that("printing", {
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize_bpe(text1)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
+})
