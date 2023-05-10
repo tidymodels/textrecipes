@@ -1,38 +1,3 @@
-# printing
-
-    Code
-      print(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 1
-      
-      -- Operations 
-      * Tokenization for: text
-      * Stop word removal for: text
-
----
-
-    Code
-      prep(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 1
-      
-      -- Training information 
-      Training data contained 4 data points and no incomplete rows.
-      
-      -- Operations 
-      * Tokenization for: text | Trained
-      * Stop word removal for: text | Trained
-
 # empty printing
 
     Code
@@ -67,4 +32,39 @@
       
       -- Operations 
       * Stop word removal for: <none> | Trained
+
+# printing
+
+    Code
+      print(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
+      
+      -- Operations 
+      * Tokenization for: text
+      * Stop word removal for: text
+
+---
+
+    Code
+      prep(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
+      
+      -- Training information 
+      Training data contained 4 data points and no incomplete rows.
+      
+      -- Operations 
+      * Tokenization for: text | Trained
+      * Stop word removal for: text | Trained
 

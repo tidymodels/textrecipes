@@ -165,8 +165,7 @@ tidy.step_ngram <- function(x, ...) {
   } else {
     term_names <- sel2char(x$terms)
     res <- tibble(
-      terms = term_names,
-      value = na_chr
+      terms = term_names
     )
   }
   res$id <- x$id

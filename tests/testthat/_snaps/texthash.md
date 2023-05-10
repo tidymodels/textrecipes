@@ -8,41 +8,6 @@
       ! Name collision occured. The following variable names already exists:
       i  texthash_text_0001
 
-# printing
-
-    Code
-      print(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 1
-      
-      -- Operations 
-      * Tokenization for: text
-      * Feature hashing with: text
-
----
-
-    Code
-      prep(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 1
-      
-      -- Training information 
-      Training data contained 4 data points and no incomplete rows.
-      
-      -- Operations 
-      * Tokenization for: text | Trained
-      * Feature hashing with: text | Trained
-
 # can prep recipes with no keep_original_cols
 
     Code
@@ -85,4 +50,39 @@
       
       -- Operations 
       * Feature hashing with: <none> | Trained
+
+# printing
+
+    Code
+      print(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
+      
+      -- Operations 
+      * Tokenization for: text
+      * Feature hashing with: text
+
+---
+
+    Code
+      prep(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 1
+      
+      -- Training information 
+      Training data contained 4 data points and no incomplete rows.
+      
+      -- Operations 
+      * Tokenization for: text | Trained
+      * Feature hashing with: text | Trained
 

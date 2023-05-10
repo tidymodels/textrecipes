@@ -33,6 +33,41 @@
       * Tokenization for: text | Trained
       * Text filtering for: text | Trained
 
+# empty printing
+
+    Code
+      rec
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
+      
+      -- Operations 
+      * Text filtering for: <none>
+
+---
+
+    Code
+      rec
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      outcome:    1
+      predictor: 10
+      
+      -- Training information 
+      Training data contained 32 data points and no incomplete rows.
+      
+      -- Operations 
+      * Text filtering for: <none> | Trained
+
 # printing
 
     Code
@@ -69,39 +104,4 @@
       -- Operations 
       * Tokenization for: text | Trained
       * Text filtering for: text | Trained
-
-# empty printing
-
-    Code
-      rec
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      outcome:    1
-      predictor: 10
-      
-      -- Operations 
-      * Text filtering for: <none>
-
----
-
-    Code
-      rec
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      outcome:    1
-      predictor: 10
-      
-      -- Training information 
-      Training data contained 32 data points and no incomplete rows.
-      
-      -- Operations 
-      * Text filtering for: <none> | Trained
 

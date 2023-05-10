@@ -17,41 +17,6 @@
       ! Name collision occured. The following variable names already exists:
       i  tokenmerge
 
-# printing
-
-    Code
-      print(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 2
-      
-      -- Operations 
-      * Tokenization for: text1, text2
-      * Merging tokens for: text1, text2
-
----
-
-    Code
-      prep(rec)
-    Message <cliMessage>
-      
-      -- Recipe ----------------------------------------------------------------------
-      
-      -- Inputs 
-      Number of variables by role
-      predictor: 2
-      
-      -- Training information 
-      Training data contained 4 data points and no incomplete rows.
-      
-      -- Operations 
-      * Tokenization for: text1, text2 | Trained
-      * Merging tokens for: text1, text2 | Trained
-
 # empty printing
 
     Code
@@ -86,4 +51,39 @@
       
       -- Operations 
       * Merging tokens for: <none> | Trained
+
+# printing
+
+    Code
+      print(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 2
+      
+      -- Operations 
+      * Tokenization for: text1, text2
+      * Merging tokens for: text1, text2
+
+---
+
+    Code
+      prep(rec)
+    Message <cliMessage>
+      
+      -- Recipe ----------------------------------------------------------------------
+      
+      -- Inputs 
+      Number of variables by role
+      predictor: 2
+      
+      -- Training information 
+      Training data contained 4 data points and no incomplete rows.
+      
+      -- Operations 
+      * Tokenization for: text1, text2 | Trained
+      * Merging tokens for: text1, text2 | Trained
 

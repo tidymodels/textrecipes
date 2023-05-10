@@ -36,27 +36,6 @@ test_that("step_lda works with num_topics argument", {
   expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
 })
 
-test_that("bake method errors when needed non-standard role columns are missing", {
-  skip_if_not_installed("text2vec")
-  tokenized_test_data <- rec %>%
-    step_tokenize(medium) %>%
-    prep() %>%
-    bake(new_data = NULL)
-
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(medium, new_role = "predictor") %>%
-    step_lda(medium, num_topics = 10) %>%
-    update_role(medium, new_role = "potato") %>%
-    update_role_requirements(role = "potato", bake = FALSE)
-
-  trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-
-  expect_error(
-    bake(trained, new_data = tokenized_test_data[, -1]),
-    class = "new_data_missing_column"
-  )
-})
-
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
   dat <- tate_text[seq_len(100), ]
@@ -71,16 +50,6 @@ test_that("check_name() is used", {
     error = TRUE,
     prep(rec, training = dat)
   )
-})
-
-test_that("printing", {
-  skip_if_not_installed("text2vec")
-  rec <- rec %>%
-    step_tokenize(medium) %>%
-    step_lda(medium)
-
-  expect_snapshot(print(rec))
-  expect_snapshot(prep(rec))
 })
 
 test_that("keep_original_cols works", {
@@ -118,43 +87,76 @@ test_that("can prep recipes with no keep_original_cols", {
   )
 })
 
-test_that("empty selection prep/bake is a no-op", {
-  rec1 <- recipe(mpg ~ ., mtcars)
-  rec2 <- step_lda(rec1)
+# Infrastructure ---------------------------------------------------------------
 
-  rec1 <- prep(rec1, mtcars)
-  rec2 <- prep(rec2, mtcars)
-
-  baked1 <- bake(rec1, mtcars)
-  baked2 <- bake(rec2, mtcars)
-
-  expect_identical(baked1, baked1)
-})
-
-test_that("empty selection tidy method works", {
-  rec <- recipe(mpg ~ ., mtcars)
-  rec <- step_lda(rec)
-
-  expect_identical(
-    tidy(rec, number = 1),
-    tibble(terms = character(), num_topics = integer(), id = character())
-  )
-
-  rec <- prep(rec, mtcars)
-
-  expect_identical(
-    tidy(rec, number = 1),
-    tibble(terms = character(), num_topics = integer(), id = character())
+test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("text2vec")
+  tokenized_test_data <- rec %>%
+    step_tokenize(medium) %>%
+    prep() %>%
+    bake(new_data = NULL)
+  
+  rec <- recipe(tokenized_test_data) %>%
+    update_role(medium, new_role = "predictor") %>%
+    step_lda(medium, num_topics = 10) %>%
+    update_role(medium, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
+  
+  expect_error(
+    bake(trained, new_data = tokenized_test_data[, -1]),
+    class = "new_data_missing_column"
   )
 })
 
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_lda(rec)
-
+  
   expect_snapshot(rec)
-
+  
   rec <- prep(rec, mtcars)
-
+  
   expect_snapshot(rec)
+})
+
+test_that("empty selection prep/bake is a no-op", {
+  rec1 <- recipe(mpg ~ ., mtcars)
+  rec2 <- step_lda(rec1)
+  
+  rec1 <- prep(rec1, mtcars)
+  rec2 <- prep(rec2, mtcars)
+  
+  baked1 <- bake(rec1, mtcars)
+  baked2 <- bake(rec2, mtcars)
+  
+  expect_identical(baked1, baked1)
+})
+
+test_that("empty selection tidy method works", {
+  rec <- recipe(mpg ~ ., mtcars)
+  rec <- step_lda(rec)
+  
+  expect <- tibble(
+    terms = character(),
+    num_topics = integer(),
+    id = character()
+  )
+  
+  expect_identical(tidy(rec, number = 1), expect)
+  
+  rec <- prep(rec, mtcars)
+  
+  expect_identical(tidy(rec, number = 1), expect)
+})
+
+test_that("printing", {
+  skip_if_not_installed("text2vec")
+  rec <- rec %>%
+    step_tokenize(medium) %>%
+    step_lda(medium)
+  
+  expect_snapshot(print(rec))
+  expect_snapshot(prep(rec))
 })
