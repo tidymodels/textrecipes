@@ -103,8 +103,12 @@ prep.step_clean_names <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_clean_names <- function(object, new_data, ...) {
-  if (!is.null(object$clean)) {
-    colnames(new_data) <- dplyr::recode(colnames(new_data), !!!object$clean)
+  col_names <- object$clean
+  
+  check_new_data(names(col_names), object, new_data)
+  
+  if (!is.null(col_names)) {
+    colnames(new_data) <- dplyr::recode(colnames(new_data), !!!col_names)
   }
 
   new_data
