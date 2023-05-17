@@ -178,7 +178,7 @@ bake.step_lda <- function(object, new_data, ...) {
     
     tf_text <- check_name(tf_text, new_data, object, names(tf_text))
 
-    new_data <- vctrs::vec_cbind(new_data, tf_text)
+    new_data <- vec_cbind(new_data, tf_text)
 
     keep_original_cols <- get_keep_original_cols(object)
     if (!keep_original_cols) {

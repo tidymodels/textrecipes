@@ -205,7 +205,7 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
 
     tf_text <- check_name(tf_text, new_data, object, names(tf_text))
     
-    new_data <- vctrs::vec_cbind(tf_text, new_data)
+    new_data <- vec_cbind(new_data, tf_text)
   }
   if (object$collapse) {
     new_data <- new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]

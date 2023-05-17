@@ -190,7 +190,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
     
     out_text <- check_name(out_text, new_data, object, names(out_text))
 
-    new_data <- vctrs::vec_cbind(new_data, out_text)
+    new_data <- vec_cbind(new_data, out_text)
   }
   new_data
 }

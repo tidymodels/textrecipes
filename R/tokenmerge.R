@@ -120,7 +120,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
 
   new_col <- check_name(new_col, new_data, object, names(new_col))
   
-  new_data <- vctrs::vec_cbind(new_data, new_col)
+  new_data <- vec_cbind(new_data, new_col)
 
   new_data
 }

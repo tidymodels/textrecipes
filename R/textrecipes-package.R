@@ -37,6 +37,7 @@
 #' @importFrom vctrs obj_print_footer
 #' @importFrom vctrs vec_assert
 #' @importFrom vctrs vec_cast
+#' @importFrom vctrs vec_cbind
 #' @importFrom vctrs vec_ptype_abbr
 #' @importFrom vctrs vec_restore
 #' @useDynLib textrecipes, .registration = TRUE
