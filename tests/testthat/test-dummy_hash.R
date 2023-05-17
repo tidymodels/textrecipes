@@ -107,8 +107,9 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(koc_pred),
     c(
-      "dummyhash_sponsor_code_1", "dummyhash_sponsor_code_2", "dummyhash_sponsor_code_3",
-      "dummyhash_sponsor_code_4", "contract_value_band", "sponsor_code"
+      "contract_value_band", "sponsor_code", "dummyhash_sponsor_code_1", 
+      "dummyhash_sponsor_code_2", "dummyhash_sponsor_code_3",
+      "dummyhash_sponsor_code_4"
     )
   )
 })

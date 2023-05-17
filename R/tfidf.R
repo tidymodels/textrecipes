@@ -198,7 +198,7 @@ bake.step_tfidf <- function(object, new_data, ...) {
     
     tfidf_text <- check_name(tfidf_text, new_data, object, names(tfidf_text))
 
-    new_data <- vctrs::vec_cbind(new_data, tfidf_text)
+    new_data <- vec_cbind(new_data, tfidf_text)
   }
   new_data
 }

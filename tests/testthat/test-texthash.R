@@ -93,8 +93,8 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(koc_pred),
     c(
-      "texthash_text_1", "texthash_text_2", "texthash_text_3",
-      "texthash_text_4", "text"
+      "text", "texthash_text_1", "texthash_text_2", "texthash_text_3",
+      "texthash_text_4"
     )
   )
 })
