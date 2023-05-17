@@ -34,6 +34,20 @@ test_that("can clean names", {
 
 # Infrastructure ---------------------------------------------------------------
 
+test_that("bake method errors when needed non-standard role columns are missing", {
+  rec <- recipe(mtcars) %>%
+    step_clean_names(disp) %>%
+    update_role(disp, new_role = "potato") %>%
+    update_role_requirements(role = "potato", bake = FALSE)
+  
+  trained <- prep(rec)
+  
+  expect_error(
+    bake(trained, new_data = mtcars[, -3]),
+    class = "new_data_missing_column"
+  )
+})
+
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_clean_names(rec)

@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* * `step_clean_names()` now throw an informative error if needed non-standard role columns are missing during `bake()`.
+
 # textrecipes 1.0.3
 
 ## Improvements
