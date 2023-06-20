@@ -1,6 +1,6 @@
 #' Filter Tokens Based on Term Frequency
 #'
-#' `step_tokenfilter` creates a *specification* of a recipe step that will
+#' `step_tokenfilter()` creates a *specification* of a recipe step that will
 #' convert a [`token`][tokenlist()] variable to be filtered based on frequency.
 #'
 #' @template args-recipe

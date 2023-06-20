@@ -1,9 +1,9 @@
 #' Sentencepiece Tokenization of Character Variables
 #'
-#' [step_tokenize_sentencepiece()] creates a *specification* of a recipe step
+#' `step_tokenize_sentencepiece()` creates a *specification* of a recipe step
 #' that will convert a character predictor into a [`token`][tokenlist()]
 #' variable using SentencePiece tokenization.
-#'
+#' 
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_no-new

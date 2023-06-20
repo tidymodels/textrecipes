@@ -75,7 +75,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_sequence_onehot} creates a \emph{specification} of a recipe step that will
+\code{step_sequence_onehot()} creates a \emph{specification} of a recipe step that will
 take a string and do one hot encoding for each character by position.
 }
 \details{

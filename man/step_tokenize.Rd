@@ -65,7 +65,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize]{step_tokenize()}} creates a \emph{specification} of a recipe step that will
+\code{step_tokenize()} creates a \emph{specification} of a recipe step that will
 convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
 }
 \details{

@@ -1,6 +1,6 @@
 #' Generate n-grams From Token Variables
 #'
-#' `step_ngram` creates a *specification* of a recipe step that will convert a
+#' `step_ngram()` creates a *specification* of a recipe step that will convert a
 #' [`token`][tokenlist()] variable into a [`token`][tokenlist()] variable of
 #' ngrams.
 #'

@@ -57,7 +57,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize_sentencepiece]{step_tokenize_sentencepiece()}} creates a \emph{specification} of a recipe step
+\code{step_tokenize_sentencepiece()} creates a \emph{specification} of a recipe step
 that will convert a character predictor into a \code{\link[=tokenlist]{token}}
 variable using SentencePiece tokenization.
 }

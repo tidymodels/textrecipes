@@ -1,7 +1,7 @@
 #' Part of Speech Filtering of Token Variables
 #'
-#' `step_pos_filter` creates a *specification* of a recipe step that will filter
-#' a [`token`][tokenlist()] variable based on part of speech tags.
+#' `step_pos_filter()` creates a *specification* of a recipe step that will
+#' filter a [`token`][tokenlist()] variable based on part of speech tags.
 #'
 #' @template args-recipe
 #' @template args-dots

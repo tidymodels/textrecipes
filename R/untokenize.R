@@ -1,6 +1,6 @@
 #' Untokenization of Token Variables
 #'
-#' `step_untokenize` creates a *specification* of a recipe step that will
+#' `step_untokenize()` creates a *specification* of a recipe step that will
 #' convert a [`token`][tokenlist()] variable into a character predictor.
 #'
 #' @template args-recipe

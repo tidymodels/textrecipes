@@ -55,9 +55,9 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize_wordpiece]{step_tokenize_wordpiece()}} creates a \emph{specification} of a recipe step
-that will convert a character predictor into a \code{\link[=tokenlist]{token}}
-variable using WordPiece tokenization.
+\code{step_tokenize_wordpiece()} creates a \emph{specification} of a recipe step that
+will convert a character predictor into a \code{\link[=tokenlist]{token}} variable
+using WordPiece tokenization.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

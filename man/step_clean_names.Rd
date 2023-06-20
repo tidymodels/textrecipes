@@ -44,8 +44,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_clean_names} creates a \emph{specification} of a recipe step that will clean
-variable names so the names consist only of letters, numbers, and the
+\code{step_clean_names()} creates a \emph{specification} of a recipe step that will
+clean variable names so the names consist only of letters, numbers, and the
 underscore.
 }
 \section{Tidying}{

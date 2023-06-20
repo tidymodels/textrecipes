@@ -1,6 +1,6 @@
 #' Combine Multiple Token Variables Into One
 #'
-#' `step_tokenmerge` creates a *specification* of a recipe step that will take
+#' `step_tokenmerge()` creates a *specification* of a recipe step that will take
 #' multiple [`token`][tokenlist()] variables and combine them into one
 #' [`token`][tokenlist()] variable.
 #'

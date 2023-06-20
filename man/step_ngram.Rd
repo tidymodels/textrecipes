@@ -57,7 +57,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_ngram} creates a \emph{specification} of a recipe step that will convert a
+\code{step_ngram()} creates a \emph{specification} of a recipe step that will convert a
 \code{\link[=tokenlist]{token}} variable into a \code{\link[=tokenlist]{token}} variable of
 ngrams.
 }

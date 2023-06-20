@@ -45,7 +45,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_clean_levels} creates a \emph{specification} of a recipe step that will
+\code{step_clean_levels()} creates a \emph{specification} of a recipe step that will
 clean nominal data (character or factor) so the levels consist only of
 letters, numbers, and the underscore.
 }

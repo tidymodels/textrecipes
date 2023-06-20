@@ -69,7 +69,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_word_embeddings} creates a \emph{specification} of a recipe step that will
+\code{step_word_embeddings()} creates a \emph{specification} of a recipe step that will
 convert a \code{\link[=tokenlist]{token}} variable into word-embedding dimensions by
 aggregating the vectors of each token from a pre-trained embedding.
 }

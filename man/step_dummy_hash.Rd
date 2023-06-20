@@ -68,7 +68,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_dummy_hash} creates a \emph{specification} of a recipe step that will
+\code{step_dummy_hash()} creates a \emph{specification} of a recipe step that will
 convert factors or character columns into a series of binary (or signed
 binary) indicator columns.
 }
