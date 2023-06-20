@@ -51,7 +51,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_text_normalization} creates a \emph{specification} of a recipe step that
+\code{step_text_normalization()} creates a \emph{specification} of a recipe step that
 will perform Unicode Normalization on character variables.
 }
 \section{Tidying}{

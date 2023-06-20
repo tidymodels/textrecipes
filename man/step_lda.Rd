@@ -65,8 +65,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_lda} creates a \emph{specification} of a recipe step that will
-return the lda dimension estimates of a text variable.
+\code{step_lda()} creates a \emph{specification} of a recipe step that will return the
+lda dimension estimates of a text variable.
 }
 \section{Tidying}{
 When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}

@@ -1,8 +1,8 @@
 #' Feature Hashing of Tokens
 #'
-#' `step_texthash` creates a *specification* of a recipe step that will convert
-#' a [`token`][tokenlist()] variable into multiple numeric variables using the
-#' hashing trick.
+#' `step_texthash()` creates a *specification* of a recipe step that will
+#' convert a [`token`][tokenlist()] variable into multiple numeric variables
+#' using the hashing trick.
 #'
 #' @template args-recipe
 #' @template args-dots

@@ -50,7 +50,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tokenmerge} creates a \emph{specification} of a recipe step that will take
+\code{step_tokenmerge()} creates a \emph{specification} of a recipe step that will take
 multiple \code{\link[=tokenlist]{token}} variables and combine them into one
 \code{\link[=tokenlist]{token}} variable.
 }

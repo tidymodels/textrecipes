@@ -1,9 +1,9 @@
 #' Term frequency of Tokens
 #'
-#' `step_tf` creates a *specification* of a recipe step that will convert a
+#' `step_tf()` creates a *specification* of a recipe step that will convert a
 #' [`token`][tokenlist()] variable into multiple variables containing the token
 #' counts.
-#'
+#' 
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors

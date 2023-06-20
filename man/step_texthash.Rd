@@ -63,9 +63,9 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_texthash} creates a \emph{specification} of a recipe step that will convert
-a \code{\link[=tokenlist]{token}} variable into multiple numeric variables using the
-hashing trick.
+\code{step_texthash()} creates a \emph{specification} of a recipe step that will
+convert a \code{\link[=tokenlist]{token}} variable into multiple numeric variables
+using the hashing trick.
 }
 \details{
 Feature hashing, or the hashing trick, is a transformation of a text variable

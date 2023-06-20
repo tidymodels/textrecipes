@@ -1,7 +1,7 @@
 #' Lemmatization of Token Variables
 #'
-#' `step_lemma` creates a *specification* of a recipe step that will extract the
-#' lemmatization of a [`token`][tokenlist()] variable.
+#' `step_lemma()` creates a *specification* of a recipe step that will extract
+#' the lemmatization of a [`token`][tokenlist()] variable.
 #'
 #' @template args-recipe
 #' @template args-dots

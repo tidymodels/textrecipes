@@ -56,7 +56,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{\link[=step_tokenize_bpe]{step_tokenize_bpe()}} creates a \emph{specification} of a recipe step that will
+\code{step_tokenize_bpe()} creates a \emph{specification} of a recipe step that will
 convert a character predictor into a \code{\link[=tokenlist]{token}} variable using
 Byte Pair Encoding.
 }

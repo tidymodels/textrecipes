@@ -61,8 +61,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_stopwords} creates a \emph{specification} of a recipe step that will filter
-a \code{\link[=tokenlist]{token}} variable for stop words.
+\code{step_stopwords()} creates a \emph{specification} of a recipe step that will
+filter a \code{\link[=tokenlist]{token}} variable for stop words.
 }
 \details{
 Stop words are words which sometimes are remove before natural language

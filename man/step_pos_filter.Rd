@@ -49,8 +49,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_pos_filter} creates a \emph{specification} of a recipe step that will filter
-a \code{\link[=tokenlist]{token}} variable based on part of speech tags.
+\code{step_pos_filter()} creates a \emph{specification} of a recipe step that will
+filter a \code{\link[=tokenlist]{token}} variable based on part of speech tags.
 }
 \details{
 Possible part of speech tags for \code{spacyr} engine are: "ADJ", "ADP", "ADV",

@@ -1,6 +1,6 @@
 #' Pretrained Word Embeddings of Tokens
 #'
-#' `step_word_embeddings` creates a *specification* of a recipe step that will
+#' `step_word_embeddings()` creates a *specification* of a recipe step that will
 #' convert a [`token`][tokenlist()] variable into word-embedding dimensions by
 #' aggregating the vectors of each token from a pre-trained embedding.
 #'

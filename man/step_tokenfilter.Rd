@@ -71,7 +71,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_tokenfilter} creates a \emph{specification} of a recipe step that will
+\code{step_tokenfilter()} creates a \emph{specification} of a recipe step that will
 convert a \code{\link[=tokenlist]{token}} variable to be filtered based on frequency.
 }
 \details{

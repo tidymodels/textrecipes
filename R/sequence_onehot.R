@@ -1,6 +1,6 @@
 #' Positional One-Hot encoding of Tokens
 #'
-#' `step_sequence_onehot` creates a *specification* of a recipe step that will
+#' `step_sequence_onehot()` creates a *specification* of a recipe step that will
 #' take a string and do one hot encoding for each character by position.
 #'
 #' @template args-recipe

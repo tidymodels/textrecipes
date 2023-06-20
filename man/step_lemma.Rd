@@ -45,8 +45,8 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_lemma} creates a \emph{specification} of a recipe step that will extract the
-lemmatization of a \code{\link[=tokenlist]{token}} variable.
+\code{step_lemma()} creates a \emph{specification} of a recipe step that will extract
+the lemmatization of a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
 This stem doesn't perform lemmatization by itself, but rather lets you

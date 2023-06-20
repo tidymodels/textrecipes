@@ -59,7 +59,7 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{step_textfeature} creates a \emph{specification} of a recipe step that will
+\code{step_textfeature()} creates a \emph{specification} of a recipe step that will
 extract a number of numeric features of a text column.
 }
 \details{
