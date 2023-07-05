@@ -65,6 +65,13 @@ When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \co
 (the selectors or variables selected).
 }
 
+\section{Tuning Parameters}{
+This step has 1 tuning parameters:
+\itemize{
+\item \code{vocabulary_size}: # Unique Tokens in Vocabulary (type: integer, default: 1000)
+}
+}
+
 \section{Case weights}{
 
 
