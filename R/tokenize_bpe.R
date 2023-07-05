@@ -26,6 +26,12 @@
 #' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
 #' (the selectors or variables selected).
 #'
+#' ```{r, echo = FALSE, results="asis"}
+#' step <- "step_tokenize_bpe"
+#' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
+#' cat(result)
+#' ```
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_untokenize()] to untokenize.
@@ -208,4 +214,18 @@ tidy.step_tokenize_bpe <- function(x, ...) {
 #' @export
 required_pkgs.step_tokenize_bpe <- function(x, ...) {
   c("tokenizers.bpe", "textrecipes")
+}
+
+#' @rdname tunable_textrecipes
+#' @export
+tunable.step_tokenize_bpe <- function(x, ...) {
+  tibble::tibble(
+    name = c("vocabulary_size"),
+    call_info = list(
+      list(pkg = "dials", fun = "vocabulary_size", range = c(1000, 32000))
+    ),
+    source = "recipe",
+    component = "step_tokenize_bpe",
+    component_id = x$id
+  )
 }

@@ -129,6 +129,22 @@ test_that("Errors if vocabulary size is set to low.", {
   )
 })
 
+test_that("tunable", {
+  rec <-
+    recipe(~., data = mtcars) %>%
+    step_tokenize_bpe(all_predictors())
+  rec_param <- tunable.step_tokenize_bpe(rec$steps[[1]])
+  expect_equal(rec_param$name, c("vocabulary_size"))
+  expect_true(all(rec_param$source == "recipe"))
+  expect_true(is.list(rec_param$call_info))
+  expect_equal(nrow(rec_param), 1)
+  expect_equal(
+    names(rec_param),
+    c("name", "call_info", "source", "component", "component_id")
+  )
+})
+
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
@@ -188,4 +204,15 @@ test_that("printing", {
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
+})
+
+test_that("tunable is setup to works with extract_parameter_set_dials", {
+  skip_if_not_installed("dials")
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize_bpe(text1, vocabulary_size = hardhat::tune())
+  
+  params <- extract_parameter_set_dials(rec)
+  
+  expect_s3_class(params, "parameters")
+  expect_identical(nrow(params), 1L)
 })
