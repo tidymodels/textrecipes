@@ -4,6 +4,8 @@
 
 * Fixed bug where `step_dummy_hash()` and `step_texthash()` would add new columns before old columns.
 
+* Fixed bug where `vocabulary_size` wasn't tunable in `step_tokenize_bpe()`. (#239)
+
 # textrecipes 1.0.3
 
 ## Improvements
