@@ -52,41 +52,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("keep_original_cols works", {
-  koc_rec <- rec %>%
-    step_tokenize(medium) %>%
-    step_lda(medium, num_topics = 5, keep_original_cols = TRUE)
-
-  koc_trained <- prep(koc_rec, training = tate_text, verbose = FALSE)
-
-  koc_pred <- bake(koc_trained, new_data = tate_text, all_predictors())
-
-  expect_equal(
-    colnames(koc_pred),
-    c(
-      "medium", "artist", "lda_medium_1", "lda_medium_2", "lda_medium_3",
-      "lda_medium_4", "lda_medium_5"
-    )
-  )
-})
-
-test_that("can prep recipes with no keep_original_cols", {
-  koc_rec <- rec %>%
-    step_tokenize(medium) %>%
-    step_lda(medium, num_topics = 5, keep_original_cols = TRUE)
-
-  koc_rec$steps[[2]]$keep_original_cols <- NULL
-
-  expect_snapshot(
-    koc_trained <- prep(koc_rec, training = tate_text, verbose = FALSE)
-  )
-
-  expect_error(
-    pca_pred <- bake(koc_trained, new_data = tate_text, all_predictors()),
-    NA
-  )
-})
-
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
@@ -150,6 +115,56 @@ test_that("empty selection tidy method works", {
   
   expect_identical(tidy(rec, number = 1), expect)
 })
+
+test_that("keep_original_cols works", {
+  skip_if_not_installed("text2vec")
+  
+  new_names <- paste0("lda_medium_", 1:10)
+  
+  rec <- recipe(~ medium, data = tate_text[seq_len(n_rows), ]) %>%
+    step_tokenize(medium) %>%
+    step_lda(medium, keep_original_cols = FALSE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    new_names
+  )
+  
+  rec <- recipe(~ medium, data = tate_text[seq_len(n_rows), ]) %>%
+    step_tokenize(medium) %>%
+    step_lda(medium, keep_original_cols = TRUE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    c("medium", new_names)
+  )
+})
+
+test_that("keep_original_cols - can prep recipes with it missing", {
+  skip_if_not_installed("text2vec")
+  
+  rec <- recipe(~ medium, data = tate_text[seq_len(n_rows), ]) %>%
+    step_tokenize(medium) %>%
+    step_lda(medium, keep_original_cols = TRUE)
+  
+  rec$steps[[2]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    rec <- prep(rec)
+  )
+  
+  expect_error(
+    bake(rec, new_data = tate_text[seq_len(n_rows), ]),
+    NA
+  )
+})
+
 
 test_that("printing", {
   skip_if_not_installed("text2vec")

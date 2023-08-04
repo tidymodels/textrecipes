@@ -8,14 +8,6 @@
       ! Name collision occured. The following variable names already exists:
       i  tfidf_text_i
 
-# can prep recipes with no keep_original_cols
-
-    Code
-      koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-    Warning <rlang_warning>
-      'keep_original_cols' was added to `step_tfidf()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
-
 # Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
 
     Code
@@ -68,6 +60,14 @@
       
       -- Operations 
       * Term frequency-inverse document frequency with: <none> | Trained
+
+# keep_original_cols - can prep recipes with it missing
+
+    Code
+      rec <- prep(rec)
+    Warning <rlang_warning>
+      'keep_original_cols' was added to `step_tfidf()` after this recipe was created.
+      Regenerate your recipe to avoid this warning.
 
 # printing
 

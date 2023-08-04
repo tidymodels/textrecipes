@@ -6,6 +6,8 @@
 
 * Fixed bug where `vocabulary_size` wasn't tunable in `step_tokenize_bpe()`. (#239)
 
+* The `keep_original_cols` argument has been added to `step_tokenmerge`. This change should mean that every step that produces new columns has the `keep_original_cols` argument. (#242)
+
 # textrecipes 1.0.3
 
 ## Improvements
