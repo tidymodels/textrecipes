@@ -11,6 +11,7 @@ step_tokenmerge(
   trained = FALSE,
   columns = NULL,
   prefix = "tokenmerge",
+  keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("tokenmerge")
 )
@@ -36,6 +37,9 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{prefix}{A prefix for generated column names, default to "tokenmerge".}
+
+\item{keep_original_cols}{A logical to keep the original variables in the
+output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

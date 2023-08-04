@@ -125,6 +125,51 @@ test_that("empty selection tidy method works", {
   expect_identical(tidy(rec, number = 1), expect)
 })
 
+test_that("keep_original_cols works", {
+  new_names <- c("tokenmerge")
+  
+  rec <-  recipe(~., data = test_data) %>%
+    step_tokenize(text1, text2) %>%
+    step_tokenmerge(text1, text2, keep_original_cols = FALSE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    new_names
+  )
+  
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text1, text2) %>%
+    step_tokenmerge(text1, text2, keep_original_cols = TRUE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    c("text1", "text2", new_names)
+  )
+})
+
+test_that("keep_original_cols - can prep recipes with it missing", {
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text1, text2) %>%
+    step_tokenmerge(text1, text2)
+  
+  rec$steps[[2]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    rec <- prep(rec)
+  )
+  
+  expect_error(
+    bake(rec, new_data = test_data),
+    NA
+  )
+})
+
 test_that("printing", {
   rec <- rec %>%
     step_tokenize(text1, text2) %>%

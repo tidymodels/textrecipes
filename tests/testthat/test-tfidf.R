@@ -79,46 +79,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("keep_original_cols works", {
-  koc_rec <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, keep_original_cols = TRUE)
-
-  koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-
-  koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-
-  expect_equal(
-    colnames(koc_pred),
-    c(
-      c(
-        "text", "tfidf_text_am", "tfidf_text_and", "tfidf_text_anywhere",
-        "tfidf_text_do", "tfidf_text_eat", "tfidf_text_eggs", "tfidf_text_green",
-        "tfidf_text_ham", "tfidf_text_here", "tfidf_text_i", "tfidf_text_like",
-        "tfidf_text_not", "tfidf_text_or", "tfidf_text_sam", "tfidf_text_them",
-        "tfidf_text_there", "tfidf_text_would"
-      )
-    )
-  )
-})
-
-test_that("can prep recipes with no keep_original_cols", {
-  koc_rec <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, keep_original_cols = TRUE)
-
-  koc_rec$steps[[2]]$keep_original_cols <- NULL
-
-  expect_snapshot(
-    koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  )
-
-  expect_error(
-    pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
-    NA
-  )
-})
-
 test_that("idf valeus are trained on training data and applied on test data", {
   data <- tibble(text = c("i g", "i i i"))
 
@@ -228,6 +188,57 @@ test_that("empty selection tidy method works", {
   rec <- prep(rec, mtcars)
   
   expect_identical(tidy(rec, number = 1), expect)
+})
+
+test_that("keep_original_cols works", {
+  new_names <- c(
+    "tfidf_text_am", "tfidf_text_and", "tfidf_text_anywhere", "tfidf_text_do", 
+    "tfidf_text_eat", "tfidf_text_eggs", "tfidf_text_green", "tfidf_text_ham", 
+    "tfidf_text_here", "tfidf_text_i", "tfidf_text_like", "tfidf_text_not", 
+    "tfidf_text_or", "tfidf_text_sam", "tfidf_text_them", "tfidf_text_there", 
+    "tfidf_text_would"
+  )
+  
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, keep_original_cols = FALSE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    new_names
+  )
+  
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, keep_original_cols = TRUE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    c("text", new_names)
+  )
+})
+
+test_that("keep_original_cols - can prep recipes with it missing", {
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text)
+  
+  rec$steps[[2]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    rec <- prep(rec)
+  )
+  
+  expect_error(
+    bake(rec, new_data = test_data),
+    NA
+  )
 })
 
 test_that("printing", {

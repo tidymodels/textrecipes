@@ -128,43 +128,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("keep_original_cols works", {
-  koc_rec <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, keep_original_cols = TRUE)
-
-  koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-
-  koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-
-  expect_identical(
-    colnames(koc_pred),
-    c(
-      "text", "tf_text_am", "tf_text_and", "tf_text_anywhere", "tf_text_do",
-      "tf_text_eat", "tf_text_eggs", "tf_text_green", "tf_text_ham",
-      "tf_text_here", "tf_text_i", "tf_text_like", "tf_text_not", "tf_text_or",
-      "tf_text_sam", "tf_text_them", "tf_text_there", "tf_text_would"
-    )
-  )
-})
-
-test_that("can prep recipes with no keep_original_cols", {
-  koc_rec <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, keep_original_cols = TRUE)
-
-  koc_rec$steps[[2]]$keep_original_cols <- NULL
-
-  expect_snapshot(
-    koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  )
-
-  expect_error(
-    pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
-    NA
-  )
-})
-
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
@@ -237,6 +200,56 @@ test_that("empty selection tidy method works", {
   rec <- prep(rec, mtcars)
   
   expect_identical(tidy(rec, number = 1), expect)
+})
+
+test_that("keep_original_cols works", {
+  new_names <- c(
+    "tf_text_am", "tf_text_and", "tf_text_anywhere", "tf_text_do", 
+    "tf_text_eat", "tf_text_eggs", "tf_text_green", "tf_text_ham", 
+    "tf_text_here", "tf_text_i", "tf_text_like", "tf_text_not", "tf_text_or", 
+    "tf_text_sam", "tf_text_them", "tf_text_there", "tf_text_would"
+  )
+  
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tf(text, keep_original_cols = FALSE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    new_names
+  )
+  
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tf(text, keep_original_cols = TRUE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    c("text", new_names)
+  )
+})
+
+test_that("keep_original_cols - can prep recipes with it missing", {
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tf(text)
+  
+  rec$steps[[2]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    rec <- prep(rec)
+  )
+  
+  expect_error(
+    bake(rec, new_data = test_data),
+    NA
+  )
 })
 
 test_that("printing", {

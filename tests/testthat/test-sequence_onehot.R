@@ -134,41 +134,6 @@ test_that("check_name() is used", {
   )
 })
 
-test_that("keep_original_cols works", {
-  koc_rec <- rec %>%
-    step_tokenize(text) %>%
-    step_sequence_onehot(text, sequence_length = 5, keep_original_cols = TRUE)
-
-  koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-
-  koc_pred <- bake(koc_trained, new_data = test_data, all_predictors())
-
-  expect_equal(
-    colnames(koc_pred),
-    c(
-      "text", "seq1hot_text_1", "seq1hot_text_2", "seq1hot_text_3",
-      "seq1hot_text_4", "seq1hot_text_5"
-    )
-  )
-})
-
-test_that("can prep recipes with no keep_original_cols", {
-  koc_rec <- rec %>%
-    step_tokenize(text) %>%
-    step_sequence_onehot(text, sequence_length = 5, keep_original_cols = TRUE)
-
-  koc_rec$steps[[2]]$keep_original_cols <- NULL
-
-  expect_snapshot(
-    koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-  )
-
-  expect_error(
-    pca_pred <- bake(koc_trained, new_data = test_data, all_predictors()),
-    NA
-  )
-})
-
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
@@ -232,6 +197,52 @@ test_that("empty selection tidy method works", {
   
   expect_identical(tidy(rec, number = 1), expect)
 })
+
+test_that("keep_original_cols works", {
+  new_names <- paste0("seq1hot_text_", 1:100)
+  
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_sequence_onehot(text, keep_original_cols = FALSE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    new_names
+  )
+  
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_sequence_onehot(text, keep_original_cols = TRUE)
+  
+  rec <- prep(rec)
+  res <- bake(rec, new_data = NULL)
+  
+  expect_equal(
+    colnames(res),
+    c("text", new_names)
+  )
+})
+
+test_that("keep_original_cols - can prep recipes with it missing", {
+  rec <- recipe(~text, data = test_data) %>%
+    step_tokenize(text) %>%
+    step_sequence_onehot(text)
+  
+  rec$steps[[2]]$keep_original_cols <- NULL
+  
+  expect_snapshot(
+    rec <- prep(rec)
+  )
+  
+  expect_error(
+    bake(rec, new_data = test_data),
+    NA
+  )
+})
+
 
 test_that("printing", {
   rec <- rec %>%

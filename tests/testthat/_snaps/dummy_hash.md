@@ -8,14 +8,6 @@
       ! Name collision occured. The following variable names already exists:
       i  dummyhash_text_01
 
-# can prep recipes with no keep_original_cols
-
-    Code
-      koc_trained <- prep(koc_rec, training = test_data, verbose = FALSE)
-    Warning <rlang_warning>
-      'keep_original_cols' was added to `step_dummy_hash()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
-
 # empty printing
 
     Code
@@ -50,6 +42,14 @@
       
       -- Operations 
       * Feature hashing with: <none> | Trained
+
+# keep_original_cols - can prep recipes with it missing
+
+    Code
+      rec <- prep(rec)
+    Warning <rlang_warning>
+      'keep_original_cols' was added to `step_dummy_hash()` after this recipe was created.
+      Regenerate your recipe to avoid this warning.
 
 # printing
 
