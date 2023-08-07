@@ -173,11 +173,11 @@ bake.step_tokenize_bpe <- function(object, new_data, ...) {
     names(object$res) <- col_names
   }
   
-  for (i in seq_along(col_names)) {
-    new_data[[col_names[i]]] <- tokenizer_fun(
-      x = new_data[[col_names[i]]],
+  for (col_name in col_names) {
+    new_data[[col_name]] <- tokenizer_fun(
+      x = new_data[[col_name]],
       options = object$options,
-      token = object$res[[i]]
+      token = object$res[[col_name]]
     )
   }
 
