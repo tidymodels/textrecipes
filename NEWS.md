@@ -1,12 +1,18 @@
 # textrecipes (development version)
 
-* `step_clean_names()` now throw an informative error if needed non-standard role columns are missing during `bake()`.
+## Improvements
 
-* Fixed bug where `step_dummy_hash()` and `step_texthash()` would add new columns before old columns.
-
-* Fixed bug where `vocabulary_size` wasn't tunable in `step_tokenize_bpe()`. (#239)
+* `step_clean_names()` now throw an informative error if needed non-standard role columns are missing during `bake()`. (#235)
 
 * The `keep_original_cols` argument has been added to `step_tokenmerge`. This change should mean that every step that produces new columns has the `keep_original_cols` argument. (#242)
+
+* Many internal changes to improve consistency and slight speed increases.
+
+## Bug Fixes
+
+* Fixed bug where `step_dummy_hash()` and `step_texthash()` would add new columns before old columns. (#235)
+
+* Fixed bug where `vocabulary_size` wasn't tunable in `step_tokenize_bpe()`. (#239)
 
 # textrecipes 1.0.3
 
