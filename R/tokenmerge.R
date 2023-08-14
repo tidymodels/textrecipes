@@ -120,11 +120,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
   new_col <- tibble(tokenlist(new_col))
   names(new_col) <- object$prefix
 
-  keep_original_cols <- get_keep_original_cols(object)
-  if (!keep_original_cols) {
-    new_data <-
-      new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
-  }
+  new_data <- remove_original_cols(new_data, object, col_names)
   
   new_col <- check_name(new_col, new_data, object, names(new_col))
   

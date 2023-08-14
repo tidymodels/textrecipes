@@ -181,17 +181,14 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
     )
     
     out_text <- as_tibble(out_text)
-
-    keep_original_cols <- get_keep_original_cols(object)
-    if (!keep_original_cols) {
-      new_data <-
-        new_data[, !(colnames(new_data) %in% col_name), drop = FALSE]
-    }
     
     out_text <- check_name(out_text, new_data, object, names(out_text))
 
     new_data <- vec_cbind(new_data, out_text)
   }
+  
+  new_data <- remove_original_cols(new_data, object, col_names)
+  
   new_data
 }
 

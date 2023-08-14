@@ -190,16 +190,13 @@ bake.step_tfidf <- function(object, new_data, ...) {
       object$sublinear_tf
     )
 
-    keep_original_cols <- get_keep_original_cols(object)
-    if (!keep_original_cols) {
-      new_data <-
-        new_data[, !(colnames(new_data) %in% col_name), drop = FALSE]
-    }
-    
     tfidf_text <- check_name(tfidf_text, new_data, object, names(tfidf_text))
 
     new_data <- vec_cbind(new_data, tfidf_text)
   }
+  
+  new_data <- remove_original_cols(new_data, object, col_names)
+  
   new_data
 }
 
