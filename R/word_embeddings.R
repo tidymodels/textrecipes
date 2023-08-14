@@ -198,13 +198,9 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
     emb_columns <- check_name(emb_columns, new_data, object, names(emb_columns))
     
     new_data <- vec_cbind(new_data, emb_columns)
-
-    keep_original_cols <- get_keep_original_cols(object)
-    if (!keep_original_cols) {
-      new_data <-
-        new_data[, !(colnames(new_data) %in% col_name), drop = FALSE]
-    }
   }
+  
+  new_data <- remove_original_cols(new_data, object, col_names)
 
   new_data
 }

@@ -197,16 +197,14 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
       )
 
     tf_text <- purrr::map_dfc(tf_text, as.integer)
-    keep_original_cols <- get_keep_original_cols(object)
-    if (!keep_original_cols) {
-      new_data <-
-        new_data[, !(colnames(new_data) %in% hash_col), drop = FALSE]
-    }
-
     tf_text <- check_name(tf_text, new_data, object, names(tf_text))
     
     new_data <- vec_cbind(new_data, tf_text)
   }
+  
+  new_data <- remove_original_cols(new_data, object, hash_cols)
+  
+  
   if (object$collapse) {
     new_data <- new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
   }
