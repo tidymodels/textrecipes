@@ -73,6 +73,9 @@
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)
+#' 
+#' # Examples have to run single threaded
+#' options("text2vec.mc.cores" = 1)
 #'
 #' grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
 #'   step_dummy_hash(sponsor_code)
