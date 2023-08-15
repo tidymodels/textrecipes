@@ -72,6 +72,7 @@
 #' @examplesIf rlang::is_installed("text2vec")
 #' library(recipes)
 #' library(modeldata)
+#' library(text2vec)
 #' data(grants)
 #' 
 #' # Examples have to run single threaded

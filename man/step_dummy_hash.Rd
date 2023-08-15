@@ -118,6 +118,7 @@ The underlying operation does not allow for case weights.
 \dontshow{if (rlang::is_installed("text2vec")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
+library(text2vec)
 data(grants)
 
 # Examples have to run single threaded
