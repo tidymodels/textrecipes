@@ -115,14 +115,10 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("text2vec")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("text2vec") && !textrecipes:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
-library(text2vec)
 data(grants)
-
-# Examples have to run single threaded
-options("text2vec.mc.cores" = 1)
 
 grants_rec <- recipe(~sponsor_code, data = grants_other) \%>\%
   step_dummy_hash(sponsor_code)

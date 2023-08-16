@@ -63,20 +63,13 @@
 #'   Kuhn and Johnson (2019), Chapter 7,
 #'   \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
 #'
-#'
-#'
-#'
 #' @seealso [recipes::step_dummy()]
 #' @family Steps for Numeric Variables From Characters
 #'
-#' @examplesIf rlang::is_installed("text2vec")
+#' @examplesIf rlang::is_installed("text2vec") && !textrecipes:::is_cran_check()
 #' library(recipes)
 #' library(modeldata)
-#' library(text2vec)
 #' data(grants)
-#' 
-#' # Examples have to run single threaded
-#' options("text2vec.mc.cores" = 1)
 #'
 #' grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
 #'   step_dummy_hash(sponsor_code)
