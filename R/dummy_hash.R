@@ -67,6 +67,7 @@
 #' @family Steps for Numeric Variables From Characters
 #'
 #' @examplesIf rlang::is_installed("text2vec")
+#' \dontrun{
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)
@@ -74,7 +75,6 @@
 #' grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
 #'   step_dummy_hash(sponsor_code)
 #'
-#' \dontrun{
 #' grants_obj <- grants_rec %>%
 #'   prep()
 #'
