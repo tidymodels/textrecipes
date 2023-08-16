@@ -115,10 +115,16 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("text2vec") && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("text2vec") && rlang::is_installed("data.table")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(grants)
+
+\dontshow{
+  # restrict threads for CRAN compliance
+  dt_threads <- data.table::getDTthreads()
+  data.table::setDTthreads(1)
+}
 
 grants_rec <- recipe(~sponsor_code, data = grants_other) \%>\%
   step_dummy_hash(sponsor_code)
@@ -130,6 +136,11 @@ bake(grants_obj, grants_test)
 
 tidy(grants_rec, number = 1)
 tidy(grants_obj, number = 1)
+
+\dontshow{
+  # restore thread setting
+  data.table::setDTthreads(dt_threads)
+}
 \dontshow{\}) # examplesIf}
 }
 \references{
