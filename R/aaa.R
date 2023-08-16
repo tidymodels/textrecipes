@@ -40,9 +40,11 @@ table0 <- function(x) {
 }
 
 # adapted from ps:::is_cran_check()
-# We are using this because data.table uses all cores by default, and CRAN
-# doesn't like it
 is_cran_check <- function() {
+  # We are using this because data.table uses all cores by default, and CRAN
+  # doesn't like it
+  return(TRUE)
+  
   if (identical(Sys.getenv("NOT_CRAN"), "true")) {
     FALSE
   }
