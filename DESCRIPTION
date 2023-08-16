@@ -32,7 +32,6 @@ Imports:
     glue
 Suggests: 
     covr,
-    data.table,
     dials (>= 1.2.0),
     hardhat,
     janitor,

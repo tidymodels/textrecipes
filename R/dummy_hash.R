@@ -66,20 +66,15 @@
 #' @seealso [recipes::step_dummy()]
 #' @family Steps for Numeric Variables From Characters
 #'
-#' @examplesIf rlang::is_installed("text2vec") && rlang::is_installed("data.table")
+#' @examplesIf rlang::is_installed("text2vec")
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)
-#' 
-#' \dontshow{
-#'   # restrict threads for CRAN compliance
-#'   dt_threads <- data.table::getDTthreads()
-#'   data.table::setDTthreads(1)
-#' }
 #'
 #' grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
 #'   step_dummy_hash(sponsor_code)
 #'
+#' \dontrun{
 #' grants_obj <- grants_rec %>%
 #'   prep()
 #'
@@ -87,10 +82,6 @@
 #'
 #' tidy(grants_rec, number = 1)
 #' tidy(grants_obj, number = 1)
-#' 
-#' \dontshow{
-#'   # restore thread setting
-#'   data.table::setDTthreads(dt_threads)
 #' }
 #' @export
 step_dummy_hash <-
