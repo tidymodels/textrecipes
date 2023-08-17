@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">textrecipes</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.4.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,11 +54,21 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="textrecipes-development-version">textrecipes (development version)<a class="anchor" aria-label="anchor" href="#textrecipes-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/step_clean_names.html">step_clean_names()</a></code> now throw an informative error if needed non-standard role columns are missing during <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake()</a></code>.</p></li>
-<li><p>Fixed bug where <code><a href="../reference/step_dummy_hash.html">step_dummy_hash()</a></code> and <code><a href="../reference/step_texthash.html">step_texthash()</a></code> would add new columns before old columns.</p></li>
-<li><p>Fixed bug where <code>vocabulary_size</code> wasn’t tunable in <code><a href="../reference/step_tokenize_bpe.html">step_tokenize_bpe()</a></code>. (<a href="https://github.com/tidymodels/textrecipes/issues/239" class="external-link">#239</a>)</p></li>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.4" id="textrecipes-104">textrecipes 1.0.4<a class="anchor" aria-label="anchor" href="#textrecipes-104"></a></h2><p class="text-muted">CRAN release: 2023-08-17</p>
+<div class="section level3">
+<h3 id="improvements-1-0-4">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-0-4"></a></h3>
+<ul><li><p><code><a href="../reference/step_clean_names.html">step_clean_names()</a></code> now throw an informative error if needed non-standard role columns are missing during <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake()</a></code>. (<a href="https://github.com/tidymodels/textrecipes/issues/235" class="external-link">#235</a>)</p></li>
 <li><p>The <code>keep_original_cols</code> argument has been added to <code>step_tokenmerge</code>. This change should mean that every step that produces new columns has the <code>keep_original_cols</code> argument. (<a href="https://github.com/tidymodels/textrecipes/issues/242" class="external-link">#242</a>)</p></li>
+<li><p>Many internal changes to improve consistency and slight speed increases.</p></li>
 </ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-1-0-4">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-0-4"></a></h3>
+<ul><li><p>Fixed bug where <code><a href="../reference/step_dummy_hash.html">step_dummy_hash()</a></code> and <code><a href="../reference/step_texthash.html">step_texthash()</a></code> would add new columns before old columns. (<a href="https://github.com/tidymodels/textrecipes/issues/235" class="external-link">#235</a>)</p></li>
+<li><p>Fixed bug where <code>vocabulary_size</code> wasn’t tunable in <code><a href="../reference/step_tokenize_bpe.html">step_tokenize_bpe()</a></code>. (<a href="https://github.com/tidymodels/textrecipes/issues/239" class="external-link">#239</a>)</p></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.3" id="textrecipes-103">textrecipes 1.0.3<a class="anchor" aria-label="anchor" href="#textrecipes-103"></a></h2><p class="text-muted">CRAN release: 2023-04-14</p>
 <div class="section level3">
