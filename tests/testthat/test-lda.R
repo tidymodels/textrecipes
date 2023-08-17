@@ -9,6 +9,8 @@ rec <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ])
 
 test_that("step_lda works as intended", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
+  
   n_top <- 10
   rec1 <- rec %>%
     step_tokenize(medium) %>%
@@ -25,6 +27,8 @@ test_that("step_lda works as intended", {
 
 test_that("step_lda works with num_topics argument", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
+  
   n_top <- 100
   rec1 <- rec %>%
     step_tokenize(medium) %>%
@@ -38,6 +42,8 @@ test_that("step_lda works with num_topics argument", {
 
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
+  
   dat <- tate_text[seq_len(100), ]
   dat$text <- dat$medium
   dat$lda_text_1 <- dat$text
@@ -56,6 +62,8 @@ test_that("check_name() is used", {
 
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
+  
   tokenized_test_data <- rec %>%
     step_tokenize(medium) %>%
     prep() %>%
@@ -118,6 +126,7 @@ test_that("empty selection tidy method works", {
 
 test_that("keep_original_cols works", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
   
   new_names <- paste0("lda_medium_", 1:10)
   
@@ -148,6 +157,7 @@ test_that("keep_original_cols works", {
 
 test_that("keep_original_cols - can prep recipes with it missing", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
   
   rec <- recipe(~ medium, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
@@ -168,6 +178,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 
 test_that("printing", {
   skip_if_not_installed("text2vec")
+  skip_on_cran() # because data.table uses all cores by default 
+  
   rec <- rec %>%
     step_tokenize(medium) %>%
     step_lda(medium)

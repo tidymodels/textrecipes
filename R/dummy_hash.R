@@ -63,13 +63,11 @@
 #'   Kuhn and Johnson (2019), Chapter 7,
 #'   \url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
 #'
-#'
-#'
-#'
 #' @seealso [recipes::step_dummy()]
 #' @family Steps for Numeric Variables From Characters
 #'
 #' @examplesIf rlang::is_installed("text2vec")
+#' \dontrun{
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)
@@ -84,6 +82,7 @@
 #'
 #' tidy(grants_rec, number = 1)
 #' tidy(grants_obj, number = 1)
+#' }
 #' @export
 step_dummy_hash <-
   function(recipe,
