@@ -82,22 +82,6 @@
       Error in `tokenlist_apply()`:
       ! Input must be a tokenlist.
 
-# tokenlist_to_dtm works
-
-    Code
-      tokenlist_to_dtm(tkn_list)
-    Condition
-      Error in `tokenlist_to_dtm()`:
-      ! argument "dict" is missing, with no default
-
----
-
-    Code
-      tokenlist_to_dtm(letters)
-    Condition
-      Error in `tokenlist_to_dtm()`:
-      ! Input must be a tokenlist.
-
 # tokenlist_lemma works
 
     Code
