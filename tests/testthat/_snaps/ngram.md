@@ -2,21 +2,23 @@
 
     Code
       cpp11_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
-    Error <simpleError>
-      n must be a positive integer.
+    Condition
+      Error:
+      ! n must be a positive integer.
 
 ---
 
     Code
       cpp11_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
-    Error <simpleError>
-      n must be a positive integer.
+    Condition
+      Error:
+      ! n must be a positive integer.
 
 # empty printing
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -32,7 +34,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -51,7 +53,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -67,7 +69,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

@@ -2,6 +2,6 @@
 
     Code
       recipes::recipes_extension_check(pkg = "textrecipes")
-    Message <cliMessage>
+    Message
       v All steps have all method!
 

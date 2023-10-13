@@ -2,7 +2,7 @@
 
     Code
       rec %>% step_textfeature(text, extract_functions = list(as.character)) %>% prep()
-    Error <recipes_error_step>
+    Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:
       ! Can't subset columns that don't exist.
@@ -13,7 +13,7 @@
     Code
       rec %>% step_textfeature(text, extract_functions = list(function(x) 1)) %>%
         prep()
-    Error <recipes_error_step>
+    Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:
       ! Can't subset columns that don't exist.
@@ -23,7 +23,7 @@
 
     Code
       prep(rec, training = dat)
-    Error <recipes_error_step>
+    Condition
       Error in `step_textfeature()`:
       Caused by error in `bake()`:
       ! Name collision occured. The following variable names already exists:
@@ -33,7 +33,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -49,7 +49,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -68,7 +68,8 @@
 
     Code
       rec <- prep(rec)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       'keep_original_cols' was added to `step_tf()` after this recipe was created.
       Regenerate your recipe to avoid this warning.
 
@@ -76,7 +77,8 @@
 
     Code
       rec <- prep(rec)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       'keep_original_cols' was added to `step_textfeature()` after this recipe was created.
       Regenerate your recipe to avoid this warning.
 
@@ -84,7 +86,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -99,7 +101,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

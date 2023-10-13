@@ -2,7 +2,7 @@
 
     Code
       rec %>% step_tokenize(text, token = "wrong") %>% prep()
-    Error <recipes_error_step>
+    Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
       ! token should be one of the supported: characters, character_shingle, lines, ngrams, paragraphs, ptb, regex, sentences, skip_ngrams, words, or word_stems
@@ -11,7 +11,7 @@
 
     Code
       rec %>% step_tokenize(text, engine = "fake") %>% prep()
-    Error <recipes_error_step>
+    Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
       ! `engine` argument is not valid.
@@ -20,7 +20,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -36,7 +36,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -55,7 +55,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -70,7 +70,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

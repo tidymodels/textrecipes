@@ -2,23 +2,26 @@
 
     Code
       obj <- rec %>% prep()
-    Warning <rlang_warning>
+    Condition
+      Warning:
       max_tokens was set to '100', but only 3 was available and selected.
 
 # removes words correctly with min_times, max_times and procentage
 
     Code
       obj <- rec %>% prep()
-    Warning <rlang_warning>
+    Condition
+      Warning:
       max_tokens was set to '100', but only 12 was available and selected.
 
 # tokenfilter throws warning when max_tokens > words
 
     Code
       rec %>% prep()
-    Warning <rlang_warning>
+    Condition
+      Warning:
       max_tokens was set to '10000', but only 17 was available and selected.
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -37,7 +40,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -53,7 +56,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -72,7 +75,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -88,9 +91,10 @@
 
     Code
       prep(rec)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       max_tokens was set to '100', but only 17 was available and selected.
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
