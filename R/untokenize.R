@@ -116,9 +116,9 @@ bake.step_untokenize <- function(object, new_data, ...) {
   for (col_name in col_names) {
     tokens <- get_tokens(new_data[[col_name]])
     new_data[[col_name]] <- map_chr(tokens, paste, collapse = object$sep)
+    new_data[[col_name]] <- factor(new_data[[col_name]])
   }
 
-  new_data <- factor_to_text(new_data, col_names)
   new_data
 }
 
