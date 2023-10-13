@@ -2,7 +2,7 @@
 
     Code
       prep(rec, training = dat)
-    Error <recipes_error_step>
+    Condition
       Error in `step_tfidf()`:
       Caused by error in `bake()`:
       ! Name collision occured. The following variable names already exists:
@@ -13,7 +13,8 @@
     Code
       expect_equal(bake(rec, data) %>% slice(1), tibble(tfidf_text_g = log(1 + 2 / 1) /
         2, tfidf_text_i = log(1 + 2 / 2) / 2))
-    Warning <rlang_warning>
+    Condition
+      Warning:
       Please retrain this recipe with version 0.5.1 or higher.
       * A data leakage bug has been fixed for `step_tfidf()`.
 
@@ -22,7 +23,8 @@
     Code
       expect_equal(bake(rec, data %>% slice(1)), tibble(tfidf_text_g = log(1 + 2 / 2) /
         2, tfidf_text_i = log(1 + 2 / 2) / 2))
-    Warning <rlang_warning>
+    Condition
+      Warning:
       Please retrain this recipe with version 0.5.1 or higher.
       * A data leakage bug has been fixed for `step_tfidf()`.
 
@@ -30,7 +32,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -46,7 +48,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -65,7 +67,8 @@
 
     Code
       rec <- prep(rec)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       'keep_original_cols' was added to `step_tfidf()` after this recipe was created.
       Regenerate your recipe to avoid this warning.
 
@@ -73,7 +76,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -89,7 +92,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

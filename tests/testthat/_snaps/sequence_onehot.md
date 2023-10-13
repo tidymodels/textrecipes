@@ -2,36 +2,40 @@
 
     Code
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, padding = "not pre")
-    Error <rlang_error>
-      `padding` should be one of: 'pre', 'post'
+    Condition
+      Error in `step_sequence_onehot()`:
+      ! `padding` should be one of: 'pre', 'post'
 
 ---
 
     Code
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, truncating = "Wrong")
-    Error <rlang_error>
-      `truncating` should be one of: 'pre', 'post'
+    Condition
+      Error in `step_sequence_onehot()`:
+      ! `truncating` should be one of: 'pre', 'post'
 
 ---
 
     Code
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, padding = c("pre",
         "pre"))
-    Error <rlang_error>
-      `padding` should be one of: 'pre', 'post'
+    Condition
+      Error in `step_sequence_onehot()`:
+      ! `padding` should be one of: 'pre', 'post'
 
 ---
 
     Code
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, truncating = "Wrong")
-    Error <rlang_error>
-      `truncating` should be one of: 'pre', 'post'
+    Condition
+      Error in `step_sequence_onehot()`:
+      ! `truncating` should be one of: 'pre', 'post'
 
 # check_name() is used
 
     Code
       prep(rec, training = dat)
-    Error <recipes_error_step>
+    Condition
       Error in `step_sequence_onehot()`:
       Caused by error in `bake()`:
       ! Name collision occured. The following variable names already exists:
@@ -41,7 +45,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -57,7 +61,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -76,7 +80,8 @@
 
     Code
       rec <- prep(rec)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       'keep_original_cols' was added to `step_sequence_onehot()` after this recipe was created.
       Regenerate your recipe to avoid this warning.
 
@@ -84,7 +89,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -100,7 +105,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

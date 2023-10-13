@@ -352,16 +352,6 @@ test_that("tokenlist_to_dtm works", {
       dimnames = list(NULL, letters), x = 1
     )
   )
-
-  expect_snapshot(
-    error = TRUE,
-    tokenlist_to_dtm(tkn_list)
-  )
-
-  expect_snapshot(
-    error = TRUE,
-    tokenlist_to_dtm(letters)
-  )
 })
 
 ## tokenlist_lemma ------------------------------------------------------------

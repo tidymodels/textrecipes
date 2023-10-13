@@ -2,7 +2,7 @@
 
     Code
       prep(rec)
-    Error <recipes_error_step>
+    Condition
       Error in `step_tokenmerge()`:
       Caused by error in `prep()`:
       ! All columns selected for the step should be tokenlist.
@@ -11,7 +11,7 @@
 
     Code
       prep(rec, training = dat)
-    Error <recipes_error_step>
+    Condition
       Error in `step_tokenmerge()`:
       Caused by error in `bake()`:
       ! Name collision occured. The following variable names already exists:
@@ -21,7 +21,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -37,7 +37,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -56,7 +56,8 @@
 
     Code
       rec <- prep(rec)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       'keep_original_cols' was added to `step_tokenmerge()` after this recipe was created.
       Regenerate your recipe to avoid this warning.
 
@@ -64,7 +65,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -80,7 +81,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

@@ -2,7 +2,7 @@
 
     Code
       prep(rec)
-    Error <recipes_error_step>
+    Condition
       Error in `step_pos_filter()`:
       Caused by error in `bake()`:
       ! `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
@@ -11,7 +11,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -27,7 +27,7 @@
 
     Code
       rec
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -46,7 +46,7 @@
 
     Code
       print(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       
@@ -62,7 +62,7 @@
 
     Code
       prep(rec)
-    Message <cliMessage>
+    Message
       
       -- Recipe ----------------------------------------------------------------------
       

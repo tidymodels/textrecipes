@@ -2,37 +2,42 @@
 
     Code
       tokenlist(list(letters), lemma = list(letters, letters))
-    Error <rlang_error>
-      All fields must be the same size.
+    Condition
+      Error in `vctrs::new_rcrd()`:
+      ! All fields must be the same size.
 
 ---
 
     Code
       tokenlist(list(letters), pos = list(letters, letters))
-    Error <rlang_error>
-      All fields must be the same size.
+    Condition
+      Error in `vctrs::new_rcrd()`:
+      ! All fields must be the same size.
 
 # new_tokenlist errors with wrong input
 
     Code
       new_tokenlist(letters)
-    Error <vctrs_error_assert_ptype>
-      `tokens` must be a vector with type <list>.
+    Condition
+      Error in `new_tokenlist()`:
+      ! `tokens` must be a vector with type <list>.
       Instead, it has type <character>.
 
 ---
 
     Code
       new_tokenlist(list(letters), lemma = letters)
-    Error <rlang_error>
-      `lemma` must be NULL or a list.
+    Condition
+      Error in `new_tokenlist()`:
+      ! `lemma` must be NULL or a list.
 
 ---
 
     Code
       new_tokenlist(list(letters), pos = letters)
-    Error <rlang_error>
-      `pos` must be NULL or a list.
+    Condition
+      Error in `new_tokenlist()`:
+      ! `pos` must be NULL or a list.
 
 # Printing works
 
@@ -47,8 +52,9 @@
 
     Code
       tokenlist(data)[3]
-    Error <vctrs_error_subscript_oob>
-      Can't subset elements past the end.
+    Condition
+      Error in `vec_slice()`:
+      ! Can't subset elements past the end.
       i Location 3 doesn't exist.
       i There are only 2 elements.
 
@@ -56,90 +62,87 @@
 
     Code
       tokenlist_filter(LETTERS, letters)
-    Error <rlang_error>
-      Input must be a tokenlist.
+    Condition
+      Error in `tokenlist_filter()`:
+      ! Input must be a tokenlist.
 
 # tokenlist_apply works
 
     Code
       tokenlist_apply(tkn_list, letter_filter, let = "D")
-    Error <simpleError>
-      unused argument (let = "D")
+    Condition
+      Error in `tokenlist_apply()`:
+      ! unused argument (let = "D")
 
 ---
 
     Code
       tokenlist_apply(letters, toupper)
-    Error <rlang_error>
-      Input must be a tokenlist.
-
-# tokenlist_to_dtm works
-
-    Code
-      tokenlist_to_dtm(tkn_list)
-    Error <simpleError>
-      argument "dict" is missing, with no default
-
----
-
-    Code
-      tokenlist_to_dtm(letters)
-    Error <rlang_error>
-      Input must be a tokenlist.
+    Condition
+      Error in `tokenlist_apply()`:
+      ! Input must be a tokenlist.
 
 # tokenlist_lemma works
 
     Code
       tokenlist_lemma(letters)
-    Error <rlang_error>
-      Input must be a tokenlist.
+    Condition
+      Error in `tokenlist_lemma()`:
+      ! Input must be a tokenlist.
 
 ---
 
     Code
       tokenlist_lemma(tokenlist(list(letters)))
-    Error <rlang_error>
-      `lemma` attribute not avaliable.
+    Condition
+      Error in `tokenlist_lemma()`:
+      ! `lemma` attribute not avaliable.
 
 # tokenlist_pos_filter works
 
     Code
       tokenlist_pos_filter(letters, "NOUN")
-    Error <rlang_error>
-      Input must be a tokenlist.
+    Condition
+      Error in `tokenlist_pos_filter()`:
+      ! Input must be a tokenlist.
 
 ---
 
     Code
       tokenlist_pos_filter(tokenlist(data), "NOUN")
-    Error <rlang_error>
-      pos attribute not avaliable.
+    Condition
+      Error in `tokenlist_pos_filter()`:
+      ! pos attribute not avaliable.
 
 # tokenlist_ngram errors
 
     Code
       tokenlist_ngram(letters)
-    Error <rlang_error>
-      Input must be a tokenlist.
+    Condition
+      Error in `tokenlist_ngram()`:
+      ! Input must be a tokenlist.
 
 ---
 
     Code
       tokenlist_ngram(tokenlist(data), 0, 3, " ")
-    Error <simpleError>
-      n must be a positive integer.
+    Condition
+      Error:
+      ! n must be a positive integer.
 
 ---
 
     Code
       tokenlist_ngram(tokenlist(data), 3, 0, " ")
-    Error <simpleError>
-      n_min must be a positive integer.
+    Condition
+      Error:
+      ! n_min must be a positive integer.
 
 ---
 
     Code
       tokenlist_ngram(tokenlist(data), 1, 2, " ")
-    Error <simpleError>
-      n_min must be larger then n.
+    Condition
+      Error:
+      ! n_min must be larger then n.
 
