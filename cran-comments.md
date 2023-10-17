@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 18th CRAN release of textrecipes. 
+This is the 19th CRAN release of textrecipes. 
 
 ## R CMD check results
 
