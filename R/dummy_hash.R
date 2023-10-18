@@ -67,9 +67,9 @@
 #' @family Steps for Numeric Variables From Characters
 #'
 #' @examplesIf rlang::is_installed(c("text2vec", "data.table"))
-#' \dontrun{
 #' \dontshow{library(data.table)}
 #' \dontshow{data.table::setDTthreads(2)}
+#' \dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 2)}
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)
@@ -84,7 +84,6 @@
 #'
 #' tidy(grants_rec, number = 1)
 #' tidy(grants_obj, number = 1)
-#' }
 #' @export
 step_dummy_hash <-
   function(recipe,

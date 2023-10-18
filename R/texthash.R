@@ -58,6 +58,7 @@
 #' @examplesIf rlang::is_installed(c("text2vec", "data.table"))
 #' \dontshow{library(data.table)}
 #' \dontshow{data.table::setDTthreads(2)}
+#' \dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 2)}
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
