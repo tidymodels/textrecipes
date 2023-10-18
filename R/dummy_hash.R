@@ -66,8 +66,9 @@
 #' @seealso [recipes::step_dummy()]
 #' @family Steps for Numeric Variables From Characters
 #'
-#' @examplesIf rlang::is_installed("text2vec")
+#' @examplesIf rlang::is_installed(c("text2vec", "data.table"))
 #' \dontrun{
+#' \dontshow{data.table::setDTthreads(2)}
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)

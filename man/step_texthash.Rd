@@ -106,7 +106,8 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("text2vec")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("text2vec", "data.table"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{data.table::setDTthreads(2)}
 library(recipes)
 library(modeldata)
 data(tate_text)

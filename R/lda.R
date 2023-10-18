@@ -32,7 +32,8 @@
 #'
 #' @family Steps for Numeric Variables From Tokens
 #'
-#' @examplesIf rlang::is_installed("text2vec")
+#' @examplesIf rlang::is_installed(c("text2vec", "data.table"))
+#' \dontshow{data.table::setDTthreads(2)}
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
