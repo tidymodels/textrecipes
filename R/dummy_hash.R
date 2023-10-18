@@ -68,6 +68,7 @@
 #'
 #' @examplesIf rlang::is_installed(c("text2vec", "data.table"))
 #' \dontrun{
+#' \dontshow{library(data.table)}
 #' \dontshow{data.table::setDTthreads(2)}
 #' library(recipes)
 #' library(modeldata)

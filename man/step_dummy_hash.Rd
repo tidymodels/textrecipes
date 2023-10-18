@@ -117,6 +117,7 @@ The underlying operation does not allow for case weights.
 \examples{
 \dontshow{if (rlang::is_installed(c("text2vec", "data.table"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \dontrun{
+\dontshow{library(data.table)}
 \dontshow{data.table::setDTthreads(2)}
 library(recipes)
 library(modeldata)
