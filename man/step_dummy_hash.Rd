@@ -119,6 +119,9 @@ The underlying operation does not allow for case weights.
 \dontshow{library(data.table)}
 \dontshow{data.table::setDTthreads(2)}
 \dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 2)}
+\dontshow{library(text2vec)}
+\dontshow{options("text2vec.mc.cores" = 1)}
+
 library(recipes)
 library(modeldata)
 data(grants)
