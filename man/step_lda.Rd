@@ -80,7 +80,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed(c("text2vec", "data.table"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(c("text2vec", "data.table") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \dontshow{library(data.table)}
 \dontshow{data.table::setDTthreads(2)}
 \dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 2)}

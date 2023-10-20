@@ -115,11 +115,15 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed(c("text2vec", "data.table"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(c("text2vec", "data.table") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \dontshow{library(data.table)}
 \dontshow{data.table::setDTthreads(2)}
 \dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 2)}
+\dontshow{Sys.setenv("rsparse_omp_threads" = 1L)}
+\dontshow{options(rsparse_omp_threads = 1L)}
 \dontshow{library(text2vec)}
+\dontshow{Sys.setenv("rsparse_omp_threads" = 1L)}
+\dontshow{options(rsparse_omp_threads = 1L)}
 \dontshow{options("text2vec.mc.cores" = 1)}
 
 library(recipes)
