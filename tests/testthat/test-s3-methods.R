@@ -40,7 +40,7 @@ r16 <- r05 %>% step_ngram(text)
 test_that("required packages", {
   expect_equal(required_pkgs(r01), "recipes")
   expect_equal(required_pkgs(r02), c("recipes", "stringi", "textrecipes"))
-  expect_equal(required_pkgs(r03), c("recipes", "textfeatures", "textrecipes"))
+  expect_equal(required_pkgs(r03), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r04), c("recipes", "textfeatures", "textrecipes"))
   expect_equal(required_pkgs(r05), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r06), c("recipes", "textrecipes"))

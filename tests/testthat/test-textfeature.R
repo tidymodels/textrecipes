@@ -11,8 +11,6 @@ test_data <- tibble(text = c(
 rec <- recipe(~., data = test_data)
 
 test_that("textfeature extraction is done correctly", {
-  skip_if_not_installed("textfeatures")
-  library(textfeatures)
   rec <- rec %>%
     step_textfeature(text)
 
@@ -32,7 +30,6 @@ test_that("textfeature extraction is done correctly", {
 })
 
 test_that("custom extraction functions work works", {
-  skip_if_not_installed("textfeatures")
   nchar1 <- function(x) nchar(x) + 1
   nchar2 <- function(x) nchar(x) + 2
   nchar3 <- function(x) nchar(x) + 3
@@ -187,9 +184,7 @@ test_that("keep_original_cols - can prep recipes with it missing", {
   )
 })
 test_that("keep_original_cols works", {
-  skip_if_not_installed("textfeatures")
-  
-  new_names <- paste0("textfeature_text_", names(textfeatures::count_functions))
+  new_names <- paste0("textfeature_text_", names(count_functions))
   
   rec <- recipe(~text, data = test_data) %>%
     step_textfeature(text, keep_original_cols = FALSE)
@@ -215,8 +210,6 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  skip_if_not_installed("textfeatures")
-  
   rec <- recipe(~text, data = test_data) %>%
     step_textfeature(text)
   
@@ -234,7 +227,6 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 
 
 test_that("printing", {
-  skip_if_not_installed("textfeatures")
   rec <- rec %>%
     step_textfeature(text)
   
