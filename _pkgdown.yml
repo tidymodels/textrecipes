@@ -56,6 +56,9 @@ reference:
 - title: Selectors
   contents:
   - all_tokenized
+- title: Count Functions
+  contents:
+  - count_functions
 - title: Data Sets
   contents:
   - emoji_samples
