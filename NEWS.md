@@ -1,5 +1,9 @@
 # textrecipes (development version)
 
+* textfeatures has been removed from Suggests. (#255)
+
+* `step_textfeatures()` no longer returns a politeness feature. (#254)
+
 # textrecipes 1.0.5
 
 * `step_untokenize()` and `step_normalization()` now returns factors instead of strings. (#247)
