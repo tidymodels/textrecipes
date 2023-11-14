@@ -53,6 +53,8 @@ Suggests:
     tokenizers.bpe,
     udpipe,
     wordpiece
+Remotes:
+    mkearney/textfeatures
 LinkingTo: 
     cpp11
 VignetteBuilder: 
