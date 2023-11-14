@@ -9,8 +9,7 @@
 #' @template args-trained
 #' @template args-columns
 #' @param extract_functions A named list of feature extracting functions.
-#'   default to \code{\link[textfeatures]{count_functions}} from the
-#'   textfeatures package. See details for more information.
+#'   default to `count_functions`. See details for more information.
 #' @param prefix A prefix for generated column names, default to "textfeature".
 #' @template args-keep_original_cols
 #' @template args-skip
@@ -22,8 +21,7 @@
 #'
 #' This step will take a character column and returns a number of numeric
 #' columns equal to the number of functions in the list passed to the
-#' `extract_functions` argument. The default is a list of functions from the
-#' textfeatures package.
+#' `extract_functions` argument.
 #'
 #' All the functions passed to `extract_functions` must take a character vector
 #' as input and return a numeric vector of the same length, otherwise an error
@@ -39,7 +37,7 @@
 #'
 #' @family Steps for Numeric Variables From Characters
 #'
-#' @examplesIf rlang::is_installed("textfeatures")
+#' @examples
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
@@ -75,7 +73,7 @@ step_textfeature <-
            role = "predictor",
            trained = FALSE,
            columns = NULL,
-           extract_functions = textfeatures::count_functions,
+           extract_functions = count_functions,
            prefix = "textfeature",
            keep_original_cols = FALSE,
            skip = FALSE,
@@ -219,5 +217,5 @@ validate_string2num <- function(fun) {
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_textfeature <- function(x, ...) {
-  c("textfeatures", "textrecipes")
+  c("textrecipes")
 }
