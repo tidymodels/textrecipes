@@ -4,6 +4,10 @@ Version: 1.0.5.9000
 Authors@R: c(
     person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0679-1945")),
+    person(given = "Michael W.", "Kearney",
+           email = "kearneymw@missouri.edu", 
+           role = "cph", 
+           comment = "author of count_functions"),
     person(given = "Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Converting text to numerical features requires specifically
