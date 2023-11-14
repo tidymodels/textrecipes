@@ -221,7 +221,7 @@ tidy.step_lda <- function(x, ...) {
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_lda <- function(x, ...) {
-  c("textfeatures", "textrecipes")
+  "textrecipes"
 }
 
 word_dims <- function(tokens, n = 10, n_iter = 20) {

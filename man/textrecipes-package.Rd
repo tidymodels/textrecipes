@@ -24,6 +24,7 @@ Useful links:
 
 Other contributors:
 \itemize{
+  \item Michael W. Kearney \email{kearneymw@missouri.edu} (author of count_functions) [copyright holder]
   \item Posit Software, PBC [copyright holder, funder]
 }
 
