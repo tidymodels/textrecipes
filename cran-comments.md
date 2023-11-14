@@ -1,6 +1,8 @@
 ## Release Summary
 
-This is the 19th CRAN release of textrecipes. 
+This is the 20th CRAN release of textrecipes. 
+
+The package was removed from CRAN because it depended on textfeatures which was removed. This issue has now been fixed.
 
 ## R CMD check results
 
