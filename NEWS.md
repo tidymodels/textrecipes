@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+# textrecipes 1.0.6
+
 * textfeatures has been removed from Suggests. (#255)
 
 * `step_textfeatures()` no longer returns a politeness feature. (#254)
