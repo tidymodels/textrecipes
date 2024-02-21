@@ -5,8 +5,8 @@
     Condition
       Error in `step_tfidf()`:
       Caused by error in `bake()`:
-      ! Name collision occured. The following variable names already exists:
-      i  tfidf_text_i
+      ! Name collision occurred. The following variable names already exist:
+      * `tfidf_text_i`
 
 # Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
 
@@ -69,8 +69,8 @@
       rec <- prep(rec)
     Condition
       Warning:
-      'keep_original_cols' was added to `step_tfidf()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
+      `keep_original_cols` was added to `step_tfidf()` after this recipe was created.
+      i Regenerate your recipe to avoid this warning.
 
 # printing
 

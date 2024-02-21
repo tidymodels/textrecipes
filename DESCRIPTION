@@ -42,6 +42,7 @@ Suggests:
     janitor,
     knitr,
     modeldata,
+    reticulate,
     rmarkdown,
     sentencepiece,
     spacyr,

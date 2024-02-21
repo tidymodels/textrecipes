@@ -64,5 +64,5 @@
       Training data contained 20 data points and 4 incomplete rows.
       
       -- Operations 
-      * Cleaning variable names for: Ozone, Solar.R, Wind, Temp, Month, Day | Trained
+      * Cleaning variable names for: Ozone, Solar.R, Wind, Temp, ... | Trained
 

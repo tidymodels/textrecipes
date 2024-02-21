@@ -5,8 +5,8 @@
     Condition
       Error in `step_dummy_hash()`:
       Caused by error in `bake()`:
-      ! Name collision occured. The following variable names already exists:
-      i  dummyhash_text_01
+      ! Name collision occurred. The following variable names already exist:
+      * `dummyhash_text_01`
 
 # empty printing
 
@@ -49,8 +49,8 @@
       rec <- prep(rec)
     Condition
       Warning:
-      'keep_original_cols' was added to `step_dummy_hash()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
+      `keep_original_cols` was added to `step_dummy_hash()` after this recipe was created.
+      i Regenerate your recipe to avoid this warning.
 
 # printing
 

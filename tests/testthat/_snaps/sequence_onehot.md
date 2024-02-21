@@ -38,8 +38,8 @@
     Condition
       Error in `step_sequence_onehot()`:
       Caused by error in `bake()`:
-      ! Name collision occured. The following variable names already exists:
-      i  seq1hot_text_1
+      ! Name collision occurred. The following variable names already exist:
+      * `seq1hot_text_1`
 
 # empty printing
 
@@ -82,8 +82,8 @@
       rec <- prep(rec)
     Condition
       Warning:
-      'keep_original_cols' was added to `step_sequence_onehot()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
+      `keep_original_cols` was added to `step_sequence_onehot()` after this recipe was created.
+      i Regenerate your recipe to avoid this warning.
 
 # printing
 
