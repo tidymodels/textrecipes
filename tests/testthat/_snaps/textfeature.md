@@ -26,8 +26,8 @@
     Condition
       Error in `step_textfeature()`:
       Caused by error in `bake()`:
-      ! Name collision occured. The following variable names already exists:
-      i  textfeature_text_n_words
+      ! Name collision occurred. The following variable names already exist:
+      * `textfeature_text_n_words`
 
 # empty printing
 
@@ -70,8 +70,8 @@
       rec <- prep(rec)
     Condition
       Warning:
-      'keep_original_cols' was added to `step_tf()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
+      `keep_original_cols` was added to `step_tf()` after this recipe was created.
+      i Regenerate your recipe to avoid this warning.
 
 ---
 
@@ -79,8 +79,8 @@
       rec <- prep(rec)
     Condition
       Warning:
-      'keep_original_cols' was added to `step_textfeature()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
+      `keep_original_cols` was added to `step_textfeature()` after this recipe was created.
+      i Regenerate your recipe to avoid this warning.
 
 # printing
 

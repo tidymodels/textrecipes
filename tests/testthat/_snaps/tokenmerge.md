@@ -5,7 +5,8 @@
     Condition
       Error in `step_tokenmerge()`:
       Caused by error in `prep()`:
-      ! All columns selected for the step should be tokenlist.
+      x All columns selected for the step should be tokenlist.
+      * 2 factor variables found: `text1` and `text2`
 
 # check_name() is used
 
@@ -14,8 +15,8 @@
     Condition
       Error in `step_tokenmerge()`:
       Caused by error in `bake()`:
-      ! Name collision occured. The following variable names already exists:
-      i  tokenmerge
+      ! Name collision occurred. The following variable names already exist:
+      * `tokenmerge`
 
 # empty printing
 
@@ -58,8 +59,8 @@
       rec <- prep(rec)
     Condition
       Warning:
-      'keep_original_cols' was added to `step_tokenmerge()` after this recipe was created.
-      Regenerate your recipe to avoid this warning.
+      `keep_original_cols` was added to `step_tokenmerge()` after this recipe was created.
+      i Regenerate your recipe to avoid this warning.
 
 # printing
 
@@ -74,8 +75,8 @@
       predictor: 2
       
       -- Operations 
-      * Tokenization for: text1, text2
-      * Merging tokens for: text1, text2
+      * Tokenization for: text1 and text2
+      * Merging tokens for: text1 and text2
 
 ---
 
@@ -93,6 +94,6 @@
       Training data contained 4 data points and no incomplete rows.
       
       -- Operations 
-      * Tokenization for: text1, text2 | Trained
-      * Merging tokens for: text1, text2 | Trained
+      * Tokenization for: text1 and text2 | Trained
+      * Merging tokens for: text1 and text2 | Trained
 
