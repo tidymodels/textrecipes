@@ -1,6 +1,8 @@
 library(textrecipes)
 library(recipes)
 
+r_version <- function() paste0("R", getRversion()[, 1:2])
+
 text1 <- c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",
@@ -122,7 +124,8 @@ test_that("arguments are passed to tokenizers.bpe", {
 
 test_that("Errors if vocabulary size is set to low.", {
   expect_snapshot(
-    error = TRUE,
+    error = TRUE, 
+    variant = r_version(),
     recipe(~text1, data = test_data) %>%
       step_tokenize_bpe(text1, vocabulary_size = 10) %>%
       prep()
