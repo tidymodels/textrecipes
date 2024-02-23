@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Calling `?tidy.step_*()` now sends you to the documentation for `step_*()` where the outcome is documented. (#261)
+
 # textrecipes 1.0.6
 
 * textfeatures has been removed from Suggests. (#255)
