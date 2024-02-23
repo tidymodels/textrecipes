@@ -187,8 +187,8 @@ print.step_texthash <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_texthash` object.
+#' @rdname step_texthash
+#' @usage NULL
 #' @export
 tidy.step_texthash <- function(x, ...) {
   if (is_trained(x)) {

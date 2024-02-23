@@ -2,6 +2,7 @@
 % Please edit documentation in R/tokenmerge.R
 \name{step_tokenmerge}
 \alias{step_tokenmerge}
+\alias{tidy.step_tokenmerge}
 \title{Combine Multiple Token Variables Into One}
 \usage{
 step_tokenmerge(

@@ -147,8 +147,8 @@ print.step_text_normalization <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_text_normalization` object.
+#' @rdname step_text_normalization
+#' @usage NULL
 #' @export
 tidy.step_text_normalization <- function(x, ...) {
   if (is_trained(x)) {

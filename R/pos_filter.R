@@ -139,8 +139,8 @@ print.step_pos_filter <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_pos_filter` object.
+#' @rdname step_pos_filter
+#' @usage NULL
 #' @export
 tidy.step_pos_filter <- function(x, ...) {
   if (is_trained(x)) {

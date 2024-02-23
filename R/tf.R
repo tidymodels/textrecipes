@@ -216,8 +216,8 @@ print.step_tf <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_tf` object.
+#' @rdname step_tf
+#' @usage NULL
 #' @export
 tidy.step_tf <- function(x, ...) {
   if (is_trained(x)) {

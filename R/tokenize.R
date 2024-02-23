@@ -339,8 +339,8 @@ print.step_tokenize <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_tokenize` object.
+#' @rdname step_tokenize
+#' @usage NULL
 #' @export
 tidy.step_tokenize <- function(x, ...) {
   if (is_trained(x)) {

@@ -174,8 +174,8 @@ print.step_stopwords <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_stopwords` object.
+#' @rdname step_stopwords
+#' @usage NULL
 #' @export
 tidy.step_stopwords <- function(x, ...) {
   if (is_trained(x)) {

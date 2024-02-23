@@ -197,8 +197,8 @@ print.step_lda <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_lda` object.
+#' @rdname step_lda
+#' @usage NULL
 #' @export
 tidy.step_lda <- function(x, ...) {
   if (is_trained(x)) {
