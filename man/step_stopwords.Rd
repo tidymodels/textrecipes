@@ -76,9 +76,15 @@ instead of removing thus allowing you to select words with a combination of
 these two arguments.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected), \code{value} (name of stop word list), and
-\code{keep} (whether stop words are removed or kept).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{value}, \code{keep}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{value}{character, name of stop word list}
+\item{keep}{logical, whether stop words are removed or kept}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

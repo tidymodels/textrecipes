@@ -90,8 +90,14 @@ It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf
 limit the number of variables created.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{value} (number of unique tokens).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{value}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{value}{integer, number of unique tokens}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Tuning Parameters}{

@@ -61,8 +61,13 @@ will convert a character predictor into a \code{\link[=tokenlist]{token}} variab
 using WordPiece tokenization.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms} and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

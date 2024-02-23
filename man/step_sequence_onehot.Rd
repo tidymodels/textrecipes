@@ -86,9 +86,15 @@ assign a integer to each character in the vocabulary, and will encode
 accordingly. Characters not in the vocabulary will be encoded as 0.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected), \code{vocabulary} (index) and \code{token} (text
-correspoding to the index).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{vocabulary}, \code{token}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{vocabulary}{integer, index}
+\item{token}{character, text corresponding to the index}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

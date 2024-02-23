@@ -245,8 +245,14 @@ recipe(~ text, data = text_tibble) \%>\%
 }
 
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{value} (unit of tokenization).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{value}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{value}{character, unit of tokenization}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Tuning Parameters}{

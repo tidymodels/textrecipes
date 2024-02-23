@@ -56,9 +56,14 @@ to the sequence of existing steps (if any).
 will perform Unicode Normalization on character variables.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{normalization_form} (type of
-normalization).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{normalization_form}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{normalization_form}{character, type of normalization}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

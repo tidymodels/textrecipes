@@ -70,8 +70,14 @@ to the sequence of existing steps (if any).
 lda dimension estimates of a text variable.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{num_topics} (number of topics).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{num_topics}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{num_topics}{integer, number of topics}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

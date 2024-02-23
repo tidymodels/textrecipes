@@ -59,9 +59,14 @@ vector. This step is calling \code{paste} internally to put the tokens back
 together to a character.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{value} (seperator used for
-collapsing).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{value}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{value}{character, seperator used for collapsing}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

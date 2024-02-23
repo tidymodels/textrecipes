@@ -71,9 +71,14 @@ as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{functions} (name of feature
-functions).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{functions}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{functions}{character, name of feature functions}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

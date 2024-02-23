@@ -56,9 +56,15 @@ data to be processed contains novel levels (i.e., not contained in the
 training set), they are converted to missing.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected), \code{original} (the original levels) and
-\code{value} (the cleaned levels) is returned.
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{orginal}, \code{value}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{original}{character, the original levels}
+\item{value}{character, the cleaned levels}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{
