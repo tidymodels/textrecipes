@@ -43,10 +43,16 @@
 #' `wordembedding_d1`, `wordembedding_d1`, etc.
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected), `embedding_rows` (number of rows in
-#' embedding), and `aggregation` (the aggregation method).
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `embedding_rows`, `aggregation`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{embedding_rows}{integer, number of rows in embedding}
+#'   \item{aggregation}{character,aggregation}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'

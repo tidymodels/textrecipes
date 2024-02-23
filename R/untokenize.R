@@ -23,9 +23,14 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected) and `value` (seperator used for
-#' collapsing).
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `value`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{value}{character, seperator used for collapsing}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'

@@ -28,10 +28,15 @@
 #' will be thrown.
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected) and `functions` (name of feature
-#' functions).
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `functions`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{functions}{character, name of feature functions}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'

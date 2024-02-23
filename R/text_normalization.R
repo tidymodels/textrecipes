@@ -21,9 +21,14 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected) and `normalization_form` (type of
-#' normalization).
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `normalization_form`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{normalization_form}{character, type of normalization}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'

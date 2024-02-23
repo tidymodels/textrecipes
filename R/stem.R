@@ -27,10 +27,15 @@
 #' therefore not work reliably on ngrams or sentences.
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected) and `is_custom_stemmer` (indicate if
-#' custom stemmer was used).
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `is_custom_stemmer`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{is_custom_stemmer}{logical, indicate if custom stemmer was used}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'

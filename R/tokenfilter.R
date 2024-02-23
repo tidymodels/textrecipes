@@ -43,10 +43,16 @@
 #' limit the number of variables created.
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected) and `value` (number of unique tokens).
-#'
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `value`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{value}{integer, number of unique tokens}
+#'   \item{id}{character, id of this step}
+#' }
+#' 
 #' ```{r, echo = FALSE, results="asis"}
 #' step <- "step_tokenfilter"
 #' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")

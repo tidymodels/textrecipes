@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Documentation for tidy methods for all steps has been improved to describe the return value more accurately. (#262)
+
 # textrecipes 1.0.6
 
 * textfeatures has been removed from Suggests. (#255)

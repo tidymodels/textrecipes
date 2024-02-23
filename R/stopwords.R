@@ -33,10 +33,16 @@
 #' these two arguments.
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected), `value` (name of stop word list), and
-#' `keep` (whether stop words are removed or kept).
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `value`, `keep`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{value}{character, name of stop word list}
+#'   \item{keep}{logical, whether stop words are removed or kept}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'

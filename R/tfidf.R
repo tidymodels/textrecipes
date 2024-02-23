@@ -51,9 +51,15 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected), `token` (name of the tokens),
-#' `weight` (the calculated IDF weight) is returned.
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `token`, `weight`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{token}{character, name of token}
+#'   \item{weight}{numeric, the calculated IDF weight}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template details-prefix
 #'

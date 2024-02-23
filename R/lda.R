@@ -21,9 +21,15 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected) and `num_topics` (number of topics).
-#'
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `num_topics`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{num_topics}{integer, number of topics}
+#'   \item{id}{character, id of this step}
+#' }
+#' 
 #' @template case-weights-not-supported
 #'
 #' @source \url{https://arxiv.org/abs/1301.3781}

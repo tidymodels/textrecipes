@@ -43,11 +43,17 @@
 #' @details
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected), `value` (whether a signed hashing was
-#' performed), `num_terms` (number of terms), and `collapse` (where columns
-#' collapsed).
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `value`, `num_terms`, `collapse`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{value}{logical, whether a signed hashing was performed}
+#'   \item{num_terms}{integer, number of terms}
+#'   \item{collapse}{logical, were the columns collapsed}
+#'   \item{id}{character, id of this step}
+#' }
 #' 
 #' ```{r, echo = FALSE, results="asis"}
 #' step <- "step_dummy_hash"

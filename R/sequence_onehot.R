@@ -37,10 +37,16 @@
 #' accordingly. Characters not in the vocabulary will be encoded as 0.
 #'
 #' # Tidying
-#'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble with columns `terms`
-#' (the selectors or variables selected), `vocabulary` (index) and `token` (text
-#' correspoding to the index).
+#' 
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' columns `terms`, `vocabulary`, `token`, and `id`:
+#' 
+#' \describe{
+#'   \item{terms}{character, the selectors or variables selected}
+#'   \item{vocabulary}{integer, index}
+#'   \item{token}{character, text corresponding to the index}
+#'   \item{id}{character, id of this step}
+#' }
 #'
 #' @template case-weights-not-supported
 #'
