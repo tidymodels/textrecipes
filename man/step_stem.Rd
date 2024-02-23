@@ -2,6 +2,7 @@
 % Please edit documentation in R/stem.R
 \name{step_stem}
 \alias{step_stem}
+\alias{tidy.step_stem}
 \title{Stemming of Token Variables}
 \usage{
 step_stem(

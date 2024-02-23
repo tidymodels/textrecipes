@@ -2,6 +2,7 @@
 % Please edit documentation in R/pos_filter.R
 \name{step_pos_filter}
 \alias{step_pos_filter}
+\alias{tidy.step_pos_filter}
 \title{Part of Speech Filtering of Token Variables}
 \usage{
 step_pos_filter(

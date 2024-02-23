@@ -2,6 +2,7 @@
 % Please edit documentation in R/lda.R
 \name{step_lda}
 \alias{step_lda}
+\alias{tidy.step_lda}
 \title{Calculate LDA Dimension Estimates of Tokens}
 \source{
 \url{https://arxiv.org/abs/1301.3781}
@@ -127,8 +128,8 @@ recipe(~., data = tate_text) \%>\%
 \seealso{
 Other Steps for Numeric Variables From Tokens: 
 \code{\link{step_texthash}()},
-\code{\link{step_tfidf}()},
 \code{\link{step_tf}()},
+\code{\link{step_tfidf}()},
 \code{\link{step_word_embeddings}()}
 }
 \concept{Steps for Numeric Variables From Tokens}

@@ -122,8 +122,8 @@ print.step_clean_names <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_clean_names` object.
+#' @rdname step_clean_names
+#' @usage NULL
 #' @export
 tidy.step_clean_names <- function(x, ...) {
   if (is_trained(x)) {

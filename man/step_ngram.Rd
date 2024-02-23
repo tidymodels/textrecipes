@@ -2,6 +2,7 @@
 % Please edit documentation in R/ngram.R
 \name{step_ngram}
 \alias{step_ngram}
+\alias{tidy.step_ngram}
 \title{Generate n-grams From Token Variables}
 \usage{
 step_ngram(

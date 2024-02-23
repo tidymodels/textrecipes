@@ -2,6 +2,7 @@
 % Please edit documentation in R/tokenfilter.R
 \name{step_tokenfilter}
 \alias{step_tokenfilter}
+\alias{tidy.step_tokenfilter}
 \title{Filter Tokens Based on Term Frequency}
 \usage{
 step_tokenfilter(

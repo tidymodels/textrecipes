@@ -2,6 +2,7 @@
 % Please edit documentation in R/tf.R
 \name{step_tf}
 \alias{step_tf}
+\alias{tidy.step_tf}
 \title{Term frequency of Tokens}
 \usage{
 step_tf(

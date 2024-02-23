@@ -2,6 +2,7 @@
 % Please edit documentation in R/stopwords.R
 \name{step_stopwords}
 \alias{step_stopwords}
+\alias{tidy.step_stopwords}
 \title{Filtering of Stop Words for Tokens Variables}
 \usage{
 step_stopwords(

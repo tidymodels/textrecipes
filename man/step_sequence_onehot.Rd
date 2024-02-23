@@ -2,6 +2,7 @@
 % Please edit documentation in R/sequence_onehot.R
 \name{step_sequence_onehot}
 \alias{step_sequence_onehot}
+\alias{tidy.step_sequence_onehot}
 \title{Positional One-Hot encoding of Tokens}
 \source{
 \url{https://papers.nips.cc/paper/5782-character-level-convolutional-networks-for-text-classification.pdf}

@@ -156,8 +156,8 @@ print.step_ngram <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_ngram` object.
+#' @rdname step_ngram
+#' @usage NULL
 #' @export
 tidy.step_ngram <- function(x, ...) {
   if (is_trained(x)) {

@@ -230,8 +230,8 @@ print.step_dummy_hash <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_dummy_hash` object.
+#' @rdname step_dummy_hash
+#' @usage NULL
 #' @export
 tidy.step_dummy_hash <- function(x, ...) {
   if (is_trained(x)) {

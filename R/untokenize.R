@@ -130,8 +130,8 @@ print.step_untokenize <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_untokenize` object.
+#' @rdname step_untokenize
+#' @usage NULL
 #' @export
 tidy.step_untokenize <- function(x, ...) {
   if (is_trained(x)) {

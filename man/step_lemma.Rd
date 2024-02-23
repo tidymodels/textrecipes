@@ -2,6 +2,7 @@
 % Please edit documentation in R/lemma.R
 \name{step_lemma}
 \alias{step_lemma}
+\alias{tidy.step_lemma}
 \title{Lemmatization of Token Variables}
 \usage{
 step_lemma(

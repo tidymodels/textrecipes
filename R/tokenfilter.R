@@ -217,8 +217,8 @@ print.step_tokenfilter <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_tokenfilter` object.
+#' @rdname step_tokenfilter
+#' @usage NULL
 #' @export
 tidy.step_tokenfilter <- function(x, ...) {
   if (is_trained(x)) {

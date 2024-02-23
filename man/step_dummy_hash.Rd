@@ -2,6 +2,7 @@
 % Please edit documentation in R/dummy_hash.R
 \name{step_dummy_hash}
 \alias{step_dummy_hash}
+\alias{tidy.step_dummy_hash}
 \title{Indicator Variables via Feature Hashing}
 \usage{
 step_dummy_hash(

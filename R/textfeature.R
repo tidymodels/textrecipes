@@ -171,8 +171,8 @@ print.step_textfeature <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_textfeature` object.
+#' @rdname step_textfeatures
+#' @usage NULL
 #' @export
 tidy.step_textfeature <- function(x, ...) {
   if (is_trained(x)) {

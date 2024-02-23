@@ -2,6 +2,7 @@
 % Please edit documentation in R/tfidf.R
 \name{step_tfidf}
 \alias{step_tfidf}
+\alias{tidy.step_tfidf}
 \title{Term Frequency-Inverse Document Frequency of Tokens}
 \usage{
 step_tfidf(
