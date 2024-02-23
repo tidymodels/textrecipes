@@ -2,6 +2,7 @@
 % Please edit documentation in R/tokenize.R
 \name{step_tokenize}
 \alias{step_tokenize}
+\alias{tidy.step_tokenize}
 \title{Tokenization of Character Variables}
 \usage{
 step_tokenize(

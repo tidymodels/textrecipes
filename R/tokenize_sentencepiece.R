@@ -199,8 +199,8 @@ print.step_tokenize_sentencepiece <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_tokenize_sentencepiece` object.
+#' @rdname step_tokenize_sentencepiece
+#' @usage NULL
 #' @export
 tidy.step_tokenize_sentencepiece <- function(x, ...) {
   if (is_trained(x)) {

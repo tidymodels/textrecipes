@@ -2,6 +2,7 @@
 % Please edit documentation in R/tokenize_sentencepiece.R
 \name{step_tokenize_sentencepiece}
 \alias{step_tokenize_sentencepiece}
+\alias{tidy.step_tokenize_sentencepiece}
 \title{Sentencepiece Tokenization of Character Variables}
 \usage{
 step_tokenize_sentencepiece(
@@ -104,8 +105,8 @@ tidy(tate_obj, number = 1)
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
 Other Steps for Tokenization: 
+\code{\link{step_tokenize}()},
 \code{\link{step_tokenize_bpe}()},
-\code{\link{step_tokenize_wordpiece}()},
-\code{\link{step_tokenize}()}
+\code{\link{step_tokenize_wordpiece}()}
 }
 \concept{Steps for Tokenization}

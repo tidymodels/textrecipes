@@ -2,6 +2,7 @@
 % Please edit documentation in R/clean_names.R
 \name{step_clean_names}
 \alias{step_clean_names}
+\alias{tidy.step_clean_names}
 \title{Clean Variable Names}
 \usage{
 step_clean_names(

@@ -206,8 +206,8 @@ print.step_sequence_onehot <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_sequence_onehot` object.
+#' @rdname step_sequence_onehot
+#' @usage NULL
 #' @export
 tidy.step_sequence_onehot <- function(x, ...) {
   if (is_trained(x)) {

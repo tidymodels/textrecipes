@@ -139,8 +139,8 @@ print.step_lemma <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_lemma` object.
+#' @rdname step_lemma
+#' @usage NULL
 #' @export
 tidy.step_lemma <- function(x, ...) {
   if (is_trained(x)) {

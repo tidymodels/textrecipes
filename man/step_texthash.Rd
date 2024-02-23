@@ -2,6 +2,7 @@
 % Please edit documentation in R/texthash.R
 \name{step_texthash}
 \alias{step_texthash}
+\alias{tidy.step_texthash}
 \title{Feature Hashing of Tokens}
 \usage{
 step_texthash(
@@ -138,8 +139,8 @@ Josh Attenberg (2009).
 
 Other Steps for Numeric Variables From Tokens: 
 \code{\link{step_lda}()},
-\code{\link{step_tfidf}()},
 \code{\link{step_tf}()},
+\code{\link{step_tfidf}()},
 \code{\link{step_word_embeddings}()}
 }
 \concept{Steps for Numeric Variables From Tokens}

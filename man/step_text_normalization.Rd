@@ -2,6 +2,7 @@
 % Please edit documentation in R/text_normalization.R
 \name{step_text_normalization}
 \alias{step_text_normalization}
+\alias{tidy.step_text_normalization}
 \title{Normalization of Character Variables}
 \usage{
 step_text_normalization(

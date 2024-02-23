@@ -197,8 +197,8 @@ print.step_tokenize_bpe <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_tokenize_bpe` object.
+#' @rdname step_tokenize_bpe
+#' @usage NULL
 #' @export
 tidy.step_tokenize_bpe <- function(x, ...) {
   if (is_trained(x)) {

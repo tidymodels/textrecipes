@@ -147,8 +147,8 @@ print.step_clean_levels <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_clean_levels` object.
+#' @rdname step_clean_levels
+#' @usage NULL
 #' @export
 tidy.step_clean_levels <- function(x, ...) {
   if (is_trained(x)) {

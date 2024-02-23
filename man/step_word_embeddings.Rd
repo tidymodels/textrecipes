@@ -2,6 +2,7 @@
 % Please edit documentation in R/word_embeddings.R
 \name{step_word_embeddings}
 \alias{step_word_embeddings}
+\alias{tidy.step_word_embeddings}
 \title{Pretrained Word Embeddings of Tokens}
 \usage{
 step_word_embeddings(
@@ -139,7 +140,7 @@ tidy(obj, number = 2)
 Other Steps for Numeric Variables From Tokens: 
 \code{\link{step_lda}()},
 \code{\link{step_texthash}()},
-\code{\link{step_tfidf}()},
-\code{\link{step_tf}()}
+\code{\link{step_tf}()},
+\code{\link{step_tfidf}()}
 }
 \concept{Steps for Numeric Variables From Tokens}

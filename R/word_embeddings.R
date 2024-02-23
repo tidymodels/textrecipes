@@ -237,8 +237,8 @@ print.step_word_embeddings <- function(x,
   invisible(x)
 }
 
-#' @rdname tidy.recipe
-#' @param x A `step_word_embeddings` object.
+#' @rdname step_word_embeddings
+#' @usage NULL
 #' @export
 tidy.step_word_embeddings <- function(x, ...) {
   if (is_trained(x)) {

@@ -2,6 +2,7 @@
 % Please edit documentation in R/untokenize.R
 \name{step_untokenize}
 \alias{step_untokenize}
+\alias{tidy.step_untokenize}
 \title{Untokenization of Token Variables}
 \usage{
 step_untokenize(

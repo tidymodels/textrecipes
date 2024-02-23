@@ -166,8 +166,8 @@ print.step_stem <-
     invisible(x)
   }
 
-#' @rdname tidy.recipe
-#' @param x A `step_stem` object.
+#' @rdname step_stem
+#' @usage NULL
 #' @export
 tidy.step_stem <- function(x, ...) {
   if (is_trained(x)) {
