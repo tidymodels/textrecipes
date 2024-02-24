@@ -125,9 +125,19 @@ to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble with columns <code>terms</code>
-(the new clean variable names) and <code>value</code> (the original variable names).</p>
-    </div>
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+columns <code>terms</code>, <code>value</code>, and <code>id</code>:</p>
+<dl><dt>terms</dt>
+<dd><p>character, the new clean variable names</p></dd>
+
+<dt>value</dt>
+<dd><p>character, the original variable names</p></dd>
+
+<dt>id</dt>
+<dd><p>character, id of this step</p></dd>
+
+
+</dl></div>
     <div class="section level2">
     <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
     

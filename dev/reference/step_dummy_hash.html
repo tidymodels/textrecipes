@@ -179,11 +179,25 @@ the name of the variable, followed by the tokens all separated by
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble with columns <code>terms</code>
-(the selectors or variables selected), <code>value</code> (whether a signed hashing was
-performed), <code>num_terms</code> (number of terms), and <code>collapse</code> (where columns
-collapsed).</p>
-    </div>
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+columns <code>terms</code>, <code>value</code>, <code>num_terms</code>, <code>collapse</code>, and <code>id</code>:</p>
+<dl><dt>terms</dt>
+<dd><p>character, the selectors or variables selected</p></dd>
+
+<dt>value</dt>
+<dd><p>logical, whether a signed hashing was performed</p></dd>
+
+<dt>num_terms</dt>
+<dd><p>integer, number of terms</p></dd>
+
+<dt>collapse</dt>
+<dd><p>logical, were the columns collapsed</p></dd>
+
+<dt>id</dt>
+<dd><p>character, id of this step</p></dd>
+
+
+</dl></div>
     <div class="section level2">
     <h2 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h2>
     <p>This step has 2 tuning parameters:</p><ul><li><p><code>signed</code>: Signed Hash Value (type: logical, default: TRUE)</p></li>
