@@ -110,9 +110,15 @@ the name of the variable, followed by the tokens all separated by
 \code{hash001} - \code{hash101}.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected), \code{token} (name of the tokens),
-\code{weight} (the calculated IDF weight) is returned.
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{token}, \code{weight}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{token}{character, name of token}
+\item{weight}{numeric, the calculated IDF weight}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

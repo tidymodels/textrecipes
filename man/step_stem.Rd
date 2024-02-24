@@ -66,9 +66,14 @@ Note that the stemming will only be done at the end of the word and will
 therefore not work reliably on ngrams or sentences.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected) and \code{is_custom_stemmer} (indicate if
-custom stemmer was used).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{is_custom_stemmer}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{is_custom_stemmer}{logical, indicate if custom stemmer was used}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

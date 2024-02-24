@@ -50,8 +50,14 @@ clean variable names so the names consist only of letters, numbers, and the
 underscore.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the new clean variable names) and \code{value} (the original variable names).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{value}, and \code{id}:
+
+\describe{
+\item{terms}{character, the new clean variable names}
+\item{value}{character, the original variable names}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Case weights}{

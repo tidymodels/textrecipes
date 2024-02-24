@@ -95,10 +95,16 @@ the name of the variable, followed by the tokens all separated by
 \code{hash001} - \code{hash101}.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble with columns \code{terms}
-(the selectors or variables selected), \code{value} (whether a signed hashing was
-performed), \code{num_terms} (number of terms), and \code{collapse} (where columns
-collapsed).
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+columns \code{terms}, \code{value}, \code{num_terms}, \code{collapse}, and \code{id}:
+
+\describe{
+\item{terms}{character, the selectors or variables selected}
+\item{value}{logical, whether a signed hashing was performed}
+\item{num_terms}{integer, number of terms}
+\item{collapse}{logical, were the columns collapsed}
+\item{id}{character, id of this step}
+}
 }
 
 \section{Tuning Parameters}{
