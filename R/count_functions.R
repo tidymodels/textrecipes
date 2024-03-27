@@ -40,14 +40,8 @@ n_mentions <- function(x) {
 }
 
 n_uq_mentions <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("@\\S+", x)
-  x <- regmatches(x, m)
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_regex(x, "@\\S+", omit_no_match = TRUE)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_commas <- function(x) {
@@ -79,14 +73,8 @@ n_urls <- function(x) {
 }
 
 n_uq_urls <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("https?", x)
-  x <- regmatches(x, m)
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_regex(x, "https?", omit_no_match = TRUE)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_nonasciis <- function(x) {
@@ -95,7 +83,7 @@ n_nonasciis <- function(x) {
 }
 
 n_puncts <- function(x) {
-  x <- gsub("!|\\.|\\,", "", x)
+  x <- stringi::stri_replace_all_regex(x, "!|\\.|\\,", "")
   stringi::stri_count_regex(x, "[[:punct:]]")
 }
 
