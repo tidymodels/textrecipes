@@ -161,7 +161,7 @@ check_bpe_vocab_size <- function(text,
     rlang::abort(
       glue(
         "`vocabulary_size` of {vocabulary_size} is too small for column ",
-        "`{column}` which has a unique character count of {text_count}",
+        "`{column}` which has a unique character count of {text_count}"
       ),
       call = call
     )
