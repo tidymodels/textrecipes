@@ -1,23 +1,10 @@
 n_words <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("\\d", "", x)
-  x <- strsplit(x, "\\s+")
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_words(x)
 }
 
-
 n_uq_words <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("\\d", "", x)
-  x <- strsplit(x, "\\s+")
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_words(x)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_charS <- function(x) {
