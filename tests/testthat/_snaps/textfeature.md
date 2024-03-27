@@ -5,7 +5,7 @@
     Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `text` doesn't exist.
 
 ---
@@ -16,7 +16,7 @@
     Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `text` doesn't exist.
 
 # check_name() is used
