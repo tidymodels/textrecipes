@@ -1,188 +1,90 @@
 n_words <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("\\d", "", x)
-  x <- strsplit(x, "\\s+")
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_words(x)
 }
 
-
 n_uq_words <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("\\d", "", x)
-  x <- strsplit(x, "\\s+")
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_words(x)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_charS <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("\\s", "", x)
-  x <- nchar(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_replace_all_regex(x, "\\s", "")
+  nchar(x)
 }
 
 n_uq_charS <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("\\s", "", x)
-  x <- strsplit(x, "")
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_replace_all_regex(x, "\\s", "")
+  x <- stringi::stri_split_boundaries(
+    x,
+    opts_brkiter = stringi::stri_opts_brkiter(type = "character")
+  )
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
-
 n_digits <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("\\d", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "\\d")
 }
 
 
 n_hashtags <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("#[[:alnum:]_]+", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "#[[:alnum:]_]+")
 }
 
 n_uq_hashtags <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("#[[:alnum:]_]+", x)
-  x <- regmatches(x, m)
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_regex(x, "#[[:alnum:]_]+", omit_no_match = TRUE)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_mentions <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("@\\S+", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "@\\S+")
 }
 
 n_uq_mentions <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("@\\S+", x)
-  x <- regmatches(x, m)
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_regex(x, "@\\S+", omit_no_match = TRUE)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_commas <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr(",", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_fixed(x, ",")
 }
 
 n_periods <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("\\.", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_fixed(x, ".")
 }
 
 n_exclaims <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("\\!", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_fixed(x, "!")
 }
 
 n_extraspaces <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("\\s{2}|\\t|\\n", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "\\s{2}|\\t|\\n")
 }
 
 n_caps <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("[[:upper:]]", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "[[:upper:]]")
 }
 
 n_lowers <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("[[:lower:]]", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "[[:lower:]]")
 }
 
 n_urls <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("https?", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "https?")
 }
 
 n_uq_urls <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  m <- gregexpr("https?", x)
-  x <- regmatches(x, m)
-  x <- lapply(x, unique)
-  x <- lengths(x)
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_extract_all_regex(x, "https?", omit_no_match = TRUE)
+  purrr::map_int(x, dplyr::n_distinct)
 }
 
 n_nonasciis <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
   x <- iconv(x, from = "UTF-8", to = "ASCII", sub = "[NONASCII]")
-  m <- gregexpr("\\[NONASCII\\]", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  stringi::stri_count_regex(x, "\\[NONASCII\\]")
 }
 
 n_puncts <- function(x) {
-  na <- is.na(x)
-  if (all(na)) return(0)
-  x <- gsub("!|\\.|\\,", "", x)
-  m <- gregexpr("[[:punct:]]", x)
-  x <- purrr::map_int(m, ~ sum(.x > 0, na.rm = TRUE))
-  x[na] <- NA_integer_
-  x
+  x <- stringi::stri_replace_all_regex(x, "!|\\.|\\,", "")
+  stringi::stri_count_regex(x, "[[:punct:]]")
 }
 
 first_person <- function(x) {
