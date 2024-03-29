@@ -64,13 +64,13 @@ ngrams.
 }
 \details{
 The use of this step will leave the ordering of the tokens meaningless. If
-\code{min_num_tokens <  num_tokens} then the tokens order in increasing fashion
-with respect to the number of tokens in the n-gram. If \code{min_num_tokens = 1}
-and \code{num_tokens = 3} then the output contains all the 1-grams followed by all
+\code{min_num_tokens <  num_tokens} then the tokens will be ordered in increasing
+fashion with respect to the number of tokens in the n-gram. If \code{min_num_tokens = 1}
+and \code{num_tokens = 3} then the output will contain all the 1-grams followed by all
 the 2-grams followed by all the 3-grams.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms} and \code{id}:
 
 \describe{

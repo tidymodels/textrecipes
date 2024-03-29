@@ -56,7 +56,7 @@ to the sequence of existing steps (if any).
 will perform Unicode Normalization on character variables.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{normalization_form}, and \code{id}:
 
 \describe{

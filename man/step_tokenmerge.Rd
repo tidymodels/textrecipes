@@ -37,7 +37,7 @@ preprocessing have been estimated.}
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
-\item{prefix}{A prefix for generated column names, default to "tokenmerge".}
+\item{prefix}{A prefix for generated column names, defaults to "tokenmerge".}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
@@ -60,7 +60,7 @@ multiple \code{\link[=tokenlist]{token}} variables and combine them into one
 \code{\link[=tokenlist]{token}} variable.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms} and \code{id}:
 
 \describe{

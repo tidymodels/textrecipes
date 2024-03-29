@@ -38,9 +38,9 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{extract_functions}{A named list of feature extracting functions.
-default to \code{count_functions}. See details for more information.}
+Defaults to \code{count_functions}. See details for more information.}
 
-\item{prefix}{A prefix for generated column names, default to "textfeature".}
+\item{prefix}{A prefix for generated column names, defaults to "textfeature".}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
@@ -71,7 +71,7 @@ as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{functions}, and \code{id}:
 
 \describe{

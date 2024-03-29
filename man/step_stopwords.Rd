@@ -66,17 +66,17 @@ to the sequence of existing steps (if any).
 filter a \code{\link[=tokenlist]{token}} variable for stop words.
 }
 \details{
-Stop words are words which sometimes are remove before natural language
+Stop words are words which sometimes are removed before natural language
 processing tasks. While stop words usually refers to the most common words in
 the language there is no universal stop word list.
 
 The argument \code{custom_stopword_source} allows you to pass a character vector
-to filter against. With the \code{keep} argument one can specify to keep the words
+to filter against. With the \code{keep} argument one can specify words to keep
 instead of removing thus allowing you to select words with a combination of
 these two arguments.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, \code{keep}, and \code{id}:
 
 \describe{

@@ -85,7 +85,7 @@ using the MurmurHash3 method.
 The argument \code{num_terms} controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
 Since the hashing function can map two different tokens to the same index,
-will a higher value of \code{num_terms} result in a lower chance of collision.
+a higher value of \code{num_terms} will result in a lower chance of collision.
 
 The new components will have names that begin with \code{prefix}, then
 the name of the variable, followed by the tokens all separated by
@@ -95,7 +95,7 @@ the name of the variable, followed by the tokens all separated by
 \code{hash001} - \code{hash101}.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, \code{num_terms}, \code{collapse}, and \code{id}:
 
 \describe{
