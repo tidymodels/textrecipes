@@ -29,16 +29,16 @@
 #' options(width = 55)
 #' ```
 #'
-#' Tokenization is the act of splitting a character string into smaller parts to
+#' Tokenization is the act of splitting a character vector into smaller parts to
 #' be further analyzed. This step uses the `tokenizers` package which includes
 #' heuristics on how to to split the text into paragraphs tokens, word tokens,
 #' among others. `textrecipes` keeps the tokens as a [`token`][tokenlist()]
 #' variable and other steps will do their tasks on those [`token`][tokenlist()]
-#' variable before transforming them back to numeric variables.
+#' variables before transforming them back to numeric variables.
 #'
-#' Working will `textrecipes` will almost always start by calling
+#' Working with `textrecipes` will almost always start by calling
 #' `step_tokenize` followed by modifying and filtering steps. This is not always
-#' the case as you sometimes want to do apply pre-tokenization steps, this can
+#' the case as you sometimes want to apply pre-tokenization steps; this can
 #' be done with [recipes::step_mutate()].
 #'
 #' # Engines
@@ -182,7 +182,7 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
 #' 
 #' \describe{
