@@ -26,7 +26,7 @@ If you want to use n-grams with textrecipes you have 2 options:
 
 Both of these methods come with pros and cons so it will be worthwhile for you to be aware of both.
 
-before we get started let's make sure we are on the same page of what we mean when we are talking about n-grams. We normally tokenize our text into words, which we can do with `tokenize_words()` from the tokenizers package (this is the default engine and token for `step_tokenize()` in textrecipes)
+Before we get started let's make sure we are on the same page of what we mean when we are talking about n-grams. We normally tokenize our text into words, which we can do with `tokenize_words()` from the tokenizers package (this is the default engine and token for `step_tokenize()` in textrecipes)
 
 ```{r}
 abc <- c(
@@ -37,14 +37,14 @@ abc <- c(
 tokenize_words(abc)
 ```
 
-N-grams are a contiguous sequence of n tokens. So to get 2-gram (or bigrams as they are also called) we can use the `tokenize_ngrams()` function to get them
+N-grams are a contiguous sequence of n tokens. So to get 2-grams (or bigrams as they are also called) we can use the `tokenize_ngrams()` function to get them
 
 ```{r}
 tokenize_ngrams(abc, n = 2)
 ```
 
 Notice how the words appear in multiple n-grams as the window slides across them.
-And why changing the `n` argument we can any kind of n-gram (notice how `n = 1` is the special case of tokenizing to words).
+And by changing the `n` argument we can get any kind of n-gram (notice how `n = 1` is the special case of tokenizing to words).
 
 ```{r}
 tokenize_ngrams(abc, n = 3)
@@ -60,10 +60,10 @@ tokenize_ngrams(abc, n = 3, ngram_delim = "_")
 
 # Only using `step_tokenize()`
 
-The first methods work by using n-gram `token` from one of the built-in engine in `step_tokenize()` to get a full list of available tokens type `?step_tokenize()` and go down to `Details`.
+The first method works by using n-gram `token` from one of the built-in engines in `step_tokenize()`. To get a full list of available tokens type `?step_tokenize()` and go down to `Details`.
 We can use the `token="ngrams"` along with `engine = "tokenizers"`(the default) to tokenize to n-grams.
 We finish this `recipe()` with `step_tokenfilter()` and `step_tf()`.
-The filtering doesn't do anything to the data of this size but it is a good practice to use `step_tokenfilter()` before using `step_tf()` or `step_tfidf()` to control the size of the resulting data.frame.
+The filtering doesn't do anything to data of this size but it is a good practice to use `step_tokenfilter()` before using `step_tf()` or `step_tfidf()` to control the size of the resulting data.frame.
 
 ```{r}
 abc_tibble <- tibble(text = abc)
@@ -134,7 +134,7 @@ Pros:
 
 Cons:
 
-- Minimal flexibility, (`tokenizers::tokenize_ngrams()` don't let you control how the words are tokenized.)
+- Minimal flexibility, (`tokenizers::tokenize_ngrams()` doesn't let you control how the words are tokenized.)
 - You are not able to tune the number of tokens in your n-gram
 
 # Using `step_tokenize()` and `step_ngram()`

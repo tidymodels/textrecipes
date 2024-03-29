@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(textrecipes)
 ```
 
-**textrecipes** have been using lists of character vectors to carry around the tokens. A simple S3 vector class has been implemented with the **vctrs** package to handle that list of tokens, henceforth to be known as a `tokenlist`.
+**textrecipes** has been using lists of character vectors to carry around the tokens. A simple S3 vector class has been implemented with the **vctrs** package to handle that list of tokens, henceforth to be known as a `tokenlist`.
 
 If you are only using this package for preprocessing then you most likely won't even notice that this change has happened. However if you are thinking of contributing to **textrecipes** then knowing about `tokenlist`s will be essential.
 
@@ -33,4 +33,4 @@ This attribute is calculated automatically when using `tokenlist()`. If a functi
 
 Both the `lemma` and `pos` attribute are used in the same way. They default to `NULL` but can be filled depending on which engine is being used in `step_tokenize()`. The attribute is a list of characters in the exact shape and size as the tokenlist and should have a one-to-one relationship.
 
-If a specific element is removed in the tokenlist then the corresponding element in `lemma` and `pos` should be removed.
+If a specific element is removed from the tokenlist then the corresponding element in `lemma` and `pos` should be removed.
