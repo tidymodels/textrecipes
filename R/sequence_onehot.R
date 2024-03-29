@@ -18,7 +18,7 @@
 #' @param vocabulary A character vector, characters to be mapped to integers.
 #'   Characters not in the vocabulary will be encoded as 0. Defaults to
 #'   `letters`.
-#' @param prefix A prefix for generated column names, default to "seq1hot".
+#' @param prefix A prefix for generated column names, defaults to "seq1hot".
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id

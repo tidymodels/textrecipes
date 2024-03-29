@@ -9,8 +9,8 @@
 #' @template args-trained
 #' @template args-columns
 #' @param extract_functions A named list of feature extracting functions.
-#'   default to `count_functions`. See details for more information.
-#' @param prefix A prefix for generated column names, default to "textfeature".
+#'   Defaults to `count_functions`. See details for more information.
+#' @param prefix A prefix for generated column names, defaults to "textfeature".
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
