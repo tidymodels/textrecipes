@@ -43,12 +43,12 @@ be populated (eventually) by the \code{terms} argument. This is \code{NULL}
 until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{lda_models}{A WarpLDA model object from the text2vec package. If left
-to NULL, the default, will it train its model based on the training data.
+to NULL, the default, it will train its model based on the training data.
 Look at the examples for how to fit a WarpLDA model.}
 
 \item{num_topics}{integer desired number of latent topics.}
 
-\item{prefix}{A prefix for generated column names, default to "lda".}
+\item{prefix}{A prefix for generated column names, defaults to "lda".}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
@@ -70,7 +70,7 @@ to the sequence of existing steps (if any).
 lda dimension estimates of a text variable.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{num_topics}, and \code{id}:
 
 \describe{

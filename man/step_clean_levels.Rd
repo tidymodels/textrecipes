@@ -56,7 +56,7 @@ data to be processed contains novel levels (i.e., not contained in the
 training set), they are converted to missing.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{orginal}, \code{value}, and \code{id}:
 
 \describe{

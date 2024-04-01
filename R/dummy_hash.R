@@ -36,7 +36,7 @@
 #' The argument `num_terms` controls the number of indices that the hashing
 #' function will map to. This is the tuning parameter for this transformation.
 #' Since the hashing function can map two different tokens to the same index,
-#' will a higher value of `num_terms` result in a lower chance of collision.
+#' a higher value of `num_terms` will result in a lower chance of collision.
 #'
 #' @template details-prefix
 #'
@@ -44,7 +44,7 @@
 #'
 #' # Tidying
 #' 
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, `num_terms`, `collapse`, and `id`:
 #' 
 #' \describe{

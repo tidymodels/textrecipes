@@ -66,7 +66,7 @@ Note that the stemming will only be done at the end of the word and will
 therefore not work reliably on ngrams or sentences.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{is_custom_stemmer}, and \code{id}:
 
 \describe{

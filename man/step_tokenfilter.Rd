@@ -76,7 +76,7 @@ to the sequence of existing steps (if any).
 convert a \code{\link[=tokenlist]{token}} variable to be filtered based on frequency.
 }
 \details{
-This step allow you to limit the tokens you are looking at by filtering on
+This step allows you to limit the tokens you are looking at by filtering on
 their occurrence in the corpus. You are able to exclude tokens if they appear
 too many times or too few times in the data. It can be specified as counts
 using \code{max_times} and \code{min_times} or as percentages by setting \code{percentage}
@@ -90,7 +90,7 @@ It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf
 limit the number of variables created.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:
 
 \describe{

@@ -1,7 +1,7 @@
 #' Show token output of recipe
 #'
-#' Returns the tokens as a list of character vector of a recipe. This function
-#' can be useful for diagnostics doing recipe construction but should not be
+#' Returns the tokens as a list of character vectors of a recipe. This function
+#' can be useful for diagnostics during recipe construction but should not be
 #' used in final recipe steps. Note that this function will both prep() and
 #' bake() the recipe it is used on.
 #'

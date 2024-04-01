@@ -9,10 +9,10 @@
 #' @template args-trained
 #' @template args-columns
 #' @param lda_models A WarpLDA model object from the text2vec package. If left
-#'   to NULL, the default, will it train its model based on the training data.
+#'   to NULL, the default, it will train its model based on the training data.
 #'   Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
-#' @param prefix A prefix for generated column names, default to "lda".
+#' @param prefix A prefix for generated column names, defaults to "lda".
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -21,7 +21,7 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `num_topics`, and `id`:
 #' 
 #' \describe{

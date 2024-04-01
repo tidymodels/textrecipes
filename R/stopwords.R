@@ -23,18 +23,18 @@
 #'
 #' @details
 #'
-#' Stop words are words which sometimes are remove before natural language
+#' Stop words are words which sometimes are removed before natural language
 #' processing tasks. While stop words usually refers to the most common words in
 #' the language there is no universal stop word list.
 #'
 #' The argument `custom_stopword_source` allows you to pass a character vector
-#' to filter against. With the `keep` argument one can specify to keep the words
+#' to filter against. With the `keep` argument one can specify words to keep
 #' instead of removing thus allowing you to select words with a combination of
 #' these two arguments.
 #'
 #' # Tidying
 #' 
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, `keep`, and `id`:
 #' 
 #' \describe{

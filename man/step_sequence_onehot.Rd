@@ -58,7 +58,7 @@ Defaults too 'pre'.}
 Characters not in the vocabulary will be encoded as 0. Defaults to
 \code{letters}.}
 
-\item{prefix}{A prefix for generated column names, default to "seq1hot".}
+\item{prefix}{A prefix for generated column names, defaults to "seq1hot".}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
@@ -82,11 +82,11 @@ take a string and do one hot encoding for each character by position.
 \details{
 The string will be capped by the sequence_length argument, strings shorter
 then sequence_length will be padded with empty characters. The encoding will
-assign a integer to each character in the vocabulary, and will encode
+assign an integer to each character in the vocabulary, and will encode
 accordingly. Characters not in the vocabulary will be encoded as 0.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{vocabulary}, \code{token}, and \code{id}:
 
 \describe{

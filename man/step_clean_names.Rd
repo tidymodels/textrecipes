@@ -50,7 +50,7 @@ clean variable names so the names consist only of letters, numbers, and the
 underscore.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:
 
 \describe{

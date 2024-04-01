@@ -84,12 +84,12 @@ limit the number of variables created, otherwise you might run into memory
 issues. A good strategy is to start with a low token count and go up
 according to how much RAM you want to use.
 
-Term frequency is a weight of how many times each token appear in each
+Term frequency is a weight of how many times each token appears in each
 observation. There are different ways to calculate the weight and this step
 can do it in a couple of ways. Setting the argument \code{weight_scheme} to
 "binary" will result in a set of binary variables denoting if a token is
 present in the observation. "raw count" will count the times a token is
-present in the observation. "term frequency" will divide the count with the
+present in the observation. "term frequency" will divide the count by the
 total number of words in the document to limit the effect of the document
 length as longer documents tends to have the word present more times but not
 necessarily at a higher percentage. "log normalization" takes the log of 1
@@ -107,7 +107,7 @@ the name of the variable, followed by the tokens all separated by
 \code{hash001} - \code{hash101}.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:
 
 \describe{

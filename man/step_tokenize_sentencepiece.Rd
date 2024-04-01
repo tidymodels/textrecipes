@@ -68,7 +68,7 @@ compiled code by setting \code{options = list(verbose = TRUE)}. This can reveal 
 sentencepiece ran correctly or not.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms} and \code{id}:
 
 \describe{

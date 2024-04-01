@@ -9,7 +9,7 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param prefix A prefix for generated column names, default to "tokenmerge".
+#' @param prefix A prefix for generated column names, defaults to "tokenmerge".
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -20,7 +20,7 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
 #' 
 #' \describe{

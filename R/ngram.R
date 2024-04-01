@@ -23,14 +23,14 @@
 #' @details
 #'
 #' The use of this step will leave the ordering of the tokens meaningless. If
-#' `min_num_tokens <  num_tokens` then the tokens order in increasing fashion
-#' with respect to the number of tokens in the n-gram. If `min_num_tokens = 1`
-#' and `num_tokens = 3` then the output contains all the 1-grams followed by all
+#' `min_num_tokens <  num_tokens` then the tokens will be ordered in increasing 
+#' fashion with respect to the number of tokens in the n-gram. If `min_num_tokens = 1`
+#' and `num_tokens = 3` then the output will contain all the 1-grams followed by all
 #' the 2-grams followed by all the 3-grams.
 #'
 #' # Tidying
 #' 
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
 #' 
 #' \describe{

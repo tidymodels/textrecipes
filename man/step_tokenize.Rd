@@ -70,16 +70,16 @@ to the sequence of existing steps (if any).
 convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
-Tokenization is the act of splitting a character string into smaller parts to
+Tokenization is the act of splitting a character vector into smaller parts to
 be further analyzed. This step uses the \code{tokenizers} package which includes
 heuristics on how to to split the text into paragraphs tokens, word tokens,
 among others. \code{textrecipes} keeps the tokens as a \code{\link[=tokenlist]{token}}
 variable and other steps will do their tasks on those \code{\link[=tokenlist]{token}}
-variable before transforming them back to numeric variables.
+variables before transforming them back to numeric variables.
 
-Working will \code{textrecipes} will almost always start by calling
+Working with \code{textrecipes} will almost always start by calling
 \code{step_tokenize} followed by modifying and filtering steps. This is not always
-the case as you sometimes want to do apply pre-tokenization steps, this can
+the case as you sometimes want to apply pre-tokenization steps; this can
 be done with \code{\link[recipes:step_mutate]{recipes::step_mutate()}}.
 }
 \section{Engines}{
@@ -245,7 +245,7 @@ recipe(~ text, data = text_tibble) \%>\%
 }
 
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is retruned with
+When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:
 
 \describe{

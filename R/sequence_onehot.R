@@ -18,7 +18,7 @@
 #' @param vocabulary A character vector, characters to be mapped to integers.
 #'   Characters not in the vocabulary will be encoded as 0. Defaults to
 #'   `letters`.
-#' @param prefix A prefix for generated column names, default to "seq1hot".
+#' @param prefix A prefix for generated column names, defaults to "seq1hot".
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -33,12 +33,12 @@
 #'
 #' The string will be capped by the sequence_length argument, strings shorter
 #' then sequence_length will be padded with empty characters. The encoding will
-#' assign a integer to each character in the vocabulary, and will encode
+#' assign an integer to each character in the vocabulary, and will encode
 #' accordingly. Characters not in the vocabulary will be encoded as 0.
 #'
 #' # Tidying
 #' 
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is retruned with
+#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `vocabulary`, `token`, and `id`:
 #' 
 #' \describe{
