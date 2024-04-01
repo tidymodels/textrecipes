@@ -109,7 +109,7 @@
 <span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     step</span></span></code></pre></div>
-<p><strong>textrecipes</strong> have been using lists of character
+<p><strong>textrecipes</strong> has been using lists of character
 vectors to carry around the tokens. A simple S3 vector class has been
 implemented with the <strong>vctrs</strong> package to handle that list
 of tokens, henceforth to be known as a <code>tokenlist</code>.</p>
@@ -140,7 +140,7 @@ in the same way. They default to <code>NULL</code> but can be filled
 depending on which engine is being used in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>.
 The attribute is a list of characters in the exact shape and size as the
 tokenlist and should have a one-to-one relationship.</p>
-<p>If a specific element is removed in the tokenlist then the
+<p>If a specific element is removed from the tokenlist then the
 corresponding element in <code>lemma</code> and <code>pos</code> should
 be removed.</p>
 </div>

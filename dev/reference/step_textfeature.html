@@ -109,11 +109,11 @@ until the step is trained by <code><a href="https://recipes.tidymodels.org/refer
 
 <dt>extract_functions</dt>
 <dd><p>A named list of feature extracting functions.
-default to <code>count_functions</code>. See details for more information.</p></dd>
+Defaults to <code>count_functions</code>. See details for more information.</p></dd>
 
 
 <dt>prefix</dt>
-<dd><p>A prefix for generated column names, default to "textfeature".</p></dd>
+<dd><p>A prefix for generated column names, defaults to "textfeature".</p></dd>
 
 
 <dt>keep_original_cols</dt>
@@ -151,7 +151,7 @@ will be thrown.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is returned with
 columns <code>terms</code>, <code>functions</code>, and <code>id</code>:</p>
 <dl><dt>terms</dt>
 <dd><p>character, the selectors or variables selected</p></dd>
@@ -407,21 +407,21 @@ columns <code>terms</code>, <code>functions</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  functions id               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        textfeature_1GDS8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        textfeature_VL1ye</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 26 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms  functions     id               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium n_words       textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium n_uq_words    textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium n_charS       textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium n_uq_charS    textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium n_digits      textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium n_hashtags    textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium n_uq_hashtags textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium n_mentions    textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium n_uq_mentions textfeature_1GDS8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium n_commas      textfeature_1GDS8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium n_words       textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium n_uq_words    textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium n_charS       textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium n_uq_charS    textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium n_digits      textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium n_hashtags    textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium n_uq_hashtags textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium n_mentions    textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium n_uq_mentions textfeature_VL1ye</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium n_commas      textfeature_VL1ye</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 16 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using custom extraction functions</span></span></span>

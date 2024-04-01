@@ -153,15 +153,15 @@ to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Tokenization is the act of splitting a character string into smaller parts to
+    <p>Tokenization is the act of splitting a character vector into smaller parts to
 be further analyzed. This step uses the <code>tokenizers</code> package which includes
 heuristics on how to to split the text into paragraphs tokens, word tokens,
 among others. <code>textrecipes</code> keeps the tokens as a <code><a href="tokenlist.html">token</a></code>
 variable and other steps will do their tasks on those <code><a href="tokenlist.html">token</a></code>
-variable before transforming them back to numeric variables.</p>
-<p>Working will <code>textrecipes</code> will almost always start by calling
+variables before transforming them back to numeric variables.</p>
+<p>Working with <code>textrecipes</code> will almost always start by calling
 <code>step_tokenize</code> followed by modifying and filtering steps. This is not always
-the case as you sometimes want to do apply pre-tokenization steps, this can
+the case as you sometimes want to apply pre-tokenization steps; this can
 be done with <code><a href="https://recipes.tidymodels.org/reference/step_mutate.html" class="external-link">recipes::step_mutate()</a></code>.</p>
     </div>
     <div class="section level2">
@@ -304,7 +304,7 @@ way of tokenizing.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is returned with
 columns <code>terms</code>, <code>value</code>, and <code>id</code>:</p>
 <dl><dt>terms</dt>
 <dd><p>character, the selectors or variables selected</p></dd>
@@ -368,12 +368,12 @@ columns <code>terms</code>, <code>value</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value id            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>    tokenize_EIheR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>    tokenize_y5NUh</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value id            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium words tokenize_EIheR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium words tokenize_y5NUh</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">tate_obj_chars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">step_tokenize</span><span class="op">(</span><span class="va">medium</span>, token <span class="op">=</span> <span class="st">"characters"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>

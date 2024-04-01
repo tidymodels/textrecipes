@@ -119,7 +119,7 @@ n-grams.</li>
 </ul>
 <p>Both of these methods come with pros and cons so it will be
 worthwhile for you to be aware of both.</p>
-<p>before we get started let’s make sure we are on the same page of what
+<p>Before we get started let’s make sure we are on the same page of what
 we mean when we are talking about n-grams. We normally tokenize our text
 into words, which we can do with <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenize_words()</a></code> from the
 tokenizers package (this is the default engine and token for
@@ -138,7 +138,7 @@ tokenizers package (this is the default engine and token for
 <span><span class="co">#&gt; [[2]]</span></span>
 <span><span class="co">#&gt; [1] "the"     "bee"     "is"      "an"      "insect"  "that"    "gathers"</span></span>
 <span><span class="co">#&gt; [8] "honey"</span></span></code></pre></div>
-<p>N-grams are a contiguous sequence of n tokens. So to get 2-gram (or
+<p>N-grams are a contiguous sequence of n tokens. So to get 2-grams (or
 bigrams as they are also called) we can use the
 <code><a href="https://docs.ropensci.org/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams()</a></code> function to get them</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -151,7 +151,7 @@ bigrams as they are also called) we can use the
 <span><span class="co">#&gt; [1] "the bee"       "bee is"        "is an"         "an insect"    </span></span>
 <span><span class="co">#&gt; [5] "insect that"   "that gathers"  "gathers honey"</span></span></code></pre></div>
 <p>Notice how the words appear in multiple n-grams as the window slides
-across them. And why changing the <code>n</code> argument we can any
+across them. And by changing the <code>n</code> argument we can get any
 kind of n-gram (notice how <code>n = 1</code> is the special case of
 tokenizing to words).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -188,14 +188,14 @@ in your n-gram.</p>
 <div class="section level2">
 <h2 id="only-using-step_tokenize">Only using <code>step_tokenize()</code><a class="anchor" aria-label="anchor" href="#only-using-step_tokenize"></a>
 </h2>
-<p>The first methods work by using n-gram <code>token</code> from one of
-the built-in engine in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> to get a full list
+<p>The first method works by using n-gram <code>token</code> from one of
+the built-in engines in <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code>. To get a full list
 of available tokens type <code>?step_tokenize()</code> and go down to
 <code>Details</code>. We can use the <code>token="ngrams"</code> along
 with <code>engine = "tokenizers"</code>(the default) to tokenize to
 n-grams. We finish this <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe()</a></code> with
 <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> and <code><a href="../reference/step_tf.html">step_tf()</a></code>. The
-filtering doesn’t do anything to the data of this size but it is a good
+filtering doesn’t do anything to data of this size but it is a good
 practice to use <code><a href="../reference/step_tokenfilter.html">step_tokenfilter()</a></code> before using
 <code><a href="../reference/step_tf.html">step_tf()</a></code> or <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> to control the size
 of the resulting data.frame.</p>
@@ -327,7 +327,7 @@ argument.</p>
 <p>Cons:</p>
 <ul>
 <li>Minimal flexibility, (<code><a href="https://docs.ropensci.org/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenizers::tokenize_ngrams()</a></code>
-don’t let you control how the words are tokenized.)</li>
+doesn’t let you control how the words are tokenized.)</li>
 <li>You are not able to tune the number of tokens in your n-gram</li>
 </ul>
 </div>

@@ -169,7 +169,7 @@ using the MurmurHash3 method.</p>
 <p>The argument <code>num_terms</code> controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
 Since the hashing function can map two different tokens to the same index,
-will a higher value of <code>num_terms</code> result in a lower chance of collision.</p>
+a higher value of <code>num_terms</code> will result in a lower chance of collision.</p>
 <p>The new components will have names that begin with <code>prefix</code>, then
 the name of the variable, followed by the tokens all separated by
 <code>-</code>. The variable names are padded with zeros. For example if
@@ -179,7 +179,7 @@ the name of the variable, followed by the tokens all separated by
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is returned with
 columns <code>terms</code>, <code>value</code>, <code>num_terms</code>, <code>collapse</code>, and <code>id</code>:</p>
 <dl><dt>terms</dt>
 <dd><p>character, the selectors or variables selected</p></dd>

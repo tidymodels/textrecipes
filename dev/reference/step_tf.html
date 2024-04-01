@@ -170,12 +170,12 @@ to the sequence of existing steps (if any).</p>
 limit the number of variables created, otherwise you might run into memory
 issues. A good strategy is to start with a low token count and go up
 according to how much RAM you want to use.</p>
-<p>Term frequency is a weight of how many times each token appear in each
+<p>Term frequency is a weight of how many times each token appears in each
 observation. There are different ways to calculate the weight and this step
 can do it in a couple of ways. Setting the argument <code>weight_scheme</code> to
 "binary" will result in a set of binary variables denoting if a token is
 present in the observation. "raw count" will count the times a token is
-present in the observation. "term frequency" will divide the count with the
+present in the observation. "term frequency" will divide the count by the
 total number of words in the document to limit the effect of the document
 length as longer documents tends to have the word present more times but not
 necessarily at a higher percentage. "log normalization" takes the log of 1
@@ -193,7 +193,7 @@ the name of the variable, followed by the tokens all separated by
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is returned with
 columns <code>terms</code>, <code>value</code>, and <code>id</code>:</p>
 <dl><dt>terms</dt>
 <dd><p>character, the selectors or variables selected</p></dd>
@@ -268,12 +268,12 @@ columns <code>terms</code>, <code>value</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value id      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>    tf_mssGZ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>    tf_MeGFu</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value     id      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium raw count tf_mssGZ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium raw count tf_MeGFu</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Emil
 Hvitfeldt</h4>
             
-            <h4 data-toc-skip class="date">2024-03-27</h4>
+            <h4 data-toc-skip class="date">2024-04-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/HEAD/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd" class="external-link"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="d-none name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -101,8 +101,8 @@ should hopefully give you the flexibility to perform most of your
 desired text preprocessing tasks. This vignette will showcase examples
 that combine multiple steps.</p>
 <p>This vignette will not do any modeling with the processed text as its
-purpose it to showcase the flexibility and modularity. Therefore the
-only packages needed will be <code>recipes</code> and
+purpose it to showcase flexibility and modularity. Therefore the only
+packages needed will be <code>recipes</code> and
 <code>textrecipes</code>. Examples will be performed on the
 <code>tate_text</code> data-set which is packaged with
 <code>modeldata</code>.</p>
@@ -115,7 +115,7 @@ only packages needed will be <code>recipes</code> and
 <h2 id="counting-select-words">Counting select words<a class="anchor" aria-label="anchor" href="#counting-select-words"></a>
 </h2>
 <p>Sometimes it is enough to know the counts of a handful of specific
-words. This can be easily be achieved by using the arguments
+words. This can be easily achieved using the arguments
 <code>custom_stopword_source</code> and <code>keep = TRUE</code> in
 <code>step_stopwords</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -236,14 +236,14 @@ tokenizer and keep only the characters using the
 <div class="section level2">
 <h2 id="tf-idf-of-ngrams-of-stemmed-tokens">TF-IDF of ngrams of stemmed tokens<a class="anchor" aria-label="anchor" href="#tf-idf-of-ngrams-of-stemmed-tokens"></a>
 </h2>
-<p>Sometimes fairly complicated computations. Here we would like the
-term frequency inverse document frequency (TF-IDF) of the most common
-500 ngrams done on stemmed tokens. It is quite a handful and would
-seldom be included as a option in most other libraries. But the
+<p>Sometimes fairly complicated computations are needed. Here we would
+like the term frequency inverse document frequency (TF-IDF) of the most
+common 500 ngrams done on stemmed tokens. It is quite a handful and
+would seldom be included as an option in most other libraries. But the
 modularity of <code>textrecipes</code> makes this task fairly easy.</p>
-<p>First we will tokenize according to words, then stemming those words.
-We will then paste together the stemmed tokens using
-<code>step_untokenize</code> so we are back at string that we then
+<p>First we will tokenize according to words, then stem those words. We
+will then paste together the stemmed tokens using
+<code>step_untokenize</code> so we are back at strings that we then
 tokenize again but this time using the ngram tokenizers. Lastly just
 filtering and tfidf as usual.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">

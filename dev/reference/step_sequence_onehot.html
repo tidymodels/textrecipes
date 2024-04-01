@@ -137,7 +137,7 @@ Characters not in the vocabulary will be encoded as 0. Defaults to
 
 
 <dt>prefix</dt>
-<dd><p>A prefix for generated column names, default to "seq1hot".</p></dd>
+<dd><p>A prefix for generated column names, defaults to "seq1hot".</p></dd>
 
 
 <dt>keep_original_cols</dt>
@@ -168,12 +168,12 @@ to the sequence of existing steps (if any).</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The string will be capped by the sequence_length argument, strings shorter
 then sequence_length will be padded with empty characters. The encoding will
-assign a integer to each character in the vocabulary, and will encode
+assign an integer to each character in the vocabulary, and will encode
 accordingly. Characters not in the vocabulary will be encoded as 0.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
-    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is retruned with
+    <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is returned with
 columns <code>terms</code>, <code>vocabulary</code>, <code>token</code>, and <code>id</code>:</p>
 <dl><dt>terms</dt>
 <dd><p>character, the selectors or variables selected</p></dd>
@@ -243,21 +243,21 @@ columns <code>terms</code>, <code>vocabulary</code>, <code>token</code>, and <co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  vocabulary token id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span> sequence_onehot_NwD5l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span> sequence_onehot_jFu38</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms  vocabulary token     id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium          1 16        sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium          2 2         sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium          3 3         sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium          4 35        sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium          5 4         sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium          6 5         sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium          7 6         sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium          8 8         sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium          9 acrylic   sequence_onehot_NwD5l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium         10 aluminium sequence_onehot_NwD5l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium          1 16        sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium          2 2         sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium          3 3         sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium          4 35        sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium          5 4         sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium          6 5         sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium          7 6         sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium          8 8         sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium          9 acrylic   sequence_onehot_jFu38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium         10 aluminium sequence_onehot_jFu38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 90 more rows</span></span>
 </code></pre></div>
     </div>
