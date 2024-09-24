@@ -178,9 +178,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
     rec <- prep(rec)
   )
   
-  expect_error(
-    bake(rec, new_data = test_data),
-    NA
+  expect_no_error(
+    bake(rec, new_data = test_data)
   )
 })
 test_that("keep_original_cols works", {
@@ -219,9 +218,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
     rec <- prep(rec)
   )
   
-  expect_error(
-    bake(rec, new_data = test_data),
-    NA
+  expect_no_error(
+    bake(rec, new_data = test_data)
   )
 })
 

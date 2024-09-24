@@ -137,9 +137,8 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
   new_text <- tibble(
     text = "aksjdf nagjli aslkfa"
   )
-  expect_error(
-    bake(obj, new_data = new_text),
-    NA
+  expect_no_error(
+    bake(obj, new_data = new_text)
   )
 })
 
@@ -377,9 +376,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
     rec <- prep(rec)
   )
   
-  expect_error(
-    bake(rec, new_data = test_data),
-    NA
+  expect_no_error(
+    bake(rec, new_data = test_data)
   )
 })
 

@@ -175,9 +175,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
     rec <- prep(rec)
   )
   
-  expect_error(
-    bake(rec, new_data = tate_text[seq_len(n_rows), ]),
-    NA
+  expect_no_error(
+    bake(rec, new_data = tate_text[seq_len(n_rows), ])
   )
 })
 
