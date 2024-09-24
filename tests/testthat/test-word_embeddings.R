@@ -127,13 +127,11 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
       "I do not like them, they're not nice."
     )
   )
-  expect_warning(
-    bake(obj, new_data = new_text),
-    NA
+  expect_no_warning(
+    bake(obj, new_data = new_text)
   )
-  expect_warning(
-    bake(obj, new_data = test_data),
-    NA
+  expect_no_warning(
+    bake(obj, new_data = test_data)
   )
 
   new_text <- tibble(
