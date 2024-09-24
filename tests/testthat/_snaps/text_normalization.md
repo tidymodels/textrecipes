@@ -1,3 +1,11 @@
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = ex_dat[, -1])
+    Condition
+      Error in `step_text_normalization()`:
+      ! The following required column is missing from `new_data`: text.
+
 # empty printing
 
     Code

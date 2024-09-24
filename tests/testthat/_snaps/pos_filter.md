@@ -7,6 +7,14 @@
       Caused by error in `bake()`:
       ! `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
 
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = tokenized_test_data[, -1])
+    Condition
+      Error in `step_pos_filter()`:
+      ! The following required column is missing from `new_data`: text.
+
 # empty printing
 
     Code

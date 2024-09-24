@@ -29,6 +29,14 @@
       ! Name collision occurred. The following variable names already exist:
       * `textfeature_text_n_words`
 
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = test_data[, -1])
+    Condition
+      Error in `step_textfeature()`:
+      ! The following required column is missing from `new_data`: text.
+
 # empty printing
 
     Code

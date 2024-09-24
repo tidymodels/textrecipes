@@ -77,9 +77,9 @@ test_that("bake method errors when needed non-standard role columns are missing"
   
   trained <- prep(rec, training = smith_tr, verbose = FALSE)
   
-  expect_error(
-    bake(trained, new_data = smith_tr[, -1]),
-    class = "new_data_missing_column"
+  expect_snapshot(
+    error = TRUE,
+    bake(trained, new_data = smith_tr[, -1])
   )
 })
 

@@ -1,3 +1,11 @@
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = test_data[, -1])
+    Condition
+      Error in `step_tokenize_bpe()`:
+      ! The following required column is missing from `new_data`: text1.
+
 # empty printing
 
     Code
