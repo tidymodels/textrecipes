@@ -41,6 +41,14 @@
       ! Name collision occurred. The following variable names already exist:
       * `seq1hot_text_1`
 
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = tokenized_test_data[, -1])
+    Condition
+      Error in `step_sequence_onehot()`:
+      ! The following required column is missing from `new_data`: text.
+
 # empty printing
 
     Code

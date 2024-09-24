@@ -16,6 +16,14 @@
       Caused by error in `prep()`:
       ! `engine` argument is not valid.
 
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = test_data[, -1])
+    Condition
+      Error in `step_tokenize()`:
+      ! The following required column is missing from `new_data`: text.
+
 # empty printing
 
     Code

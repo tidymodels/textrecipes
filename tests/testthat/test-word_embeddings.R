@@ -127,21 +127,18 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
       "I do not like them, they're not nice."
     )
   )
-  expect_warning(
-    bake(obj, new_data = new_text),
-    NA
+  expect_no_warning(
+    bake(obj, new_data = new_text)
   )
-  expect_warning(
-    bake(obj, new_data = test_data),
-    NA
+  expect_no_warning(
+    bake(obj, new_data = test_data)
   )
 
   new_text <- tibble(
     text = "aksjdf nagjli aslkfa"
   )
-  expect_error(
-    bake(obj, new_data = new_text),
-    NA
+  expect_no_error(
+    bake(obj, new_data = new_text)
   )
 })
 
@@ -287,9 +284,9 @@ test_that("bake method errors when needed non-standard role columns are missing"
   
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
   
-  expect_error(
-    bake(trained, new_data = tokenized_test_data[, -1]),
-    class = "new_data_missing_column"
+  expect_snapshot(
+    error = TRUE,
+    bake(trained, new_data = tokenized_test_data[, -1])
   )
 })
 
@@ -379,9 +376,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
     rec <- prep(rec)
   )
   
-  expect_error(
-    bake(rec, new_data = test_data),
-    NA
+  expect_no_error(
+    bake(rec, new_data = test_data)
   )
 })
 

@@ -8,6 +8,14 @@
       ! Name collision occurred. The following variable names already exist:
       * `dummyhash_text_01`
 
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = test_data[, -2])
+    Condition
+      Error in `step_dummy_hash()`:
+      ! The following required column is missing from `new_data`: sponsor_code.
+
 # empty printing
 
     Code

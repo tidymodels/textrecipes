@@ -159,9 +159,9 @@ test_that("bake method errors when needed non-standard role columns are missing"
   
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
   
-  expect_error(
-    bake(trained, new_data = tokenized_test_data[, -1]),
-    class = "new_data_missing_column"
+  expect_snapshot(
+    error = TRUE,
+    bake(trained, new_data = tokenized_test_data[, -1])
   )
 })
 
@@ -246,9 +246,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
     rec <- prep(rec)
   )
   
-  expect_error(
-    bake(rec, new_data = test_data),
-    NA
+  expect_no_error(
+    bake(rec, new_data = test_data)
   )
 })
 

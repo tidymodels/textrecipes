@@ -28,6 +28,14 @@
       Please retrain this recipe with version 0.5.1 or higher.
       * A data leakage bug has been fixed for `step_tfidf()`.
 
+# bake method errors when needed non-standard role columns are missing
+
+    Code
+      bake(trained, new_data = tokenized_test_data[, -1])
+    Condition
+      Error in `step_tfidf()`:
+      ! The following required column is missing from `new_data`: text.
+
 # empty printing
 
     Code
