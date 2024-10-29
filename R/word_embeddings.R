@@ -110,16 +110,13 @@ step_word_embeddings <- function(recipe,
       ncol(embeddings) == 1 ||
       !all(map_lgl(embeddings[, 2:ncol(embeddings)], is.numeric))
   ) {
-    embeddings_message <- glue(
-      "embeddings should be a tibble with 1 character or factor column and ",
-      "additional numeric columns."
-    )
-    rlang::abort(
-      embeddings_message,
+    cli::cli_abort(
+      "embeddings should be a tibble with {.code 1} character or factor column 
+      and additional numeric columns.",
       class = "bad_embeddings"
     )
   }
-
+  
   aggregation <- match.arg(aggregation)
 
   add_step(

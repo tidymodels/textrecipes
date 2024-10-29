@@ -16,7 +16,7 @@
     Condition
       Warning:
       Please retrain this recipe with version 0.5.1 or higher.
-      * A data leakage bug has been fixed for `step_tfidf()`.
+      i A data leakage bug has been fixed for `step_tfidf()`.
 
 ---
 
@@ -26,7 +26,7 @@
     Condition
       Warning:
       Please retrain this recipe with version 0.5.1 or higher.
-      * A data leakage bug has been fixed for `step_tfidf()`.
+      i A data leakage bug has been fixed for `step_tfidf()`.
 
 # bake method errors when needed non-standard role columns are missing
 

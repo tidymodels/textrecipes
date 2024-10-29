@@ -120,8 +120,9 @@ prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
 
   sentencepiece_options <- x$options
   if (!is.null(sentencepiece_options$vocab_size)) {
-    rlang::abort(
-      "Please supply the vocabulary size using the `vocabulary_size` argument."
+    cli::cli_abort(
+      "Please supply the vocabulary size using the {.arg vocabulary_size} 
+      argument."
     )
   }
   sentencepiece_options$vocab_size <- x$vocabulary_size
@@ -160,12 +161,10 @@ check_sentencepiece_vocab_size <- function(text,
   text_count <- length(text_count)
 
   if (vocabulary_size < text_count) {
-    rlang::abort(
-      glue(
-        "`vocabulary_size` of {vocabulary_size} is too small for column ",
-        "`{column}` which has a unique character count of {text_count}."
-      ),
-      call = call
+    cli::cli_abort(
+      "The {.arg vocabulary_size} of {vocabulary_size} is too small for column {.arg {column}} 
+   which has a unique character count of {text_count}.",
+   call = call
     )
   }
 }

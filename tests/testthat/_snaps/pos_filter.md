@@ -5,7 +5,8 @@
     Condition
       Error in `step_pos_filter()`:
       Caused by error in `bake()`:
-      ! `text` doesn't have a pos attribute. Make sure the tokenization step includes part of speech tagging.
+      ! `text` doesn't have a pos attribute.
+      i Make sure the tokenization step includes part of speech tagging.
 
 # bake method errors when needed non-standard role columns are missing
 

@@ -85,11 +85,11 @@ step_sequence_onehot <-
            skip = FALSE,
            id = rand_id("sequence_onehot")) {
     if (length(padding) != 1 || !(padding %in% c("pre", "post"))) {
-      rlang::abort("`padding` should be one of: 'pre', 'post'")
+      cli::cli_abort("{.arg padding} should be one of: {.val pre}, {.val post}")
     }
 
     if (length(truncating) != 1 || !(truncating %in% c("pre", "post"))) {
-      rlang::abort("`truncating` should be one of: 'pre', 'post'")
+      cli::cli_abort("{.code truncating} should be {.val pre} or {.val post}.")
     }
 
     add_step(

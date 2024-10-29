@@ -44,10 +44,10 @@ new_tokenlist <- function(tokens = list(), lemma = NULL, pos = NULL,
                           unique_tokens = character()) {
   vec_assert(tokens, list())
   if (!(is.null(lemma) | is.list(lemma))) {
-    rlang::abort("`lemma` must be NULL or a list.")
+    cli::cli_abort("{.arg lemma} must be NULL or a list.")
   }
   if (!(is.null(pos) | is.list(pos))) {
-    rlang::abort("`pos` must be NULL or a list.")
+    cli::cli_abort("{.arg pos} must be NULL or a list.")
   }
   vec_assert(unique_tokens, character())
 
@@ -141,7 +141,7 @@ obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
 # or removes (for keep = FALSE) the words
 tokenlist_filter <- function(x, dict, keep = FALSE) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be a tokenlist.")
   }
 
   if (!keep) {
@@ -180,7 +180,7 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
 
 tokenlist_filter_function <- function(x, fn) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be a {.cls tokenlist}.")
   }
 
   tokens <- get_tokens(x)
@@ -210,7 +210,7 @@ tokenlist_filter_function <- function(x, fn) {
 
 tokenlist_apply <- function(x, fun, arguments = NULL) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be {.cls tokenlist} object.")
   }
 
   tokens <- get_tokens(x)
@@ -226,7 +226,7 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
 # Takes a [tokenlist] and calculate the token count matrix
 tokenlist_to_dtm <- function(x, dict) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be a tokenlist.")
   }
 
   tokens <- get_tokens(x)
@@ -246,11 +246,11 @@ tokenlist_to_dtm <- function(x, dict) {
 
 tokenlist_lemma <- function(x) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be a tokenlist.")
   }
 
   if (is.null(maybe_get_lemma(x))) {
-    rlang::abort("`lemma` attribute not avaliable.")
+    cli::cli_abort("The {.code lemma} attribute is not available.")
   }
 
   tokenlist(maybe_get_lemma(x), pos = maybe_get_pos(x))
@@ -258,11 +258,11 @@ tokenlist_lemma <- function(x) {
 
 tokenlist_pos_filter <- function(x, pos_tags) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be a tokenlist.")
   }
 
   if (is.null(maybe_get_pos(x))) {
-    rlang::abort("pos attribute not avaliable.")
+    cli::cli_abort("{.arg pos} attribute not available.")
   }
 
   tokens <- get_tokens(x)
@@ -292,7 +292,7 @@ tokenlist_pos_filter <- function(x, pos_tags) {
 
 tokenlist_ngram <- function(x, n, n_min, delim) {
   if (!is_tokenlist(x)) {
-    rlang::abort("Input must be a tokenlist.")
+    cli::cli_abort("Input must be a tokenlist.")
   }
 
   tokenlist(cpp11_ngram(get_tokens(x), n, n_min, delim))

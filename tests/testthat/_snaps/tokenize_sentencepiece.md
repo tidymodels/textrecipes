@@ -6,7 +6,7 @@
     Condition
       Error in `step_tokenize_sentencepiece()`:
       Caused by error in `prep()`:
-      ! `vocabulary_size` of 10 is too small for column `text1` which has a unique character count of 23.
+      ! The `vocabulary_size` of 10 is too small for column `text1` which has a unique character count of 23.
 
 # bake method errors when needed non-standard role columns are missing
 

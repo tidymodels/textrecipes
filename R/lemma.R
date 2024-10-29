@@ -115,12 +115,10 @@ bake.step_lemma <- function(object, new_data, ...) {
     variable <- new_data[[col_name]]
 
     if (is.null(maybe_get_lemma(variable))) {
-      rlang::abort(
-        glue(
-          "`{col_name}` doesn't have a lemma attribute. ",
-          "Make sure the tokenization step includes lemmatization."
-        )
-      )
+      cli::cli_abort(c(
+        "{.code {col_name}} doesn't have a lemma attribute.",
+        "i" = "Make sure the tokenization step includes lemmatization."
+      ))
     } else {
       lemma_variable <- tokenlist_lemma(variable)
     }

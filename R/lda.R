@@ -267,12 +267,11 @@ check_lda_character <- function(dat) {
   all_good <- character_ind | factor_ind
 
   if (any(all_good)) {
-    rlang::abort(
-      glue(
+    cli::cli_abort(
+      c(
         "All columns selected for this step should be tokenlists.",
-        "\n",
-        "See https://github.com/tidymodels/textrecipes#breaking-changes",
-        " for more information."
+        "i" = "See {.url https://github.com/tidymodels/textrecipes#breaking-changes}
+           for more information."
       )
     )
   }
