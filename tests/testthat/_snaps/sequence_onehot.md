@@ -4,7 +4,7 @@
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, padding = "not pre")
     Condition
       Error in `step_sequence_onehot()`:
-      ! `padding` should be one of: 'pre', 'post'
+      ! `padding` should be one of: "pre", "post"
 
 ---
 
@@ -12,7 +12,7 @@
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, truncating = "Wrong")
     Condition
       Error in `step_sequence_onehot()`:
-      ! `truncating` should be one of: 'pre', 'post'
+      ! `truncating` should be "pre" or "post".
 
 ---
 
@@ -21,7 +21,7 @@
         "pre"))
     Condition
       Error in `step_sequence_onehot()`:
-      ! `padding` should be one of: 'pre', 'post'
+      ! `padding` should be one of: "pre", "post"
 
 ---
 
@@ -29,7 +29,7 @@
       rec %>% step_tokenize(text) %>% step_sequence_onehot(text, truncating = "Wrong")
     Condition
       Error in `step_sequence_onehot()`:
-      ! `truncating` should be one of: 'pre', 'post'
+      ! `truncating` should be "pre" or "post".
 
 # check_name() is used
 

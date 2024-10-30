@@ -121,8 +121,9 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
 
   bpe_options <- x$options
   if (!is.null(bpe_options$vocab_size)) {
-    rlang::abort(
-      "Please supply the vocabulary size using the `vocabulary_size` argument."
+    cli::cli_abort(
+      "Please supply the vocabulary size using the {.arg vocabulary_size} 
+      argument."
     )
   }
   bpe_options$vocab_size <- x$vocabulary_size
@@ -158,11 +159,9 @@ check_bpe_vocab_size <- function(text,
   text_count <- length(text_count)
 
   if (vocabulary_size < text_count) {
-    rlang::abort(
-      glue(
-        "`vocabulary_size` of {vocabulary_size} is too small for column ",
-        "`{column}` which has a unique character count of {text_count}"
-      ),
+    cli::cli_abort(
+      "{.arg vocabulary_size} of {vocabulary_size} is too small for column 
+      {.arg {column}} which has a unique character count of {text_count}",
       call = call
     )
   }

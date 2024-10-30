@@ -102,11 +102,11 @@ step_tokenfilter <-
            id = rand_id("tokenfilter")) {
     if (percentage && (max_times > 1 | max_times < 0 |
       min_times > 1 | min_times < 0)) {
-      rlang::abort(
-        "`max_times` and `min_times` should be in the interval [0, 1]."
+      cli::cli_abort(
+        "{.arg max_times} and {.arg min_times} should be in the interval [0, 1]."
       )
     }
-
+    
     add_step(
       recipe,
       step_tokenfilter_new(
@@ -258,11 +258,9 @@ tokenfilter_fun <- function(data, max_times, min_times, max_tokens,
     names(sort(tf[ids], decreasing = TRUE))
   } else {
     if (max_tokens > sum(ids)) {
-      rlang::warn(
-        glue(
-          "max_tokens was set to '{max_tokens}', ",
-          "but only {sum(ids)} was available and selected."
-        )
+      cli::cli_warn(
+        "max_tokens was set to {.val {max_tokens}}, but only {sum(ids)} was 
+        available and selected."
       )
       max_tokens <- sum(ids)
     }

@@ -5,7 +5,7 @@
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
-      ! token should be one of the supported: characters, character_shingle, lines, ngrams, paragraphs, ptb, regex, sentences, skip_ngrams, words, or word_stems
+      ! Token should be one of characters, character_shingle, lines, ngrams, paragraphs, ptb, regex, sentences, skip_ngrams, words, and word_stems.
 
 # tokenization errors with wrong engines
 
@@ -14,7 +14,7 @@
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
-      ! `engine` argument is not valid.
+      ! The `engine` argument is not valid.
 
 # bake method errors when needed non-standard role columns are missing
 

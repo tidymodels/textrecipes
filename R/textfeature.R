@@ -208,14 +208,14 @@ validate_string2num <- function(fun) {
 
   out <- fun(string)
   if (!(is.numeric(out) | is.logical(out))) {
-    rlang::abort(paste0(deparse(substitute(fun)), " must return a numeric."))
+    cli::cli_abort("Function {.fn {fun}} must return a numeric.")
   }
 
   if (length(string) != length(out)) {
-    rlang::abort(paste0(
-      deparse(substitute(fun)),
-      " must return the same length output as its input."
-    ))
+    cli::cli_abort(
+      "{.fn {deparse(substitute(fun))}} must return the same length output as 
+      its input."
+    )
   }
 }
 

@@ -5,7 +5,8 @@
     Condition
       Error in `step_lemma()`:
       Caused by error in `bake()`:
-      ! `text` doesn't have a lemma attribute. Make sure the tokenization step includes lemmatization.
+      ! `text` doesn't have a lemma attribute.
+      i Make sure the tokenization step includes lemmatization.
 
 # bake method errors when needed non-standard role columns are missing
 

@@ -271,10 +271,10 @@ dtm_to_tfidf <- function(dtm, idf_weights, smooth_idf, norm, sublinear_tf) {
     dtm@x <- 1 + log(dtm@x)
   }
   if (is.character(idf_weights)) {
-    rlang::warn(
+    cli::cli_warn(
       c(
         "Please retrain this recipe with version 0.5.1 or higher.",
-        "A data leakage bug has been fixed for `step_tfidf()`."
+        "i" = "A data leakage bug has been fixed for {.fn step_tfidf}."
       )
     )
     idf_weights <- log(smooth_idf + nrow(dtm) / Matrix::colSums(dtm > 0))

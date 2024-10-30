@@ -4,7 +4,7 @@
       obj <- rec %>% prep()
     Condition
       Warning:
-      max_tokens was set to '100', but only 3 was available and selected.
+      max_tokens was set to 100, but only 3 was available and selected.
 
 # removes words correctly with min_times, max_times and procentage
 
@@ -12,7 +12,7 @@
       obj <- rec %>% prep()
     Condition
       Warning:
-      max_tokens was set to '100', but only 12 was available and selected.
+      max_tokens was set to 100, but only 12 was available and selected.
 
 # tokenfilter throws warning when max_tokens > words
 
@@ -20,7 +20,7 @@
       rec %>% prep()
     Condition
       Warning:
-      max_tokens was set to '10000', but only 17 was available and selected.
+      max_tokens was set to 10000, but only 17 was available and selected.
     Message
       
       -- Recipe ----------------------------------------------------------------------
@@ -101,7 +101,7 @@
       prep(rec)
     Condition
       Warning:
-      max_tokens was set to '100', but only 17 was available and selected.
+      max_tokens was set to 100, but only 17 was available and selected.
     Message
       
       -- Recipe ----------------------------------------------------------------------

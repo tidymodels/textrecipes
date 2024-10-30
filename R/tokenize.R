@@ -454,7 +454,7 @@ tokenizer_switch <- function(name, object, data, call = caller_env()) {
     return(res)
   }
 
-  rlang::abort("`engine` argument is not valid.", call = call)
+  cli::cli_abort("The {.arg engine} argument is not valid.", call = call)
 }
 
 #' @rdname required_pkgs.step

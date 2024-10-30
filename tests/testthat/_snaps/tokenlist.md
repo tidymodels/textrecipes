@@ -80,7 +80,7 @@
       tokenlist_apply(letters, toupper)
     Condition
       Error in `tokenlist_apply()`:
-      ! Input must be a tokenlist.
+      ! Input must be <tokenlist> object.
 
 # tokenlist_lemma works
 
@@ -96,7 +96,7 @@
       tokenlist_lemma(tokenlist(list(letters)))
     Condition
       Error in `tokenlist_lemma()`:
-      ! `lemma` attribute not avaliable.
+      ! The `lemma` attribute is not available.
 
 # tokenlist_pos_filter works
 
@@ -112,7 +112,7 @@
       tokenlist_pos_filter(tokenlist(data), "NOUN")
     Condition
       Error in `tokenlist_pos_filter()`:
-      ! pos attribute not avaliable.
+      ! `pos` attribute not available.
 
 # tokenlist_ngram errors
 

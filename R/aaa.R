@@ -12,16 +12,7 @@ factor_to_text <- function(data, names) {
 
 check_possible_tokenizers <- function(x, dict, call = caller_env(2)) {
   if (!(x %in% dict)) {
-    possible_tokenizers <- glue::glue_collapse(
-      dict,
-      sep = ", ", last = ", or "
-    )
-    rlang::abort(
-      glue(
-        "token should be one of the supported: {possible_tokenizers}"
-      ),
-      call = call
-    )
+    cli::cli_abort("Token should be one of {dict}.", call = call)
   }
 }
 
