@@ -22,6 +22,7 @@ Depends:
     R (>= 3.6),
     recipes (>= 1.1.0.9000)
 Imports: 
+    cli,
     lifecycle,
     dplyr,
     generics (>= 0.1.0),
