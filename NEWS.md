@@ -4,7 +4,9 @@
 
 * Calling `?tidy.step_*()` now sends you to the documentation for `step_*()` where the outcome is documented. (#261)
 
-* `step_textfeatures()` has been made faster and more robust. #265
+* `step_textfeatures()` has been made faster and more robust. (#265)
+
+* Fixed bug in `step_clean_levels()` where it would produce NAs for character columns. (#274)
 
 # textrecipes 1.0.6
 

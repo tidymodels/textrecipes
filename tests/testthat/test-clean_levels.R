@@ -22,6 +22,7 @@ test_that("character input", {
   cleaned_te <- bake(cleaned, new_data = smith_te)
 
   expect_equal(sum(grepl(" ", cleaned_tr$name)), 0)
+  expect_equal(sum(is.na(cleaned_tr$name)), 0)
   expect_equal(sum(levels(cleaned_tr$name) %in% smith_tr$name), 0)
 
   tidy_exp_tr <- tibble(
