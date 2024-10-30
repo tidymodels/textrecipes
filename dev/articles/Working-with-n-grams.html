@@ -194,8 +194,8 @@ of the resulting data.frame.</p>
 <span><span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: max_tokens was set to '100', but only 14 was available and</span></span>
-<span><span class="co">#&gt; selected.</span></span>
+<span><span class="co">#&gt; Warning: max_tokens was set to <span style="color: #0000BB;">100</span>, but only 14 was</span></span>
+<span><span class="co">#&gt; available and selected.</span></span>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
@@ -235,8 +235,8 @@ you can pass a named list to the <code>options</code> argument in
 <span><span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: max_tokens was set to '100', but only 16 was available and</span></span>
-<span><span class="co">#&gt; selected.</span></span>
+<span><span class="co">#&gt; Warning: max_tokens was set to <span style="color: #0000BB;">100</span>, but only 16 was</span></span>
+<span><span class="co">#&gt; available and selected.</span></span>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span></span>
@@ -278,8 +278,8 @@ argument.</p>
 <span><span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: max_tokens was set to '100', but only 16 was available and</span></span>
-<span><span class="co">#&gt; selected.</span></span>
+<span><span class="co">#&gt; Warning: max_tokens was set to <span style="color: #0000BB;">100</span>, but only 16 was</span></span>
+<span><span class="co">#&gt; available and selected.</span></span>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span></span>
@@ -334,8 +334,8 @@ n-grams are being generated.</p>
 <span><span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: max_tokens was set to '100', but only 14 was available and</span></span>
-<span><span class="co">#&gt; selected.</span></span>
+<span><span class="co">#&gt; Warning: max_tokens was set to <span style="color: #0000BB;">100</span>, but only 14 was</span></span>
+<span><span class="co">#&gt; available and selected.</span></span>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
@@ -373,8 +373,8 @@ and the n-gram creation such as stemming the tokens.</p>
 <span><span class="va">abc_ngram</span> <span class="op">&lt;-</span> <span class="va">rec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: max_tokens was set to '100', but only 14 was available and</span></span>
-<span><span class="co">#&gt; selected.</span></span>
+<span><span class="co">#&gt; Warning: max_tokens was set to <span style="color: #0000BB;">100</span>, but only 14 was</span></span>
+<span><span class="co">#&gt; available and selected.</span></span>
 <span></span>
 <span><span class="va">abc_ngram</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
