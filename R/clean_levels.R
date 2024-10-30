@@ -131,9 +131,14 @@ bake.step_clean_levels <- function(object, new_data, ...) {
   }
   
   for (col_name in col_names) {
-    new_data[[col_name]] <- dplyr::recode_factor(
-      new_data[[col_name]], !!!object$clean[[col_name]]
-    )
+    if (is.factor(new_data[[col_name]])) {
+      new_data[[col_name]] <- dplyr::recode_factor(
+        new_data[[col_name]], !!!object$clean[[col_name]]
+      )      
+    } else {
+      new_data[[col_name]] <- janitor::make_clean_names(new_data[[col_name]])
+
+    }
   }
 
   new_data
