@@ -97,6 +97,8 @@ test_that("tokenizer works", {
 })
 
 test_that("step_tokenize works with tokenizers.bpe", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize(text1, engine = "tokenizers.bpe") %>%
     prep() %>%
@@ -109,6 +111,8 @@ test_that("step_tokenize works with tokenizers.bpe", {
 })
 
 test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   res <- recipe(~., data = test_data) %>%
     step_tokenize(all_predictors(), engine = "tokenizers.bpe") %>%
     prep() %>%
@@ -126,6 +130,8 @@ test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
 })
 
 test_that("arguments are passed to tokenizers.bpe", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize(text1,
       engine = "tokenizers.bpe",

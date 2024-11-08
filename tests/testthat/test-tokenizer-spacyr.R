@@ -10,6 +10,7 @@ text <- c(
 
 test_that("tokenizer works", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
   out <- spacyr_tokenizer_words(text)
 

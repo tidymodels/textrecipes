@@ -1,18 +1,19 @@
 library(textrecipes)
 library(recipes)
-data(grants, package = "modeldata")
 
-test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
-test_data <- tibble::as_tibble(test_data)
-
-rec <- recipe(~., data = test_data)
 
 test_that("hashing gives double outputs", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  rec <- rec %>%
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  rec <- recipe(~., data = test_data) %>%
     step_dummy_hash(sponsor_code)
 
   obj <- rec %>%
@@ -32,9 +33,16 @@ test_that("hashing gives double outputs", {
 
 test_that("hashing multiple factors", {
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  res <- rec %>%
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  res <- recipe(~., data = test_data) %>%
     step_dummy_hash(all_nominal_predictors(), num_terms = 12) %>%
     prep() %>%
     bake(new_data = NULL)
@@ -46,9 +54,16 @@ test_that("hashing multiple factors", {
 
 test_that("hashing collapsed multiple factors", {
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  res <- rec %>%
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  res <- recipe(~., data = test_data) %>%
     step_dummy_hash(all_nominal_predictors(), num_terms = 4, collapse = TRUE) %>%
     prep() %>%
     bake(new_data = NULL)
@@ -60,9 +75,15 @@ test_that("hashing collapsed multiple factors", {
 test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  rec <- rec %>%
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  rec <- recipe(~., data = test_data) %>%
     step_dummy_hash(sponsor_code, num_terms = 256) %>%
     prep()
 
@@ -77,7 +98,13 @@ test_that("hashing output width changes accordingly with num_terms", {
 test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
+  
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
 
   signed <- recipe(~., data = test_data) %>%
     step_dummy_hash(all_predictors(), num_terms = 2) %>%
@@ -98,8 +125,14 @@ test_that("hashing output width changes accordingly with num_terms", {
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
   dat <- test_data
   dat$text <- dat$sponsor_code
   dat$dummyhash_text_01 <- dat$sponsor_code
@@ -131,6 +164,15 @@ test_that("tunable", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
+  data.table::setDTthreads(2) # because data.table uses all cores by default 
+  
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
   rec <- recipe(~sponsor_code, data = test_data) %>%
     step_dummy_hash(sponsor_code) %>%
     update_role(sponsor_code, new_role = "potato") %>%
@@ -190,8 +232,14 @@ test_that("empty selection tidy method works", {
 test_that("keep_original_cols works", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
   new_names <- paste0("dummyhash_sponsor_code_", 1:5)
   
   rec <- recipe(~ sponsor_code, data = test_data) %>%
@@ -220,8 +268,14 @@ test_that("keep_original_cols works", {
 test_that("keep_original_cols - can prep recipes with it missing", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
   rec <- recipe(~ sponsor_code, data = test_data) %>%
     step_dummy_hash(sponsor_code)
   
@@ -242,8 +296,8 @@ test_that("printing", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  rec <- rec %>%
-    step_dummy_hash(sponsor_code)
+  rec <- recipe(~., data = iris) %>%
+    step_dummy_hash(Species)
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

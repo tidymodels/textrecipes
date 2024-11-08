@@ -70,28 +70,31 @@
       
       -- Inputs 
       Number of variables by role
-      predictor: 2
+      predictor: 5
       
       -- Operations 
-      * Tokenization for: medium
-      * Text feature extraction for: medium
+      * Tokenization for: Species
+      * Text feature extraction for: Species
 
 ---
 
     Code
       prep(rec)
+    Condition
+      Warning in `get_dtm()`:
+      dtm has 0 rows. Empty iterator?
     Message
       
       -- Recipe ----------------------------------------------------------------------
       
       -- Inputs 
       Number of variables by role
-      predictor: 2
+      predictor: 5
       
       -- Training information 
-      Training data contained 100 data points and no incomplete rows.
+      Training data contained 150 data points and no incomplete rows.
       
       -- Operations 
-      * Tokenization for: medium | Trained
-      * Text feature extraction for: medium | Trained
+      * Tokenization for: Species | Trained
+      * Text feature extraction for: Species | Trained
 

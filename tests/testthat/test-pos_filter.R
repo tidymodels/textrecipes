@@ -11,6 +11,7 @@ text <- tibble(text = c(
 
 test_that("part of speech filtering works", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
   rec <- recipe(~text, data = text) %>%
@@ -36,6 +37,7 @@ test_that("part of speech filtering works", {
 
 test_that("part of speech filtering removes everything", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
   rec <- recipe(~text, data = text) %>%
@@ -61,6 +63,7 @@ test_that("part of speech filtering removes everything", {
 
 test_that("part of speech filtering works with multiple tags", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
   rec <- recipe(~text, data = text) %>%
@@ -99,6 +102,7 @@ test_that("lemmatization errors if lemma attribute doesn't exists", {
 
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
   
   tokenized_test_data <- recipe(~text, data = text) %>%
@@ -158,7 +162,9 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
+
   rec <- recipe(~text, data = text) %>%
     step_tokenize(all_predictors(), engine = "spacyr") %>%
     step_pos_filter(all_predictors())

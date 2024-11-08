@@ -1,6 +1,3 @@
-library(textrecipes)
-library(recipes)
-
 text1 <- c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",
@@ -32,6 +29,8 @@ text2_out <- list(
 )
 
 test_that("step_tokenize_wordpiece works", {
+  skip_if_not_installed("wordpiece")
+
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize_wordpiece(text1) %>%
     prep() %>%
@@ -44,6 +43,8 @@ test_that("step_tokenize_wordpiece works", {
 })
 
 test_that("step_tokenize_wordpiece works with tokenizers.wordpiece and multiple colunms", {
+  skip_if_not_installed("wordpiece")
+  
   res <- recipe(~., data = test_data) %>%
     step_tokenize_wordpiece(all_predictors()) %>%
     prep() %>%
@@ -63,6 +64,8 @@ test_that("step_tokenize_wordpiece works with tokenizers.wordpiece and multiple 
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("wordpiece")
+  
   rec <- recipe(~ text1 + text2, data = test_data) %>%
     step_tokenize_wordpiece(text1, text2) %>%
     update_role(text1, new_role = "potato") %>%
@@ -77,6 +80,8 @@ test_that("bake method errors when needed non-standard role columns are missing"
 })
 
 test_that("empty printing", {
+  skip_if_not_installed("wordpiece")
+
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenize_wordpiece(rec)
   
@@ -88,6 +93,8 @@ test_that("empty printing", {
 })
 
 test_that("empty selection prep/bake is a no-op", {
+  skip_if_not_installed("wordpiece")
+
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_tokenize_wordpiece(rec1)
   
@@ -101,6 +108,8 @@ test_that("empty selection prep/bake is a no-op", {
 })
 
 test_that("empty selection tidy method works", {
+  skip_if_not_installed("wordpiece")
+
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_tokenize_wordpiece(rec)
   
@@ -114,6 +123,8 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("printing", {
+  skip_if_not_installed("wordpiece")
+
   rec <- recipe(~., data = test_data) %>%
     step_tokenize_wordpiece(text1)
   
