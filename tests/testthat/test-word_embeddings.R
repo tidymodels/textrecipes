@@ -1,5 +1,3 @@
-library(recipes)
-
 embeddings <- readRDS(test_path("emb-data", "embeddings.rds"))
 
 sentence_embeddings_long <- readRDS(test_path("emb-data", "long.rds"))

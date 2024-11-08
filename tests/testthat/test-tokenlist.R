@@ -1,6 +1,3 @@
-library(testthat)
-library(vctrs)
-
 ## Creation -------------------------------------------------------------------
 
 test_that("tokenlist creation works", {
@@ -10,12 +7,12 @@ test_that("tokenlist creation works", {
   expect_s3_class(tkn_list, "textrecipes_tokenlist")
 
   expect_equal(
-    fields(tkn_list),
+     vctrs::fields(tkn_list),
     "tokens"
   )
 
   expect_equal(
-    field(tkn_list, "tokens"),
+    vctrs::field(tkn_list, "tokens"),
     list(letters, letters)
   )
 
@@ -30,17 +27,17 @@ test_that("tokenlist creation works", {
   expect_s3_class(tkn_list, "textrecipes_tokenlist")
 
   expect_equal(
-    fields(tkn_list),
+    vctrs::fields(tkn_list),
     c("tokens", "lemma")
   )
 
   expect_equal(
-    field(tkn_list, "tokens"),
+    vctrs::field(tkn_list, "tokens"),
     list(letters, letters)
   )
 
   expect_equal(
-    field(tkn_list, "lemma"),
+    vctrs::field(tkn_list, "lemma"),
     list(LETTERS, LETTERS)
   )
 
@@ -55,17 +52,17 @@ test_that("tokenlist creation works", {
   expect_s3_class(tkn_list, "textrecipes_tokenlist")
 
   expect_equal(
-    fields(tkn_list),
+    vctrs::fields(tkn_list),
     c("tokens", "pos")
   )
 
   expect_equal(
-    field(tkn_list, "tokens"),
+    vctrs::field(tkn_list, "tokens"),
     list(letters, letters)
   )
 
   expect_equal(
-    field(tkn_list, "pos"),
+    vctrs::field(tkn_list, "pos"),
     list(LETTERS, LETTERS)
   )
 
@@ -83,22 +80,22 @@ test_that("tokenlist creation works", {
   expect_s3_class(tkn_list, "textrecipes_tokenlist")
 
   expect_equal(
-    fields(tkn_list),
+    vctrs::fields(tkn_list),
     c("tokens", "lemma", "pos")
   )
 
   expect_equal(
-    field(tkn_list, "tokens"),
+    vctrs::field(tkn_list, "tokens"),
     list(letters, letters)
   )
 
   expect_equal(
-    field(tkn_list, "lemma"),
+    vctrs::field(tkn_list, "lemma"),
     list(letters, LETTERS)
   )
 
   expect_equal(
-    field(tkn_list, "pos"),
+    vctrs::field(tkn_list, "pos"),
     list(LETTERS, LETTERS)
   )
 

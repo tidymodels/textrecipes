@@ -135,9 +135,6 @@ test_that("ngram returns length zero vectors when length(x) < n", {
   )
 })
 
-library(recipes)
-library(textrecipes)
-
 test_tibble <- tibble(text = c(
   "not eat them here or there.",
   "not eat them anywhere."

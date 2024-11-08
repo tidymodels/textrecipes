@@ -1,7 +1,3 @@
-library(textrecipes)
-library(recipes)
-
-
 test_that("hashing gives double outputs", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")

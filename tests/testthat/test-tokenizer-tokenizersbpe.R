@@ -1,6 +1,3 @@
-library(textrecipes)
-library(recipes)
-
 r_version <- function() paste0("R", getRversion()[, 1:2])
 
 text1 <- c(

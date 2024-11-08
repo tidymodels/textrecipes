@@ -1,6 +1,3 @@
-library(recipes)
-library(textrecipes)
-
 test_data <- tibble(text = c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",

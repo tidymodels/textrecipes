@@ -1,6 +1,3 @@
-library(textrecipes)
-library(recipes)
-
 text1 <- c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",
