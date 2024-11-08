@@ -2,8 +2,6 @@ test_that("can clean names", {
   skip_if_not_installed("janitor")
   skip_if_not_installed("modeldata")
 
-  data("airquality", package = "modeldata")
-
   air_tr <- airquality[1:20, ]
   air_te <- airquality[101:110, ]
 
@@ -88,7 +86,9 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_if_not_installed("janitor")
-  rec <- rec %>% step_clean_names(all_predictors())
+  
+  rec <- recipe(~., data = mtcars) %>% 
+    step_clean_names(all_predictors())
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

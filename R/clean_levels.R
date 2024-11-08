@@ -139,7 +139,7 @@ bake.step_clean_levels <- function(object, new_data, ...) {
       new_data[[col_name]] <- janitor::make_clean_names(new_data[[col_name]])
 
     }
-  }
+}
 
   new_data
 }

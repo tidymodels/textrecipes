@@ -129,7 +129,8 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_if_not_installed("janitor")
-  rec <- rec %>% step_clean_levels(name)
+  rec <- recipe(~., data = iris) %>% 
+    step_clean_levels(Species)
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
