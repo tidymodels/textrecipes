@@ -127,7 +127,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
 
   new_data <- remove_original_cols(new_data, object, col_names)
   
-  new_col <- check_name(new_col, new_data, object, names(new_col))
+  new_col <- recipes::check_name(new_col, new_data, object, names(new_col))
   
   new_data <- vec_cbind(new_data, new_col)
 

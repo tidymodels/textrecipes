@@ -185,7 +185,7 @@ bake.step_lda <- function(object, new_data, ...) {
       sep = "_"
     )
     
-    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
+    tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vec_cbind(new_data, tf_text)
   }

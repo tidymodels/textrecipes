@@ -188,7 +188,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
     
     out_text <- as_tibble(out_text)
     
-    out_text <- check_name(out_text, new_data, object, names(out_text))
+    out_text <- recipes::check_name(out_text, new_data, object, names(out_text))
 
     new_data <- vec_cbind(new_data, out_text)
   }

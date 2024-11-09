@@ -29,7 +29,7 @@ Imports:
     magrittr,
     Matrix,
     purrr,
-    rlang,
+    rlang (>= 1.1.0),
     SnowballC,
     tibble,
     tokenizers,

@@ -196,7 +196,7 @@ bake.step_tfidf <- function(object, new_data, ...) {
       object$sublinear_tf
     )
 
-    tfidf_text <- check_name(tfidf_text, new_data, object, names(tfidf_text))
+    tfidf_text <- recipes::check_name(tfidf_text, new_data, object, names(tfidf_text))
 
     new_data <- vec_cbind(new_data, tfidf_text)
   }
