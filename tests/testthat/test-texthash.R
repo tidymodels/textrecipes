@@ -1,6 +1,3 @@
-library(textrecipes)
-library(recipes)
-
 test_data <- tibble(text = c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",
@@ -111,6 +108,8 @@ test_that("tunable", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("text2vec")
+  
   tokenized_test_data <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
     prep() %>%
@@ -205,6 +204,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
+  skip_if_not_installed("text2vec")
+
   rec <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
     step_texthash(text)

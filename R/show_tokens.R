@@ -12,7 +12,7 @@
 #' @return A list of character vectors
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("modeldata")
 #' text_tibble <- tibble(text = c("This is words", "They are nice!"))
 #'
 #' recipe(~text, data = text_tibble) %>%

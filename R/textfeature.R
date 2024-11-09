@@ -42,7 +42,7 @@
 #'
 #' @family Steps for Numeric Variables From Characters
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("modeldata")
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)

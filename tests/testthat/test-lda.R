@@ -1,19 +1,15 @@
-set.seed(1234)
-library(recipes)
-library(textrecipes)
-library(modeldata)
-data(tate_text)
-
-n_rows <- 100
-rec <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ])
-
 test_that("step_lda works as intended", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("tate_text", package = "modeldata")
+
+  n_rows <- 100
   n_top <- 10
-  rec1 <- rec %>%
+
+  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     step_lda(medium, num_topics = n_top)
 
@@ -29,10 +25,14 @@ test_that("step_lda works as intended", {
 test_that("step_lda works with num_topics argument", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("tate_text", package = "modeldata")
+
+  n_rows <- 100
   n_top <- 100
-  rec1 <- rec %>%
+  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     step_lda(medium, num_topics = n_top)
 
@@ -45,8 +45,11 @@ test_that("step_lda works with num_topics argument", {
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("tate_text", package = "modeldata")
+
   dat <- tate_text[seq_len(100), ]
   dat$text <- dat$medium
   dat$lda_text_1 <- dat$text
@@ -66,9 +69,15 @@ test_that("check_name() is used", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  tokenized_test_data <- rec %>%
+  data("tate_text", package = "modeldata")
+
+  n_rows <- 100
+  
+  tokenized_test_data <- recipe(~ medium + artist, 
+                                data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     prep() %>%
     bake(new_data = NULL)
@@ -131,10 +140,15 @@ test_that("empty selection tidy method works", {
 test_that("keep_original_cols works", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("tate_text", package = "modeldata")
+
   new_names <- paste0("lda_medium_", 1:10)
   
+  n_rows <- 100
+
   rec <- recipe(~ medium, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     step_lda(medium, keep_original_cols = FALSE)
@@ -163,8 +177,13 @@ test_that("keep_original_cols works", {
 test_that("keep_original_cols - can prep recipes with it missing", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
+  data("tate_text", package = "modeldata")
+
+  n_rows <- 100
+
   rec <- recipe(~ medium, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     step_lda(medium, keep_original_cols = TRUE)
@@ -180,15 +199,14 @@ test_that("keep_original_cols - can prep recipes with it missing", {
   )
 })
 
-
 test_that("printing", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default 
   
-  rec <- rec %>%
-    step_tokenize(medium) %>%
-    step_lda(medium)
+  rec <- recipe(~., data = iris) %>%
+    step_tokenize(Species) %>%
+    step_lda(Species)
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

@@ -1,15 +1,13 @@
-library(testthat)
-library(textrecipes)
-library(modeldata)
-data("Smithsonian")
-smith_tr <- Smithsonian[1:15, ]
-smith_te <- Smithsonian[16:20, ]
-
-rec <- recipe(~., data = smith_tr)
-
 test_that("character input", {
   skip_if_not_installed("janitor")
-  cleaned <- rec %>% step_clean_levels(name, id = "")
+  skip_if_not_installed("modeldata")
+
+  data("Smithsonian", package = "modeldata")
+  smith_tr <- Smithsonian[1:15, ]
+  smith_te <- Smithsonian[16:20, ]
+
+  cleaned <- recipe(~., data = smith_tr) %>% 
+    step_clean_levels(name, id = "")
 
   tidy_exp_un <- tibble(
     terms = c("name"),
@@ -50,6 +48,9 @@ test_that("character input", {
 
 test_that("factor input", {
   skip_if_not_installed("janitor")
+  skip_if_not_installed("modeldata")
+
+  data("Smithsonian", package = "modeldata")
   smith_tr <- Smithsonian[1:15, ]
   smith_tr$name <- as.factor(smith_tr$name)
   smith_te <- Smithsonian[16:20, ]
@@ -71,6 +72,11 @@ test_that("factor input", {
 
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("janitor")
+  skip_if_not_installed("modeldata")
+
+  data("Smithsonian", package = "modeldata")
+  smith_tr <- Smithsonian[1:15, ]
+  
   rec <- recipe(~name, data = smith_tr) %>%
     step_clean_levels(name) %>%
     update_role(name, new_role = "potato") %>%
@@ -123,7 +129,8 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_if_not_installed("janitor")
-  rec <- rec %>% step_clean_levels(name)
+  rec <- recipe(~., data = iris) %>% 
+    step_clean_levels(Species)
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

@@ -74,7 +74,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("janitor")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("modeldata", "janitor"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(Smithsonian)

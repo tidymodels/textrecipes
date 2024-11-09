@@ -1,6 +1,3 @@
-library(textrecipes)
-library(recipes)
-
 r_version <- function() paste0("R", getRversion()[, 1:2])
 
 text1 <- c(
@@ -62,6 +59,8 @@ text2_out <- list(
 )
 
 test_that("output is list when length is 1 or 0", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   data <- tibble(a = rep(c("a", ""), 20))
 
   data_rec <- recipe(~., data = data) %>%
@@ -72,6 +71,8 @@ test_that("output is list when length is 1 or 0", {
 })
 
 test_that("step_tokenize_bpe works", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize_bpe(text1) %>%
     prep() %>%
@@ -84,6 +85,8 @@ test_that("step_tokenize_bpe works", {
 })
 
 test_that("step_tokenize_bpe works with tokenizers.bpe and multiple colunms", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   res <- recipe(~., data = test_data) %>%
     step_tokenize_bpe(all_predictors()) %>%
     prep() %>%
@@ -101,6 +104,8 @@ test_that("step_tokenize_bpe works with tokenizers.bpe and multiple colunms", {
 })
 
 test_that("arguments are passed to tokenizers.bpe", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize_bpe(text1, vocabulary_size = 60) %>%
     prep() %>%
@@ -123,6 +128,8 @@ test_that("arguments are passed to tokenizers.bpe", {
 })
 
 test_that("Errors if vocabulary size is set to low.", {
+  skip_if_not_installed("tokenizers.bpe")
+
   expect_snapshot(
     error = TRUE, 
     variant = r_version(),
@@ -151,6 +158,8 @@ test_that("tunable", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   rec <- recipe(~text1, data = test_data) %>%
     step_tokenize_bpe(text1) %>%
     update_role(text1, new_role = "potato") %>%
@@ -202,6 +211,8 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("printing", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   rec <- recipe(~., data = test_data) %>%
     step_tokenize_bpe(text1)
   

@@ -41,7 +41,7 @@
 #'   [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @family Steps for Text Cleaning
 #'
-#' @examplesIf rlang::is_installed("janitor")
+#' @examplesIf rlang::is_installed(c("modeldata", "janitor"))
 #' library(recipes)
 #' library(modeldata)
 #' data(Smithsonian)
@@ -139,7 +139,7 @@ bake.step_clean_levels <- function(object, new_data, ...) {
       new_data[[col_name]] <- janitor::make_clean_names(new_data[[col_name]])
 
     }
-  }
+}
 
   new_data
 }

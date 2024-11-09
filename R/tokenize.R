@@ -202,7 +202,7 @@
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("modeldata")
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)

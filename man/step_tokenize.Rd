@@ -269,6 +269,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
+\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -296,6 +297,7 @@ tate_obj_chars <- recipe(~., data = tate_text) \%>\%
 bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(medium)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.

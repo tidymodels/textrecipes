@@ -104,6 +104,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
+\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -120,6 +121,7 @@ bake(tate_obj, new_data = NULL)
 
 tidy(tate_rec, number = 3)
 tidy(tate_obj, number = 3)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other Steps for Numeric Variables From Characters: 

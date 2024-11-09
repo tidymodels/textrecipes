@@ -41,7 +41,7 @@
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'
-#' @examplesIf rlang::is_installed("sentencepiece")
+#' @examplesIf rlang::is_installed(c("modeldata", "sentencepiece"))
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)

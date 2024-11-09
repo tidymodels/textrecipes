@@ -1,6 +1,3 @@
-library(textrecipes)
-library(recipes)
-
 test_data <- tibble(text = c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",
@@ -102,6 +99,7 @@ test_that("tokenization errors with wrong engines", {
 
 test_that("tokenization includes lemma attribute when avaliable", {
   skip_on_cran()
+  skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
   expect_type(

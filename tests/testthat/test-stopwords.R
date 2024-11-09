@@ -1,6 +1,3 @@
-library(recipes)
-library(textrecipes)
-
 test_data <- tibble(text = c(
   "I would not eat them here or there.",
   "I would not eat them anywhere.",
@@ -79,6 +76,8 @@ test_that("custom stopwords are supported", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("stopwords")
+  
   tokenized_test_data <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
     prep() %>%
@@ -99,6 +98,8 @@ test_that("bake method errors when needed non-standard role columns are missing"
 })
 
 test_that("empty printing", {
+  skip_if_not_installed("stopwords")
+  
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_stopwords(rec)
   
@@ -110,6 +111,8 @@ test_that("empty printing", {
 })
 
 test_that("empty selection prep/bake is a no-op", {
+  skip_if_not_installed("stopwords")
+  
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_stopwords(rec1)
   
@@ -123,6 +126,8 @@ test_that("empty selection prep/bake is a no-op", {
 })
 
 test_that("empty selection tidy method works", {
+  skip_if_not_installed("stopwords")
+
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_stopwords(rec)
   

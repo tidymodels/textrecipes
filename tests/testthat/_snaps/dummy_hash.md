@@ -70,10 +70,10 @@
       
       -- Inputs 
       Number of variables by role
-      predictor: 2
+      predictor: 5
       
       -- Operations 
-      * Feature hashing with: sponsor_code
+      * Feature hashing with: Species
 
 ---
 
@@ -85,11 +85,11 @@
       
       -- Inputs 
       Number of variables by role
-      predictor: 2
+      predictor: 5
       
       -- Training information 
-      Training data contained 20 data points and no incomplete rows.
+      Training data contained 150 data points and no incomplete rows.
       
       -- Operations 
-      * Feature hashing with: sponsor_code | Trained
+      * Feature hashing with: Species | Trained
 

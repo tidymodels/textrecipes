@@ -94,7 +94,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("stopwords")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("modeldata", "stopwords"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)

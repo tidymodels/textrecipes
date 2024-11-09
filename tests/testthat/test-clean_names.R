@@ -1,15 +1,12 @@
-library(testthat)
-library(textrecipes)
-data(airquality)
-
-air_tr <- airquality[1:20, ]
-air_te <- airquality[101:110, ]
-
-rec <- recipe(~., data = air_tr)
-
 test_that("can clean names", {
   skip_if_not_installed("janitor")
-  cleaned <- rec %>% step_clean_names(all_predictors(), id = "")
+  skip_if_not_installed("modeldata")
+
+  air_tr <- airquality[1:20, ]
+  air_te <- airquality[101:110, ]
+
+  cleaned <- recipe(~., data = air_tr) %>% 
+  step_clean_names(all_predictors(), id = "")
 
   tidy_exp_un <- tibble(
     terms = c("all_predictors()"),
@@ -35,6 +32,8 @@ test_that("can clean names", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
+  skip_if_not_installed("janitor")
+  
   rec <- recipe(mtcars) %>%
     step_clean_names(disp) %>%
     update_role(disp, new_role = "potato") %>%
@@ -87,7 +86,9 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_if_not_installed("janitor")
-  rec <- rec %>% step_clean_names(all_predictors())
+  
+  rec <- recipe(~., data = mtcars) %>% 
+    step_clean_names(all_predictors())
   
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

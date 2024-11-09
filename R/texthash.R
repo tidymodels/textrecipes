@@ -62,7 +62,7 @@
 #'   [step_text_normalization()] to perform text normalization.
 #' @family Steps for Numeric Variables From Tokens
 #'
-#' @examplesIf all(c("text2vec", "data.table") %in% rownames(installed.packages()))
+#' @examplesIf all(c("modeldata", "text2vec", "data.table") %in% rownames(installed.packages()))
 #' \dontshow{library(data.table)}
 #' \dontshow{data.table::setDTthreads(2)}
 #' \dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 2)}

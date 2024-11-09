@@ -23,6 +23,7 @@ used in final recipe steps. Note that this function will both prep() and
 bake() the recipe it is used on.
 }
 \examples{
+\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 text_tibble <- tibble(text = c("This is words", "They are nice!"))
 
 recipe(~text, data = text_tibble) \%>\%
@@ -35,4 +36,5 @@ data(tate_text)
 recipe(~., data = tate_text) \%>\%
   step_tokenize(medium) \%>\%
   show_tokens(medium)
+\dontshow{\}) # examplesIf}
 }

@@ -1,7 +1,3 @@
-library(testthat)
-library(recipes)
-library(tibble)
-
 ex_dat <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 
 test_that("simple sqrt trans", {

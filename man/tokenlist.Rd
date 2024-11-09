@@ -21,6 +21,7 @@ A \link{tokenlist} object is a thin wrapper around a list of character vectors,
 with a few attributes.
 }
 \examples{
+\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 abc <- list(letters, LETTERS)
 tokenlist(abc)
 
@@ -34,4 +35,5 @@ data(tate_text)
 tokens <- tokenize_words(as.character(tate_text$medium))
 
 tokenlist(tokens)
+\dontshow{\}) # examplesIf}
 }
