@@ -49,7 +49,7 @@
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Token Modification
 #'
-#' @examplesIf rlang::is_installed("stopwords")
+#' @examplesIf rlang::is_installed(c("modeldata", "stopwords"))
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)

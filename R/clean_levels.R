@@ -41,7 +41,7 @@
 #'   [recipes::step_unknown()], [recipes::step_novel()], [recipes::step_other()]
 #' @family Steps for Text Cleaning
 #'
-#' @examplesIf rlang::is_installed("janitor")
+#' @examplesIf rlang::is_installed(c("modeldata", "janitor"))
 #' library(recipes)
 #' library(modeldata)
 #' data(Smithsonian)

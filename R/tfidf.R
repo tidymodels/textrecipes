@@ -68,7 +68,7 @@
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
 #' @family Steps for Numeric Variables From Tokens
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("modeldata")
 #' \donttest{
 #' library(recipes)
 #' library(modeldata)

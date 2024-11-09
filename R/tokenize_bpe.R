@@ -42,7 +42,7 @@
 #' @seealso [step_untokenize()] to untokenize.
 #' @family Steps for Tokenization
 #'
-#' @examplesIf rlang::is_installed("tokenizers.bpe")
+#' @examplesIf rlang::is_installed(c("modeldata", "tokenizers.bpe"))
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)

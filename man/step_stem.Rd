@@ -83,6 +83,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
+\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -121,6 +122,7 @@ bake(tate_obj, new_data = NULL, medium) \%>\%
 bake(tate_obj, new_data = NULL) \%>\%
   slice(2) \%>\%
   pull(medium)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}

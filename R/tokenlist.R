@@ -9,7 +9,7 @@
 #'
 #' @return a [tokenlist] object.
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("modeldata")
 #' abc <- list(letters, LETTERS)
 #' tokenlist(abc)
 #'
