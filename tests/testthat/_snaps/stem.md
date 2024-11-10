@@ -1,3 +1,11 @@
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_stem(custom_stemmer = "yes") %>% prep()
+    Condition
+      Error in `step_stem()`:
+      ! `custom_stemmer` must be a function or `NULL`, not the string "yes".
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

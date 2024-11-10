@@ -1,3 +1,40 @@
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_stopwords(language = -4) %>% prep()
+    Condition
+      Error in `step_stopwords()`:
+      Caused by error in `prep()`:
+      ! `language` must be a single string, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_stopwords(keep = -4) %>% prep()
+    Condition
+      Error in `step_stopwords()`:
+      Caused by error in `prep()`:
+      ! `keep` must be `TRUE` or `FALSE`, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_stopwords(stopword_source = -4) %>% prep()
+    Condition
+      Error in `step_stopwords()`:
+      Caused by error in `prep()`:
+      ! `stopword_source` must be a single string, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_stopwords(custom_stopword_source = 1:10) %>%
+        prep()
+    Condition
+      Error in `step_stopwords()`:
+      Caused by error in `prep()`:
+      ! `custom_stopword_source` must be a character vector or `NULL`, not an integer vector.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

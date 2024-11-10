@@ -134,6 +134,9 @@ step_lda_new <-
 prep.step_lda <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_number_whole(x$num_topics, min = 0, arg = "num_topics")
+  check_string(x$prefix, arg = "prefix")
+
   check_lda_character(training[, col_names])
 
   check_type(training[, col_names], types = "tokenlist")

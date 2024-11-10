@@ -14,6 +14,33 @@
       Error:
       ! n must be a positive integer.
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_ngram(num_tokens = -4) %>% prep()
+    Condition
+      Error in `step_ngram()`:
+      Caused by error in `prep()`:
+      ! `num_tokens` must be a whole number larger than or equal to 0, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_ngram(min_num_tokens = -4) %>% prep()
+    Condition
+      Error in `step_ngram()`:
+      Caused by error in `prep()`:
+      ! `min_num_tokens` must be a whole number larger than or equal to 0, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_ngram(delim = -4) %>% prep()
+    Condition
+      Error in `step_ngram()`:
+      Caused by error in `prep()`:
+      ! `delim` must be a single string, not the number -4.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

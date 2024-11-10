@@ -99,6 +99,8 @@ step_pos_filter_new <-
 prep.step_pos_filter <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_character(x$keep_tags, arg = "keep_tags")
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_pos_filter_new(

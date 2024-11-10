@@ -99,6 +99,12 @@ step_text_normalization_new <-
 prep.step_text_normalization <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  rlang::arg_match0(
+    x$normalization_form, 
+    c("nfc", "nfd", "nfkd", "nfkc", "nfkc_casefold"),
+    arg_nm = "normalization_form"
+  )
+
   training <- factor_to_text(training, col_names)
 
   check_type(training[, col_names], types = c("string", "factor", "ordered"))

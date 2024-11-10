@@ -141,6 +141,10 @@ step_texthash_new <-
 prep.step_texthash <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_bool(x$signed, arg = "signed")
+  check_number_whole(x$num_terms, min = 0, arg = "num_terms")
+  check_string(x$prefix, arg = "prefix")
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_texthash_new(

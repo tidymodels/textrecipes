@@ -8,6 +8,33 @@
       ! Name collision occurred. The following variable names already exist:
       * `dummyhash_text_01`
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_dummy_hash(signed = "yes") %>% prep()
+    Condition
+      Error in `step_dummy_hash()`:
+      Caused by error in `prep()`:
+      ! `signed` must be `TRUE` or `FALSE`, not the string "yes".
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_dummy_hash(num_terms = -4) %>% prep()
+    Condition
+      Error in `step_dummy_hash()`:
+      Caused by error in `prep()`:
+      ! `num_terms` must be a whole number larger than or equal to 0, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_dummy_hash(collapse = "yes") %>% prep()
+    Condition
+      Error in `step_dummy_hash()`:
+      Caused by error in `prep()`:
+      ! `collapse` must be `TRUE` or `FALSE`, not the string "yes".
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

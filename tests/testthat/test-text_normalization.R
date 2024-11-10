@@ -13,6 +13,15 @@ test_that("simple sqrt trans", {
   expect_equal(rec_trans$text, factor(exp_res$text))
 })
 
+test_that("bad args", {
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_text_normalization(normalization_form = "wrong") %>%
+      prep()
+  )
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
