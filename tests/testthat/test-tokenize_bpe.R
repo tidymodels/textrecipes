@@ -154,6 +154,14 @@ test_that("tunable", {
   )
 })
 
+test_that("bad args", {
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_tokenize_bpe(vocabulary_size = -4) %>%
+      prep()
+  )
+})
 
 # Infrastructure ---------------------------------------------------------------
 
