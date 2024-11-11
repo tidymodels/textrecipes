@@ -62,6 +62,8 @@ test_that("step_tokenize_wordpiece works with tokenizers.wordpiece and multiple 
 })
 
 test_that("bad args", {
+  skip_if_not_installed("wordpiece")
+  
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%

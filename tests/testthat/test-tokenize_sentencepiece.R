@@ -125,6 +125,8 @@ test_that("Errors if vocabulary size is set to low.", {
 })
 
 test_that("bad args", {
+  skip_if_not_installed("sentencepiece")
+  
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%

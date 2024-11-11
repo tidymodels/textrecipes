@@ -74,6 +74,8 @@ test_that("custom stopwords are supported", {
 })
 
 test_that("bad args", {
+  skip_if_not_installed("stopwords")
+  
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%

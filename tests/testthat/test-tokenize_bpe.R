@@ -155,6 +155,8 @@ test_that("tunable", {
 })
 
 test_that("bad args", {
+  skip_if_not_installed("tokenizers.bpe")
+  
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%

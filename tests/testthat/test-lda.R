@@ -65,6 +65,11 @@ test_that("check_name() is used", {
 })
 
 test_that("bad args", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  data.table::setDTthreads(2) # because data.table uses all cores by default 
+  
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%
