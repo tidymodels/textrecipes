@@ -16,6 +16,33 @@
       Caused by error in `prep()`:
       ! The `engine` argument is not valid.
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenize(token = letters) %>% prep()
+    Condition
+      Error in `step_tokenize()`:
+      Caused by error in `prep()`:
+      ! `token` must be a single string, not a character vector.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenize(engine = letters) %>% prep()
+    Condition
+      Error in `step_tokenize()`:
+      Caused by error in `prep()`:
+      ! `engine` must be a single string, not a character vector.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenize(custom_token = "yes") %>% prep()
+    Condition
+      Error in `step_tokenize()`:
+      Caused by error in `prep()`:
+      ! `custom_token` must be a function or `NULL`, not the string "yes".
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

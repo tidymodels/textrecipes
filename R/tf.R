@@ -156,6 +156,11 @@ step_tf_new <-
 prep.step_tf <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  rlang::arg_match0(x$weight_scheme, tf_funs, arg_nm = "weight_scheme")
+  check_number_decimal(x$weight, arg = "weight")
+  check_character(x$vocabulary, allow_null = TRUE, arg = "vocabulary")
+  check_string(x$prefix, arg = "prefix")
+
   check_type(training[, col_names], types = "tokenlist")
 
   token_list <- list()
@@ -204,7 +209,7 @@ bake.step_tf <- function(object, new_data, ...) {
       tf_text <- purrr::map_dfc(tf_text, as.integer)
     }
 
-    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
+    tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vec_cbind(new_data, tf_text)
   }

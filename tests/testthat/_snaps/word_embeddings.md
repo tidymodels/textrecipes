@@ -8,6 +8,32 @@
       ! Name collision occurred. The following variable names already exist:
       * `wordembed_text_d1`
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_word_embeddings(aggregation = "wrong") %>%
+        prep()
+    Condition
+      Error in `step_word_embeddings()`:
+      ! argument "embeddings" is missing, with no default
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_word_embeddings(aggregation_default = "yes") %>%
+        prep()
+    Condition
+      Error in `step_word_embeddings()`:
+      ! argument "embeddings" is missing, with no default
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_word_embeddings(prefix = NULL) %>% prep()
+    Condition
+      Error in `step_word_embeddings()`:
+      ! argument "embeddings" is missing, with no default
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

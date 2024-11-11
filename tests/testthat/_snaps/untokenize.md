@@ -1,3 +1,12 @@
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_untokenize(sep = 0) %>% prep()
+    Condition
+      Error in `step_untokenize()`:
+      Caused by error in `prep()`:
+      ! `sep` must be a single string, not the number 0.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

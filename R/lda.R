@@ -134,6 +134,9 @@ step_lda_new <-
 prep.step_lda <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_number_whole(x$num_topics, min = 0, arg = "num_topics")
+  check_string(x$prefix, arg = "prefix")
+
   check_lda_character(training[, col_names])
 
   check_type(training[, col_names], types = "tokenlist")
@@ -185,7 +188,7 @@ bake.step_lda <- function(object, new_data, ...) {
       sep = "_"
     )
     
-    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
+    tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vec_cbind(new_data, tf_text)
   }

@@ -92,6 +92,9 @@ step_stem <-
            custom_stemmer = NULL,
            skip = FALSE,
            id = rand_id("stem")) {
+    
+    check_function(custom_stemmer, allow_null = TRUE)
+    
     add_step(
       recipe,
       step_stem_new(

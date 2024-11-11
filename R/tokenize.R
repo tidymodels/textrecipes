@@ -285,6 +285,10 @@ step_tokenize_new <-
 prep.step_tokenize <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_string(x$token, arg = "token")
+  check_string(x$engine, arg = "engine")
+  check_function(x$custom_token, allow_null = TRUE, arg = "custom_token")
+
   training <- factor_to_text(training, col_names)
 
   check_type(training[, col_names], types = c("string", "factor", "ordered"))

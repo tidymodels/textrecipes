@@ -95,6 +95,8 @@ step_tokenmerge_new <-
 prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+check_string(x$prefix, arg = "prefix")
+  
   check_type(training[, col_names], types = "tokenlist")
 
   step_tokenmerge_new(
@@ -127,7 +129,7 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
 
   new_data <- remove_original_cols(new_data, object, col_names)
   
-  new_col <- check_name(new_col, new_data, object, names(new_col))
+  new_col <- recipes::check_name(new_col, new_data, object, names(new_col))
   
   new_data <- vec_cbind(new_data, new_col)
 

@@ -1,3 +1,13 @@
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_text_normalization(normalization_form = "wrong") %>%
+        prep()
+    Condition
+      Error in `step_text_normalization()`:
+      Caused by error in `prep()`:
+      ! `normalization_form` must be one of "nfc", "nfd", "nfkd", "nfkc", or "nfkc_casefold", not "wrong".
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

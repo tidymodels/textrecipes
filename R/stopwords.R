@@ -133,6 +133,13 @@ step_stopwords_new <-
 prep.step_stopwords <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_string(x$language, arg = "language")
+  check_bool(x$keep, arg = "keep")
+  check_string(x$stopword_source, arg = "stopword_source")
+  check_character(
+    x$custom_stopword_source, allow_null = TRUE, arg = "custom_stopword_source"
+  )
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_stopwords_new(

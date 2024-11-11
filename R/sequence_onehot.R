@@ -84,13 +84,8 @@ step_sequence_onehot <-
            keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("sequence_onehot")) {
-    if (length(padding) != 1 || !(padding %in% c("pre", "post"))) {
-      cli::cli_abort("{.arg padding} should be one of: {.val pre}, {.val post}")
-    }
-
-    if (length(truncating) != 1 || !(truncating %in% c("pre", "post"))) {
-      cli::cli_abort("{.code truncating} should be {.val pre} or {.val post}.")
-    }
+    rlang::arg_match0(padding, c("pre", "post"))
+    rlang::arg_match0(truncating, c("pre", "post"))
 
     add_step(
       recipe,
@@ -134,6 +129,9 @@ step_sequence_onehot_new <-
 #' @export
 prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
+
+  check_number_whole(x$sequence_length, min = 0, arg = "sequence_length")
+  check_string(x$prefix, arg = "prefix")
 
   check_type(training[, col_names], types = "tokenlist")
 
@@ -188,7 +186,7 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
     
     out_text <- as_tibble(out_text)
     
-    out_text <- check_name(out_text, new_data, object, names(out_text))
+    out_text <- recipes::check_name(out_text, new_data, object, names(out_text))
 
     new_data <- vec_cbind(new_data, out_text)
   }

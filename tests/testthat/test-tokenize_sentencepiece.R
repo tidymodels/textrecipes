@@ -124,6 +124,17 @@ test_that("Errors if vocabulary size is set to low.", {
   )
 })
 
+test_that("bad args", {
+  skip_if_not_installed("sentencepiece")
+  
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_tokenize_sentencepiece(vocabulary_size = -4) %>%
+      prep()
+  )
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {

@@ -28,6 +28,51 @@
       Please retrain this recipe with version 0.5.1 or higher.
       i A data leakage bug has been fixed for `step_tfidf()`.
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_tfidf(vocabulary = 1:10) %>% prep()
+    Condition
+      Error in `step_tfidf()`:
+      Caused by error in `prep()`:
+      ! `vocabulary` must be a character vector or `NULL`, not an integer vector.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tfidf(smooth_idf = "yes") %>% prep()
+    Condition
+      Error in `step_tfidf()`:
+      Caused by error in `prep()`:
+      ! `smooth_idf` must be `TRUE` or `FALSE`, not the string "yes".
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tfidf(norm = "yes") %>% prep()
+    Condition
+      Error in `step_tfidf()`:
+      Caused by error in `prep()`:
+      ! `norm` must be one of "l1", "l2", or "none", not "yes".
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tfidf(sublinear_tf = "yes") %>% prep()
+    Condition
+      Error in `step_tfidf()`:
+      Caused by error in `prep()`:
+      ! `sublinear_tf` must be `TRUE` or `FALSE`, not the string "yes".
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tfidf(prefix = NULL) %>% prep()
+    Condition
+      Error in `step_tfidf()`:
+      Caused by error in `prep()`:
+      ! `prefix` must be a single string, not `NULL`.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

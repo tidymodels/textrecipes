@@ -148,6 +148,12 @@ step_tfidf_new <-
 prep.step_tfidf <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_character(x$vocabulary, allow_null = TRUE, arg = "vocabulary")
+  check_bool(x$smooth_idf, arg = "smooth_idf")
+  rlang::arg_match0(x$norm, c("l1", "l2", "none"), arg_nm = "norm")
+  check_bool(x$sublinear_tf, arg = "sublinear_tf")
+  check_string(x$prefix, arg = "prefix")
+
   check_type(training[, col_names], types = "tokenlist")
 
   idf_weights <- list()
@@ -196,7 +202,7 @@ bake.step_tfidf <- function(object, new_data, ...) {
       object$sublinear_tf
     )
 
-    tfidf_text <- check_name(tfidf_text, new_data, object, names(tfidf_text))
+    tfidf_text <- recipes::check_name(tfidf_text, new_data, object, names(tfidf_text))
 
     new_data <- vec_cbind(new_data, tfidf_text)
   }

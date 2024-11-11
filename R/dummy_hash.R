@@ -157,6 +157,10 @@ step_dummy_hash_new <-
 prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_bool(x$signed, arg = "signed")
+  check_number_whole(x$num_terms, min = 0, arg = "num_terms")
+  check_bool(x$collapse, arg = "collapse")
+
   check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   step_dummy_hash_new(
@@ -213,7 +217,7 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
       )
 
     tf_text <- purrr::map_dfc(tf_text, as.integer)
-    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
+    tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
     
     new_data <- vec_cbind(new_data, tf_text)
   }

@@ -8,6 +8,16 @@
       Caused by error in `prep()`:
       ! The `vocabulary_size` of 10 is too small for column `text1` which has a unique character count of 23.
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenize_sentencepiece(vocabulary_size = -4) %>%
+        prep()
+    Condition
+      Error in `step_tokenize_sentencepiece()`:
+      Caused by error in `prep()`:
+      ! `vocabulary_size` must be a whole number larger than or equal to 0, not the number -4.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

@@ -106,6 +106,9 @@ step_tokenize_wordpiece_new <-
 prep.step_tokenize_wordpiece <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_string(x$unk_token, arg = "unk_token")
+  check_number_whole(x$max_chars, min = 0, arg = "max_chars")
+
   training <- factor_to_text(training, col_names)
 
   check_type(training[, col_names], types = c("string", "factor", "ordered"))

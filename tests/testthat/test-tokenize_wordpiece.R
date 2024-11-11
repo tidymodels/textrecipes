@@ -61,6 +61,23 @@ test_that("step_tokenize_wordpiece works with tokenizers.wordpiece and multiple 
   )
 })
 
+test_that("bad args", {
+  skip_if_not_installed("wordpiece")
+  
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_tokenize_wordpiece(unk_token = 0) %>%
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_tokenize_wordpiece(max_chars = -4) %>%
+      prep()
+  )
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {

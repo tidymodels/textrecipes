@@ -1,3 +1,21 @@
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenize_wordpiece(unk_token = 0) %>% prep()
+    Condition
+      Error in `step_tokenize_wordpiece()`:
+      Caused by error in `prep()`:
+      ! `unk_token` must be a single string, not the number 0.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenize_wordpiece(max_chars = -4) %>% prep()
+    Condition
+      Error in `step_tokenize_wordpiece()`:
+      Caused by error in `prep()`:
+      ! `max_chars` must be a whole number larger than or equal to 0, not the number -4.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

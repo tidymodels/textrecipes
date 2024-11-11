@@ -117,7 +117,7 @@ step_word_embeddings <- function(recipe,
     )
   }
   
-  aggregation <- match.arg(aggregation)
+  aggregation <- rlang::arg_match(aggregation)
 
   add_step(
     recipe,
@@ -160,6 +160,9 @@ step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
 prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_number_decimal(x$aggregation_default, arg = "aggregation_default")
+  check_string(x$prefix, arg = "prefix")
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_word_embeddings_new(
@@ -198,7 +201,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
       sep = "_"
     )
 
-    emb_columns <- check_name(emb_columns, new_data, object, names(emb_columns))
+    emb_columns <- recipes::check_name(emb_columns, new_data, object, names(emb_columns))
     
     new_data <- vec_cbind(new_data, emb_columns)
   }

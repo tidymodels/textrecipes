@@ -122,6 +122,8 @@ step_textfeature_new <-
 prep.step_textfeature <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_string(x$prefix, arg = "prefix")
+
   training <- factor_to_text(training, col_names)
 
   check_type(training[, col_names], types = c("string", "factor", "ordered"))
@@ -158,7 +160,7 @@ bake.step_textfeature <- function(object, new_data, ...) {
       sep = "_"
     )
 
-    tf_text <- check_name(tf_text, new_data, object, names(tf_text))
+    tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
     
     new_data <- vec_cbind(new_data, tf_text)
   }

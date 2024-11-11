@@ -36,6 +36,73 @@
       * Tokenization for: text | Trained
       * Text filtering for: text | Trained
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = "yes") %>% prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `percentage` must be `TRUE` or `FALSE`, not the string "yes".
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(max_tokens = -4) %>% prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `max_tokens` must be a whole number larger than or equal to 0, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(filter_fun = -4) %>% prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `filter_fun` must be a function or `NULL`, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = TRUE, max_times = 2) %>%
+        prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `max_times` must be a number between 0 and 1, not the number 2.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = TRUE, min_times = 2) %>%
+        prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `min_times` must be a number between 0 and 1, not the number 2.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = FALSE, max_times = -
+        1) %>% prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `max_times` must be a whole number larger than or equal to 0, not the number -1.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = FALSE, min_times = -
+        1) %>% prep()
+    Condition
+      Error in `step_tokenfilter()`:
+      Caused by error in `prep()`:
+      ! `min_times` must be a whole number larger than or equal to 0, not the number -1.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

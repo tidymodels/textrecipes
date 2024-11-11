@@ -100,6 +100,8 @@ step_untokenize_new <-
 prep.step_untokenize <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_string(x$sep, arg = "sep")
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_untokenize_new(

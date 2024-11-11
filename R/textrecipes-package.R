@@ -12,7 +12,6 @@
 #' @importFrom purrr pmap
 #' @importFrom recipes add_step
 #' @importFrom recipes bake
-#' @importFrom recipes check_name
 #' @importFrom recipes check_new_data
 #' @importFrom recipes check_type
 #' @importFrom recipes get_keep_original_cols

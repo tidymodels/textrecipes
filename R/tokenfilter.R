@@ -100,13 +100,6 @@ step_tokenfilter <-
            res = NULL,
            skip = FALSE,
            id = rand_id("tokenfilter")) {
-    if (percentage && (max_times > 1 | max_times < 0 |
-      min_times > 1 | min_times < 0)) {
-      cli::cli_abort(
-        "{.arg max_times} and {.arg min_times} should be in the interval [0, 1]."
-      )
-    }
-    
     add_step(
       recipe,
       step_tokenfilter_new(
@@ -150,6 +143,17 @@ step_tokenfilter_new <-
 prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_bool(x$percentage, arg = "percentage")
+  if (x$percentage) {
+    check_number_decimal(x$max_times, min = 0, max = 1, arg = "max_times")
+    check_number_decimal(x$min_times, min = 0, max = 1, arg = "min_times")
+  } else {
+    check_number_whole(x$max_times, min = 0, allow_infinite = TRUE, arg = "max_times")
+    check_number_whole(x$min_times, min = 0, arg = "min_times")
+  }
+  check_number_whole(x$max_tokens, min = 0, arg = "max_tokens")
+  check_function(x$filter_fun, allow_null = TRUE, arg = "filter_fun")
+  
   check_type(training[, col_names], types = "tokenlist")
 
   retain_words <- list()

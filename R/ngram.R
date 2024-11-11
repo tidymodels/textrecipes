@@ -119,6 +119,10 @@ step_ngram_new <-
 prep.step_ngram <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_number_whole(x$num_tokens, min = 0, arg = "num_tokens")
+  check_number_whole(x$min_num_tokens, min = 0, arg = "min_num_tokens")
+  check_string(x$delim, arg = "delim")
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_ngram_new(

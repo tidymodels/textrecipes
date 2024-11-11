@@ -18,6 +18,15 @@
       ! Name collision occurred. The following variable names already exist:
       * `tokenmerge`
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_tokenmerge(prefix = NULL) %>% prep()
+    Condition
+      Error in `step_tokenmerge()`:
+      Caused by error in `prep()`:
+      ! `prefix` must be a single string, not `NULL`.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

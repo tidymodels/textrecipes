@@ -157,6 +157,31 @@ test_that("tunable", {
   )
 })
 
+test_that("bad args", {
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
+  data.table::setDTthreads(2) # because data.table uses all cores by default 
+  
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_dummy_hash(signed = "yes") %>%
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_dummy_hash(num_terms = -4) %>%
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_dummy_hash(collapse = "yes") %>%
+      prep()
+  )
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {

@@ -29,6 +29,15 @@
       ! Name collision occurred. The following variable names already exist:
       * `textfeature_text_n_words`
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_textfeature(prefix = NULL) %>% prep()
+    Condition
+      Error in `step_textfeature()`:
+      Caused by error in `prep()`:
+      ! `prefix` must be a single string, not `NULL`.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code

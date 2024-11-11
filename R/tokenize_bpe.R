@@ -113,6 +113,8 @@ step_tokenize_bpe_new <-
 prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
+  check_number_whole(x$vocabulary_size, min = 0, arg = "vocabulary_size")
+
   training <- factor_to_text(training, col_names)
 
   check_type(training[, col_names], types = c("string", "factor", "ordered"))

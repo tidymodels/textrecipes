@@ -13,10 +13,22 @@ test_that("simple sqrt trans", {
   expect_equal(rec_trans$text, factor(exp_res$text))
 })
 
+test_that("bad args", {
+  skip_if_not_installed("stringi")
+
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) %>%
+      step_text_normalization(normalization_form = "wrong") %>%
+      prep()
+  )
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("stringi")
+  
   rec <- recipe(~text, data = ex_dat) %>%
     step_text_normalization(text) %>%
     update_role(text, new_role = "potato") %>%

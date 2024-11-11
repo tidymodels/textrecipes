@@ -8,6 +8,24 @@
       ! Name collision occurred. The following variable names already exist:
       * `lda_text_1`
 
+# bad args
+
+    Code
+      recipe(~., data = mtcars) %>% step_lda(num_topics = -4) %>% prep()
+    Condition
+      Error in `step_lda()`:
+      Caused by error in `prep()`:
+      ! `num_topics` must be a whole number larger than or equal to 0, not the number -4.
+
+---
+
+    Code
+      recipe(~., data = mtcars) %>% step_lda(prefix = NULL) %>% prep()
+    Condition
+      Error in `step_lda()`:
+      Caused by error in `prep()`:
+      ! `prefix` must be a single string, not `NULL`.
+
 # bake method errors when needed non-standard role columns are missing
 
     Code
