@@ -1,5 +1,6 @@
 #include "ngram.h"
 #include <string.h>
+#include "Rinternals.h"
 
 int round_from_zero(int x) {
   if (x > 0) {
@@ -19,8 +20,19 @@ void fill_one_ngram(
   const R_xlen_t x_size = Rf_xlength(x);
   const R_xlen_t range = round_from_zero(x_size - n + 1);
 
+  R_xlen_t out_char_size = 1;  // 1 for NULL
+
+  for (R_xlen_t i = 0; i < range; ++i) {
+    out_char_size = out_char_size + strlen(CHAR(STRING_ELT(x, i)));
+
+    for (R_xlen_t j = 1; j < n; ++j) {
+      out_char_size = out_char_size + strlen(CHAR(STRING_ELT(x, i + j)));
+      out_char_size = out_char_size + strlen(delim);
+    }
+  }
+
   // TODO define the length correctly
-  char* out_elt = R_alloc(1000, sizeof(char));
+  char* out_elt = R_alloc(out_char_size, sizeof(char));
 
   for (R_xlen_t i = 0; i < range; ++i) {
     const char* elt = CHAR(STRING_ELT(x, i));
