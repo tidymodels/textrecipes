@@ -127,7 +127,7 @@
     Code
       tokenlist_ngram(tokenlist(data), 0, 3, " ")
     Condition
-      Error:
+      Error in `ngram()`:
       ! n must be a positive integer.
 
 ---
@@ -135,7 +135,7 @@
     Code
       tokenlist_ngram(tokenlist(data), 3, 0, " ")
     Condition
-      Error:
+      Error in `ngram()`:
       ! n_min must be a positive integer.
 
 ---
@@ -143,6 +143,6 @@
     Code
       tokenlist_ngram(tokenlist(data), 1, 2, " ")
     Condition
-      Error:
-      ! n_min must be larger then n.
+      Error in `ngram()`:
+      ! n_min must be less then n.
 

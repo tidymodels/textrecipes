@@ -1,17 +1,17 @@
 # ngram works with varrying number of `n`
 
     Code
-      cpp11_ngram(test_data, n = 0L, n_min = 0L, delim = "_")
+      ngram(test_data, n = 0L, n_min = 0L, delim = "_")
     Condition
-      Error:
+      Error in `ngram()`:
       ! n must be a positive integer.
 
 ---
 
     Code
-      cpp11_ngram(test_data, n = -1L, n_min = -1L, delim = "_")
+      ngram(test_data, n = -1L, n_min = -1L, delim = "_")
     Condition
-      Error:
+      Error in `ngram()`:
       ! n must be a positive integer.
 
 # bad args

@@ -54,8 +54,6 @@ Suggests:
     tokenizers.bpe,
     udpipe,
     wordpiece
-LinkingTo: 
-    cpp11
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate, reticulate
