@@ -56,8 +56,6 @@ Suggests:
     wordpiece
 Remotes:
     tidymodels/recipes
-LinkingTo: 
-    cpp11
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate, reticulate

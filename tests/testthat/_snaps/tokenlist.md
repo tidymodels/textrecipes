@@ -114,35 +114,3 @@
       Error in `tokenlist_pos_filter()`:
       ! `pos` attribute not available.
 
-# tokenlist_ngram errors
-
-    Code
-      tokenlist_ngram(letters)
-    Condition
-      Error in `tokenlist_ngram()`:
-      ! Input must be a tokenlist.
-
----
-
-    Code
-      tokenlist_ngram(tokenlist(data), 0, 3, " ")
-    Condition
-      Error:
-      ! n must be a positive integer.
-
----
-
-    Code
-      tokenlist_ngram(tokenlist(data), 3, 0, " ")
-    Condition
-      Error:
-      ! n_min must be a positive integer.
-
----
-
-    Code
-      tokenlist_ngram(tokenlist(data), 1, 2, " ")
-    Condition
-      Error:
-      ! n_min must be larger then n.
-

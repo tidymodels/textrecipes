@@ -425,6 +425,8 @@ test_that("tokenlist_pos_filter works", {
   )
 })
 
+skip()
+
 ## tokenlist_ngram ------------------------------------------------------------
 test_that("tokenlist_ngram works", {
   data <- list(

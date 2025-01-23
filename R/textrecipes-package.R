@@ -40,6 +40,5 @@
 #' @importFrom vctrs vec_cbind
 #' @importFrom vctrs vec_ptype_abbr
 #' @importFrom vctrs vec_restore
-#' @useDynLib textrecipes, .registration = TRUE
 ## usethis namespace: end
 NULL
