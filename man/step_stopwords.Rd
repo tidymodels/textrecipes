@@ -76,7 +76,7 @@ instead of removing thus allowing you to select words with a combination of
 these two arguments.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, \code{keep}, and \code{id}:
 
 \describe{

@@ -92,7 +92,7 @@ tibble (usually something like "d7"). For example, using the default
 \code{wordembedding_d1}, \code{wordembedding_d1}, etc.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{embedding_rows}, \code{aggregation}, and \code{id}:
 
 \describe{

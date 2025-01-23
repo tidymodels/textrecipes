@@ -90,7 +90,7 @@ It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf
 limit the number of variables created.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:
 
 \describe{

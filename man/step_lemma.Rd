@@ -57,7 +57,7 @@ lemmatization. Currently using the \code{"spacyr"} engine in \code{\link[=step_t
 provides lemmatization and works well with \code{step_lemma}.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms} and \code{id}:
 
 \describe{

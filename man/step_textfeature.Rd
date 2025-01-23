@@ -72,7 +72,7 @@ as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{functions}, and \code{id}:
 
 \describe{

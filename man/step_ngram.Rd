@@ -70,7 +70,7 @@ and \code{num_tokens = 3} then the output will contain all the 1-grams followed 
 the 2-grams followed by all the 3-grams.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms} and \code{id}:
 
 \describe{
