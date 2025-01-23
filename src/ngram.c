@@ -1,6 +1,5 @@
 #include "ngram.h"
 #include <string.h>
-#include "Rinternals.h"
 
 int round_from_zero(int x) {
   if (x > 0) {
@@ -15,7 +14,7 @@ void fill_one_ngram(
     int n,
     const char* delim,
     SEXP out,
-    R_xlen_t loc
+    R_xlen_t* loc
 ) {
   const R_xlen_t x_size = Rf_xlength(x);
   const R_xlen_t range = round_from_zero(x_size - n + 1);
@@ -34,8 +33,8 @@ void fill_one_ngram(
       strcat(out_elt, piece);
     }
 
-    SET_STRING_ELT(out, loc, Rf_mkCharCE(out_elt, CE_UTF8));
-    ++loc;
+    SET_STRING_ELT(out, (*loc), Rf_mkCharCE(out_elt, CE_UTF8));
+    ++(*loc);
   }
 }
 
@@ -50,9 +49,12 @@ SEXP ngram(SEXP x, int n, int n_min, const char* delim) {
   SEXP out = PROTECT(Rf_allocVector(STRSXP, out_size));
 
   R_xlen_t loc = 0;
+  R_xlen_t* loc_ptr;
+
+  loc_ptr = &loc;
 
   for (int i = n_min; i <= n; ++i) {
-    fill_one_ngram(x, i, delim, out, loc);
+    fill_one_ngram(x, i, delim, out, loc_ptr);
   }
 
   UNPROTECT(1);
