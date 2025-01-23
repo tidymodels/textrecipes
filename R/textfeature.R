@@ -178,7 +178,7 @@ print.step_textfeature <-
     invisible(x)
   }
 
-#' @rdname step_textfeatures
+#' @rdname step_textfeature 
 #' @usage NULL
 #' @export
 tidy.step_textfeature <- function(x, ...) {

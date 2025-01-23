@@ -2,6 +2,7 @@
 % Please edit documentation in R/textfeature.R
 \name{step_textfeature}
 \alias{step_textfeature}
+\alias{tidy.step_textfeature}
 \title{Calculate Set of Text Features}
 \usage{
 step_textfeature(
