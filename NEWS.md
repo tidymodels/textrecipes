@@ -1,10 +1,14 @@
 # textrecipes (development version)
 
+## Improvements
+
 * Documentation for tidy methods for all steps has been improved to describe the return value more accurately. (#262)
 
 * Calling `?tidy.step_*()` now sends you to the documentation for `step_*()` where the outcome is documented. (#261)
 
 * `step_textfeatures()` has been made faster and more robust. (#265)
+
+## Bug Fixes
 
 * Fixed bug in `step_clean_levels()` where it would produce NAs for character columns. (#274)
 
