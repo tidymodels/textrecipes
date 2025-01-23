@@ -4,7 +4,7 @@
 \alias{ngram}
 \title{Nram generator}
 \usage{
-ngram(x)
+ngram(x, n, min_n, delim)
 }
 \description{
 Nram generator
