@@ -10,3 +10,7 @@ textrecipes*.tgz
 revdep/checks.noindex
 revdep/library.noindex
 .DS_Store
+compile_commands.json
+.cache
+debug.R
+inst/doc
