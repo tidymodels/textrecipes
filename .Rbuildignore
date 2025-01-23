@@ -20,3 +20,6 @@
 ^man-roxygen$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^compile_commands\.json$
+.clang-format
+^.cache$
