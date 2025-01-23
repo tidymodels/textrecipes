@@ -21,7 +21,7 @@
 #'   will be applied to each observation of the data set. Defaults to `NULL`.
 #'   All other arguments will be ignored if this argument is used.
 #' @param res The words that will be keep will be stored here once this
-#'   preprocessing step has be trained by [prep.recipe()].
+#'   preprocessing step has be trained by [recipes::prep.recipe()].
 #' @template args-skip
 #' @template args-id
 #'

@@ -19,7 +19,7 @@ step_tokenize_wordpiece(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which

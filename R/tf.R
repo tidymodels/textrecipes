@@ -18,7 +18,7 @@
 #' @param vocabulary A character vector of strings to be considered.
 #' @param res The words that will be used to calculate the term frequency will
 #'   be stored here once this preprocessing step has be trained by
-#'   [prep.recipe()].
+#'   [recipes::prep.recipe()].
 #' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip

@@ -14,7 +14,7 @@
 #' @param options A list of options passed to the tokenizer.
 #' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will
 #'   be stored here once this preprocessing step has be trained by
-#'   [prep.recipe()].
+#'   [recipes::prep.recipe()].
 #' @template args-skip
 #' @template args-id
 #'

@@ -12,7 +12,7 @@
 #' @param vocabulary A character vector of strings to be considered.
 #' @param res The words that will be used to calculate the term frequency will
 #'   be stored here once this preprocessing step has be trained by
-#'   [prep.recipe()].
+#'   [recipes::prep.recipe()].
 #' @param smooth_idf TRUE smooth IDF weights by adding one to document
 #'   frequencies, as if an extra document was seen containing every term in the
 #'   collection exactly once. This prevents division by zero.

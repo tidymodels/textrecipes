@@ -19,7 +19,7 @@ step_tokenize_bpe(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
@@ -42,7 +42,7 @@ vocabulary. Defaults to 1000. Highly encouraged to be tuned.}
 \item{options}{A list of options passed to the tokenizer.}
 
 \item{res}{The fitted \code{\link[tokenizers.bpe:bpe]{tokenizers.bpe::bpe()}} model tokenizer will be stored
-here once this preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
+here once this preprocessing step has be trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked

@@ -22,7 +22,7 @@ step_tf(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
@@ -53,7 +53,7 @@ normalization". Defaults to 0.5.}
 
 \item{res}{The words that will be used to calculate the term frequency will
 be stored here once this preprocessing step has be trained by
-\code{\link[=prep.recipe]{prep.recipe()}}.}
+\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
