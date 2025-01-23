@@ -8,6 +8,8 @@
 
 * Fixed bug in `step_clean_levels()` where it would produce NAs for character columns. (#274)
 
+* `step_ngram()` has been rewritten in C and should now provide faster results. (281)
+
 # textrecipes 1.0.6
 
 * textfeatures has been removed from Suggests. (#255)
