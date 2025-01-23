@@ -2,7 +2,7 @@
 #include "ngram.h"
 
 static const R_CallMethodDef CallEntries[] = {
-    {"ffi_ngram", (DL_FUNC) &ffi_ngram, 1},
+    {"ffi_ngram", (DL_FUNC) &ffi_ngram, 4},
 
     {NULL, NULL, 0}
 };
