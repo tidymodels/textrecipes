@@ -1,5 +1,6 @@
 #include "ngram.h"
 #include <string.h>
+#include "Rinternals.h"
 
 int round_from_zero(int x) {
   if (x > 0) {
@@ -58,9 +59,10 @@ SEXP ngram(SEXP x, int n, int n_min, const char* delim) {
   return out;
 }
 
-SEXP ffi_ngram(SEXP x, SEXP n, SEXP n_min, const char* delim) {
+SEXP ffi_ngram(SEXP x, SEXP n, SEXP n_min, SEXP delim) {
   int n_val = INTEGER_ELT(n, 0);
   int n_min_val = INTEGER_ELT(n_min, 0);
+  const char* delim_val = R_CHAR(STRING_ELT(delim, 0));
 
   if (n_val <= 0) {
     Rf_error("n must be a positive integer.");
@@ -76,7 +78,7 @@ SEXP ffi_ngram(SEXP x, SEXP n, SEXP n_min, const char* delim) {
   SEXP out = PROTECT(Rf_allocVector(VECSXP, x_size));
 
   for (R_xlen_t i = 0; i < x_size; ++i) {
-    SEXP value = ngram(VECTOR_ELT(x, i), n_val, n_min_val, delim);
+    SEXP value = ngram(VECTOR_ELT(x, i), n_val, n_min_val, delim_val);
     SET_VECTOR_ELT(out, i, value);
   }
 

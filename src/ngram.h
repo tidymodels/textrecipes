@@ -4,4 +4,4 @@
 #include <Rinternals.h>
 #include <stdbool.h>
 
-SEXP ffi_ngram(SEXP x, SEXP n, SEXP n_min, const char* delim);
+SEXP ffi_ngram(SEXP x, SEXP n, SEXP n_min, SEXP delim);
