@@ -21,6 +21,7 @@
 # textrecipes 1.0.5
 
 * `step_untokenize()` and `step_normalization()` now returns factors instead of strings. (#247)
+
 # textrecipes 1.0.4
 
 ## Improvements
