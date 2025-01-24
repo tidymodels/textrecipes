@@ -23,7 +23,7 @@ step_lda(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
@@ -70,7 +70,7 @@ to the sequence of existing steps (if any).
 lda dimension estimates of a text variable.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{num_topics}, and \code{id}:
 
 \describe{

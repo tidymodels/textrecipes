@@ -38,7 +38,7 @@
 #'
 #' # Tidying
 #' 
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
+#' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `vocabulary`, `token`, and `id`:
 #' 
 #' \describe{

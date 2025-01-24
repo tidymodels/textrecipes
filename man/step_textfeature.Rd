@@ -2,6 +2,7 @@
 % Please edit documentation in R/textfeature.R
 \name{step_textfeature}
 \alias{step_textfeature}
+\alias{tidy.step_textfeature}
 \title{Calculate Set of Text Features}
 \usage{
 step_textfeature(
@@ -18,7 +19,7 @@ step_textfeature(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
@@ -71,7 +72,7 @@ as input and return a numeric vector of the same length, otherwise an error
 will be thrown.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{functions}, and \code{id}:
 
 \describe{

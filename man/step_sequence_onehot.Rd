@@ -25,7 +25,7 @@ step_sequence_onehot(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
@@ -86,7 +86,7 @@ assign an integer to each character in the vocabulary, and will encode
 accordingly. Characters not in the vocabulary will be encoded as 0.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{vocabulary}, \code{token}, and \code{id}:
 
 \describe{

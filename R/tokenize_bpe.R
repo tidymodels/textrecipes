@@ -13,7 +13,7 @@
 #'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
 #' @param options A list of options passed to the tokenizer.
 #' @param res The fitted [tokenizers.bpe::bpe()] model tokenizer will be stored
-#'   here once this preprocessing step has be trained by [prep.recipe()].
+#'   here once this preprocessing step has be trained by [recipes::prep.recipe()].
 #' @template args-skip
 #' @template args-id
 #'
@@ -23,7 +23,7 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
+#' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
 #' 
 #' \describe{

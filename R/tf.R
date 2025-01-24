@@ -18,7 +18,7 @@
 #' @param vocabulary A character vector of strings to be considered.
 #' @param res The words that will be used to calculate the term frequency will
 #'   be stored here once this preprocessing step has be trained by
-#'   [prep.recipe()].
+#'   [recipes::prep.recipe()].
 #' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip
@@ -54,7 +54,7 @@
 #'
 #' # Tidying
 #'
-#' When you [`tidy()`][tidy.recipe()] this step, a tibble is returned with
+#' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
 #' 
 #' \describe{

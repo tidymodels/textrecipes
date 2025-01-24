@@ -22,7 +22,7 @@ step_tokenfilter(
 )
 }
 \arguments{
-\item{recipe}{A \link{recipe} object. The step will be added to the
+\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
 sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
@@ -57,7 +57,7 @@ will be applied to each observation of the data set. Defaults to \code{NULL}.
 All other arguments will be ignored if this argument is used.}
 
 \item{res}{The words that will be keep will be stored here once this
-preprocessing step has be trained by \code{\link[=prep.recipe]{prep.recipe()}}.}
+preprocessing step has be trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
 recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
@@ -90,7 +90,7 @@ It is strongly advised to filter before using \link{step_tf} or \link{step_tfidf
 limit the number of variables created.
 }
 \section{Tidying}{
-When you \code{\link[=tidy.recipe]{tidy()}} this step, a tibble is returned with
+When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:
 
 \describe{
