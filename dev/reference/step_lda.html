@@ -9,7 +9,7 @@ lda dimension estimates of a text variable."><meta property="og:image" content="
 
     <a class="navbar-brand me-2" href="../index.html">textrecipes</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.7.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@ lda dimension estimates of a text variable.</p>
 
 
 <dl><dt id="arg-recipe">recipe<a class="anchor" aria-label="anchor" href="#arg-recipe"></a></dt>
-<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a> object. The step will be added to the
+<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe</a> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
 
 
@@ -210,8 +210,8 @@ columns <code>terms</code>, <code>num_topics</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 43</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id title     year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Proposa…  <span style="text-decoration: underline;">1</span>990          0.1        0.343       0.057<span style="text-decoration: underline;">1</span>       0.071<span style="text-decoration: underline;">4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Michael   <span style="text-decoration: underline;">1</span>990          0          0           0            0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Proposa…  <span style="text-decoration: underline;">1</span>990            0            0       0.014<span style="text-decoration: underline;">3</span>       0.042<span style="text-decoration: underline;">9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Michael   <span style="text-decoration: underline;">1</span>990            0            0       0            0     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 36 more variables: lda_medium_5 &lt;dbl&gt;, lda_medium_6 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_7 &lt;dbl&gt;, lda_medium_8 &lt;dbl&gt;, lda_medium_9 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_10 &lt;dbl&gt;, lda_medium_11 &lt;dbl&gt;, lda_medium_12 &lt;dbl&gt;,</span></span>
@@ -237,8 +237,8 @@ columns <code>terms</code>, <code>num_topics</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 33</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id title     year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Proposa…  <span style="text-decoration: underline;">1</span>990       0.014<span style="text-decoration: underline;">3</span>            0        0.571            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Michael   <span style="text-decoration: underline;">1</span>990       0                 0        0                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Proposa…  <span style="text-decoration: underline;">1</span>990       0.014<span style="text-decoration: underline;">3</span>       0.085<span style="text-decoration: underline;">7</span>       0.028<span style="text-decoration: underline;">6</span>       0.014<span style="text-decoration: underline;">3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Michael   <span style="text-decoration: underline;">1</span>990       0            0            0            0     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: lda_medium_5 &lt;dbl&gt;, lda_medium_6 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_7 &lt;dbl&gt;, lda_medium_8 &lt;dbl&gt;, lda_medium_9 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_10 &lt;dbl&gt;, lda_medium_11 &lt;dbl&gt;, lda_medium_12 &lt;dbl&gt;,</span></span>
