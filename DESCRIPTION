@@ -56,7 +56,8 @@ Suggests:
     udpipe,
     wordpiece
 Remotes:
-    r-lib/sparsevctrs
+    r-lib/sparsevctrs,
+    tidymodels/recipes
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate, reticulate
