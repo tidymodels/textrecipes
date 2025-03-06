@@ -17,6 +17,7 @@
 #' @param collapse A logical; should all of the selected columns be collapsed
 #'   into a single column to create a single set of hashed features?
 #' @template args-prefix
+#' @template args-sparse
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -112,6 +113,7 @@ step_dummy_hash <-
     num_terms = 32L,
     collapse = FALSE,
     prefix = "dummyhash",
+    sparse = "auto",
     keep_original_cols = FALSE,
     skip = FALSE,
     id = rand_id("dummy_hash")
@@ -129,6 +131,7 @@ step_dummy_hash <-
         num_terms = num_terms,
         collapse = collapse,
         prefix = prefix,
+        sparse = sparse,
         keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
@@ -146,6 +149,7 @@ step_dummy_hash_new <-
     collapse,
     num_terms,
     prefix,
+    sparse,
     keep_original_cols,
     skip,
     id
@@ -160,6 +164,7 @@ step_dummy_hash_new <-
       num_terms = num_terms,
       collapse = collapse,
       prefix = prefix,
+      sparse = sparse,
       keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
@@ -185,6 +190,7 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
     num_terms = x$num_terms,
     collapse = x$collapse,
     prefix = x$prefix,
+    sparse = x$sparse,
     keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
@@ -208,13 +214,13 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     new_name <- paste0(col_names, collapse = "_")
     new_data <-
       new_data %>%
-        dplyr::rowwise() %>%
-        dplyr::mutate(
-          !!new_name := paste0(
-            dplyr::c_across(dplyr::all_of(hash_cols)),
-            collapse = ""
-          )
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        !!new_name := paste0(
+          dplyr::c_across(dplyr::all_of(hash_cols)),
+          collapse = ""
         )
+      )
     hash_cols <- new_name
   }
 
@@ -230,10 +236,16 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
           names0(object$num_terms, "")
         ),
         object$signed,
-        object$num_terms
+        object$num_terms,
+        object$sparse
       )
 
-    tf_text <- purrr::map_dfc(tf_text, as.integer)
+    if (sparse_is_yes(object$sparse)) {
+      tf_text <- purrr::map_dfc(tf_text, sparsevctrs::as_sparse_integer)
+    } else {
+      tf_text <- purrr::map_dfc(tf_text, as.integer)
+    }
+
     tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vec_cbind(new_data, tf_text)
@@ -300,4 +312,16 @@ tunable.step_dummy_hash <- function(x, ...) {
     component = "step_dummy_hash",
     component_id = x$id
   )
+}
+
+#' @export
+.recipes_estimate_sparsity.step_dummy_hash <- function(x, data, ...) {
+  n_levels <- lapply(data, function(tmp) x$num_terms)
+
+  lapply(n_levels, function(n_lvl) {
+    c(
+      n_cols = n_lvl,
+      sparsity = 1 - 1 / n_lvl
+    )
+  })
 }

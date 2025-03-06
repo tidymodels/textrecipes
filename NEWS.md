@@ -1,6 +1,6 @@
 # textrecipes (development version)
 
-* `step_texthash()` gained `sparse` argument. When set to `"yes"`, `step_dummy()` will produce sparse vectors. (#282)
+* `step_texthash()` and `step_dummy_hash()` gained `sparse` argument. When set to `"yes"`, `step_dummy()` will produce sparse vectors. (#282)
 
 # textrecipes 1.0.7
 

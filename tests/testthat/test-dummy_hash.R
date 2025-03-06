@@ -161,7 +161,7 @@ test_that("check_name() is used", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-      step_dummy_hash(all_predictors())
+    step_dummy_hash(all_predictors())
   rec_param <- tunable.step_dummy_hash(rec$steps[[1]])
   expect_equal(rec_param$name, c("signed", "num_terms"))
   expect_true(all(rec_param$source == "recipe"))
@@ -196,6 +196,74 @@ test_that("bad args", {
       step_dummy_hash(collapse = "yes") %>%
       prep()
   )
+})
+
+test_that("sparse = 'yes' works", {
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  rec <- recipe(~sponsor_code, data = test_data)
+
+  dense <- rec %>%
+    step_dummy_hash(sponsor_code, sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_dummy_hash(sponsor_code, sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_vector, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_vector, logical(1))))
+})
+
+test_that("sparse argument is backwards compatible", {
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  rec <- recipe(~., data = test_data) %>%
+    step_dummy_hash(sponsor_code, sparse = "no") %>%
+    prep()
+
+  exp <- bake(rec, test_data)
+
+  # Simulate old recipe
+  rec$steps[[1]]$sparse <- NULL
+
+  expect_identical(
+    bake(rec, test_data),
+    exp
+  )
+})
+
+test_that(".recipes_toggle_sparse_args works", {
+  skip_if_not_installed("modeldata")
+
+  data("grants", package = "modeldata")
+
+  test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
+  test_data <- tibble::as_tibble(test_data)
+
+  rec <- recipe(~., data = test_data) %>%
+    step_dummy_hash(sponsor_code, sparse = "auto")
+
+  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+
+  expect_true(.recipes_estimate_sparsity(rec) >= exp)
 })
 
 # Infrastructure ---------------------------------------------------------------
