@@ -133,7 +133,6 @@ test_that("bad args", {
 test_that("sparse = 'yes' works", {
   rec <- recipe(~., data = test_data)
 
-  
   dense <- rec %>%
     step_tokenize(text) %>%
     step_texthash(text, sparse = "no") %>%
