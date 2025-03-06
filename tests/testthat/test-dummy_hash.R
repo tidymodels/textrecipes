@@ -252,6 +252,8 @@ test_that("sparse argument is backwards compatible", {
 
 test_that(".recipes_toggle_sparse_args works", {
   skip_if_not_installed("modeldata")
+  skip_if_not_installed("text2vec")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
