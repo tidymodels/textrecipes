@@ -25,7 +25,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{id}{character, id of this step}
@@ -57,13 +57,15 @@
 #'
 #' @export
 step_lemma <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           skip = FALSE,
-           id = rand_id("lemma")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    skip = FALSE,
+    id = rand_id("lemma")
+  ) {
     add_step(
       recipe,
       step_lemma_new(
@@ -115,10 +117,12 @@ bake.step_lemma <- function(object, new_data, ...) {
     variable <- new_data[[col_name]]
 
     if (is.null(maybe_get_lemma(variable))) {
-      cli::cli_abort(c(
-        "{.code {col_name}} doesn't have a lemma attribute.",
-        "i" = "Make sure the tokenization step includes lemmatization."
-      ))
+      cli::cli_abort(
+        c(
+          "{.code {col_name}} doesn't have a lemma attribute.",
+          "i" = "Make sure the tokenization step includes lemmatization."
+        )
+      )
     } else {
       lemma_variable <- tokenlist_lemma(variable)
     }

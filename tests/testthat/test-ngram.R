@@ -82,7 +82,20 @@ test_that("tokenlist_ngram works with n_min and n", {
   expect_equal(
     ngram(tknlist, 3, 1, " "),
     list(
-      c("a", "b", "c", "d", "e", "a b", "b c", "c d", "d e", "a b c", "b c d", "c d e"),
+      c(
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "a b",
+        "b c",
+        "c d",
+        "d e",
+        "a b c",
+        "b c d",
+        "c d e"
+      ),
       c("a", "b", "a b"),
       c("a"),
       character(0)
@@ -135,10 +148,12 @@ test_that("ngram returns length zero vectors when length(x) < n", {
   )
 })
 
-test_tibble <- tibble(text = c(
-  "not eat them here or there.",
-  "not eat them anywhere."
-))
+test_tibble <- tibble(
+  text = c(
+    "not eat them here or there.",
+    "not eat them anywhere."
+  )
+)
 
 rec <- recipe(~., data = test_tibble)
 
@@ -197,14 +212,32 @@ test_that("ngramming works with min_num_tokens", {
       vctrs::field("tokens"),
     list(
       c(
-        "not", "eat", "them", "here", "or", "there",
-        "not_eat", "eat_them", "them_here", "here_or", "or_there",
-        "not_eat_them", "eat_them_here", "them_here_or", "here_or_there"
+        "not",
+        "eat",
+        "them",
+        "here",
+        "or",
+        "there",
+        "not_eat",
+        "eat_them",
+        "them_here",
+        "here_or",
+        "or_there",
+        "not_eat_them",
+        "eat_them_here",
+        "them_here_or",
+        "here_or_there"
       ),
       c(
-        "not", "eat", "them", "anywhere",
-        "not_eat", "eat_them", "them_anywhere",
-        "not_eat_them", "eat_them_anywhere"
+        "not",
+        "eat",
+        "them",
+        "anywhere",
+        "not_eat",
+        "eat_them",
+        "them_anywhere",
+        "not_eat_them",
+        "eat_them_anywhere"
       )
     )
   )
@@ -235,7 +268,7 @@ test_that("`delim` argument works", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-    step_ngram(all_predictors())
+      step_ngram(all_predictors())
   rec_param <- tunable.step_ngram(rec$steps[[1]])
   expect_equal(rec_param$name, c("num_tokens"))
   expect_true(all(rec_param$source == "recipe"))
@@ -275,15 +308,15 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_ngram(text) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
+
   expect_snapshot(
     error = TRUE,
     bake(trained, new_data = tokenized_test_data[, -1])
@@ -293,37 +326,37 @@ test_that("bake method errors when needed non-standard role columns are missing"
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_ngram(rec)
-  
+
   expect_snapshot(rec)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_snapshot(rec)
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_ngram(rec1)
-  
+
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
-  
+
   baked1 <- bake(rec1, mtcars)
   baked2 <- bake(rec2, mtcars)
-  
+
   expect_identical(baked1, baked1)
 })
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_ngram(rec)
-  
+
   expect <- tibble(terms = character(), id = character())
-  
+
   expect_identical(tidy(rec, number = 1), expect)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_identical(tidy(rec, number = 1), expect)
 })
 
@@ -331,7 +364,7 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_ngram(text)
-  
+
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
 })
@@ -343,9 +376,9 @@ test_that("tunable is setup to works with extract_parameter_set_dials", {
       all_predictors(),
       num_tokens = hardhat::tune()
     )
-  
+
   params <- extract_parameter_set_dials(rec)
-  
+
   expect_s3_class(params, "parameters")
   expect_identical(nrow(params), 1L)
 })

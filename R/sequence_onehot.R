@@ -37,10 +37,10 @@
 #' accordingly. Characters not in the vocabulary will be encoded as 0.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `vocabulary`, `token`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{vocabulary}{integer, index}
@@ -71,19 +71,21 @@
 #' tidy(tate_obj, number = 3)
 #' @export
 step_sequence_onehot <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           sequence_length = 100,
-           padding = "pre",
-           truncating = "pre",
-           vocabulary = NULL,
-           prefix = "seq1hot",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("sequence_onehot")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    sequence_length = 100,
+    padding = "pre",
+    truncating = "pre",
+    vocabulary = NULL,
+    prefix = "seq1hot",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("sequence_onehot")
+  ) {
     rlang::arg_match0(padding, c("pre", "post"))
     rlang::arg_match0(truncating, c("pre", "post"))
 
@@ -107,8 +109,20 @@ step_sequence_onehot <-
   }
 
 step_sequence_onehot_new <-
-  function(terms, role, trained, columns, sequence_length, padding, truncating,
-           vocabulary, prefix, keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    sequence_length,
+    padding,
+    truncating,
+    vocabulary,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "sequence_onehot",
       terms = terms,
@@ -162,7 +176,7 @@ prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
 bake.step_sequence_onehot <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
-  
+
   if (is.null(names(object$vocabulary))) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$vocabulary) <- col_names
@@ -176,23 +190,23 @@ bake.step_sequence_onehot <- function(object, new_data, ...) {
       padding = object$padding,
       truncating = object$truncating
     )
-    
+
     colnames(out_text) <- paste(
       sep = "_",
       object$prefix,
       col_name,
       seq_len(ncol(out_text))
     )
-    
+
     out_text <- as_tibble(out_text)
-    
+
     out_text <- recipes::check_name(out_text, new_data, object, names(out_text))
 
     new_data <- vec_cbind(new_data, out_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
-  
+
   new_data
 }
 
@@ -240,8 +254,13 @@ char_key <- function(x) {
   out
 }
 
-string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
-                                  truncating) {
+string2encoded_matrix <- function(
+  x,
+  vocabulary,
+  sequence_length,
+  padding,
+  truncating
+) {
   vocabulary <- char_key(vocabulary)
   x <- get_tokens(x)
 
@@ -274,7 +293,8 @@ string2encoded_matrix <- function(x, vocabulary, sequence_length, padding,
   }
   res <- matrix(
     vocabulary[match(res, names(vocabulary))],
-    nrow = length(x), ncol = sequence_length
+    nrow = length(x),
+    ncol = sequence_length
   )
   res[is.na(res)] <- 0L
   res

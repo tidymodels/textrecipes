@@ -23,13 +23,13 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `num_topics`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{num_topics}{integer, number of topics}
 #'   \item{id}{character, id of this step}
 #' }
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @source \url{https://arxiv.org/abs/1301.3781}
@@ -82,17 +82,19 @@
 #'   slice(1:2)
 #' @export
 step_lda <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           lda_models = NULL,
-           num_topics = 10L,
-           prefix = "lda",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("lda")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    lda_models = NULL,
+    num_topics = 10L,
+    prefix = "lda",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("lda")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_lda())
 
     add_step(
@@ -113,8 +115,18 @@ step_lda <-
   }
 
 step_lda_new <-
-  function(terms, role, trained, columns, lda_models, num_topics, prefix,
-           keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    lda_models,
+    num_topics,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "lda",
       terms = terms,
@@ -175,7 +187,7 @@ bake.step_lda <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$lda_models) <- col_names
   }
-  
+
   for (col_name in col_names) {
     tokens <- get_tokens(new_data[[col_name]])
 
@@ -184,15 +196,18 @@ bake.step_lda <- function(object, new_data, ...) {
     )
 
     attr(tf_text, "dict") <- NULL
-    colnames(tf_text) <- paste(object$prefix, col_name, colnames(tf_text),
+    colnames(tf_text) <- paste(
+      object$prefix,
+      col_name,
+      colnames(tf_text),
       sep = "_"
     )
-    
+
     tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vec_cbind(new_data, tf_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
 
   new_data
@@ -254,7 +269,11 @@ word_dims <- function(tokens, n = 10, n_iter = 20) {
 word_dims_newtext <- function(lda_model, tokens, n_iter = 20) {
   it <- text2vec::itoken(tokens, ids = seq_along(tokens))
   v <- text2vec::create_vocabulary(it)
-  v <- text2vec::prune_vocabulary(v, term_count_min = 5, doc_proportion_max = 0.2)
+  v <- text2vec::prune_vocabulary(
+    v,
+    term_count_min = 5,
+    doc_proportion_max = 0.2
+  )
   dtm <- text2vec::create_dtm(it, text2vec::vocab_vectorizer(v))
   d <- lda_model$fit_transform(dtm, n_iter = n_iter)
   d <- as.data.frame(d, stringsAsFactors = FALSE)

@@ -18,43 +18,79 @@ test_data <- tibble(text1, text2)
 
 text1_out <- list(
   c(
-    "\U2581I", "\U2581would", "\U2581not", "\U2581\U0065\U0061\U0074",
-    "\U2581them", "\U2581here", "\U2581or", "\U2581there."
+    "\U2581I",
+    "\U2581would",
+    "\U2581not",
+    "\U2581\U0065\U0061\U0074",
+    "\U2581them",
+    "\U2581here",
+    "\U2581or",
+    "\U2581there."
   ),
   c(
-    "\U2581I", "\U2581would", "\U2581not", "\U2581\U0065\U0061\U0074",
+    "\U2581I",
+    "\U2581would",
+    "\U2581not",
+    "\U2581\U0065\U0061\U0074",
     "\U2581them",
     "\U2581\U0061\U006E\U0079\U0077\U0068\U0065\U0072\U0065\U002E"
   ),
   c(
-    "\U2581I", "\U2581would", "\U2581not", "\U2581\U0065\U0061\U0074",
-    "\U2581green", "\U2581\U0065\U0067\U0067\U0073",
-    "\U2581\U0061\U006E\U0064", "\U2581ham."
+    "\U2581I",
+    "\U2581would",
+    "\U2581not",
+    "\U2581\U0065\U0061\U0074",
+    "\U2581green",
+    "\U2581\U0065\U0067\U0067\U0073",
+    "\U2581\U0061\U006E\U0064",
+    "\U2581ham."
   ),
   c(
-    "\U2581I", "\U2581\U0064\U006F", "\U2581not", "\U2581like",
-    "\U2581them,", "\U2581Sam-I-am."
+    "\U2581I",
+    "\U2581\U0064\U006F",
+    "\U2581not",
+    "\U2581like",
+    "\U2581them,",
+    "\U2581Sam-I-am."
   )
 )
 
 text2_out <- list(
   c(
-    "\U2581You", "\U2581would", "\U2581not", "\U2581\U0065\U0061\U0074",
-    "\U2581them", "\U2581here", "\U2581or", "\U2581there."
+    "\U2581You",
+    "\U2581would",
+    "\U2581not",
+    "\U2581\U0065\U0061\U0074",
+    "\U2581them",
+    "\U2581here",
+    "\U2581or",
+    "\U2581there."
   ),
   c(
-    "\U2581You", "\U2581would", "\U2581not", "\U2581\U0065\U0061\U0074",
+    "\U2581You",
+    "\U2581would",
+    "\U2581not",
+    "\U2581\U0065\U0061\U0074",
     "\U2581them",
     "\U2581\U0061\U006E\U0079\U0077\U0068\U0065\U0072\U0065\U002E"
   ),
   c(
-    "\U2581You", "\U2581would", "\U2581not", "\U2581\U0065\U0061\U0074",
-    "\U2581green", "\U2581\U0065\U0067\U0067\U0073",
-    "\U2581\U0061\U006E\U0064", "\U2581ham."
+    "\U2581You",
+    "\U2581would",
+    "\U2581not",
+    "\U2581\U0065\U0061\U0074",
+    "\U2581green",
+    "\U2581\U0065\U0067\U0067\U0073",
+    "\U2581\U0061\U006E\U0064",
+    "\U2581ham."
   ),
   c(
-    "\U2581You", "\U2581\U0064\U006F", "\U2581not", "\U2581like",
-    "\U2581them,", "\U2581Sam-I-am."
+    "\U2581You",
+    "\U2581\U0064\U006F",
+    "\U2581not",
+    "\U2581like",
+    "\U2581them,",
+    "\U2581Sam-I-am."
   )
 )
 
@@ -95,7 +131,7 @@ test_that("tokenizer works", {
 
 test_that("step_tokenize works with tokenizers.bpe", {
   skip_if_not_installed("tokenizers.bpe")
-  
+
   res <- recipe(~text1, data = test_data) %>%
     step_tokenize(text1, engine = "tokenizers.bpe") %>%
     prep() %>%
@@ -109,7 +145,7 @@ test_that("step_tokenize works with tokenizers.bpe", {
 
 test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
   skip_if_not_installed("tokenizers.bpe")
-  
+
   res <- recipe(~., data = test_data) %>%
     step_tokenize(all_predictors(), engine = "tokenizers.bpe") %>%
     prep() %>%
@@ -128,9 +164,10 @@ test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
 
 test_that("arguments are passed to tokenizers.bpe", {
   skip_if_not_installed("tokenizers.bpe")
-  
+
   res <- recipe(~text1, data = test_data) %>%
-    step_tokenize(text1,
+    step_tokenize(
+      text1,
       engine = "tokenizers.bpe",
       training_options = list(vocab_size = 60)
     ) %>%
@@ -143,7 +180,8 @@ test_that("arguments are passed to tokenizers.bpe", {
   )
 
   res <- recipe(~text1, data = test_data) %>%
-    step_tokenize(text1,
+    step_tokenize(
+      text1,
       engine = "tokenizers.bpe",
       training_options = list(vocab_size = 80)
     ) %>%
@@ -161,7 +199,8 @@ test_that("Errors if vocabulary size is set to low.", {
     error = TRUE,
     variant = r_version(),
     recipe(~text, data = tibble(text = "hello")) %>%
-      step_tokenize(text,
+      step_tokenize(
+        text,
         engine = "tokenizers.bpe",
         training_options = list(vocab_size = 2)
       ) %>%

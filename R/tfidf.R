@@ -53,7 +53,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `token`, `weight`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{token}{character, name of token}
@@ -89,20 +89,22 @@
 #'
 #' @export
 step_tfidf <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           vocabulary = NULL,
-           res = NULL,
-           smooth_idf = TRUE,
-           norm = "l1",
-           sublinear_tf = FALSE,
-           prefix = "tfidf",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("tfidf")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    vocabulary = NULL,
+    res = NULL,
+    smooth_idf = TRUE,
+    norm = "l1",
+    sublinear_tf = FALSE,
+    prefix = "tfidf",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("tfidf")
+  ) {
     add_step(
       recipe,
       step_tfidf_new(
@@ -124,8 +126,21 @@ step_tfidf <-
   }
 
 step_tfidf_new <-
-  function(terms, role, trained, columns, vocabulary, res, smooth_idf, norm,
-           sublinear_tf, prefix, keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    vocabulary,
+    res,
+    smooth_idf,
+    norm,
+    sublinear_tf,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "tfidf",
       terms = terms,
@@ -191,7 +206,7 @@ bake.step_tfidf <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$res) <- col_names
   }
-  
+
   for (col_name in col_names) {
     tfidf_text <- tfidf_function(
       new_data[[col_name]],
@@ -202,13 +217,18 @@ bake.step_tfidf <- function(object, new_data, ...) {
       object$sublinear_tf
     )
 
-    tfidf_text <- recipes::check_name(tfidf_text, new_data, object, names(tfidf_text))
+    tfidf_text <- recipes::check_name(
+      tfidf_text,
+      new_data,
+      object,
+      names(tfidf_text)
+    )
 
     new_data <- vec_cbind(new_data, tfidf_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
-  
+
   new_data
 }
 
@@ -233,8 +253,9 @@ tidy.step_tfidf <- function(x, ...) {
       )
     } else {
       res <- purrr::map2_dfr(
-        x$columns, x$res,
-        ~ tibble(
+        x$columns,
+        x$res,
+        ~tibble(
           terms = .x,
           token = names(.y),
           weight = unname(.y)
@@ -254,8 +275,14 @@ tidy.step_tfidf <- function(x, ...) {
 }
 
 # Implementation
-tfidf_function <- function(data, weights, labels, smooth_idf, norm,
-                           sublinear_tf) {
+tfidf_function <- function(
+  data,
+  weights,
+  labels,
+  smooth_idf,
+  norm,
+  sublinear_tf
+) {
   # Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
   if (is.numeric(weights)) {
     dict <- names(weights)
@@ -296,7 +323,8 @@ normalize <- function(dtm, norm = c("l1", "l2", "none")) {
     return(dtm)
   }
 
-  norm_vec <- switch(norm,
+  norm_vec <- switch(
+    norm,
     l1 = 1 / Matrix::rowSums(dtm),
     l2 = 1 / sqrt(Matrix::rowSums(dtm^2))
   )

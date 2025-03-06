@@ -3,7 +3,7 @@
 #' `step_tf()` creates a *specification* of a recipe step that will convert a
 #' [`token`][tokenlist()] variable into multiple variables containing the token
 #' counts.
-#' 
+#'
 #' @template args-recipe
 #' @template args-dots
 #' @template args-role_predictors
@@ -56,7 +56,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{character, the weighting scheme}
@@ -95,19 +95,21 @@
 #'
 #' @export
 step_tf <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           weight_scheme = "raw count",
-           weight = 0.5,
-           vocabulary = NULL,
-           res = NULL,
-           prefix = "tf",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("tf")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    weight_scheme = "raw count",
+    weight = 0.5,
+    vocabulary = NULL,
+    res = NULL,
+    prefix = "tf",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("tf")
+  ) {
     add_step(
       recipe,
       step_tf_new(
@@ -128,13 +130,28 @@ step_tf <-
   }
 
 tf_funs <- c(
-  "binary", "raw count", "term frequency", "log normalization",
+  "binary",
+  "raw count",
+  "term frequency",
+  "log normalization",
   "double normalization"
 )
 
 step_tf_new <-
-  function(terms, role, trained, columns, weight_scheme, weight, vocabulary,
-           res, prefix, keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    weight_scheme,
+    weight,
+    vocabulary,
+    res,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "tf",
       terms = terms,
@@ -195,7 +212,7 @@ bake.step_tf <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$res) <- col_names
   }
-  
+
   for (col_name in col_names) {
     tf_text <- tf_function(
       new_data[[col_name]],
@@ -213,7 +230,7 @@ bake.step_tf <- function(object, new_data, ...) {
 
     new_data <- vec_cbind(new_data, tf_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
 
   new_data

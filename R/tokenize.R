@@ -184,7 +184,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{character, unit of tokenization}
@@ -232,18 +232,20 @@
 #'   pull(medium)
 #' @export
 step_tokenize <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           training_options = list(),
-           options = list(),
-           token = "words",
-           engine = "tokenizers",
-           custom_token = NULL,
-           skip = FALSE,
-           id = rand_id("tokenize")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    training_options = list(),
+    options = list(),
+    token = "words",
+    engine = "tokenizers",
+    custom_token = NULL,
+    skip = FALSE,
+    id = rand_id("tokenize")
+  ) {
     add_step(
       recipe,
       step_tokenize_new(
@@ -263,8 +265,19 @@ step_tokenize <-
   }
 
 step_tokenize_new <-
-  function(terms, role, trained, columns, training_options, options, token,
-           engine, custom_token, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    training_options,
+    options,
+    token,
+    engine,
+    custom_token,
+    skip,
+    id
+  ) {
     step(
       subclass = "tokenize",
       terms = terms,
@@ -298,11 +311,13 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
   for (col_name in col_names) {
     text <- training[[col_name]]
 
-    if (x$engine == "tokenizers.bpe" & !is.null(x$training_options$vocab_size)) {
+    if (
+      x$engine == "tokenizers.bpe" & !is.null(x$training_options$vocab_size)
+    ) {
       check_bpe_vocab_size(text, x$training_options$vocab_size, col_name)
     }
 
-    tokenizers[[col_name]] <- x$custom_token %||% 
+    tokenizers[[col_name]] <- x$custom_token %||%
       tokenizer_switch(x$token, x, text)
   }
 
@@ -330,7 +345,7 @@ bake.step_tokenize <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$custom_token) <- col_names
   }
-  
+
   for (col_name in col_names) {
     new_data[[col_name]] <- tokenizer_fun(
       x = new_data[[col_name]],
@@ -396,14 +411,23 @@ tokenizer_switch <- function(name, object, data, call = caller_env()) {
   if (object$engine == "tokenizers") {
     possible_tokenizers <-
       c(
-        "characters", "character_shingle", "lines", "ngrams",
-        "paragraphs", "ptb", "regex", "sentences", "skip_ngrams",
-        "words", "word_stems"
+        "characters",
+        "character_shingle",
+        "lines",
+        "ngrams",
+        "paragraphs",
+        "ptb",
+        "regex",
+        "sentences",
+        "skip_ngrams",
+        "words",
+        "word_stems"
       )
 
     check_possible_tokenizers(name, possible_tokenizers)
 
-    res <- switch(name,
+    res <- switch(
+      name,
       characters = tokenizers::tokenize_characters,
       character_shingle = tokenizers::tokenize_character_shingles,
       lines = tokenizers::tokenize_lines,
@@ -426,9 +450,7 @@ tokenizer_switch <- function(name, object, data, call = caller_env()) {
 
     check_possible_tokenizers(name, possible_tokenizers)
 
-    res <- switch(name,
-      words = spacyr_tokenizer_words
-    )
+    res <- switch(name, words = spacyr_tokenizer_words)
     return(res)
   }
 
@@ -439,7 +461,8 @@ tokenizer_switch <- function(name, object, data, call = caller_env()) {
 
     check_possible_tokenizers(name, possible_tokenizers)
 
-    res <- switch(name,
+    res <- switch(
+      name,
       words = tokenizers_bpe_tokens(data, object$training_options)
     )
     return(res)
@@ -452,9 +475,7 @@ tokenizer_switch <- function(name, object, data, call = caller_env()) {
 
     check_possible_tokenizers(name, possible_tokenizers)
 
-    res <- switch(name,
-      words = udpipe_words(object$training_options$model)
-    )
+    res <- switch(name, words = udpipe_words(object$training_options$model))
     return(res)
   }
 

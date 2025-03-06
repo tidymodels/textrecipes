@@ -28,10 +28,10 @@
 #' will be thrown.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `functions`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{functions}{character, name of feature functions}
@@ -73,16 +73,18 @@
 #'   bake(new_data = NULL)
 #' @export
 step_textfeature <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           extract_functions = count_functions,
-           prefix = "textfeature",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("textfeature")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    extract_functions = count_functions,
+    prefix = "textfeature",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("textfeature")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_textfeature())
 
     add_step(
@@ -102,8 +104,17 @@ step_textfeature <-
   }
 
 step_textfeature_new <-
-  function(terms, role, trained, columns, extract_functions, prefix,
-           keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    extract_functions,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "textfeature",
       terms = terms,
@@ -151,22 +162,22 @@ bake.step_textfeature <- function(object, new_data, ...) {
   new_data <- factor_to_text(new_data, col_names)
 
   for (col_name in col_names) {
-    tf_text <- map_dfc(object$extract_functions, ~ .x(new_data[[col_name]]))
+    tf_text <- map_dfc(object$extract_functions, ~.x(new_data[[col_name]]))
 
     colnames(tf_text) <- paste(
       object$prefix,
-      col_name, 
+      col_name,
       colnames(tf_text),
       sep = "_"
     )
 
     tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
-    
+
     new_data <- vec_cbind(new_data, tf_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
-  
+
   new_data
 }
 
@@ -178,7 +189,7 @@ print.step_textfeature <-
     invisible(x)
   }
 
-#' @rdname step_textfeature 
+#' @rdname step_textfeature
 #' @usage NULL
 #' @export
 tidy.step_textfeature <- function(x, ...) {

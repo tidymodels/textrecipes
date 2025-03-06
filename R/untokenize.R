@@ -25,7 +25,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{character, seperator used for collapsing}
@@ -60,14 +60,16 @@
 #' tidy(tate_obj, number = 2)
 #' @export
 step_untokenize <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           sep = " ",
-           skip = FALSE,
-           id = rand_id("untokenize")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    sep = " ",
+    skip = FALSE,
+    id = rand_id("untokenize")
+  ) {
     add_step(
       recipe,
       step_untokenize_new(
