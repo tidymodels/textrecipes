@@ -1,9 +1,11 @@
-test_data <- tibble(text = c(
-  "I would not eat them here or there.",
-  "I would not eat them anywhere.",
-  "I would not eat green eggs and ham.",
-  "I do not like them, Sam-I-am."
-))
+test_data <- tibble(
+  text = c(
+    "I would not eat them here or there.",
+    "I would not eat them anywhere.",
+    "I would not eat green eggs and ham.",
+    "I do not like them, Sam-I-am."
+  )
+)
 
 rec <- recipe(~., data = test_data)
 
@@ -84,15 +86,15 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_stem(text) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
+
   expect_snapshot(
     error = TRUE,
     bake(trained, new_data = tokenized_test_data[, -1])
@@ -102,41 +104,41 @@ test_that("bake method errors when needed non-standard role columns are missing"
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_stem(rec)
-  
+
   expect_snapshot(rec)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_snapshot(rec)
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_stem(rec1)
-  
+
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
-  
+
   baked1 <- bake(rec1, mtcars)
   baked2 <- bake(rec2, mtcars)
-  
+
   expect_identical(baked1, baked1)
 })
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_stem(rec)
-  
+
   expect <- tibble(
-    terms = character(), 
-    is_custom_stemmer = logical(), 
+    terms = character(),
+    is_custom_stemmer = logical(),
     id = character()
   )
-  
+
   expect_identical(tidy(rec, number = 1), expect)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_identical(tidy(rec, number = 1), expect)
 })
 
@@ -144,7 +146,7 @@ test_that("printing", {
   rec <- rec %>%
     step_tokenize(text) %>%
     step_stem(text)
-  
+
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
 })

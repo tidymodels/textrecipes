@@ -25,13 +25,16 @@ n_digits <- function(x) {
   stringi::stri_count_regex(x, "\\d")
 }
 
-
 n_hashtags <- function(x) {
   stringi::stri_count_regex(x, "#[[:alnum:]_]+")
 }
 
 n_uq_hashtags <- function(x) {
-  x <- stringi::stri_extract_all_regex(x, "#[[:alnum:]_]+", omit_no_match = TRUE)
+  x <- stringi::stri_extract_all_regex(
+    x,
+    "#[[:alnum:]_]+",
+    omit_no_match = TRUE
+  )
   purrr::map_int(x, dplyr::n_distinct)
 }
 
@@ -89,45 +92,99 @@ n_puncts <- function(x) {
 
 first_person <- function(x) {
   fp <- c("i", "me", "myself", "my", "mine", "this")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 first_personp <- function(x) {
   fp <- c("we", "us", "our", "ours", "these")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 second_person <- function(x) {
   fp <- c("you", "yours", "your", "yourself")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 second_personp <- function(x) {
   fp <- c("he", "she", "it", "its", "his", "hers")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 third_person <- function(x) {
-  fp <- c("they", "them", "theirs", "their", "they're",
-          "their's", "those", "that")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  fp <- c(
+    "they",
+    "them",
+    "theirs",
+    "their",
+    "they're",
+    "their's",
+    "those",
+    "that"
+  )
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 to_be <- function(x) {
-  fp <- c("am", "is", "are", "was", "were", "being",
-          "been", "be", "were", "be")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  fp <- c("am", "is", "are", "was", "were", "being", "been", "be", "were", "be")
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 prepositions <- function(x) {
-  fp <- c("about", "below", "excepting", "off", "toward", "above", "beneath",
-          "on", "under", "across", "from", "onto", "underneath", "after", "between",
-          "in", "out", "until", "against", "beyond", "outside", "up", "along", "but",
-          "inside", "over", "upon", "among", "by", "past", "around", "concerning",
-          "regarding", "with", "at", "despite", "into", "since", "within", "down",
-          "like", "through", "without", "before", "during", "near", "throughout",
-          "behind", "except", "of", "to", "for")
-  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
+  fp <- c(
+    "about",
+    "below",
+    "excepting",
+    "off",
+    "toward",
+    "above",
+    "beneath",
+    "on",
+    "under",
+    "across",
+    "from",
+    "onto",
+    "underneath",
+    "after",
+    "between",
+    "in",
+    "out",
+    "until",
+    "against",
+    "beyond",
+    "outside",
+    "up",
+    "along",
+    "but",
+    "inside",
+    "over",
+    "upon",
+    "among",
+    "by",
+    "past",
+    "around",
+    "concerning",
+    "regarding",
+    "with",
+    "at",
+    "despite",
+    "into",
+    "since",
+    "within",
+    "down",
+    "like",
+    "through",
+    "without",
+    "before",
+    "during",
+    "near",
+    "throughout",
+    "behind",
+    "except",
+    "of",
+    "to",
+    "for"
+  )
+  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
 }
 
 #' List of all feature counting functions

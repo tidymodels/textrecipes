@@ -39,14 +39,14 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #'  columns `terms`, value and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{logical, is it signed?}
 #'   \item{length}{integer, number of terms}
 #'   \item{id}{character, id of this step}
 #' }
-#' 
+#'
 #' ```{r, echo = FALSE, results="asis"}
 #' step <- "step_texthash"
 #' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
@@ -84,17 +84,19 @@
 #' tidy(tate_obj, number = 3)
 #' @export
 step_texthash <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           signed = TRUE,
-           num_terms = 1024L,
-           prefix = "texthash",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("texthash")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    signed = TRUE,
+    num_terms = 1024L,
+    prefix = "texthash",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("texthash")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_texthash())
 
     add_step(
@@ -115,13 +117,29 @@ step_texthash <-
   }
 
 hash_funs <- c(
-  "md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
-  "xxhash64", "murmur32"
+  "md5",
+  "sha1",
+  "crc32",
+  "sha256",
+  "sha512",
+  "xxhash32",
+  "xxhash64",
+  "murmur32"
 )
 
 step_texthash_new <-
-  function(terms, role, trained, columns, signed, num_terms, prefix,
-           keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    signed,
+    num_terms,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "texthash",
       terms = terms,
@@ -170,8 +188,10 @@ bake.step_texthash <- function(object, new_data, ...) {
     tf_text <- hashing_function(
       get_tokens(new_data[[col_name]]),
       paste0(
-        object$prefix, "_",
-        col_name, "_",
+        object$prefix,
+        "_",
+        col_name,
+        "_",
         names0(object$num_terms, "")
       ),
       object$signed,
@@ -184,7 +204,7 @@ bake.step_texthash <- function(object, new_data, ...) {
 
     new_data <- vec_cbind(new_data, tf_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
 
   new_data

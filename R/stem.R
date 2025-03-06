@@ -27,10 +27,10 @@
 #' therefore not work reliably on ngrams or sentences.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `is_custom_stemmer`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{is_custom_stemmer}{logical, indicate if custom stemmer was used}
@@ -83,18 +83,19 @@
 #'   pull(medium)
 #' @export
 step_stem <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           options = list(),
-           custom_stemmer = NULL,
-           skip = FALSE,
-           id = rand_id("stem")) {
-    
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    options = list(),
+    custom_stemmer = NULL,
+    skip = FALSE,
+    id = rand_id("stem")
+  ) {
     check_function(custom_stemmer, allow_null = TRUE)
-    
+
     add_step(
       recipe,
       step_stem_new(
@@ -154,7 +155,8 @@ bake.step_stem <- function(object, new_data, ...) {
   for (col_name in col_names) {
     new_data[[col_name]] <- tokenlist_apply(
       new_data[[col_name]],
-      stem_fun, object$options
+      stem_fun,
+      object$options
     )
   }
   new_data <- factor_to_text(new_data, col_names)

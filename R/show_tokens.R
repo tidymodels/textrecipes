@@ -27,7 +27,7 @@
 #'   show_tokens(medium)
 show_tokens <- function(rec, var, n = 6L) {
   check_number_whole(n, min = 0, nrow(rec$template))
-  
+
   res <- rec %>%
     prep() %>%
     bake(new_data = NULL) %>%

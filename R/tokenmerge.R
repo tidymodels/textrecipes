@@ -22,7 +22,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{id}{character, id of this step}
@@ -51,15 +51,17 @@
 #' tidy(tate_obj, number = 2)
 #' @export
 step_tokenmerge <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           prefix = "tokenmerge",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("tokenmerge")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    prefix = "tokenmerge",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("tokenmerge")
+  ) {
     add_step(
       recipe,
       step_tokenmerge_new(
@@ -76,8 +78,16 @@ step_tokenmerge <-
   }
 
 step_tokenmerge_new <-
-  function(terms, role, trained, columns, prefix, keep_original_cols,
-           skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "tokenmerge",
       terms = terms,
@@ -95,8 +105,8 @@ step_tokenmerge_new <-
 prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-check_string(x$prefix, arg = "prefix")
-  
+  check_string(x$prefix, arg = "prefix")
+
   check_type(training[, col_names], types = "tokenlist")
 
   step_tokenmerge_new(
@@ -121,16 +131,18 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  new_col <- as.list(unname(as.data.frame(new_data[, col_names, drop = FALSE]))) %>%
+  new_col <- as.list(
+    unname(as.data.frame(new_data[, col_names, drop = FALSE]))
+  ) %>%
     map(get_tokens) %>%
     pmap(c)
   new_col <- tibble(tokenlist(new_col))
   names(new_col) <- object$prefix
 
   new_data <- remove_original_cols(new_data, object, col_names)
-  
+
   new_col <- recipes::check_name(new_col, new_data, object, names(new_col))
-  
+
   new_data <- vec_cbind(new_data, new_col)
 
   new_data

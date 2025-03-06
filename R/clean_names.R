@@ -21,13 +21,13 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the new clean variable names}
 #'   \item{value}{character, the original variable names}
 #'   \item{id}{character, id of this step}
 #' }
-#' 
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_clean_levels()], [recipes::step_factor2string()],
@@ -53,13 +53,15 @@
 #' bake(rec, air_te)
 #' @export
 step_clean_names <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           clean = NULL,
-           skip = FALSE,
-           id = rand_id("clean_names")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    clean = NULL,
+    skip = FALSE,
+    id = rand_id("clean_names")
+  ) {
     add_step(
       recipe,
       step_clean_names_new(
@@ -110,9 +112,9 @@ prep.step_clean_names <- function(x, training, info = NULL, ...) {
 #' @export
 bake.step_clean_names <- function(object, new_data, ...) {
   col_names <- object$clean
-  
+
   check_new_data(names(col_names), object, new_data)
-  
+
   if (!is.null(col_names)) {
     colnames(new_data) <- dplyr::recode(colnames(new_data), !!!col_names)
   }

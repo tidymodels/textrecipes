@@ -25,7 +25,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{id}{character, id of this step}
@@ -64,16 +64,18 @@
 #' tidy(tate_obj, number = 1)
 #' @export
 step_tokenize_bpe <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           vocabulary_size = 1000,
-           options = list(),
-           res = NULL,
-           skip = FALSE,
-           id = rand_id("tokenize_bpe")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    vocabulary_size = 1000,
+    options = list(),
+    res = NULL,
+    skip = FALSE,
+    id = rand_id("tokenize_bpe")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_tokenize_bpe())
 
     add_step(
@@ -93,8 +95,17 @@ step_tokenize_bpe <-
   }
 
 step_tokenize_bpe_new <-
-  function(terms, role, trained, columns, options, vocabulary_size, res, skip,
-           id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    options,
+    vocabulary_size,
+    res,
+    skip,
+    id
+  ) {
     step(
       subclass = "tokenize_bpe",
       terms = terms,
@@ -151,10 +162,12 @@ prep.step_tokenize_bpe <- function(x, training, info = NULL, ...) {
   )
 }
 
-check_bpe_vocab_size <- function(text,
-                                 vocabulary_size,
-                                 column,
-                                 call = caller_env()) {
+check_bpe_vocab_size <- function(
+  text,
+  vocabulary_size,
+  column,
+  call = caller_env()
+) {
   text_count <- strsplit(as.character(text), "")
   text_count <- unlist(text_count)
   text_count <- unique(text_count)
@@ -178,7 +191,7 @@ bake.step_tokenize_bpe <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$res) <- col_names
   }
-  
+
   for (col_name in col_names) {
     new_data[[col_name]] <- tokenizer_fun(
       x = new_data[[col_name]],

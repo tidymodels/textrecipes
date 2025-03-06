@@ -43,10 +43,10 @@
 #' `wordembedding_d1`, `wordembedding_d1`, etc.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `embedding_rows`, `aggregation`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{embedding_rows}{integer, number of rows in embedding}
@@ -90,18 +90,20 @@
 #' tidy(rec, number = 2)
 #' tidy(obj, number = 2)
 #' @export
-step_word_embeddings <- function(recipe,
-                                 ...,
-                                 role = "predictor",
-                                 trained = FALSE,
-                                 columns = NULL,
-                                 embeddings,
-                                 aggregation = c("sum", "mean", "min", "max"),
-                                 aggregation_default = 0,
-                                 prefix = "wordembed",
-                                 keep_original_cols = FALSE,
-                                 skip = FALSE,
-                                 id = rand_id("word_embeddings")) {
+step_word_embeddings <- function(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  columns = NULL,
+  embeddings,
+  aggregation = c("sum", "mean", "min", "max"),
+  aggregation_default = 0,
+  prefix = "wordembed",
+  keep_original_cols = FALSE,
+  skip = FALSE,
+  id = rand_id("word_embeddings")
+) {
   # Validate the special inputs here to make sure nothing goes haywire further
   # downstream.
   if (
@@ -116,7 +118,7 @@ step_word_embeddings <- function(recipe,
       class = "bad_embeddings"
     )
   }
-  
+
   aggregation <- rlang::arg_match(aggregation)
 
   add_step(
@@ -137,9 +139,19 @@ step_word_embeddings <- function(recipe,
   )
 }
 
-step_word_embeddings_new <- function(terms, role, trained, columns, embeddings,
-                                     aggregation, aggregation_default, prefix,
-                                     keep_original_cols, skip, id) {
+step_word_embeddings_new <- function(
+  terms,
+  role,
+  trained,
+  columns,
+  embeddings,
+  aggregation,
+  aggregation_default,
+  prefix,
+  keep_original_cols,
+  skip,
+  id
+) {
   recipes::step(
     subclass = "word_embeddings",
     terms = terms,
@@ -186,7 +198,7 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   aggregation_fun <- get_aggregation_fun(object)
-  
+
   for (col_name in col_names) {
     emb_columns <- tokenlist_embedding(
       new_data[[col_name]],
@@ -201,11 +213,16 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
       sep = "_"
     )
 
-    emb_columns <- recipes::check_name(emb_columns, new_data, object, names(emb_columns))
-    
+    emb_columns <- recipes::check_name(
+      emb_columns,
+      new_data,
+      object,
+      names(emb_columns)
+    )
+
     new_data <- vec_cbind(new_data, emb_columns)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, col_names)
 
   new_data
@@ -219,7 +236,7 @@ get_aggregation_fun <- function(object) {
     min = min,
     max = max
   )
-  
+
   function(x, ...) {
     if (length(x) == 0) {
       return(object$aggregation_default)
@@ -229,9 +246,11 @@ get_aggregation_fun <- function(object) {
 }
 
 #' @export
-print.step_word_embeddings <- function(x,
-                                       width = max(20, options()$width - 30),
-                                       ...) {
+print.step_word_embeddings <- function(
+  x,
+  width = max(20, options()$width - 30),
+  ...
+) {
   title <- "Word embeddings aggregated from "
   print_step(x$columns, x$terms, x$trained, title, width)
   invisible(x)

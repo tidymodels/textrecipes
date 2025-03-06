@@ -1,9 +1,11 @@
-test_data <- tibble(text = c(
-  "I would not eat them here or there.",
-  "I would not eat them anywhere.",
-  "I would not eat green eggs and ham.",
-  "I do not like them, Sam-I-am."
-))
+test_data <- tibble(
+  text = c(
+    "I would not eat them here or there.",
+    "I would not eat them anywhere.",
+    "I would not eat green eggs and ham.",
+    "I do not like them, Sam-I-am."
+  )
+)
 
 rec_base <- recipe(~., data = test_data)
 
@@ -48,7 +50,11 @@ sentence_embeddings_long <- tokens %>%
   tidyr::unnest(tokens) %>%
   dplyr::left_join(embeddings, by = "tokens")
 
-saveRDS(sentence_embeddings_long, test_path("emb-data", "long.rds"), version = 2)
+saveRDS(
+  sentence_embeddings_long,
+  test_path("emb-data", "long.rds"),
+  version = 2
+)
 
 # Summarize by each statistic, and reorder to original order.
 sentence_embeddings_sum <- sentence_embeddings_long %>%
@@ -57,7 +63,7 @@ sentence_embeddings_sum <- sentence_embeddings_long %>%
   dplyr::summarize_all(sum) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("wordembed_text", ., sep = "_")
+    ~paste("wordembed_text", ., sep = "_")
   )
 
 sentence_embeddings_sum <- test_data %>%
@@ -71,12 +77,16 @@ sentence_embeddings_mean <- sentence_embeddings_long %>%
   dplyr::summarize_all(mean) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("wordembed_text", ., sep = "_")
+    ~paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_mean <- test_data %>%
   dplyr::left_join(sentence_embeddings_mean, by = "text")
 
-saveRDS(sentence_embeddings_mean, test_path("emb-data", "mean.rds"), version = 2)
+saveRDS(
+  sentence_embeddings_mean,
+  test_path("emb-data", "mean.rds"),
+  version = 2
+)
 
 sentence_embeddings_min <- sentence_embeddings_long %>%
   dplyr::select(-tokens) %>%
@@ -84,7 +94,7 @@ sentence_embeddings_min <- sentence_embeddings_long %>%
   dplyr::summarize_all(min) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("wordembed_text", ., sep = "_")
+    ~paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_min <- test_data %>%
   dplyr::left_join(sentence_embeddings_min, by = "text")
@@ -97,7 +107,7 @@ sentence_embeddings_max <- sentence_embeddings_long %>%
   dplyr::summarize_all(max) %>%
   dplyr::rename_if(
     is.numeric,
-    ~ paste("wordembed_text", ., sep = "_")
+    ~paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_max <- test_data %>%
   dplyr::left_join(sentence_embeddings_max, by = "text")

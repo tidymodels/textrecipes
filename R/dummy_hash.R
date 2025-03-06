@@ -43,10 +43,10 @@
 #' @details
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, `num_terms`, `collapse`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{logical, whether a signed hashing was performed}
@@ -54,7 +54,7 @@
 #'   \item{collapse}{logical, were the columns collapsed}
 #'   \item{id}{character, id of this step}
 #' }
-#' 
+#'
 #' ```{r, echo = FALSE, results="asis"}
 #' step <- "step_dummy_hash"
 #' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
@@ -85,7 +85,7 @@
 #' \dontshow{Sys.setenv("rsparse_omp_threads" = 1L)}
 #' \dontshow{options(rsparse_omp_threads = 1L)}
 #' \dontshow{options("text2vec.mc.cores" = 1)}
-#' 
+#'
 #' library(recipes)
 #' library(modeldata)
 #' data(grants)
@@ -102,18 +102,20 @@
 #' tidy(grants_obj, number = 1)
 #' @export
 step_dummy_hash <-
-  function(recipe,
-           ...,
-           role = "predictor",
-           trained = FALSE,
-           columns = NULL,
-           signed = TRUE,
-           num_terms = 32L,
-           collapse = FALSE,
-           prefix = "dummyhash",
-           keep_original_cols = FALSE,
-           skip = FALSE,
-           id = rand_id("dummy_hash")) {
+  function(
+    recipe,
+    ...,
+    role = "predictor",
+    trained = FALSE,
+    columns = NULL,
+    signed = TRUE,
+    num_terms = 32L,
+    collapse = FALSE,
+    prefix = "dummyhash",
+    keep_original_cols = FALSE,
+    skip = FALSE,
+    id = rand_id("dummy_hash")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_dummy_hash())
 
     add_step(
@@ -135,8 +137,19 @@ step_dummy_hash <-
   }
 
 step_dummy_hash_new <-
-  function(terms, role, trained, columns, signed, collapse, num_terms, prefix,
-           keep_original_cols, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    signed,
+    collapse,
+    num_terms,
+    prefix,
+    keep_original_cols,
+    skip,
+    id
+  ) {
     step(
       subclass = "dummy_hash",
       terms = terms,
@@ -195,11 +208,13 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     new_name <- paste0(col_names, collapse = "_")
     new_data <-
       new_data %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(
-        !!new_name :=
-          paste0(dplyr::c_across(dplyr::all_of(hash_cols)), collapse = "")
-      )
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          !!new_name := paste0(
+            dplyr::c_across(dplyr::all_of(hash_cols)),
+            collapse = ""
+          )
+        )
     hash_cols <- new_name
   }
 
@@ -208,8 +223,10 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
       hashing_function(
         as.character(new_data[[hash_col]]),
         paste0(
-          object$prefix, "_",
-          hash_col, "_",
+          object$prefix,
+          "_",
+          hash_col,
+          "_",
           names0(object$num_terms, "")
         ),
         object$signed,
@@ -218,13 +235,12 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
 
     tf_text <- purrr::map_dfc(tf_text, as.integer)
     tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
-    
+
     new_data <- vec_cbind(new_data, tf_text)
   }
-  
+
   new_data <- remove_original_cols(new_data, object, hash_cols)
-  
-  
+
   if (object$collapse) {
     new_data <- new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
   }

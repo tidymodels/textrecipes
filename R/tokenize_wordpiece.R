@@ -24,7 +24,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{id}{character, id of this step}
@@ -57,16 +57,18 @@
 #' tidy(tate_obj, number = 1)
 #' @export
 step_tokenize_wordpiece <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           vocab = wordpiece::wordpiece_vocab(),
-           unk_token = "[UNK]",
-           max_chars = 100,
-           skip = FALSE,
-           id = rand_id("tokenize_wordpiece")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    vocab = wordpiece::wordpiece_vocab(),
+    unk_token = "[UNK]",
+    max_chars = 100,
+    skip = FALSE,
+    id = rand_id("tokenize_wordpiece")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_tokenize_wordpiece())
 
     add_step(
@@ -86,8 +88,17 @@ step_tokenize_wordpiece <-
   }
 
 step_tokenize_wordpiece_new <-
-  function(terms, role, trained, columns, vocab, unk_token, max_chars,
-           skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    vocab,
+    unk_token,
+    max_chars,
+    skip,
+    id
+  ) {
     step(
       subclass = "tokenize_wordpiece",
       terms = terms,

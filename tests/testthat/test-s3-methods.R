@@ -1,9 +1,11 @@
-test_data <- tibble(text = c(
-  "I would not eat them here or there.",
-  "I would not eat them anywhere.",
-  "I would not eat green eggs and ham.",
-  "I do not like them, Sam-I-am."
-))
+test_data <- tibble(
+  text = c(
+    "I would not eat them here or there.",
+    "I would not eat them anywhere.",
+    "I would not eat green eggs and ham.",
+    "I do not like them, Sam-I-am."
+  )
+)
 
 embeddings <- tibble(
   tokens = c("green", "eggs", "ham"),

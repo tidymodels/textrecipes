@@ -23,21 +23,21 @@
 #' @details
 #'
 #' The use of this step will leave the ordering of the tokens meaningless. If
-#' `min_num_tokens <  num_tokens` then the tokens will be ordered in increasing 
+#' `min_num_tokens <  num_tokens` then the tokens will be ordered in increasing
 #' fashion with respect to the number of tokens in the n-gram. If `min_num_tokens = 1`
 #' and `num_tokens = 3` then the output will contain all the 1-grams followed by all
 #' the 2-grams followed by all the 3-grams.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{id}{character, id of this step}
 #' }
-#' 
+#'
 #' ```{r, echo = FALSE, results="asis"}
 #' step <- "step_ngram"
 #' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
@@ -72,16 +72,18 @@
 #' tidy(tate_obj, number = 2)
 #' @export
 step_ngram <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           num_tokens = 3L,
-           min_num_tokens = 3L,
-           delim = "_",
-           skip = FALSE,
-           id = rand_id("ngram")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    num_tokens = 3L,
+    min_num_tokens = 3L,
+    delim = "_",
+    skip = FALSE,
+    id = rand_id("ngram")
+  ) {
     add_step(
       recipe,
       step_ngram_new(
@@ -99,8 +101,17 @@ step_ngram <-
   }
 
 step_ngram_new <-
-  function(terms, role, trained, columns, num_tokens, min_num_tokens, delim,
-           skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    num_tokens,
+    min_num_tokens,
+    delim,
+    skip,
+    id
+  ) {
     step(
       subclass = "ngram",
       terms = terms,

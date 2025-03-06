@@ -27,7 +27,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms` and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{id}{character, id of this step}
@@ -59,14 +59,16 @@
 #'
 #' @export
 step_pos_filter <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           keep_tags = "NOUN",
-           skip = FALSE,
-           id = rand_id("pos_filter")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    keep_tags = "NOUN",
+    skip = FALSE,
+    id = rand_id("pos_filter")
+  ) {
     add_step(
       recipe,
       step_pos_filter_new(

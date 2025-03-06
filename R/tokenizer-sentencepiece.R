@@ -28,7 +28,8 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
 
   file_con <- file(model$model_path, "rb")
   binary_file <- readBin(
-    file_con, "raw",
+    file_con,
+    "raw",
     file.info(model$model_path)$size
   )
   close(file_con)
