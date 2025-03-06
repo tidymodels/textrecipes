@@ -120,16 +120,17 @@ tokenizers package (this is the default engine and token for
 <span><span class="co">#&gt;  [9] "your"  "money"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] "the"     "bee"     "is"      "an"      "insect"  "that"    "gathers"</span></span>
-<span><span class="co">#&gt; [8] "honey"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "the"     "bee"     "is"      "an"      "insect"  "that"   </span></span>
+<span><span class="co">#&gt; [7] "gathers" "honey"</span></span></code></pre></div>
 <p>N-grams are a contiguous sequence of n tokens. So to get 2-grams (or
 bigrams as they are also called) we can use the
 <code><a href="https://docs.ropensci.org/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams()</a></code> function to get them</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/tokenizers/reference/ngram-tokenizers.html" class="external-link">tokenize_ngrams</a></span><span class="op">(</span><span class="va">abc</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] "the bank"    "bank is"     "is a"        "a place"     "place where"</span></span>
-<span><span class="co">#&gt; [6] "where you"   "you put"     "put your"    "your money" </span></span>
+<span><span class="co">#&gt; [1] "the bank"    "bank is"     "is a"        "a place"    </span></span>
+<span><span class="co">#&gt; [5] "place where" "where you"   "you put"     "put your"   </span></span>
+<span><span class="co">#&gt; [9] "your money" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
 <span><span class="co">#&gt; [1] "the bee"       "bee is"        "is an"         "an insect"    </span></span>
@@ -155,8 +156,8 @@ tokenizing to words).</p>
 <span><span class="co">#&gt;  [9] "your"  "money"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] "the"     "bee"     "is"      "an"      "insect"  "that"    "gathers"</span></span>
-<span><span class="co">#&gt; [8] "honey"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "the"     "bee"     "is"      "an"      "insect"  "that"   </span></span>
+<span><span class="co">#&gt; [7] "gathers" "honey"</span></span></code></pre></div>
 <p>It can also be beneficial to specify a delimiter between the tokens
 in your n-gram.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -206,9 +207,10 @@ of the resulting data.frame.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: `tf_text_bee is an` &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_insect that gathers` &lt;int&gt;, `tf_text_is a place` &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_is an insect` &lt;int&gt;, `tf_text_place where you` &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_put your money` &lt;int&gt;, `tf_text_that gathers honey` &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_the bank is` &lt;int&gt;, `tf_text_the bee is` &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_where you put` &lt;int&gt;, `tf_text_you put your` &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_put your money` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_that gathers honey` &lt;int&gt;, `tf_text_the bank is` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_the bee is` &lt;int&gt;, `tf_text_where you put` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `tf_text_you put your` &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a place where"       "tf_text_an insect that"     </span></span>
@@ -245,11 +247,12 @@ you can pass a named list to the <code>options</code> argument in
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>               1                 0               1              0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>               0                 1               0              1</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more variables: tf_text_gathers_honey &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that &lt;int&gt;, tf_text_is_a &lt;int&gt;, tf_text_is_an &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_place_where &lt;int&gt;, tf_text_put_your &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_that_gathers &lt;int&gt;, tf_text_the_bank &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bee &lt;int&gt;, tf_text_where_you &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you_put &lt;int&gt;, tf_text_your_money &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that &lt;int&gt;, tf_text_is_a &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_is_an &lt;int&gt;, tf_text_place_where &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_put_your &lt;int&gt;, tf_text_that_gathers &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bank &lt;int&gt;, tf_text_the_bee &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you &lt;int&gt;, tf_text_you_put &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_your_money &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a_place"       "tf_text_an_insect"    </span></span>
@@ -288,11 +291,12 @@ argument.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>               1                 0               1              0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>               0                 1               0              1</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more variables: tf_text_gathers.honey &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect.that &lt;int&gt;, tf_text_is.a &lt;int&gt;, tf_text_is.an &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_place.where &lt;int&gt;, tf_text_put.your &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_that.gathers &lt;int&gt;, tf_text_The.Bank &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_The.Bee &lt;int&gt;, tf_text_where.you &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you.put &lt;int&gt;, tf_text_your.money &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect.that &lt;int&gt;, tf_text_is.a &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_is.an &lt;int&gt;, tf_text_place.where &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_put.your &lt;int&gt;, tf_text_that.gathers &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_The.Bank &lt;int&gt;, tf_text_The.Bee &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_where.you &lt;int&gt;, tf_text_you.put &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_your.money &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a.place"       "tf_text_an.insect"    </span></span>
@@ -382,12 +386,12 @@ and the n-gram creation such as stemming the tokens.</p>
 <span><span class="co">#&gt;                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>                     1                      0                1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>                     0                      1                0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: tf_text_bee_i_an &lt;int&gt;, tf_text_i_a_place &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_i_an_insect &lt;int&gt;, tf_text_insect_that_gather &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_place_where_you &lt;int&gt;, tf_text_put_your_monei &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_that_gather_honei &lt;int&gt;, tf_text_the_bank_i &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bee_i &lt;int&gt;, tf_text_where_you_put &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_you_put_your &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: tf_text_bee_i_an &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_i_a_place &lt;int&gt;, tf_text_i_an_insect &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_insect_that_gather &lt;int&gt;, tf_text_place_where_you &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_put_your_monei &lt;int&gt;, tf_text_that_gather_honei &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_the_bank_i &lt;int&gt;, tf_text_the_bee_i &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   tf_text_where_you_put &lt;int&gt;, tf_text_you_put_your &lt;int&gt;</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abc_ngram</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "tf_text_a_place_where"      "tf_text_an_insect_that"    </span></span>
