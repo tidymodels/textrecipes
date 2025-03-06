@@ -26,7 +26,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `orginal`, `value`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{original}{character, the original levels}
@@ -63,13 +63,15 @@
 #' bake(rec, smith_te)
 #' @export
 step_clean_levels <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           clean = NULL,
-           skip = FALSE,
-           id = rand_id("clean_levels")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    clean = NULL,
+    skip = FALSE,
+    id = rand_id("clean_levels")
+  ) {
     add_step(
       recipe,
       step_clean_levels_new(
@@ -129,17 +131,17 @@ bake.step_clean_levels <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$clean) <- col_names
   }
-  
+
   for (col_name in col_names) {
     if (is.factor(new_data[[col_name]])) {
       new_data[[col_name]] <- dplyr::recode_factor(
-        new_data[[col_name]], !!!object$clean[[col_name]]
-      )      
+        new_data[[col_name]],
+        !!!object$clean[[col_name]]
+      )
     } else {
       new_data[[col_name]] <- janitor::make_clean_names(new_data[[col_name]])
-
     }
-}
+  }
 
   new_data
 }

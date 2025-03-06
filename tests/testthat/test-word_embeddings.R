@@ -12,12 +12,14 @@ eps <- if (capabilities("long.double")) {
   0.1
 }
 
-test_data <- tibble(text = c(
-  "I would not eat them here or there.",
-  "I would not eat them anywhere.",
-  "I would not eat green eggs and ham.",
-  "I do not like them, Sam-I-am."
-))
+test_data <- tibble(
+  text = c(
+    "I would not eat them here or there.",
+    "I would not eat them anywhere.",
+    "I would not eat green eggs and ham.",
+    "I do not like them, Sam-I-am."
+  )
+)
 
 rec_base <- recipe(~., data = test_data)
 
@@ -76,7 +78,8 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_tokenize(text) %>%
     step_word_embeddings(
       text,
-      embeddings = embeddings, aggregation = "max"
+      embeddings = embeddings,
+      aggregation = "max"
     ) %>%
     prep() %>%
     bake(new_data = NULL)
@@ -91,7 +94,8 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_tokenize(text) %>%
     step_word_embeddings(
       text,
-      embeddings = embeddings, aggregation = "min"
+      embeddings = embeddings,
+      aggregation = "min"
     ) %>%
     prep() %>%
     bake(new_data = NULL)
@@ -106,7 +110,8 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     step_tokenize(text) %>%
     step_word_embeddings(
       text,
-      embeddings = embeddings, aggregation = "mean"
+      embeddings = embeddings,
+      aggregation = "mean"
     ) %>%
     prep() %>%
     bake(new_data = NULL)
@@ -143,11 +148,11 @@ test_that("step_word_embeddings deals with missing words appropriately.", {
 test_that("check_name() is used", {
   dat <- test_data
   dat$wordembed_text_d1 <- dat$text
-  
+
   rec <- recipe(~., data = dat) %>%
     step_tokenize(text) %>%
     step_word_embeddings(text, embeddings = embeddings)
-  
+
   expect_snapshot(
     error = TRUE,
     prep(rec, training = dat)
@@ -172,7 +177,11 @@ test_that("Embeddings work with empty documents", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text, embeddings = embeddings, aggregation = "sum") %>%
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "sum"
+      ) %>%
       prep() %>%
       bake(new_data = NULL) %>%
       as.numeric(),
@@ -182,7 +191,11 @@ test_that("Embeddings work with empty documents", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text, embeddings = embeddings, aggregation = "mean") %>%
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "mean"
+      ) %>%
       prep() %>%
       bake(new_data = NULL) %>%
       as.numeric(),
@@ -192,7 +205,11 @@ test_that("Embeddings work with empty documents", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text, embeddings = embeddings, aggregation = "min") %>%
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "min"
+      ) %>%
       prep() %>%
       bake(new_data = NULL) %>%
       as.numeric(),
@@ -202,7 +219,11 @@ test_that("Embeddings work with empty documents", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text, embeddings = embeddings, aggregation = "max") %>%
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "max"
+      ) %>%
       prep() %>%
       bake(new_data = NULL) %>%
       as.numeric(),
@@ -216,8 +237,10 @@ test_that("aggregation_default argument works", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text,
-        embeddings = embeddings, aggregation = "sum",
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "sum",
         aggregation_default = 3
       ) %>%
       prep() %>%
@@ -229,8 +252,10 @@ test_that("aggregation_default argument works", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text,
-        embeddings = embeddings, aggregation = "mean",
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "mean",
         aggregation_default = 3
       ) %>%
       prep() %>%
@@ -242,8 +267,10 @@ test_that("aggregation_default argument works", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text,
-        embeddings = embeddings, aggregation = "min",
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "min",
         aggregation_default = 3
       ) %>%
       prep() %>%
@@ -255,8 +282,10 @@ test_that("aggregation_default argument works", {
   expect_equal(
     recipe(~text, data = empty_data) %>%
       step_tokenize(text) %>%
-      step_word_embeddings(text,
-        embeddings = embeddings, aggregation = "max",
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = "max",
         aggregation_default = 3
       ) %>%
       prep() %>%
@@ -294,15 +323,15 @@ test_that("bake method errors when needed non-standard role columns are missing"
     step_tokenize(text) %>%
     prep() %>%
     bake(new_data = NULL)
-  
+
   rec <- recipe(tokenized_test_data) %>%
     update_role(text, new_role = "predictor") %>%
     step_word_embeddings(text, embeddings = embeddings) %>%
     update_role(text, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)
-  
+
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
-  
+
   expect_snapshot(
     error = TRUE,
     bake(trained, new_data = tokenized_test_data[, -1])
@@ -312,71 +341,77 @@ test_that("bake method errors when needed non-standard role columns are missing"
 test_that("empty printing", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_word_embeddings(rec, embeddings = embeddings)
-  
+
   expect_snapshot(rec)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_snapshot(rec)
 })
 
 test_that("empty selection prep/bake is a no-op", {
   rec1 <- recipe(mpg ~ ., mtcars)
   rec2 <- step_word_embeddings(rec1, embeddings = embeddings)
-  
+
   rec1 <- prep(rec1, mtcars)
   rec2 <- prep(rec2, mtcars)
-  
+
   baked1 <- bake(rec1, mtcars)
   baked2 <- bake(rec2, mtcars)
-  
+
   expect_identical(baked1, baked1)
 })
 
 test_that("empty selection tidy method works", {
   rec <- recipe(mpg ~ ., mtcars)
   rec <- step_word_embeddings(rec, embeddings = embeddings)
-  
+
   expect <- tibble(
     terms = character(),
     embeddings_rows = integer(),
     aggregation = character(),
     id = character()
   )
-  
+
   expect_identical(tidy(rec, number = 1), expect)
-  
+
   rec <- prep(rec, mtcars)
-  
+
   expect_identical(tidy(rec, number = 1), expect)
 })
 
 test_that("keep_original_cols works", {
   new_names <- paste0("wordembed_text_d", 1:5)
-  
+
   rec <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
-    step_word_embeddings(text,
-                         embeddings = embeddings, aggregation = "mean",
-                         keep_original_cols = FALSE)
-  
+    step_word_embeddings(
+      text,
+      embeddings = embeddings,
+      aggregation = "mean",
+      keep_original_cols = FALSE
+    )
+
   rec <- prep(rec)
   res <- bake(rec, new_data = NULL)
-  
+
   expect_equal(
     colnames(res),
     new_names
   )
-  
+
   rec <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
-    step_word_embeddings(text,
-                         embeddings = embeddings, aggregation = "mean",
-                         keep_original_cols = TRUE)
-  
+    step_word_embeddings(
+      text,
+      embeddings = embeddings,
+      aggregation = "mean",
+      keep_original_cols = TRUE
+    )
+
   rec <- prep(rec)
   res <- bake(rec, new_data = NULL)
-  
+
   expect_equal(
     colnames(res),
     c("text", new_names)
@@ -386,15 +421,14 @@ test_that("keep_original_cols works", {
 test_that("keep_original_cols - can prep recipes with it missing", {
   rec <- recipe(~text, data = test_data) %>%
     step_tokenize(text) %>%
-    step_word_embeddings(text,
-                         embeddings = embeddings, aggregation = "mean")
-  
+    step_word_embeddings(text, embeddings = embeddings, aggregation = "mean")
+
   rec$steps[[2]]$keep_original_cols <- NULL
-  
+
   expect_snapshot(
     rec <- prep(rec)
   )
-  
+
   expect_no_error(
     bake(rec, new_data = test_data)
   )

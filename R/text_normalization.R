@@ -23,7 +23,7 @@
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `normalization_form`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{normalization_form}{character, type of normalization}
@@ -57,14 +57,16 @@
 #' tidy(prepped, number = 1)
 #' @export
 step_text_normalization <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           normalization_form = "nfc",
-           skip = FALSE,
-           id = rand_id("text_normalization")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    normalization_form = "nfc",
+    skip = FALSE,
+    id = rand_id("text_normalization")
+  ) {
     recipes::recipes_pkg_check(required_pkgs.step_text_normalization())
 
     add_step(
@@ -100,7 +102,7 @@ prep.step_text_normalization <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
   rlang::arg_match0(
-    x$normalization_form, 
+    x$normalization_form,
     c("nfc", "nfd", "nfkd", "nfkc", "nfkc_casefold"),
     arg_nm = "normalization_form"
   )
@@ -127,7 +129,8 @@ bake.step_text_normalization <- function(object, new_data, ...) {
 
   new_data <- factor_to_text(new_data, col_names)
 
-  normalization_fun <- switch(object$normalization_form,
+  normalization_fun <- switch(
+    object$normalization_form,
     nfc = stringi::stri_trans_nfc,
     nfd = stringi::stri_trans_nfd,
     nfkd = stringi::stri_trans_nfkd,
@@ -139,12 +142,12 @@ bake.step_text_normalization <- function(object, new_data, ...) {
       {.val {object$normalization_form}}."
     )
   )
-  
+
   for (col_name in col_names) {
     new_data[[col_name]] <- normalization_fun(new_data[[col_name]])
     new_data[[col_name]] <- factor(new_data[[col_name]])
   }
-  
+
   new_data
 }
 

@@ -43,16 +43,16 @@
 #' limit the number of variables created.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{integer, number of unique tokens}
 #'   \item{id}{character, id of this step}
 #' }
-#' 
+#'
 #' ```{r, echo = FALSE, results="asis"}
 #' step <- "step_tokenfilter"
 #' result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
@@ -87,19 +87,21 @@
 #' tidy(tate_obj, number = 2)
 #' @export
 step_tokenfilter <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           max_times = Inf,
-           min_times = 0,
-           percentage = FALSE,
-           max_tokens = 100,
-           filter_fun = NULL,
-           res = NULL,
-           skip = FALSE,
-           id = rand_id("tokenfilter")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    max_times = Inf,
+    min_times = 0,
+    percentage = FALSE,
+    max_tokens = 100,
+    filter_fun = NULL,
+    res = NULL,
+    skip = FALSE,
+    id = rand_id("tokenfilter")
+  ) {
     add_step(
       recipe,
       step_tokenfilter_new(
@@ -120,8 +122,20 @@ step_tokenfilter <-
   }
 
 step_tokenfilter_new <-
-  function(terms, role, trained, columns, max_times, min_times, percentage,
-           max_tokens, filter_fun, res, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    max_times,
+    min_times,
+    percentage,
+    max_tokens,
+    filter_fun,
+    res,
+    skip,
+    id
+  ) {
     step(
       subclass = "tokenfilter",
       terms = terms,
@@ -148,12 +162,17 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     check_number_decimal(x$max_times, min = 0, max = 1, arg = "max_times")
     check_number_decimal(x$min_times, min = 0, max = 1, arg = "min_times")
   } else {
-    check_number_whole(x$max_times, min = 0, allow_infinite = TRUE, arg = "max_times")
+    check_number_whole(
+      x$max_times,
+      min = 0,
+      allow_infinite = TRUE,
+      arg = "max_times"
+    )
     check_number_whole(x$min_times, min = 0, arg = "min_times")
   }
   check_number_whole(x$max_tokens, min = 0, arg = "max_tokens")
   check_function(x$filter_fun, allow_null = TRUE, arg = "filter_fun")
-  
+
   check_type(training[, col_names], types = "tokenlist")
 
   retain_words <- list()
@@ -163,13 +182,14 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
     for (col_name in col_names) {
       retain_words[[col_name]] <- tokenfilter_fun(
         training[[col_name]],
-        x$max_times, x$min_times, x$max_tokens,
+        x$max_times,
+        x$min_times,
+        x$max_tokens,
         x$percentage
       )
       n_words[[col_name]] <- length(unique(unlist(training[[col_name]])))
     }
   } else {
-    
   }
 
   step_tokenfilter_new(
@@ -197,7 +217,7 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
     # Backwards compatibility with 1.0.3 (#230)
     names(object$res) <- col_names
   }
-  
+
   for (col_name in col_names) {
     if (is.null(object$filter_fun)) {
       filtered_text <- tokenlist_filter(
@@ -248,8 +268,13 @@ tidy.step_tokenfilter <- function(x, ...) {
 }
 
 ## Implementation
-tokenfilter_fun <- function(data, max_times, min_times, max_tokens,
-                            percentage) {
+tokenfilter_fun <- function(
+  data,
+  max_times,
+  min_times,
+  max_tokens,
+  percentage
+) {
   tf <- table0(unlist(get_tokens(data)))
 
   if (percentage) {

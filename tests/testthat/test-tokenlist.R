@@ -7,7 +7,7 @@ test_that("tokenlist creation works", {
   expect_s3_class(tkn_list, "textrecipes_tokenlist")
 
   expect_equal(
-     vctrs::fields(tkn_list),
+    vctrs::fields(tkn_list),
     "tokens"
   )
 
@@ -72,7 +72,8 @@ test_that("tokenlist creation works", {
   )
 
   # Tokens, lemma, pos
-  tkn_list <- tokenlist(list(letters, letters),
+  tkn_list <- tokenlist(
+    list(letters, letters),
     lemma = list(letters, LETTERS),
     pos = list(LETTERS, LETTERS)
   )
@@ -264,7 +265,8 @@ test_that("tokenlist_filter respects pos", {
 
   expect_equal(
     tokenlist_filter(x = pos_tokenlist, dict = "hello", keep = TRUE),
-    tokenlist(list("hello", character(), character()),
+    tokenlist(
+      list("hello", character(), character()),
       pos = list(1, numeric(0), numeric(0))
     )
   )
@@ -315,16 +317,21 @@ test_that("tokenlist_to_dtm works", {
   expect_equal(
     tokenlist_to_dtm(tkn_list, get_unique_tokens(tkn_list)),
     Matrix::sparseMatrix(
-      i = c(1, 1, 1, 2, 3), j = c(1, 2, 3, 2, 3),
-      dimnames = list(NULL, c("a", "b", "c")), x = 1
+      i = c(1, 1, 1, 2, 3),
+      j = c(1, 2, 3, 2, 3),
+      dimnames = list(NULL, c("a", "b", "c")),
+      x = 1
     )
   )
 
   expect_equal(
     tokenlist_to_dtm(tkn_list, c("a", "b")),
     Matrix::sparseMatrix(
-      i = c(1, 1, 2), j = c(1, 2, 2), dims = c(3, 2),
-      dimnames = list(NULL, c("a", "b")), x = 1
+      i = c(1, 1, 2),
+      j = c(1, 2, 2),
+      dims = c(3, 2),
+      dimnames = list(NULL, c("a", "b")),
+      x = 1
     )
   )
 
@@ -332,8 +339,11 @@ test_that("tokenlist_to_dtm works", {
     tokenlist_to_dtm(tkn_list, character()),
     {
       ref_mat <- Matrix::sparseMatrix(
-        i = NULL, j = NULL, dims = c(3, 0),
-        dimnames = list(NULL, character()), x = 1
+        i = NULL,
+        j = NULL,
+        dims = c(3, 0),
+        dimnames = list(NULL, character()),
+        x = 1
       )
 
       ref_mat@Dimnames[[2]] <- character()
@@ -344,25 +354,26 @@ test_that("tokenlist_to_dtm works", {
   expect_equal(
     tokenlist_to_dtm(tkn_list, letters),
     Matrix::sparseMatrix(
-      i = c(1, 1, 1, 2, 3), j = c(1, 2, 3, 2, 3),
+      i = c(1, 1, 1, 2, 3),
+      j = c(1, 2, 3, 2, 3),
       dims = c(3, 26),
-      dimnames = list(NULL, letters), x = 1
+      dimnames = list(NULL, letters),
+      x = 1
     )
   )
 })
 
 ## tokenlist_lemma ------------------------------------------------------------
 test_that("tokenlist_lemma works", {
-  tkn_list <- tokenlist(list(letters, letters),
+  tkn_list <- tokenlist(
+    list(letters, letters),
     lemma = list(letters, LETTERS),
     pos = list(LETTERS, LETTERS)
   )
 
   expect_equal(
     tokenlist_lemma(tkn_list),
-    tokenlist(list(letters, LETTERS),
-      pos = list(LETTERS, LETTERS)
-    )
+    tokenlist(list(letters, LETTERS), pos = list(LETTERS, LETTERS))
   )
 
   expect_snapshot(
@@ -389,21 +400,24 @@ test_that("tokenlist_pos_filter works", {
 
   expect_equal(
     tokenlist_pos_filter(x = pos_tokenlist, pos_tags = c("INTJ", "NOUN")),
-    tokenlist(list("hello", "dog", character()),
+    tokenlist(
+      list("hello", "dog", character()),
       pos = list("INTJ", "NOUN", character())
     )
   )
 
   expect_equal(
     tokenlist_pos_filter(pos_tokenlist, "NOUN"),
-    tokenlist(list(character(), "dog", character()),
+    tokenlist(
+      list(character(), "dog", character()),
       pos = list(character(), "NOUN", character())
     )
   )
 
   expect_equal(
     tokenlist_pos_filter(pos_tokenlist, character()),
-    tokenlist(list(character(), character(), character()),
+    tokenlist(
+      list(character(), character(), character()),
       pos = list(character(), character(), character())
     )
   )
@@ -500,7 +514,20 @@ test_that("tokenlist_ngram works with n_min and n", {
   expect_equal(
     get_tokens(tokenlist_ngram(tknlist, 3, 1, " ")),
     list(
-      c("a", "b", "c", "d", "e", "a b", "b c", "c d", "d e", "a b c", "b c d", "c d e"),
+      c(
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "a b",
+        "b c",
+        "c d",
+        "d e",
+        "a b c",
+        "b c d",
+        "c d e"
+      ),
       c("a", "b", "a b"),
       c("a"),
       character(0)

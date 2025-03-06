@@ -1,7 +1,8 @@
 udpipe_words <- function(model) {
   file_con <- file(model$file_model, "rb")
   binary_file <- readBin(
-    file_con, "raw",
+    file_con,
+    "raw",
     file.info(model$file_model)$size
   )
   close(file_con)

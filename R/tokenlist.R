@@ -35,13 +35,19 @@ tokenlist <- function(tokens = list(), lemma = NULL, pos = NULL) {
   unique_tokens <- unique(unlist(tokens))
 
   new_tokenlist(
-    tokens = tokens, lemma = lemma, pos = pos,
+    tokens = tokens,
+    lemma = lemma,
+    pos = pos,
     unique_tokens = unique_tokens %||% character()
   )
 }
 
-new_tokenlist <- function(tokens = list(), lemma = NULL, pos = NULL,
-                          unique_tokens = character()) {
+new_tokenlist <- function(
+  tokens = list(),
+  lemma = NULL,
+  pos = NULL,
+  unique_tokens = character()
+) {
   vec_assert(tokens, list())
   if (!(is.null(lemma) | is.list(lemma))) {
     cli::cli_abort("{.arg lemma} must be NULL or a list.")
@@ -52,11 +58,13 @@ new_tokenlist <- function(tokens = list(), lemma = NULL, pos = NULL,
   vec_assert(unique_tokens, character())
 
   if (length(tokens) == 0) {
-    return(vctrs::new_rcrd(
-      fields = list(tokens = tokens),
-      unique_tokens = unique_tokens,
-      class = "textrecipes_tokenlist"
-    ))
+    return(
+      vctrs::new_rcrd(
+        fields = list(tokens = tokens),
+        unique_tokens = unique_tokens,
+        class = "textrecipes_tokenlist"
+      )
+    )
   }
 
   vctrs::new_rcrd(
@@ -101,8 +109,7 @@ get_unique_tokens <- function(x) {
 }
 
 #' @export
-vec_restore.textrecipes_tokenlist <- function(x, to, ...,
-                                              i = NULL) {
+vec_restore.textrecipes_tokenlist <- function(x, to, ..., i = NULL) {
   tokens <- get_tokens(x)
   unique_tokens <- unique(unlist(tokens))
 
@@ -128,7 +135,8 @@ vec_ptype_abbr.textrecipes_tokenlist <- function(x, ...) {
 
 #' @export
 obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
-  cat("# Unique Tokens: ",
+  cat(
+    "# Unique Tokens: ",
     format(length(attr(x, "unique_tokens"))),
     "\n",
     sep = ""
@@ -187,11 +195,11 @@ tokenlist_filter_function <- function(x, fn) {
 
   keeps <- lapply(tokens, fn)
 
-  out <- purrr::map2(tokens, keeps, ~ .x[.y])
+  out <- purrr::map2(tokens, keeps, ~.x[.y])
 
   lemma <- maybe_get_lemma(x)
   if (!is.null(lemma)) {
-    lemma <- purrr::map2(lemma, keeps, ~ .x[.y])
+    lemma <- purrr::map2(lemma, keeps, ~.x[.y])
     names(lemma) <- NULL
   } else {
     lemma <- NULL
@@ -199,7 +207,7 @@ tokenlist_filter_function <- function(x, fn) {
 
   pos <- maybe_get_pos(x)
   if (!is.null(pos)) {
-    pos <- purrr::map2(pos, keeps, ~ .x[.y])
+    pos <- purrr::map2(pos, keeps, ~.x[.y])
     names(pos) <- NULL
   } else {
     pos <- NULL

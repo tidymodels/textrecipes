@@ -34,16 +34,20 @@ test_that("tokenizer works", {
   )
 
   expect_false(
-    isTRUE(all.equal(
-      vctrs::field(out, "lemma"),
-      vctrs::field(out, "tokens")
-    ))
+    isTRUE(
+      all.equal(
+        vctrs::field(out, "lemma"),
+        vctrs::field(out, "tokens")
+      )
+    )
   )
 
   expect_false(
-    isTRUE(all.equal(
-      vctrs::field(out, "pos"),
-      vctrs::field(out, "tokens")
-    ))
+    isTRUE(
+      all.equal(
+        vctrs::field(out, "pos"),
+        vctrs::field(out, "tokens")
+      )
+    )
   )
 })

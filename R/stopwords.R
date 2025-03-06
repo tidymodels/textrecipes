@@ -33,10 +33,10 @@
 #' these two arguments.
 #'
 #' # Tidying
-#' 
+#'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with
 #' columns `terms`, `value`, `keep`, and `id`:
-#' 
+#'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{value}{character, name of stop word list}
@@ -83,17 +83,19 @@
 #'   pull(medium)
 #' @export
 step_stopwords <-
-  function(recipe,
-           ...,
-           role = NA,
-           trained = FALSE,
-           columns = NULL,
-           language = "en",
-           keep = FALSE,
-           stopword_source = "snowball",
-           custom_stopword_source = NULL,
-           skip = FALSE,
-           id = rand_id("stopwords")) {
+  function(
+    recipe,
+    ...,
+    role = NA,
+    trained = FALSE,
+    columns = NULL,
+    language = "en",
+    keep = FALSE,
+    stopword_source = "snowball",
+    custom_stopword_source = NULL,
+    skip = FALSE,
+    id = rand_id("stopwords")
+  ) {
     add_step(
       recipe,
       step_stopwords_new(
@@ -112,8 +114,18 @@ step_stopwords <-
   }
 
 step_stopwords_new <-
-  function(terms, role, trained, columns, language, keep,
-           stopword_source, custom_stopword_source, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    language,
+    keep,
+    stopword_source,
+    custom_stopword_source,
+    skip,
+    id
+  ) {
     step(
       subclass = "stopwords",
       terms = terms,
@@ -137,7 +149,9 @@ prep.step_stopwords <- function(x, training, info = NULL, ...) {
   check_bool(x$keep, arg = "keep")
   check_string(x$stopword_source, arg = "stopword_source")
   check_character(
-    x$custom_stopword_source, allow_null = TRUE, arg = "custom_stopword_source"
+    x$custom_stopword_source,
+    allow_null = TRUE,
+    arg = "custom_stopword_source"
   )
 
   check_type(training[, col_names], types = "tokenlist")
