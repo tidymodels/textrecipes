@@ -120,6 +120,20 @@ This step has 2 tuning parameters:
 }
 }
 
+\section{Sparse data}{
+
+
+This step produces sparse columns if \code{sparse = "yes"} is being set. The
+default value \code{"auto"} won't trigger production fo sparse columns if a recipe
+is \code{\link[recipes:prep]{recipes::prep()}}ed, but allows for a workflow to toggle to \code{"yes"} or
+\code{"no"} depending on whether the model supports \link[recipes:sparse_data]{recipes::sparse_data} and if
+the model is is expected to run faster with the data.
+
+The mechanism for determining how much sparsity is produced isn't perfect,
+and there will be times when you want to manually overwrite by setting
+\code{sparse = "yes"} or \code{sparse = "no"}.
+}
+
 \section{Case weights}{
 
 

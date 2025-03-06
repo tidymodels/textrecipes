@@ -54,6 +54,8 @@
 #' cat(result)
 #' ```
 #'
+#' @template sparse-creation
+#'
 #' @template case-weights-not-supported
 #'
 #' @references Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
