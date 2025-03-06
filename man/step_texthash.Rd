@@ -14,6 +14,7 @@ step_texthash(
   signed = TRUE,
   num_terms = 1024L,
   prefix = "texthash",
+  sparse = "auto",
   keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("texthash")
@@ -47,6 +48,10 @@ reduce collisions when hashing. Defaults to TRUE.}
 
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
+
+\item{sparse}{A single string. Should the columns produced be sparse vectors.
+Can take the values \code{"yes"}, \code{"no"}, and \code{"auto"}. If \code{sparse = "auto"}
+then workflows can determine the best option. Defaults to \code{"auto"}.}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
@@ -105,6 +110,20 @@ This step has 2 tuning parameters:
 \item \code{signed}: Signed Hash Value (type: logical, default: TRUE)
 \item \code{num_terms}: # Hash Features (type: integer, default: 1024)
 }
+}
+
+\section{Sparse data}{
+
+
+This step produces sparse columns if \code{sparse = "yes"} is being set. The
+default value \code{"auto"} won't trigger production fo sparse columns if a recipe
+is \code{\link[recipes:prep]{recipes::prep()}}ed, but allows for a workflow to toggle to \code{"yes"} or
+\code{"no"} depending on whether the model supports \link[recipes:sparse_data]{recipes::sparse_data} and if
+the model is is expected to run faster with the data.
+
+The mechanism for determining how much sparsity is produced isn't perfect,
+and there will be times when you want to manually overwrite by setting
+\code{sparse = "yes"} or \code{sparse = "no"}.
 }
 
 \section{Case weights}{

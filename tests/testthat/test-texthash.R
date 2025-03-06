@@ -95,7 +95,7 @@ test_that("check_name() is used", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-      step_texthash(all_predictors())
+    step_texthash(all_predictors())
   rec_param <- tunable.step_texthash(rec$steps[[1]])
   expect_equal(rec_param$name, c("signed", "num_terms"))
   expect_true(all(rec_param$source == "recipe"))
@@ -128,6 +128,59 @@ test_that("bad args", {
       step_texthash(prefix = NULL) %>%
       prep()
   )
+})
+
+test_that("sparse = 'yes' works", {
+  skip_if_not_installed("text2vec")
+
+  rec <- recipe(~., data = test_data)
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_texthash(text, sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_texthash(text, sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_vector, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_vector, logical(1))))
+})
+
+test_that("sparse argument is backwards compatible", {
+  skip_if_not_installed("text2vec")
+
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_texthash(text, sparse = "no") %>%
+    prep()
+
+  exp <- bake(rec, test_data)
+
+  # Simulate old recipe
+  rec$steps[[1]]$sparse <- NULL
+
+  expect_identical(
+    bake(rec, test_data),
+    exp
+  )
+})
+
+test_that(".recipes_toggle_sparse_args works", {
+  skip_if_not_installed("text2vec")
+
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_texthash(text, sparse = "auto")
+
+  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+
+  expect_true(.recipes_estimate_sparsity(rec) > exp)
 })
 
 # Infrastructure ---------------------------------------------------------------

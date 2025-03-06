@@ -29,3 +29,7 @@ table0 <- function(x) {
 
   purrr::set_names(res$n, res$tokens)
 }
+
+sparse_is_yes <- function(x) {
+  !is.null(x) && x == "yes"
+}
