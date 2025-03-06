@@ -10,6 +10,7 @@
 #' @importFrom purrr map_dfc
 #' @importFrom purrr map_lgl
 #' @importFrom purrr pmap
+#' @importFrom recipes .recipes_estimate_sparsity
 #' @importFrom recipes add_step
 #' @importFrom recipes bake
 #' @importFrom recipes check_new_data
