@@ -14,6 +14,7 @@
 #' @param num_terms An integer, the number of variables to output. Defaults to
 #'   1024.
 #' @template args-prefix
+#' @template args-sparse
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -92,6 +93,7 @@ step_texthash <-
            signed = TRUE,
            num_terms = 1024L,
            prefix = "texthash",
+           sparse = "auto",
            keep_original_cols = FALSE,
            skip = FALSE,
            id = rand_id("texthash")) {
@@ -107,6 +109,7 @@ step_texthash <-
         signed = signed,
         num_terms = num_terms,
         prefix = prefix,
+        sparse = sparse,
         keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
@@ -120,7 +123,7 @@ hash_funs <- c(
 )
 
 step_texthash_new <-
-  function(terms, role, trained, columns, signed, num_terms, prefix,
+  function(terms, role, trained, columns, signed, num_terms, prefix, sparse,
            keep_original_cols, skip, id) {
     step(
       subclass = "texthash",
@@ -131,6 +134,7 @@ step_texthash_new <-
       signed = signed,
       num_terms = num_terms,
       prefix = prefix,
+      sparse = sparse,
       keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
@@ -155,6 +159,7 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
     signed = x$signed,
     num_terms = x$num_terms,
     prefix = x$prefix,
+    sparse = x$sparse,
     keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
@@ -175,15 +180,20 @@ bake.step_texthash <- function(object, new_data, ...) {
         names0(object$num_terms, "")
       ),
       object$signed,
-      object$num_terms
+      object$num_terms,
+      object$sparse
     )
 
-    tf_text <- purrr::map_dfc(tf_text, as.integer)
+    if (sparse_is_yes(object$sparse)) {
+      tf_text <- purrr::map_dfc(tf_text, sparsevctrs::as_sparse_integer)
+    } else { 
+      tf_text <- purrr::map_dfc(tf_text, as.integer)
+    }
 
     tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
 
     new_data <- vec_cbind(new_data, tf_text)
-  }
+    }
   
   new_data <- remove_original_cols(new_data, object, col_names)
 
@@ -221,18 +231,26 @@ tidy.step_texthash <- function(x, ...) {
 }
 
 # Implementation
-hashing_function <- function(data, labels, signed, n) {
-  counts <- list_to_hash(data, n, signed)
+hashing_function <- function(data, labels, signed, n, sparse) {
+  counts <- list_to_hash(data, n, signed, sparse)
 
   colnames(counts) <- labels
   as_tibble(counts)
 }
 
 # Takes a [tokenlist] and calculate the hashed token count matrix
-list_to_hash <- function(x, n, signed) {
+list_to_hash <- function(x, n, signed, sparse) {
   it <- text2vec::itoken(x, progress = FALSE)
   vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
-  as.matrix(text2vec::create_dtm(it, vectorizer))
+  res <- text2vec::create_dtm(it, vectorizer)
+
+  if (sparse_is_yes(sparse)) {
+    colnames(res) <- seq_len(ncol(res))
+    res <- sparsevctrs::coerce_to_sparse_tibble(res)
+  } else {
+    res <- as.matrix(res)
+  }
+  res
 }
 
 #' S3 methods for tracking which additional packages are needed for steps.
@@ -261,4 +279,16 @@ tunable.step_texthash <- function(x, ...) {
     component = "step_texthash",
     component_id = x$id
   )
+}
+
+#' @export
+.recipes_estimate_sparsity.step_texthash <- function(x, data, ...) {
+  n_levels <- lapply(data, function(tmp) x$num_terms)
+
+  lapply(n_levels, function(n_lvl) {
+    c(
+      n_cols = n_lvl,
+      sparsity = 1 - 1 / n_lvl
+    )
+  })
 }
