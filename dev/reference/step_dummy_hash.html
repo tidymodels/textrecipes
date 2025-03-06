@@ -60,6 +60,7 @@ binary) indicator columns.</p>
 <span>  num_terms <span class="op">=</span> <span class="fl">32L</span>,</span>
 <span>  collapse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">"dummyhash"</span>,</span>
+<span>  sparse <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  keep_original_cols <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  skip <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  id <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/rand_id.html" class="external-link">rand_id</a></span><span class="op">(</span><span class="st">"dummy_hash"</span><span class="op">)</span></span>
@@ -118,6 +119,12 @@ into a single column to create a single set of hashed features?</p></dd>
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
 <dd><p>A character string that will be the prefix to the
 resulting new variables. See notes below.</p></dd>
+
+
+<dt id="arg-sparse">sparse<a class="anchor" aria-label="anchor" href="#arg-sparse"></a></dt>
+<dd><p>A single string. Should the columns produced be sparse vectors.
+Can take the values <code>"yes"</code>, <code>"no"</code>, and <code>"auto"</code>. If <code>sparse = "auto"</code>
+then workflows can determine the best option. Defaults to <code>"auto"</code>.</p></dd>
 
 
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
@@ -188,6 +195,20 @@ columns <code>terms</code>, <code>value</code>, <code>num_terms</code>, <code>co
     <p>This step has 2 tuning parameters:</p><ul><li><p><code>signed</code>: Signed Hash Value (type: logical, default: TRUE)</p></li>
 <li><p><code>num_terms</code>: # Hash Features (type: integer, default: 32)</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="sparse-data">Sparse data<a class="anchor" aria-label="anchor" href="#sparse-data"></a></h2>
+
+
+
+<p>This step produces sparse columns if <code>sparse = "yes"</code> is being set. The
+default value <code>"auto"</code> won't trigger production fo sparse columns if a recipe
+is <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code>ed, but allows for a workflow to toggle to <code>"yes"</code> or
+<code>"no"</code> depending on whether the model supports <a href="https://recipes.tidymodels.org/reference/sparse_data.html" class="external-link">recipes::sparse_data</a> and if
+the model is is expected to run faster with the data.</p>
+<p>The mechanism for determining how much sparsity is produced isn't perfect,
+and there will be times when you want to manually overwrite by setting
+<code>sparse = "yes"</code> or <code>sparse = "no"</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
 
