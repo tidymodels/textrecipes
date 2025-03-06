@@ -92,8 +92,8 @@
       predictor: 2
       
       -- Operations 
-      * Tokenization for: text1 and text2
-      * Merging tokens for: text1 and text2
+      * Tokenization for: text1 text2
+      * Merging tokens for: text1 text2
 
 ---
 
@@ -111,6 +111,6 @@
       Training data contained 4 data points and no incomplete rows.
       
       -- Operations 
-      * Tokenization for: text1 and text2 | Trained
-      * Merging tokens for: text1 and text2 | Trained
+      * Tokenization for: text1 text2 | Trained
+      * Merging tokens for: text1 text2 | Trained
 
