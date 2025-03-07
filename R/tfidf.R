@@ -22,6 +22,7 @@
 #' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e.,
 #'   replace the term frequency with 1 + log(TF). Defaults to FALSE.
 #' @template args-prefix
+#' @template args-sparse
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -63,6 +64,8 @@
 #'
 #' @template details-prefix
 #'
+#' @template sparse-creation
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
@@ -101,6 +104,7 @@ step_tfidf <-
     norm = "l1",
     sublinear_tf = FALSE,
     prefix = "tfidf",
+    sparse = "auto",
     keep_original_cols = FALSE,
     skip = FALSE,
     id = rand_id("tfidf")
@@ -118,6 +122,7 @@ step_tfidf <-
         sublinear_tf = sublinear_tf,
         columns = columns,
         prefix = prefix,
+        sparse = sparse,
         keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
@@ -137,6 +142,7 @@ step_tfidf_new <-
     norm,
     sublinear_tf,
     prefix,
+    sparse,
     keep_original_cols,
     skip,
     id
@@ -153,6 +159,7 @@ step_tfidf_new <-
       norm = norm,
       sublinear_tf = sublinear_tf,
       prefix = prefix,
+      sparse = sparse,
       keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
@@ -191,6 +198,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
     norm = x$norm,
     sublinear_tf = x$sublinear_tf,
     prefix = x$prefix,
+    sparse = x$sparse,
     keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
@@ -214,7 +222,8 @@ bake.step_tfidf <- function(object, new_data, ...) {
       paste0(object$prefix, "_", col_name),
       object$smooth_idf,
       object$norm,
-      object$sublinear_tf
+      object$sublinear_tf,
+      object$sparse
     )
 
     tfidf_text <- recipes::check_name(
@@ -255,7 +264,7 @@ tidy.step_tfidf <- function(x, ...) {
       res <- purrr::map2_dfr(
         x$columns,
         x$res,
-        ~tibble(
+        ~ tibble(
           terms = .x,
           token = names(.y),
           weight = unname(.y)
@@ -281,7 +290,8 @@ tfidf_function <- function(
   labels,
   smooth_idf,
   norm,
-  sublinear_tf
+  sublinear_tf,
+  sparse
 ) {
   # Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
   if (is.numeric(weights)) {
@@ -291,13 +301,20 @@ tfidf_function <- function(
   }
   counts <- tokenlist_to_dtm(data, dict)
 
-  tfidf <- dtm_to_tfidf(counts, weights, smooth_idf, norm, sublinear_tf)
+  tfidf <- dtm_to_tfidf(counts, weights, smooth_idf, norm, sublinear_tf, sparse)
 
   colnames(tfidf) <- paste0(labels, "_", dict)
   as_tibble(tfidf)
 }
 
-dtm_to_tfidf <- function(dtm, idf_weights, smooth_idf, norm, sublinear_tf) {
+dtm_to_tfidf <- function(
+  dtm,
+  idf_weights,
+  smooth_idf,
+  norm,
+  sublinear_tf,
+  sparse
+) {
   dtm <- normalize(dtm, norm)
 
   if (sublinear_tf) {
@@ -315,7 +332,14 @@ dtm_to_tfidf <- function(dtm, idf_weights, smooth_idf, norm, sublinear_tf) {
   } else {
     out <- dtm %*% Matrix::Diagonal(x = idf_weights)
   }
-  as.matrix(out)
+
+  if (sparse_is_yes(sparse)) {
+    colnames(out) <- seq_len(ncol(out))
+    out <- sparsevctrs::coerce_to_sparse_tibble(out)
+  } else {
+    out <- as.matrix(out)
+  }
+  out
 }
 
 normalize <- function(dtm, norm = c("l1", "l2", "none")) {
@@ -343,4 +367,23 @@ calc_idf <- function(dtm, smooth) {
 #' @export
 required_pkgs.step_tfidf <- function(x, ...) {
   c("textrecipes")
+}
+
+
+#' @export
+.recipes_estimate_sparsity.step_tfidf <- function(x, data, ...) {
+  get_levels <- function(col) {
+    n_chars <- nchar(col[seq(1, min(10, length(col)))])
+
+    floor(mean(n_chars))
+  }
+
+  n_levels <- lapply(data, get_levels)
+
+  lapply(n_levels, function(n_lvl) {
+    c(
+      n_cols = n_lvl,
+      sparsity = 1 - 1 / n_lvl
+    )
+  })
 }

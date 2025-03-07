@@ -4,6 +4,8 @@
 
 * `step_tf()` gained `sparse` argument. When set to `"yes"`, `step_dummy()` will produce sparse vectors. (#284)
 
+* `step_tfidf()` gained `sparse` argument. When set to `"yes"`, `step_dummy()` will produce sparse vectors. (#285)
+
 # textrecipes 1.0.7
 
 ## Improvements
