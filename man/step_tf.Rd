@@ -16,6 +16,7 @@ step_tf(
   vocabulary = NULL,
   res = NULL,
   prefix = "tf",
+  sparse = "auto",
   keep_original_cols = FALSE,
   skip = FALSE,
   id = rand_id("tf")
@@ -58,6 +59,10 @@ be stored here once this preprocessing step has be trained by
 \item{prefix}{A character string that will be the prefix to the
 resulting new variables. See notes below.}
 
+\item{sparse}{A single string. Should the columns produced be sparse vectors.
+Can take the values \code{"yes"}, \code{"no"}, and \code{"auto"}. If \code{sparse = "auto"}
+then workflows can determine the best option. Defaults to \code{"auto"}.}
+
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
 
@@ -74,11 +79,14 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
+\code{sparse = "yes"} doesn't take effect when
+\code{weight_scheme = "double normalization"} as it doesn't produce sparse data.
+}
+\details{
 \code{step_tf()} creates a \emph{specification} of a recipe step that will convert a
 \code{\link[=tokenlist]{token}} variable into multiple variables containing the token
 counts.
-}
-\details{
+
 It is strongly advised to use \link{step_tokenfilter} before using \link{step_tf} to
 limit the number of variables created, otherwise you might run into memory
 issues. A good strategy is to start with a low token count and go up
@@ -123,6 +131,20 @@ This step has 2 tuning parameters:
 \item \code{weight_scheme}: Term Frequency Weight Method (type: character, default: raw count)
 \item \code{weight}: Weight (type: double, default: 0.5)
 }
+}
+
+\section{Sparse data}{
+
+
+This step produces sparse columns if \code{sparse = "yes"} is being set. The
+default value \code{"auto"} won't trigger production fo sparse columns if a recipe
+is \code{\link[recipes:prep]{recipes::prep()}}ed, but allows for a workflow to toggle to \code{"yes"} or
+\code{"no"} depending on whether the model supports \link[recipes:sparse_data]{recipes::sparse_data} and if
+the model is is expected to run faster with the data.
+
+The mechanism for determining how much sparsity is produced isn't perfect,
+and there will be times when you want to manually overwrite by setting
+\code{sparse = "yes"} or \code{sparse = "no"}.
 }
 
 \section{Case weights}{

@@ -134,7 +134,7 @@ test_that("check_name() is used", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-      step_tf(all_predictors())
+    step_tf(all_predictors())
   rec_param <- tunable.step_tf(rec$steps[[1]])
   expect_equal(rec_param$name, c("weight_scheme", "weight"))
   expect_true(all(rec_param$source == "recipe"))
@@ -171,6 +171,101 @@ test_that("bad args", {
       step_tf(prefix = NULL) %>%
       prep()
   )
+})
+
+test_that("sparse = 'yes' works", {
+  rec <- recipe(~., data = test_data)
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "raw count", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "raw count", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_integer, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_integer, logical(1))))
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "binary", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "binary", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_integer, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_integer, logical(1))))
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "term frequency", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "term frequency", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "log normalization", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tf(text, weight_scheme = "log normalization", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+})
+
+test_that("sparse argument is backwards compatible", {
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tf(text, sparse = "no") %>%
+    prep()
+
+  exp <- bake(rec, test_data)
+
+  # Simulate old recipe
+  rec$steps[[1]]$sparse <- NULL
+
+  expect_identical(
+    bake(rec, test_data),
+    exp
+  )
+})
+
+test_that(".recipes_toggle_sparse_args works", {
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tf(text, sparse = "auto")
+
+  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+
+  expect_true(.recipes_estimate_sparsity(rec) >= exp)
 })
 
 # Infrastructure ---------------------------------------------------------------
