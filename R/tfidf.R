@@ -175,6 +175,7 @@ prep.step_tfidf <- function(x, training, info = NULL, ...) {
   rlang::arg_match0(x$norm, c("l1", "l2", "none"), arg_nm = "norm")
   check_bool(x$sublinear_tf, arg = "sublinear_tf")
   check_string(x$prefix, arg = "prefix")
+  check_sparse_arg(x$sparse)
 
   check_type(training[, col_names], types = "tokenlist")
 

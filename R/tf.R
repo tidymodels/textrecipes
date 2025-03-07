@@ -188,6 +188,7 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
   check_number_decimal(x$weight, arg = "weight")
   check_character(x$vocabulary, allow_null = TRUE, arg = "vocabulary")
   check_string(x$prefix, arg = "prefix")
+  check_sparse_arg(x$sparse)
 
   check_type(training[, col_names], types = "tokenlist")
 
