@@ -169,6 +169,7 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
   check_bool(x$signed, arg = "signed")
   check_number_whole(x$num_terms, min = 0, arg = "num_terms")
   check_string(x$prefix, arg = "prefix")
+  check_sparse_arg(x$sparse)
 
   check_type(training[, col_names], types = "tokenlist")
 
