@@ -164,6 +164,101 @@ test_that("bad args", {
   )
 })
 
+test_that("sparse = 'yes' works", {
+  rec <- recipe(~., data = test_data)
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, norm = "l1", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, norm = "l1", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, norm = "l2", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, norm = "l2", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, norm = "none", sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, norm = "none", sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+
+  dense <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, sublinear_tf = TRUE, sparse = "no") %>%
+    prep() %>%
+    bake(NULL)
+  sparse <- rec %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, sublinear_tf = TRUE, sparse = "yes") %>%
+    prep() %>%
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+})
+
+test_that("sparse argument is backwards compatible", {
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, sparse = "no") %>%
+    prep()
+
+  exp <- bake(rec, test_data)
+
+  # Simulate old recipe
+  rec$steps[[1]]$sparse <- NULL
+
+  expect_identical(
+    bake(rec, test_data),
+    exp
+  )
+})
+
+test_that(".recipes_toggle_sparse_args works", {
+  rec <- recipe(~., data = test_data) %>%
+    step_tokenize(text) %>%
+    step_tfidf(text, sparse = "auto")
+
+  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+
+  expect_true(.recipes_estimate_sparsity(rec) >= exp)
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
