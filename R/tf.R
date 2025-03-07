@@ -20,6 +20,7 @@
 #'   be stored here once this preprocessing step has be trained by
 #'   [recipes::prep.recipe()].
 #' @template args-prefix
+#' @template args-sparse
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -69,6 +70,12 @@
 #' cat(result)
 #' ```
 #'
+#' @template sparse-creation
+#'
+#' @description
+#' `sparse = "yes"` doesn't take effect when
+#' `weight_scheme = "double normalization"` as it doesn't produce sparse data.
+#'
 #' @template case-weights-not-supported
 #'
 #' @seealso [step_tokenize()] to turn characters into [`tokens`][tokenlist()]
@@ -106,6 +113,7 @@ step_tf <-
     vocabulary = NULL,
     res = NULL,
     prefix = "tf",
+    sparse = "auto",
     keep_original_cols = FALSE,
     skip = FALSE,
     id = rand_id("tf")
@@ -122,6 +130,7 @@ step_tf <-
         weight = weight,
         vocabulary = vocabulary,
         prefix = prefix,
+        sparse = sparse,
         keep_original_cols = keep_original_cols,
         skip = skip,
         id = id
@@ -148,6 +157,7 @@ step_tf_new <-
     vocabulary,
     res,
     prefix,
+    sparse,
     keep_original_cols,
     skip,
     id
@@ -163,6 +173,7 @@ step_tf_new <-
       vocabulary = vocabulary,
       res = res,
       prefix = prefix,
+      sparse = sparse,
       keep_original_cols = keep_original_cols,
       skip = skip,
       id = id
@@ -197,6 +208,7 @@ prep.step_tf <- function(x, training, info = NULL, ...) {
     vocabulary = x$vocabulary,
     res = token_list,
     prefix = x$prefix,
+    sparse = x$sparse,
     keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
     id = x$id
@@ -219,11 +231,16 @@ bake.step_tf <- function(object, new_data, ...) {
       object$res[[col_name]],
       paste0(object$prefix, "_", col_name),
       object$weight_scheme,
-      object$weight
+      object$weight,
+      object$sparse
     )
 
     if (object$weight_scheme %in% c("binary", "raw count")) {
-      tf_text <- purrr::map_dfc(tf_text, as.integer)
+      if (sparse_is_yes(object$sparse)) {
+        tf_text <- purrr::map_dfc(tf_text, sparsevctrs::as_sparse_integer)
+      } else {
+        tf_text <- purrr::map_dfc(tf_text, as.integer)
+      }
     }
 
     tf_text <- recipes::check_name(tf_text, new_data, object, names(tf_text))
@@ -264,12 +281,21 @@ tidy.step_tf <- function(x, ...) {
   res
 }
 
-tf_function <- function(data, names, labels, weights, weight) {
-  counts <- as.matrix(tokenlist_to_dtm(data, names))
+tf_function <- function(data, names, labels, weights, weight, sparse) {
+  counts <- tokenlist_to_dtm(data, names)
 
-  tf <- tf_weight(counts, weights, weight)
-  colnames(tf) <- paste0(labels, "_", names)
-  as_tibble(tf)
+  if (weights == "double normalization" || !sparse_is_yes(sparse)) {
+    counts <- as.matrix(counts)
+    out <- tf_weight(counts, weights, weight)
+    colnames(out) <- paste0(labels, "_", names)
+    out <- as_tibble(out)
+  } else {
+    counts <- sparsevctrs::coerce_to_sparse_tibble(counts)
+    out <- tf_weight_sparse(counts, weights)
+    colnames(out) <- paste0(labels, "_", names)
+  }
+
+  out
 }
 
 tf_weight <- function(x, scheme, weight) {
@@ -294,6 +320,49 @@ tf_weight <- function(x, scheme, weight) {
   }
 }
 
+tf_weight_sparse <- function(x, scheme) {
+  if (scheme == "binary") {
+    res <- lapply(x, function(x) {
+      positions <- sparsevctrs::sparse_positions(x)
+      len <- length(x)
+
+      sparsevctrs::sparse_integer(rep(1, length(positions)), positions, len)
+    })
+
+    res <- tibble::new_tibble(res)
+    return(res)
+  }
+  if (scheme == "raw count") {
+    return(x)
+  }
+  if (scheme == "term frequency") {
+    x <- sparsevctrs::coerce_to_sparse_matrix(x)
+    rowsums_x <- Matrix::rowSums(x)
+    res <- x / rowsums_x
+    if (any(rowsums_x == 0)) {
+      res[rowsums_x == 0, ] <- 0
+    }
+    res <- sparsevctrs::coerce_to_sparse_tibble(res)
+    return(res)
+  }
+  if (scheme == "log normalization") {
+    res <- lapply(x, function(x) {
+      values <- sparsevctrs::sparse_values(x)
+      positions <- sparsevctrs::sparse_positions(x)
+      len <- length(x)
+
+      sparsevctrs::sparse_double(
+        log(1 + values),
+        positions,
+        len
+      )
+    })
+
+    res <- tibble::new_tibble(res)
+    return(res)
+  }
+}
+
 #' @rdname required_pkgs.step
 #' @export
 required_pkgs.step_tf <- function(x, ...) {
@@ -313,4 +382,22 @@ tunable.step_tf <- function(x, ...) {
     component = "step_tf",
     component_id = x$id
   )
+}
+
+#' @export
+.recipes_estimate_sparsity.step_tf <- function(x, data, ...) {
+  get_levels <- function(col) {
+    n_chars <- nchar(col[seq(1, min(10, length(col)))])
+
+    floor(mean(n_chars))
+  }
+
+  n_levels <- lapply(data, get_levels)
+
+  lapply(n_levels, function(n_lvl) {
+    c(
+      n_cols = n_lvl,
+      sparsity = 1 - 1 / n_lvl
+    )
+  })
 }

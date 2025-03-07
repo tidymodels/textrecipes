@@ -2,6 +2,7 @@
 
 S3method(.recipes_estimate_sparsity,step_dummy_hash)
 S3method(.recipes_estimate_sparsity,step_texthash)
+S3method(.recipes_estimate_sparsity,step_tf)
 S3method(bake,step_clean_levels)
 S3method(bake,step_clean_names)
 S3method(bake,step_dummy_hash)
