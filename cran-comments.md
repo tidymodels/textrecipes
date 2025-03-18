@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 21th CRAN release of textrecipes. 
+This is the 22th CRAN release of textrecipes. 
 
 ## R CMD check results
 
