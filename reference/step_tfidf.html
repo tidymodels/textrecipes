@@ -11,7 +11,7 @@ frequency-inverse document frequency of tokens."><meta property="og:image" conte
 
     <a class="navbar-brand me-2" href="../index.html">textrecipes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ frequency-inverse document frequency of tokens."><meta property="og:image" conte
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Term Frequency-Inverse Document Frequency of Tokens</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/v1.0.7/R/tfidf.R" class="external-link"><code>R/tfidf.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/v1.1.0/R/tfidf.R" class="external-link"><code>R/tfidf.R</code></a></small>
       <div class="d-none name"><code>step_tfidf.Rd</code></div>
     </div>
 
@@ -62,6 +62,7 @@ frequency-inverse document frequency of tokens.</p>
 <span>  norm <span class="op">=</span> <span class="st">"l1"</span>,</span>
 <span>  sublinear_tf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">"tfidf"</span>,</span>
+<span>  sparse <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  keep_original_cols <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  skip <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  id <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/rand_id.html" class="external-link">rand_id</a></span><span class="op">(</span><span class="st">"tfidf"</span><span class="op">)</span></span>
@@ -133,6 +134,12 @@ replace the term frequency with 1 + log(TF). Defaults to FALSE.</p></dd>
 resulting new variables. See notes below.</p></dd>
 
 
+<dt id="arg-sparse">sparse<a class="anchor" aria-label="anchor" href="#arg-sparse"></a></dt>
+<dd><p>A single string. Should the columns produced be sparse vectors.
+Can take the values <code>"yes"</code>, <code>"no"</code>, and <code>"auto"</code>. If <code>sparse = "auto"</code>
+then workflows can determine the best option. Defaults to <code>"auto"</code>.</p></dd>
+
+
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
 <dd><p>A logical to keep the original variables in the
 output. Defaults to <code>FALSE</code>.</p></dd>
@@ -197,6 +204,20 @@ columns <code>terms</code>, <code>token</code>, <code>weight</code>, and <code>i
 
 </dl></div>
     <div class="section level2">
+    <h2 id="sparse-data">Sparse data<a class="anchor" aria-label="anchor" href="#sparse-data"></a></h2>
+
+
+
+<p>This step produces sparse columns if <code>sparse = "yes"</code> is being set. The
+default value <code>"auto"</code> won't trigger production fo sparse columns if a recipe
+is <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code>ed, but allows for a workflow to toggle to <code>"yes"</code> or
+<code>"no"</code> depending on whether the model supports <a href="https://recipes.tidymodels.org/reference/sparse_data.html" class="external-link">recipes::sparse_data</a> and if
+the model is is expected to run faster with the data.</p>
+<p>The mechanism for determining how much sparsity is produced isn't perfect,
+and there will be times when you want to manually overwrite by setting
+<code>sparse = "yes"</code> or <code>sparse = "no"</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
 
 
@@ -229,45 +250,45 @@ columns <code>terms</code>, <code>token</code>, <code>weight</code>, and <code>i
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">tate_obj</span>, <span class="va">tate_text</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4,284 × 956</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        id artist             title     year tfidf_medium_1 tfidf_medium_10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">21</span>926 Absalon            Proposa…  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">20</span>472 Auerbach, Frank    Michael   <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">20</span>474 Auerbach, Frank    Geoffrey  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">20</span>473 Auerbach, Frank    Jake      <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">20</span>513 Auerbach, Frank    To the …  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">21</span>389 Ayres, OBE Gillian Phaëthon  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>187 Barlow, Phyllida   Untitled  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">19</span>455 Baselitz, Georg    Green V…  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">20</span>938 Beattie, Basil     Present…  <span style="text-decoration: underline;">1</span>990              0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">105</span>941 Beuys, Joseph      Joseph …  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        id artist             title  year tfidf_medium_1 tfidf_medium_10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">21</span>926 Absalon            Prop…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">20</span>472 Auerbach, Frank    Mich…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">20</span>474 Auerbach, Frank    Geof…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">20</span>473 Auerbach, Frank    Jake   <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">20</span>513 Auerbach, Frank    To t…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">21</span>389 Ayres, OBE Gillian Phaë…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>187 Barlow, Phyllida   Unti…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">19</span>455 Baselitz, Georg    Gree…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">20</span>938 Beattie, Basil     Pres…  <span style="text-decoration: underline;">1</span>990              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">105</span>941 Beuys, Joseph      Jose…  <span style="text-decoration: underline;">1</span>990              0               0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4,274 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 950 more variables: tfidf_medium_100 &lt;dbl&gt;, tfidf_medium_11 &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_12 &lt;dbl&gt;, tfidf_medium_13 &lt;dbl&gt;, tfidf_medium_133 &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_14 &lt;dbl&gt;, tfidf_medium_15 &lt;dbl&gt;, tfidf_medium_151 &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_12 &lt;dbl&gt;, tfidf_medium_13 &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_133 &lt;dbl&gt;, tfidf_medium_14 &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_15 &lt;dbl&gt;, tfidf_medium_151 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_16 &lt;dbl&gt;, tfidf_medium_160 &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_16mm &lt;dbl&gt;, tfidf_medium_18 &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_19 &lt;dbl&gt;, tfidf_medium_2 &lt;dbl&gt;, tfidf_medium_20 &lt;dbl&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tfidf_medium_16mm &lt;dbl&gt;, tfidf_medium_18 &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_rec</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  token weight id         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> tfidf_z2xlZ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> tfidf_A8CNy</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 952 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms  token weight id         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium 1       7.26 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium 10      7.26 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium 100     7.26 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium 11      7.67 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium 12      7.67 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium 13      8.36 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium 133     8.36 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium 14      6.75 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium 15      6.57 tfidf_z2xlZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium 151     8.36 tfidf_z2xlZ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium 1       7.26 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium 10      7.26 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium 100     7.26 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium 11      7.67 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium 12      7.67 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium 13      8.36 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium 133     8.36 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium 14      6.75 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium 15      6.57 tfidf_A8CNy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium 151     8.36 tfidf_A8CNy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 942 more rows</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

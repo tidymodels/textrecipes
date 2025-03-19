@@ -11,7 +11,7 @@ binary) indicator columns."><meta property="og:image" content="https://textrecip
 
     <a class="navbar-brand me-2" href="../index.html">textrecipes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ binary) indicator columns."><meta property="og:image" content="https://textrecip
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Indicator Variables via Feature Hashing</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/v1.0.7/R/dummy_hash.R" class="external-link"><code>R/dummy_hash.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/v1.1.0/R/dummy_hash.R" class="external-link"><code>R/dummy_hash.R</code></a></small>
       <div class="d-none name"><code>step_dummy_hash.Rd</code></div>
     </div>
 
@@ -60,6 +60,7 @@ binary) indicator columns.</p>
 <span>  num_terms <span class="op">=</span> <span class="fl">32L</span>,</span>
 <span>  collapse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">"dummyhash"</span>,</span>
+<span>  sparse <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  keep_original_cols <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  skip <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  id <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/rand_id.html" class="external-link">rand_id</a></span><span class="op">(</span><span class="st">"dummy_hash"</span><span class="op">)</span></span>
@@ -118,6 +119,12 @@ into a single column to create a single set of hashed features?</p></dd>
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
 <dd><p>A character string that will be the prefix to the
 resulting new variables. See notes below.</p></dd>
+
+
+<dt id="arg-sparse">sparse<a class="anchor" aria-label="anchor" href="#arg-sparse"></a></dt>
+<dd><p>A single string. Should the columns produced be sparse vectors.
+Can take the values <code>"yes"</code>, <code>"no"</code>, and <code>"auto"</code>. If <code>sparse = "auto"</code>
+then workflows can determine the best option. Defaults to <code>"auto"</code>.</p></dd>
 
 
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
@@ -189,6 +196,20 @@ columns <code>terms</code>, <code>value</code>, <code>num_terms</code>, <code>co
 <li><p><code>num_terms</code>: # Hash Features (type: integer, default: 32)</p></li>
 </ul></div>
     <div class="section level2">
+    <h2 id="sparse-data">Sparse data<a class="anchor" aria-label="anchor" href="#sparse-data"></a></h2>
+
+
+
+<p>This step produces sparse columns if <code>sparse = "yes"</code> is being set. The
+default value <code>"auto"</code> won't trigger production fo sparse columns if a recipe
+is <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code>ed, but allows for a workflow to toggle to <code>"yes"</code> or
+<code>"no"</code> depending on whether the model supports <a href="https://recipes.tidymodels.org/reference/sparse_data.html" class="external-link">recipes::sparse_data</a> and if
+the model is is expected to run faster with the data.</p>
+<p>The mechanism for determining how much sparsity is produced isn't perfect,
+and there will be times when you want to manually overwrite by setting
+<code>sparse = "yes"</code> or <code>sparse = "no"</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h2>
 
 
@@ -230,25 +251,25 @@ Josh Attenberg (2009).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">grants_obj</span>, <span class="va">grants_test</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 518 × 32</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dummyhash_sponsor_code_01 dummyhash_sponsor_co…¹ dummyhash_sponsor_co…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>                         0                      1                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>                         0                      1                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>                         0                      0                      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>                         0                      1                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    dummyhash_sponsor_co…¹ dummyhash_sponsor_co…² dummyhash_sponsor_co…³</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>                      0                      1                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>                      0                      1                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>                      0                      0                      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>                      0                      1                      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 508 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated names: ¹​dummyhash_sponsor_code_02,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​dummyhash_sponsor_code_03</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated names: ¹​dummyhash_sponsor_code_01,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​dummyhash_sponsor_code_02, ³​dummyhash_sponsor_code_03</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 29 more variables: dummyhash_sponsor_code_04 &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dummyhash_sponsor_code_05 &lt;int&gt;, dummyhash_sponsor_code_06 &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dummyhash_sponsor_code_07 &lt;int&gt;, dummyhash_sponsor_code_08 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dummyhash_sponsor_code_09 &lt;int&gt;, dummyhash_sponsor_code_10 &lt;int&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dummyhash_sponsor_code_09 &lt;int&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">grants_rec</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>

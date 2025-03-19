@@ -11,7 +11,7 @@ token variable."><meta property="og:image" content="https://textrecipes.tidymode
 
     <a class="navbar-brand me-2" href="../index.html">textrecipes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ token variable."><meta property="og:image" content="https://textrecipes.tidymode
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Combine Multiple Token Variables Into One</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/v1.0.7/R/tokenmerge.R" class="external-link"><code>R/tokenmerge.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/v1.1.0/R/tokenmerge.R" class="external-link"><code>R/tokenmerge.R</code></a></small>
       <div class="d-none name"><code>step_tokenmerge.Rd</code></div>
     </div>
 
@@ -168,32 +168,32 @@ columns <code>terms</code> and <code>id</code>:</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">tate_obj</span>, new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4,284 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        id title                                            year tokenmerge</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;tknlist&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">21</span>926 Proposals for a Habitat                          <span style="text-decoration: underline;">1</span>990 [9 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">20</span>472 Michael                                          <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">20</span>474 Geoffrey                                         <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">20</span>473 Jake                                             <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">20</span>513 To the Studios                                   <span style="text-decoration: underline;">1</span>990 [6 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">21</span>389 Phaëthon                                         <span style="text-decoration: underline;">1</span>990 [7 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>187 Untitled                                         <span style="text-decoration: underline;">1</span>990 [6 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">19</span>455 Green VIII                                       <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">20</span>938 Present Bound                                    <span style="text-decoration: underline;">1</span>990 [8 tokens]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">105</span>941 Joseph Beuys: A Private Collection. A11 Artfor…  <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        id title                                         year tokenmerge</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;tknlist&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">21</span>926 Proposals for a Habitat                       <span style="text-decoration: underline;">1</span>990 [9 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">20</span>472 Michael                                       <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">20</span>474 Geoffrey                                      <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">20</span>473 Jake                                          <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">20</span>513 To the Studios                                <span style="text-decoration: underline;">1</span>990 [6 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">21</span>389 Phaëthon                                      <span style="text-decoration: underline;">1</span>990 [7 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>187 Untitled                                      <span style="text-decoration: underline;">1</span>990 [6 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">19</span>455 Green VIII                                    <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">20</span>938 Present Bound                                 <span style="text-decoration: underline;">1</span>990 [8 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">105</span>941 Joseph Beuys: A Private Collection. A11 Art…  <span style="text-decoration: underline;">1</span>990 [5 tokens]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4,274 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_rec</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  id              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenmerge_2C4e0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> artist tokenmerge_2C4e0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenmerge_i1KKQ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> artist tokenmerge_i1KKQ</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  id              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenmerge_2C4e0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> artist tokenmerge_2C4e0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenmerge_i1KKQ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> artist tokenmerge_i1KKQ</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
