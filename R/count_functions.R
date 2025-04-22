@@ -92,22 +92,22 @@ n_puncts <- function(x) {
 
 first_person <- function(x) {
   fp <- c("i", "me", "myself", "my", "mine", "this")
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 first_personp <- function(x) {
   fp <- c("we", "us", "our", "ours", "these")
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 second_person <- function(x) {
   fp <- c("you", "yours", "your", "yourself")
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 second_personp <- function(x) {
   fp <- c("he", "she", "it", "its", "his", "hers")
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 third_person <- function(x) {
@@ -121,12 +121,12 @@ third_person <- function(x) {
     "those",
     "that"
   )
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 to_be <- function(x) {
   fp <- c("am", "is", "are", "was", "were", "being", "been", "be", "were", "be")
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 prepositions <- function(x) {
@@ -184,7 +184,7 @@ prepositions <- function(x) {
     "to",
     "for"
   )
-  purrr::map_int(x, ~sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, ~ sum(fp %in% .x, na.rm = TRUE))
 }
 
 #' List of all feature counting functions
