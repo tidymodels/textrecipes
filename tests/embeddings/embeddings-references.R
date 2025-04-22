@@ -63,7 +63,7 @@ sentence_embeddings_sum <- sentence_embeddings_long %>%
   dplyr::summarize_all(sum) %>%
   dplyr::rename_if(
     is.numeric,
-    ~paste("wordembed_text", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 
 sentence_embeddings_sum <- test_data %>%
@@ -77,7 +77,7 @@ sentence_embeddings_mean <- sentence_embeddings_long %>%
   dplyr::summarize_all(mean) %>%
   dplyr::rename_if(
     is.numeric,
-    ~paste("wordembed_text", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_mean <- test_data %>%
   dplyr::left_join(sentence_embeddings_mean, by = "text")
@@ -94,7 +94,7 @@ sentence_embeddings_min <- sentence_embeddings_long %>%
   dplyr::summarize_all(min) %>%
   dplyr::rename_if(
     is.numeric,
-    ~paste("wordembed_text", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_min <- test_data %>%
   dplyr::left_join(sentence_embeddings_min, by = "text")
@@ -107,7 +107,7 @@ sentence_embeddings_max <- sentence_embeddings_long %>%
   dplyr::summarize_all(max) %>%
   dplyr::rename_if(
     is.numeric,
-    ~paste("wordembed_text", ., sep = "_")
+    ~ paste("wordembed_text", ., sep = "_")
   )
 sentence_embeddings_max <- test_data %>%
   dplyr::left_join(sentence_embeddings_max, by = "text")

@@ -119,7 +119,7 @@ test_that("tokenfilter works with filter_fun", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-      step_tokenfilter(all_predictors())
+    step_tokenfilter(all_predictors())
   rec_param <- tunable.step_tokenfilter(rec$steps[[1]])
   expect_equal(rec_param$name, c("max_times", "min_times", "max_tokens"))
   expect_true(all(rec_param$source == "recipe"))

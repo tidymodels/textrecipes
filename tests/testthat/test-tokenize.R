@@ -132,7 +132,7 @@ test_that("tokenization doesn't includes lemma attribute when unavaliable", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-      step_tokenize(all_predictors())
+    step_tokenize(all_predictors())
   rec_param <- tunable.step_tokenize(rec$steps[[1]])
   expect_equal(rec_param$name, c("token"))
   expect_true(all(rec_param$source == "recipe"))

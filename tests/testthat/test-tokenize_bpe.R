@@ -178,7 +178,7 @@ test_that("Errors if vocabulary size is set to low.", {
 test_that("tunable", {
   rec <-
     recipe(~., data = mtcars) %>%
-      step_tokenize_bpe(all_predictors())
+    step_tokenize_bpe(all_predictors())
   rec_param <- tunable.step_tokenize_bpe(rec$steps[[1]])
   expect_equal(rec_param$name, c("vocabulary_size"))
   expect_true(all(rec_param$source == "recipe"))

@@ -9,7 +9,7 @@ test_that("step_lda works as intended", {
   n_rows <- 100
   n_top <- 10
 
-  rec1 <- recipe(~medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
+  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     step_lda(medium, num_topics = n_top)
 
@@ -32,7 +32,7 @@ test_that("step_lda works with num_topics argument", {
 
   n_rows <- 100
   n_top <- 100
-  rec1 <- recipe(~medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
+  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
     step_tokenize(medium) %>%
     step_lda(medium, num_topics = n_top)
 
@@ -97,7 +97,7 @@ test_that("bake method errors when needed non-standard role columns are missing"
   n_rows <- 100
 
   tokenized_test_data <- recipe(
-    ~medium + artist,
+    ~ medium + artist,
     data = tate_text[seq_len(n_rows), ]
   ) %>%
     step_tokenize(medium) %>%
