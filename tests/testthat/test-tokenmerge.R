@@ -76,7 +76,7 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text1 + text2, data = test_data) %>%
+  tokenized_test_data <- recipe(~ text1 + text2, data = test_data) %>%
     step_tokenize(text1, text2) %>%
     prep() %>%
     bake(new_data = NULL)

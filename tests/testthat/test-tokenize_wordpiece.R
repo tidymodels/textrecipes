@@ -83,7 +83,7 @@ test_that("bad args", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("wordpiece")
 
-  rec <- recipe(~text1 + text2, data = test_data) %>%
+  rec <- recipe(~ text1 + text2, data = test_data) %>%
     step_tokenize_wordpiece(text1, text2) %>%
     update_role(text1, new_role = "potato") %>%
     update_role_requirements(role = "potato", bake = FALSE)

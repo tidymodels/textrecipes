@@ -296,22 +296,27 @@ test_that("aggregation_default argument works", {
 })
 
 test_that("bad args", {
+  embeddings <- tibble::tibble(x = character(), y = numeric())
+
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%
-      step_word_embeddings(aggregation = "wrong") %>%
+      step_word_embeddings(embeddings = embeddings, aggregation = "wrong") %>%
       prep()
   )
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%
-      step_word_embeddings(aggregation_default = "yes") %>%
+      step_word_embeddings(
+        embeddings = embeddings,
+        aggregation_default = "yes"
+      ) %>%
       prep()
   )
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) %>%
-      step_word_embeddings(prefix = NULL) %>%
+      step_word_embeddings(embeddings = embeddings, prefix = NULL) %>%
       prep()
   )
 })

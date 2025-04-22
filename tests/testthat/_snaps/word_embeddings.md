@@ -11,28 +11,31 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_word_embeddings(aggregation = "wrong") %>%
-        prep()
+      recipe(~., data = mtcars) %>% step_word_embeddings(embeddings = embeddings,
+        aggregation = "wrong") %>% prep()
     Condition
       Error in `step_word_embeddings()`:
-      ! argument "embeddings" is missing, with no default
+      ! `aggregation` must be one of "sum", "mean", "min", or "max", not "wrong".
 
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_word_embeddings(aggregation_default = "yes") %>%
-        prep()
+      recipe(~., data = mtcars) %>% step_word_embeddings(embeddings = embeddings,
+        aggregation_default = "yes") %>% prep()
     Condition
       Error in `step_word_embeddings()`:
-      ! argument "embeddings" is missing, with no default
+      Caused by error in `prep()`:
+      ! `aggregation_default` must be a number, not the string "yes".
 
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_word_embeddings(prefix = NULL) %>% prep()
+      recipe(~., data = mtcars) %>% step_word_embeddings(embeddings = embeddings,
+        prefix = NULL) %>% prep()
     Condition
       Error in `step_word_embeddings()`:
-      ! argument "embeddings" is missing, with no default
+      Caused by error in `prep()`:
+      ! `prefix` must be a single string, not `NULL`.
 
 # bake method errors when needed non-standard role columns are missing
 
