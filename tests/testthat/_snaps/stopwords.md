@@ -1,7 +1,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_stopwords(language = -4) %>% prep()
+      prep(step_stopwords(recipe(~., data = mtcars), language = -4))
     Condition
       Error in `step_stopwords()`:
       Caused by error in `prep()`:
@@ -10,7 +10,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_stopwords(keep = -4) %>% prep()
+      prep(step_stopwords(recipe(~., data = mtcars), keep = -4))
     Condition
       Error in `step_stopwords()`:
       Caused by error in `prep()`:
@@ -19,7 +19,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_stopwords(stopword_source = -4) %>% prep()
+      prep(step_stopwords(recipe(~., data = mtcars), stopword_source = -4))
     Condition
       Error in `step_stopwords()`:
       Caused by error in `prep()`:
@@ -28,8 +28,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_stopwords(custom_stopword_source = 1:10) %>%
-        prep()
+      prep(step_stopwords(recipe(~., data = mtcars), custom_stopword_source = 1:10))
     Condition
       Error in `step_stopwords()`:
       Caused by error in `prep()`:

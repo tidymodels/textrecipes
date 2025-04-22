@@ -11,7 +11,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_pos_filter(keep_tags = -4) %>% prep()
+      recipe(~., data = mtcars) |> step_pos_filter(keep_tags = -4) |> prep()
     Condition
       Error in `step_pos_filter()`:
       Caused by error in `prep()`:

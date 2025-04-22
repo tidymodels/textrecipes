@@ -9,17 +9,17 @@ test_that("hashing gives double outputs", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  rec <- recipe(~., data = test_data) %>%
+  rec <- recipe(~., data = test_data) |>
     step_dummy_hash(sponsor_code)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_true(
-    bake(obj, new_data = NULL) %>%
-      select(contains("hash")) %>%
-      lapply(is.integer) %>%
-      unlist() %>%
+    bake(obj, new_data = NULL) |>
+      select(contains("hash")) |>
+      lapply(is.integer) |>
+      unlist() |>
       all()
   )
 
@@ -38,9 +38,9 @@ test_that("hashing multiple factors", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  res <- recipe(~., data = test_data) %>%
-    step_dummy_hash(all_nominal_predictors(), num_terms = 12) %>%
-    prep() %>%
+  res <- recipe(~., data = test_data) |>
+    step_dummy_hash(all_nominal_predictors(), num_terms = 12) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(ncol(res), 24)
@@ -59,13 +59,13 @@ test_that("hashing collapsed multiple factors", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  res <- recipe(~., data = test_data) %>%
+  res <- recipe(~., data = test_data) |>
     step_dummy_hash(
       all_nominal_predictors(),
       num_terms = 4,
       collapse = TRUE
-    ) %>%
-    prep() %>%
+    ) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(ncol(res), 4)
@@ -83,13 +83,13 @@ test_that("hashing output width changes accordingly with num_terms", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  rec <- recipe(~., data = test_data) %>%
-    step_dummy_hash(sponsor_code, num_terms = 256) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_dummy_hash(sponsor_code, num_terms = 256) |>
     prep()
 
   expect_equal(
-    bake(rec, new_data = NULL) %>%
-      select(contains("dummyhash")) %>%
+    bake(rec, new_data = NULL) |>
+      select(contains("dummyhash")) |>
       ncol(),
     256
   )
@@ -106,14 +106,14 @@ test_that("hashing output width changes accordingly with num_terms", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  signed <- recipe(~., data = test_data) %>%
-    step_dummy_hash(all_predictors(), num_terms = 2) %>%
-    prep() %>%
+  signed <- recipe(~., data = test_data) |>
+    step_dummy_hash(all_predictors(), num_terms = 2) |>
+    prep() |>
     bake(new_data = NULL)
 
-  unsigned <- recipe(~., data = test_data) %>%
-    step_dummy_hash(all_predictors(), num_terms = 2, signed = FALSE) %>%
-    prep() %>%
+  unsigned <- recipe(~., data = test_data) |>
+    step_dummy_hash(all_predictors(), num_terms = 2, signed = FALSE) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_true(
@@ -149,7 +149,7 @@ test_that("check_name() is used", {
   dat$text <- dat$sponsor_code
   dat$dummyhash_text_01 <- dat$sponsor_code
 
-  rec <- recipe(~., data = dat) %>%
+  rec <- recipe(~., data = dat) |>
     step_dummy_hash(text)
 
   expect_snapshot(
@@ -160,7 +160,7 @@ test_that("check_name() is used", {
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_dummy_hash(all_predictors())
   rec_param <- tunable.step_dummy_hash(rec$steps[[1]])
   expect_equal(rec_param$name, c("signed", "num_terms"))
@@ -180,20 +180,20 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_dummy_hash(signed = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_dummy_hash(signed = "yes") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_dummy_hash(num_terms = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_dummy_hash(num_terms = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_dummy_hash(collapse = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_dummy_hash(collapse = "yes") |>
       prep()
   )
 })
@@ -210,13 +210,13 @@ test_that("sparse = 'yes' works", {
 
   rec <- recipe(~sponsor_code, data = test_data)
 
-  dense <- rec %>%
-    step_dummy_hash(sponsor_code, sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_dummy_hash(sponsor_code, sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_dummy_hash(sponsor_code, sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_dummy_hash(sponsor_code, sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -235,8 +235,8 @@ test_that("sparse argument is backwards compatible", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  rec <- recipe(~., data = test_data) %>%
-    step_dummy_hash(sponsor_code, sparse = "no") %>%
+  rec <- recipe(~., data = test_data) |>
+    step_dummy_hash(sponsor_code, sparse = "no") |>
     prep()
 
   exp <- bake(rec, test_data)
@@ -260,10 +260,10 @@ test_that(".recipes_toggle_sparse_args works", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  rec <- recipe(~., data = test_data) %>%
+  rec <- recipe(~., data = test_data) |>
     step_dummy_hash(sponsor_code, sparse = "auto")
 
-  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+  exp <- rec |> prep() |> bake(NULL) |> sparsevctrs::sparsity()
 
   expect_true(.recipes_estimate_sparsity(rec) >= exp)
 })
@@ -280,9 +280,9 @@ test_that("bake method errors when needed non-standard role columns are missing"
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  rec <- recipe(~sponsor_code, data = test_data) %>%
-    step_dummy_hash(sponsor_code) %>%
-    update_role(sponsor_code, new_role = "potato") %>%
+  rec <- recipe(~sponsor_code, data = test_data) |>
+    step_dummy_hash(sponsor_code) |>
+    update_role(sponsor_code, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = test_data, verbose = FALSE)
@@ -349,7 +349,7 @@ test_that("keep_original_cols works", {
 
   new_names <- paste0("dummyhash_sponsor_code_", 1:5)
 
-  rec <- recipe(~sponsor_code, data = test_data) %>%
+  rec <- recipe(~sponsor_code, data = test_data) |>
     step_dummy_hash(sponsor_code, num_terms = 5, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -360,7 +360,7 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~sponsor_code, data = test_data) %>%
+  rec <- recipe(~sponsor_code, data = test_data) |>
     step_dummy_hash(sponsor_code, num_terms = 5, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -383,7 +383,7 @@ test_that("keep_original_cols - can prep recipes with it missing", {
   test_data <- grants_test[1:20, c("contract_value_band", "sponsor_code")]
   test_data <- tibble::as_tibble(test_data)
 
-  rec <- recipe(~sponsor_code, data = test_data) %>%
+  rec <- recipe(~sponsor_code, data = test_data) |>
     step_dummy_hash(sponsor_code)
 
   rec$steps[[1]]$keep_original_cols <- NULL
@@ -402,7 +402,7 @@ test_that("printing", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default
 
-  rec <- recipe(~., data = iris) %>%
+  rec <- recipe(~., data = iris) |>
     step_dummy_hash(Species)
 
   expect_snapshot(print(rec))
@@ -411,7 +411,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_dummy_hash(
       all_predictors(),
       signed = hardhat::tune(),

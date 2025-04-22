@@ -10,11 +10,11 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("step_tf works as intended", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tf(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
@@ -50,11 +50,11 @@ test_that("step_tf works as intended", {
 })
 
 test_that("step_tf works with vocabulary argument", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tf(text, vocabulary = letters)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_length(
@@ -64,11 +64,11 @@ test_that("step_tf works with vocabulary argument", {
 })
 
 test_that("step_tf works with other weighting schemes", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tf(text, weight_scheme = "term frequency")
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
@@ -103,10 +103,10 @@ test_that("step_tf works with other weighting schemes", {
 test_that("step_tf term frequency returns 0 with no tokens", {
   d <- tibble(text = c("a b a d", ""))
 
-  res <- recipe(~text, data = d) %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "term frequency") %>%
-    prep() %>%
+  res <- recipe(~text, data = d) |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "term frequency") |>
+    prep() |>
     bake(new_data = NULL)
 
   exp_res <- tibble(
@@ -121,8 +121,8 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$tf_text_i <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text) |>
     step_tf(text)
 
   expect_snapshot(
@@ -133,7 +133,7 @@ test_that("check_name() is used", {
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_tf(all_predictors())
   rec_param <- tunable.step_tf(rec$steps[[1]])
   expect_equal(rec_param$name, c("weight_scheme", "weight"))
@@ -149,26 +149,26 @@ test_that("tunable", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tf(weight_scheme = "wrong") %>%
+    recipe(~., data = mtcars) |>
+      step_tf(weight_scheme = "wrong") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tf(weight = "wrong") %>%
+    recipe(~., data = mtcars) |>
+      step_tf(weight = "wrong") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tf(vocabulary = 1:10) %>%
+    recipe(~., data = mtcars) |>
+      step_tf(vocabulary = 1:10) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tf(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_tf(prefix = NULL) |>
       prep()
   )
 })
@@ -176,31 +176,15 @@ test_that("bad args", {
 test_that("sparse = 'yes' works", {
   rec <- recipe(~., data = test_data)
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "raw count", sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "raw count", sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "raw count", sparse = "yes") %>%
-    prep() %>%
-    bake(NULL)
-
-  expect_identical(dense, sparse)
-
-  expect_false(any(vapply(dense, sparsevctrs::is_sparse_integer, logical(1))))
-  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_integer, logical(1))))
-
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "binary", sparse = "no") %>%
-    prep() %>%
-    bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "binary", sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "raw count", sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -208,15 +192,31 @@ test_that("sparse = 'yes' works", {
   expect_false(any(vapply(dense, sparsevctrs::is_sparse_integer, logical(1))))
   expect_true(all(vapply(sparse, sparsevctrs::is_sparse_integer, logical(1))))
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "term frequency", sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "binary", sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "term frequency", sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "binary", sparse = "yes") |>
+    prep() |>
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_integer, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_integer, logical(1))))
+
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "term frequency", sparse = "no") |>
+    prep() |>
+    bake(NULL)
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "term frequency", sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -224,15 +224,15 @@ test_that("sparse = 'yes' works", {
   expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
   expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "log normalization", sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "log normalization", sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tf(text, weight_scheme = "log normalization", sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tf(text, weight_scheme = "log normalization", sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -242,9 +242,9 @@ test_that("sparse = 'yes' works", {
 })
 
 test_that("sparse argument is backwards compatible", {
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
-    step_tf(text, sparse = "no") %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
+    step_tf(text, sparse = "no") |>
     prep()
 
   exp <- bake(rec, test_data)
@@ -259,11 +259,11 @@ test_that("sparse argument is backwards compatible", {
 })
 
 test_that(".recipes_toggle_sparse_args works", {
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text, sparse = "auto")
 
-  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+  exp <- rec |> prep() |> bake(NULL) |> sparsevctrs::sparsity()
 
   expect_true(.recipes_estimate_sparsity(rec) >= exp)
 })
@@ -271,15 +271,15 @@ test_that(".recipes_toggle_sparse_args works", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_tf(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_tf(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -348,8 +348,8 @@ test_that("keep_original_cols works", {
     "tf_text_would"
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -360,8 +360,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -374,8 +374,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -390,8 +390,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tf(text)
 
   expect_snapshot(print(rec))
@@ -400,7 +400,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_tf(
       all_predictors(),
       weight_scheme = hardhat::tune(),

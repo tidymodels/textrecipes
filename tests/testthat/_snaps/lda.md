@@ -11,7 +11,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_lda(num_topics = -4) %>% prep()
+      prep(step_lda(recipe(~., data = mtcars), num_topics = -4))
     Condition
       Error in `step_lda()`:
       Caused by error in `prep()`:
@@ -20,7 +20,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_lda(prefix = NULL) %>% prep()
+      prep(step_lda(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_lda()`:
       Caused by error in `prep()`:

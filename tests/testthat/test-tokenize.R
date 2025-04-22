@@ -12,18 +12,18 @@ rec <- recipe(~., data = test_data)
 test_that("output is list when length is 1 or 0", {
   data <- tibble(a = rep(c("a", ""), 20))
 
-  data_rec <- recipe(~., data = data) %>%
-    step_tokenize(a) %>%
+  data_rec <- recipe(~., data = data) |>
+    step_tokenize(a) |>
     prep()
 
   expect_true(is.list(bake(data_rec, new_data = NULL, a)[, 1, drop = TRUE]))
 })
 
 test_that("tokenization is done correctly", {
-  rec <- rec %>%
+  rec <- rec |>
     step_tokenize(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
@@ -33,7 +33,7 @@ test_that("tokenization is done correctly", {
       c("i", "would", "not", "eat", "green", "eggs", "and", "ham"),
       c("i", "do", "not", "like", "them", "sam", "i", "am")
     ),
-    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens")
+    bake(obj, new_data = NULL) |> pull(text) |> vctrs::field("tokens")
   )
 
   expect_equal(dim(recipes:::tidy.recipe(rec, 1)), c(1, 3))
@@ -43,43 +43,43 @@ test_that("tokenization is done correctly", {
 test_that("step throws an error if unavaliable tokenizer is picked", {
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_tokenize(text, token = "wrong") %>%
+    rec |>
+      step_tokenize(text, token = "wrong") |>
       prep()
   )
 })
 
 test_that("tokenization works with other built-in tokenizers", {
-  rec <- rec %>%
-    step_tokenize(text, token = "characters") %>%
+  rec <- rec |>
+    step_tokenize(text, token = "characters") |>
     prep()
 
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
-    bake(rec, new_data = NULL) %>%
-      slice(1) %>%
-      pull(text) %>%
+    bake(rec, new_data = NULL) |>
+      slice(1) |>
+      pull(text) |>
       vctrs::field("tokens")
   )
 })
 
 test_that("tokenization works with custom tokenizer", {
-  rec <- rec %>%
-    step_tokenize(text, custom_token = tokenizers::tokenize_characters) %>%
+  rec <- rec |>
+    step_tokenize(text, custom_token = tokenizers::tokenize_characters) |>
     prep()
 
   expect_equal(
     tokenizers::tokenize_characters(test_data$text[1]),
-    bake(rec, new_data = NULL) %>%
-      slice(1) %>%
-      pull(text) %>%
+    bake(rec, new_data = NULL) |>
+      slice(1) |>
+      pull(text) |>
       vctrs::field("tokens")
   )
 })
 
 test_that("arguments are passed using options argument", {
-  rec <- rec %>%
-    step_tokenize(text, options = list(lowercase = FALSE)) %>%
+  rec <- rec |>
+    step_tokenize(text, options = list(lowercase = FALSE)) |>
     prep()
 
   expect_equal(
@@ -89,15 +89,15 @@ test_that("arguments are passed using options argument", {
       c("I", "would", "not", "eat", "green", "eggs", "and", "ham"),
       c("I", "do", "not", "like", "them", "Sam", "I", "am")
     ),
-    bake(rec, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens")
+    bake(rec, new_data = NULL) |> pull(text) |> vctrs::field("tokens")
   )
 })
 
 test_that("tokenization errors with wrong engines", {
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_tokenize(text, engine = "fake") %>%
+    rec |>
+      step_tokenize(text, engine = "fake") |>
       prep()
   )
 })
@@ -108,11 +108,11 @@ test_that("tokenization includes lemma attribute when avaliable", {
   skip_if_no_python_or_no_spacy()
 
   expect_type(
-    rec %>%
-      step_tokenize(text, engine = "spacyr") %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
-      .$text %>%
+    rec |>
+      step_tokenize(text, engine = "spacyr") |>
+      prep() |>
+      bake(new_data = NULL) |>
+      pull(text) |>
       vctrs::field("lemma"),
     "list"
   )
@@ -120,18 +120,18 @@ test_that("tokenization includes lemma attribute when avaliable", {
 
 test_that("tokenization doesn't includes lemma attribute when unavaliable", {
   expect_null(
-    rec %>%
-      step_tokenize(text) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
-      .$text %>%
+    rec |>
+      step_tokenize(text) |>
+      prep() |>
+      bake(new_data = NULL) |>
+      pull(text) |>
       attr("lemma")
   )
 })
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_tokenize(all_predictors())
   rec_param <- tunable.step_tokenize(rec$steps[[1]])
   expect_equal(rec_param$name, c("token"))
@@ -147,20 +147,20 @@ test_that("tunable", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenize(token = letters) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenize(token = letters) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenize(engine = letters) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenize(engine = letters) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenize(custom_token = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_tokenize(custom_token = "yes") |>
       prep()
   )
 })
@@ -168,9 +168,9 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = test_data, verbose = FALSE)
@@ -219,7 +219,7 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
+  rec <- rec |>
     step_tokenize(text)
 
   expect_snapshot(print(rec))
@@ -228,7 +228,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_tokenize(
       all_predictors(),
       token = hardhat::tune()

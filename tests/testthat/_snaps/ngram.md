@@ -17,7 +17,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_ngram(num_tokens = -4) %>% prep()
+      prep(step_ngram(recipe(~., data = mtcars), num_tokens = -4))
     Condition
       Error in `step_ngram()`:
       Caused by error in `prep()`:
@@ -26,7 +26,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_ngram(min_num_tokens = -4) %>% prep()
+      prep(step_ngram(recipe(~., data = mtcars), min_num_tokens = -4))
     Condition
       Error in `step_ngram()`:
       Caused by error in `prep()`:
@@ -35,7 +35,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_ngram(delim = -4) %>% prep()
+      prep(step_ngram(recipe(~., data = mtcars), delim = -4))
     Condition
       Error in `step_ngram()`:
       Caused by error in `prep()`:

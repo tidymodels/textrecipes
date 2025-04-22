@@ -159,10 +159,10 @@ library(recipes)
 library(modeldata)
 data(grants)
 
-grants_rec <- recipe(~sponsor_code, data = grants_other) \%>\%
+grants_rec <- recipe(~sponsor_code, data = grants_other) |>
   step_dummy_hash(sponsor_code)
 
-grants_obj <- grants_rec \%>\%
+grants_obj <- grants_rec |>
   prep()
 
 bake(grants_obj, grants_test)

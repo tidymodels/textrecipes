@@ -115,8 +115,8 @@ The default tokenizer is \code{"word"} which splits the text into a series of
 words. By using \code{step_tokenize()} without setting any arguments you get word
 tokens
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
-  step_tokenize(text) \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+  step_tokenize(text) |>
   show_tokens(text)
 #> [[1]]
 #> [1] "this"  "is"    "words"
@@ -130,9 +130,9 @@ accessed using the \code{options} argument by passing a named list. Here we are
 telling \link[tokenizers:basic-tokenizers]{tokenizers::tokenize_words} that we don't want to turn the words to
 lowercase
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text,
-                options = list(lowercase = FALSE)) \%>\%
+                options = list(lowercase = FALSE)) |>
   show_tokens(text)
 #> [[1]]
 #> [1] "This"  "is"    "words"
@@ -143,10 +143,10 @@ lowercase
 
 We can also stop removing punctuation.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text,
                 options = list(strip_punct = FALSE,
-                               lowercase = FALSE)) \%>\%
+                               lowercase = FALSE)) |>
   show_tokens(text)
 #> [[1]]
 #> [1] "This"  "is"    "words"
@@ -158,8 +158,8 @@ We can also stop removing punctuation.
 The tokenizer can be changed by setting a different \code{token}. Here we change
 it to return character tokens.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
-  step_tokenize(text, token = "characters") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+  step_tokenize(text, token = "characters") |>
   show_tokens(text)
 #> [[1]]
 #>  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
@@ -192,12 +192,12 @@ tokens the tokenizer will produce. It is generally set to a much higher
 value, typically in the thousands, but is set to 22 here for demonstration
 purposes.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(
     text,
     engine = "tokenizers.bpe",
     training_options = list(vocab_size = 22)
-  ) \%>\%
+  ) |>
   show_tokens(text)
 }\if{html}{\out{</div>}}
 
@@ -229,11 +229,11 @@ way of tokenizing.
   strsplit(x, " +")
 \}
 
-recipe(~ text, data = text_tibble) \%>\%
+recipe(~ text, data = text_tibble) |>
   step_tokenize(
     text,
     custom_token = space_tokenizer
-  ) \%>\%
+  ) |>
   show_tokens(text)
 #> [[1]]
 #> [1] "This"  "is"    "words"
@@ -274,28 +274,28 @@ library(recipes)
 library(modeldata)
 data(tate_text)
 
-tate_rec <- recipe(~., data = tate_text) \%>\%
+tate_rec <- recipe(~., data = tate_text) |>
   step_tokenize(medium)
 
-tate_obj <- tate_rec \%>\%
+tate_obj <- tate_rec |>
   prep()
 
-bake(tate_obj, new_data = NULL, medium) \%>\%
+bake(tate_obj, new_data = NULL, medium) |>
   slice(1:2)
 
-bake(tate_obj, new_data = NULL) \%>\%
-  slice(2) \%>\%
+bake(tate_obj, new_data = NULL) |>
+  slice(2) |>
   pull(medium)
 
 tidy(tate_rec, number = 1)
 tidy(tate_obj, number = 1)
 
-tate_obj_chars <- recipe(~., data = tate_text) \%>\%
-  step_tokenize(medium, token = "characters") \%>\%
+tate_obj_chars <- recipe(~., data = tate_text) |>
+  step_tokenize(medium, token = "characters") |>
   prep()
 
-bake(tate_obj, new_data = NULL) \%>\%
-  slice(2) \%>\%
+bake(tate_obj, new_data = NULL) |>
+  slice(2) |>
   pull(medium)
 \dontshow{\}) # examplesIf}
 }

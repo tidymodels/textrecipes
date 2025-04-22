@@ -1,7 +1,7 @@
 # tokenfilter removes words correctly using min_times and max_times
 
     Code
-      obj <- rec %>% prep()
+      obj <- prep(rec)
     Condition
       Warning:
       max_tokens was set to 100, but only 3 was available and selected.
@@ -9,7 +9,7 @@
 # removes words correctly with min_times, max_times and procentage
 
     Code
-      obj <- rec %>% prep()
+      obj <- prep(rec)
     Condition
       Warning:
       max_tokens was set to 100, but only 12 was available and selected.
@@ -17,7 +17,7 @@
 # tokenfilter throws warning when max_tokens > words
 
     Code
-      rec %>% prep()
+      prep(rec)
     Condition
       Warning:
       max_tokens was set to 10000, but only 17 was available and selected.
@@ -39,7 +39,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = "yes") %>% prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), percentage = "yes"))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:
@@ -48,7 +48,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(max_tokens = -4) %>% prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), max_tokens = -4))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:
@@ -57,7 +57,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(filter_fun = -4) %>% prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), filter_fun = -4))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:
@@ -66,8 +66,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = TRUE, max_times = 2) %>%
-        prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), percentage = TRUE, max_times = 2))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:
@@ -76,8 +75,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = TRUE, min_times = 2) %>%
-        prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), percentage = TRUE, min_times = 2))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:
@@ -86,8 +84,8 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = FALSE, max_times = -
-        1) %>% prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), percentage = FALSE, max_times = -
+      1))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:
@@ -96,8 +94,8 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenfilter(percentage = FALSE, min_times = -
-        1) %>% prep()
+      prep(step_tokenfilter(recipe(~., data = mtcars), percentage = FALSE, min_times = -
+      1))
     Condition
       Error in `step_tokenfilter()`:
       Caused by error in `prep()`:

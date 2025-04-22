@@ -68,13 +68,13 @@ The filtering doesn't do anything to data of this size but it is a good practice
 ```{r}
 abc_tibble <- tibble(text = abc)
 
-rec <- recipe(~text, data = abc_tibble) %>%
-  step_tokenize(text, token = "ngrams") %>%
-  step_tokenfilter(text) %>%
+rec <- recipe(~text, data = abc_tibble) |>
+  step_tokenize(text, token = "ngrams") |>
+  step_tokenfilter(text) |>
   step_tf(text)
 
-abc_ngram <- rec %>%
-  prep() %>%
+abc_ngram <- rec |>
+  prep() |>
   bake(new_data = NULL)
 
 abc_ngram
@@ -87,16 +87,16 @@ If you need to pass arguments to the underlying tokenizer function you can pass 
 ```{r}
 abc_tibble <- tibble(text = abc)
 
-rec <- recipe(~text, data = abc_tibble) %>%
+rec <- recipe(~text, data = abc_tibble) |>
   step_tokenize(text, token = "ngrams", options = list(
     n = 2,
     ngram_delim = "_"
-  )) %>%
-  step_tokenfilter(text) %>%
+  )) |>
+  step_tokenfilter(text) |>
   step_tf(text)
 
-abc_ngram <- rec %>%
-  prep() %>%
+abc_ngram <- rec |>
+  prep() |>
   bake(new_data = NULL)
 
 abc_ngram
@@ -113,13 +113,13 @@ bigram <- function(x) {
   tokenizers::tokenize_ngrams(x, lowercase = FALSE, n = 2, ngram_delim = ".")
 }
 
-rec <- recipe(~text, data = abc_tibble) %>%
-  step_tokenize(text, custom_token = bigram) %>%
-  step_tokenfilter(text) %>%
+rec <- recipe(~text, data = abc_tibble) |>
+  step_tokenize(text, custom_token = bigram) |>
+  step_tokenfilter(text) |>
   step_tf(text)
 
-abc_ngram <- rec %>%
-  prep() %>%
+abc_ngram <- rec |>
+  prep() |>
   bake(new_data = NULL)
 
 abc_ngram
@@ -144,14 +144,14 @@ As of version 0.2.0 you can use `step_ngram()` along with `step_tokenize()` to g
 ```{r}
 abc_tibble <- tibble(text = abc)
 
-rec <- recipe(~text, data = abc_tibble) %>%
-  step_tokenize(text) %>%
-  step_ngram(text, num_tokens = 3) %>%
-  step_tokenfilter(text) %>%
+rec <- recipe(~text, data = abc_tibble) |>
+  step_tokenize(text) |>
+  step_ngram(text, num_tokens = 3) |>
+  step_tokenfilter(text) |>
   step_tf(text)
 
-abc_ngram <- rec %>%
-  prep() %>%
+abc_ngram <- rec |>
+  prep() |>
   bake(new_data = NULL)
 
 abc_ngram
@@ -164,15 +164,15 @@ Now you are able to perform additional steps between the tokenization and the n-
 ```{r}
 abc_tibble <- tibble(text = abc)
 
-rec <- recipe(~text, data = abc_tibble) %>%
-  step_tokenize(text) %>%
-  step_stem(text) %>%
-  step_ngram(text, num_tokens = 3) %>%
-  step_tokenfilter(text) %>%
+rec <- recipe(~text, data = abc_tibble) |>
+  step_tokenize(text) |>
+  step_stem(text) |>
+  step_ngram(text, num_tokens = 3) |>
+  step_tokenfilter(text) |>
   step_tf(text)
 
-abc_ngram <- rec %>%
-  prep() %>%
+abc_ngram <- rec |>
+  prep() |>
   bake(new_data = NULL)
 
 abc_ngram

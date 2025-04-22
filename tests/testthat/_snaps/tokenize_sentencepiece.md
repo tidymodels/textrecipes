@@ -1,8 +1,8 @@
 # Errors if vocabulary size is set to low.
 
     Code
-      recipe(~text1, data = test_data) %>% step_tokenize_sentencepiece(text1,
-        vocabulary_size = 10) %>% prep()
+      prep(step_tokenize_sentencepiece(recipe(~text1, data = test_data), text1,
+      vocabulary_size = 10))
     Condition
       Error in `step_tokenize_sentencepiece()`:
       Caused by error in `prep()`:
@@ -11,8 +11,8 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize_sentencepiece(vocabulary_size = -4) %>%
-        prep()
+      prep(step_tokenize_sentencepiece(recipe(~., data = mtcars), vocabulary_size = -
+      4))
     Condition
       Error in `step_tokenize_sentencepiece()`:
       Caused by error in `prep()`:

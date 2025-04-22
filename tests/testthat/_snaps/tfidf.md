@@ -11,8 +11,8 @@
 # Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
 
     Code
-      expect_equal(bake(rec, data) %>% slice(1), tibble(tfidf_text_g = log(1 + 2 / 1) /
-        2, tfidf_text_i = log(1 + 2 / 2) / 2))
+      expect_equal(slice(bake(rec, data), 1), tibble(tfidf_text_g = log(1 + 2 / 1) /
+      2, tfidf_text_i = log(1 + 2 / 2) / 2))
     Condition
       Warning:
       Please retrain this recipe with version 0.5.1 or higher.
@@ -21,8 +21,8 @@
 ---
 
     Code
-      expect_equal(bake(rec, data %>% slice(1)), tibble(tfidf_text_g = log(1 + 2 / 2) /
-        2, tfidf_text_i = log(1 + 2 / 2) / 2))
+      expect_equal(bake(rec, slice(data, 1)), tibble(tfidf_text_g = log(1 + 2 / 2) /
+      2, tfidf_text_i = log(1 + 2 / 2) / 2))
     Condition
       Warning:
       Please retrain this recipe with version 0.5.1 or higher.
@@ -31,7 +31,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tfidf(vocabulary = 1:10) %>% prep()
+      prep(step_tfidf(recipe(~., data = mtcars), vocabulary = 1:10))
     Condition
       Error in `step_tfidf()`:
       Caused by error in `prep()`:
@@ -40,7 +40,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tfidf(smooth_idf = "yes") %>% prep()
+      prep(step_tfidf(recipe(~., data = mtcars), smooth_idf = "yes"))
     Condition
       Error in `step_tfidf()`:
       Caused by error in `prep()`:
@@ -49,7 +49,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tfidf(norm = "yes") %>% prep()
+      prep(step_tfidf(recipe(~., data = mtcars), norm = "yes"))
     Condition
       Error in `step_tfidf()`:
       Caused by error in `prep()`:
@@ -58,7 +58,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tfidf(sublinear_tf = "yes") %>% prep()
+      prep(step_tfidf(recipe(~., data = mtcars), sublinear_tf = "yes"))
     Condition
       Error in `step_tfidf()`:
       Caused by error in `prep()`:
@@ -67,7 +67,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tfidf(prefix = NULL) %>% prep()
+      prep(step_tfidf(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_tfidf()`:
       Caused by error in `prep()`:

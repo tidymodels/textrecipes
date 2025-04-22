@@ -1,7 +1,7 @@
 # step throws an error if unavaliable tokenizer is picked
 
     Code
-      rec %>% step_tokenize(text, token = "wrong") %>% prep()
+      prep(step_tokenize(rec, text, token = "wrong"))
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
@@ -10,7 +10,7 @@
 # tokenization errors with wrong engines
 
     Code
-      rec %>% step_tokenize(text, engine = "fake") %>% prep()
+      prep(step_tokenize(rec, text, engine = "fake"))
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
@@ -19,7 +19,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize(token = letters) %>% prep()
+      prep(step_tokenize(recipe(~., data = mtcars), token = letters))
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
@@ -28,7 +28,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize(engine = letters) %>% prep()
+      prep(step_tokenize(recipe(~., data = mtcars), engine = letters))
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:
@@ -37,7 +37,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize(custom_token = "yes") %>% prep()
+      prep(step_tokenize(recipe(~., data = mtcars), custom_token = "yes"))
     Condition
       Error in `step_tokenize()`:
       Caused by error in `prep()`:

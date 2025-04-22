@@ -132,9 +132,9 @@ test_that("tokenizer works", {
 test_that("step_tokenize works with tokenizers.bpe", {
   skip_if_not_installed("tokenizers.bpe")
 
-  res <- recipe(~text1, data = test_data) %>%
-    step_tokenize(text1, engine = "tokenizers.bpe") %>%
-    prep() %>%
+  res <- recipe(~text1, data = test_data) |>
+    step_tokenize(text1, engine = "tokenizers.bpe") |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -146,9 +146,9 @@ test_that("step_tokenize works with tokenizers.bpe", {
 test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
   skip_if_not_installed("tokenizers.bpe")
 
-  res <- recipe(~., data = test_data) %>%
-    step_tokenize(all_predictors(), engine = "tokenizers.bpe") %>%
-    prep() %>%
+  res <- recipe(~., data = test_data) |>
+    step_tokenize(all_predictors(), engine = "tokenizers.bpe") |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -165,13 +165,13 @@ test_that("step_tokenize works with tokenizers.bpe and multiple colunms", {
 test_that("arguments are passed to tokenizers.bpe", {
   skip_if_not_installed("tokenizers.bpe")
 
-  res <- recipe(~text1, data = test_data) %>%
+  res <- recipe(~text1, data = test_data) |>
     step_tokenize(
       text1,
       engine = "tokenizers.bpe",
       training_options = list(vocab_size = 60)
-    ) %>%
-    prep() %>%
+    ) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -179,13 +179,13 @@ test_that("arguments are passed to tokenizers.bpe", {
     60
   )
 
-  res <- recipe(~text1, data = test_data) %>%
+  res <- recipe(~text1, data = test_data) |>
     step_tokenize(
       text1,
       engine = "tokenizers.bpe",
       training_options = list(vocab_size = 80)
-    ) %>%
-    prep() %>%
+    ) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -198,12 +198,12 @@ test_that("Errors if vocabulary size is set to low.", {
   expect_snapshot(
     error = TRUE,
     variant = r_version(),
-    recipe(~text, data = tibble(text = "hello")) %>%
+    recipe(~text, data = tibble(text = "hello")) |>
       step_tokenize(
         text,
         engine = "tokenizers.bpe",
         training_options = list(vocab_size = 2)
-      ) %>%
+      ) |>
       prep()
   )
 })

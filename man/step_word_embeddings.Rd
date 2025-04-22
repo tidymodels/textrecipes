@@ -128,11 +128,11 @@ sample_data <- tibble(
   text_label = c("fragment", "fragment", "sentence")
 )
 
-rec <- recipe(text_label ~ ., data = sample_data) \%>\%
-  step_tokenize(text) \%>\%
+rec <- recipe(text_label ~ ., data = sample_data) |>
+  step_tokenize(text) |>
   step_word_embeddings(text, embeddings = embeddings)
 
-obj <- rec \%>\%
+obj <- rec |>
   prep()
 
 bake(obj, sample_data)

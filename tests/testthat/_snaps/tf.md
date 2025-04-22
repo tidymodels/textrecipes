@@ -11,7 +11,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tf(weight_scheme = "wrong") %>% prep()
+      prep(step_tf(recipe(~., data = mtcars), weight_scheme = "wrong"))
     Condition
       Error in `step_tf()`:
       Caused by error in `prep()`:
@@ -20,7 +20,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tf(weight = "wrong") %>% prep()
+      prep(step_tf(recipe(~., data = mtcars), weight = "wrong"))
     Condition
       Error in `step_tf()`:
       Caused by error in `prep()`:
@@ -29,7 +29,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tf(vocabulary = 1:10) %>% prep()
+      prep(step_tf(recipe(~., data = mtcars), vocabulary = 1:10))
     Condition
       Error in `step_tf()`:
       Caused by error in `prep()`:
@@ -38,7 +38,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tf(prefix = NULL) %>% prep()
+      prep(step_tf(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_tf()`:
       Caused by error in `prep()`:

@@ -23,29 +23,29 @@ test_data <- tibble(
 
 rec_base <- recipe(~., data = test_data)
 
-rec <- rec_base %>%
-  step_tokenize(text) %>%
+rec <- rec_base |>
+  step_tokenize(text) |>
   step_word_embeddings(text, embeddings = embeddings)
 
-obj <- rec %>%
+obj <- rec |>
   prep()
 
 baked <- bake(obj, new_data = NULL)
 
 test_that("step_word_embeddings adds the appropriate number of columns.", {
   ncol_given <- ncol(embeddings) - 1L
-  ncol_baked <- baked %>%
-    select(contains("wordembed_")) %>%
+  ncol_baked <- baked |>
+    select(contains("wordembed_")) |>
     ncol()
   expect_identical(ncol_baked, ncol_given)
 })
 
 test_that("step_word_embeddings gives numeric output.", {
   expect_true(
-    baked %>%
-      select(contains("wordembed")) %>%
-      lapply(is.numeric) %>%
-      unlist() %>%
+    baked |>
+      select(contains("wordembed")) |>
+      lapply(is.numeric) |>
+      unlist() |>
       all()
   )
 })
@@ -74,14 +74,14 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
   )
 
   # Also allow the user to choose an aggregation function.
-  baked_max <- rec_base %>%
-    step_tokenize(text) %>%
+  baked_max <- rec_base |>
+    step_tokenize(text) |>
     step_word_embeddings(
       text,
       embeddings = embeddings,
       aggregation = "max"
-    ) %>%
-    prep() %>%
+    ) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -90,14 +90,14 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     tolerance = eps
   )
 
-  baked_min <- rec_base %>%
-    step_tokenize(text) %>%
+  baked_min <- rec_base |>
+    step_tokenize(text) |>
     step_word_embeddings(
       text,
       embeddings = embeddings,
       aggregation = "min"
-    ) %>%
-    prep() %>%
+    ) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -106,14 +106,14 @@ test_that("step_word_embeddings aggregates vectors as expected.", {
     tolerance = eps
   )
 
-  baked_mean <- rec_base %>%
-    step_tokenize(text) %>%
+  baked_mean <- rec_base |>
+    step_tokenize(text) |>
     step_word_embeddings(
       text,
       embeddings = embeddings,
       aggregation = "mean"
-    ) %>%
-    prep() %>%
+    ) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -149,8 +149,8 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$wordembed_text_d1 <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text) |>
     step_word_embeddings(text, embeddings = embeddings)
 
   expect_snapshot(
@@ -175,57 +175,57 @@ test_that("Embeddings work with empty documents", {
   empty_data <- data.frame(text = "")
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "sum"
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(0, 5)
   )
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "mean"
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(0, 5)
   )
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "min"
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(0, 5)
   )
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "max"
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(0, 5)
   )
@@ -235,61 +235,61 @@ test_that("aggregation_default argument works", {
   empty_data <- data.frame(text = "")
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "sum",
         aggregation_default = 3
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(3, 5)
   )
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "mean",
         aggregation_default = 3
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(3, 5)
   )
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "min",
         aggregation_default = 3
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(3, 5)
   )
 
   expect_equal(
-    recipe(~text, data = empty_data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = empty_data) |>
+      step_tokenize(text) |>
       step_word_embeddings(
         text,
         embeddings = embeddings,
         aggregation = "max",
         aggregation_default = 3
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL) %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL) |>
       as.numeric(),
     rep(3, 5)
   )
@@ -300,23 +300,23 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_word_embeddings(embeddings = embeddings, aggregation = "wrong") %>%
+    recipe(~., data = mtcars) |>
+      step_word_embeddings(embeddings = embeddings, aggregation = "wrong") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
       step_word_embeddings(
         embeddings = embeddings,
         aggregation_default = "yes"
-      ) %>%
+      ) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_word_embeddings(embeddings = embeddings, prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_word_embeddings(embeddings = embeddings, prefix = NULL) |>
       prep()
   )
 })
@@ -324,15 +324,15 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_word_embeddings(text, embeddings = embeddings) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_word_embeddings(text, embeddings = embeddings) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -388,8 +388,8 @@ test_that("empty selection tidy method works", {
 test_that("keep_original_cols works", {
   new_names <- paste0("wordembed_text_d", 1:5)
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_word_embeddings(
       text,
       embeddings = embeddings,
@@ -405,8 +405,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_word_embeddings(
       text,
       embeddings = embeddings,
@@ -424,8 +424,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_word_embeddings(text, embeddings = embeddings, aggregation = "mean")
 
   rec$steps[[2]]$keep_original_cols <- NULL

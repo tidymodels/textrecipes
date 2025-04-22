@@ -57,12 +57,12 @@
 #' library(modeldata)
 #' data(tate_text)
 #'
-#' tate_rec <- recipe(~medium, data = tate_text) %>%
-#'   step_tokenize(medium) %>%
-#'   step_tokenfilter(medium) %>%
+#' tate_rec <- recipe(~medium, data = tate_text) |>
+#'   step_tokenize(medium) |>
+#'   step_tokenfilter(medium) |>
 #'   step_sequence_onehot(medium)
 #'
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep()
 #'
 #' bake(tate_obj, new_data = NULL)

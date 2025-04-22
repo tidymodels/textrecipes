@@ -10,11 +10,11 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("step_tfidf works as intended", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tfidf(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
@@ -51,11 +51,11 @@ test_that("step_tfidf works as intended", {
 })
 
 test_that("step_tfidf works with vocabulary argument", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tfidf(text, vocabulary = letters)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_length(
@@ -68,8 +68,8 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$tfidf_text_i <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text) |>
     step_tfidf(text)
 
   expect_snapshot(
@@ -81,14 +81,14 @@ test_that("check_name() is used", {
 test_that("idf valeus are trained on training data and applied on test data", {
   data <- tibble(text = c("i g", "i i i"))
 
-  rec <- recipe(~text, data) %>%
-    step_tokenize(text) %>%
-    step_tfidf(text) %>%
+  rec <- recipe(~text, data) |>
+    step_tokenize(text) |>
+    step_tfidf(text) |>
     prep()
 
   expect_equal(
-    bake(rec, data %>% slice(1)),
-    bake(rec, data) %>% slice(1)
+    bake(rec, data |> slice(1)),
+    bake(rec, data) |> slice(1)
   )
 
   expect_equal(
@@ -103,16 +103,16 @@ test_that("Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
 
   data <- tibble(text = c("i g", "i i i"))
 
-  rec <- recipe(~text, data) %>%
-    step_tokenize(text) %>%
-    step_tfidf(text) %>%
+  rec <- recipe(~text, data) |>
+    step_tokenize(text) |>
+    step_tfidf(text) |>
     prep()
 
   rec$steps[[2]]$res <- list(c("g", "i"))
 
   expect_snapshot(
     expect_equal(
-      bake(rec, data) %>% slice(1),
+      bake(rec, data) |> slice(1),
       tibble(
         tfidf_text_g = log(1 + 2 / 1) / 2,
         tfidf_text_i = log(1 + 2 / 2) / 2
@@ -122,7 +122,7 @@ test_that("Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
 
   expect_snapshot(
     expect_equal(
-      bake(rec, data %>% slice(1)),
+      bake(rec, data |> slice(1)),
       tibble(
         tfidf_text_g = log(1 + 2 / 2) / 2,
         tfidf_text_i = log(1 + 2 / 2) / 2
@@ -134,32 +134,32 @@ test_that("Backwards compatibility with 1592690d36581fc5f4952da3e9b02351b31f1a2e
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tfidf(vocabulary = 1:10) %>%
+    recipe(~., data = mtcars) |>
+      step_tfidf(vocabulary = 1:10) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tfidf(smooth_idf = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_tfidf(smooth_idf = "yes") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tfidf(norm = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_tfidf(norm = "yes") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tfidf(sublinear_tf = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_tfidf(sublinear_tf = "yes") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tfidf(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_tfidf(prefix = NULL) |>
       prep()
   )
 })
@@ -167,31 +167,15 @@ test_that("bad args", {
 test_that("sparse = 'yes' works", {
   rec <- recipe(~., data = test_data)
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, norm = "l1", sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, norm = "l1", sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, norm = "l1", sparse = "yes") %>%
-    prep() %>%
-    bake(NULL)
-
-  expect_identical(dense, sparse)
-
-  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
-  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
-
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, norm = "l2", sparse = "no") %>%
-    prep() %>%
-    bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, norm = "l2", sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, norm = "l1", sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -199,15 +183,15 @@ test_that("sparse = 'yes' works", {
   expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
   expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, norm = "none", sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, norm = "l2", sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, norm = "none", sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, norm = "l2", sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -215,15 +199,31 @@ test_that("sparse = 'yes' works", {
   expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
   expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, sublinear_tf = TRUE, sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, norm = "none", sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, sublinear_tf = TRUE, sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, norm = "none", sparse = "yes") |>
+    prep() |>
+    bake(NULL)
+
+  expect_identical(dense, sparse)
+
+  expect_false(any(vapply(dense, sparsevctrs::is_sparse_double, logical(1))))
+  expect_true(all(vapply(sparse, sparsevctrs::is_sparse_double, logical(1))))
+
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, sublinear_tf = TRUE, sparse = "no") |>
+    prep() |>
+    bake(NULL)
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_tfidf(text, sublinear_tf = TRUE, sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -233,9 +233,9 @@ test_that("sparse = 'yes' works", {
 })
 
 test_that("sparse argument is backwards compatible", {
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
-    step_tfidf(text, sparse = "no") %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
+    step_tfidf(text, sparse = "no") |>
     prep()
 
   exp <- bake(rec, test_data)
@@ -250,11 +250,11 @@ test_that("sparse argument is backwards compatible", {
 })
 
 test_that(".recipes_toggle_sparse_args works", {
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
     step_tfidf(text, sparse = "auto")
 
-  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+  exp <- rec |> prep() |> bake(NULL) |> sparsevctrs::sparsity()
 
   expect_true(.recipes_estimate_sparsity(rec) >= exp)
 })
@@ -262,15 +262,15 @@ test_that(".recipes_toggle_sparse_args works", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_tfidf(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_tfidf(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -344,8 +344,8 @@ test_that("keep_original_cols works", {
     "tfidf_text_would"
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tfidf(text, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -356,8 +356,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tfidf(text, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -370,8 +370,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tfidf(text)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -386,8 +386,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tfidf(text)
 
   expect_snapshot(print(rec))

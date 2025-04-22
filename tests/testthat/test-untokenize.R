@@ -12,11 +12,11 @@ rec <- recipe(~., data = test_data)
 test_that("output is not a list", {
   data <- tibble(a = rep("a", 20))
 
-  rec <- recipe(~., data = data) %>%
-    step_tokenize(a) %>%
+  rec <- recipe(~., data = data) |>
+    step_tokenize(a) |>
     step_untokenize(a)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_true(is.factor(bake(obj, new_data = NULL, a)[, 1, drop = TRUE]))
@@ -26,15 +26,15 @@ test_that("output is not a list", {
 })
 
 test_that("working as intended", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_untokenize(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% as.character(),
+    bake(obj, new_data = NULL) |> pull(text) |> as.character(),
     c(
       "i would not eat them here or there",
       "i would not eat them anywhere",
@@ -45,15 +45,15 @@ test_that("working as intended", {
 })
 
 test_that("working as intended", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_untokenize(text, sep = "-")
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% as.character(),
+    bake(obj, new_data = NULL) |> pull(text) |> as.character(),
     c(
       "i-would-not-eat-them-here-or-there",
       "i-would-not-eat-them-anywhere",
@@ -66,8 +66,8 @@ test_that("working as intended", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_untokenize(sep = 0) %>%
+    recipe(~., data = mtcars) |>
+      step_untokenize(sep = 0) |>
       prep()
   )
 })
@@ -75,15 +75,15 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_untokenize(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_untokenize(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -132,8 +132,8 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_untokenize(text)
 
   expect_snapshot(print(rec))
