@@ -100,13 +100,13 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"tate_text"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">medium</span> <span class="op">+</span> <span class="va">artist</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span>, max_tokens <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">okc_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span> <span class="va">medium</span> <span class="op">+</span> <span class="va">artist</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span>, max_tokens <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">medium</span>, <span class="va">artist</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">okc_obj</span> <span class="op">&lt;-</span> <span class="va">okc_rec</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">okc_obj</span>, <span class="va">tate_text</span><span class="op">)</span><span class="op">)</span></span>
@@ -138,15 +138,15 @@
 <p>As of version 0.4.0, <code><a href="reference/step_lda.html">step_lda()</a></code> no longer accepts character variables and instead takes tokenlist variables.</p>
 <p>the following recipe</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">text_var</span><span class="op">)</span></span></code></pre></div>
 <p>can be replaced with the following recipe to achive the same results</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lda_tokenizer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/tokenizers.html" class="external-link">word_tokenizer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">text_var</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text_var</span>,</span>
 <span>    custom_token <span class="op">=</span> <span class="va">lda_tokenizer</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/step_lda.html">step_lda</a></span><span class="op">(</span><span class="va">text_var</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
