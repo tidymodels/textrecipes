@@ -1,8 +1,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_text_normalization(normalization_form = "wrong") %>%
-        prep()
+      prep(step_text_normalization(recipe(~., data = mtcars), normalization_form = "wrong"))
     Condition
       Error in `step_text_normalization()`:
       Caused by error in `prep()`:

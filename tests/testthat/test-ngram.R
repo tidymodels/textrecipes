@@ -158,16 +158,16 @@ test_tibble <- tibble(
 rec <- recipe(~., data = test_tibble)
 
 test_that("ngramming is done correctly", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_ngram(text, num_tokens = 3, min_num_tokens = 3)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>%
-      pull(text) %>%
+    bake(obj, new_data = NULL) |>
+      pull(text) |>
       vctrs::field("tokens"),
     list(
       c("not_eat_them", "eat_them_here", "them_here_or", "here_or_there"),
@@ -180,16 +180,16 @@ test_that("ngramming is done correctly", {
 })
 
 test_that("`n` argument works", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_ngram(text, num_tokens = 2, min_num_tokens = 2)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>%
-      pull(text) %>%
+    bake(obj, new_data = NULL) |>
+      pull(text) |>
       vctrs::field("tokens"),
     list(
       c("not_eat", "eat_them", "them_here", "here_or", "or_there"),
@@ -199,16 +199,16 @@ test_that("`n` argument works", {
 })
 
 test_that("ngramming works with min_num_tokens", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_ngram(text, num_tokens = 3, min_num_tokens = 1)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>%
-      pull(text) %>%
+    bake(obj, new_data = NULL) |>
+      pull(text) |>
       vctrs::field("tokens"),
     list(
       c(
@@ -247,16 +247,16 @@ test_that("ngramming works with min_num_tokens", {
 })
 
 test_that("`delim` argument works", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_ngram(text, delim = " ", num_tokens = 3, min_num_tokens = 3)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>%
-      pull(text) %>%
+    bake(obj, new_data = NULL) |>
+      pull(text) |>
       vctrs::field("tokens"),
     list(
       c("not eat them", "eat them here", "them here or", "here or there"),
@@ -267,7 +267,7 @@ test_that("`delim` argument works", {
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_ngram(all_predictors())
   rec_param <- tunable.step_ngram(rec$steps[[1]])
   expect_equal(rec_param$name, c("num_tokens"))
@@ -283,20 +283,20 @@ test_that("tunable", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_ngram(num_tokens = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_ngram(num_tokens = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_ngram(min_num_tokens = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_ngram(min_num_tokens = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_ngram(delim = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_ngram(delim = -4) |>
       prep()
   )
 })
@@ -304,15 +304,15 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_tibble) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_tibble) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_ngram(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_ngram(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -361,8 +361,8 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_ngram(text)
 
   expect_snapshot(print(rec))
@@ -371,7 +371,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_ngram(
       all_predictors(),
       num_tokens = hardhat::tune()

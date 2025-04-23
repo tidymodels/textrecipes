@@ -6,7 +6,7 @@ test_that("character input", {
   smith_tr <- Smithsonian[1:15, ]
   smith_te <- Smithsonian[16:20, ]
 
-  cleaned <- recipe(~., data = smith_tr) %>%
+  cleaned <- recipe(~., data = smith_tr) |>
     step_clean_levels(name, id = "")
 
   tidy_exp_un <- tibble(
@@ -60,7 +60,7 @@ test_that("factor input", {
 
   rec <- recipe(~., data = smith_tr)
 
-  cleaned <- rec %>% step_clean_levels(name)
+  cleaned <- rec |> step_clean_levels(name)
   cleaned <- prep(cleaned, training = smith_tr)
   cleaned_tr <- bake(cleaned, new_data = smith_tr)
   cleaned_te <- bake(cleaned, new_data = smith_te)
@@ -79,9 +79,9 @@ test_that("bake method errors when needed non-standard role columns are missing"
   data("Smithsonian", package = "modeldata")
   smith_tr <- Smithsonian[1:15, ]
 
-  rec <- recipe(~name, data = smith_tr) %>%
-    step_clean_levels(name) %>%
-    update_role(name, new_role = "potato") %>%
+  rec <- recipe(~name, data = smith_tr) |>
+    step_clean_levels(name) |>
+    update_role(name, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = smith_tr, verbose = FALSE)
@@ -131,7 +131,7 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_if_not_installed("janitor")
-  rec <- recipe(~., data = iris) %>%
+  rec <- recipe(~., data = iris) |>
     step_clean_levels(Species)
 
   expect_snapshot(print(rec))

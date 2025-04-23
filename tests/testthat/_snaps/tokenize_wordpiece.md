@@ -1,7 +1,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize_wordpiece(unk_token = 0) %>% prep()
+      prep(step_tokenize_wordpiece(recipe(~., data = mtcars), unk_token = 0))
     Condition
       Error in `step_tokenize_wordpiece()`:
       Caused by error in `prep()`:
@@ -10,7 +10,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize_wordpiece(max_chars = -4) %>% prep()
+      prep(step_tokenize_wordpiece(recipe(~., data = mtcars), max_chars = -4))
     Condition
       Error in `step_tokenize_wordpiece()`:
       Caused by error in `prep()`:

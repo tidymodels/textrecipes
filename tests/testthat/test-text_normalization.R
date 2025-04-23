@@ -3,7 +3,7 @@ ex_dat <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 test_that("simple sqrt trans", {
   skip_if_not_installed("stringi")
 
-  rec <- recipe(~., data = ex_dat) %>%
+  rec <- recipe(~., data = ex_dat) |>
     step_text_normalization(text)
 
   rec_trained <- prep(rec, training = ex_dat, verbose = FALSE)
@@ -18,8 +18,8 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_text_normalization(normalization_form = "wrong") %>%
+    recipe(~., data = mtcars) |>
+      step_text_normalization(normalization_form = "wrong") |>
       prep()
   )
 })
@@ -29,9 +29,9 @@ test_that("bad args", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("stringi")
 
-  rec <- recipe(~text, data = ex_dat) %>%
-    step_text_normalization(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(~text, data = ex_dat) |>
+    step_text_normalization(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = ex_dat, verbose = FALSE)
@@ -86,7 +86,7 @@ test_that("empty selection tidy method works", {
 test_that("printing", {
   skip_if_not_installed("stringi")
 
-  rec <- recipe(~., data = ex_dat) %>%
+  rec <- recipe(~., data = ex_dat) |>
     step_text_normalization(text)
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))

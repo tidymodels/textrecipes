@@ -10,10 +10,10 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("textfeature extraction is done correctly", {
-  rec <- rec %>%
+  rec <- rec |>
     step_textfeature(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   baked_data <- bake(obj, new_data = NULL)
@@ -35,7 +35,7 @@ test_that("custom extraction functions work works", {
   nchar2 <- function(x) nchar(x) + 2
   nchar3 <- function(x) nchar(x) + 3
 
-  rec <- rec %>%
+  rec <- rec |>
     step_textfeature(
       text,
       extract_functions = list(
@@ -45,25 +45,25 @@ test_that("custom extraction functions work works", {
       )
     )
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(dim(bake(obj, new_data = NULL)), c(nrow(test_data), 3))
 
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_textfeature(text, extract_functions = list(as.character)) %>%
+    rec |>
+      step_textfeature(text, extract_functions = list(as.character)) |>
       prep()
   )
 
   expect_snapshot(
     error = TRUE,
-    rec %>%
+    rec |>
       step_textfeature(
         text,
         extract_functions = list(function(x) 1)
-      ) %>%
+      ) |>
       prep()
   )
 })
@@ -72,7 +72,7 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$textfeature_text_n_words <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
+  rec <- recipe(~., data = dat) |>
     step_textfeature(text)
 
   expect_snapshot(
@@ -84,8 +84,8 @@ test_that("check_name() is used", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_textfeature(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_textfeature(prefix = NULL) |>
       prep()
   )
 })
@@ -93,9 +93,9 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_textfeature(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_textfeature(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = test_data, verbose = FALSE)
@@ -168,8 +168,8 @@ test_that("keep_original_cols works", {
     "tf_text_would"
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -180,8 +180,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -194,8 +194,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_tf(text)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -211,7 +211,7 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 test_that("keep_original_cols works", {
   new_names <- paste0("textfeature_text_", names(count_functions))
 
-  rec <- recipe(~text, data = test_data) %>%
+  rec <- recipe(~text, data = test_data) |>
     step_textfeature(text, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -222,7 +222,7 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
+  rec <- recipe(~text, data = test_data) |>
     step_textfeature(text, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -235,7 +235,7 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~text, data = test_data) %>%
+  rec <- recipe(~text, data = test_data) |>
     step_textfeature(text)
 
   rec$steps[[1]]$keep_original_cols <- NULL
@@ -250,7 +250,7 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
+  rec <- rec |>
     step_textfeature(text)
 
   expect_snapshot(print(rec))

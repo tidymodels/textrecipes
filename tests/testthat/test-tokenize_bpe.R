@@ -99,8 +99,8 @@ test_that("output is list when length is 1 or 0", {
 
   data <- tibble(a = rep(c("a", ""), 20))
 
-  data_rec <- recipe(~., data = data) %>%
-    step_tokenize_bpe(a) %>%
+  data_rec <- recipe(~., data = data) |>
+    step_tokenize_bpe(a) |>
     prep()
 
   expect_true(is.list(bake(data_rec, new_data = NULL, a)[, 1, drop = TRUE]))
@@ -109,9 +109,9 @@ test_that("output is list when length is 1 or 0", {
 test_that("step_tokenize_bpe works", {
   skip_if_not_installed("tokenizers.bpe")
 
-  res <- recipe(~text1, data = test_data) %>%
-    step_tokenize_bpe(text1) %>%
-    prep() %>%
+  res <- recipe(~text1, data = test_data) |>
+    step_tokenize_bpe(text1) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -123,9 +123,9 @@ test_that("step_tokenize_bpe works", {
 test_that("step_tokenize_bpe works with tokenizers.bpe and multiple colunms", {
   skip_if_not_installed("tokenizers.bpe")
 
-  res <- recipe(~., data = test_data) %>%
-    step_tokenize_bpe(all_predictors()) %>%
-    prep() %>%
+  res <- recipe(~., data = test_data) |>
+    step_tokenize_bpe(all_predictors()) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -142,9 +142,9 @@ test_that("step_tokenize_bpe works with tokenizers.bpe and multiple colunms", {
 test_that("arguments are passed to tokenizers.bpe", {
   skip_if_not_installed("tokenizers.bpe")
 
-  res <- recipe(~text1, data = test_data) %>%
-    step_tokenize_bpe(text1, vocabulary_size = 60) %>%
-    prep() %>%
+  res <- recipe(~text1, data = test_data) |>
+    step_tokenize_bpe(text1, vocabulary_size = 60) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -152,9 +152,9 @@ test_that("arguments are passed to tokenizers.bpe", {
     60
   )
 
-  res <- recipe(~text1, data = test_data) %>%
-    step_tokenize_bpe(text1, vocabulary_size = 80) %>%
-    prep() %>%
+  res <- recipe(~text1, data = test_data) |>
+    step_tokenize_bpe(text1, vocabulary_size = 80) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -169,15 +169,15 @@ test_that("Errors if vocabulary size is set to low.", {
   expect_snapshot(
     error = TRUE,
     variant = r_version(),
-    recipe(~text1, data = test_data) %>%
-      step_tokenize_bpe(text1, vocabulary_size = 10) %>%
+    recipe(~text1, data = test_data) |>
+      step_tokenize_bpe(text1, vocabulary_size = 10) |>
       prep()
   )
 })
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_tokenize_bpe(all_predictors())
   rec_param <- tunable.step_tokenize_bpe(rec$steps[[1]])
   expect_equal(rec_param$name, c("vocabulary_size"))
@@ -195,8 +195,8 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenize_bpe(vocabulary_size = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenize_bpe(vocabulary_size = -4) |>
       prep()
   )
 })
@@ -206,9 +206,9 @@ test_that("bad args", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("tokenizers.bpe")
 
-  rec <- recipe(~text1, data = test_data) %>%
-    step_tokenize_bpe(text1) %>%
-    update_role(text1, new_role = "potato") %>%
+  rec <- recipe(~text1, data = test_data) |>
+    step_tokenize_bpe(text1) |>
+    update_role(text1, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = test_data, verbose = FALSE)
@@ -259,7 +259,7 @@ test_that("empty selection tidy method works", {
 test_that("printing", {
   skip_if_not_installed("tokenizers.bpe")
 
-  rec <- recipe(~., data = test_data) %>%
+  rec <- recipe(~., data = test_data) |>
     step_tokenize_bpe(text1)
 
   expect_snapshot(print(rec))
@@ -268,7 +268,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = test_data) %>%
+  rec <- recipe(~., data = test_data) |>
     step_tokenize_bpe(text1, vocabulary_size = hardhat::tune())
 
   params <- extract_parameter_set_dials(rec)

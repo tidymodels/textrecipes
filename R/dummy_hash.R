@@ -93,10 +93,10 @@
 #' library(modeldata)
 #' data(grants)
 #'
-#' grants_rec <- recipe(~sponsor_code, data = grants_other) %>%
+#' grants_rec <- recipe(~sponsor_code, data = grants_other) |>
 #'   step_dummy_hash(sponsor_code)
 #'
-#' grants_obj <- grants_rec %>%
+#' grants_obj <- grants_rec |>
 #'   prep()
 #'
 #' bake(grants_obj, grants_test)
@@ -216,8 +216,8 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
   if (object$collapse) {
     new_name <- paste0(col_names, collapse = "_")
     new_data <-
-      new_data %>%
-      dplyr::rowwise() %>%
+      new_data |>
+      dplyr::rowwise() |>
       dplyr::mutate(
         !!new_name := paste0(
           dplyr::c_across(dplyr::all_of(hash_cols)),

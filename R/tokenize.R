@@ -77,8 +77,8 @@
 #' tokens
 #'
 #' ```{r}
-#' recipe(~ text, data = text_tibble) %>%
-#'   step_tokenize(text) %>%
+#' recipe(~ text, data = text_tibble) |>
+#'   step_tokenize(text) |>
 #'   show_tokens(text)
 #' ```
 #'
@@ -88,19 +88,19 @@
 #' lowercase
 #'
 #' ```{r}
-#' recipe(~ text, data = text_tibble) %>%
+#' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text,
-#'                 options = list(lowercase = FALSE)) %>%
+#'                 options = list(lowercase = FALSE)) |>
 #'   show_tokens(text)
 #' ```
 #'
 #' We can also stop removing punctuation.
 #'
 #' ```{r}
-#' recipe(~ text, data = text_tibble) %>%
+#' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text,
 #'                 options = list(strip_punct = FALSE,
-#'                                lowercase = FALSE)) %>%
+#'                                lowercase = FALSE)) |>
 #'   show_tokens(text)
 #' ```
 #'
@@ -108,8 +108,8 @@
 #' it to return character tokens.
 #'
 #' ```{r}
-#' recipe(~ text, data = text_tibble) %>%
-#'   step_tokenize(text, token = "characters") %>%
+#' recipe(~ text, data = text_tibble) |>
+#'   step_tokenize(text, token = "characters") |>
 #'   show_tokens(text)
 #' ```
 #'
@@ -134,23 +134,23 @@
 #' purposes.
 #'
 #' ```{r, eval=FALSE}
-#' recipe(~ text, data = text_tibble) %>%
+#' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(
 #'     text,
 #'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
-#'   ) %>%
+#'   ) |>
 #'   show_tokens(text)
 #' ```
 #'
 #' ```{r, echo=FALSE}
-#' recipe(~ text, data = text_tibble) %>%
+#' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(
 #'     text,
 #'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
-#'   ) %>%
-#'   show_tokens(text) %>%
+#'   ) |>
+#'   show_tokens(text) |>
 #'   lapply(function(x) gsub("▁", "_", x))
 #' ```
 #'
@@ -172,11 +172,11 @@
 #'   strsplit(x, " +")
 #' }
 #'
-#' recipe(~ text, data = text_tibble) %>%
+#' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(
 #'     text,
 #'     custom_token = space_tokenizer
-#'   ) %>%
+#'   ) |>
 #'   show_tokens(text)
 #' ```
 #'
@@ -207,28 +207,28 @@
 #' library(modeldata)
 #' data(tate_text)
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
+#' tate_rec <- recipe(~., data = tate_text) |>
 #'   step_tokenize(medium)
 #'
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep()
 #'
-#' bake(tate_obj, new_data = NULL, medium) %>%
+#' bake(tate_obj, new_data = NULL, medium) |>
 #'   slice(1:2)
 #'
-#' bake(tate_obj, new_data = NULL) %>%
-#'   slice(2) %>%
+#' bake(tate_obj, new_data = NULL) |>
+#'   slice(2) |>
 #'   pull(medium)
 #'
 #' tidy(tate_rec, number = 1)
 #' tidy(tate_obj, number = 1)
 #'
-#' tate_obj_chars <- recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium, token = "characters") %>%
+#' tate_obj_chars <- recipe(~., data = tate_text) |>
+#'   step_tokenize(medium, token = "characters") |>
 #'   prep()
 #'
-#' bake(tate_obj, new_data = NULL) %>%
-#'   slice(2) %>%
+#' bake(tate_obj, new_data = NULL) |>
+#'   slice(2) |>
 #'   pull(medium)
 #' @export
 step_tokenize <-

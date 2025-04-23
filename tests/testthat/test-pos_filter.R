@@ -12,12 +12,12 @@ test_that("part of speech filtering works", {
   skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
-  rec <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors(), engine = "spacyr") %>%
+  rec <- recipe(~text, data = text) |>
+    step_tokenize(all_predictors(), engine = "spacyr") |>
     step_pos_filter(all_predictors())
 
-  prepped_data <- rec %>%
-    prep() %>%
+  prepped_data <- rec |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
@@ -38,12 +38,12 @@ test_that("part of speech filtering removes everything", {
   skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
-  rec <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors(), engine = "spacyr") %>%
+  rec <- recipe(~text, data = text) |>
+    step_tokenize(all_predictors(), engine = "spacyr") |>
     step_pos_filter(all_predictors(), keep_tags = character())
 
-  prepped_data <- rec %>%
-    prep() %>%
+  prepped_data <- rec |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
@@ -64,12 +64,12 @@ test_that("part of speech filtering works with multiple tags", {
   skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
-  rec <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors(), engine = "spacyr") %>%
+  rec <- recipe(~text, data = text) |>
+    step_tokenize(all_predictors(), engine = "spacyr") |>
     step_pos_filter(all_predictors(), keep_tags = c("VERB", "NOUN"))
 
-  prepped_data <- rec %>%
-    prep() %>%
+  prepped_data <- rec |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_s3_class(prepped_data$text, "textrecipes_tokenlist")
@@ -86,8 +86,8 @@ test_that("part of speech filtering works with multiple tags", {
 })
 
 test_that("lemmatization errors if lemma attribute doesn't exists", {
-  rec <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors()) %>%
+  rec <- recipe(~text, data = text) |>
+    step_tokenize(all_predictors()) |>
     step_pos_filter(all_predictors())
 
   expect_snapshot(
@@ -103,8 +103,8 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_pos_filter(keep_tags = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_pos_filter(keep_tags = -4) |>
       prep()
   )
 })
@@ -116,14 +116,14 @@ test_that("bake method errors when needed non-standard role columns are missing"
   skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
-  tokenized_test_data <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors(), engine = "spacyr") %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = text) |>
+    step_tokenize(all_predictors(), engine = "spacyr") |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    step_pos_filter(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    step_pos_filter(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec)
@@ -176,8 +176,8 @@ test_that("printing", {
   skip_if_not_installed("spacyr")
   skip_if_no_python_or_no_spacy()
 
-  rec <- recipe(~text, data = text) %>%
-    step_tokenize(all_predictors(), engine = "spacyr") %>%
+  rec <- recipe(~text, data = text) |>
+    step_tokenize(all_predictors(), engine = "spacyr") |>
     step_pos_filter(all_predictors())
 
   expect_snapshot(print(rec))

@@ -76,7 +76,7 @@ air_te <- tibble(airquality[101:153, ])
 
 rec <- recipe(~., data = air_tr)
 
-rec <- rec \%>\%
+rec <- rec |>
   step_clean_names(all_predictors())
 rec <- prep(rec, training = air_tr)
 tidy(rec, number = 1)

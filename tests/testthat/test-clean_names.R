@@ -5,7 +5,7 @@ test_that("can clean names", {
   air_tr <- airquality[1:20, ]
   air_te <- airquality[101:110, ]
 
-  cleaned <- recipe(~., data = air_tr) %>%
+  cleaned <- recipe(~., data = air_tr) |>
     step_clean_names(all_predictors(), id = "")
 
   tidy_exp_un <- tibble(
@@ -34,9 +34,9 @@ test_that("can clean names", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("janitor")
 
-  rec <- recipe(mtcars) %>%
-    step_clean_names(disp) %>%
-    update_role(disp, new_role = "potato") %>%
+  rec <- recipe(mtcars) |>
+    step_clean_names(disp) |>
+    update_role(disp, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec)
@@ -87,7 +87,7 @@ test_that("empty selection tidy method works", {
 test_that("printing", {
   skip_if_not_installed("janitor")
 
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_clean_names(all_predictors())
 
   expect_snapshot(print(rec))

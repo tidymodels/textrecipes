@@ -14,18 +14,18 @@ test_that("hashing gives double outputs", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default
 
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_texthash(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_true(
-    bake(obj, new_data = NULL) %>%
-      select(contains("hash")) %>%
-      lapply(is.integer) %>%
-      unlist() %>%
+    bake(obj, new_data = NULL) |>
+      select(contains("hash")) |>
+      lapply(is.integer) |>
+      unlist() |>
       all()
   )
 
@@ -38,14 +38,14 @@ test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default
 
-  rec <- rec %>%
-    step_tokenize(text) %>%
-    step_texthash(text, num_terms = 256) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
+    step_texthash(text, num_terms = 256) |>
     prep()
 
   expect_equal(
-    bake(rec, new_data = NULL) %>%
-      select(contains("hash")) %>%
+    bake(rec, new_data = NULL) |>
+      select(contains("hash")) |>
       ncol(),
     256
   )
@@ -56,16 +56,16 @@ test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default
 
-  signed <- recipe(~., data = test_data) %>%
-    step_tokenize(all_predictors()) %>%
-    step_texthash(all_predictors(), num_terms = 2) %>%
-    prep() %>%
+  signed <- recipe(~., data = test_data) |>
+    step_tokenize(all_predictors()) |>
+    step_texthash(all_predictors(), num_terms = 2) |>
+    prep() |>
     bake(new_data = NULL)
 
-  unsigned <- recipe(~., data = test_data) %>%
-    step_tokenize(all_predictors()) %>%
-    step_texthash(all_predictors(), num_terms = 2, signed = FALSE) %>%
-    prep() %>%
+  unsigned <- recipe(~., data = test_data) |>
+    step_tokenize(all_predictors()) |>
+    step_texthash(all_predictors(), num_terms = 2, signed = FALSE) |>
+    prep() |>
     bake(new_data = NULL)
 
   all(unsigned$texthash_text_1 == signed$texthash_text_1)
@@ -82,8 +82,8 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$texthash_text_0001 <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text) |>
     step_texthash(text)
 
   expect_snapshot(
@@ -94,7 +94,7 @@ test_that("check_name() is used", {
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_texthash(all_predictors())
   rec_param <- tunable.step_texthash(rec$steps[[1]])
   expect_equal(rec_param$name, c("signed", "num_terms"))
@@ -112,20 +112,20 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_texthash(signed = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_texthash(signed = "yes") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_texthash(num_terms = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_texthash(num_terms = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_texthash(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_texthash(prefix = NULL) |>
       prep()
   )
 })
@@ -135,15 +135,15 @@ test_that("sparse = 'yes' works", {
 
   rec <- recipe(~., data = test_data)
 
-  dense <- rec %>%
-    step_tokenize(text) %>%
-    step_texthash(text, sparse = "no") %>%
-    prep() %>%
+  dense <- rec |>
+    step_tokenize(text) |>
+    step_texthash(text, sparse = "no") |>
+    prep() |>
     bake(NULL)
-  sparse <- rec %>%
-    step_tokenize(text) %>%
-    step_texthash(text, sparse = "yes") %>%
-    prep() %>%
+  sparse <- rec |>
+    step_tokenize(text) |>
+    step_texthash(text, sparse = "yes") |>
+    prep() |>
     bake(NULL)
 
   expect_identical(dense, sparse)
@@ -155,9 +155,9 @@ test_that("sparse = 'yes' works", {
 test_that("sparse argument is backwards compatible", {
   skip_if_not_installed("text2vec")
 
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
-    step_texthash(text, sparse = "no") %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
+    step_texthash(text, sparse = "no") |>
     prep()
 
   exp <- bake(rec, test_data)
@@ -174,11 +174,11 @@ test_that("sparse argument is backwards compatible", {
 test_that(".recipes_toggle_sparse_args works", {
   skip_if_not_installed("text2vec")
 
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
     step_texthash(text, sparse = "auto")
 
-  exp <- rec %>% prep() %>% bake(NULL) %>% sparsevctrs::sparsity()
+  exp <- rec |> prep() |> bake(NULL) |> sparsevctrs::sparsity()
 
   expect_true(.recipes_estimate_sparsity(rec) > exp)
 })
@@ -188,15 +188,15 @@ test_that(".recipes_toggle_sparse_args works", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("text2vec")
 
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_texthash(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_texthash(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -256,8 +256,8 @@ test_that("keep_original_cols works", {
 
   new_names <- paste0("texthash_text_", 1:5)
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_texthash(text, num_terms = 5, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -268,8 +268,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_texthash(text, num_terms = 5, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -284,8 +284,8 @@ test_that("keep_original_cols works", {
 test_that("keep_original_cols - can prep recipes with it missing", {
   skip_if_not_installed("text2vec")
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_texthash(text)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -304,8 +304,8 @@ test_that("printing", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default
 
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_texthash(text)
 
   expect_snapshot(print(rec))
@@ -314,7 +314,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_texthash(
       all_predictors(),
       signed = hardhat::tune(),

@@ -21,7 +21,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenmerge(prefix = NULL) %>% prep()
+      prep(step_tokenmerge(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_tokenmerge()`:
       Caused by error in `prep()`:

@@ -51,7 +51,7 @@
 #'
 #' rec <- recipe(~., data = smith_tr)
 #'
-#' rec <- rec %>%
+#' rec <- rec |>
 #'   step_clean_levels(name)
 #' rec <- prep(rec, training = smith_tr)
 #'

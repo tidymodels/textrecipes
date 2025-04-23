@@ -11,21 +11,21 @@ rec <- recipe(~., data = test_data)
 
 test_that("stopwords are removed correctly", {
   skip_if_not_installed("stopwords")
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_stopwords(text)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
 
   expect_equal(
     token_words[!is.element(token_words, stopwords::stopwords())],
-    bake(obj, new_data = NULL) %>%
-      slice(1) %>%
-      pull(text) %>%
-      vctrs::field("tokens") %>%
+    bake(obj, new_data = NULL) |>
+      slice(1) |>
+      pull(text) |>
+      vctrs::field("tokens") |>
       unlist()
   )
 
@@ -35,19 +35,19 @@ test_that("stopwords are removed correctly", {
 
 test_that("stopwords are kept correctly", {
   skip_if_not_installed("stopwords")
-  rec <- rec %>%
-    step_tokenize(text) %>%
-    step_stopwords(text, keep = TRUE) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
+    step_stopwords(text, keep = TRUE) |>
     prep()
 
   token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
 
   expect_equal(
     token_words[is.element(token_words, stopwords::stopwords())],
-    bake(rec, new_data = NULL) %>%
-      slice(1) %>%
-      pull(text) %>%
-      vctrs::field("tokens") %>%
+    bake(rec, new_data = NULL) |>
+      slice(1) |>
+      pull(text) |>
+      vctrs::field("tokens") |>
       unlist()
   )
 })
@@ -55,9 +55,9 @@ test_that("stopwords are kept correctly", {
 test_that("custom stopwords are supported", {
   custom_stopwords <- c("i", "not")
 
-  rec <- rec %>%
-    step_tokenize(text) %>%
-    step_stopwords(text, custom_stopword_source = custom_stopwords) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
+    step_stopwords(text, custom_stopword_source = custom_stopwords) |>
     prep()
 
   token_words <- tokenizers::tokenize_words(test_data$text[1])[[1]]
@@ -69,8 +69,8 @@ test_that("custom stopwords are supported", {
       c("would", "eat", "green", "eggs", "and", "ham"),
       c("do", "like", "them", "sam", "am")
     ),
-    bake(rec, new_data = NULL) %>%
-      pull(text) %>%
+    bake(rec, new_data = NULL) |>
+      pull(text) |>
       vctrs::field("tokens")
   )
 })
@@ -80,26 +80,26 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_stopwords(language = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_stopwords(language = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_stopwords(keep = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_stopwords(keep = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_stopwords(stopword_source = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_stopwords(stopword_source = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_stopwords(custom_stopword_source = 1:10) %>%
+    recipe(~., data = mtcars) |>
+      step_stopwords(custom_stopword_source = 1:10) |>
       prep()
   )
 })
@@ -109,15 +109,15 @@ test_that("bad args", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("stopwords")
 
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_stopwords(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_stopwords(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -178,8 +178,8 @@ test_that("empty selection tidy method works", {
 
 test_that("printing", {
   skip_if_not_installed("stopwords")
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_stopwords(text)
 
   expect_snapshot(print(rec))

@@ -9,11 +9,11 @@ test_that("step_lda works as intended", {
   n_rows <- 100
   n_top <- 10
 
-  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
-    step_tokenize(medium) %>%
+  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
     step_lda(medium, num_topics = n_top)
 
-  obj <- rec1 %>%
+  obj <- rec1 |>
     prep()
 
   expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
@@ -32,11 +32,11 @@ test_that("step_lda works with num_topics argument", {
 
   n_rows <- 100
   n_top <- 100
-  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) %>%
-    step_tokenize(medium) %>%
+  rec1 <- recipe(~ medium + artist, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
     step_lda(medium, num_topics = n_top)
 
-  obj <- rec1 %>%
+  obj <- rec1 |>
     prep()
 
   expect_equal(dim(bake(obj, new_data = NULL)), c(n_rows, n_top + 1))
@@ -54,8 +54,8 @@ test_that("check_name() is used", {
   dat$text <- dat$medium
   dat$lda_text_1 <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text) |>
     step_lda(text)
 
   expect_snapshot(
@@ -72,14 +72,14 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_lda(num_topics = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_lda(num_topics = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_lda(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_lda(prefix = NULL) |>
       prep()
   )
 })
@@ -99,15 +99,15 @@ test_that("bake method errors when needed non-standard role columns are missing"
   tokenized_test_data <- recipe(
     ~ medium + artist,
     data = tate_text[seq_len(n_rows), ]
-  ) %>%
-    step_tokenize(medium) %>%
-    prep() %>%
+  ) |>
+    step_tokenize(medium) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(medium, new_role = "predictor") %>%
-    step_lda(medium, num_topics = 10) %>%
-    update_role(medium, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(medium, new_role = "predictor") |>
+    step_lda(medium, num_topics = 10) |>
+    update_role(medium, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -171,8 +171,8 @@ test_that("keep_original_cols works", {
 
   n_rows <- 100
 
-  rec <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) %>%
-    step_tokenize(medium) %>%
+  rec <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
     step_lda(medium, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -183,8 +183,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) %>%
-    step_tokenize(medium) %>%
+  rec <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
     step_lda(medium, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -206,8 +206,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 
   n_rows <- 100
 
-  rec <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) %>%
-    step_tokenize(medium) %>%
+  rec <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
     step_lda(medium, keep_original_cols = TRUE)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -226,8 +226,8 @@ test_that("printing", {
   skip_if_not_installed("data.table")
   data.table::setDTthreads(2) # because data.table uses all cores by default
 
-  rec <- recipe(~., data = iris) %>%
-    step_tokenize(Species) %>%
+  rec <- recipe(~., data = iris) |>
+    step_tokenize(Species) |>
     step_lda(Species)
 
   expect_snapshot(print(rec))

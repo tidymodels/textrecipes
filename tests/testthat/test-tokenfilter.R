@@ -10,17 +10,17 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("tokenfilter removes words correctly using min_times and max_times", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tokenfilter(text, max_times = 3, min_times = 2)
 
   expect_snapshot(
-    obj <- rec %>%
+    obj <- rec |>
       prep()
   )
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) |> pull(text) |> vctrs::field("tokens"),
     list(
       c("would", "eat", "them"),
       c("would", "eat", "them"),
@@ -34,17 +34,17 @@ test_that("tokenfilter removes words correctly using min_times and max_times", {
 })
 
 test_that("removes words correctly with min_times, max_times and procentage", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tokenfilter(text, max_times = 0.04, min_times = 0, percentage = TRUE)
 
   expect_snapshot(
-    obj <- rec %>%
+    obj <- rec |>
       prep()
   )
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) |> pull(text) |> vctrs::field("tokens"),
     list(
       c("here", "or", "there"),
       c("anywhere"),
@@ -55,15 +55,15 @@ test_that("removes words correctly with min_times, max_times and procentage", {
 })
 
 test_that("tokenfilter removes words correctly using max_tokens", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tokenfilter(text, max_tokens = 10)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) |> pull(text) |> vctrs::field("tokens"),
     list(
       c("i", "would", "not", "eat", "them"),
       c("i", "would", "not", "eat", "them", "anywhere"),
@@ -74,24 +74,24 @@ test_that("tokenfilter removes words correctly using max_tokens", {
 })
 
 test_that("tokenfilter throws warning when max_tokens > words", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tokenfilter(text, max_tokens = 10000)
 
   expect_snapshot(
-    rec %>%
+    rec |>
       prep()
   )
 })
 
 test_that("tokenfilter works with filter_fun", {
-  obj <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
-    step_tokenfilter(text, filter_fun = function(x) nchar(x) >= 5) %>%
+  obj <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
+    step_tokenfilter(text, filter_fun = function(x) nchar(x) >= 5) |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) |> pull(text) |> vctrs::field("tokens"),
     list(
       c("would", "there"),
       c("would", "anywhere"),
@@ -100,13 +100,13 @@ test_that("tokenfilter works with filter_fun", {
     )
   )
 
-  obj <- recipe(~., data = test_data) %>%
-    step_tokenize(text) %>%
-    step_tokenfilter(text, filter_fun = function(x) grepl("^e", x)) %>%
+  obj <- recipe(~., data = test_data) |>
+    step_tokenize(text) |>
+    step_tokenfilter(text, filter_fun = function(x) grepl("^e", x)) |>
     prep()
 
   expect_equal(
-    bake(obj, new_data = NULL) %>% pull(text) %>% vctrs::field("tokens"),
+    bake(obj, new_data = NULL) |> pull(text) |> vctrs::field("tokens"),
     list(
       c("eat"),
       c("eat"),
@@ -118,7 +118,7 @@ test_that("tokenfilter works with filter_fun", {
 
 test_that("tunable", {
   rec <-
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
     step_tokenfilter(all_predictors())
   rec_param <- tunable.step_tokenfilter(rec$steps[[1]])
   expect_equal(rec_param$name, c("max_times", "min_times", "max_tokens"))
@@ -134,44 +134,44 @@ test_that("tunable", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(percentage = "yes") %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(percentage = "yes") |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(max_tokens = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(max_tokens = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(filter_fun = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(filter_fun = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(percentage = TRUE, max_times = 2) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(percentage = TRUE, max_times = 2) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(percentage = TRUE, min_times = 2) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(percentage = TRUE, min_times = 2) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(percentage = FALSE, max_times = -1) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(percentage = FALSE, max_times = -1) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenfilter(percentage = FALSE, min_times = -1) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenfilter(percentage = FALSE, min_times = -1) |>
       prep()
   )
 })
@@ -179,15 +179,15 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_tokenfilter(text, max_tokens = 10) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_tokenfilter(text, max_tokens = 10) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -236,8 +236,8 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_tokenfilter(text)
 
   expect_snapshot(print(rec))
@@ -246,7 +246,7 @@ test_that("printing", {
 
 test_that("tunable is setup to works with extract_parameter_set_dials", {
   skip_if_not_installed("dials")
-  rec <- recipe(~., data = mtcars) %>%
+  rec <- recipe(~., data = mtcars) |>
     step_tokenfilter(
       all_predictors(),
       max_times = hardhat::tune(),

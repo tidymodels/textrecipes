@@ -1,7 +1,7 @@
 # custom extraction functions work works
 
     Code
-      rec %>% step_textfeature(text, extract_functions = list(as.character)) %>% prep()
+      prep(step_textfeature(rec, text, extract_functions = list(as.character)))
     Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:
@@ -11,8 +11,7 @@
 ---
 
     Code
-      rec %>% step_textfeature(text, extract_functions = list(function(x) 1)) %>%
-        prep()
+      prep(step_textfeature(rec, text, extract_functions = list(function(x) 1)))
     Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:
@@ -32,7 +31,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_textfeature(prefix = NULL) %>% prep()
+      prep(step_textfeature(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_textfeature()`:
       Caused by error in `prep()`:

@@ -77,11 +77,11 @@
 #' library(modeldata)
 #' data(tate_text)
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium) %>%
+#' tate_rec <- recipe(~., data = tate_text) |>
+#'   step_tokenize(medium) |>
 #'   step_tfidf(medium)
 #'
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep()
 #'
 #' bake(tate_obj, tate_text)

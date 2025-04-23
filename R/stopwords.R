@@ -53,18 +53,18 @@
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium) %>%
+#' tate_rec <- recipe(~., data = tate_text) |>
+#'   step_tokenize(medium) |>
 #'   step_stopwords(medium)
 #'
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep()
 #'
-#' bake(tate_obj, new_data = NULL, medium) %>%
+#' bake(tate_obj, new_data = NULL, medium) |>
 #'   slice(1:2)
 #'
-#' bake(tate_obj, new_data = NULL) %>%
-#'   slice(2) %>%
+#' bake(tate_obj, new_data = NULL) |>
+#'   slice(2) |>
 #'   pull(medium)
 #'
 #' tidy(tate_rec, number = 2)
@@ -72,14 +72,14 @@
 #'
 #' # With a custom stop words list
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium) %>%
+#' tate_rec <- recipe(~., data = tate_text) |>
+#'   step_tokenize(medium) |>
 #'   step_stopwords(medium, custom_stopword_source = c("twice", "upon"))
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep(traimomg = tate_text)
 #'
-#' bake(tate_obj, new_data = NULL) %>%
-#'   slice(2) %>%
+#' bake(tate_obj, new_data = NULL) |>
+#'   slice(2) |>
 #'   pull(medium)
 #' @export
 step_stopwords <-

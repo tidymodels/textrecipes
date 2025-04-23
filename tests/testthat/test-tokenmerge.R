@@ -16,18 +16,18 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("merging is done correctly", {
-  rec <- rec %>%
-    step_tokenize(text1, text2) %>%
+  rec <- rec |>
+    step_tokenize(text1, text2) |>
     step_tokenmerge(text1, text2)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   baked_data <- bake(obj, new_data = NULL)
 
-  rec2 <- recipe(~., data = test_data) %>%
-    step_tokenize(text1, text2) %>%
-    prep() %>%
+  rec2 <- recipe(~., data = test_data) |>
+    step_tokenize(text1, text2) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -41,7 +41,7 @@ test_that("merging is done correctly", {
 })
 
 test_that("it complains when the selected column isn't a tokenlist", {
-  rec <- rec %>%
+  rec <- rec |>
     step_tokenmerge(text1, text2)
 
   expect_snapshot(
@@ -54,8 +54,8 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$tokenmerge <- dat$text1
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text1, text2) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text1, text2) |>
     step_tokenmerge(text1, text2)
 
   expect_snapshot(
@@ -67,8 +67,8 @@ test_that("check_name() is used", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenmerge(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenmerge(prefix = NULL) |>
       prep()
   )
 })
@@ -76,15 +76,15 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~ text1 + text2, data = test_data) %>%
-    step_tokenize(text1, text2) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~ text1 + text2, data = test_data) |>
+    step_tokenize(text1, text2) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text1, text2, new_role = "predictor") %>%
-    step_tokenmerge(text1, text2) %>%
-    update_role(text1, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text1, text2, new_role = "predictor") |>
+    step_tokenmerge(text1, text2) |>
+    update_role(text1, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -135,8 +135,8 @@ test_that("empty selection tidy method works", {
 test_that("keep_original_cols works", {
   new_names <- c("tokenmerge")
 
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text1, text2) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text1, text2) |>
     step_tokenmerge(text1, text2, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -147,8 +147,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text1, text2) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text1, text2) |>
     step_tokenmerge(text1, text2, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -161,8 +161,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~., data = test_data) %>%
-    step_tokenize(text1, text2) %>%
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize(text1, text2) |>
     step_tokenmerge(text1, text2)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -177,8 +177,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text1, text2) %>%
+  rec <- rec |>
+    step_tokenize(text1, text2) |>
     step_tokenmerge(text1, text2)
 
   expect_snapshot(print(rec))

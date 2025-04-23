@@ -88,18 +88,18 @@ library(recipes)
 library(modeldata)
 data(tate_text)
 
-tate_rec <- recipe(~., data = tate_text) \%>\%
-  step_tokenize(medium) \%>\%
+tate_rec <- recipe(~., data = tate_text) |>
+  step_tokenize(medium) |>
   step_stem(medium)
 
-tate_obj <- tate_rec \%>\%
+tate_obj <- tate_rec |>
   prep()
 
-bake(tate_obj, new_data = NULL, medium) \%>\%
+bake(tate_obj, new_data = NULL, medium) |>
   slice(1:2)
 
-bake(tate_obj, new_data = NULL) \%>\%
-  slice(2) \%>\%
+bake(tate_obj, new_data = NULL) |>
+  slice(2) |>
   pull(medium)
 
 tidy(tate_rec, number = 2)
@@ -109,18 +109,18 @@ tidy(tate_obj, number = 2)
 # if it is a "s".
 remove_s <- function(x) gsub("s$", "", x)
 
-tate_rec <- recipe(~., data = tate_text) \%>\%
-  step_tokenize(medium) \%>\%
+tate_rec <- recipe(~., data = tate_text) |>
+  step_tokenize(medium) |>
   step_stem(medium, custom_stemmer = remove_s)
 
-tate_obj <- tate_rec \%>\%
+tate_obj <- tate_rec |>
   prep()
 
-bake(tate_obj, new_data = NULL, medium) \%>\%
+bake(tate_obj, new_data = NULL, medium) |>
   slice(1:2)
 
-bake(tate_obj, new_data = NULL) \%>\%
-  slice(2) \%>\%
+bake(tate_obj, new_data = NULL) |>
+  slice(2) |>
   pull(medium)
 \dontshow{\}) # examplesIf}
 }

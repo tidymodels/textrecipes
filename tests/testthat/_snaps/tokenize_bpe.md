@@ -1,7 +1,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_tokenize_bpe(vocabulary_size = -4) %>% prep()
+      prep(step_tokenize_bpe(recipe(~., data = mtcars), vocabulary_size = -4))
     Condition
       Error in `step_tokenize_bpe()`:
       Caused by error in `prep()`:

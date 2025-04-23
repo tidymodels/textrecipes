@@ -11,7 +11,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_dummy_hash(signed = "yes") %>% prep()
+      prep(step_dummy_hash(recipe(~., data = mtcars), signed = "yes"))
     Condition
       Error in `step_dummy_hash()`:
       Caused by error in `prep()`:
@@ -20,7 +20,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_dummy_hash(num_terms = -4) %>% prep()
+      prep(step_dummy_hash(recipe(~., data = mtcars), num_terms = -4))
     Condition
       Error in `step_dummy_hash()`:
       Caused by error in `prep()`:
@@ -29,7 +29,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_dummy_hash(collapse = "yes") %>% prep()
+      prep(step_dummy_hash(recipe(~., data = mtcars), collapse = "yes"))
     Condition
       Error in `step_dummy_hash()`:
       Caused by error in `prep()`:

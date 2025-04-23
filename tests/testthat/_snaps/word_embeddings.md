@@ -11,8 +11,8 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_word_embeddings(embeddings = embeddings,
-        aggregation = "wrong") %>% prep()
+      prep(step_word_embeddings(recipe(~., data = mtcars), embeddings = embeddings,
+      aggregation = "wrong"))
     Condition
       Error in `step_word_embeddings()`:
       ! `aggregation` must be one of "sum", "mean", "min", or "max", not "wrong".
@@ -20,8 +20,8 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_word_embeddings(embeddings = embeddings,
-        aggregation_default = "yes") %>% prep()
+      prep(step_word_embeddings(recipe(~., data = mtcars), embeddings = embeddings,
+      aggregation_default = "yes"))
     Condition
       Error in `step_word_embeddings()`:
       Caused by error in `prep()`:
@@ -30,8 +30,8 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_word_embeddings(embeddings = embeddings,
-        prefix = NULL) %>% prep()
+      prep(step_word_embeddings(recipe(~., data = mtcars), embeddings = embeddings,
+      prefix = NULL))
     Condition
       Error in `step_word_embeddings()`:
       Caused by error in `prep()`:

@@ -1,7 +1,7 @@
 # padding and truncating works correctly
 
     Code
-      rec %>% step_tokenize(text) %>% step_sequence_onehot(text, padding = "not pre")
+      step_sequence_onehot(step_tokenize(rec, text), text, padding = "not pre")
     Condition
       Error in `step_sequence_onehot()`:
       ! `padding` must be one of "pre" or "post", not "not pre".
@@ -9,7 +9,7 @@
 ---
 
     Code
-      rec %>% step_tokenize(text) %>% step_sequence_onehot(text, truncating = "Wrong")
+      step_sequence_onehot(step_tokenize(rec, text), text, truncating = "Wrong")
     Condition
       Error in `step_sequence_onehot()`:
       ! `truncating` must be one of "pre" or "post", not "Wrong".
@@ -17,8 +17,7 @@
 ---
 
     Code
-      rec %>% step_tokenize(text) %>% step_sequence_onehot(text, padding = c("pre",
-        "pre"))
+      step_sequence_onehot(step_tokenize(rec, text), text, padding = c("pre", "pre"))
     Condition
       Error in `step_sequence_onehot()`:
       ! `arg` must be length 1 or a permutation of `c("pre", "post")`.
@@ -26,7 +25,7 @@
 ---
 
     Code
-      rec %>% step_tokenize(text) %>% step_sequence_onehot(text, truncating = "Wrong")
+      step_sequence_onehot(step_tokenize(rec, text), text, truncating = "Wrong")
     Condition
       Error in `step_sequence_onehot()`:
       ! `truncating` must be one of "pre" or "post", not "Wrong".
@@ -44,7 +43,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_sequence_onehot(padding = "yes")
+      step_sequence_onehot(recipe(~., data = mtcars), padding = "yes")
     Condition
       Error in `step_sequence_onehot()`:
       ! `padding` must be one of "pre" or "post", not "yes".
@@ -52,7 +51,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_sequence_onehot(truncating = "yes")
+      step_sequence_onehot(recipe(~., data = mtcars), truncating = "yes")
     Condition
       Error in `step_sequence_onehot()`:
       ! `truncating` must be one of "pre" or "post", not "yes".
@@ -60,8 +59,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_sequence_onehot(sequence_length = -4) %>%
-        prep()
+      prep(step_sequence_onehot(recipe(~., data = mtcars), sequence_length = -4))
     Condition
       Error in `step_sequence_onehot()`:
       Caused by error in `prep()`:
@@ -70,7 +68,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_sequence_onehot(prefix = NULL) %>% prep()
+      prep(step_sequence_onehot(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_sequence_onehot()`:
       Caused by error in `prep()`:

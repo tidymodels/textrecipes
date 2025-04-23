@@ -78,17 +78,17 @@ library(recipes)
 
 sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
 
-rec <- recipe(~., data = sample_data) \%>\%
+rec <- recipe(~., data = sample_data) |>
   step_text_normalization(text)
 
-prepped <- rec \%>\%
+prepped <- rec |>
   prep()
 
-bake(prepped, new_data = NULL, text) \%>\%
+bake(prepped, new_data = NULL, text) |>
   slice(1:2)
 
-bake(prepped, new_data = NULL) \%>\%
-  slice(2) \%>\%
+bake(prepped, new_data = NULL) |>
+  slice(2) |>
   pull(text)
 
 tidy(rec, number = 1)

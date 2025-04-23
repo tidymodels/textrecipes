@@ -31,9 +31,9 @@ text2_out <- list(
 test_that("step_tokenize_wordpiece works", {
   skip_if_not_installed("wordpiece")
 
-  res <- recipe(~text1, data = test_data) %>%
-    step_tokenize_wordpiece(text1) %>%
-    prep() %>%
+  res <- recipe(~text1, data = test_data) |>
+    step_tokenize_wordpiece(text1) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -45,9 +45,9 @@ test_that("step_tokenize_wordpiece works", {
 test_that("step_tokenize_wordpiece works with tokenizers.wordpiece and multiple colunms", {
   skip_if_not_installed("wordpiece")
 
-  res <- recipe(~., data = test_data) %>%
-    step_tokenize_wordpiece(all_predictors()) %>%
-    prep() %>%
+  res <- recipe(~., data = test_data) |>
+    step_tokenize_wordpiece(all_predictors()) |>
+    prep() |>
     bake(new_data = NULL)
 
   expect_equal(
@@ -66,14 +66,14 @@ test_that("bad args", {
 
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenize_wordpiece(unk_token = 0) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenize_wordpiece(unk_token = 0) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_tokenize_wordpiece(max_chars = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_tokenize_wordpiece(max_chars = -4) |>
       prep()
   )
 })
@@ -83,9 +83,9 @@ test_that("bad args", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("wordpiece")
 
-  rec <- recipe(~ text1 + text2, data = test_data) %>%
-    step_tokenize_wordpiece(text1, text2) %>%
-    update_role(text1, new_role = "potato") %>%
+  rec <- recipe(~ text1 + text2, data = test_data) |>
+    step_tokenize_wordpiece(text1, text2) |>
+    update_role(text1, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = test_data, verbose = FALSE)
@@ -142,7 +142,7 @@ test_that("empty selection tidy method works", {
 test_that("printing", {
   skip_if_not_installed("wordpiece")
 
-  rec <- recipe(~., data = test_data) %>%
+  rec <- recipe(~., data = test_data) |>
     step_tokenize_wordpiece(text1)
 
   expect_snapshot(print(rec))

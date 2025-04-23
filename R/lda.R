@@ -46,24 +46,24 @@
 #' library(modeldata)
 #' data(tate_text)
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium) %>%
+#' tate_rec <- recipe(~., data = tate_text) |>
+#'   step_tokenize(medium) |>
 #'   step_lda(medium)
 #'
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep()
 #'
-#' bake(tate_obj, new_data = NULL) %>%
+#' bake(tate_obj, new_data = NULL) |>
 #'   slice(1:2)
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
 #'
 #' # Changing the number of topics.
-#' recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium, artist) %>%
-#'   step_lda(medium, artist, num_topics = 20) %>%
-#'   prep() %>%
-#'   bake(new_data = NULL) %>%
+#' recipe(~., data = tate_text) |>
+#'   step_tokenize(medium, artist) |>
+#'   step_lda(medium, artist, num_topics = 20) |>
+#'   prep() |>
+#'   bake(new_data = NULL) |>
 #'   slice(1:2)
 #'
 #' # Supplying A pre-trained LDA model trained using text2vec
@@ -74,11 +74,11 @@
 #' dtm <- create_dtm(it, vocab_vectorizer(v))
 #' lda_model <- LDA$new(n_topics = 15)
 #'
-#' recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium, artist) %>%
-#'   step_lda(medium, artist, lda_models = lda_model) %>%
-#'   prep() %>%
-#'   bake(new_data = NULL) %>%
+#' recipe(~., data = tate_text) |>
+#'   step_tokenize(medium, artist) |>
+#'   step_lda(medium, artist, lda_models = lda_model) |>
+#'   prep() |>
+#'   bake(new_data = NULL) |>
 #'   slice(1:2)
 #' @export
 step_lda <-

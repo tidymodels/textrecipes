@@ -11,7 +11,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_texthash(signed = "yes") %>% prep()
+      prep(step_texthash(recipe(~., data = mtcars), signed = "yes"))
     Condition
       Error in `step_texthash()`:
       Caused by error in `prep()`:
@@ -20,7 +20,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_texthash(num_terms = -4) %>% prep()
+      prep(step_texthash(recipe(~., data = mtcars), num_terms = -4))
     Condition
       Error in `step_texthash()`:
       Caused by error in `prep()`:
@@ -29,7 +29,7 @@
 ---
 
     Code
-      recipe(~., data = mtcars) %>% step_texthash(prefix = NULL) %>% prep()
+      prep(step_texthash(recipe(~., data = mtcars), prefix = NULL))
     Condition
       Error in `step_texthash()`:
       Caused by error in `prep()`:

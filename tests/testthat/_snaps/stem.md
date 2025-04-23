@@ -1,7 +1,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_stem(custom_stemmer = "yes") %>% prep()
+      prep(step_stem(recipe(~., data = mtcars), custom_stemmer = "yes"))
     Condition
       Error in `step_stem()`:
       ! `custom_stemmer` must be a function or `NULL`, not the string "yes".

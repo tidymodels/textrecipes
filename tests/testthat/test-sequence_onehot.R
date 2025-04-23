@@ -10,11 +10,11 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("sequence encoding is done correctly", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_sequence_onehot(text, sequence_length = 10)
 
-  obj <- rec %>%
+  obj <- rec |>
     prep()
 
   baked_data <- bake(obj, new_data = NULL)
@@ -48,16 +48,16 @@ test_that("padding and truncating works correctly", {
   )
 
   pad_trunc <- function(seq_length, padding, truncating) {
-    recipe(~text, data = data) %>%
-      step_tokenize(text) %>%
+    recipe(~text, data = data) |>
+      step_tokenize(text) |>
       step_sequence_onehot(
         text,
         sequence_length = seq_length,
         padding = padding,
         truncating = truncating
-      ) %>%
-      prep() %>%
-      bake(new_data = NULL, composition = "matrix") %>%
+      ) |>
+      prep() |>
+      bake(new_data = NULL, composition = "matrix") |>
       unname()
   }
 
@@ -163,26 +163,26 @@ test_that("padding and truncating works correctly", {
 
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_tokenize(text) %>%
+    rec |>
+      step_tokenize(text) |>
       step_sequence_onehot(text, padding = "not pre")
   )
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_tokenize(text) %>%
+    rec |>
+      step_tokenize(text) |>
       step_sequence_onehot(text, truncating = "Wrong")
   )
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_tokenize(text) %>%
+    rec |>
+      step_tokenize(text) |>
       step_sequence_onehot(text, padding = c("pre", "pre"))
   )
   expect_snapshot(
     error = TRUE,
-    rec %>%
-      step_tokenize(text) %>%
+    rec |>
+      step_tokenize(text) |>
       step_sequence_onehot(text, truncating = "Wrong")
   )
 })
@@ -191,8 +191,8 @@ test_that("check_name() is used", {
   dat <- test_data
   dat$seq1hot_text_1 <- dat$text
 
-  rec <- recipe(~., data = dat) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~., data = dat) |>
+    step_tokenize(text) |>
     step_sequence_onehot(text)
 
   expect_snapshot(
@@ -204,24 +204,24 @@ test_that("check_name() is used", {
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
       step_sequence_onehot(padding = "yes")
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
+    recipe(~., data = mtcars) |>
       step_sequence_onehot(truncating = "yes")
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_sequence_onehot(sequence_length = -4) %>%
+    recipe(~., data = mtcars) |>
+      step_sequence_onehot(sequence_length = -4) |>
       prep()
   )
   expect_snapshot(
     error = TRUE,
-    recipe(~., data = mtcars) %>%
-      step_sequence_onehot(prefix = NULL) %>%
+    recipe(~., data = mtcars) |>
+      step_sequence_onehot(prefix = NULL) |>
       prep()
   )
 })
@@ -229,15 +229,15 @@ test_that("bad args", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  tokenized_test_data <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
-    prep() %>%
+  tokenized_test_data <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
+    prep() |>
     bake(new_data = NULL)
 
-  rec <- recipe(tokenized_test_data) %>%
-    update_role(text, new_role = "predictor") %>%
-    step_sequence_onehot(text) %>%
-    update_role(text, new_role = "potato") %>%
+  rec <- recipe(tokenized_test_data) |>
+    update_role(text, new_role = "predictor") |>
+    step_sequence_onehot(text) |>
+    update_role(text, new_role = "potato") |>
     update_role_requirements(role = "potato", bake = FALSE)
 
   trained <- prep(rec, training = tokenized_test_data, verbose = FALSE)
@@ -293,8 +293,8 @@ test_that("empty selection tidy method works", {
 test_that("keep_original_cols works", {
   new_names <- paste0("seq1hot_text_", 1:100)
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_sequence_onehot(text, keep_original_cols = FALSE)
 
   rec <- prep(rec)
@@ -305,8 +305,8 @@ test_that("keep_original_cols works", {
     new_names
   )
 
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_sequence_onehot(text, keep_original_cols = TRUE)
 
   rec <- prep(rec)
@@ -319,8 +319,8 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  rec <- recipe(~text, data = test_data) %>%
-    step_tokenize(text) %>%
+  rec <- recipe(~text, data = test_data) |>
+    step_tokenize(text) |>
     step_sequence_onehot(text)
 
   rec$steps[[2]]$keep_original_cols <- NULL
@@ -335,8 +335,8 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  rec <- rec %>%
-    step_tokenize(text) %>%
+  rec <- rec |>
+    step_tokenize(text) |>
     step_sequence_onehot(text)
 
   expect_snapshot(print(rec))

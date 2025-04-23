@@ -38,11 +38,11 @@
 #' library(modeldata)
 #' data(tate_text)
 #'
-#' tate_rec <- recipe(~., data = tate_text) %>%
-#'   step_tokenize(medium, artist) %>%
+#' tate_rec <- recipe(~., data = tate_text) |>
+#'   step_tokenize(medium, artist) |>
 #'   step_tokenmerge(medium, artist)
 #'
-#' tate_obj <- tate_rec %>%
+#' tate_obj <- tate_rec |>
 #'   prep()
 #'
 #' bake(tate_obj, new_data = NULL)
@@ -133,8 +133,8 @@ bake.step_tokenmerge <- function(object, new_data, ...) {
 
   new_col <- as.list(
     unname(as.data.frame(new_data[, col_names, drop = FALSE]))
-  ) %>%
-    map(get_tokens) %>%
+  ) |>
+    map(get_tokens) |>
     pmap(c)
   new_col <- tibble(tokenlist(new_col))
   names(new_col) <- object$prefix

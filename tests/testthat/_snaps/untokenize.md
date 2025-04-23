@@ -1,7 +1,7 @@
 # bad args
 
     Code
-      recipe(~., data = mtcars) %>% step_untokenize(sep = 0) %>% prep()
+      prep(step_untokenize(recipe(~., data = mtcars), sep = 0))
     Condition
       Error in `step_untokenize()`:
       Caused by error in `prep()`:

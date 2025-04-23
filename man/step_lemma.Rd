@@ -81,9 +81,9 @@ short_data <- data.frame(text = c(
   "With many cats and ladies."
 ))
 
-rec_spec <- recipe(~text, data = short_data) \%>\%
-  step_tokenize(text, engine = "spacyr") \%>\%
-  step_lemma(text) \%>\%
+rec_spec <- recipe(~text, data = short_data) |>
+  step_tokenize(text, engine = "spacyr") |>
+  step_lemma(text) |>
   step_tf(text)
 
 rec_prepped <- prep(rec_spec)
