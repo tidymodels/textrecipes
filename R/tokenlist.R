@@ -195,11 +195,11 @@ tokenlist_filter_function <- function(x, fn) {
 
   keeps <- lapply(tokens, fn)
 
-  out <- purrr::map2(tokens, keeps, ~ .x[.y])
+  out <- purrr::map2(tokens, keeps, \(.x, .y) .x[.y])
 
   lemma <- maybe_get_lemma(x)
   if (!is.null(lemma)) {
-    lemma <- purrr::map2(lemma, keeps, ~ .x[.y])
+    lemma <- purrr::map2(lemma, keeps, \(.x, .y) .x[.y])
     names(lemma) <- NULL
   } else {
     lemma <- NULL
@@ -207,7 +207,7 @@ tokenlist_filter_function <- function(x, fn) {
 
   pos <- maybe_get_pos(x)
   if (!is.null(pos)) {
-    pos <- purrr::map2(pos, keeps, ~ .x[.y])
+    pos <- purrr::map2(pos, keeps, \(.x, .y) .x[.y])
     names(pos) <- NULL
   } else {
     pos <- NULL

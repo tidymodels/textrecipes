@@ -265,11 +265,12 @@ tidy.step_tfidf <- function(x, ...) {
       res <- purrr::map2_dfr(
         x$columns,
         x$res,
-        ~ tibble(
-          terms = .x,
-          token = names(.y),
-          weight = unname(.y)
-        )
+        \(.x, .y)
+          tibble(
+            terms = .x,
+            token = names(.y),
+            weight = unname(.y)
+          )
       )
     }
   } else {

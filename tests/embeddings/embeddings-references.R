@@ -29,7 +29,7 @@ embeddings <- tokens |>
   dplyr::mutate(
     token_num_binary = purrr::map(
       seq_along(tokens),
-      function(this_token) {
+      \(this_token) {
         tibble(
           dimension = paste0("d", 1:5),
           score = as.double(intToBits(this_token)[1:5])
