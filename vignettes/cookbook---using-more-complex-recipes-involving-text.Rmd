@@ -9,7 +9,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: false
 if (rlang::is_installed(c("modeldata"))) {
   run <- TRUE
 } else {
@@ -27,7 +29,8 @@ Working to get textual data converted into numerical can be done in many differe
 
 This vignette will not do any modeling with the processed text as its purpose it to showcase  flexibility and modularity. Therefore the only packages needed will be `recipes` and `textrecipes`. Examples will be performed on the `tate_text` data-set which is packaged with `modeldata`.
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 library(recipes)
 library(textrecipes)
 library(modeldata)

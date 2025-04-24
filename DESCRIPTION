@@ -4,11 +4,10 @@ Version: 1.1.0.9000
 Authors@R: c(
     person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0679-1945")),
-    person(given = "Michael W.", "Kearney",
-           email = "kearneymw@missouri.edu", 
-           role = "cph", 
+    person("Michael W.", "Kearney", , "kearneymw@missouri.edu", role = "cph",
            comment = "author of count_functions"),
-    person(given = "Posit Software, PBC", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: Converting text to numerical features requires specifically
     created procedures, which are implemented as steps according to the
@@ -23,9 +22,10 @@ Depends:
     recipes (>= 1.2.0)
 Imports: 
     cli,
-    lifecycle,
     dplyr,
     generics (>= 0.1.0),
+    glue,
+    lifecycle,
     magrittr,
     Matrix,
     purrr,
@@ -34,8 +34,7 @@ Imports:
     sparsevctrs (>= 0.3.0),
     tibble,
     tokenizers,
-    vctrs,
-    glue
+    vctrs
 Suggests: 
     covr,
     data.table,
@@ -59,6 +58,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse/tidytemplate, reticulate
 Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2025-04-24
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

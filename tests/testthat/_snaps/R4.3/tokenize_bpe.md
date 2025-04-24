@@ -1,8 +1,8 @@
 # Errors if vocabulary size is set to low.
 
     Code
-      recipe(~text1, data = test_data) |> step_tokenize_bpe(text1, vocabulary_size = 10) |>
-        prep()
+      prep(step_tokenize_bpe(recipe(~text1, data = test_data), text1,
+      vocabulary_size = 10))
     Condition
       Error in `step_tokenize_bpe()`:
       Caused by error in `prep()`:
