@@ -4,7 +4,9 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -31,13 +33,16 @@ knitr::opts_chunk$set(
 
 You can install the released version of textrecipes from [CRAN](https://CRAN.R-project.org) with:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 install.packages("textrecipes")
 ```
 
 Install the development version from GitHub with:
 
-```{r installation, eval=FALSE}
+```{r}
+#| label: installation
+#| eval: false
 # install.packages("pak")
 pak::pak("tidymodels/textrecipes")
 ```
@@ -46,7 +51,8 @@ pak::pak("tidymodels/textrecipes")
 
 In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 10 most used words. The preprocessing will be conducted on the variable `medium` and `artist`.
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 library(recipes)
 library(textrecipes)
 library(modeldata)
@@ -71,14 +77,16 @@ As of version 0.4.0, `step_lda()` no longer accepts character variables and inst
 
 the following recipe
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 recipe(~text_var, data = data) |>
   step_lda(text_var)
 ```
 
 can be replaced with the following recipe to achive the same results
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 lda_tokenizer <- function(x) text2vec::word_tokenizer(tolower(x))
 recipe(~text_var, data = data) |>
   step_tokenize(text_var,
