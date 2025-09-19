@@ -189,7 +189,6 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
       )
       n_words[[col_name]] <- length(unique(unlist(training[[col_name]])))
     }
-  } else {
   }
 
   step_tokenfilter_new(
@@ -287,10 +286,6 @@ tokenfilter_fun <- function(
     names(sort(tf[ids], decreasing = TRUE))
   } else {
     if (max_tokens > sum(ids)) {
-      cli::cli_warn(
-        "max_tokens was set to {.val {max_tokens}}, but only {sum(ids)} was 
-        available and selected."
-      )
       max_tokens <- sum(ids)
     }
     names(sort(tf[ids], decreasing = TRUE)[seq_len(max_tokens)])
