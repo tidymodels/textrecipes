@@ -189,7 +189,7 @@ prep.step_tokenfilter <- function(x, training, info = NULL, ...) {
       )
       n_words[[col_name]] <- length(unique(unlist(training[[col_name]])))
     }
-  } else {}
+  }
 
   step_tokenfilter_new(
     terms = x$terms,
