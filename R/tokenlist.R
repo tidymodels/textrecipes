@@ -311,6 +311,7 @@ tokenlist_embedding <- function(x, emb, aggregation, aggregation_default) {
   n_doc <- length(tokens)
   emb_names <- names(emb)[-1]
   n_dim <- length(emb_names)
+  emb_mat <- as.matrix(emb[, -1])
 
   # Map each token occurrence to its document and its row in `emb`.
   doc_id <- rep.int(seq_len(n_doc), lengths(tokens))
@@ -328,32 +329,65 @@ tokenlist_embedding <- function(x, emb, aggregation, aggregation_default) {
   )
 
   if (length(token_index) > 0L) {
-    emb_mat <- as.matrix(emb[, -1])
-    vals <- emb_mat[token_index, , drop = FALSE]
-
-    agg <- aggregate_embedding(vals, doc_id, aggregation)
-    res[as.integer(rownames(agg)), ] <- agg
+    if (aggregation %in% c("sum", "mean")) {
+      res <- aggregate_embedding_linear(
+        emb_mat,
+        doc_id,
+        token_index,
+        n_doc,
+        aggregation,
+        aggregation_default
+      )
+      dimnames(res) <- list(NULL, emb_names)
+    } else {
+      agg <- aggregate_embedding_extremum(
+        emb_mat[token_index, , drop = FALSE],
+        doc_id,
+        aggregation
+      )
+      res[as.integer(rownames(agg)), ] <- agg
+    }
   }
 
   tibble::as_tibble(res)
 }
 
-# Aggregate the rows of `vals` (a numeric matrix) by `group`, returning a matrix
-# with one row per present group and the group label as the row name.
-aggregate_embedding <- function(vals, group, aggregation) {
-  if (aggregation %in% c("sum", "mean")) {
-    out <- rowsum(vals, group, reorder = FALSE)
-    if (aggregation == "mean") {
-      counts <- tabulate(match(group, as.integer(rownames(out))))
-      out <- out / counts
-    }
-    return(out)
+# Sum/mean aggregation as a single sparse-by-dense matrix product: a (n_doc x
+# n_vocab) document-token incidence matrix (sparse because each document holds
+# only a few of the vocabulary's tokens; the embedding matrix itself stays
+# dense) times the dense embedding matrix yields per-document sums directly, in
+# document order, without slicing or a grouped reduction.
+aggregate_embedding_linear <- function(
+  emb_mat,
+  doc_id,
+  token_index,
+  n_doc,
+  aggregation,
+  aggregation_default
+) {
+  incidence <- Matrix::sparseMatrix(
+    i = doc_id,
+    j = token_index,
+    x = 1,
+    dims = c(n_doc, nrow(emb_mat))
+  )
+  out <- as.matrix(incidence %*% emb_mat)
+  counts <- tabulate(doc_id, nbins = n_doc)
+  if (aggregation == "mean") {
+    out <- out / counts
   }
+  # Documents with no matched tokens get the default rather than a zero sum.
+  out[counts == 0L, ] <- aggregation_default
+  out
+}
 
+# Min/max aggregation of the rows of `vals` (a numeric matrix) by `group`,
+# returning a matrix with one row per present group and the group label as the
+# row name. Loops over the (relatively few) embedding columns, aggregating each
+# with a single vectorised `tapply`.
+aggregate_embedding_extremum <- function(vals, group, aggregation) {
   fun <- switch(aggregation, min = min, max = max)
   group <- factor(group)
-  # Loop over the (relatively few) embedding columns, aggregating each with a
-  # single vectorised `tapply`, rather than looping over the many groups.
   out <- vapply(
     seq_len(ncol(vals)),
     function(col) tapply(vals[, col], group, fun),

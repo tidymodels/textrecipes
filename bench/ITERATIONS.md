@@ -73,6 +73,50 @@ documents).
 Modest further gain. `min`/`max` remain bounded by `tapply`'s internal grouping;
 the default `sum`/`mean` path (the common case) is the headline ~13x win.
 
+## Iteration 3: sparse incidence matrix product for sum/mean
+
+Re-profiling the `sum` path showed `rowsum.default` (~39% self-time) and the
+`emb_mat[token_index, ]` row-slice (~14%) as the new hot spots, with heavy GC
+(~22%) from the 80k x 100 slice allocation each bake.
+
+Replaced slice + `rowsum` with a single **sparse-by-dense matrix product**:
+
+```r
+incidence <- Matrix::sparseMatrix(i = doc_id, j = token_index, x = 1,
+                                  dims = c(n_doc, nrow(emb_mat)))
+out <- as.matrix(incidence %*% emb_mat)            # per-document sums, in order
+if (aggregation == "mean") out <- out / counts
+out[counts == 0, ] <- aggregation_default          # empty docs get the default
+```
+
+The **embedding matrix stays dense**; only the document-token incidence matrix
+is sparse, and it is sparse by construction (each document contains only a few
+of the vocabulary's tokens) no matter what the embedding values are. The product
+lands directly in document order, so it needs no row-slice, no grouped
+reduction, and no remapping of group labels back to rows. `min`/`max` keep the
+column-wise `tapply` path. `Matrix` is already a package dependency.
+
+| aggregation | iter 2 | iter 3 |
+|-------------|--------|--------|
+| sum         | 0.066 s | 0.045 s |
+| mean        | 0.067 s | 0.038 s |
+| min         | 0.360 s | 0.342 s |
+| max         | 0.338 s | 0.336 s |
+
+After this change the remaining `bake` time is dominated by `step_tokenize`
+(`stri_split_boundaries`, `stri_trans_tolower`) and the intrinsic `%*%`
+multiply-add work, i.e. there is little left to win inside
+`step_word_embeddings` itself for the default aggregations.
+
+## Cumulative result
+
+| aggregation | baseline | final | speedup |
+|-------------|----------|-------|---------|
+| sum         | 0.85 s | 0.045 s | ~19x |
+| mean        | 0.85 s | 0.038 s | ~22x |
+| min         | 0.85 s | 0.342 s | ~2.5x |
+| max         | 0.85 s | 0.336 s | ~2.5x |
+
 ## Notes
 
 - The full `devtools::test()` run segfaults inside an unrelated `ngram` C-code
