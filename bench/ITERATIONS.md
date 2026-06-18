@@ -108,14 +108,44 @@ After this change the remaining `bake` time is dominated by `step_tokenize`
 multiply-add work, i.e. there is little left to win inside
 `step_word_embeddings` itself for the default aggregations.
 
+## Iteration 4: precompute the dense embedding matrix in `prep()`
+
+Profiling iteration 3 showed `as.matrix(emb[, -1])` ran on every `bake()`,
+costing ~22% of the step's own time and (more importantly) allocating the whole
+~40 MB embedding matrix each call, which drove a lot of the GC.
+
+Moved the conversion into `prep()`: the prepped step now stores a dense
+`emb_matrix` plus an `emb_tokens` lookup vector instead of the embeddings tibble
+(no memory duplication: an all-numeric matrix is no larger than the tibble it
+replaces). `bake()`/`tokenlist_embedding()` take the matrix and tokens directly,
+and `tidy()` reads the row count from `emb_matrix`.
+
+| aggregation | iter 3 | iter 4 |
+|-------------|--------|--------|
+| sum         | 0.045 s | 0.027 s |
+| mean        | 0.038 s | 0.027 s |
+| min         | 0.342 s | 0.325 s |
+| max         | 0.336 s | 0.301 s |
+
+The win exceeds the bare `as.matrix` time because dropping the 40 MB
+per-`bake()` allocation also cuts GC.
+
+### Rejected within this iteration
+
+For `min`/`max` I also tried two replacements for the column-wise `tapply`: a
+single flattened `tapply` over all columns at once (~2x *slower*), and an
+`order()` + `duplicated(fromLast=)` pick per column (~12% faster). The latter's
+gain was too small for the added complexity on a non-default path, so it was
+rejected.
+
 ## Cumulative result
 
 | aggregation | baseline | final | speedup |
 |-------------|----------|-------|---------|
-| sum         | 0.85 s | 0.045 s | ~19x |
-| mean        | 0.85 s | 0.038 s | ~22x |
-| min         | 0.85 s | 0.342 s | ~2.5x |
-| max         | 0.85 s | 0.336 s | ~2.5x |
+| sum         | 0.85 s | 0.027 s | ~31x |
+| mean        | 0.85 s | 0.027 s | ~31x |
+| min         | 0.85 s | 0.325 s | ~2.6x |
+| max         | 0.85 s | 0.301 s | ~2.8x |
 
 ## Notes
 

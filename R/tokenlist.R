@@ -306,16 +306,21 @@ tokenlist_ngram <- function(x, n, n_min, delim) {
   tokenlist(ngram(get_tokens(x), n, n_min, delim))
 }
 
-tokenlist_embedding <- function(x, emb, aggregation, aggregation_default) {
+tokenlist_embedding <- function(
+  x,
+  emb_mat,
+  emb_tokens,
+  aggregation,
+  aggregation_default
+) {
   tokens <- get_tokens(x)
   n_doc <- length(tokens)
-  emb_names <- names(emb)[-1]
+  emb_names <- colnames(emb_mat)
   n_dim <- length(emb_names)
-  emb_mat <- as.matrix(emb[, -1])
 
-  # Map each token occurrence to its document and its row in `emb`.
+  # Map each token occurrence to its document and its row in `emb_mat`.
   doc_id <- rep.int(seq_len(n_doc), lengths(tokens))
-  token_index <- match(unlist(tokens, use.names = FALSE), emb[[1]])
+  token_index <- match(unlist(tokens, use.names = FALSE), emb_tokens)
 
   keep <- !is.na(token_index)
   doc_id <- doc_id[keep]
