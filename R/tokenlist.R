@@ -306,22 +306,59 @@ tokenlist_ngram <- function(x, n, n_min, delim) {
   tokenlist(ngram(get_tokens(x), n, n_min, delim))
 }
 
-tokenlist_embedding <- function(x, emb, fun) {
+tokenlist_embedding <- function(x, emb, aggregation, aggregation_default) {
   tokens <- get_tokens(x)
-  seq_x <- seq_along(tokens)
-  i <- rep(seq_x, lengths(tokens))
-  unlisted_tokens <- unlist(tokens)
-  j <- match(unlisted_tokens, get_unique_tokens(x))
+  n_doc <- length(tokens)
+  emb_names <- names(emb)[-1]
+  n_dim <- length(emb_names)
 
-  keep_id <- !is.na(j)
-  split_id <- factor(i[keep_id], seq_x)
+  # Map each token occurrence to its document and its row in `emb`.
+  doc_id <- rep.int(seq_len(n_doc), lengths(tokens))
+  token_index <- match(unlist(tokens, use.names = FALSE), emb[[1]])
 
-  token_index <- match(unlisted_tokens, emb[[1]])
+  keep <- !is.na(token_index)
+  doc_id <- doc_id[keep]
+  token_index <- token_index[keep]
 
-  emb[token_index, -1] |>
-    dplyr::mutate("id" = split_id) |>
-    dplyr::filter(!is.na(token_index)) |>
-    dplyr::group_by(id, .drop = FALSE) |>
-    dplyr::summarise_all(fun, na.rm = TRUE) |>
-    dplyr::select(-"id")
+  res <- matrix(
+    aggregation_default,
+    nrow = n_doc,
+    ncol = n_dim,
+    dimnames = list(NULL, emb_names)
+  )
+
+  if (length(token_index) > 0L) {
+    emb_mat <- as.matrix(emb[, -1])
+    vals <- emb_mat[token_index, , drop = FALSE]
+
+    agg <- aggregate_embedding(vals, doc_id, aggregation)
+    res[as.integer(rownames(agg)), ] <- agg
+  }
+
+  tibble::as_tibble(res)
+}
+
+# Aggregate the rows of `vals` (a numeric matrix) by `group`, returning a matrix
+# with one row per present group and the group label as the row name.
+aggregate_embedding <- function(vals, group, aggregation) {
+  if (aggregation %in% c("sum", "mean")) {
+    out <- rowsum(vals, group, reorder = FALSE)
+    if (aggregation == "mean") {
+      counts <- tabulate(match(group, as.integer(rownames(out))))
+      out <- out / counts
+    }
+    return(out)
+  }
+
+  fun <- switch(aggregation, min = min, max = max)
+  group <- factor(group)
+  # Loop over the (relatively few) embedding columns, aggregating each with a
+  # single vectorised `tapply`, rather than looping over the many groups.
+  out <- vapply(
+    seq_len(ncol(vals)),
+    function(col) tapply(vals[, col], group, fun),
+    numeric(nlevels(group))
+  )
+  rownames(out) <- levels(group)
+  out
 }
