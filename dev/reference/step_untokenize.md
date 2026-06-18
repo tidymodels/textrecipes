@@ -143,10 +143,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id              
 #>   <chr>  <chr> <chr>           
-#> 1 medium NA    untokenize_NGEYl
+#> 1 medium NA    untokenize_tTNgW
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id              
 #>   <chr>  <chr> <chr>           
-#> 1 medium " "   untokenize_NGEYl
+#> 1 medium " "   untokenize_tTNgW
 ```

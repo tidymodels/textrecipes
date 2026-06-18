@@ -345,12 +345,12 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium NA    tokenize_etOak
+#> 1 medium NA    tokenize_Whwup
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium words tokenize_etOak
+#> 1 medium words tokenize_Whwup
 
 tate_obj_chars <- recipe(~., data = tate_text) |>
   step_tokenize(medium, token = "characters") |>
