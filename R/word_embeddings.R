@@ -150,7 +150,9 @@ step_word_embeddings_new <- function(
   prefix,
   keep_original_cols,
   skip,
-  id
+  id,
+  emb_matrix = NULL,
+  emb_tokens = NULL
 ) {
   recipes::step(
     subclass = "word_embeddings",
@@ -164,7 +166,9 @@ step_word_embeddings_new <- function(
     prefix = prefix,
     keep_original_cols = keep_original_cols,
     skip = skip,
-    id = id
+    id = id,
+    emb_matrix = emb_matrix,
+    emb_tokens = emb_tokens
   )
 }
 
@@ -177,18 +181,25 @@ prep.step_word_embeddings <- function(x, training, info = NULL, ...) {
 
   check_type(training[, col_names], types = "tokenlist")
 
+  # Precompute the dense embedding matrix and its token lookup once here, rather
+  # than rebuilding them on every `bake()`.
+  emb_matrix <- as.matrix(x$embeddings[, -1])
+  emb_tokens <- x$embeddings[[1]]
+
   step_word_embeddings_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
     columns = col_names,
-    embeddings = x$embeddings,
+    embeddings = NULL,
     aggregation = x$aggregation,
     aggregation_default = x$aggregation_default,
     prefix = x$prefix,
     keep_original_cols = get_keep_original_cols(x),
     skip = x$skip,
-    id = x$id
+    id = x$id,
+    emb_matrix = emb_matrix,
+    emb_tokens = emb_tokens
   )
 }
 
@@ -197,13 +208,13 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  aggregation_fun <- get_aggregation_fun(object)
-
   for (col_name in col_names) {
     emb_columns <- tokenlist_embedding(
       new_data[[col_name]],
-      object$embeddings,
-      aggregation_fun
+      object$emb_matrix,
+      object$emb_tokens,
+      object$aggregation,
+      object$aggregation_default
     )
 
     colnames(emb_columns) <- paste(
@@ -228,23 +239,6 @@ bake.step_word_embeddings <- function(object, new_data, ...) {
   new_data
 }
 
-get_aggregation_fun <- function(object) {
-  fun <- switch(
-    EXPR = object$aggregation,
-    sum = sum,
-    mean = mean,
-    min = min,
-    max = max
-  )
-
-  function(x, ...) {
-    if (length(x) == 0) {
-      return(object$aggregation_default)
-    }
-    fun(x, ...)
-  }
-}
-
 #' @export
 print.step_word_embeddings <- function(
   x,
@@ -263,7 +257,7 @@ tidy.step_word_embeddings <- function(x, ...) {
   if (is_trained(x)) {
     res <- tibble(
       terms = unname(x$columns %||% character()),
-      embeddings_rows = nrow(x$embeddings),
+      embeddings_rows = nrow(x$emb_matrix),
       aggregation = x$aggregation
     )
   } else {
