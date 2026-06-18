@@ -1,0 +1,55 @@
+# Under the hood - tokenlist
+
+``` r
+
+library(textrecipes)
+#> Loading required package: recipes
+#> Loading required package: dplyr
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+#> 
+#> Attaching package: 'recipes'
+#> The following object is masked from 'package:stats':
+#> 
+#>     step
+```
+
+**textrecipes** has been using lists of character vectors to carry
+around the tokens. A simple S3 vector class has been implemented with
+the **vctrs** package to handle that list of tokens, henceforth to be
+known as a `tokenlist`.
+
+If you are only using this package for preprocessing then you most
+likely won’t even notice that this change has happened. However if you
+are thinking of contributing to **textrecipes** then knowing about
+`tokenlist`s will be essential.
+
+A `tokenlist` is based around a simple list of character vectors, and
+has 3 attributes, `lemma`, `pos` and `tokens`.
+
+## `tokens` attribute
+
+The `tokens` attribute is a vector of the unique tokens contained in the
+data list. This attribute is calculated automatically when using
+[`tokenlist()`](https://textrecipes.tidymodels.org/dev/reference/tokenlist.md).
+If a function is applied to the tokenlist where the resulting unique
+tokens can be derived then `new_tokenlist()` can be used to create a
+tokenlist with known `tokens` attribute.
+
+## `lemma` and `pos` attributes
+
+Both the `lemma` and `pos` attribute are used in the same way. They
+default to `NULL` but can be filled depending on which engine is being
+used in
+[`step_tokenize()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize.md).
+The attribute is a list of characters in the exact shape and size as the
+tokenlist and should have a one-to-one relationship.
+
+If a specific element is removed from the tokenlist then the
+corresponding element in `lemma` and `pos` should be removed.
