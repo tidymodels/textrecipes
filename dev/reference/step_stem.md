@@ -162,12 +162,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_YfeTU
+#> 1 medium FALSE             stem_XmMmh
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_YfeTU
+#> 1 medium FALSE             stem_XmMmh
 
 # Using custom stemmer. Here a custom stemmer that removes the last letter
 # if it is a "s".
