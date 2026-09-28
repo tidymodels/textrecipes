@@ -1,5 +1,13 @@
 # textrecipes (development version)
 
+## Bug Fixes
+
+* Custom tokenizer functions passed to `custom_token` are now called positionally, so functions whose first argument isn't named `x` no longer error with "unused argument" at bake time. (#248)
+
+* `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_tokenize_wordpiece()` now error informatively if a tokenizer returns a list whose length doesn't match the number of rows in the input, instead of silently recycling and duplicating rows. (#318)
+
+* Fixed a bug where `bake()` could error with "unused argument" for `step_tokenize(engine = "spacyr")`, `step_tokenize(engine = "tokenizers.bpe")`, `step_tokenize_bpe()`, and `step_tokenize_sentencepiece()` when `options` was non-empty, because the underlying tokenizer closures didn't accept additional arguments. (#319)
+
 # textrecipes 1.1.0
 
 ## Improvements

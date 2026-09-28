@@ -19,7 +19,12 @@ tokenizers_bpe_tokens <- function(text, options = list()) {
 
   model_code <- readLines(temp_file0)
 
-  function(x) {
+  # `...` absorbs any training-only `options` that get re-passed at bake
+  # time (#319). Those options (e.g. `threads`, `coverage`) only apply
+  # when the model is trained via `tokenizers.bpe::bpe()` above and have
+  # no meaning for `bpe_encode()`, so they are intentionally not
+  # forwarded.
+  function(x, ...) {
     temp_file <- tempfile()
 
     writeLines(model_code, temp_file)

@@ -34,7 +34,11 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
   )
   close(file_con)
 
-  function(x) {
+  # `...` absorbs any training-only `options` that get re-passed at bake
+  # time (#319). Those options only apply when the model is trained via
+  # `sentencepiece::sentencepiece()` above and have no meaning for
+  # `sentencepiece_encode()`, so they are intentionally not forwarded.
+  function(x, ...) {
     temp_file <- tempfile()
 
     writeBin(binary_file, temp_file)
