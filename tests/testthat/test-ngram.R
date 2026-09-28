@@ -246,6 +246,27 @@ test_that("ngramming works with min_num_tokens", {
   expect_equal(dim(tidy(obj, 2)), c(1, 2))
 })
 
+test_that("ngram handles non-UTF-8 input encoding correctly (#323)", {
+  cafe_utf8 <- "café"
+  cafe_latin1 <- tryCatch(
+    iconv(cafe_utf8, from = "UTF-8", to = "latin1"),
+    error = function(e) NA_character_,
+    warning = function(w) NA_character_
+  )
+
+  skip_if(is.na(cafe_latin1))
+  skip_if_not(Encoding(cafe_latin1) == "latin1")
+
+  res <- ngram(list(c(cafe_latin1, "test")), n = 1L, n_min = 1L, delim = "_")[[
+    1
+  ]]
+
+  expect_equal(Encoding(res[1]), "UTF-8")
+  expect_no_error(nchar(res))
+  expect_no_error(toupper(res))
+  expect_equal(res[1], cafe_utf8)
+})
+
 test_that("`delim` argument works", {
   rec <- rec |>
     step_tokenize(text) |>
@@ -297,6 +318,24 @@ test_that("bad args", {
     error = TRUE,
     recipe(~., data = mtcars) |>
       step_ngram(delim = -4) |>
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
+      step_ngram(num_tokens = 0) |>
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
+      step_ngram(min_num_tokens = 0) |>
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
+      step_ngram(num_tokens = 2, min_num_tokens = 3) |>
       prep()
   )
 })

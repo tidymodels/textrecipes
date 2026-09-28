@@ -1,5 +1,11 @@
 # textrecipes (development version)
 
+## Bug Fixes
+
+* `step_ngram()` and `step_sequence_onehot()` now error clearly when given `num_tokens`, `min_num_tokens`, or `sequence_length` less than 1, and `step_ngram()` now errors clearly when `min_num_tokens` is greater than `num_tokens`, instead of surfacing an unrelated low-level error. (#324)
+
+* `step_ngram()` no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which could cause `nchar()`, `toupper()`, and other string operations on the output to fail with encoding errors. (#323)
+
 # textrecipes 1.1.0
 
 ## Improvements

@@ -144,7 +144,7 @@ step_sequence_onehot_new <-
 prep.step_sequence_onehot <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_number_whole(x$sequence_length, min = 0, arg = "sequence_length")
+  check_number_whole(x$sequence_length, min = 1, arg = "sequence_length")
   check_string(x$prefix, arg = "prefix")
 
   check_type(training[, col_names], types = "tokenlist")
