@@ -167,7 +167,7 @@ test_that("bake doesn't error when training-only options are set (#319)", {
   skip_if_not_installed("tokenizers.bpe")
 
   rec <- recipe(~text1, data = test_data) |>
-    step_tokenize_bpe(text1, options = list(threads = 1)) |>
+    step_tokenize_bpe(text1, vocabulary_size = 60, options = list(threads = 1)) |>
     prep()
 
   expect_no_error(
