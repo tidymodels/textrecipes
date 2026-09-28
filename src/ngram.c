@@ -23,10 +23,12 @@ void fill_one_ngram(
   R_xlen_t out_char_size = 1;  // 1 for NULL
 
   for (R_xlen_t i = 0; i < range; ++i) {
-    out_char_size = out_char_size + strlen(CHAR(STRING_ELT(x, i)));
+    out_char_size =
+        out_char_size + strlen(Rf_translateCharUTF8(STRING_ELT(x, i)));
 
     for (R_xlen_t j = 1; j < n; ++j) {
-      out_char_size = out_char_size + strlen(CHAR(STRING_ELT(x, i + j)));
+      out_char_size =
+          out_char_size + strlen(Rf_translateCharUTF8(STRING_ELT(x, i + j)));
       out_char_size = out_char_size + strlen(delim);
     }
   }
@@ -35,11 +37,11 @@ void fill_one_ngram(
   char* out_elt = R_alloc(out_char_size, sizeof(char));
 
   for (R_xlen_t i = 0; i < range; ++i) {
-    const char* elt = CHAR(STRING_ELT(x, i));
+    const char* elt = Rf_translateCharUTF8(STRING_ELT(x, i));
     strcpy(out_elt, elt);
 
     for (R_xlen_t j = 1; j < n; ++j) {
-      const char* piece = CHAR(STRING_ELT(x, i + j));
+      const char* piece = Rf_translateCharUTF8(STRING_ELT(x, i + j));
 
       strcat(out_elt, delim);
       strcat(out_elt, piece);
@@ -85,7 +87,7 @@ SEXP ffi_ngram(SEXP x, SEXP n, SEXP n_min, SEXP delim) {
     Rf_error("n_min must be a positive integer.");
   }
   if (n_min_val > n_val) {
-    Rf_error("n_min must be less then n.");
+    Rf_error("n_min must be less than n.");
   }
 
   const R_xlen_t x_size = Rf_xlength(x);
