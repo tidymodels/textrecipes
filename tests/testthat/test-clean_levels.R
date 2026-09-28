@@ -70,6 +70,49 @@ test_that("factor input", {
   expect_equal(sum(is.na(cleaned_te$name)), 5)
 })
 
+test_that("character columns get a trained lookup table and are cleaned consistently (#320)", {
+  skip_if_not_installed("janitor")
+
+  dat_tr <- tibble::tibble(name = c("Foo Bar", "Foo Bar", "Baz Qux"))
+  dat_te <- tibble::tibble(name = c("Foo Bar", "New Value"))
+
+  rec <- recipe(~., data = dat_tr, strings_as_factors = FALSE) |>
+    step_clean_levels(name) |>
+    prep()
+
+  baked_tr <- bake(rec, new_data = NULL)
+
+  # identical inputs must clean identically regardless of row position
+  expect_equal(baked_tr$name[1], baked_tr$name[2])
+  expect_equal(baked_tr$name, c("foo_bar", "foo_bar", "baz_qux"))
+
+  # tidy() reports a non-empty mapping for character columns
+  tidy_res <- tidy(rec, number = 1)
+  expect_equal(nrow(tidy_res), 2)
+
+  # novel values not seen at prep time become NA at bake time
+  baked_te <- bake(rec, new_data = dat_te)
+  expect_equal(baked_te$name[1], "foo_bar")
+  expect_true(is.na(baked_te$name[2]))
+})
+
+test_that("backwards compatibility with unnamed `clean` still cleans data (#321)", {
+  skip_if_not_installed("janitor")
+
+  dat <- tibble::tibble(name = factor(c("Foo Bar", "Baz Qux")))
+
+  rec <- recipe(~., data = dat) |>
+    step_clean_levels(name) |>
+    prep()
+
+  # simulate a legacy trained object where `clean` lost its outer names
+  rec$steps[[1]]$clean <- unname(rec$steps[[1]]$clean)
+
+  baked <- bake(rec, new_data = dat)
+
+  expect_equal(as.character(baked$name), c("foo_bar", "baz_qux"))
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
