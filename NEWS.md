@@ -1,5 +1,9 @@
 # textrecipes (development version)
 
+## Bug fixes
+
+* `step_stem()` no longer silently drops the `lemma`/`pos` attributes carried by a tokenlist, so it can now be safely used upstream of `step_lemma()` or `step_pos_filter()` (#327).
+
 # textrecipes 1.1.0
 
 ## Improvements
