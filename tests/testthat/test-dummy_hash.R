@@ -198,6 +198,17 @@ test_that("bad args", {
   )
 })
 
+test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
+  skip_if_not_installed("text2vec")
+
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
+      step_dummy_hash(num_terms = 0) |>
+      prep()
+  )
+})
+
 test_that("sparse = 'yes' works", {
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
@@ -369,6 +380,55 @@ test_that("keep_original_cols works", {
   expect_equal(
     colnames(res),
     c("sponsor_code", new_names)
+  )
+})
+
+test_that("keep_original_cols works with collapse = TRUE (#304)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  data("tate_text", package = "modeldata")
+
+  test_data <- tate_text[1:20, c("artist", "title", "medium")]
+  test_data <- tibble::as_tibble(test_data)
+
+  new_names <- paste0("dummyhash_artist_title_medium_", 1:4)
+
+  rec_drop <- recipe(~., data = test_data) |>
+    step_dummy_hash(
+      artist,
+      title,
+      medium,
+      num_terms = 4,
+      collapse = TRUE,
+      keep_original_cols = FALSE
+    )
+
+  rec_drop <- prep(rec_drop)
+  res_drop <- bake(rec_drop, new_data = NULL)
+
+  expect_equal(colnames(res_drop), new_names)
+
+  rec_keep <- recipe(~., data = test_data) |>
+    step_dummy_hash(
+      artist,
+      title,
+      medium,
+      num_terms = 4,
+      collapse = TRUE,
+      keep_original_cols = TRUE
+    )
+
+  rec_keep <- prep(rec_keep)
+  res_keep <- bake(rec_keep, new_data = NULL)
+
+  # original columns should be restored, and the intermediate collapsed
+  # column ("artist_title_medium") should not leak into the output
+  expect_equal(
+    colnames(res_keep),
+    c("artist", "title", "medium", new_names)
   )
 })
 
