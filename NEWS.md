@@ -1,5 +1,9 @@
 # textrecipes (development version)
 
+## Bug Fixes
+
+* Fixed `show_tokens()` so that the `n` argument's upper bound (`nrow(rec$template)`) is actually validated, instead of being silently swallowed into `check_number_whole()`'s `...` and producing a confusing, unrelated error when validation failed. Added test coverage for `show_tokens()`, which previously had none. (#322)
+
 # textrecipes 1.1.0
 
 ## Improvements

@@ -17,7 +17,7 @@
 #'
 #' recipe(~text, data = text_tibble) |>
 #'   step_tokenize(text) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #'
 #' library(modeldata)
 #' data(tate_text)
@@ -26,7 +26,7 @@
 #'   step_tokenize(medium) |>
 #'   show_tokens(medium)
 show_tokens <- function(rec, var, n = 6L) {
-  check_number_whole(n, min = 0, nrow(rec$template))
+  check_number_whole(n, min = 0, max = as.double(nrow(rec$template)))
 
   res <- rec |>
     prep() |>
