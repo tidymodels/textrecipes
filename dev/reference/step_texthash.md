@@ -232,10 +232,10 @@ tidy(tate_rec, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  value length id            
 #>   <chr>  <lgl>  <int> <chr>         
-#> 1 medium NA        NA texthash_gRkNd
+#> 1 medium NA        NA texthash_F2Icp
 tidy(tate_obj, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  value length id            
 #>   <chr>  <lgl>  <int> <chr>         
-#> 1 medium TRUE    1024 texthash_gRkNd
+#> 1 medium TRUE    1024 texthash_F2Icp
 ```

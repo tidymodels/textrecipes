@@ -2,7 +2,31 @@
 
 ## textrecipes (development version)
 
-### Bug Fixes
+### Bug fixes
+
+- Fixed `first_person()`, `first_personp()`, `second_person()`,
+  `second_personp()`, `third_person()`, `to_be()`, and `prepositions()`
+  (used by
+  [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md))
+  which tested whether a word matched the *entire* untokenized document
+  rather than whether the document contained that word, causing them to
+  almost always return 0. They now tokenize the document into words
+  before checking membership.
+  ([\#316](https://github.com/tidymodels/textrecipes/issues/316))
+
+- Fixed several inconsistencies in the counting functions used by
+  [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md)
+  ([\#329](https://github.com/tidymodels/textrecipes/issues/329)):
+
+  - `n_uq_urls()` now counts distinct full urls instead of being capped
+    at 2 distinct matches of the literal substring “http”/“https”.
+  - `n_charS()` and `n_uq_charS()` now actually exclude urls, hashtags,
+    and mentions from the character count, as documented.
+  - `n_extraspaces()` no longer counts a single tab or newline as “extra
+    spaces”; it now only counts runs of 2 or more consecutive whitespace
+    characters.
+  - All counting functions now consistently return `NA` when given `NA`
+    input.
 
 - Fixed
   [`show_tokens()`](https://textrecipes.tidymodels.org/dev/reference/show_tokens.md)

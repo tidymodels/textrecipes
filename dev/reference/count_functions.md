@@ -64,7 +64,8 @@ Named list of all ferature counting functions
 
 - `n_extraspaces`:
 
-  Number of times more then 1 consecutive space have been used.
+  Number of times 2 or more consecutive whitespace characters (spaces,
+  tabs, or newlines) have been used in a row.
 
 - `n_caps`:
 
@@ -156,3 +157,6 @@ so on. This list describes what words are contained in each group.
   by, past, around, concerning, regarding, with, at, despite, into,
   since, within, down, like, through, without, before, during, near,
   throughout, behind, except, of, to, for.
+
+All of the functions below propagate missing values: if an input element
+is `NA`, the corresponding output element is `NA` as well.
