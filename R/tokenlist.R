@@ -228,8 +228,6 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
     apply_expr <- rlang::call_modify(apply_expr, !!!arguments)
   }
 
-  # `fun` is applied element-wise and doesn't change the number or order of
-  # tokens, so `lemma`/`pos` stay aligned and can be carried through as-is.
   tokenlist(eval(apply_expr), lemma = maybe_get_lemma(x), pos = maybe_get_pos(x))
 }
 
