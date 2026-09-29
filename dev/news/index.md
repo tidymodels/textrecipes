@@ -4,6 +4,14 @@
 
 ### Bug fixes
 
+- [`step_stem()`](https://textrecipes.tidymodels.org/dev/reference/step_stem.md)
+  no longer silently drops the `lemma`/`pos` attributes carried by a
+  tokenlist, so it can now be safely used upstream of
+  [`step_lemma()`](https://textrecipes.tidymodels.org/dev/reference/step_lemma.md)
+  or
+  [`step_pos_filter()`](https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.md)
+  ([\#327](https://github.com/tidymodels/textrecipes/issues/327)).
+
 - Fixed `first_person()`, `first_personp()`, `second_person()`,
   `second_personp()`, `third_person()`, `to_be()`, and `prepositions()`
   (used by
