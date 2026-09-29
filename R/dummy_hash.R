@@ -257,14 +257,8 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     new_data <- vec_cbind(new_data, tf_text)
   }
 
-  # `col_names` are the true original columns selected by the step; these
-  # should be kept or dropped according to `keep_original_cols`, regardless
-  # of whether `collapse` created an intermediate column.
   new_data <- remove_original_cols(new_data, object, col_names)
 
-  # The intermediate collapsed column (e.g. "artist_title_medium") is never
-  # a real output of this step and should never leak into `new_data`, even
-  # when `keep_original_cols = TRUE`.
   if (!is.null(collapse_col)) {
     new_data <- new_data[, !(colnames(new_data) %in% collapse_col), drop = FALSE]
   }

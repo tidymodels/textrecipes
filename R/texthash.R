@@ -270,10 +270,6 @@ list_to_hash <- function(x, n, signed, sparse) {
 
   if (sparse_is_yes(sparse)) {
     colnames(res) <- seq_len(ncol(res))
-    # `create_dtm()` can leave explicit zero entries in the sparse matrix
-    # (e.g. when a signed hash collision cancels out to 0). `drop0()`
-    # removes these structural zeros so they are treated as implicit
-    # zeros, which `sparsevctrs::coerce_to_sparse_tibble()` requires.
     res <- Matrix::drop0(res)
     res <- sparsevctrs::coerce_to_sparse_tibble(res)
   } else {
