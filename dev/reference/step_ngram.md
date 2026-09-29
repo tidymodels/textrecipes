@@ -169,10 +169,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 2
 #>   terms  id         
 #>   <chr>  <chr>      
-#> 1 medium ngram_ELigx
+#> 1 medium ngram_Xxu1x
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 2
 #>   terms  id         
 #>   <chr>  <chr>      
-#> 1 medium ngram_ELigx
+#> 1 medium ngram_Xxu1x
 ```

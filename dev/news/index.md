@@ -2,7 +2,24 @@
 
 ## textrecipes (development version)
 
-### Bug fixes
+### Bug Fixes
+
+- [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md)
+  and
+  [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.md)
+  now error clearly when given `num_tokens`, `min_num_tokens`, or
+  `sequence_length` less than 1, and
+  [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md)
+  now errors clearly when `min_num_tokens` is greater than `num_tokens`,
+  instead of surfacing an unrelated low-level error.
+  ([\#324](https://github.com/tidymodels/textrecipes/issues/324))
+
+- [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md)
+  no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which
+  could cause [`nchar()`](https://rdrr.io/r/base/nchar.html),
+  [`toupper()`](https://rdrr.io/r/base/chartr.html), and other string
+  operations on the output to fail with encoding errors.
+  ([\#323](https://github.com/tidymodels/textrecipes/issues/323))
 
 - Fixed bug in
   [`step_tfidf()`](https://textrecipes.tidymodels.org/dev/reference/step_tfidf.md)

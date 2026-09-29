@@ -43,8 +43,10 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="textrecipes-development-version">textrecipes (development version)<a class="anchor" aria-label="anchor" href="#textrecipes-development-version"></a></h2>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>Fixed bug in <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> where <code>sublinear_tf = TRUE</code> could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (<a href="https://github.com/tidymodels/textrecipes/issues/317" class="external-link">#317</a>)</li>
+<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li><p><code><a href="../reference/step_ngram.html">step_ngram()</a></code> and <code><a href="../reference/step_sequence_onehot.html">step_sequence_onehot()</a></code> now error clearly when given <code>num_tokens</code>, <code>min_num_tokens</code>, or <code>sequence_length</code> less than 1, and <code><a href="../reference/step_ngram.html">step_ngram()</a></code> now errors clearly when <code>min_num_tokens</code> is greater than <code>num_tokens</code>, instead of surfacing an unrelated low-level error. (<a href="https://github.com/tidymodels/textrecipes/issues/324" class="external-link">#324</a>)</p></li>
+<li><p><code><a href="../reference/step_ngram.html">step_ngram()</a></code> no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which could cause <code><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar()</a></code>, <code><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper()</a></code>, and other string operations on the output to fail with encoding errors. (<a href="https://github.com/tidymodels/textrecipes/issues/323" class="external-link">#323</a>)</p></li>
+<li><p>Fixed bug in <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> where <code>sublinear_tf = TRUE</code> could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (<a href="https://github.com/tidymodels/textrecipes/issues/317" class="external-link">#317</a>)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
