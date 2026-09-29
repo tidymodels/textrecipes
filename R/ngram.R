@@ -130,9 +130,15 @@ step_ngram_new <-
 prep.step_ngram <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_number_whole(x$num_tokens, min = 0, arg = "num_tokens")
-  check_number_whole(x$min_num_tokens, min = 0, arg = "min_num_tokens")
+  check_number_whole(x$num_tokens, min = 1, arg = "num_tokens")
+  check_number_whole(x$min_num_tokens, min = 1, arg = "min_num_tokens")
   check_string(x$delim, arg = "delim")
+
+  if (x$min_num_tokens > x$num_tokens) {
+    cli::cli_abort(
+      "{.arg min_num_tokens} ({x$min_num_tokens}) must be less than or equal to {.arg num_tokens} ({x$num_tokens})."
+    )
+  }
 
   check_type(training[, col_names], types = "tokenlist")
 

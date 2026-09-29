@@ -63,7 +63,16 @@
     Condition
       Error in `step_sequence_onehot()`:
       Caused by error in `prep()`:
-      ! `sequence_length` must be a whole number larger than or equal to 0, not the number -4.
+      ! `sequence_length` must be a whole number larger than or equal to 1, not the number -4.
+
+---
+
+    Code
+      prep(step_sequence_onehot(recipe(~., data = mtcars), sequence_length = 0))
+    Condition
+      Error in `step_sequence_onehot()`:
+      Caused by error in `prep()`:
+      ! `sequence_length` must be a whole number larger than or equal to 1, not the number 0.
 
 ---
 

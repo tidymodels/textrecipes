@@ -10,6 +10,14 @@
     - `n_extraspaces()` no longer counts a single tab or newline as "extra spaces"; it now only counts runs of 2 or more consecutive whitespace characters.
     - All counting functions now consistently return `NA` when given `NA` input.
 
+* Fixed `show_tokens()` so that the `n` argument's upper bound (`nrow(rec$template)`) is actually validated, instead of being silently swallowed into `check_number_whole()`'s `...` and producing a confusing, unrelated error when validation failed. Added test coverage for `show_tokens()`, which previously had none. (#322)
+
+* `step_ngram()` and `step_sequence_onehot()` now error clearly when given `num_tokens`, `min_num_tokens`, or `sequence_length` less than 1, and `step_ngram()` now errors clearly when `min_num_tokens` is greater than `num_tokens`, instead of surfacing an unrelated low-level error. (#324)
+
+* `step_ngram()` no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which could cause `nchar()`, `toupper()`, and other string operations on the output to fail with encoding errors. (#323)
+
+* Fixed bug in `step_tfidf()` where `sublinear_tf = TRUE` could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (#317)
+
 # textrecipes 1.1.0
 
 ## Improvements
