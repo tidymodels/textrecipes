@@ -409,7 +409,7 @@ test_that("keep_original_cols works with collapse = TRUE (#304)", {
   rec_drop <- prep(rec_drop)
   res_drop <- bake(rec_drop, new_data = NULL)
 
-  expect_equal(colnames(res_drop), new_names)
+  expect_named(res_drop, new_names)
 
   rec_keep <- recipe(~., data = test_data) |>
     step_dummy_hash(
@@ -424,12 +424,7 @@ test_that("keep_original_cols works with collapse = TRUE (#304)", {
   rec_keep <- prep(rec_keep)
   res_keep <- bake(rec_keep, new_data = NULL)
 
-  # original columns should be restored, and the intermediate collapsed
-  # column ("artist_title_medium") should not leak into the output
-  expect_equal(
-    colnames(res_keep),
-    c("artist", "title", "medium", new_names)
-  )
+  expect_named(res_keep, c("artist", "title", "medium", new_names))
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
