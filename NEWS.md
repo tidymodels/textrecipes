@@ -1,9 +1,5 @@
 # textrecipes (development version)
 
-## Bug Fixes
-
-* `bake.step_tokenmerge()` now correctly reads the `columns` field instead of relying on partial matching of a nonexistent `column` field. (#332)
-
 # textrecipes 1.1.0
 
 ## Improvements
