@@ -1,6 +1,14 @@
 # textrecipes (development version)
 
-## Bug Fixes
+## Bug fixes
+
+* Fixed `first_person()`, `first_personp()`, `second_person()`, `second_personp()`, `third_person()`, `to_be()`, and `prepositions()` (used by `step_textfeature()`) which tested whether a word matched the *entire* untokenized document rather than whether the document contained that word, causing them to almost always return 0. They now tokenize the document into words before checking membership. (#316)
+
+* Fixed several inconsistencies in the counting functions used by `step_textfeature()` (#329):
+    - `n_uq_urls()` now counts distinct full urls instead of being capped at 2 distinct matches of the literal substring "http"/"https".
+    - `n_charS()` and `n_uq_charS()` now actually exclude urls, hashtags, and mentions from the character count, as documented.
+    - `n_extraspaces()` no longer counts a single tab or newline as "extra spaces"; it now only counts runs of 2 or more consecutive whitespace characters.
+    - All counting functions now consistently return `NA` when given `NA` input.
 
 * Fixed `show_tokens()` so that the `n` argument's upper bound (`nrow(rec$template)`) is actually validated, instead of being silently swallowed into `check_number_whole()`'s `...` and producing a confusing, unrelated error when validation failed. Added test coverage for `show_tokens()`, which previously had none. (#322)
 
