@@ -424,15 +424,11 @@ tokenizer_fun <- function(
     col_info <- if (is.null(col_name)) {
       ""
     } else {
-      " for column {.field {col_name}}"
+      cli::format_inline(" for column {.field {col_name}}")
     }
     cli::cli_abort(
       c(
-        paste0(
-          "The tokenizer function returned {length(out)} element{?s}",
-          col_info,
-          ", but the input has {length(x)} element{?s}."
-        ),
+        "The tokenizer function returned {length(out)} element{?s}{col_info}, but the input has {length(x)} element{?s}.",
         "i" = "The tokenizer function must return a list with 1 element for
         each element of the input."
       ),
