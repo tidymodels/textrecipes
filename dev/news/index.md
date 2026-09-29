@@ -2,6 +2,15 @@
 
 ## textrecipes (development version)
 
+### Bug fixes
+
+- Fixed bug in
+  [`step_tfidf()`](https://textrecipes.tidymodels.org/dev/reference/step_tfidf.md)
+  where `sublinear_tf = TRUE` could produce negative TF-IDF values
+  because the sublinear transform was applied after normalization
+  instead of before.
+  ([\#317](https://github.com/tidymodels/textrecipes/issues/317))
+
 ## textrecipes 1.1.0
 
 CRAN release: 2025-03-18

@@ -42,6 +42,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="textrecipes-development-version">textrecipes (development version)<a class="anchor" aria-label="anchor" href="#textrecipes-development-version"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>Fixed bug in <code><a href="../reference/step_tfidf.html">step_tfidf()</a></code> where <code>sublinear_tf = TRUE</code> could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (<a href="https://github.com/tidymodels/textrecipes/issues/317" class="external-link">#317</a>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="textrecipes-110">textrecipes 1.1.0<a class="anchor" aria-label="anchor" href="#textrecipes-110"></a></h2><p class="text-muted">CRAN release: 2025-03-18</p>
