@@ -36,7 +36,7 @@ text_tibble <- tibble(text = c("This is words", "They are nice!"))
 
 recipe(~text, data = text_tibble) |>
   step_tokenize(text) |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 #> [[1]]
 #> [1] "this"  "is"    "words"
 #> 

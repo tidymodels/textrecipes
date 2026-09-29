@@ -4,6 +4,16 @@
 
 ### Bug Fixes
 
+- Fixed
+  [`show_tokens()`](https://textrecipes.tidymodels.org/dev/reference/show_tokens.md)
+  so that the `n` argument’s upper bound (`nrow(rec$template)`) is
+  actually validated, instead of being silently swallowed into
+  `check_number_whole()`’s `...` and producing a confusing, unrelated
+  error when validation failed. Added test coverage for
+  [`show_tokens()`](https://textrecipes.tidymodels.org/dev/reference/show_tokens.md),
+  which previously had none.
+  ([\#322](https://github.com/tidymodels/textrecipes/issues/322))
+
 - [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md)
   and
   [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.md)

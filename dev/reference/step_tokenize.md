@@ -162,7 +162,7 @@ word tokens
 
     recipe(~ text, data = text_tibble) |>
       step_tokenize(text) |>
-      show_tokens(text)
+      show_tokens(text, n = 2)
     #> [[1]]
     #> [1] "this"  "is"    "words"
     #>
@@ -178,7 +178,7 @@ that we don't want to turn the words to lowercase
     recipe(~ text, data = text_tibble) |>
       step_tokenize(text,
                     options = list(lowercase = FALSE)) |>
-      show_tokens(text)
+      show_tokens(text, n = 2)
     #> [[1]]
     #> [1] "This"  "is"    "words"
     #>
@@ -191,7 +191,7 @@ We can also stop removing punctuation.
       step_tokenize(text,
                     options = list(strip_punct = FALSE,
                                    lowercase = FALSE)) |>
-      show_tokens(text)
+      show_tokens(text, n = 2)
     #> [[1]]
     #> [1] "This"  "is"    "words"
     #>
@@ -203,7 +203,7 @@ change it to return character tokens.
 
     recipe(~ text, data = text_tibble) |>
       step_tokenize(text, token = "characters") |>
-      show_tokens(text)
+      show_tokens(text, n = 2)
     #> [[1]]
     #>  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
     #>
@@ -237,7 +237,7 @@ here for demonstration purposes.
         engine = "tokenizers.bpe",
         training_options = list(vocab_size = 22)
       ) |>
-      show_tokens(text)
+      show_tokens(text, n = 2)
 
     #> [[1]]
     #>  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"   "d"   "s"
@@ -268,7 +268,7 @@ fast way of tokenizing.
         text,
         custom_token = space_tokenizer
       ) |>
-      show_tokens(text)
+      show_tokens(text, n = 2)
     #> [[1]]
     #> [1] "This"  "is"    "words"
     #>
@@ -345,12 +345,12 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium NA    tokenize_S6oj7
+#> 1 medium NA    tokenize_i9yK8
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium words tokenize_S6oj7
+#> 1 medium words tokenize_i9yK8
 
 tate_obj_chars <- recipe(~., data = tate_text) |>
   step_tokenize(medium, token = "characters") |>
