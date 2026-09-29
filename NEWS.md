@@ -1,5 +1,9 @@
 # textrecipes (development version)
 
+## Bug fixes
+
+* Fixed bug in `step_tfidf()` where `sublinear_tf = TRUE` could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (#317)
+
 # textrecipes 1.1.0
 
 ## Improvements
