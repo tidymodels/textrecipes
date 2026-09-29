@@ -6,6 +6,8 @@
 
 * `step_ngram()` no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which could cause `nchar()`, `toupper()`, and other string operations on the output to fail with encoding errors. (#323)
 
+* Fixed bug in `step_tfidf()` where `sublinear_tf = TRUE` could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (#317)
+
 # textrecipes 1.1.0
 
 ## Improvements
