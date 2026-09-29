@@ -2,6 +2,8 @@
 
 ## Bug fixes
 
+* `step_stem()` no longer silently drops the `lemma`/`pos` attributes carried by a tokenlist, so it can now be safely used upstream of `step_lemma()` or `step_pos_filter()` (#327).
+
 * Fixed `first_person()`, `first_personp()`, `second_person()`, `second_personp()`, `third_person()`, `to_be()`, and `prepositions()` (used by `step_textfeature()`) which tested whether a word matched the *entire* untokenized document rather than whether the document contained that word, causing them to almost always return 0. They now tokenize the document into words before checking membership. (#316)
 
 * Fixed several inconsistencies in the counting functions used by `step_textfeature()` (#329):
