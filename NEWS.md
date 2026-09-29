@@ -1,5 +1,9 @@
 # textrecipes (development version)
 
+## Bug Fixes
+
+* Fixed documentation for `step_word_embeddings()` to describe the actual default `prefix` and column-naming behavior. (#331)
+
 # textrecipes 1.1.0
 
 ## Improvements
