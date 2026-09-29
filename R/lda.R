@@ -158,11 +158,6 @@ prep.step_lda <- function(x, training, info = NULL, ...) {
   for (col_name in col_names) {
     tokens <- get_tokens(training[[col_name]])
 
-    # If a single lda_models template was supplied and several columns are
-    # selected, each column needs its own fitted copy: they each have their
-    # own vocabulary/dtm, and fitting the *same* model object once per
-    # column would leave the shared object holding only the last column's
-    # vocabulary, breaking every other column at bake time. See #315.
     lda_model_arg <- x$lda_models
     if (!is.null(lda_model_arg) && is.function(lda_model_arg$clone)) {
       lda_model_arg <- lda_model_arg$clone(deep = TRUE)
@@ -275,10 +270,6 @@ word_dims <- function(tokens, n = 10, n_iter = 20, lda_model = NULL) {
   d <- as.data.frame(d, stringsAsFactors = FALSE)
   names(d) <- seq_len(ncol(d))
   row.names(d) <- NULL
-  # Store both the fitted model and the vectorizer used to build its
-  # training dtm, so that bake() can project new documents onto the same
-  # vocabulary instead of deriving a new (and differently pruned) one from
-  # `new_data` alone. See #315.
   attr(d, "dict") <- list(model = lda_model, vectorizer = vectorizer)
   d
 }
@@ -288,10 +279,6 @@ word_dims_newtext <- function(model_info, tokens, n_iter = 20) {
     lda_model <- model_info$model
     vectorizer <- model_info$vectorizer
   } else {
-    # Backwards compatibility with recipes prepped before #315 was fixed;
-    # these only stored the fitted model, not the vectorizer used to train
-    # it, so we have to fall back to the old (less correct) behavior of
-    # deriving a fresh vocabulary from `new_data`.
     lda_model <- model_info
     it_train <- text2vec::itoken(tokens, ids = seq_along(tokens))
     v <- text2vec::create_vocabulary(it_train)
@@ -309,14 +296,6 @@ word_dims_newtext <- function(model_info, tokens, n_iter = 20) {
   if (nrow(dtm) == 0) {
     d <- lda_model$transform(dtm, n_iter = n_iter)
   } else {
-    # WarpLDA's transform() runs its Gibbs sampler jointly over every
-    # document passed in, so the topic weights it returns for a given
-    # document are not independent of what else is in the same call: baking
-    # a single row alone can give a different (nonzero) result than baking
-    # that same row as part of a larger batch. Transforming one document's
-    # row of the dtm at a time guarantees bake() stays a deterministic,
-    # row-independent transform, as required by the recipes contract. See
-    # #315.
     d <- do.call(
       rbind,
       lapply(
