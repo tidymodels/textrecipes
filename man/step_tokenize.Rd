@@ -117,7 +117,7 @@ tokens
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text) |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 #> [[1]]
 #> [1] "this"  "is"    "words"
 #> 
@@ -133,7 +133,7 @@ lowercase
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text,
                 options = list(lowercase = FALSE)) |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 #> [[1]]
 #> [1] "This"  "is"    "words"
 #> 
@@ -147,7 +147,7 @@ We can also stop removing punctuation.
   step_tokenize(text,
                 options = list(strip_punct = FALSE,
                                lowercase = FALSE)) |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 #> [[1]]
 #> [1] "This"  "is"    "words"
 #> 
@@ -160,7 +160,7 @@ it to return character tokens.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text, token = "characters") |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 #> [[1]]
 #>  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
 #> 
@@ -198,7 +198,7 @@ purposes.
     engine = "tokenizers.bpe",
     training_options = list(vocab_size = 22)
   ) |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> [[1]]
@@ -234,7 +234,7 @@ recipe(~ text, data = text_tibble) |>
     text,
     custom_token = space_tokenizer
   ) |>
-  show_tokens(text)
+  show_tokens(text, n = 2)
 #> [[1]]
 #> [1] "This"  "is"    "words"
 #> 
