@@ -113,6 +113,26 @@ test_that("backwards compatibility with unnamed `clean` still cleans data (#321)
   expect_equal(as.character(baked$name), c("foo_bar", "baz_qux"))
 })
 
+test_that("columns argument is backwards compatible", {
+  skip_if_not_installed("janitor")
+
+  dat <- tibble::tibble(name = factor(c("Foo Bar", "Baz Qux")))
+
+  rec <- recipe(~., data = dat) |>
+    step_clean_levels(name) |>
+    prep()
+
+  exp <- bake(rec, new_data = dat)
+
+  # simulate a legacy trained object made before the `columns` field existed
+  rec$steps[[1]]$columns <- NULL
+
+  expect_identical(
+    bake(rec, new_data = dat),
+    exp
+  )
+})
+
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
