@@ -2,7 +2,33 @@
 
 ## textrecipes (development version)
 
-### Bug fixes
+### Bug Fixes
+
+- Custom tokenizer functions passed to `custom_token` are now called
+  positionally, so functions whose first argument isn’t named `x` no
+  longer error with “unused argument” at bake time.
+  ([\#248](https://github.com/tidymodels/textrecipes/issues/248))
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize.md),
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_bpe.md),
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.md),
+  and
+  [`step_tokenize_wordpiece()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_wordpiece.md)
+  now error informatively if a tokenizer returns a list whose length
+  doesn’t match the number of rows in the input, instead of silently
+  recycling and duplicating rows.
+  ([\#318](https://github.com/tidymodels/textrecipes/issues/318))
+
+- Fixed a bug where
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) could
+  error with “unused argument” for `step_tokenize(engine = "spacyr")`,
+  `step_tokenize(engine = "tokenizers.bpe")`,
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_bpe.md),
+  and
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.md)
+  when `options` was non-empty, because the underlying tokenizer
+  closures didn’t accept additional arguments.
+  ([\#319](https://github.com/tidymodels/textrecipes/issues/319))
 
 - [`step_stem()`](https://textrecipes.tidymodels.org/dev/reference/step_stem.md)
   no longer silently drops the `lemma`/`pos` attributes carried by a

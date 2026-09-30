@@ -177,12 +177,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value keep  id             
 #>   <chr>  <chr> <lgl> <chr>          
-#> 1 medium NA    NA    stopwords_Owv7p
+#> 1 medium NA    NA    stopwords_SYZZu
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value    keep  id             
 #>   <chr>  <chr>    <lgl> <chr>          
-#> 1 medium snowball FALSE stopwords_Owv7p
+#> 1 medium snowball FALSE stopwords_SYZZu
 
 # With a custom stop words list
 
