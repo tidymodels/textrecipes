@@ -50,6 +50,71 @@ test_that("step_tfidf works as intended", {
   expect_equal(dim(tidy(obj, 2)), c(17, 4))
 })
 
+test_that("step_tfidf() with sublinear_tf applies the transform to raw counts, not normalized values (#317)", {
+  # https://github.com/tidymodels/textrecipes/issues/317
+  # sublinear_tf must be applied to raw term counts BEFORE normalization,
+  # otherwise 1 + log(fraction) can go negative, which is mathematically
+  # impossible for standard sublinear TF-IDF.
+  sublinear_data <- tibble(
+    text = c(
+      "a a a a a a a b",
+      "a b b b b b b b"
+    )
+  )
+
+  rec <- recipe(~text, data = sublinear_data) |>
+    step_tokenize(text) |>
+    step_tfidf(text, sublinear_tf = TRUE, norm = "l1")
+
+  obj <- rec |> prep()
+
+  rec_answer <- unname(as.data.frame(bake(obj, new_data = NULL)))
+
+  # idf = log(1 + n_docs / df); both "a" and "b" appear in both documents
+  idf <- log(1 + 2 / 2)
+
+  # sublinear tf applied to RAW counts first: 1 + log(raw_count)
+  # doc 1: a = 7, b = 1 -> sub_tf = 1 + log(7), 1 + log(1)
+  # doc 2: a = 1, b = 7 -> sub_tf = 1 + log(1), 1 + log(7)
+  # then l1-normalize the sublinear-scaled row, then multiply by idf
+  doc1_sub <- c(a = 1 + log(7), b = 1 + log(1))
+  doc2_sub <- c(a = 1 + log(1), b = 1 + log(7))
+
+  manual_answer <- unname(
+    data.frame(
+      a = c(doc1_sub["a"] / sum(doc1_sub), doc2_sub["a"] / sum(doc2_sub)) * idf,
+      b = c(doc1_sub["b"] / sum(doc1_sub), doc2_sub["b"] / sum(doc2_sub)) * idf
+    )
+  )
+
+  expect_equal(
+    as.matrix(rec_answer),
+    as.matrix(manual_answer)
+  )
+
+  # doc 1, term "a": (1 + log(7)) / (1 + log(7) + 1 + log(1)) * log(2)
+  expect_equal(rec_answer[[1]][1], (1 + log(7)) / (1 + log(7) + 1) * log(2))
+
+  expect_true(all(rec_answer[[1]] >= 0))
+  expect_true(all(rec_answer[[2]] >= 0))
+
+  # Also check on a more realistic corpus that all sublinear_tf values stay
+  # non-negative, regardless of norm.
+  for (norm_type in c("l1", "l2", "none")) {
+    realistic_answer <- recipe(~text, data = test_data) |>
+      step_tokenize(text) |>
+      step_tfidf(text, sublinear_tf = TRUE, norm = norm_type) |>
+      prep() |>
+      bake(new_data = NULL)
+
+    realistic_answer <- realistic_answer[
+      vapply(realistic_answer, is.numeric, logical(1))
+    ]
+
+    expect_true(all(as.matrix(realistic_answer) >= 0))
+  }
+})
+
 test_that("step_tfidf works with vocabulary argument", {
   rec <- rec |>
     step_tokenize(text) |>

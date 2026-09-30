@@ -21,7 +21,7 @@
     Condition
       Error in `step_ngram()`:
       Caused by error in `prep()`:
-      ! `num_tokens` must be a whole number larger than or equal to 0, not the number -4.
+      ! `num_tokens` must be a whole number larger than or equal to 1, not the number -4.
 
 ---
 
@@ -30,7 +30,7 @@
     Condition
       Error in `step_ngram()`:
       Caused by error in `prep()`:
-      ! `min_num_tokens` must be a whole number larger than or equal to 0, not the number -4.
+      ! `min_num_tokens` must be a whole number larger than or equal to 1, not the number -4.
 
 ---
 
@@ -40,6 +40,33 @@
       Error in `step_ngram()`:
       Caused by error in `prep()`:
       ! `delim` must be a single string, not the number -4.
+
+---
+
+    Code
+      prep(step_ngram(recipe(~., data = mtcars), num_tokens = 0))
+    Condition
+      Error in `step_ngram()`:
+      Caused by error in `prep()`:
+      ! `num_tokens` must be a whole number larger than or equal to 1, not the number 0.
+
+---
+
+    Code
+      prep(step_ngram(recipe(~., data = mtcars), min_num_tokens = 0))
+    Condition
+      Error in `step_ngram()`:
+      Caused by error in `prep()`:
+      ! `min_num_tokens` must be a whole number larger than or equal to 1, not the number 0.
+
+---
+
+    Code
+      prep(step_ngram(recipe(~., data = mtcars), num_tokens = 2, min_num_tokens = 3))
+    Condition
+      Error in `step_ngram()`:
+      Caused by error in `prep()`:
+      ! `min_num_tokens` (3) must be less than or equal to `num_tokens` (2).
 
 # bake method errors when needed non-standard role columns are missing
 

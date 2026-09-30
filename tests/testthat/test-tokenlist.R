@@ -282,7 +282,11 @@ test_that("tokenlist_apply works", {
 
   expect_equal(
     tokenlist_apply(tkn_list, toupper),
-    tokenlist(list(LETTERS, LETTERS[1:5], LETTERS))
+    tokenlist(
+      list(LETTERS, LETTERS[1:5], LETTERS),
+      lemma = list(letters, letters[1:5], LETTERS),
+      pos = list(letters, letters[1:5], LETTERS)
+    )
   )
 
   letter_filter <- function(x, let = "a") {
@@ -291,12 +295,20 @@ test_that("tokenlist_apply works", {
 
   expect_equal(
     tokenlist_apply(tkn_list, letter_filter),
-    tokenlist(list("a", "a", character()))
+    tokenlist(
+      list("a", "a", character()),
+      lemma = list(letters, letters[1:5], LETTERS),
+      pos = list(letters, letters[1:5], LETTERS)
+    )
   )
 
   expect_equal(
     tokenlist_apply(tkn_list, letter_filter, list(let = "D")),
-    tokenlist(list(character(), character(), "D"))
+    tokenlist(
+      list(character(), character(), "D"),
+      lemma = list(letters, letters[1:5], LETTERS),
+      pos = list(letters, letters[1:5], LETTERS)
+    )
   )
 
   expect_snapshot(
