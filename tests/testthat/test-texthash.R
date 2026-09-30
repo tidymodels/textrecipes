@@ -130,6 +130,37 @@ test_that("bad args", {
   )
 })
 
+test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
+  skip_if_not_installed("text2vec")
+
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
+      step_texthash(num_terms = 0) |>
+      prep()
+  )
+})
+
+test_that("signed hashing with sparse = 'yes' works when values cancel to 0 (#289)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  data("small_fine_foods", package = "modeldata")
+
+  pre_proc <- recipe(score ~ review, data = training_data) |>
+    step_tokenize(review) |>
+    step_stopwords(review) |>
+    step_stem(review) |>
+    step_texthash(review, num_terms = 1000, sparse = "yes")
+
+  expect_no_error(
+    res <- pre_proc |> prep() |> bake(NULL)
+  )
+  expect_equal(nrow(res), nrow(training_data))
+})
+
 test_that("sparse = 'yes' works", {
   skip_if_not_installed("text2vec")
 

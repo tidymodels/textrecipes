@@ -167,7 +167,7 @@ prep.step_texthash <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
   check_bool(x$signed, arg = "signed")
-  check_number_whole(x$num_terms, min = 0, arg = "num_terms")
+  check_number_whole(x$num_terms, min = 1, arg = "num_terms")
   check_string(x$prefix, arg = "prefix")
   check_sparse_arg(x$sparse)
 
@@ -270,6 +270,7 @@ list_to_hash <- function(x, n, signed, sparse) {
 
   if (sparse_is_yes(sparse)) {
     colnames(res) <- seq_len(ncol(res))
+    res <- Matrix::drop0(res)
     res <- sparsevctrs::coerce_to_sparse_tibble(res)
   } else {
     res <- as.matrix(res)
