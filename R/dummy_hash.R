@@ -178,7 +178,7 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
   check_bool(x$signed, arg = "signed")
-  check_number_whole(x$num_terms, min = 0, arg = "num_terms")
+  check_number_whole(x$num_terms, min = 1, arg = "num_terms")
   check_bool(x$collapse, arg = "collapse")
   check_sparse_arg(x$sparse)
 
@@ -213,6 +213,7 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
 
   check_new_data(col_names, object, new_data)
 
+  collapse_col <- NULL
   if (object$collapse) {
     new_name <- paste0(col_names, collapse = "_")
     new_data <-
@@ -223,8 +224,10 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
           dplyr::c_across(dplyr::all_of(hash_cols)),
           collapse = ""
         )
-      )
+      ) |>
+      dplyr::ungroup()
     hash_cols <- new_name
+    collapse_col <- new_name
   }
 
   for (hash_col in hash_cols) {
@@ -254,10 +257,10 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
     new_data <- vec_cbind(new_data, tf_text)
   }
 
-  new_data <- remove_original_cols(new_data, object, hash_cols)
+  new_data <- remove_original_cols(new_data, object, col_names)
 
-  if (object$collapse) {
-    new_data <- new_data[, !(colnames(new_data) %in% col_names), drop = FALSE]
+  if (!is.null(collapse_col)) {
+    new_data <- new_data[, !(colnames(new_data) %in% collapse_col), drop = FALSE]
   }
 
   new_data

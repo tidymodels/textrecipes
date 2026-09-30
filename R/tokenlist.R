@@ -228,7 +228,7 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
     apply_expr <- rlang::call_modify(apply_expr, !!!arguments)
   }
 
-  tokenlist(eval(apply_expr))
+  tokenlist(eval(apply_expr), lemma = maybe_get_lemma(x), pos = maybe_get_pos(x))
 }
 
 # Takes a [tokenlist] and calculate the token count matrix

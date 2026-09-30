@@ -123,7 +123,7 @@ prep.step_tokenmerge <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_tokenmerge <- function(object, new_data, ...) {
-  if (length(object$column) == 0L) {
+  if (length(object$columns) == 0L) {
     # Empty selection
     return(new_data)
   }
