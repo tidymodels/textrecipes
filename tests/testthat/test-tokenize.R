@@ -77,6 +77,39 @@ test_that("tokenization works with custom tokenizer", {
   )
 })
 
+test_that("custom tokenizer works when its argument isn't named `x` (#248)", {
+  not_named_x <- function(text) {
+    strsplit(text, " ")
+  }
+
+  rec <- rec |>
+    step_tokenize(text, custom_token = not_named_x) |>
+    prep()
+
+  expect_equal(
+    strsplit(test_data$text[1], " "),
+    bake(rec, new_data = NULL) |>
+      slice(1) |>
+      pull(text) |>
+      vctrs::field("tokens")
+  )
+})
+
+test_that("custom tokenizer errors informatively if output length doesn't match input (#318)", {
+  too_short <- function(x) {
+    list(c("a", "b"))
+  }
+
+  # `prep()` triggers `bake()` on the retained training data, which is
+  # where the length mismatch is detected.
+  expect_snapshot(
+    error = TRUE,
+    rec |>
+      step_tokenize(text, custom_token = too_short) |>
+      prep()
+  )
+})
+
 test_that("arguments are passed using options argument", {
   rec <- rec |>
     step_tokenize(text, options = list(lowercase = FALSE)) |>
@@ -115,6 +148,20 @@ test_that("tokenization includes lemma attribute when avaliable", {
       pull(text) |>
       vctrs::field("lemma"),
     "list"
+  )
+})
+
+test_that("bake doesn't error when options are set with spacyr engine (#319)", {
+  skip_on_cran()
+  skip_if_not_installed("spacyr")
+  skip_if_no_python_or_no_spacy()
+
+  rec <- rec |>
+    step_tokenize(text, engine = "spacyr", options = list(pos = FALSE)) |>
+    prep()
+
+  expect_no_error(
+    bake(rec, new_data = test_data)
   )
 })
 

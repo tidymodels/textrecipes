@@ -7,6 +7,16 @@
       Caused by error in `prep()`:
       ! Token should be one of characters, character_shingle, lines, ngrams, paragraphs, ptb, regex, sentences, skip_ngrams, words, and word_stems.
 
+# custom tokenizer errors informatively if output length doesn't match input (#318)
+
+    Code
+      prep(step_tokenize(rec, text, custom_token = too_short))
+    Condition
+      Error in `step_tokenize()`:
+      Caused by error in `bake()`:
+      ! The tokenizer function returned 1 element for column text, but the input has 4 elements.
+      i The tokenizer function must return a list with 1 element for each element of the input.
+
 # tokenization errors with wrong engines
 
     Code
