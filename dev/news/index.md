@@ -4,6 +4,48 @@
 
 ### Bug Fixes
 
+- Fixed a crash (segfault) in
+  [`step_texthash()`](https://textrecipes.tidymodels.org/dev/reference/step_texthash.md)
+  and
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.md)
+  when `num_terms = 0` was used; this now errors cleanly during
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html).
+  ([\#314](https://github.com/tidymodels/textrecipes/issues/314))
+
+- Fixed a bug in
+  [`step_texthash()`](https://textrecipes.tidymodels.org/dev/reference/step_texthash.md)
+  where baking with `sparse = "yes"` and `signed = TRUE` (the default)
+  could error with “values value must not be equal to the default 0”
+  when signed hash collisions cancelled out to a true zero.
+  ([\#289](https://github.com/tidymodels/textrecipes/issues/289))
+
+- Fixed a bug in
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.md)
+  where `keep_original_cols = TRUE` failed to restore the original
+  columns when `collapse = TRUE`, and where the intermediate collapsed
+  column could leak into the output.
+  ([\#304](https://github.com/tidymodels/textrecipes/issues/304))
+
+- Fixed a bug in
+  [`step_clean_levels()`](https://textrecipes.tidymodels.org/dev/reference/step_clean_levels.md)
+  where a backwards-compatibility shim never actually restored the
+  trained column names, causing
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) to
+  silently skip cleaning for legacy trained objects.
+  ([\#321](https://github.com/tidymodels/textrecipes/issues/321))
+
+- Fixed a bug in
+  [`step_clean_levels()`](https://textrecipes.tidymodels.org/dev/reference/step_clean_levels.md)
+  where character columns were never given a trained cleaning
+  dictionary, causing
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) to
+  clean row values inconsistently (via
+  [`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html)
+  applied to the batch of values being baked) instead of using a fixed
+  lookup learned at
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time.
+  ([\#320](https://github.com/tidymodels/textrecipes/issues/320))
+
 - [`step_lda()`](https://textrecipes.tidymodels.org/dev/reference/step_lda.md)
   produced non-deterministic and degenerate topic features at bake time:
   [`bake()`](https://recipes.tidymodels.org/reference/bake.html) re-fit
