@@ -36,11 +36,11 @@
 #' `aggregation` argument.
 #'
 #' The new components will have names that begin with `prefix`, then the name of
-#' the aggregation function, then the name of the variable from the embeddings
+#' the variable being embedded, then the name of the variable from the embeddings
 #' tibble (usually something like "d7"). For example, using the default
-#' "wordembedding" prefix, and the GloVe embeddings from the textdata package
-#' (where the column names are `d1`, `d2`, etc), new columns would be
-#' `wordembedding_d1`, `wordembedding_d1`, etc.
+#' "wordembed" prefix, a variable named `text`, and the GloVe embeddings from the
+#' textdata package (where the column names are `d1`, `d2`, etc), new columns
+#' would be `wordembed_text_d1`, `wordembed_text_d2`, etc.
 #'
 #' # Tidying
 #'
