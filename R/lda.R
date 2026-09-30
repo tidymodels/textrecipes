@@ -158,9 +158,16 @@ prep.step_lda <- function(x, training, info = NULL, ...) {
   for (col_name in col_names) {
     tokens <- get_tokens(training[[col_name]])
 
+    lda_model_arg <- x$lda_models
+    if (!is.null(lda_model_arg) && is.function(lda_model_arg$clone)) {
+      lda_model_arg <- lda_model_arg$clone(deep = TRUE)
+    }
+
     ddd <- utils::capture.output(
-      model_list[[col_name]] <- x$lda_models %||%
-        attr(word_dims(tokens, n = x$num_topics), "dict")
+      model_list[[col_name]] <- attr(
+        word_dims(tokens, n = x$num_topics, lda_model = lda_model_arg),
+        "dict"
+      )
     )
   }
 
@@ -248,7 +255,7 @@ required_pkgs.step_lda <- function(x, ...) {
   "textrecipes"
 }
 
-word_dims <- function(tokens, n = 10, n_iter = 20) {
+word_dims <- function(tokens, n = 10, n_iter = 20, lda_model = NULL) {
   it <- text2vec::itoken(tokens, ids = seq_along(tokens))
   v <- text2vec::create_vocabulary(it)
   v <- text2vec::prune_vocabulary(
@@ -256,26 +263,48 @@ word_dims <- function(tokens, n = 10, n_iter = 20) {
     term_count_min = 2,
     vocab_term_max = n * 50
   )
-  dtm <- text2vec::create_dtm(it, text2vec::vocab_vectorizer(v))
-  lda_model <- text2vec::LDA$new(n_topics = n)
+  vectorizer <- text2vec::vocab_vectorizer(v)
+  dtm <- text2vec::create_dtm(it, vectorizer)
+  lda_model <- lda_model %||% text2vec::LDA$new(n_topics = n)
   d <- lda_model$fit_transform(dtm, n_iter = n_iter)
   d <- as.data.frame(d, stringsAsFactors = FALSE)
   names(d) <- seq_len(ncol(d))
   row.names(d) <- NULL
-  attr(d, "dict") <- lda_model
+  attr(d, "dict") <- list(model = lda_model, vectorizer = vectorizer)
   d
 }
 
-word_dims_newtext <- function(lda_model, tokens, n_iter = 20) {
+word_dims_newtext <- function(model_info, tokens, n_iter = 20) {
+  if (is.list(model_info) && !is.null(model_info$vectorizer)) {
+    lda_model <- model_info$model
+    vectorizer <- model_info$vectorizer
+  } else {
+    lda_model <- model_info
+    it_train <- text2vec::itoken(tokens, ids = seq_along(tokens))
+    v <- text2vec::create_vocabulary(it_train)
+    v <- text2vec::prune_vocabulary(
+      v,
+      term_count_min = 5,
+      doc_proportion_max = 0.2
+    )
+    vectorizer <- text2vec::vocab_vectorizer(v)
+  }
+
   it <- text2vec::itoken(tokens, ids = seq_along(tokens))
-  v <- text2vec::create_vocabulary(it)
-  v <- text2vec::prune_vocabulary(
-    v,
-    term_count_min = 5,
-    doc_proportion_max = 0.2
-  )
-  dtm <- text2vec::create_dtm(it, text2vec::vocab_vectorizer(v))
-  d <- lda_model$fit_transform(dtm, n_iter = n_iter)
+  dtm <- text2vec::create_dtm(it, vectorizer)
+
+  if (nrow(dtm) == 0) {
+    d <- lda_model$transform(dtm, n_iter = n_iter)
+  } else {
+    d <- do.call(
+      rbind,
+      lapply(
+        seq_len(nrow(dtm)),
+        function(i) lda_model$transform(dtm[i, , drop = FALSE], n_iter = n_iter)
+      )
+    )
+  }
+
   d <- as.data.frame(d, stringsAsFactors = FALSE)
   names(d) <- seq_len(ncol(d))
   row.names(d) <- NULL

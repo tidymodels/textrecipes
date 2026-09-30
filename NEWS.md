@@ -2,6 +2,8 @@
 
 ## Bug Fixes
 
+* `step_lda()` produced non-deterministic and degenerate topic features at bake time: `bake()` re-fit topic assignments instead of projecting new documents onto the fitted model, and rebuilt the vocabulary from `new_data` alone with different pruning than was used at `prep()` time. `bake()` now reuses the vocabulary learned during `prep()` and projects each document independently, so topic weights sum to ~1 and no longer depend on what else is in the same `bake()` call. (#315)
+
 * Custom tokenizer functions passed to `custom_token` are now called positionally, so functions whose first argument isn't named `x` no longer error with "unused argument" at bake time. (#248)
 
 * `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_tokenize_wordpiece()` now error informatively if a tokenizer returns a list whose length doesn't match the number of rows in the input, instead of silently recycling and duplicating rows. (#318)
