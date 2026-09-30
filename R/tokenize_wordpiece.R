@@ -153,7 +153,8 @@ bake.step_tokenize_wordpiece <- function(object, new_data, ...) {
       token = function(x, ...) {
         res <- wordpiece::wordpiece_tokenize(text = x, ...)
         lapply(res, names)
-      }
+      },
+      col_name = col_name
     )
   }
 

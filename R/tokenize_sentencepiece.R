@@ -11,7 +11,9 @@
 #' @template args-columns
 #' @param vocabulary_size Integer, indicating the number of tokens in the final
 #'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
-#' @param options A list of options passed to the tokenizer.
+#' @param options A list of options passed to `sentencepiece::sentencepiece()`
+#'   when the tokenizer is trained at `prep()` time. These options have no
+#'   effect on already-trained models at `bake()` time.
 #' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will
 #'   be stored here once this preprocessing step has be trained by
 #'   [recipes::prep.recipe()].
@@ -198,7 +200,8 @@ bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
     new_data[[col_name]] <- tokenizer_fun(
       x = new_data[[col_name]],
       options = object$options,
-      token = object$res[[col_name]]
+      token = object$res[[col_name]],
+      col_name = col_name
     )
   }
 
