@@ -24,7 +24,7 @@
     Condition
       Error in `step_texthash()`:
       Caused by error in `prep()`:
-      ! `num_terms` must be a whole number larger than or equal to 0, not the number -4.
+      ! `num_terms` must be a whole number larger than or equal to 1, not the number -4.
 
 ---
 
@@ -34,6 +34,15 @@
       Error in `step_texthash()`:
       Caused by error in `prep()`:
       ! `prefix` must be a single string, not `NULL`.
+
+# num_terms = 0 errors cleanly instead of crashing (#314)
+
+    Code
+      prep(step_texthash(recipe(~., data = mtcars), num_terms = 0))
+    Condition
+      Error in `step_texthash()`:
+      Caused by error in `prep()`:
+      ! `num_terms` must be a whole number larger than or equal to 1, not the number 0.
 
 # bake method errors when needed non-standard role columns are missing
 

@@ -22,6 +22,78 @@ test_that("step_lda works as intended", {
   expect_equal(dim(tidy(obj, 1)), c(1, 3))
 })
 
+test_that("bake() is a deterministic, row-independent transform (#315)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  data("tate_text", package = "modeldata")
+
+  n_rows <- 100
+  n_top <- 10
+
+  rec1 <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
+    step_lda(medium, num_topics = n_top)
+
+  obj <- prep(rec1)
+
+  lda_col_names <- paste0("lda_medium_", seq_len(n_top))
+
+  # baking a single document alone must give the same result as baking that
+  # same document as part of a larger batch (bake() must not re-fit topics
+  # based on whatever else happens to be in `new_data`)
+  row_alone <- bake(obj, new_data = tate_text[2, ])
+  row_in_batch <- bake(obj, new_data = tate_text[seq_len(n_rows), ])[2, ]
+
+  expect_equal(
+    as.data.frame(row_alone[lda_col_names]),
+    as.data.frame(row_in_batch[lda_col_names])
+  )
+
+  # topic weights for a non-empty document must sum to ~1
+  row_sums <- rowSums(as.data.frame(row_in_batch[lda_col_names]))
+  expect_equal(row_sums, 1, tolerance = 1e-8, ignore_attr = TRUE)
+
+  all_baked <- bake(obj, new_data = NULL)
+  all_row_sums <- rowSums(as.data.frame(all_baked[lda_col_names]))
+  # documents with at least one token that survives vocabulary pruning
+  # should have topic weights summing to ~1; documents with no surviving
+  # tokens legitimately get all-zero topic weights
+  nonzero <- all_row_sums > 0
+  expect_true(any(nonzero))
+  expect_true(all(abs(all_row_sums[nonzero] - 1) < 1e-8))
+})
+
+test_that("bake() works without warnings for a small batch (#315)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  skip_if_not_installed("modeldata")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  data("tate_text", package = "modeldata")
+
+  n_rows <- 100
+  n_top <- 10
+
+  rec1 <- recipe(~medium, data = tate_text[seq_len(n_rows), ]) |>
+    step_tokenize(medium) |>
+    step_lda(medium, num_topics = n_top)
+
+  obj <- prep(rec1)
+
+  small_batch <- tate_text[seq_len(5), ]
+
+  expect_no_warning(
+    baked_small <- bake(obj, new_data = small_batch)
+  )
+
+  lda_col_names <- paste0("lda_medium_", seq_len(n_top))
+  row_sums <- rowSums(as.data.frame(baked_small[lda_col_names]))
+  expect_true(all(row_sums > 0))
+})
+
 test_that("step_lda works with num_topics argument", {
   skip_if_not_installed("text2vec")
   skip_if_not_installed("data.table")

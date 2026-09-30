@@ -70,6 +70,32 @@ test_that("arguments are passed by options", {
   )
 })
 
+test_that("stemming preserves lemma and pos attributes (#327)", {
+  tkn_list <- tokenlist(
+    list(c("running", "dogs"), c("jumped")),
+    lemma = list(c("run", "dog"), c("jump")),
+    pos = list(c("VERB", "NOUN"), c("VERB"))
+  )
+
+  data <- tibble(text = tkn_list)
+
+  rec <- recipe(~text, data = data) |>
+    step_stem(text) |>
+    prep(data)
+
+  baked <- bake(rec, new_data = NULL)
+
+  expect_equal(
+    vctrs::field(baked$text, "lemma"),
+    vctrs::field(tkn_list, "lemma")
+  )
+
+  expect_equal(
+    vctrs::field(baked$text, "pos"),
+    vctrs::field(tkn_list, "pos")
+  )
+})
+
 test_that("bad args", {
   expect_snapshot(
     error = TRUE,

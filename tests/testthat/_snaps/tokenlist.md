@@ -144,5 +144,5 @@
       tokenlist_ngram(tokenlist(data), 1, 2, " ")
     Condition
       Error in `ngram()`:
-      ! n_min must be less then n.
+      ! n_min must be less than n.
 

@@ -317,11 +317,12 @@ dtm_to_tfidf <- function(
   sublinear_tf,
   sparse
 ) {
-  dtm <- normalize(dtm, norm)
-
   if (sublinear_tf) {
     dtm@x <- 1 + log(dtm@x)
   }
+
+  dtm <- normalize(dtm, norm)
+
   if (is.character(idf_weights)) {
     cli::cli_warn(
       c(

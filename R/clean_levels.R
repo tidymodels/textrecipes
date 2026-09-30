@@ -79,6 +79,7 @@ step_clean_levels <-
         role = role,
         trained = trained,
         clean = clean,
+        columns = NULL,
         skip = skip,
         id = id
       )
@@ -86,13 +87,14 @@ step_clean_levels <-
   }
 
 step_clean_levels_new <-
-  function(terms, role, trained, clean, skip, id) {
+  function(terms, role, trained, clean, columns, skip, id) {
     step(
       subclass = "clean_levels",
       terms = terms,
       role = role,
       trained = trained,
       clean = clean,
+      columns = columns,
       skip = skip,
       id = id
     )
@@ -105,7 +107,15 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
   check_type(training[, col_names], types = c("string", "factor", "ordered"))
 
   if (length(col_names) > 0) {
-    orig <- purrr::map(training[, col_names], levels)
+    orig <- purrr::map(col_names, function(col_name) {
+      col <- training[[col_name]]
+      if (is.factor(col)) {
+        levels(col)
+      } else {
+        unique(as.character(col))
+      }
+    })
+    names(orig) <- col_names
     cleaned <- purrr::map(orig, janitor::make_clean_names)
     clean <- purrr::map2(cleaned, orig, rlang::set_names)
   } else {
@@ -117,6 +127,7 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     clean = clean,
+    columns = col_names,
     skip = x$skip,
     id = x$id
   )
@@ -124,22 +135,34 @@ prep.step_clean_levels <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_clean_levels <- function(object, new_data, ...) {
-  col_names <- names(object$clean)
-  check_new_data(names(object$clean), object, new_data)
+  # `columns` is the authoritative source of the trained column names. Older
+  # trained objects (created before the `columns` field was added) don't have
+  # it, so fall back to `names(object$clean)` for those.
+  col_names <- object$columns
+  if (is.null(col_names)) {
+    col_names <- names(object$clean)
+  }
+  check_new_data(col_names, object, new_data)
 
-  if (is.null(names(object$clean))) {
+  clean <- object$clean
+  if (!is.null(clean) && is.null(names(clean))) {
     # Backwards compatibility with 1.0.3 (#230)
-    names(object$clean) <- col_names
+    names(clean) <- col_names
   }
 
   for (col_name in col_names) {
-    if (is.factor(new_data[[col_name]])) {
-      new_data[[col_name]] <- dplyr::recode_factor(
-        new_data[[col_name]],
-        !!!object$clean[[col_name]]
+    dict <- clean[[col_name]]
+    is_fct <- is.factor(new_data[[col_name]])
+    values <- as.character(new_data[[col_name]])
+    cleaned_values <- unname(dict[values])
+
+    if (is_fct) {
+      new_data[[col_name]] <- factor(
+        cleaned_values,
+        levels = unique(unname(dict))
       )
     } else {
-      new_data[[col_name]] <- janitor::make_clean_names(new_data[[col_name]])
+      new_data[[col_name]] <- cleaned_values
     }
   }
 
