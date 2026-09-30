@@ -19,7 +19,7 @@ Named list of all ferature counting functions
 \item{\code{n_commas}}{Number of commas.}
 \item{\code{n_periods}}{Number of periods.}
 \item{\code{n_exclaims}}{Number of exclamation points.}
-\item{\code{n_extraspaces}}{Number of times more then 1 consecutive space have been used.}
+\item{\code{n_extraspaces}}{Number of times 2 or more consecutive whitespace characters (spaces, tabs, or newlines) have been used in a row.}
 \item{\code{n_caps}}{Number of upper case characters.}
 \item{\code{n_lowers}}{Number of lower case characters.}
 \item{\code{n_urls}}{Number of urls.}
@@ -58,5 +58,8 @@ along, but, inside, over, upon, among, by, past, around, concerning,
 regarding, with, at, despite, into, since, within, down, like, through,
 without, before, during, near, throughout, behind, except, of, to, for.}
 }
+
+All of the functions below propagate missing values: if an input element
+is \code{NA}, the corresponding output element is \code{NA} as well.
 }
 \keyword{datasets}

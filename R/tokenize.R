@@ -83,7 +83,7 @@
 #' ```{r}
 #' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' This tokenizer has arguments that change how the tokenization occurs and can
@@ -95,7 +95,7 @@
 #' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text,
 #'                 options = list(lowercase = FALSE)) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' We can also stop removing punctuation.
@@ -105,7 +105,7 @@
 #'   step_tokenize(text,
 #'                 options = list(strip_punct = FALSE,
 #'                                lowercase = FALSE)) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' The tokenizer can be changed by setting a different `token`. Here we change
@@ -114,7 +114,7 @@
 #' ```{r}
 #' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text, token = "characters") |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' It is worth noting that not all these token methods are appropriate but are
@@ -144,7 +144,7 @@
 #'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
 #'   ) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' ```{r, echo=FALSE}
@@ -154,7 +154,7 @@
 #'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
 #'   ) |>
-#'   show_tokens(text) |>
+#'   show_tokens(text, n = 2) |>
 #'   lapply(function(x) gsub("▁", "_", x))
 #' ```
 #'
@@ -181,7 +181,7 @@
 #'     text,
 #'     custom_token = space_tokenizer
 #'   ) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' # Tidying

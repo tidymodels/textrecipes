@@ -221,6 +221,12 @@ test_that("bad args", {
   expect_snapshot(
     error = TRUE,
     recipe(~., data = mtcars) |>
+      step_sequence_onehot(sequence_length = 0) |>
+      prep()
+  )
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
       step_sequence_onehot(prefix = NULL) |>
       prep()
   )

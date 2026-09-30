@@ -3,22 +3,44 @@ n_words <- function(x) {
 }
 
 n_uq_words <- function(x) {
-  x <- stringi::stri_extract_all_words(x)
-  purrr::map_int(x, dplyr::n_distinct)
+  words <- stringi::stri_extract_all_words(x)
+  purrr::map2_int(x, words, n_distinct_safe)
+}
+
+# Shared regexes used to detect and strip urls, hashtags, and mentions.
+url_regex <- "https?://\\S+"
+hashtag_regex <- "#[[:alnum:]_]+"
+mention_regex <- "@\\S+"
+
+# NA-safe variant of dplyr::n_distinct() used when the counting is done by
+# first extracting all matches from `orig` and then counting how many
+# distinct matches there are. If `orig` is NA the result should be NA too,
+# rather than the 1 that dplyr::n_distinct(NA) would report.
+n_distinct_safe <- function(orig, extracted) {
+  if (is.na(orig)) {
+    return(NA_integer_)
+  }
+  dplyr::n_distinct(extracted)
 }
 
 n_charS <- function(x) {
+  x <- stringi::stri_replace_all_regex(x, url_regex, "")
+  x <- stringi::stri_replace_all_regex(x, hashtag_regex, "")
+  x <- stringi::stri_replace_all_regex(x, mention_regex, "")
   x <- stringi::stri_replace_all_regex(x, "\\s", "")
   nchar(x)
 }
 
 n_uq_charS <- function(x) {
-  x <- stringi::stri_replace_all_regex(x, "\\s", "")
-  x <- stringi::stri_split_boundaries(
-    x,
+  chars <- stringi::stri_replace_all_regex(x, url_regex, "")
+  chars <- stringi::stri_replace_all_regex(chars, hashtag_regex, "")
+  chars <- stringi::stri_replace_all_regex(chars, mention_regex, "")
+  chars <- stringi::stri_replace_all_regex(chars, "\\s", "")
+  chars <- stringi::stri_split_boundaries(
+    chars,
     opts_brkiter = stringi::stri_opts_brkiter(type = "character")
   )
-  purrr::map_int(x, dplyr::n_distinct)
+  purrr::map2_int(x, chars, n_distinct_safe)
 }
 
 n_digits <- function(x) {
@@ -26,25 +48,29 @@ n_digits <- function(x) {
 }
 
 n_hashtags <- function(x) {
-  stringi::stri_count_regex(x, "#[[:alnum:]_]+")
+  stringi::stri_count_regex(x, hashtag_regex)
 }
 
 n_uq_hashtags <- function(x) {
-  x <- stringi::stri_extract_all_regex(
+  hashtags <- stringi::stri_extract_all_regex(
     x,
-    "#[[:alnum:]_]+",
+    hashtag_regex,
     omit_no_match = TRUE
   )
-  purrr::map_int(x, dplyr::n_distinct)
+  purrr::map2_int(x, hashtags, n_distinct_safe)
 }
 
 n_mentions <- function(x) {
-  stringi::stri_count_regex(x, "@\\S+")
+  stringi::stri_count_regex(x, mention_regex)
 }
 
 n_uq_mentions <- function(x) {
-  x <- stringi::stri_extract_all_regex(x, "@\\S+", omit_no_match = TRUE)
-  purrr::map_int(x, dplyr::n_distinct)
+  mentions <- stringi::stri_extract_all_regex(
+    x,
+    mention_regex,
+    omit_no_match = TRUE
+  )
+  purrr::map2_int(x, mentions, n_distinct_safe)
 }
 
 n_commas <- function(x) {
@@ -60,7 +86,7 @@ n_exclaims <- function(x) {
 }
 
 n_extraspaces <- function(x) {
-  stringi::stri_count_regex(x, "\\s{2}|\\t|\\n")
+  stringi::stri_count_regex(x, "\\s{2,}")
 }
 
 n_caps <- function(x) {
@@ -76,8 +102,8 @@ n_urls <- function(x) {
 }
 
 n_uq_urls <- function(x) {
-  x <- stringi::stri_extract_all_regex(x, "https?", omit_no_match = TRUE)
-  purrr::map_int(x, dplyr::n_distinct)
+  urls <- stringi::stri_extract_all_regex(x, url_regex, omit_no_match = TRUE)
+  purrr::map2_int(x, urls, n_distinct_safe)
 }
 
 n_nonasciis <- function(x) {
@@ -90,24 +116,55 @@ n_puncts <- function(x) {
   stringi::stri_count_regex(x, "[[:punct:]]")
 }
 
+# Tokenizes a single document into lower-cased words, so that word-list
+# membership can be tested word-by-word rather than against the whole,
+# untokenized document string. Returns NA_character_ if the document is NA,
+# so downstream `%in%` checks correctly report zero matches without needing
+# separate NA handling in each counting function... except that we still
+# want NA in -> NA out, which is handled by the caller checking is.na(.x)
+# directly.
+tokenize_words <- function(.x) {
+  tolower(stringi::stri_extract_all_words(.x)[[1]])
+}
+
 first_person <- function(x) {
   fp <- c("i", "me", "myself", "my", "mine", "this")
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 first_personp <- function(x) {
   fp <- c("we", "us", "our", "ours", "these")
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 second_person <- function(x) {
   fp <- c("you", "yours", "your", "yourself")
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 second_personp <- function(x) {
   fp <- c("he", "she", "it", "its", "his", "hers")
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 third_person <- function(x) {
@@ -121,12 +178,22 @@ third_person <- function(x) {
     "those",
     "that"
   )
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 to_be <- function(x) {
   fp <- c("am", "is", "are", "was", "were", "being", "been", "be", "were", "be")
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 prepositions <- function(x) {
@@ -184,7 +251,12 @@ prepositions <- function(x) {
     "to",
     "for"
   )
-  purrr::map_int(x, \(.x) sum(fp %in% .x, na.rm = TRUE))
+  purrr::map_int(x, \(.x) {
+    if (is.na(.x)) {
+      return(NA_integer_)
+    }
+    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
+  })
 }
 
 #' List of all feature counting functions
@@ -207,6 +279,9 @@ prepositions <- function(x) {
 #' without, before, during, near, throughout, behind, except, of, to, for.}
 #' }
 #'
+#' All of the functions below propagate missing values: if an input element
+#' is `NA`, the corresponding output element is `NA` as well.
+#'
 #' @export
 #' @format Named list of all ferature counting functions
 #' \describe{
@@ -222,7 +297,7 @@ prepositions <- function(x) {
 #' \item{\code{n_commas}}{Number of commas.}
 #' \item{\code{n_periods}}{Number of periods.}
 #' \item{\code{n_exclaims}}{Number of exclamation points.}
-#' \item{\code{n_extraspaces}}{Number of times more then 1 consecutive space have been used.}
+#' \item{\code{n_extraspaces}}{Number of times 2 or more consecutive whitespace characters (spaces, tabs, or newlines) have been used in a row.}
 #' \item{\code{n_caps}}{Number of upper case characters.}
 #' \item{\code{n_lowers}}{Number of lower case characters.}
 #' \item{\code{n_urls}}{Number of urls.}
