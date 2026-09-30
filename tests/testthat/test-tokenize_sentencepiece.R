@@ -167,6 +167,22 @@ test_that("arguments are passed to tokenizers.sentencepiece", {
   )
 })
 
+test_that("bake doesn't error when training-only options are set (#319)", {
+  skip_if_not_installed("sentencepiece")
+
+  rec <- recipe(~text1, data = test_data) |>
+    step_tokenize_sentencepiece(
+      text1,
+      vocabulary_size = 60,
+      options = list(threads = 1)
+    ) |>
+    prep()
+
+  expect_no_error(
+    bake(rec, new_data = test_data)
+  )
+})
+
 test_that("Errors if vocabulary size is set to low.", {
   skip_if_not_installed("sentencepiece")
 

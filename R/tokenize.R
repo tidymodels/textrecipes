@@ -10,7 +10,11 @@
 #' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
 #'   being trained. Only applicable for engine == "tokenizers.bpe".
-#' @param options A list of options passed to the tokenizer.
+#' @param options A list of options passed to the tokenizer. For
+#'   `engine = "tokenizers.bpe"` these options only apply when the tokenizer
+#'   is trained (at `prep()` time); they have no effect on already-trained
+#'   models at `bake()` time. For `engine = "spacyr"` the options are applied
+#'   each time the data is tokenized, including at `bake()` time.
 #' @param token Unit for tokenizing. See details for options. Defaults to
 #'   "words".
 #' @param engine Package that will be used for tokenization. See details for
@@ -79,7 +83,7 @@
 #' ```{r}
 #' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' This tokenizer has arguments that change how the tokenization occurs and can
@@ -91,7 +95,7 @@
 #' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text,
 #'                 options = list(lowercase = FALSE)) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' We can also stop removing punctuation.
@@ -101,7 +105,7 @@
 #'   step_tokenize(text,
 #'                 options = list(strip_punct = FALSE,
 #'                                lowercase = FALSE)) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' The tokenizer can be changed by setting a different `token`. Here we change
@@ -110,7 +114,7 @@
 #' ```{r}
 #' recipe(~ text, data = text_tibble) |>
 #'   step_tokenize(text, token = "characters") |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' It is worth noting that not all these token methods are appropriate but are
@@ -140,7 +144,7 @@
 #'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
 #'   ) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' ```{r, echo=FALSE}
@@ -150,7 +154,7 @@
 #'     engine = "tokenizers.bpe",
 #'     training_options = list(vocab_size = 22)
 #'   ) |>
-#'   show_tokens(text) |>
+#'   show_tokens(text, n = 2) |>
 #'   lapply(function(x) gsub("▁", "_", x))
 #' ```
 #'
@@ -177,7 +181,7 @@
 #'     text,
 #'     custom_token = space_tokenizer
 #'   ) |>
-#'   show_tokens(text)
+#'   show_tokens(text, n = 2)
 #' ```
 #'
 #' # Tidying
@@ -350,7 +354,8 @@ bake.step_tokenize <- function(object, new_data, ...) {
     new_data[[col_name]] <- tokenizer_fun(
       x = new_data[[col_name]],
       options = object$options,
-      token = object$custom_token[[col_name]]
+      token = object$custom_token[[col_name]],
+      col_name = col_name
     )
   }
   new_data
@@ -385,13 +390,23 @@ tidy.step_tokenize <- function(x, ...) {
 }
 
 ## Implementation
-tokenizer_fun <- function(x, options, token, ...) {
+tokenizer_fun <- function(
+  x,
+  options,
+  token,
+  ...,
+  col_name = NULL,
+  call = caller_env()
+) {
   if (is.factor(x)) {
     x <- as.character.factor(x)
   }
+  # `x` is passed positionally rather than as a named `x = x` argument so
+  # that custom tokenizer functions can use any name for their first
+  # argument (#248).
   token_expr <- expr(
     token(
-      x = x
+      x
     )
   )
 
@@ -404,6 +419,23 @@ tokenizer_fun <- function(x, options, token, ...) {
   if (!is_tokenlist(out)) {
     out <- tokenlist(out)
   }
+
+  if (length(out) != length(x)) {
+    col_info <- if (is.null(col_name)) {
+      ""
+    } else {
+      cli::format_inline(" for column {.field {col_name}}")
+    }
+    cli::cli_abort(
+      c(
+        "The tokenizer function returned {length(out)} element{?s}{col_info}, but the input has {length(x)} element{?s}.",
+        "i" = "The tokenizer function must return a list with 1 element for
+        each element of the input."
+      ),
+      call = call
+    )
+  }
+
   out
 }
 

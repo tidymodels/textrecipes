@@ -98,9 +98,6 @@
 
     Code
       prep(rec)
-    Condition
-      Warning in `get_dtm()`:
-      dtm has 0 rows. Empty iterator?
     Message
       
       -- Recipe ----------------------------------------------------------------------
