@@ -4,6 +4,21 @@
 
 ### Bug Fixes
 
+- [`step_lda()`](https://textrecipes.tidymodels.org/dev/reference/step_lda.md)
+  produced non-deterministic and degenerate topic features at bake time:
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) re-fit
+  topic assignments instead of projecting new documents onto the fitted
+  model, and rebuilt the vocabulary from `new_data` alone with different
+  pruning than was used at
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time.
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) now
+  reuses the vocabulary learned during
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) and
+  projects each document independently, so topic weights sum to ~1 and
+  no longer depend on what else is in the same
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) call.
+  ([\#315](https://github.com/tidymodels/textrecipes/issues/315))
+
 - Custom tokenizer functions passed to `custom_token` are now called
   positionally, so functions whose first argument isn’t named `x` no
   longer error with “unused argument” at bake time.
