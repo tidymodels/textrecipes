@@ -54,8 +54,8 @@ frequencies, as if an extra document was seen containing every term in the
 collection exactly once. This prevents division by zero.}
 
 \item{norm}{A character, defines the type of normalization to apply to term
-vectors. "l1" by default, i.e., scale by the number of words in the
-document. Must be one of c("l1", "l2", "none").}
+vectors. "l1" by default, i.e., scale by the number of in-vocabulary
+tokens in the document. Must be one of c("l1", "l2", "none").}
 
 \item{sublinear_tf}{A logical, apply sublinear term-frequency scaling, i.e.,
 replace the term frequency with 1 + log(TF). Defaults to FALSE.}
