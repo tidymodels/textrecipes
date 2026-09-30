@@ -1,6 +1,10 @@
 # textrecipes (development version)
 
-## Bug Fixes
+## Bug fixes
+
+* Fixed a bug in `step_clean_levels()` where a backwards-compatibility shim never actually restored the trained column names, causing `bake()` to silently skip cleaning for legacy trained objects. (#321)
+
+* Fixed a bug in `step_clean_levels()` where character columns were never given a trained cleaning dictionary, causing `bake()` to clean row values inconsistently (via `janitor::make_clean_names()` applied to the batch of values being baked) instead of using a fixed lookup learned at `prep()` time. (#320)
 
 * `step_lda()` produced non-deterministic and degenerate topic features at bake time: `bake()` re-fit topic assignments instead of projecting new documents onto the fitted model, and rebuilt the vocabulary from `new_data` alone with different pruning than was used at `prep()` time. `bake()` now reuses the vocabulary learned during `prep()` and projects each document independently, so topic weights sum to ~1 and no longer depend on what else is in the same `bake()` call. (#315)
 
