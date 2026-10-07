@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* `bake()` methods for steps that transform columns in place now use `recipes_map_cols()`, which avoids copying the data frame once per column and is much faster with many columns. Requires recipes >= 1.4.0. (#312)
+
 * Corrected the documentation for `step_tf(weight_scheme = "term frequency")` and `step_tfidf(norm = "l1")` to state that the denominator is the number of in-vocabulary tokens, not the total number of words, in the document (#326)
 
 ## Bug Fixes
