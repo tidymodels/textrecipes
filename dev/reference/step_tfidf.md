@@ -82,8 +82,8 @@ step_tfidf(
 - norm:
 
   A character, defines the type of normalization to apply to term
-  vectors. "l1" by default, i.e., scale by the number of words in the
-  document. Must be one of c("l1", "l2", "none").
+  vectors. "l1" by default, i.e., scale by the number of in-vocabulary
+  tokens in the document. Must be one of c("l1", "l2", "none").
 
 - sublinear_tf:
 
@@ -251,21 +251,21 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  token weight id         
 #>   <chr>  <chr>  <dbl> <chr>      
-#> 1 medium NA        NA tfidf_REp7Z
+#> 1 medium NA        NA tfidf_DsT8U
 tidy(tate_obj, number = 2)
 #> # A tibble: 952 × 4
 #>    terms  token weight id         
 #>    <chr>  <chr>  <dbl> <chr>      
-#>  1 medium 1       7.26 tfidf_REp7Z
-#>  2 medium 10      7.26 tfidf_REp7Z
-#>  3 medium 100     7.26 tfidf_REp7Z
-#>  4 medium 11      7.67 tfidf_REp7Z
-#>  5 medium 12      7.67 tfidf_REp7Z
-#>  6 medium 13      8.36 tfidf_REp7Z
-#>  7 medium 133     8.36 tfidf_REp7Z
-#>  8 medium 14      6.75 tfidf_REp7Z
-#>  9 medium 15      6.57 tfidf_REp7Z
-#> 10 medium 151     8.36 tfidf_REp7Z
+#>  1 medium 1       7.26 tfidf_DsT8U
+#>  2 medium 10      7.26 tfidf_DsT8U
+#>  3 medium 100     7.26 tfidf_DsT8U
+#>  4 medium 11      7.67 tfidf_DsT8U
+#>  5 medium 12      7.67 tfidf_DsT8U
+#>  6 medium 13      8.36 tfidf_DsT8U
+#>  7 medium 133     8.36 tfidf_DsT8U
+#>  8 medium 14      6.75 tfidf_DsT8U
+#>  9 medium 15      6.57 tfidf_DsT8U
+#> 10 medium 151     8.36 tfidf_DsT8U
 #> # ℹ 942 more rows
 # }
 ```

@@ -118,11 +118,12 @@ column aggregated across each row of your text using the function
 supplied in the `aggregation` argument.
 
 The new components will have names that begin with `prefix`, then the
-name of the aggregation function, then the name of the variable from the
-embeddings tibble (usually something like "d7"). For example, using the
-default "wordembedding" prefix, and the GloVe embeddings from the
-textdata package (where the column names are `d1`, `d2`, etc), new
-columns would be `wordembedding_d1`, `wordembedding_d1`, etc.
+name of the variable being embedded, then the name of the variable from
+the embeddings tibble (usually something like "d7"). For example, using
+the default "wordembed" prefix, a variable named `text`, and the GloVe
+embeddings from the textdata package (where the column names are `d1`,
+`d2`, etc), new columns would be `wordembed_text_d1`,
+`wordembed_text_d2`, etc.
 
 ## Tidying
 
@@ -203,10 +204,10 @@ tidy(rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_qFyxx
+#> 1 text                3 sum         word_embeddings_y7Ytr
 tidy(obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_qFyxx
+#> 1 text                3 sum         word_embeddings_y7Ytr
 ```

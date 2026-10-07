@@ -2,7 +2,19 @@
 
 ## textrecipes (development version)
 
+- Corrected the documentation for
+  `step_tf(weight_scheme = "term frequency")` and
+  `step_tfidf(norm = "l1")` to state that the denominator is the number
+  of in-vocabulary tokens, not the total number of words, in the
+  document
+  ([\#326](https://github.com/tidymodels/textrecipes/issues/326))
+
 ### Bug Fixes
+
+- Fixed documentation for
+  [`step_word_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_word_embeddings.md)
+  to describe the actual default `prefix` and column-naming behavior.
+  ([\#331](https://github.com/tidymodels/textrecipes/issues/331))
 
 - Fixed a crash (segfault) in
   [`step_texthash()`](https://textrecipes.tidymodels.org/dev/reference/step_texthash.md)
