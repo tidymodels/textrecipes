@@ -121,9 +121,7 @@ bake.step_pos_filter <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (col_name in col_names) {
-    variable <- new_data[[col_name]]
-
+  new_data <- recipes_map_cols(new_data, col_names, function(variable, i, col_name) {
     if (is.null(maybe_get_pos(variable))) {
       cli::cli_abort(
         c(
@@ -133,8 +131,8 @@ bake.step_pos_filter <- function(object, new_data, ...) {
       )
     }
 
-    new_data[[col_name]] <- tokenlist_pos_filter(variable, object$keep_tags)
-  }
+    tokenlist_pos_filter(variable, object$keep_tags)
+  })
   new_data <- factor_to_text(new_data, col_names)
   new_data
 }

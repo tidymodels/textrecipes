@@ -4,7 +4,7 @@
       prep(rec)
     Condition
       Error in `step_lemma()`:
-      Caused by error in `bake()`:
+      Caused by error in `fn()`:
       ! `text` doesn't have a lemma attribute.
       i Make sure the tokenization step includes lemmatization.
 

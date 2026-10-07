@@ -150,23 +150,16 @@ bake.step_clean_levels <- function(object, new_data, ...) {
     names(clean) <- col_names
   }
 
-  for (col_name in col_names) {
+  recipes_map_cols(new_data, col_names, function(x, i, col_name) {
     dict <- clean[[col_name]]
-    is_fct <- is.factor(new_data[[col_name]])
-    values <- as.character(new_data[[col_name]])
-    cleaned_values <- unname(dict[values])
+    cleaned_values <- unname(dict[as.character(x)])
 
-    if (is_fct) {
-      new_data[[col_name]] <- factor(
-        cleaned_values,
-        levels = unique(unname(dict))
-      )
+    if (is.factor(x)) {
+      factor(cleaned_values, levels = unique(unname(dict)))
     } else {
-      new_data[[col_name]] <- cleaned_values
+      cleaned_values
     }
-  }
-
-  new_data
+  })
 }
 
 #' @export

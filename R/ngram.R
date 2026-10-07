@@ -160,16 +160,14 @@ bake.step_ngram <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (col_name in col_names) {
-    ngrammed_tokenlist <- tokenlist_ngram(
-      x = new_data[[col_name]],
+  new_data <- recipes_map_cols(new_data, col_names, function(x) {
+    tokenlist_ngram(
+      x = x,
       n = object$num_tokens,
       n_min = object$min_num_tokens,
       delim = object$delim
     )
-
-    new_data[[col_name]] <- ngrammed_tokenlist
-  }
+  })
   new_data <- factor_to_text(new_data, col_names)
   new_data
 }
