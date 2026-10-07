@@ -4,6 +4,8 @@
 
 ## Bug Fixes
 
+* Fixed documentation for `step_word_embeddings()` to describe the actual default `prefix` and column-naming behavior. (#331)
+
 * Fixed a crash (segfault) in `step_texthash()` and `step_dummy_hash()` when `num_terms = 0` was used; this now errors cleanly during `prep()`. (#314)
 
 * Fixed a bug in `step_texthash()` where baking with `sparse = "yes"` and `signed = TRUE` (the default) could error with "values value must not be equal to the default 0" when signed hash collisions cancelled out to a true zero. (#289)
