@@ -207,10 +207,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium    NA tokenfilter_8UtNC
+#> 1 medium    NA tokenfilter_f3Gdu
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium   952 tokenfilter_8UtNC
+#> 1 medium   952 tokenfilter_f3Gdu
 ```

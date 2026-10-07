@@ -42,7 +42,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="textrecipes-development-version">textrecipes (development version)<a class="anchor" aria-label="anchor" href="#textrecipes-development-version"></a></h2>
-<ul><li>Corrected the documentation for <code>step_tf(weight_scheme = "term frequency")</code> and <code>step_tfidf(norm = "l1")</code> to state that the denominator is the number of in-vocabulary tokens, not the total number of words, in the document (<a href="https://github.com/tidymodels/textrecipes/issues/326" class="external-link">#326</a>)</li>
+<ul><li><p><code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake()</a></code> methods for steps that transform columns in place now use <code><a href="https://recipes.tidymodels.org/reference/recipes_map_cols.html" class="external-link">recipes_map_cols()</a></code>, which avoids copying the data frame once per column and is much faster with many columns. Requires recipes &gt;= 1.4.0. (<a href="https://github.com/tidymodels/textrecipes/issues/312" class="external-link">#312</a>)</p></li>
+<li><p>Corrected the documentation for <code>step_tf(weight_scheme = "term frequency")</code> and <code>step_tfidf(norm = "l1")</code> to state that the denominator is the number of in-vocabulary tokens, not the total number of words, in the document (<a href="https://github.com/tidymodels/textrecipes/issues/326" class="external-link">#326</a>)</p></li>
 </ul><div class="section level3">
 <h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li><p>Fixed documentation for <code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code> to describe the actual default <code>prefix</code> and column-naming behavior. (<a href="https://github.com/tidymodels/textrecipes/issues/331" class="external-link">#331</a>)</p></li>

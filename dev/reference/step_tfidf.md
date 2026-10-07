@@ -251,21 +251,21 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  token weight id         
 #>   <chr>  <chr>  <dbl> <chr>      
-#> 1 medium NA        NA tfidf_DsT8U
+#> 1 medium NA        NA tfidf_gwFST
 tidy(tate_obj, number = 2)
 #> # A tibble: 952 × 4
 #>    terms  token weight id         
 #>    <chr>  <chr>  <dbl> <chr>      
-#>  1 medium 1       7.26 tfidf_DsT8U
-#>  2 medium 10      7.26 tfidf_DsT8U
-#>  3 medium 100     7.26 tfidf_DsT8U
-#>  4 medium 11      7.67 tfidf_DsT8U
-#>  5 medium 12      7.67 tfidf_DsT8U
-#>  6 medium 13      8.36 tfidf_DsT8U
-#>  7 medium 133     8.36 tfidf_DsT8U
-#>  8 medium 14      6.75 tfidf_DsT8U
-#>  9 medium 15      6.57 tfidf_DsT8U
-#> 10 medium 151     8.36 tfidf_DsT8U
+#>  1 medium 1       7.26 tfidf_gwFST
+#>  2 medium 10      7.26 tfidf_gwFST
+#>  3 medium 100     7.26 tfidf_gwFST
+#>  4 medium 11      7.67 tfidf_gwFST
+#>  5 medium 12      7.67 tfidf_gwFST
+#>  6 medium 13      8.36 tfidf_gwFST
+#>  7 medium 133     8.36 tfidf_gwFST
+#>  8 medium 14      6.75 tfidf_gwFST
+#>  9 medium 15      6.57 tfidf_gwFST
+#> 10 medium 151     8.36 tfidf_gwFST
 #> # ℹ 942 more rows
 # }
 ```
