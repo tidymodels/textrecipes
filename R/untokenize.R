@@ -122,13 +122,10 @@ bake.step_untokenize <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (col_name in col_names) {
-    tokens <- get_tokens(new_data[[col_name]])
-    new_data[[col_name]] <- map_chr(tokens, paste, collapse = object$sep)
-    new_data[[col_name]] <- factor(new_data[[col_name]])
-  }
-
-  new_data
+  recipes_map_cols(new_data, col_names, function(x) {
+    tokens <- get_tokens(x)
+    factor(map_chr(tokens, paste, collapse = object$sep))
+  })
 }
 
 #' @export

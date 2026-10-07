@@ -143,12 +143,9 @@ bake.step_text_normalization <- function(object, new_data, ...) {
     )
   )
 
-  for (col_name in col_names) {
-    new_data[[col_name]] <- normalization_fun(new_data[[col_name]])
-    new_data[[col_name]] <- factor(new_data[[col_name]])
-  }
-
-  new_data
+  recipes_map_cols(new_data, col_names, function(x) {
+    factor(normalization_fun(x))
+  })
 }
 
 #' @export
