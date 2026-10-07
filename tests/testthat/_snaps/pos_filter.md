@@ -4,7 +4,7 @@
       prep(rec)
     Condition
       Error in `step_pos_filter()`:
-      Caused by error in `bake()`:
+      Caused by error in `fn()`:
       ! `text` doesn't have a pos attribute.
       i Make sure the tokenization step includes part of speech tagging.
 

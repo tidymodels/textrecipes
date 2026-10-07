@@ -152,13 +152,9 @@ bake.step_stem <- function(object, new_data, ...) {
   stem_fun <- object$custom_stemmer %||%
     SnowballC::wordStem
 
-  for (col_name in col_names) {
-    new_data[[col_name]] <- tokenlist_apply(
-      new_data[[col_name]],
-      stem_fun,
-      object$options
-    )
-  }
+  new_data <- recipes_map_cols(new_data, col_names, function(x) {
+    tokenlist_apply(x, stem_fun, object$options)
+  })
   new_data <- factor_to_text(new_data, col_names)
   new_data
 }

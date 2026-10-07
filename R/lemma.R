@@ -113,9 +113,7 @@ bake.step_lemma <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  for (col_name in col_names) {
-    variable <- new_data[[col_name]]
-
+  new_data <- recipes_map_cols(new_data, col_names, function(variable, i, col_name) {
     if (is.null(maybe_get_lemma(variable))) {
       cli::cli_abort(
         c(
@@ -123,12 +121,10 @@ bake.step_lemma <- function(object, new_data, ...) {
           "i" = "Make sure the tokenization step includes lemmatization."
         )
       )
-    } else {
-      lemma_variable <- tokenlist_lemma(variable)
     }
 
-    new_data[[col_name]] <- lemma_variable
-  }
+    tokenlist_lemma(variable)
+  })
   new_data <- factor_to_text(new_data, col_names)
   new_data
 }

@@ -181,13 +181,9 @@ bake.step_stopwords <- function(object, new_data, ...) {
       source = object$stopword_source
     )
 
-  for (col_name in col_names) {
-    new_data[[col_name]] <- tokenlist_filter(
-      new_data[[col_name]],
-      stopword_list,
-      object$keep
-    )
-  }
+  new_data <- recipes_map_cols(new_data, col_names, function(x) {
+    tokenlist_filter(x, stopword_list, object$keep)
+  })
   new_data <- factor_to_text(new_data, col_names)
 
   new_data

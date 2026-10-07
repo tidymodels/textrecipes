@@ -217,22 +217,13 @@ bake.step_tokenfilter <- function(object, new_data, ...) {
     names(object$res) <- col_names
   }
 
-  for (col_name in col_names) {
+  new_data <- recipes_map_cols(new_data, col_names, function(x, i, col_name) {
     if (is.null(object$filter_fun)) {
-      filtered_text <- tokenlist_filter(
-        new_data[[col_name]],
-        object$res[[col_name]],
-        TRUE
-      )
+      tokenlist_filter(x, object$res[[col_name]], TRUE)
     } else {
-      filtered_text <- tokenlist_filter_function(
-        new_data[[col_name]],
-        object$filter_fun
-      )
+      tokenlist_filter_function(x, object$filter_fun)
     }
-
-    new_data[[col_name]] <- filtered_text
-  }
+  })
   new_data <- factor_to_text(new_data, col_names)
 
   new_data
