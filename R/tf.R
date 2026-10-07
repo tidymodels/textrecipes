@@ -40,12 +40,12 @@
 #' "binary" will result in a set of binary variables denoting if a token is
 #' present in the observation. "raw count" will count the times a token is
 #' present in the observation. "term frequency" will divide the count by the
-#' total number of words in the document to limit the effect of the document
-#' length as longer documents tends to have the word present more times but not
-#' necessarily at a higher percentage. "log normalization" takes the log of 1
-#' plus the count, adding 1 is done to avoid taking log of 0. Finally "double
-#' normalization" is the raw frequency divided by the raw frequency of the most
-#' occurring term in the document. This is then multiplied by `weight` and
+#' total number of in-vocabulary tokens in the document to limit the effect
+#' of the document length as longer documents tends to have the word present
+#' more times but not necessarily at a higher percentage. "log normalization"
+#' takes the log of 1 plus the count, adding 1 is done to avoid taking log of
+#' 0. Finally "double normalization" is the raw frequency divided by the raw
+#' frequency of the most occurring term in the document. This is then multiplied by `weight` and
 #' `weight` is added to the result. This is again done to prevent a bias towards
 #' longer documents.
 #'
