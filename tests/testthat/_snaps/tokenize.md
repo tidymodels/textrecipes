@@ -13,7 +13,7 @@
       prep(step_tokenize(rec, text, custom_token = too_short))
     Condition
       Error in `step_tokenize()`:
-      Caused by error in `bake()`:
+      Caused by error in `fn()`:
       ! The tokenizer function returned 1 element for column text, but the input has 4 elements.
       i The tokenizer function must return a list with 1 element for each element of the input.
 

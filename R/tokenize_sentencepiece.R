@@ -196,16 +196,14 @@ bake.step_tokenize_sentencepiece <- function(object, new_data, ...) {
     names(object$res) <- col_names
   }
 
-  for (col_name in col_names) {
-    new_data[[col_name]] <- tokenizer_fun(
-      x = new_data[[col_name]],
+  recipes_map_cols(new_data, col_names, function(x, i, col_name) {
+    tokenizer_fun(
+      x = x,
       options = object$options,
       token = object$res[[col_name]],
       col_name = col_name
     )
-  }
-
-  new_data
+  })
 }
 
 #' @export
