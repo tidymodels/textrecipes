@@ -489,3 +489,36 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+test_that("unsigned dummy hash rows sum to the number of columns hashed (#328)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  d <- tibble(
+    x = factor(c("a", "b", "a", "c")),
+    y = factor(c("u", "u", "v", "w"))
+  )
+
+  for (num_terms in c(1, 4, 32)) {
+    res <- recipe(~., data = d) |>
+      step_dummy_hash(x, y, num_terms = num_terms, signed = FALSE) |>
+      prep() |>
+      bake(new_data = NULL)
+
+    x_sums <- rowSums(res[grepl("^dummyhash_x_", names(res))])
+    y_sums <- rowSums(res[grepl("^dummyhash_y_", names(res))])
+
+    # each factor contributes exactly one level per row
+    expect_equal(unname(x_sums), rep(1, 4))
+    expect_equal(unname(y_sums), rep(1, 4))
+  }
+
+  # same level gives the same hash row
+  res <- recipe(~x, data = d) |>
+    step_dummy_hash(x, num_terms = 8) |>
+    prep() |>
+    bake(new_data = NULL)
+
+  expect_identical(res[1, ], res[3, ])
+})

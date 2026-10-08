@@ -375,3 +375,39 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+test_that("unsigned hashing row sums equal the number of tokens (#328)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  d <- tibble(text = c("a b a c", "b", "c c c a b b"))
+
+  for (num_terms in c(1, 4, 64)) {
+    res <- recipe(~text, data = d) |>
+      step_tokenize(text) |>
+      step_texthash(text, num_terms = num_terms, signed = FALSE) |>
+      prep() |>
+      bake(new_data = NULL)
+
+    expect_identical(ncol(res), as.integer(num_terms))
+    expect_equal(unname(rowSums(res)), c(4, 1, 6))
+  }
+})
+
+test_that("identical documents hash to identical rows and unknown tokens still hash (#328)", {
+  skip_if_not_installed("text2vec")
+  skip_if_not_installed("data.table")
+  data.table::setDTthreads(2) # because data.table uses all cores by default
+
+  d <- tibble(text = c("a b c", "c b a"))
+
+  res <- recipe(~text, data = d) |>
+    step_tokenize(text) |>
+    step_texthash(text, num_terms = 16, signed = FALSE) |>
+    prep() |>
+    bake(new_data = NULL)
+
+  expect_identical(res[1, ], res[2, ])
+  expect_equal(sum(res[1, ]), 3)
+})
