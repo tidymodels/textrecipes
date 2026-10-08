@@ -11,8 +11,6 @@ rec <- recipe(~., data = test_data)
 
 test_that("hashing gives double outputs", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   rec <- rec |>
     step_tokenize(text) |>
@@ -35,8 +33,6 @@ test_that("hashing gives double outputs", {
 
 test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   rec <- rec |>
     step_tokenize(text) |>
@@ -53,8 +49,6 @@ test_that("hashing output width changes accordingly with num_terms", {
 
 test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   signed <- recipe(~., data = test_data) |>
     step_tokenize(all_predictors()) |>
@@ -76,8 +70,6 @@ test_that("hashing output width changes accordingly with num_terms", {
 
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   dat <- test_data
   dat$texthash_text_0001 <- dat$text
@@ -143,9 +135,7 @@ test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
 
 test_that("signed hashing with sparse = 'yes' works when values cancel to 0 (#289)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("small_fine_foods", package = "modeldata")
 
@@ -282,8 +272,6 @@ test_that("empty selection tidy method works", {
 
 test_that("keep_original_cols works", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   new_names <- paste0("texthash_text_", 1:5)
 
@@ -332,8 +320,6 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 
 test_that("printing", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   rec <- rec |>
     step_tokenize(text) |>
@@ -378,8 +364,6 @@ test_that("0 and 1 rows data work in bake method", {
 
 test_that("unsigned hashing row sums equal the number of tokens (#328)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   d <- tibble(text = c("a b a c", "b", "c c c a b b"))
 
@@ -397,8 +381,6 @@ test_that("unsigned hashing row sums equal the number of tokens (#328)", {
 
 test_that("identical documents hash to identical rows and unknown tokens still hash (#328)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   d <- tibble(text = c("a b c", "c b a"))
 
