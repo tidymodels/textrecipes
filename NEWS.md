@@ -8,6 +8,8 @@
 
 ## Bug Fixes
 
+* All steps now work with 0 and 1 row data in `bake()`. This fixes errors in `step_texthash()`, `step_dummy_hash()`, `step_lda()`, and `step_pos_filter()` with 0 rows, and zero-length tokenlists no longer lose their lemma and pos attributes, which broke `step_lemma()`. (#290)
+
 * Fixed documentation for `step_word_embeddings()` to describe the actual default `prefix` and column-naming behavior. (#331)
 
 * Fixed a crash (segfault) in `step_texthash()` and `step_dummy_hash()` when `num_terms = 0` was used; this now errors cleanly during `prep()`. (#314)

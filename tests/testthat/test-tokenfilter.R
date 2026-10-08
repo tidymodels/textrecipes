@@ -259,3 +259,20 @@ test_that("tunable is setup to works with extract_parameter_set_dials", {
   expect_s3_class(params, "parameters")
   expect_identical(nrow(params), 3L)
 })
+
+test_that("0 and 1 rows data work in bake method", {
+  data <- tibble(
+    text = c(
+      "I would not eat them here or there.",
+      "I would not eat them anywhere.",
+      "I do not like them, Sam-I-am."
+    )
+  )
+  rec <- recipe(~text, data = data) |>
+    step_tokenize(text) |>
+    step_tokenfilter(text, max_tokens = 3) |>
+    prep()
+
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
+})

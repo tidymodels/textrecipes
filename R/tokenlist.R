@@ -57,24 +57,12 @@ new_tokenlist <- function(
   }
   vec_assert(unique_tokens, character())
 
-  if (length(tokens) == 0) {
-    return(
-      vctrs::new_rcrd(
-        fields = list(tokens = tokens),
-        unique_tokens = unique_tokens,
-        class = "textrecipes_tokenlist"
-      )
-    )
-  }
+  # Not purrr::compact() since it would also drop zero-length fields
+  fields <- list(tokens = tokens, lemma = lemma, pos = pos)
+  fields <- fields[!vapply(fields, is.null, logical(1))]
 
   vctrs::new_rcrd(
-    fields = purrr::compact(
-      list(
-        tokens = tokens,
-        lemma = lemma,
-        pos = pos
-      )
-    ),
+    fields = fields,
     unique_tokens = unique_tokens,
     class = "textrecipes_tokenlist"
   )
@@ -82,6 +70,13 @@ new_tokenlist <- function(
 
 is_tokenlist <- function(x) {
   inherits(x, "textrecipes_tokenlist")
+}
+
+check_tokenlist <- function(x, call = rlang::caller_env()) {
+  if (!is_tokenlist(x)) {
+    cli::cli_abort("Input must be a {.cls tokenlist}.", call = call)
+  }
+  invisible(x)
 }
 
 maybe_get_lemma <- function(x) {
@@ -148,9 +143,7 @@ obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
 # Takes a vector of character vectors and keeps (for keep = TRUE) the words
 # or removes (for keep = FALSE) the words
 tokenlist_filter <- function(x, dict, keep = FALSE) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   if (!keep) {
     dict <- setdiff(attr(x, "unique_tokens"), dict)
@@ -187,9 +180,7 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
 }
 
 tokenlist_filter_function <- function(x, fn) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a {.cls tokenlist}.")
-  }
+  check_tokenlist(x)
 
   tokens <- get_tokens(x)
 
@@ -217,9 +208,7 @@ tokenlist_filter_function <- function(x, fn) {
 }
 
 tokenlist_apply <- function(x, fun, arguments = NULL) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be {.cls tokenlist} object.")
-  }
+  check_tokenlist(x)
 
   tokens <- get_tokens(x)
   apply_expr <- expr(lapply(tokens, fun))
@@ -233,9 +222,7 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
 
 # Takes a [tokenlist] and calculate the token count matrix
 tokenlist_to_dtm <- function(x, dict) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   tokens <- get_tokens(x)
   i <- rep(seq_along(tokens), lengths(tokens))
@@ -253,9 +240,7 @@ tokenlist_to_dtm <- function(x, dict) {
 }
 
 tokenlist_lemma <- function(x) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   if (is.null(maybe_get_lemma(x))) {
     cli::cli_abort("The {.code lemma} attribute is not available.")
@@ -265,9 +250,7 @@ tokenlist_lemma <- function(x) {
 }
 
 tokenlist_pos_filter <- function(x, pos_tags) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   if (is.null(maybe_get_pos(x))) {
     cli::cli_abort("{.arg pos} attribute not available.")
@@ -281,15 +264,16 @@ tokenlist_pos_filter <- function(x, pos_tags) {
   keep_id <- !is.na(j)
   split_id <- factor(i[keep_id], seq_x)
 
-  out <- split(unlist(get_tokens(x))[keep_id], split_id)
+  # as.character() since unlist() of zero rows returns NULL
+  out <- split(as.character(unlist(tokens))[keep_id], split_id)
   names(out) <- NULL
 
-  pos <- split(unlist(maybe_get_pos(x))[keep_id], split_id)
+  pos <- split(as.character(unlist(maybe_get_pos(x)))[keep_id], split_id)
   names(pos) <- NULL
 
   lemma <- maybe_get_lemma(x)
   if (!is.null(lemma)) {
-    lemma <- split(unlist(lemma)[keep_id], split_id)
+    lemma <- split(as.character(unlist(lemma))[keep_id], split_id)
     names(lemma) <- NULL
   } else {
     lemma <- NULL
@@ -299,9 +283,7 @@ tokenlist_pos_filter <- function(x, pos_tags) {
 }
 
 tokenlist_ngram <- function(x, n, n_min, delim) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   tokenlist(ngram(get_tokens(x), n, n_min, delim))
 }

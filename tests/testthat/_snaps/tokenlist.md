@@ -64,7 +64,7 @@
       tokenlist_filter(LETTERS, letters)
     Condition
       Error in `tokenlist_filter()`:
-      ! Input must be a tokenlist.
+      ! Input must be a <tokenlist>.
 
 # tokenlist_apply works
 
@@ -80,7 +80,7 @@
       tokenlist_apply(letters, toupper)
     Condition
       Error in `tokenlist_apply()`:
-      ! Input must be <tokenlist> object.
+      ! Input must be a <tokenlist>.
 
 # tokenlist_lemma works
 
@@ -88,7 +88,7 @@
       tokenlist_lemma(letters)
     Condition
       Error in `tokenlist_lemma()`:
-      ! Input must be a tokenlist.
+      ! Input must be a <tokenlist>.
 
 ---
 
@@ -104,7 +104,7 @@
       tokenlist_pos_filter(letters, "NOUN")
     Condition
       Error in `tokenlist_pos_filter()`:
-      ! Input must be a tokenlist.
+      ! Input must be a <tokenlist>.
 
 ---
 
@@ -120,7 +120,7 @@
       tokenlist_ngram(letters)
     Condition
       Error in `tokenlist_ngram()`:
-      ! Input must be a tokenlist.
+      ! Input must be a <tokenlist>.
 
 ---
 
