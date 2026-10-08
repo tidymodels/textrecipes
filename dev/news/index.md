@@ -18,6 +18,19 @@
 
 ### Bug Fixes
 
+- All steps now work with 0 and 1 row data in
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html). This
+  fixes errors in
+  [`step_texthash()`](https://textrecipes.tidymodels.org/dev/reference/step_texthash.md),
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.md),
+  [`step_lda()`](https://textrecipes.tidymodels.org/dev/reference/step_lda.md),
+  and
+  [`step_pos_filter()`](https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.md)
+  with 0 rows, and zero-length tokenlists no longer lose their lemma and
+  pos attributes, which broke
+  [`step_lemma()`](https://textrecipes.tidymodels.org/dev/reference/step_lemma.md).
+  ([\#290](https://github.com/tidymodels/textrecipes/issues/290))
+
 - Fixed documentation for
   [`step_word_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_word_embeddings.md)
   to describe the actual default `prefix` and column-naming behavior.
