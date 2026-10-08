@@ -262,11 +262,22 @@ hashing_function <- function(data, labels, signed, n, sparse) {
   as_tibble(counts)
 }
 
+# text2vec::create_dtm() errors on zero documents, so build the dtm from a
+# placeholder document and drop its row to get a 0-row matrix.
+create_dtm_safe <- function(tokens, vectorizer, ...) {
+  if (length(tokens) == 0) {
+    it <- text2vec::itoken(list(""), progress = FALSE)
+    dtm <- suppressWarnings(text2vec::create_dtm(it, vectorizer))
+    return(dtm[0, , drop = FALSE])
+  }
+  it <- text2vec::itoken(tokens, progress = FALSE, ...)
+  text2vec::create_dtm(it, vectorizer)
+}
+
 # Takes a [tokenlist] and calculate the hashed token count matrix
 list_to_hash <- function(x, n, signed, sparse) {
-  it <- text2vec::itoken(x, progress = FALSE)
   vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
-  res <- text2vec::create_dtm(it, vectorizer)
+  res <- create_dtm_safe(x, vectorizer)
 
   if (sparse_is_yes(sparse)) {
     colnames(res) <- seq_len(ncol(res))

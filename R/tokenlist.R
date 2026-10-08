@@ -57,24 +57,12 @@ new_tokenlist <- function(
   }
   vec_assert(unique_tokens, character())
 
-  if (length(tokens) == 0) {
-    return(
-      vctrs::new_rcrd(
-        fields = list(tokens = tokens),
-        unique_tokens = unique_tokens,
-        class = "textrecipes_tokenlist"
-      )
-    )
-  }
+  # Not purrr::compact() since it would also drop zero-length fields
+  fields <- list(tokens = tokens, lemma = lemma, pos = pos)
+  fields <- fields[!vapply(fields, is.null, logical(1))]
 
   vctrs::new_rcrd(
-    fields = purrr::compact(
-      list(
-        tokens = tokens,
-        lemma = lemma,
-        pos = pos
-      )
-    ),
+    fields = fields,
     unique_tokens = unique_tokens,
     class = "textrecipes_tokenlist"
   )
@@ -276,15 +264,16 @@ tokenlist_pos_filter <- function(x, pos_tags) {
   keep_id <- !is.na(j)
   split_id <- factor(i[keep_id], seq_x)
 
-  out <- split(unlist(get_tokens(x))[keep_id], split_id)
+  # as.character() since unlist() of zero rows returns NULL
+  out <- split(as.character(unlist(tokens))[keep_id], split_id)
   names(out) <- NULL
 
-  pos <- split(unlist(maybe_get_pos(x))[keep_id], split_id)
+  pos <- split(as.character(unlist(maybe_get_pos(x)))[keep_id], split_id)
   names(pos) <- NULL
 
   lemma <- maybe_get_lemma(x)
   if (!is.null(lemma)) {
-    lemma <- split(unlist(lemma)[keep_id], split_id)
+    lemma <- split(as.character(unlist(lemma))[keep_id], split_id)
     names(lemma) <- NULL
   } else {
     lemma <- NULL

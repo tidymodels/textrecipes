@@ -122,3 +122,19 @@ test_that("printing", {
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
 })
+
+test_that("0 and 1 rows data work in bake method", {
+  data <- tibble(
+    text = tokenlist(
+      list(c("running", "dogs"), c("jumped"), c("cats", "sleep")),
+      lemma = list(c("run", "dog"), c("jump"), c("cat", "sleep")),
+      pos = list(c("VERB", "NOUN"), c("VERB"), c("NOUN", "VERB"))
+    )
+  )
+  rec <- recipe(~text, data = data) |>
+    step_lemma(text) |>
+    prep()
+
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
+})

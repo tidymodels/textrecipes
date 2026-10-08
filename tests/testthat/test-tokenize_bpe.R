@@ -167,7 +167,11 @@ test_that("bake doesn't error when training-only options are set (#319)", {
   skip_if_not_installed("tokenizers.bpe")
 
   rec <- recipe(~text1, data = test_data) |>
-    step_tokenize_bpe(text1, vocabulary_size = 60, options = list(threads = 1)) |>
+    step_tokenize_bpe(
+      text1,
+      vocabulary_size = 60,
+      options = list(threads = 1)
+    ) |>
     prep()
 
   expect_no_error(
@@ -287,4 +291,21 @@ test_that("tunable is setup to works with extract_parameter_set_dials", {
 
   expect_s3_class(params, "parameters")
   expect_identical(nrow(params), 1L)
+})
+
+test_that("0 and 1 rows data work in bake method", {
+  skip_if_not_installed("tokenizers.bpe")
+  data <- tibble(
+    text = c(
+      "I would not eat them here or there.",
+      "I would not eat them anywhere.",
+      "I do not like them, Sam-I-am."
+    )
+  )
+  rec <- recipe(~text, data = data) |>
+    step_tokenize_bpe(text, vocabulary_size = 80) |>
+    prep()
+
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
