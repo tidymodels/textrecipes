@@ -475,3 +475,127 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+# Value-level tests (#328) -----------------------------------------------------
+
+# Counts, with vocabulary a, b, c, d:
+#   "a b a d"   -> a = 2, b = 1, c = 0, d = 1
+#   "b"         -> a = 0, b = 1, c = 0, d = 0
+#   "c c c a"   -> a = 1, b = 0, c = 3, d = 0
+# Document frequencies: a = 2, b = 2, c = 1, d = 1 (3 documents).
+value_data <- tibble(text = c("a b a d", "b", "c c c a"))
+
+bake_tfidf_values <- function(...) {
+  recipe(~text, data = value_data) |>
+    step_tokenize(text) |>
+    step_tfidf(text, ...) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    as.data.frame()
+}
+
+test_that("step_tfidf norm = 'none' gives hand-computed values", {
+  idf <- log(1 + 3 / c(2, 2, 1, 1))
+
+  expected <- data.frame(
+    tfidf_text_a = c(2, 0, 1) * idf[1],
+    tfidf_text_b = c(1, 1, 0) * idf[2],
+    tfidf_text_c = c(0, 0, 3) * idf[3],
+    tfidf_text_d = c(1, 0, 0) * idf[4]
+  )
+
+  expect_equal(bake_tfidf_values(norm = "none"), expected)
+  expect_equal(bake_tfidf_values(norm = "none", sparse = "yes"), expected)
+})
+
+test_that("step_tfidf norm = 'l1' gives hand-computed values", {
+  idf <- log(1 + 3 / c(2, 2, 1, 1))
+
+  # row sums of counts are 4, 1 and 4
+  expected <- data.frame(
+    tfidf_text_a = c(2 / 4, 0 / 1, 1 / 4) * idf[1],
+    tfidf_text_b = c(1 / 4, 1 / 1, 0 / 4) * idf[2],
+    tfidf_text_c = c(0 / 4, 0 / 1, 3 / 4) * idf[3],
+    tfidf_text_d = c(1 / 4, 0 / 1, 0 / 4) * idf[4]
+  )
+
+  expect_equal(bake_tfidf_values(norm = "l1"), expected)
+})
+
+test_that("step_tfidf norm = 'l2' gives hand-computed values", {
+  idf <- log(1 + 3 / c(2, 2, 1, 1))
+
+  # euclidean norms of the count rows: sqrt(4 + 1 + 1), 1 and sqrt(1 + 9)
+  l2 <- c(sqrt(6), 1, sqrt(10))
+
+  expected <- data.frame(
+    tfidf_text_a = c(2, 0, 1) / l2 * idf[1],
+    tfidf_text_b = c(1, 1, 0) / l2 * idf[2],
+    tfidf_text_c = c(0, 0, 3) / l2 * idf[3],
+    tfidf_text_d = c(1, 0, 0) / l2 * idf[4]
+  )
+
+  expect_equal(bake_tfidf_values(norm = "l2"), expected)
+  expect_equal(bake_tfidf_values(norm = "l2", sparse = "yes"), expected)
+})
+
+test_that("step_tfidf smooth_idf = FALSE gives hand-computed values", {
+  # without smoothing idf = log(n_docs / df)
+  idf <- log(3 / c(2, 2, 1, 1))
+
+  expected <- data.frame(
+    tfidf_text_a = c(2, 0, 1) * idf[1],
+    tfidf_text_b = c(1, 1, 0) * idf[2],
+    tfidf_text_c = c(0, 0, 3) * idf[3],
+    tfidf_text_d = c(1, 0, 0) * idf[4]
+  )
+
+  expect_equal(bake_tfidf_values(norm = "none", smooth_idf = FALSE), expected)
+
+  obj <- recipe(~text, data = value_data) |>
+    step_tokenize(text) |>
+    step_tfidf(text, smooth_idf = FALSE) |>
+    prep()
+
+  expect_equal(
+    obj$steps[[2]]$res$text,
+    c(a = log(3 / 2), b = log(3 / 2), c = log(3 / 1), d = log(3 / 1))
+  )
+})
+
+test_that("step_tfidf sublinear_tf with norm = 'none' and 'l2' gives hand-computed values", {
+  idf <- log(1 + 3 / c(2, 2, 1, 1))
+
+  sub <- function(x) ifelse(x > 0, 1 + log(pmax(x, 1)), 0)
+  counts <- cbind(a = c(2, 0, 1), b = c(1, 1, 0), c = c(0, 0, 3), d = c(1, 0, 0))
+  sub_counts <- sub(counts)
+
+  expected_none <- as.data.frame(sweep(sub_counts, 2, idf, "*"))
+  names(expected_none) <- paste0("tfidf_text_", colnames(counts))
+
+  expect_equal(
+    bake_tfidf_values(norm = "none", sublinear_tf = TRUE),
+    expected_none
+  )
+
+  l2 <- sqrt(rowSums(sub_counts^2))
+  expected_l2 <- as.data.frame(sweep(sub_counts / l2, 2, idf, "*"))
+  names(expected_l2) <- paste0("tfidf_text_", colnames(counts))
+
+  expect_equal(
+    bake_tfidf_values(norm = "l2", sublinear_tf = TRUE),
+    expected_l2
+  )
+})
+
+test_that("step_tfidf gives zeros for documents with no known tokens", {
+  obj <- recipe(~text, data = value_data) |>
+    step_tokenize(text) |>
+    step_tfidf(text) |>
+    prep()
+
+  res <- bake(obj, new_data = tibble(text = c("zzz", "b")))
+
+  expect_equal(unlist(res[1, ], use.names = FALSE), rep(0, 4))
+  expect_equal(res$tfidf_text_b[2], log(1 + 3 / 2))
+})
