@@ -4,6 +4,8 @@
 
 * Corrected the documentation for `step_tf(weight_scheme = "term frequency")` and `step_tfidf(norm = "l1")` to state that the denominator is the number of in-vocabulary tokens, not the total number of words, in the document (#326)
 
+* `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_stem()` now validate their `options` argument with `recipes::check_options()` and give informative errors for unnamed, non-list, or disallowed elements. (#291)
+
 ## Bug Fixes
 
 * Fixed documentation for `step_word_embeddings()` to describe the actual default `prefix` and column-naming behavior. (#331)
