@@ -131,6 +131,7 @@ prep.step_stem <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
   check_type(training[, col_names], types = "tokenlist")
+  check_options(x$options, exclude = c("X", "FUN"))
 
   step_stem_new(
     terms = x$terms,
