@@ -305,6 +305,8 @@ prep.step_tokenize <- function(x, training, info = NULL, ...) {
   check_string(x$token, arg = "token")
   check_string(x$engine, arg = "engine")
   check_function(x$custom_token, allow_null = TRUE, arg = "custom_token")
+  check_options(x$options, exclude = "x")
+  check_options(x$training_options, exclude = "x")
 
   training <- factor_to_text(training, col_names)
 

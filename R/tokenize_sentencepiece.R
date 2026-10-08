@@ -126,6 +126,7 @@ prep.step_tokenize_sentencepiece <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
   check_number_whole(x$vocabulary_size, min = 0, arg = "vocabulary_size")
+  check_options(x$options, exclude = c("x", "model_dir"))
 
   training <- factor_to_text(training, col_names)
 

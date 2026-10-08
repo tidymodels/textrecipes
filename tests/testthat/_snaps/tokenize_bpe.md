@@ -83,3 +83,12 @@
       -- Operations 
       * BPE Tokenization for: text1 | Trained
 
+# options are checked (#291)
+
+    Code
+      prep(step_tokenize_bpe(rec, text1, options = list(1)))
+    Condition
+      Error in `step_tokenize_bpe()`:
+      Caused by error in `prep()`:
+      ! The list passed to `options` must be named.
+

@@ -129,3 +129,12 @@
       -- Operations 
       * Tokenization for: text | Trained
 
+# options are checked (#291)
+
+    Code
+      prep(step_tokenize(rec, text, options = list(FALSE)))
+    Condition
+      Error in `step_tokenize()`:
+      Caused by error in `prep()`:
+      ! The list passed to `options` must be named.
+

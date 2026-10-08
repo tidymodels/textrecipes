@@ -84,3 +84,12 @@
       * Tokenization for: text | Trained
       * Stemming for: text | Trained
 
+# options are checked (#291)
+
+    Code
+      prep(step_stem(rec, text, options = list("russian")))
+    Condition
+      Error in `step_stem()`:
+      Caused by error in `prep()`:
+      ! The list passed to `options` must be named.
+

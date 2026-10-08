@@ -177,6 +177,20 @@ test_that("printing", {
   expect_snapshot(prep(rec))
 })
 
+test_that("options are checked (#291)", {
+  rec <- recipe(~text, data = tibble(text = "a b")) |>
+    step_tokenize(text)
+
+  expect_snapshot(
+    error = TRUE,
+    prep(step_stem(rec, text, options = list("russian")))
+  )
+  expect_error(
+    prep(step_stem(rec, text, options = list(FUN = identity))),
+    "not allowed"
+  )
+})
+
 test_that("0 and 1 rows data work in bake method", {
   data <- tibble(
     text = c(
