@@ -174,8 +174,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 43
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990            0            0        0              0  
-#> 2 20472 Mich…  1990            0            0        0.133          0.1
+#> 1 21926 Prop…  1990       0               0.7       0            0.0125
+#> 2 20472 Mich…  1990       0.0333          0         0.0333       0.0667
 #> # ℹ 36 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,
@@ -201,8 +201,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 33
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990       0             0.025          0          0.025
-#> 2 20472 Mich…  1990       0.0667        0              0.1        0.1  
+#> 1 21926 Prop…  1990       0.0125       0.0375       0             0.1  
+#> 2 20472 Mich…  1990       0.0333       0            0.0333        0.167
 #> # ℹ 26 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,
