@@ -272,3 +272,62 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+# Value-level tests (#328) -----------------------------------------------------
+
+test_that("count functions give hand-computed values", {
+  x <- c(
+    "I like my dog, and my dog likes me!",
+    "You and your cat... #cat #cat @bob 2 3 http://a.com",
+    "He said it was in the box."
+  )
+
+  expect_identical(count_functions$n_words(x)[3], 7L)
+  expect_identical(count_functions$n_uq_words(x)[1], 7L)
+  expect_identical(count_functions$n_digits(x), c(0L, 2L, 0L))
+  expect_identical(count_functions$n_commas(x), c(1L, 0L, 0L))
+  expect_identical(count_functions$n_periods(x), c(0L, 4L, 1L))
+  expect_identical(count_functions$n_exclaims(x), c(1L, 0L, 0L))
+  expect_identical(count_functions$n_hashtags(x), c(0L, 2L, 0L))
+  expect_identical(count_functions$n_uq_hashtags(x), c(0L, 1L, 0L))
+  expect_identical(count_functions$n_mentions(x), c(0L, 1L, 0L))
+  expect_identical(count_functions$n_urls(x), c(0L, 1L, 0L))
+  expect_identical(count_functions$n_caps(x), c(1L, 1L, 1L))
+
+  # "I", "my", "my" and "me" are first person words
+  expect_identical(count_functions$first_person(x), c(4L, 0L, 0L))
+  expect_identical(count_functions$second_person(x), c(0L, 2L, 0L))
+  # "He", "it" are second person plural words
+  expect_identical(count_functions$second_personp(x), c(0L, 0L, 2L))
+  expect_identical(count_functions$to_be(x), c(0L, 0L, 1L))
+  # "in" is a preposition, "like" is too
+  expect_identical(count_functions$prepositions(x), c(1L, 0L, 1L))
+  expect_identical(count_functions$third_person(x), c(0L, 0L, 0L))
+  expect_identical(count_functions$first_personp(x), c(0L, 0L, 0L))
+})
+
+test_that("step_textfeature bakes hand-computed values", {
+  d <- tibble(text = c("I am here, you are there.", "Look!!"))
+
+  res <- recipe(~text, data = d) |>
+    step_textfeature(
+      text,
+      extract_functions = list(
+        n_words = count_functions$n_words,
+        n_commas = count_functions$n_commas,
+        n_exclaims = count_functions$n_exclaims,
+        to_be = count_functions$to_be,
+        first_person = count_functions$first_person,
+        second_person = count_functions$second_person
+      )
+    ) |>
+    prep() |>
+    bake(new_data = NULL)
+
+  expect_identical(res$textfeature_text_n_words, c(6L, 1L))
+  expect_identical(res$textfeature_text_n_commas, c(1L, 0L))
+  expect_identical(res$textfeature_text_n_exclaims, c(0L, 2L))
+  expect_identical(res$textfeature_text_to_be, c(2L, 0L))
+  expect_identical(res$textfeature_text_first_person, c(1L, 0L))
+  expect_identical(res$textfeature_text_second_person, c(1L, 0L))
+})
