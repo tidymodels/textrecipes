@@ -429,3 +429,113 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+# Value-level tests (#328) -----------------------------------------------------
+
+# Counts, with vocabulary a, b, c, d:
+#   "a b a d"   -> a = 2, b = 1, c = 0, d = 1
+#   "b"         -> a = 0, b = 1, c = 0, d = 0
+#   "c c c a"   -> a = 1, b = 0, c = 3, d = 0
+value_data <- tibble(text = c("a b a d", "b", "c c c a"))
+
+bake_tf_values <- function(sparse, ...) {
+  recipe(~text, data = value_data) |>
+    step_tokenize(text) |>
+    step_tf(text, sparse = sparse, ...) |>
+    prep() |>
+    bake(new_data = NULL) |>
+    as.data.frame()
+}
+
+test_that("step_tf binary gives hand-computed values", {
+  expected <- data.frame(
+    tf_text_a = c(1L, 0L, 1L),
+    tf_text_b = c(1L, 1L, 0L),
+    tf_text_c = c(0L, 0L, 1L),
+    tf_text_d = c(1L, 0L, 0L)
+  )
+
+  expect_identical(bake_tf_values("no", weight_scheme = "binary"), expected)
+  expect_identical(bake_tf_values("yes", weight_scheme = "binary"), expected)
+})
+
+test_that("step_tf raw count gives hand-computed values", {
+  expected <- data.frame(
+    tf_text_a = c(2L, 0L, 1L),
+    tf_text_b = c(1L, 1L, 0L),
+    tf_text_c = c(0L, 0L, 3L),
+    tf_text_d = c(1L, 0L, 0L)
+  )
+
+  expect_identical(bake_tf_values("no", weight_scheme = "raw count"), expected)
+  expect_identical(bake_tf_values("yes", weight_scheme = "raw count"), expected)
+})
+
+test_that("step_tf log normalization gives hand-computed values", {
+  expected <- data.frame(
+    tf_text_a = c(log(1 + 2), 0, log(1 + 1)),
+    tf_text_b = c(log(1 + 1), log(1 + 1), 0),
+    tf_text_c = c(0, 0, log(1 + 3)),
+    tf_text_d = c(log(1 + 1), 0, 0)
+  )
+
+  expect_equal(
+    bake_tf_values("no", weight_scheme = "log normalization"),
+    expected
+  )
+  expect_equal(
+    bake_tf_values("yes", weight_scheme = "log normalization"),
+    expected
+  )
+})
+
+test_that("step_tf double normalization gives hand-computed values", {
+  # weight + weight * count / max count in the document. Terms that do not
+  # appear in the document get the baseline value `weight`.
+  # max counts per document are 2, 1 and 3.
+  expected <- data.frame(
+    tf_text_a = c(0.5 + 0.5 * 2 / 2, 0.5 + 0.5 * 0 / 1, 0.5 + 0.5 * 1 / 3),
+    tf_text_b = c(0.5 + 0.5 * 1 / 2, 0.5 + 0.5 * 1 / 1, 0.5 + 0.5 * 0 / 3),
+    tf_text_c = c(0.5 + 0.5 * 0 / 2, 0.5 + 0.5 * 0 / 1, 0.5 + 0.5 * 3 / 3),
+    tf_text_d = c(0.5 + 0.5 * 1 / 2, 0.5 + 0.5 * 0 / 1, 0.5 + 0.5 * 0 / 3)
+  )
+
+  expect_equal(
+    bake_tf_values("no", weight_scheme = "double normalization"),
+    expected
+  )
+
+  expected_k <- data.frame(
+    tf_text_a = c(0.2 + 0.2 * 2 / 2, 0.2 + 0.2 * 0 / 1, 0.2 + 0.2 * 1 / 3),
+    tf_text_b = c(0.2 + 0.2 * 1 / 2, 0.2 + 0.2 * 1 / 1, 0.2 + 0.2 * 0 / 3),
+    tf_text_c = c(0.2 + 0.2 * 0 / 2, 0.2 + 0.2 * 0 / 1, 0.2 + 0.2 * 3 / 3),
+    tf_text_d = c(0.2 + 0.2 * 1 / 2, 0.2 + 0.2 * 0 / 1, 0.2 + 0.2 * 0 / 3)
+  )
+
+  expect_equal(
+    bake_tf_values(
+      "no",
+      weight_scheme = "double normalization",
+      weight = 0.2
+    ),
+    expected_k
+  )
+})
+
+test_that("step_tf term frequency gives hand-computed values", {
+  expected <- data.frame(
+    tf_text_a = c(2 / 4, 0, 1 / 4),
+    tf_text_b = c(1 / 4, 1, 0),
+    tf_text_c = c(0, 0, 3 / 4),
+    tf_text_d = c(1 / 4, 0, 0)
+  )
+
+  expect_equal(
+    bake_tf_values("no", weight_scheme = "term frequency"),
+    expected
+  )
+  expect_equal(
+    bake_tf_values("yes", weight_scheme = "term frequency"),
+    expected
+  )
+})
