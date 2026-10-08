@@ -1,8 +1,6 @@
 test_that("hashing gives double outputs", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -28,10 +26,8 @@ test_that("hashing gives double outputs", {
 })
 
 test_that("hashing multiple factors", {
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -49,10 +45,8 @@ test_that("hashing multiple factors", {
 })
 
 test_that("hashing collapsed multiple factors", {
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -74,9 +68,7 @@ test_that("hashing collapsed multiple factors", {
 
 test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -97,9 +89,7 @@ test_that("hashing output width changes accordingly with num_terms", {
 
 test_that("hashing output width changes accordingly with num_terms", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -136,9 +126,7 @@ test_that("hashing output width changes accordingly with num_terms", {
 
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -176,7 +164,6 @@ test_that("tunable", {
 test_that("bad args", {
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   expect_snapshot(
     error = TRUE,
@@ -212,7 +199,6 @@ test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
 test_that("sparse = 'yes' works", {
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -239,7 +225,6 @@ test_that("sparse = 'yes' works", {
 test_that("sparse argument is backwards compatible", {
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -264,7 +249,6 @@ test_that("sparse argument is backwards compatible", {
 test_that(".recipes_toggle_sparse_args works", {
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -284,7 +268,6 @@ test_that(".recipes_toggle_sparse_args works", {
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("modeldata")
   skip_if_not_installed("text2vec")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -349,9 +332,7 @@ test_that("empty selection tidy method works", {
 
 test_that("keep_original_cols works", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -385,9 +366,7 @@ test_that("keep_original_cols works", {
 
 test_that("keep_original_cols works with collapse = TRUE (#304)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -429,9 +408,7 @@ test_that("keep_original_cols works with collapse = TRUE (#304)", {
 
 test_that("keep_original_cols - can prep recipes with it missing", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("grants", package = "modeldata")
 
@@ -454,8 +431,6 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 
 test_that("printing", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   rec <- recipe(~., data = iris) |>
     step_dummy_hash(Species)
@@ -492,8 +467,6 @@ test_that("0 and 1 rows data work in bake method", {
 
 test_that("unsigned dummy hash rows sum to the number of columns hashed (#328)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   d <- tibble(
     x = factor(c("a", "b", "a", "c")),

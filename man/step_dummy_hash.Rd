@@ -141,19 +141,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec", "data.table") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\dontshow{library(data.table)}
-\dontshow{data.table::setDTthreads(2)}
-\dontshow{Sys.setenv("OMP_NUM_THREADS" = 1)}
-\dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 1)}
-\dontshow{Sys.setenv("rsparse_omp_threads" = 1L)}
-\dontshow{options(rsparse_omp_threads = 1L)}
-\dontshow{library(text2vec)}
-\dontshow{Sys.setenv("OMP_NUM_THREADS" = 1)}
-\dontshow{Sys.setenv("OMP_THREAD_LIMIT" = 1)}
-\dontshow{Sys.setenv("rsparse_omp_threads" = 1L)}
-\dontshow{options(rsparse_omp_threads = 1L)}
-\dontshow{options("text2vec.mc.cores" = 1)}
+\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 library(recipes)
 library(modeldata)

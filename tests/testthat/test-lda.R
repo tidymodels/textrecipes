@@ -1,8 +1,6 @@
 test_that("step_lda works as intended", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -24,9 +22,7 @@ test_that("step_lda works as intended", {
 
 test_that("bake() is a deterministic, row-independent transform (#315)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -68,9 +64,7 @@ test_that("bake() is a deterministic, row-independent transform (#315)", {
 
 test_that("bake() works without warnings for a small batch (#315)", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -96,9 +90,7 @@ test_that("bake() works without warnings for a small batch (#315)", {
 
 test_that("step_lda works with num_topics argument", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -116,9 +108,7 @@ test_that("step_lda works with num_topics argument", {
 
 test_that("check_name() is used", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -138,9 +128,7 @@ test_that("check_name() is used", {
 
 test_that("bad args", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   expect_snapshot(
     error = TRUE,
@@ -160,9 +148,7 @@ test_that("bad args", {
 
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -233,9 +219,7 @@ test_that("empty selection tidy method works", {
 
 test_that("keep_original_cols works", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -270,9 +254,7 @@ test_that("keep_original_cols works", {
 
 test_that("keep_original_cols - can prep recipes with it missing", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   skip_if_not_installed("modeldata")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   data("tate_text", package = "modeldata")
 
@@ -295,8 +277,6 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 
 test_that("printing", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
-  data.table::setDTthreads(2) # because data.table uses all cores by default
 
   rec <- recipe(~., data = iris) |>
     step_tokenize(Species) |>
@@ -308,7 +288,6 @@ test_that("printing", {
 
 test_that("0 and 1 rows data work in bake method", {
   skip_if_not_installed("text2vec")
-  skip_if_not_installed("data.table")
   data <- tibble(
     text = c(
       "I would not eat them here or there.",
