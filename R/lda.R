@@ -290,8 +290,7 @@ word_dims_newtext <- function(model_info, tokens, n_iter = 20) {
     vectorizer <- text2vec::vocab_vectorizer(v)
   }
 
-  it <- text2vec::itoken(tokens, ids = seq_along(tokens))
-  dtm <- text2vec::create_dtm(it, vectorizer)
+  dtm <- create_dtm_safe(tokens, vectorizer, ids = seq_along(tokens))
 
   if (nrow(dtm) == 0) {
     d <- lda_model$transform(dtm, n_iter = n_iter)
