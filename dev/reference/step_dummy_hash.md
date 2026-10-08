@@ -204,14 +204,6 @@ Other Steps for Numeric Variables From Characters:
 ## Examples
 
 ``` r
-#> 
-#> Attaching package: ‘data.table’
-#> The following objects are masked from ‘package:dplyr’:
-#> 
-#>     between, first, last
-#> The following object is masked from ‘package:base’:
-#> 
-#>     %notin%
 
 library(recipes)
 library(modeldata)

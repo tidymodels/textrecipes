@@ -136,10 +136,10 @@ tidy(rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms normalization_form id                      
 #>   <chr> <chr>              <chr>                   
-#> 1 text  NA                 text_normalization_Nr7F8
+#> 1 text  NA                 text_normalization_v91JG
 tidy(prepped, number = 1)
 #> # A tibble: 1 × 3
 #>   terms normalization_form id                      
 #>   <chr> <chr>              <chr>                   
-#> 1 text  nfc                text_normalization_Nr7F8
+#> 1 text  nfc                text_normalization_v91JG
 ```
