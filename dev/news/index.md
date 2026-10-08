@@ -16,6 +16,17 @@
   document
   ([\#326](https://github.com/tidymodels/textrecipes/issues/326))
 
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize.md),
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_bpe.md),
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.md),
+  and
+  [`step_stem()`](https://textrecipes.tidymodels.org/dev/reference/step_stem.md)
+  now validate their `options` argument with
+  [`recipes::check_options()`](https://recipes.tidymodels.org/reference/check_options.html)
+  and give informative errors for unnamed, non-list, or disallowed
+  elements.
+  ([\#291](https://github.com/tidymodels/textrecipes/issues/291))
+
 ### Bug Fixes
 
 - All steps now work with 0 and 1 row data in
