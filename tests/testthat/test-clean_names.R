@@ -93,3 +93,13 @@ test_that("printing", {
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
 })
+
+test_that("0 and 1 rows data work in bake method", {
+  data <- tibble(`A b` = 1:3, `C d` = 1:3)
+  rec <- recipe(~., data = data) |>
+    step_clean_names(all_predictors()) |>
+    prep()
+
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
+  expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
+})
