@@ -269,3 +269,20 @@ test_that("printing", {
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
 })
+
+test_that("options are checked (#291)", {
+  skip_if_not_installed("sentencepiece")
+
+  rec <- recipe(~., data = test_data)
+
+  expect_snapshot(
+    error = TRUE,
+    prep(step_tokenize_sentencepiece(rec, text1, options = list(1)))
+  )
+  expect_error(
+    prep(
+      step_tokenize_sentencepiece(rec, text1, options = list(model_dir = "a"))
+    ),
+    "not allowed"
+  )
+})

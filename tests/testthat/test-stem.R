@@ -176,3 +176,17 @@ test_that("printing", {
   expect_snapshot(print(rec))
   expect_snapshot(prep(rec))
 })
+
+test_that("options are checked (#291)", {
+  rec <- recipe(~text, data = tibble(text = "a b")) |>
+    step_tokenize(text)
+
+  expect_snapshot(
+    error = TRUE,
+    prep(step_stem(rec, text, options = list("russian")))
+  )
+  expect_error(
+    prep(step_stem(rec, text, options = list(FUN = identity))),
+    "not allowed"
+  )
+})

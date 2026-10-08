@@ -288,3 +288,18 @@ test_that("tunable is setup to works with extract_parameter_set_dials", {
   expect_s3_class(params, "parameters")
   expect_identical(nrow(params), 1L)
 })
+
+test_that("options are checked (#291)", {
+  skip_if_not_installed("tokenizers.bpe")
+
+  rec <- recipe(~., data = test_data)
+
+  expect_snapshot(
+    error = TRUE,
+    prep(step_tokenize_bpe(rec, text1, options = list(1)))
+  )
+  expect_error(
+    prep(step_tokenize_bpe(rec, text1, options = list(model_path = "a"))),
+    "not allowed"
+  )
+})
