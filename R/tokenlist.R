@@ -84,6 +84,13 @@ is_tokenlist <- function(x) {
   inherits(x, "textrecipes_tokenlist")
 }
 
+check_tokenlist <- function(x, call = rlang::caller_env()) {
+  if (!is_tokenlist(x)) {
+    cli::cli_abort("Input must be a {.cls tokenlist}.", call = call)
+  }
+  invisible(x)
+}
+
 maybe_get_lemma <- function(x) {
   if ("lemma" %in% vctrs::fields(x)) {
     vctrs::field(x, "lemma")
@@ -148,9 +155,7 @@ obj_print_footer.textrecipes_tokenlist <- function(x, ...) {
 # Takes a vector of character vectors and keeps (for keep = TRUE) the words
 # or removes (for keep = FALSE) the words
 tokenlist_filter <- function(x, dict, keep = FALSE) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   if (!keep) {
     dict <- setdiff(attr(x, "unique_tokens"), dict)
@@ -187,9 +192,7 @@ tokenlist_filter <- function(x, dict, keep = FALSE) {
 }
 
 tokenlist_filter_function <- function(x, fn) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a {.cls tokenlist}.")
-  }
+  check_tokenlist(x)
 
   tokens <- get_tokens(x)
 
@@ -217,9 +220,7 @@ tokenlist_filter_function <- function(x, fn) {
 }
 
 tokenlist_apply <- function(x, fun, arguments = NULL) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be {.cls tokenlist} object.")
-  }
+  check_tokenlist(x)
 
   tokens <- get_tokens(x)
   apply_expr <- expr(lapply(tokens, fun))
@@ -233,9 +234,7 @@ tokenlist_apply <- function(x, fun, arguments = NULL) {
 
 # Takes a [tokenlist] and calculate the token count matrix
 tokenlist_to_dtm <- function(x, dict) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   tokens <- get_tokens(x)
   i <- rep(seq_along(tokens), lengths(tokens))
@@ -253,9 +252,7 @@ tokenlist_to_dtm <- function(x, dict) {
 }
 
 tokenlist_lemma <- function(x) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   if (is.null(maybe_get_lemma(x))) {
     cli::cli_abort("The {.code lemma} attribute is not available.")
@@ -265,9 +262,7 @@ tokenlist_lemma <- function(x) {
 }
 
 tokenlist_pos_filter <- function(x, pos_tags) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   if (is.null(maybe_get_pos(x))) {
     cli::cli_abort("{.arg pos} attribute not available.")
@@ -299,9 +294,7 @@ tokenlist_pos_filter <- function(x, pos_tags) {
 }
 
 tokenlist_ngram <- function(x, n, n_min, delim) {
-  if (!is_tokenlist(x)) {
-    cli::cli_abort("Input must be a tokenlist.")
-  }
+  check_tokenlist(x)
 
   tokenlist(ngram(get_tokens(x), n, n_min, delim))
 }
