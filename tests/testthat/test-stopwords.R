@@ -187,6 +187,7 @@ test_that("printing", {
 })
 
 test_that("0 and 1 rows data work in bake method", {
+  skip_if_not_installed("stopwords")
   data <- tibble(
     text = c(
       "I would not eat them here or there.",

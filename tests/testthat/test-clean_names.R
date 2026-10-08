@@ -95,6 +95,7 @@ test_that("printing", {
 })
 
 test_that("0 and 1 rows data work in bake method", {
+  skip_if_not_installed("janitor")
   data <- tibble(`A b` = 1:3, `C d` = 1:3)
   rec <- recipe(~., data = data) |>
     step_clean_names(all_predictors()) |>

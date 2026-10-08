@@ -202,6 +202,7 @@ test_that("printing", {
 })
 
 test_that("0 and 1 rows data work in bake method", {
+  skip_if_not_installed("janitor")
   data <- tibble(x = factor(c("a b", "c d", "e f")))
   rec <- recipe(~x, data = data) |>
     step_clean_levels(x) |>
