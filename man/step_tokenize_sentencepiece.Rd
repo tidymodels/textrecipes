@@ -34,20 +34,22 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{vocabulary_size}{Integer, indicating the number of tokens in the final
 vocabulary. Defaults to 1000. Highly encouraged to be tuned.}
 
-\item{options}{A list of options passed to the tokenizer.}
+\item{options}{A list of options passed to \code{sentencepiece::sentencepiece()}
+when the tokenizer is trained at \code{prep()} time. These options have no
+effect on already-trained models at \code{bake()} time.}
 
 \item{res}{The fitted \code{\link[sentencepiece:sentencepiece]{sentencepiece::sentencepiece()}} model tokenizer will
 be stored here once this preprocessing step has be trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -84,7 +86,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed(c("modeldata", "sentencepiece"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("modeldata", "sentencepiece"))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -109,9 +111,9 @@ tidy(tate_obj, number = 1)
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other Steps for Tokenization: 
-\code{\link{step_tokenize}()},
-\code{\link{step_tokenize_bpe}()},
-\code{\link{step_tokenize_wordpiece}()}
+Other Steps for Tokenization:
+\code{\link[=step_tokenize]{step_tokenize()}},
+\code{\link[=step_tokenize_bpe]{step_tokenize_bpe()}},
+\code{\link[=step_tokenize_wordpiece]{step_tokenize_wordpiece()}}
 }
 \concept{Steps for Tokenization}

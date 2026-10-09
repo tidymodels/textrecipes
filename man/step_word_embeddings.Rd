@@ -38,7 +38,7 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{embeddings}{A tibble of pre-trained word embeddings, such as those
 returned by the embedding_glove function from the textdata package. The
@@ -58,8 +58,8 @@ resulting new variables. See notes below.}
 output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -143,10 +143,10 @@ tidy(obj, number = 2)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other Steps for Numeric Variables From Tokens: 
-\code{\link{step_lda}()},
-\code{\link{step_texthash}()},
-\code{\link{step_tf}()},
-\code{\link{step_tfidf}()}
+Other Steps for Numeric Variables From Tokens:
+\code{\link[=step_lda]{step_lda()}},
+\code{\link[=step_texthash]{step_texthash()}},
+\code{\link[=step_tf]{step_tf()}},
+\code{\link[=step_tfidf]{step_tfidf()}}
 }
 \concept{Steps for Numeric Variables From Tokens}

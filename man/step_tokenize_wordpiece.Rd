@@ -34,18 +34,18 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{vocab}{Character of Character vector of vocabulary tokens. Defaults to
-\code{wordpiece_vocab()}.}
+\code{\link[wordpiece:wordpiece_vocab]{wordpiece::wordpiece_vocab()}}.}
 
 \item{unk_token}{Token to represent unknown words. Defaults to \code{"[UNK]"}.}
 
 \item{max_chars}{Integer, Maximum length of word recognized. Defaults to 100.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -77,7 +77,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed(c("modeldata", "wordpiece"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("modeldata", "wordpiece"))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -102,9 +102,9 @@ tidy(tate_obj, number = 1)
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other Steps for Tokenization: 
-\code{\link{step_tokenize}()},
-\code{\link{step_tokenize_bpe}()},
-\code{\link{step_tokenize_sentencepiece}()}
+Other Steps for Tokenization:
+\code{\link[=step_tokenize]{step_tokenize()}},
+\code{\link[=step_tokenize_bpe]{step_tokenize_bpe()}},
+\code{\link[=step_tokenize_sentencepiece]{step_tokenize_sentencepiece()}}
 }
 \concept{Steps for Tokenization}

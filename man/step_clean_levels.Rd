@@ -30,12 +30,12 @@ created.}
 preprocessing have been estimated.}
 
 \item{clean}{A named character vector to clean and recode categorical levels.
-This is \code{NULL} until computed by \code{\link[recipes:prep]{recipes::prep.recipe()}}. Note that if the
+This is \code{NULL} until computed by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}. Note that if the
 original variable is a character vector, it will be converted to a factor.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -53,7 +53,7 @@ letters, numbers, and the underscore.
 \details{
 The levels are cleaned with \code{\link[janitor:make_clean_names]{janitor::make_clean_names()}}, which is the
 function responsible for the cleaning, and then reset with
-\code{\link[dplyr:recode]{dplyr::recode_factor()}}. When data to be processed contains novel levels
+\code{\link[dplyr:recode_factor]{dplyr::recode_factor()}}. When data to be processed contains novel levels
 (i.e., not contained in the training set), they are converted to missing.
 }
 \section{Tidying}{
@@ -75,7 +75,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed(c("modeldata", "janitor"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("modeldata", "janitor"))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(Smithsonian)
@@ -102,7 +102,7 @@ bake(rec, smith_te)
 \code{\link[recipes:step_string2factor]{recipes::step_string2factor()}}, \code{\link[recipes:step_regex]{recipes::step_regex()}},
 \code{\link[recipes:step_unknown]{recipes::step_unknown()}}, \code{\link[recipes:step_novel]{recipes::step_novel()}}, \code{\link[recipes:step_other]{recipes::step_other()}}
 
-Other Steps for Text Cleaning: 
-\code{\link{step_clean_names}()}
+Other Steps for Text Cleaning:
+\code{\link[=step_clean_names]{step_clean_names()}}
 }
 \concept{Steps for Text Cleaning}

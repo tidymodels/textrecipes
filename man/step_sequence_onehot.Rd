@@ -42,7 +42,7 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{sequence_length}{A numeric, number of characters to keep before
 discarding. Defaults to 100.}
@@ -64,8 +64,8 @@ Characters not in the vocabulary will be encoded as 0. Defaults to
 output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -104,7 +104,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -124,8 +124,8 @@ tidy(tate_obj, number = 3)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other Steps for Numeric Variables From Characters: 
-\code{\link{step_dummy_hash}()},
-\code{\link{step_textfeature}()}
+Other Steps for Numeric Variables From Characters:
+\code{\link[=step_dummy_hash]{step_dummy_hash()}},
+\code{\link[=step_textfeature]{step_textfeature()}}
 }
 \concept{Steps for Numeric Variables From Characters}

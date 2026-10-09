@@ -40,9 +40,9 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
-\item{lda_models}{A WarpLDA model object from the text2vec package. If left
+\item{lda_models}{A WarpLDA model object from \link[text2vec:LDA]{text2vec::LDA}. If left
 to NULL, the default, it will train its model based on the training data.
 Look at the examples for how to fit a WarpLDA model.}
 
@@ -54,8 +54,8 @@ Look at the examples for how to fit a WarpLDA model.}
 output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -87,7 +87,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -129,10 +129,10 @@ recipe(~., data = tate_text) |>
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other Steps for Numeric Variables From Tokens: 
-\code{\link{step_texthash}()},
-\code{\link{step_tf}()},
-\code{\link{step_tfidf}()},
-\code{\link{step_word_embeddings}()}
+Other Steps for Numeric Variables From Tokens:
+\code{\link[=step_texthash]{step_texthash()}},
+\code{\link[=step_tf]{step_tf()}},
+\code{\link[=step_tfidf]{step_tfidf()}},
+\code{\link[=step_word_embeddings]{step_word_embeddings()}}
 }
 \concept{Steps for Numeric Variables From Tokens}

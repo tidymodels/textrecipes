@@ -38,7 +38,7 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{signed}{A logical, indicating whether to use a signed hash-function to
 reduce collisions when hashing. Defaults to TRUE.}
@@ -57,8 +57,8 @@ then workflows can determine the best option. Defaults to \code{"auto"}.}
 output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -78,7 +78,7 @@ Feature hashing, or the hashing trick, is a transformation of a text variable
 into a new set of numerical variables. This is done by applying a hashing
 function over the tokens and using the hash values as feature indices. This
 allows for a low memory representation of the text. This implementation is
-done using the MurmurHash3 method.
+done using the MurmurHash3 method via \code{\link[text2vec:hash_vectorizer]{text2vec::hash_vectorizer()}}.
 
 The argument \code{num_terms} controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
@@ -133,7 +133,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -160,10 +160,10 @@ Josh Attenberg (2009).
 \code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 \code{\link[=step_text_normalization]{step_text_normalization()}} to perform text normalization.
 
-Other Steps for Numeric Variables From Tokens: 
-\code{\link{step_lda}()},
-\code{\link{step_tf}()},
-\code{\link{step_tfidf}()},
-\code{\link{step_word_embeddings}()}
+Other Steps for Numeric Variables From Tokens:
+\code{\link[=step_lda]{step_lda()}},
+\code{\link[=step_tf]{step_tf()}},
+\code{\link[=step_tfidf]{step_tfidf()}},
+\code{\link[=step_word_embeddings]{step_word_embeddings()}}
 }
 \concept{Steps for Numeric Variables From Tokens}

@@ -164,48 +164,60 @@ export(tidy)
 export(tokenlist)
 export(tunable)
 import(rlang)
-importFrom(generics,required_pkgs)
-importFrom(generics,tidy)
-importFrom(generics,tunable)
+importFrom(generics,
+  required_pkgs,
+  tidy,
+  tunable
+)
 importFrom(glue,glue)
 importFrom(lifecycle,deprecated)
 importFrom(magrittr,"%>%")
-importFrom(purrr,map)
-importFrom(purrr,map_chr)
-importFrom(purrr,map_dfc)
-importFrom(purrr,map_lgl)
-importFrom(purrr,pmap)
-importFrom(recipes,.recipes_estimate_sparsity)
-importFrom(recipes,add_step)
-importFrom(recipes,bake)
-importFrom(recipes,check_new_data)
-importFrom(recipes,check_options)
-importFrom(recipes,check_type)
-importFrom(recipes,get_keep_original_cols)
-importFrom(recipes,is_trained)
-importFrom(recipes,names0)
-importFrom(recipes,prep)
-importFrom(recipes,print_step)
-importFrom(recipes,rand_id)
-importFrom(recipes,recipes_eval_select)
-importFrom(recipes,recipes_map_cols)
-importFrom(recipes,remove_original_cols)
-importFrom(recipes,sel2char)
-importFrom(recipes,step)
-importFrom(rlang,"%||%")
-importFrom(rlang,":=")
-importFrom(rlang,caller_env)
-importFrom(rlang,enquos)
-importFrom(rlang,expr)
-importFrom(rlang,na_chr)
-importFrom(rlang,na_int)
-importFrom(rlang,na_lgl)
-importFrom(tibble,as_tibble)
-importFrom(tibble,tibble)
-importFrom(vctrs,obj_print_footer)
-importFrom(vctrs,vec_assert)
-importFrom(vctrs,vec_cast)
-importFrom(vctrs,vec_cbind)
-importFrom(vctrs,vec_ptype_abbr)
-importFrom(vctrs,vec_restore)
+importFrom(purrr,
+  map,
+  map_chr,
+  map_dfc,
+  map_lgl,
+  pmap
+)
+importFrom(recipes,
+  .recipes_estimate_sparsity,
+  add_step,
+  bake,
+  check_new_data,
+  check_options,
+  check_type,
+  get_keep_original_cols,
+  is_trained,
+  names0,
+  prep,
+  print_step,
+  rand_id,
+  recipes_eval_select,
+  recipes_map_cols,
+  remove_original_cols,
+  sel2char,
+  step
+)
+importFrom(rlang,
+  "%||%",
+  ":=",
+  caller_env,
+  enquos,
+  expr,
+  na_chr,
+  na_int,
+  na_lgl
+)
+importFrom(tibble,
+  as_tibble,
+  tibble
+)
+importFrom(vctrs,
+  obj_print_footer,
+  vec_assert,
+  vec_cast,
+  vec_cbind,
+  vec_ptype_abbr,
+  vec_restore
+)
 useDynLib(textrecipes, .registration = TRUE)

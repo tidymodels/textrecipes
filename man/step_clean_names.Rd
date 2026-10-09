@@ -30,11 +30,11 @@ created.}
 preprocessing have been estimated.}
 
 \item{clean}{A named character vector to clean variable names. This is \code{NULL}
-until computed by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until computed by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -71,7 +71,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("janitor")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("janitor")) withAutoprint(\{ # examplesIf}
 library(recipes)
 data(airquality)
 
@@ -94,7 +94,7 @@ bake(rec, air_te)
 \code{\link[recipes:step_string2factor]{recipes::step_string2factor()}}, \code{\link[recipes:step_regex]{recipes::step_regex()}},
 \code{\link[recipes:step_unknown]{recipes::step_unknown()}}, \code{\link[recipes:step_novel]{recipes::step_novel()}}, \code{\link[recipes:step_other]{recipes::step_other()}}
 
-Other Steps for Text Cleaning: 
-\code{\link{step_clean_levels}()}
+Other Steps for Text Cleaning:
+\code{\link[=step_clean_levels]{step_clean_levels()}}
 }
 \concept{Steps for Text Cleaning}
