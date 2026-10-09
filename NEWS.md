@@ -8,6 +8,8 @@
 
 * Documentation now links to the external functions that do the underlying work in several steps, such as `janitor::make_clean_names()` in `step_clean_levels()` and `step_clean_names()`. (#198)
 
+* Argument documentation has been revised across all steps to follow the tidyverse style guide: defaults are now stated, fixed sets of values are listed, code is formatted consistently, and the descriptions of `res`, `smooth_idf`, `norm`, and `vocabulary` are now accurate. (#263)
+
 * Added a vignette, "Using textrecipes as a sparse matrix engine", documenting which steps produce sparse data and how to use them. (#302)
 
 ## Bug Fixes
