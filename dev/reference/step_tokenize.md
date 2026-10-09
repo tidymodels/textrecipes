@@ -59,8 +59,11 @@ step_tokenize(
 - training_options:
 
   A list of options passed to the tokenizer when it is being trained.
-  Only applicable when `engine = "tokenizers.bpe"`. Note that the
-  argument `x` should not be passed here. Defaults to
+  Only applicable when `engine = "tokenizers.bpe"` or
+  `engine = "udpipe"`. For `engine = "udpipe"` the list must contain
+  `model`, a loaded udpipe model as returned by
+  [`udpipe::udpipe_load_model()`](https://rdrr.io/pkg/udpipe/man/udpipe_load_model.html).
+  Note that the argument `x` should not be passed here. Defaults to
   [`list()`](https://rdrr.io/r/base/list.html).
 
 - options:
@@ -206,6 +209,13 @@ here for demonstration purposes.
 
 - "words"
 
+The udpipe engine requires a pre-trained udpipe model. Load one with
+[`udpipe::udpipe_load_model()`](https://rdrr.io/pkg/udpipe/man/udpipe_load_model.html)
+(use
+[`udpipe::udpipe_download_model()`](https://rdrr.io/pkg/udpipe/man/udpipe_download_model.html)
+to download one first) and pass it as the `model` element of the
+`training_options` argument.
+
 ### custom_token
 
 Sometimes you need to perform tokenization that is not covered by the
@@ -279,12 +289,12 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium NA    tokenize_WI0lV
+#> 1 medium NA    tokenize_32zDz
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium words tokenize_WI0lV
+#> 1 medium words tokenize_32zDz
 
 tate_obj_chars <- recipe(~., data = tate_text) |>
   step_tokenize(medium, token = "characters") |>

@@ -376,21 +376,21 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  functions id               
 #>   <chr>  <chr>     <chr>            
-#> 1 medium NA        textfeature_gKUId
+#> 1 medium NA        textfeature_23mW9
 tidy(tate_obj, number = 1)
 #> # A tibble: 26 × 3
 #>    terms  functions     id               
 #>    <chr>  <chr>         <chr>            
-#>  1 medium n_words       textfeature_gKUId
-#>  2 medium n_uq_words    textfeature_gKUId
-#>  3 medium n_charS       textfeature_gKUId
-#>  4 medium n_uq_charS    textfeature_gKUId
-#>  5 medium n_digits      textfeature_gKUId
-#>  6 medium n_hashtags    textfeature_gKUId
-#>  7 medium n_uq_hashtags textfeature_gKUId
-#>  8 medium n_mentions    textfeature_gKUId
-#>  9 medium n_uq_mentions textfeature_gKUId
-#> 10 medium n_commas      textfeature_gKUId
+#>  1 medium n_words       textfeature_23mW9
+#>  2 medium n_uq_words    textfeature_23mW9
+#>  3 medium n_charS       textfeature_23mW9
+#>  4 medium n_uq_charS    textfeature_23mW9
+#>  5 medium n_digits      textfeature_23mW9
+#>  6 medium n_hashtags    textfeature_23mW9
+#>  7 medium n_uq_hashtags textfeature_23mW9
+#>  8 medium n_mentions    textfeature_23mW9
+#>  9 medium n_uq_mentions textfeature_23mW9
+#> 10 medium n_commas      textfeature_23mW9
 #> # ℹ 16 more rows
 
 # Using custom extraction functions

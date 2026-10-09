@@ -46,6 +46,13 @@
   documenting which steps produce sparse data and how to use them.
   ([\#302](https://github.com/tidymodels/textrecipes/issues/302))
 
+- The documentation for
+  [`step_tokenize()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize.md)
+  now states that `training_options` also applies to
+  `engine = "udpipe"`, where it must contain the loaded `model`, and
+  includes an example.
+  ([\#237](https://github.com/tidymodels/textrecipes/issues/237))
+
 ### Bug Fixes
 
 - All steps now work with 0 and 1 row data in
