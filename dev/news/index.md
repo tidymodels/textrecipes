@@ -27,6 +27,10 @@
   elements.
   ([\#291](https://github.com/tidymodels/textrecipes/issues/291))
 
+- Added a vignette, “Using textrecipes as a sparse matrix engine”,
+  documenting which steps produce sparse data and how to use them.
+  ([\#302](https://github.com/tidymodels/textrecipes/issues/302))
+
 ### Bug Fixes
 
 - All steps now work with 0 and 1 row data in

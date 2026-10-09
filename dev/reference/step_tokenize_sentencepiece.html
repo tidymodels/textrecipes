@@ -26,6 +26,7 @@ variable using SentencePiece tokenization."><meta property="og:image" content="h
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/cookbook---using-more-complex-recipes-involving-text.html">Cookbook - Using more complex recipes involving text</a></li>
+    <li><a class="dropdown-item" href="../articles/sparse-matrices.html">Using textrecipes as a sparse matrix engine</a></li>
     <li><a class="dropdown-item" href="../articles/tokenlist.html">Under the hood - tokenlist</a></li>
     <li><a class="dropdown-item" href="../articles/Working-with-n-grams.html">Working with n-grams</a></li>
   </ul></li>
@@ -195,12 +196,12 @@ columns <code>terms</code> and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  id                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_IlICI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_AY5nM</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  id                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_IlICI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_AY5nM</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
