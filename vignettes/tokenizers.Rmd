@@ -1,0 +1,253 @@
+---
+title: "Tokenizers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tokenizers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#| label: setup
+library(textrecipes)
+library(recipes)
+```
+
+Tokenization is the first step in almost every textrecipes workflow. It splits a character column into smaller pieces, called tokens, that later steps can filter, modify, and turn into numeric features. This vignette gives an overview of the tokenization options in the package and how each choice changes the tokens you get.
+
+We will use two short texts throughout.
+
+```{r}
+text_tibble <- tibble::tibble(
+  text = c(
+    "This is a sentence. It has two!",
+    "They're e-mailing Dr. Smith about the 3 cats."
+  )
+)
+```
+
+# The basics
+
+`step_tokenize()` converts a character column into a token column (see `?tokenlist`). The `token` argument picks the unit of tokenization and the `engine` argument picks the package doing the work. With no arguments you get word tokens from the tokenizers package.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text) |>
+  show_tokens(text, n = 2)
+```
+
+`show_tokens()` is a convenient way to see what a recipe produces. Each element of the result is the token vector for one row.
+
+# Engines and tokens
+
+The `engine` determines which values of `token` are available.
+
+| Engine           | Tokens                                                                                                                         | Trained on data |
+|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------|:----------------|
+| `tokenizers`     | `"words"`, `"characters"`, `"character_shingle"`, `"ngrams"`, `"skip_ngrams"`, `"sentences"`, `"lines"`, `"paragraphs"`, `"regex"`, `"ptb"`, `"word_stems"` | No              |
+| `spacyr`         | `"words"`                                                                                                                      | No              |
+| `tokenizers.bpe` | `"words"`                                                                                                                      | Yes             |
+| `udpipe`         | `"words"`                                                                                                                      | No (needs a pre-trained model) |
+
+Subword tokenizers such as wordpiece, sentencepiece, and byte pair encoding also have dedicated steps: `step_tokenize_wordpiece()`, `step_tokenize_sentencepiece()`, and `step_tokenize_bpe()`.
+
+# The tokenizers engine
+
+The tokenizers engine is the default. Every `token` option corresponds to a function in the tokenizers package, and the `options` argument takes a named list of arguments passed to that function.
+
+## Words
+
+Word tokenization lowercases the text and removes punctuation by default.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "words") |>
+  show_tokens(text, n = 2)
+```
+
+Both behaviors are controlled through `options`, see `?tokenizers::tokenize_words`. Here we keep the original case and the punctuation.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    options = list(lowercase = FALSE, strip_punct = FALSE)
+  ) |>
+  show_tokens(text, n = 2)
+```
+
+Note that `"e-mailing"` is split at the hyphen into `"e"` and `"mailing"` by default. Numbers can be removed by setting `strip_numeric = TRUE`.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, options = list(strip_numeric = TRUE)) |>
+  show_tokens(text, n = 2)
+```
+
+## Penn Treebank
+
+The `"ptb"` tokenizer follows the Penn Treebank conventions. It splits contractions such as `"They're"` into `"They"` and `"'re"` and keeps hyphenated words intact, which is often what you want for linguistic work.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "ptb") |>
+  show_tokens(text, n = 2)
+```
+
+## Characters and character shingles
+
+`"characters"` returns single characters, and `"character_shingle"` returns overlapping character n-grams whose size is set with `n`.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "characters") |>
+  show_tokens(text, n = 2)
+```
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    token = "character_shingle",
+    options = list(n = 3)
+  ) |>
+  show_tokens(text, n = 2)
+```
+
+Character-level tokens are useful for short strings with typos or without clear word boundaries, but they are rarely appropriate for long documents.
+
+## N-grams and skip n-grams
+
+`"ngrams"` returns word n-grams. Use `n` and `n_min` to choose the range of sizes.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "ngrams", options = list(n = 2, n_min = 1)) |>
+  show_tokens(text, n = 2)
+```
+
+`"skip_ngrams"` allows gaps between the words, controlled by `k`.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    token = "skip_ngrams",
+    options = list(n = 2, n_min = 2, k = 1)
+  ) |>
+  show_tokens(text, n = 2)
+```
+
+If you want n-grams of tokens you have already modified, for example after removing stop words, tokenize to words first and use `step_ngram()` instead. See `vignette("Working-with-n-grams")`.
+
+## Sentences, lines, and paragraphs
+
+These tokenizers split at larger boundaries. They are mostly useful as a first step before splitting further, or when each sentence or paragraph is the unit you want to model.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "sentences") |>
+  show_tokens(text, n = 2)
+```
+
+`"lines"` splits on line breaks and `"paragraphs"` on blank lines.
+
+## Regular expressions
+
+`"regex"` splits the text wherever a pattern matches. The pattern is given with `pattern`, and the default is a single space.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "regex", options = list(pattern = "[.!]\\s*")) |>
+  show_tokens(text, n = 2)
+```
+
+## Word stems
+
+`"word_stems"` tokenizes into words and stems each of them in one go. If you want to control the stemmer, or stem after other filtering, tokenize to words and use `step_stem()`.
+
+```{r}
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, token = "word_stems") |>
+  show_tokens(text, n = 2)
+```
+
+# Training a tokenizer
+
+Some tokenizers learn their vocabulary from the data. Their training arguments are passed in `training_options`, while `options` is used when the tokenizer is applied. The tokenizers.bpe engine learns a byte pair encoding on the training set, and `vocab_size` is the most important training option. It is usually in the thousands, but is kept small here to fit our tiny data.
+
+```{r}
+#| eval: false
+recipe(~text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    engine = "tokenizers.bpe",
+    training_options = list(vocab_size = 40)
+  ) |>
+  show_tokens(text, n = 2)
+```
+
+Because the vocabulary is learned during `prep()`, the same tokenizer is applied to new data when you `bake()`. The dedicated steps `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_tokenize_wordpiece()` give you the same kind of subword tokens with arguments specific to each method.
+
+# Other engines
+
+The spacyr engine tokenizes with spaCy and requires a working Python installation with spaCy. Its options are applied each time the data is tokenized, including at `bake()` time.
+
+```{r}
+#| eval: false
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, engine = "spacyr") |>
+  show_tokens(text, n = 2)
+```
+
+The udpipe engine requires a pre-trained model, loaded with `udpipe::udpipe_load_model()`, passed as `model` in `training_options`.
+
+```{r}
+#| eval: false
+model <- udpipe::udpipe_load_model("english-ewt-ud-2.5-191206.udpipe")
+
+recipe(~text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    engine = "udpipe",
+    training_options = list(model = model)
+  ) |>
+  show_tokens(text, n = 2)
+```
+
+# Custom tokenizers
+
+When none of the engines do what you need, pass your own function to `custom_token`. It must take a character vector and return a list of character vectors with one element per input.
+
+```{r}
+space_tokenizer <- function(x) {
+  strsplit(x, " +")
+}
+
+recipe(~text, data = text_tibble) |>
+  step_tokenize(text, custom_token = space_tokenizer) |>
+  show_tokens(text, n = 2)
+```
+
+# Choosing a tokenizer
+
+There is rarely a single correct choice, and the best tokenizer depends on your data and model. Some rules of thumb:
+
+- Start with `"words"`. It is fast, easy to interpret, and works well for many bag-of-words models.
+- Use `"ptb"` or the spacyr and udpipe engines when linguistic detail such as contractions or part of speech matters.
+- Use character-based tokens or subword tokenizers for noisy text, many languages, or when out-of-vocabulary words are a problem.
+- Use a custom tokenizer for domain-specific formats such as hashtags, code, or identifiers.
+
+Since the tokenizer is a recipe argument, `token` can also be tuned with the tunable method for `step_tokenize()`.
+
+# Next steps
+
+After tokenizing you will typically filter and modify the tokens, for example with `step_stopwords()`, `step_stem()`, `step_tokenfilter()`, or `step_ngram()`, and then turn them into numeric features with `step_tf()`, `step_tfidf()`, or `step_texthash()`. See `vignette("cookbook---using-more-complex-recipes-involving-text")` for complete examples.
