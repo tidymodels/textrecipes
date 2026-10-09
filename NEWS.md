@@ -6,6 +6,8 @@
 
 * `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_stem()` now validate their `options` argument with `recipes::check_options()` and give informative errors for unnamed, non-list, or disallowed elements. (#291)
 
+* Added a vignette, "Using textrecipes as a sparse matrix engine", documenting which steps produce sparse data and how to use them. (#302)
+
 ## Bug Fixes
 
 * All steps now work with 0 and 1 row data in `bake()`. This fixes errors in `step_texthash()`, `step_dummy_hash()`, `step_lda()`, and `step_pos_filter()` with 0 rows, and zero-length tokenlists no longer lose their lemma and pos attributes, which broke `step_lemma()`. (#290)
