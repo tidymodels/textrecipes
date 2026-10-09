@@ -10,7 +10,7 @@
 #' @template args-columns
 #' @param options A list of options passed to the stemmer function.
 #' @param custom_stemmer A custom stemming function. If none is provided it will
-#'   default to "SnowballC".
+#'   default to [SnowballC::wordStem()].
 #' @template args-skip
 #' @template args-id
 #'

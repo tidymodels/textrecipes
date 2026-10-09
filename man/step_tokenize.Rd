@@ -36,12 +36,16 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{training_options}{A list of options passed to the tokenizer when it is
 being trained. Only applicable for engine == "tokenizers.bpe".}
 
-\item{options}{A list of options passed to the tokenizer.}
+\item{options}{A list of options passed to the tokenizer. For
+\code{engine = "tokenizers.bpe"} these options only apply when the tokenizer
+is trained (at \code{prep()} time); they have no effect on already-trained
+models at \code{bake()} time. For \code{engine = "spacyr"} the options are applied
+each time the data is tokenized, including at \code{bake()} time.}
 
 \item{token}{Unit for tokenizing. See details for options. Defaults to
 "words".}
@@ -54,8 +58,8 @@ overwrite the token and engine arguments. Must take a character vector as
 input and output a list of character vectors.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -70,6 +74,9 @@ to the sequence of existing steps (if any).
 convert a character predictor into a \code{\link[=tokenlist]{token}} variable.
 }
 \details{
+\if{html}{\out{<div class="sourceCode {r, echo=FALSE}">}}\preformatted{options(width = 55)
+}\if{html}{\out{</div>}}
+
 Tokenization is the act of splitting a character vector into smaller parts to
 be further analyzed. This step uses the \code{tokenizers} package which includes
 heuristics on how to to split the text into paragraphs tokens, word tokens,
@@ -87,7 +94,7 @@ The choice of \code{engine} determines the possible choices of \code{token}.
 
 The following is some small example data used in the following examples
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{text_tibble <- tibble(
+\if{html}{\out{<div class="sourceCode {r}">}}\preformatted{text_tibble <- tibble(
   text = c("This is words", "They are nice!")
 )
 }\if{html}{\out{</div>}}
@@ -115,57 +122,37 @@ The default tokenizer is \code{"word"} which splits the text into a series of
 words. By using \code{step_tokenize()} without setting any arguments you get word
 tokens
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+\if{html}{\out{<div class="sourceCode {r}">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text) |>
   show_tokens(text, n = 2)
-#> [[1]]
-#> [1] "this"  "is"    "words"
-#> 
-#> [[2]]
-#> [1] "they" "are"  "nice"
 }\if{html}{\out{</div>}}
 
 This tokenizer has arguments that change how the tokenization occurs and can
 accessed using the \code{options} argument by passing a named list. Here we are
-telling \link[tokenizers:basic-tokenizers]{tokenizers::tokenize_words} that we don't want to turn the words to
+telling \link[tokenizers:tokenize_words]{tokenizers::tokenize_words} that we don't want to turn the words to
 lowercase
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+\if{html}{\out{<div class="sourceCode {r}">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text,
                 options = list(lowercase = FALSE)) |>
   show_tokens(text, n = 2)
-#> [[1]]
-#> [1] "This"  "is"    "words"
-#> 
-#> [[2]]
-#> [1] "They" "are"  "nice"
 }\if{html}{\out{</div>}}
 
 We can also stop removing punctuation.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+\if{html}{\out{<div class="sourceCode {r}">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text,
                 options = list(strip_punct = FALSE,
                                lowercase = FALSE)) |>
   show_tokens(text, n = 2)
-#> [[1]]
-#> [1] "This"  "is"    "words"
-#> 
-#> [[2]]
-#> [1] "They" "are"  "nice" "!"
 }\if{html}{\out{</div>}}
 
 The tokenizer can be changed by setting a different \code{token}. Here we change
 it to return character tokens.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+\if{html}{\out{<div class="sourceCode {r}">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(text, token = "characters") |>
   show_tokens(text, n = 2)
-#> [[1]]
-#>  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
-#> 
-#> [[2]]
-#>  [1] "t" "h" "e" "y" "a" "r" "e" "n" "i" "c" "e"
 }\if{html}{\out{</div>}}
 
 It is worth noting that not all these token methods are appropriate but are
@@ -192,7 +179,7 @@ tokens the tokenizer will produce. It is generally set to a much higher
 value, typically in the thousands, but is set to 22 here for demonstration
 purposes.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{recipe(~ text, data = text_tibble) |>
+\if{html}{\out{<div class="sourceCode {r, eval=FALSE}">}}\preformatted{recipe(~ text, data = text_tibble) |>
   step_tokenize(
     text,
     engine = "tokenizers.bpe",
@@ -201,12 +188,14 @@ purposes.
   show_tokens(text, n = 2)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> [[1]]
-#>  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"   "d"   "s"  
-#> 
-#> [[2]]
-#>  [1] "_Th" "e"   "y"   "_"   "a"   "r"   "e"   "_"   "n"   "i"   "c"   "e"  
-#> [13] "!"
+\if{html}{\out{<div class="sourceCode {r, echo=FALSE}">}}\preformatted{recipe(~ text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    engine = "tokenizers.bpe",
+    training_options = list(vocab_size = 22)
+  ) |>
+  show_tokens(text, n = 2) |>
+  lapply(function(x) gsub("▁", "_", x))
 }\if{html}{\out{</div>}}
 }
 
@@ -225,7 +214,7 @@ pass a function in that performs the tokenization you want.
 Below is an example of a very simple space tokenization. This is a very fast
 way of tokenizing.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{space_tokenizer <- function(x) \{
+\if{html}{\out{<div class="sourceCode {r}">}}\preformatted{space_tokenizer <- function(x) \{
   strsplit(x, " +")
 \}
 
@@ -235,11 +224,6 @@ recipe(~ text, data = text_tibble) |>
     custom_token = space_tokenizer
   ) |>
   show_tokens(text, n = 2)
-#> [[1]]
-#> [1] "This"  "is"    "words"
-#> 
-#> [[2]]
-#> [1] "They"  "are"   "nice!"
 }\if{html}{\out{</div>}}
 }
 }
@@ -253,13 +237,11 @@ columns \code{terms}, \code{value}, and \code{id}:
 \item{value}{character, unit of tokenization}
 \item{id}{character, id of this step}
 }
-}
 
-\section{Tuning Parameters}{
-This step has 1 tuning parameters:
-\itemize{
-\item \code{token}: Token Unit (type: character, default: words)
-}
+\if{html}{\out{<div class="sourceCode {r, echo = FALSE, results="asis"}">}}\preformatted{step <- "step_tokenize"
+result <- knitr::knit_child("man/rmd/tunable-args.Rmd")
+cat(result)
+}\if{html}{\out{</div>}}
 }
 
 \section{Case weights}{
@@ -269,7 +251,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -302,9 +284,9 @@ bake(tate_obj, new_data = NULL) |>
 \seealso{
 \code{\link[=step_untokenize]{step_untokenize()}} to untokenize.
 
-Other Steps for Tokenization: 
-\code{\link{step_tokenize_bpe}()},
-\code{\link{step_tokenize_sentencepiece}()},
-\code{\link{step_tokenize_wordpiece}()}
+Other Steps for Tokenization:
+\code{\link[=step_tokenize_bpe]{step_tokenize_bpe()}},
+\code{\link[=step_tokenize_sentencepiece]{step_tokenize_sentencepiece()}},
+\code{\link[=step_tokenize_wordpiece]{step_tokenize_wordpiece()}}
 }
 \concept{Steps for Tokenization}

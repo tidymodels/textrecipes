@@ -11,7 +11,7 @@
 #' @template args-columns
 #' @param vocabulary_size Integer, indicating the number of tokens in the final
 #'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
-#' @param options A list of options passed to `tokenizers.bpe::bpe()` when
+#' @param options A list of options passed to [tokenizers.bpe::bpe()] when
 #'   the tokenizer is trained at `prep()` time. These options have no effect
 #'   on already-trained models at `bake()` time.
 #' @param res The fitted [tokenizers.bpe::bpe()] model tokenizer will be stored

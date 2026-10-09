@@ -18,9 +18,10 @@
 #'
 #' @details
 #'
-#' The new levels are cleaned and then reset with [dplyr::recode_factor()]. When
-#' data to be processed contains novel levels (i.e., not contained in the
-#' training set), they are converted to missing.
+#' The levels are cleaned with [janitor::make_clean_names()], which is the
+#' function responsible for the cleaning, and then reset with
+#' [dplyr::recode_factor()]. When data to be processed contains novel levels
+#' (i.e., not contained in the training set), they are converted to missing.
 #'
 #' # Tidying
 #'

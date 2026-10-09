@@ -23,7 +23,7 @@ used in final recipe steps. Note that this function will both prep() and
 bake() the recipe it is used on.
 }
 \examples{
-\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
 text_tibble <- tibble(text = c("This is words", "They are nice!"))
 
 recipe(~text, data = text_tibble) |>

@@ -17,6 +17,9 @@
 #'
 #' @details
 #'
+#' The variable names are cleaned with [janitor::make_clean_names()], which is
+#' the function responsible for the cleaning.
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with

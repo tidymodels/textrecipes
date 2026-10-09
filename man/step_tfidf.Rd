@@ -41,13 +41,13 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{vocabulary}{A character vector of strings to be considered.}
 
 \item{res}{The words that will be used to calculate the term frequency will
 be stored here once this preprocessing step has be trained by
-\code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{smooth_idf}{TRUE smooth IDF weights by adding one to document
 frequencies, as if an extra document was seen containing every term in the
@@ -71,8 +71,8 @@ then workflows can determine the best option. Defaults to \code{"auto"}.}
 output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -147,7 +147,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
 \donttest{
 library(recipes)
 library(modeldata)
@@ -170,10 +170,10 @@ tidy(tate_obj, number = 2)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other Steps for Numeric Variables From Tokens: 
-\code{\link{step_lda}()},
-\code{\link{step_texthash}()},
-\code{\link{step_tf}()},
-\code{\link{step_word_embeddings}()}
+Other Steps for Numeric Variables From Tokens:
+\code{\link[=step_lda]{step_lda()}},
+\code{\link[=step_texthash]{step_texthash()}},
+\code{\link[=step_tf]{step_tf()}},
+\code{\link[=step_word_embeddings]{step_word_embeddings()}}
 }
 \concept{Steps for Numeric Variables From Tokens}

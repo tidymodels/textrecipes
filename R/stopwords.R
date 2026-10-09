@@ -13,7 +13,7 @@
 #' @param keep A logical. Specifies whether to keep the stop words or discard
 #'   them.
 #' @param stopword_source A character to indicate the stop words source as
-#'   listed in `stopwords::stopwords_getsources`.
+#'   listed in [stopwords::stopwords_getsources()].
 #' @param custom_stopword_source A character vector to indicate a custom list of
 #'   words that cater to the users specific problem.
 #' @template args-skip

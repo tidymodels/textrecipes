@@ -39,7 +39,7 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{signed}{A logical, indicating whether to use a signed hash-function
 (generating values of -1, 0, or 1), to reduce collisions when hashing.
@@ -62,8 +62,8 @@ then workflows can determine the best option. Defaults to \code{"auto"}.}
 output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -85,7 +85,7 @@ function over the values of the factor levels and using the hash values as
 feature indices. This allows for a low memory representation of the data and
 can be very helpful when a qualitative predictor has many levels or is
 expected to have new levels during prediction. This implementation is done
-using the MurmurHash3 method.
+using the MurmurHash3 method via \code{\link[text2vec:hash_vectorizer]{text2vec::hash_vectorizer()}}.
 
 The argument \code{num_terms} controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
@@ -141,7 +141,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 
 library(recipes)
 library(modeldata)
@@ -169,8 +169,8 @@ Kuhn and Johnson (2019), Chapter 7,
 \seealso{
 \code{\link[recipes:step_dummy]{recipes::step_dummy()}}
 
-Other Steps for Numeric Variables From Characters: 
-\code{\link{step_sequence_onehot}()},
-\code{\link{step_textfeature}()}
+Other Steps for Numeric Variables From Characters:
+\code{\link[=step_sequence_onehot]{step_sequence_onehot()}},
+\code{\link[=step_textfeature]{step_textfeature()}}
 }
 \concept{Steps for Numeric Variables From Characters}

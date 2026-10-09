@@ -6,6 +6,8 @@
 
 * `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_stem()` now validate their `options` argument with `recipes::check_options()` and give informative errors for unnamed, non-list, or disallowed elements. (#291)
 
+* Documentation now links to the external functions that do the underlying work in several steps, such as `janitor::make_clean_names()` in `step_clean_levels()` and `step_clean_names()`. (#198)
+
 * Added a vignette, "Using textrecipes as a sparse matrix engine", documenting which steps produce sparse data and how to use them. (#302)
 
 ## Bug Fixes

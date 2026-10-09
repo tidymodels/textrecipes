@@ -34,7 +34,7 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{num_tokens}{The number of tokens in the n-gram. This must be an integer
 greater than or equal to 1. Defaults to 3.}
@@ -46,8 +46,8 @@ be an integer greater than or equal to 1 and smaller than \code{n}. Defaults to
 \item{delim}{The separator between words in an n-gram. Defaults to "_".}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -93,7 +93,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -119,12 +119,12 @@ tidy(tate_obj, number = 2)
 \seealso{
 \code{\link[=step_tokenize]{step_tokenize()}} to turn characters into \code{\link[=tokenlist]{tokens}}
 
-Other Steps for Token Modification: 
-\code{\link{step_lemma}()},
-\code{\link{step_pos_filter}()},
-\code{\link{step_stem}()},
-\code{\link{step_stopwords}()},
-\code{\link{step_tokenfilter}()},
-\code{\link{step_tokenmerge}()}
+Other Steps for Token Modification:
+\code{\link[=step_lemma]{step_lemma()}},
+\code{\link[=step_pos_filter]{step_pos_filter()}},
+\code{\link[=step_stem]{step_stem()}},
+\code{\link[=step_stopwords]{step_stopwords()}},
+\code{\link[=step_tokenfilter]{step_tokenfilter()}},
+\code{\link[=step_tokenmerge]{step_tokenmerge()}}
 }
 \concept{Steps for Token Modification}

@@ -32,7 +32,7 @@
 #' feature indices. This allows for a low memory representation of the data and
 #' can be very helpful when a qualitative predictor has many levels or is
 #' expected to have new levels during prediction. This implementation is done
-#' using the MurmurHash3 method.
+#' using the MurmurHash3 method via [text2vec::hash_vectorizer()].
 #'
 #' The argument `num_terms` controls the number of indices that the hashing
 #' function will map to. This is the tuning parameter for this transformation.

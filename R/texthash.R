@@ -27,7 +27,7 @@
 #' into a new set of numerical variables. This is done by applying a hashing
 #' function over the tokens and using the hash values as feature indices. This
 #' allows for a low memory representation of the text. This implementation is
-#' done using the MurmurHash3 method.
+#' done using the MurmurHash3 method via [text2vec::hash_vectorizer()].
 #'
 #' The argument `num_terms` controls the number of indices that the hashing
 #' function will map to. This is the tuning parameter for this transformation.

@@ -32,16 +32,16 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variable names that will
 be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep]{recipes::prep.recipe()}}.}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
 
 \item{normalization_form}{A single character string determining the Unicode
 Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
-"nfkc_casefold". Defaults to "nfc". See \code{\link[stringi:stri_trans_nf]{stringi::stri_trans_nfc()}} for
+"nfkc_casefold". Defaults to "nfc". See \code{\link[stringi:stri_trans_nfc]{stringi::stri_trans_nfc()}} for
 more details.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep]{recipes::prep.recipe()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
+when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = FALSE}.}
 
@@ -73,7 +73,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (rlang::is_installed("stringi")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("stringi")) withAutoprint(\{ # examplesIf}
 library(recipes)
 
 sample_data <- tibble(text = c("sch\U00f6n", "scho\U0308n"))
