@@ -9,8 +9,10 @@
 #' @template args-trained
 #' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
-#'   being trained. Only applicable when `engine = "tokenizers.bpe"`. Note that
-#'   the argument `x` should not be passed here. Defaults to `list()`.
+#'   being trained. Only applicable when `engine = "tokenizers.bpe"` or
+#'   `engine = "udpipe"`. For `engine = "udpipe"` the list must contain `model`,
+#'   a loaded udpipe model as returned by [udpipe::udpipe_load_model()]. Note
+#'   that the argument `x` should not be passed here. Defaults to `list()`.
 #' @param options A list of options passed to the tokenizer. Note that the
 #'   argument `x` should not be passed here. For
 #'   `engine = "tokenizers.bpe"` these options only apply when the tokenizer
@@ -165,6 +167,22 @@
 #' ## udpipe
 #'
 #' * "words"
+#'
+#' The udpipe engine requires a pre-trained udpipe model. Load one with
+#' [udpipe::udpipe_load_model()] (use [udpipe::udpipe_download_model()] to
+#' download one first) and pass it as the `model` element of the
+#' `training_options` argument.
+#'
+#' ```{r, eval=FALSE}
+#' model <- udpipe::udpipe_load_model("english-ewt-ud-2.5-191206.udpipe")
+#'
+#' recipe(~ text, data = text_tibble) |>
+#'   step_tokenize(
+#'     text,
+#'     engine = "udpipe",
+#'     training_options = list(model = model)
+#'   )
+#' ```
 #'
 #' ## custom_token
 #'
