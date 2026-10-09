@@ -8,20 +8,27 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param max_times An integer. Maximal number of times a word can appear before
-#'   getting removed.
-#' @param min_times An integer. Minimum number of times a word can appear before
-#'   getting removed.
-#' @param percentage A logical. Should max_times and min_times be interpreted as
-#'   a percentage instead of count.
-#' @param max_tokens An integer. Will only keep the top max_tokens tokens after
-#'   filtering done by max_times and min_times. Defaults to 100.
+#' @param max_times A number. Maximal number of times a token can appear before
+#'   getting removed. An integer count, or a proportion between 0 and 1 if
+#'   `percentage = TRUE`. Defaults to `Inf`.
+#' @param min_times A number. Minimum number of times a token must appear to
+#'   avoid getting removed. An integer count, or a proportion between 0 and 1
+#'   if `percentage = TRUE`. Defaults to `0`.
+#' @param percentage A logical. Should `max_times` and `min_times` be
+#'   interpreted as a proportion of all token occurrences in the training data
+#'   instead of a count? For example, with `percentage = TRUE` and
+#'   `min_times = 0.01`, tokens that make up less than 1 percent of all tokens
+#'   are removed. Defaults to `FALSE`.
+#' @param max_tokens An integer. Will only keep the top `max_tokens` tokens
+#'   after filtering done by `max_times` and `min_times`. Defaults to `100`.
 #' @param filter_fun A function. This function should take a vector of
-#'   characters, and return a logical vector of the same length. This function
-#'   will be applied to each observation of the data set. Defaults to `NULL`.
-#'   All other arguments will be ignored if this argument is used.
-#' @param res The words that will be keep will be stored here once this
-#'   preprocessing step has be trained by [recipes::prep.recipe()].
+#'   characters and return a logical vector of the same length. It will be
+#'   applied to each observation of the data set. If `NULL`, the default,
+#'   tokens are filtered using `max_times`, `min_times`, `percentage`, and
+#'   `max_tokens`, which are otherwise ignored.
+#' @param res A named list of the tokens that will be kept for each selected
+#'   variable. This is `NULL` until the step is trained by
+#'   [recipes::prep.recipe()] and should not be set by hand.
 #' @template args-skip
 #' @template args-id
 #'

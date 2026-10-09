@@ -8,9 +8,11 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param extract_functions A named list of feature extracting functions.
-#'   Defaults to `count_functions`. See details for more information.
-#' @param prefix A prefix for generated column names, defaults to "textfeature".
+#' @param extract_functions A named list of feature extracting functions. Each
+#'   function should take a character vector and return a numeric vector of the
+#'   same length. Defaults to `count_functions`. See details for more
+#'   information.
+#' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -26,6 +28,12 @@
 #' All the functions passed to `extract_functions` must take a character vector
 #' as input and return a numeric vector of the same length, otherwise an error
 #' will be thrown.
+#'
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the name of the function in `extract_functions`, all
+#' separated by `_`. For example, with the default `prefix = "textfeature"`, a
+#' variable named `text`, and the default `count_functions`, the columns will
+#' include `textfeature_text_n_words` and `textfeature_text_n_uq_words`.
 #'
 #' # Tidying
 #'

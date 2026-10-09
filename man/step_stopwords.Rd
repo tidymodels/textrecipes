@@ -20,40 +20,43 @@ step_stopwords(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{Not used by this step since no new variables are
-created.}
+\item{role}{Not used by this step since no new variables are created.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{language}{A character to indicate the language of stop words by ISO
-639-1 coding scheme.}
+\item{language}{A single string indicating the language of the stop words by
+ISO 639-1 coding scheme. Ignored if \code{custom_stopword_source} is used.
+Defaults to \code{"en"}.}
 
-\item{keep}{A logical. Specifies whether to keep the stop words or discard
-them.}
+\item{keep}{A logical. Should the stop words be kept instead of discarded?
+Defaults to \code{FALSE}.}
 
-\item{stopword_source}{A character to indicate the stop words source as
-listed in \code{\link[stopwords:stopwords_getsources]{stopwords::stopwords_getsources()}}.}
+\item{stopword_source}{A single string indicating the stop words source, as
+listed in \code{\link[stopwords:stopwords_getsources]{stopwords::stopwords_getsources()}}. Ignored if
+\code{custom_stopword_source} is used. Defaults to \code{"snowball"}.}
 
-\item{custom_stopword_source}{A character vector to indicate a custom list of
-words that cater to the users specific problem.}
+\item{custom_stopword_source}{A character vector of words to use as a custom
+list of stop words, which cater to the user's specific problem. If
+\code{NULL}, the default, the list is taken from \code{stopword_source} and
+\code{language}. If used, \code{language} and \code{stopword_source} are ignored.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }

@@ -21,47 +21,50 @@ step_tokenize(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{Not used by this step since no new variables are
-created.}
+\item{role}{Not used by this step since no new variables are created.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
 \item{training_options}{A list of options passed to the tokenizer when it is
-being trained. Only applicable for engine == "tokenizers.bpe".}
+being trained. Only applicable when \code{engine = "tokenizers.bpe"}. Note that
+the argument \code{x} should not be passed here. Defaults to \code{list()}.}
 
-\item{options}{A list of options passed to the tokenizer. For
+\item{options}{A list of options passed to the tokenizer. Note that the
+argument \code{x} should not be passed here. For
 \code{engine = "tokenizers.bpe"} these options only apply when the tokenizer
 is trained (at \code{prep()} time); they have no effect on already-trained
 models at \code{bake()} time. For \code{engine = "spacyr"} the options are applied
-each time the data is tokenized, including at \code{bake()} time.}
+each time the data is tokenized, including at \code{bake()} time. Defaults to
+\code{list()}.}
 
-\item{token}{Unit for tokenizing. See details for options. Defaults to
-"words".}
+\item{token}{A single string giving the unit for tokenizing. See details for
+options. Defaults to \code{"words"}.}
 
-\item{engine}{Package that will be used for tokenization. See details for
-options. Defaults to "tokenizers".}
+\item{engine}{A single string giving the package that will be used for
+tokenization. See details for options. Defaults to \code{"tokenizers"}.}
 
-\item{custom_token}{User supplied tokenizer. Use of this argument will
-overwrite the token and engine arguments. Must take a character vector as
-input and output a list of character vectors.}
+\item{custom_token}{A user supplied tokenizer function. Must take a
+character vector as input and output a list of character vectors. If
+\code{NULL}, the default, \code{token} and \code{engine} determine the tokenizer;
+otherwise they are overwritten.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }

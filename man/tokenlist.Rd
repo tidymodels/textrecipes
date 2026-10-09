@@ -7,11 +7,13 @@
 tokenlist(tokens = list(), lemma = NULL, pos = NULL)
 }
 \arguments{
-\item{tokens}{List of character vectors}
+\item{tokens}{A list of character vectors.}
 
-\item{lemma}{List of character vectors, must be same size and shape as \code{x}.}
+\item{lemma}{A list of character vectors, must be the same size and shape as
+\code{tokens}.}
 
-\item{pos}{List of character vectors, must be same size and shape as \code{x}.}
+\item{pos}{A list of character vectors, must be the same size and shape as
+\code{tokens}.}
 }
 \value{
 a \link{tokenlist} object.

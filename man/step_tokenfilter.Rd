@@ -22,48 +22,54 @@ step_tokenfilter(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{Not used by this step since no new variables are
-created.}
+\item{role}{Not used by this step since no new variables are created.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{max_times}{An integer. Maximal number of times a word can appear before
-getting removed.}
+\item{max_times}{A number. Maximal number of times a token can appear before
+getting removed. An integer count, or a proportion between 0 and 1 if
+\code{percentage = TRUE}. Defaults to \code{Inf}.}
 
-\item{min_times}{An integer. Minimum number of times a word can appear before
-getting removed.}
+\item{min_times}{A number. Minimum number of times a token must appear to
+avoid getting removed. An integer count, or a proportion between 0 and 1
+if \code{percentage = TRUE}. Defaults to \code{0}.}
 
-\item{percentage}{A logical. Should max_times and min_times be interpreted as
-a percentage instead of count.}
+\item{percentage}{A logical. Should \code{max_times} and \code{min_times} be
+interpreted as a proportion of all token occurrences in the training data
+instead of a count? For example, with \code{percentage = TRUE} and
+\code{min_times = 0.01}, tokens that make up less than 1 percent of all tokens
+are removed. Defaults to \code{FALSE}.}
 
-\item{max_tokens}{An integer. Will only keep the top max_tokens tokens after
-filtering done by max_times and min_times. Defaults to 100.}
+\item{max_tokens}{An integer. Will only keep the top \code{max_tokens} tokens
+after filtering done by \code{max_times} and \code{min_times}. Defaults to \code{100}.}
 
 \item{filter_fun}{A function. This function should take a vector of
-characters, and return a logical vector of the same length. This function
-will be applied to each observation of the data set. Defaults to \code{NULL}.
-All other arguments will be ignored if this argument is used.}
+characters and return a logical vector of the same length. It will be
+applied to each observation of the data set. If \code{NULL}, the default,
+tokens are filtered using \code{max_times}, \code{min_times}, \code{percentage}, and
+\code{max_tokens}, which are otherwise ignored.}
 
-\item{res}{The words that will be keep will be stored here once this
-preprocessing step has be trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{res}{A named list of the tokens that will be kept for each selected
+variable. This is \code{NULL} until the step is trained by
+\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} and should not be set by hand.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }

@@ -8,8 +8,8 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param sep a character to determine how the tokens should be separated when
-#'   pasted together. Defaults to `" "`.
+#' @param sep A single string determining how the tokens should be separated
+#'   when pasted together. Defaults to `" "`.
 #' @template args-skip
 #' @template args-id
 #'

@@ -1,3 +1,3 @@
-#' @param columns A character string of variable names that will
-#'  be populated (eventually) by the `terms` argument. This is `NULL`
-#'  until the step is trained by [recipes::prep.recipe()].
+#' @param columns A character vector of the selected variable names. This is
+#'   `NULL` until the step is trained by [recipes::prep.recipe()], and should
+#'   not be set by hand.

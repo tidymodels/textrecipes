@@ -8,14 +8,18 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param language A character to indicate the language of stop words by ISO
-#'   639-1 coding scheme.
-#' @param keep A logical. Specifies whether to keep the stop words or discard
-#'   them.
-#' @param stopword_source A character to indicate the stop words source as
-#'   listed in [stopwords::stopwords_getsources()].
-#' @param custom_stopword_source A character vector to indicate a custom list of
-#'   words that cater to the users specific problem.
+#' @param language A single string indicating the language of the stop words by
+#'   ISO 639-1 coding scheme. Ignored if `custom_stopword_source` is used.
+#'   Defaults to `"en"`.
+#' @param keep A logical. Should the stop words be kept instead of discarded?
+#'   Defaults to `FALSE`.
+#' @param stopword_source A single string indicating the stop words source, as
+#'   listed in [stopwords::stopwords_getsources()]. Ignored if
+#'   `custom_stopword_source` is used. Defaults to `"snowball"`.
+#' @param custom_stopword_source A character vector of words to use as a custom
+#'   list of stop words, which cater to the user's specific problem. If
+#'   `NULL`, the default, the list is taken from `stopword_source` and
+#'   `language`. If used, `language` and `stopword_source` are ignored.
 #' @template args-skip
 #' @template args-id
 #'

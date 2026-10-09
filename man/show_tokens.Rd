@@ -7,11 +7,11 @@
 show_tokens(rec, var, n = 6L)
 }
 \arguments{
-\item{rec}{A recipe object}
+\item{rec}{A \code{\link[recipes:recipe]{recipes::recipe()}} object.}
 
-\item{var}{name of variable}
+\item{var}{The name of the variable to show tokens for, as a bare name.}
 
-\item{n}{Number of elements to return.}
+\item{n}{The number of elements to return.}
 }
 \value{
 A list of character vectors

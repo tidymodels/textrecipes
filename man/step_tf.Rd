@@ -23,54 +23,57 @@ step_tf(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.}
+\item{role}{For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as \emph{predictors} in a model.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{weight_scheme}{A character determining the weighting scheme for the
-term frequency calculations. Must be one of "binary", "raw count", "term
-frequency", "log normalization" or "double normalization". Defaults to "raw
-count".}
+\item{weight_scheme}{A single string determining the weighting scheme for the
+term frequency calculations. Must be one of \code{"binary"}, \code{"raw count"},
+\code{"term frequency"}, \code{"log normalization"}, or \code{"double normalization"}.
+See details for what each scheme does. Note that \code{sparse = "yes"} has no
+effect with \code{"double normalization"}, as it doesn't produce sparse data.
+Defaults to \code{"raw count"}.}
 
-\item{weight}{A numeric weight used if \code{weight_scheme} is set to "double
-normalization". Defaults to 0.5.}
+\item{weight}{A single numeric weight used if \code{weight_scheme} is set to
+\code{"double normalization"}. Defaults to \code{0.5}.}
 
-\item{vocabulary}{A character vector of strings to be considered.}
+\item{vocabulary}{A character vector of the tokens to create variables for.
+If \code{NULL}, the default, all tokens found in the training data are used.}
 
-\item{res}{The words that will be used to calculate the term frequency will
-be stored here once this preprocessing step has be trained by
-\code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{res}{A named list of the tokens used for each selected variable. This
+is \code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} and should
+not be set by hand.}
 
-\item{prefix}{A character string that will be the prefix to the
-resulting new variables. See notes below.}
+\item{prefix}{A character string that will be the prefix to the resulting
+new variables. See notes below.}
 
-\item{sparse}{A single string. Should the columns produced be sparse vectors.
-Can take the values \code{"yes"}, \code{"no"}, and \code{"auto"}. If \code{sparse = "auto"}
-then workflows can determine the best option. Defaults to \code{"auto"}.}
+\item{sparse}{A single string. Should the columns produced be sparse
+vectors? Can take the values \code{"yes"}, \code{"no"}, and \code{"auto"}. If
+\code{sparse = "auto"} then workflows can determine the best option. Defaults
+to \code{"auto"}.}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }
@@ -79,14 +82,11 @@ An updated version of \code{recipe} with the new step added
 to the sequence of existing steps (if any).
 }
 \description{
-\code{sparse = "yes"} doesn't take effect when
-\code{weight_scheme = "double normalization"} as it doesn't produce sparse data.
-}
-\details{
 \code{step_tf()} creates a \emph{specification} of a recipe step that will convert a
 \code{\link[=tokenlist]{token}} variable into multiple variables containing the token
 counts.
-
+}
+\details{
 It is strongly advised to use \link{step_tokenfilter} before using \link{step_tf} to
 limit the number of variables created, otherwise you might run into memory
 issues. A good strategy is to start with a low token count and go up
@@ -107,12 +107,10 @@ frequency of the most occurring term in the document. This is then multiplied by
 \code{weight} is added to the result. This is again done to prevent a bias towards
 longer documents.
 
-The new components will have names that begin with \code{prefix}, then
-the name of the variable, followed by the tokens all separated by
-\code{-}. The variable names are padded with zeros. For example if
-\code{prefix = "hash"}, and if \code{num_terms < 10}, their names will be
-\code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
-\code{hash001} - \code{hash101}.
+The new columns will have names that begin with \code{prefix}, then the name of
+the variable, then the token, all separated by \verb{_}. For example, with the
+default \code{prefix = "tf"}, a variable named \code{text}, and the token \code{"word"}, the
+new column will be named \code{tf_text_word}.
 }
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
@@ -137,10 +135,10 @@ This step has 2 tuning parameters:
 
 
 This step produces sparse columns if \code{sparse = "yes"} is being set. The
-default value \code{"auto"} won't trigger production fo sparse columns if a recipe
+default value \code{"auto"} won't trigger production of sparse columns if a recipe
 is \code{\link[recipes:prep]{recipes::prep()}}ed, but allows for a workflow to toggle to \code{"yes"} or
 \code{"no"} depending on whether the model supports \link[recipes:sparse_data]{recipes::sparse_data} and if
-the model is is expected to run faster with the data.
+the model is expected to run faster with the data.
 
 The mechanism for determining how much sparsity is produced isn't perfect,
 and there will be times when you want to manually overwrite by setting

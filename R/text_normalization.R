@@ -8,9 +8,9 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param normalization_form A single character string determining the Unicode
-#'   Normalization. Must be one of "nfc", "nfd", "nfkd", "nfkc", or
-#'   "nfkc_casefold". Defaults to "nfc". See [stringi::stri_trans_nfc()] for
+#' @param normalization_form A single string determining the Unicode
+#'   normalization. Must be one of `"nfc"`, `"nfd"`, `"nfkd"`, `"nfkc"`, or
+#'   `"nfkc_casefold"`. Defaults to `"nfc"`. See [stringi::stri_trans_nfc()] for
 #'   more details.
 #' @template args-skip
 #' @template args-id

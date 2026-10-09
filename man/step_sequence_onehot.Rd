@@ -25,49 +25,49 @@ step_sequence_onehot(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.}
+\item{role}{For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as \emph{predictors} in a model.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{sequence_length}{A numeric, number of characters to keep before
-discarding. Defaults to 100.}
+\item{sequence_length}{A whole number, the number of characters to keep before
+discarding. Defaults to \code{100}.}
 
-\item{padding}{'pre' or 'post', pad either before or after each sequence.
-defaults to 'pre'.}
+\item{padding}{A single string, either \code{"pre"} or \code{"post"}, determining
+whether to pad before or after each sequence. Defaults to \code{"pre"}.}
 
-\item{truncating}{'pre' or 'post', remove values from sequences larger than
-sequence_length either in the beginning or in the end of the sequence.
-Defaults too 'pre'.}
+\item{truncating}{A single string, either \code{"pre"} or \code{"post"}, determining
+whether to remove values from the beginning or the end of sequences longer
+than \code{sequence_length}. Defaults to \code{"pre"}.}
 
-\item{vocabulary}{A character vector, characters to be mapped to integers.
-Characters not in the vocabulary will be encoded as 0. Defaults to
-\code{letters}.}
+\item{vocabulary}{A character vector of the characters to be mapped to
+integers. Characters not in the vocabulary will be encoded as 0. If
+\code{NULL}, the default, all characters found in the training data are used.}
 
-\item{prefix}{A prefix for generated column names, defaults to "seq1hot".}
+\item{prefix}{A character string that will be the prefix to the resulting
+new variables. See notes below.}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }
@@ -84,6 +84,12 @@ The string will be capped by the sequence_length argument, strings shorter
 then sequence_length will be padded with empty characters. The encoding will
 assign an integer to each character in the vocabulary, and will encode
 accordingly. Characters not in the vocabulary will be encoded as 0.
+
+The new columns will have names that begin with \code{prefix}, then the name of
+the variable, then the position in the sequence, all separated by \verb{_}. For
+example, with the default \code{prefix = "seq1hot"}, a variable named \code{text}, and
+\code{sequence_length = 3}, the columns will be named \code{seq1hot_text_1},
+\code{seq1hot_text_2}, and \code{seq1hot_text_3}.
 }
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with

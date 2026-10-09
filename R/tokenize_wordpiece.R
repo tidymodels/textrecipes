@@ -9,10 +9,12 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param vocab Character of Character vector of vocabulary tokens. Defaults to
+#' @param vocab A character vector of vocabulary tokens. Defaults to
 #'   [wordpiece::wordpiece_vocab()].
-#' @param unk_token Token to represent unknown words. Defaults to `"[UNK]"`.
-#' @param max_chars Integer, Maximum length of word recognized. Defaults to 100.
+#' @param unk_token A single string used to represent unknown words. Defaults to
+#'   `"[UNK]"`.
+#' @param max_chars An integer, the maximum length of a word recognized.
+#'   Defaults to `100`.
 #' @template args-skip
 #' @template args-id
 #'

@@ -8,8 +8,8 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param keep_tags Character variable of part of speech tags to keep. See
-#'   details for complete list of tags. Defaults to "NOUN".
+#' @param keep_tags A character vector of part of speech tags to keep. See
+#'   details for the complete list of tags. Defaults to `"NOUN"`.
 #' @template args-skip
 #' @template args-id
 #'

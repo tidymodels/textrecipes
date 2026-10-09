@@ -5,9 +5,9 @@
 #' used in final recipe steps. Note that this function will both prep() and
 #' bake() the recipe it is used on.
 #'
-#' @param rec A recipe object
-#' @param var name of variable
-#' @param n Number of elements to return.
+#' @param rec A [recipes::recipe()] object.
+#' @param var The name of the variable to show tokens for, as a bare name.
+#' @param n The number of elements to return.
 #'
 #' @return A list of character vectors
 #' @export

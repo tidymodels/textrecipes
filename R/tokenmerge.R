@@ -9,7 +9,7 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param prefix A prefix for generated column names, defaults to "tokenmerge".
+#' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -17,6 +17,10 @@
 #' @template returns
 #'
 #' @details
+#'
+#' All the selected variables are merged into a single new variable named
+#' `prefix`, which is `"tokenmerge"` by default. The name of the selected
+#' variables is not part of the new name.
 #'
 #' # Tidying
 #'

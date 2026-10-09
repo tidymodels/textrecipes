@@ -11,11 +11,12 @@
 #' @template args-columns
 #' @param signed A logical, indicating whether to use a signed hash-function
 #'   (generating values of -1, 0, or 1), to reduce collisions when hashing.
-#'   Defaults to TRUE.
+#'   Defaults to `TRUE`.
 #' @param num_terms An integer, the number of variables to output. Defaults to
-#'   32.
-#' @param collapse A logical; should all of the selected columns be collapsed
-#'   into a single column to create a single set of hashed features?
+#'   `32`.
+#' @param collapse A logical. Should all of the selected columns be collapsed
+#'   into a single column to create a single set of hashed features? Defaults
+#'   to `FALSE`.
 #' @template args-prefix
 #' @template args-sparse
 #' @template args-keep_original_cols
@@ -39,7 +40,13 @@
 #' Since the hashing function can map two different tokens to the same index,
 #' a higher value of `num_terms` will result in a lower chance of collision.
 #'
-#' @template details-prefix
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the index of the hash, all separated by `_`. The indices
+#' are padded with zeros to the same width. For example, with the default
+#' `prefix = "dummyhash"` and a variable named `text`, `num_terms = 12` gives
+#' `dummyhash_text_01` to `dummyhash_text_12`. If `collapse = TRUE`, the
+#' variable name is replaced by the names of all selected variables joined by
+#' `_`, such as `dummyhash_text_g_01` when `text` and `g` are selected.
 #'
 #' @details
 #'
