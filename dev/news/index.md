@@ -46,6 +46,10 @@
   documenting which steps produce sparse data and how to use them.
   ([\#302](https://github.com/tidymodels/textrecipes/issues/302))
 
+- Added a vignette, “Tokenizers”, giving an overview of the tokenization
+  options in the package and how they change the resulting tokens.
+  ([\#158](https://github.com/tidymodels/textrecipes/issues/158))
+
 - The documentation for
   [`step_tokenize()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize.md)
   now states that `training_options` also applies to

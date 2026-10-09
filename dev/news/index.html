@@ -23,6 +23,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/cookbook---using-more-complex-recipes-involving-text.html">Cookbook - Using more complex recipes involving text</a></li>
     <li><a class="dropdown-item" href="../articles/sparse-matrices.html">Using textrecipes as a sparse matrix engine</a></li>
+    <li><a class="dropdown-item" href="../articles/tokenizers.html">Tokenizers</a></li>
     <li><a class="dropdown-item" href="../articles/tokenlist.html">Under the hood - tokenlist</a></li>
     <li><a class="dropdown-item" href="../articles/Working-with-n-grams.html">Working with n-grams</a></li>
   </ul></li>
@@ -49,6 +50,7 @@
 <li><p>Documentation now links to the external functions that do the underlying work in several steps, such as <code><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html" class="external-link">janitor::make_clean_names()</a></code> in <code><a href="../reference/step_clean_levels.html">step_clean_levels()</a></code> and <code><a href="../reference/step_clean_names.html">step_clean_names()</a></code>. (<a href="https://github.com/tidymodels/textrecipes/issues/198" class="external-link">#198</a>)</p></li>
 <li><p>Argument documentation has been revised across all steps to follow the tidyverse style guide: defaults are now stated, fixed sets of values are listed, code is formatted consistently, and the descriptions of <code>res</code>, <code>smooth_idf</code>, <code>norm</code>, and <code>vocabulary</code> are now accurate. (<a href="https://github.com/tidymodels/textrecipes/issues/263" class="external-link">#263</a>)</p></li>
 <li><p>Added a vignette, “Using textrecipes as a sparse matrix engine”, documenting which steps produce sparse data and how to use them. (<a href="https://github.com/tidymodels/textrecipes/issues/302" class="external-link">#302</a>)</p></li>
+<li><p>Added a vignette, “Tokenizers”, giving an overview of the tokenization options in the package and how they change the resulting tokens. (<a href="https://github.com/tidymodels/textrecipes/issues/158" class="external-link">#158</a>)</p></li>
 <li><p>The documentation for <code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> now states that <code>training_options</code> also applies to <code>engine = "udpipe"</code>, where it must contain the loaded <code>model</code>, and includes an example. (<a href="https://github.com/tidymodels/textrecipes/issues/237" class="external-link">#237</a>)</p></li>
 </ul><div class="section level3">
 <h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
