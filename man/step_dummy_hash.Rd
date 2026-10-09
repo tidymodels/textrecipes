@@ -22,50 +22,51 @@ step_dummy_hash(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.}
+\item{role}{For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as \emph{predictors} in a model.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
 \item{signed}{A logical, indicating whether to use a signed hash-function
 (generating values of -1, 0, or 1), to reduce collisions when hashing.
-Defaults to TRUE.}
+Defaults to \code{TRUE}.}
 
 \item{num_terms}{An integer, the number of variables to output. Defaults to
-32.}
+\code{32}.}
 
-\item{collapse}{A logical; should all of the selected columns be collapsed
-into a single column to create a single set of hashed features?}
+\item{collapse}{A logical. Should all of the selected columns be collapsed
+into a single column to create a single set of hashed features? Defaults
+to \code{FALSE}.}
 
-\item{prefix}{A character string that will be the prefix to the
-resulting new variables. See notes below.}
+\item{prefix}{A character string that will be the prefix to the resulting
+new variables. See notes below.}
 
-\item{sparse}{A single string. Should the columns produced be sparse vectors.
-Can take the values \code{"yes"}, \code{"no"}, and \code{"auto"}. If \code{sparse = "auto"}
-then workflows can determine the best option. Defaults to \code{"auto"}.}
+\item{sparse}{A single string. Should the columns produced be sparse
+vectors? Can take the values \code{"yes"}, \code{"no"}, and \code{"auto"}. If
+\code{sparse = "auto"} then workflows can determine the best option. Defaults
+to \code{"auto"}.}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }
@@ -92,12 +93,13 @@ function will map to. This is the tuning parameter for this transformation.
 Since the hashing function can map two different tokens to the same index,
 a higher value of \code{num_terms} will result in a lower chance of collision.
 
-The new components will have names that begin with \code{prefix}, then
-the name of the variable, followed by the tokens all separated by
-\code{-}. The variable names are padded with zeros. For example if
-\code{prefix = "hash"}, and if \code{num_terms < 10}, their names will be
-\code{hash1} - \code{hash9}. If \code{num_terms = 101}, their names will be
-\code{hash001} - \code{hash101}.
+The new columns will have names that begin with \code{prefix}, then the name of
+the variable, then the index of the hash, all separated by \verb{_}. The indices
+are padded with zeros to the same width. For example, with the default
+\code{prefix = "dummyhash"} and a variable named \code{text}, \code{num_terms = 12} gives
+\code{dummyhash_text_01} to \code{dummyhash_text_12}. If \code{collapse = TRUE}, the
+variable name is replaced by the names of all selected variables joined by
+\verb{_}, such as \code{dummyhash_text_g_01} when \code{text} and \code{g} are selected.
 }
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
@@ -124,10 +126,10 @@ This step has 2 tuning parameters:
 
 
 This step produces sparse columns if \code{sparse = "yes"} is being set. The
-default value \code{"auto"} won't trigger production fo sparse columns if a recipe
+default value \code{"auto"} won't trigger production of sparse columns if a recipe
 is \code{\link[recipes:prep]{recipes::prep()}}ed, but allows for a workflow to toggle to \code{"yes"} or
 \code{"no"} depending on whether the model supports \link[recipes:sparse_data]{recipes::sparse_data} and if
-the model is is expected to run faster with the data.
+the model is expected to run faster with the data.
 
 The mechanism for determining how much sparsity is produced isn't perfect,
 and there will be times when you want to manually overwrite by setting

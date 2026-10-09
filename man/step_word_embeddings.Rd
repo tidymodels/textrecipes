@@ -21,47 +21,47 @@ step_word_embeddings(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.}
+\item{role}{For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as \emph{predictors} in a model.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
 \item{embeddings}{A tibble of pre-trained word embeddings, such as those
-returned by the embedding_glove function from the textdata package. The
-first column should contain tokens, and additional columns should contain
-embeddings vectors.}
+returned by \code{\link[textdata:embedding_glove6b]{textdata::embedding_glove6b()}}. The first column should
+contain tokens, and additional columns should contain embedding vectors.}
 
-\item{aggregation}{A character giving the name of the aggregation function to
-use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".}
+\item{aggregation}{A single string giving the name of the aggregation
+function used to combine the embeddings of the tokens in each document.
+Must be one of \code{"sum"}, \code{"mean"}, \code{"min"}, or \code{"max"}. Defaults to
+\code{"sum"}.}
 
-\item{aggregation_default}{A numeric denoting the default value for case with
-no words are matched in embedding. Defaults to 0.}
+\item{aggregation_default}{A single numeric value used for documents where
+none of the tokens are found in the embeddings. Defaults to \code{0}.}
 
-\item{prefix}{A character string that will be the prefix to the
-resulting new variables. See notes below.}
+\item{prefix}{A character string that will be the prefix to the resulting
+new variables. See notes below.}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }

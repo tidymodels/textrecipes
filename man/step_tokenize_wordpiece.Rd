@@ -19,35 +19,36 @@ step_tokenize_wordpiece(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{Not used by this step since no new variables are
-created.}
+\item{role}{Not used by this step since no new variables are created.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{vocab}{Character of Character vector of vocabulary tokens. Defaults to
+\item{vocab}{A character vector of vocabulary tokens. Defaults to
 \code{\link[wordpiece:wordpiece_vocab]{wordpiece::wordpiece_vocab()}}.}
 
-\item{unk_token}{Token to represent unknown words. Defaults to \code{"[UNK]"}.}
+\item{unk_token}{A single string used to represent unknown words. Defaults to
+\code{"[UNK]"}.}
 
-\item{max_chars}{Integer, Maximum length of word recognized. Defaults to 100.}
+\item{max_chars}{An integer, the maximum length of a word recognized.
+Defaults to \code{100}.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }

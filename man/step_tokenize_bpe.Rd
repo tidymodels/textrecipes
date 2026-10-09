@@ -19,38 +19,40 @@ step_tokenize_bpe(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{Not used by this step since no new variables are
-created.}
+\item{role}{Not used by this step since no new variables are created.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{vocabulary_size}{Integer, indicating the number of tokens in the final
-vocabulary. Defaults to 1000. Highly encouraged to be tuned.}
+\item{vocabulary_size}{An integer, indicating the number of tokens in the
+final vocabulary. Defaults to \code{1000}. Highly encouraged to be tuned.}
 
 \item{options}{A list of options passed to \code{\link[tokenizers.bpe:bpe]{tokenizers.bpe::bpe()}} when
 the tokenizer is trained at \code{prep()} time. These options have no effect
-on already-trained models at \code{bake()} time.}
+on already-trained models at \code{bake()} time. Note that the arguments \code{x},
+\code{model_path}, and \code{vocab_size} should not be passed here, use
+\code{vocabulary_size} instead. Defaults to \code{list()}.}
 
-\item{res}{The fitted \code{\link[tokenizers.bpe:bpe]{tokenizers.bpe::bpe()}} model tokenizer will be stored
-here once this preprocessing step has be trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{res}{The fitted \code{\link[tokenizers.bpe:bpe]{tokenizers.bpe::bpe()}} model tokenizer. This is \code{NULL}
+until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} and should not be set
+by hand.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }

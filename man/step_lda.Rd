@@ -23,41 +23,42 @@ step_lda(
 )
 }
 \arguments{
-\item{recipe}{A \link[recipes:recipe]{recipes::recipe} object. The step will be added to the
+\item{recipe}{A \code{\link[recipes:recipe]{recipes::recipe()}} object. The step will be added to the
 sequence of operations for this recipe.}
 
-\item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
-for more details.}
+\item{...}{One or more selector functions to choose which variables are
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
-\item{role}{For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.}
+\item{role}{For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as \emph{predictors} in a model.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing
+have been estimated.}
 
-\item{columns}{A character string of variable names that will
-be populated (eventually) by the \code{terms} argument. This is \code{NULL}
-until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}.}
+\item{columns}{A character vector of the selected variable names. This is
+\code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, and should
+not be set by hand.}
 
-\item{lda_models}{A WarpLDA model object from \link[text2vec:LDA]{text2vec::LDA}. If left
-to NULL, the default, it will train its model based on the training data.
-Look at the examples for how to fit a WarpLDA model.}
+\item{lda_models}{A WarpLDA model object from \link[text2vec:LDA]{text2vec::LDA}. If
+\code{NULL}, the default, it will train its model based on the training
+data. Look at the examples for how to fit a WarpLDA model.}
 
-\item{num_topics}{integer desired number of latent topics.}
+\item{num_topics}{A whole number, the desired number of latent topics.
+Defaults to \code{10}.}
 
-\item{prefix}{A prefix for generated column names, defaults to "lda".}
+\item{prefix}{A character string that will be the prefix to the resulting
+new variables. See notes below.}
 
 \item{keep_original_cols}{A logical to keep the original variables in the
 output. Defaults to \code{FALSE}.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = FALSE}.}
+\item{skip}{A logical. Should the step be skipped when the recipe is baked
+by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when
+\code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using \code{skip = TRUE}, as it may affect the computations for
+subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 }
@@ -68,6 +69,12 @@ to the sequence of existing steps (if any).
 \description{
 \code{step_lda()} creates a \emph{specification} of a recipe step that will return the
 lda dimension estimates of a text variable.
+}
+\details{
+The new columns will have names that begin with \code{prefix}, then the name of
+the variable, then the index of the topic, all separated by \verb{_}. For example,
+with the default \code{prefix = "lda"} and a variable named \code{text}, the columns
+will be named \code{lda_text_1}, \code{lda_text_2}, and so on up to \code{num_topics}.
 }
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
