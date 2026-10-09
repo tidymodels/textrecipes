@@ -29,7 +29,7 @@ step_texthash(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -43,9 +43,8 @@ step_texthash(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -54,19 +53,19 @@ step_texthash(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - signed:
 
   A logical, indicating whether to use a signed hash-function to reduce
-  collisions when hashing. Defaults to TRUE.
+  collisions when hashing. Defaults to `TRUE`.
 
 - num_terms:
 
-  An integer, the number of variables to output. Defaults to 1024.
+  An integer, the number of variables to output. Defaults to `1024`.
 
 - prefix:
 
@@ -75,7 +74,7 @@ step_texthash(
 
 - sparse:
 
-  A single string. Should the columns produced be sparse vectors. Can
+  A single string. Should the columns produced be sparse vectors? Can
   take the values `"yes"`, `"no"`, and `"auto"`. If `sparse = "auto"`
   then workflows can determine the best option. Defaults to `"auto"`.
 
@@ -87,12 +86,13 @@ step_texthash(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -118,11 +118,12 @@ transformation. Since the hashing function can map two different tokens
 to the same index, will a higher value of `num_terms` result in a lower
 chance of collision.
 
-The new components will have names that begin with `prefix`, then the
-name of the variable, followed by the tokens all separated by `-`. The
-variable names are padded with zeros. For example if `prefix = "hash"`,
-and if `num_terms < 10`, their names will be `hash1` - `hash9`. If
-`num_terms = 101`, their names will be `hash001` - `hash101`.
+The new columns will have names that begin with `prefix`, then the name
+of the variable, then the index of the hash, all separated by `_`. The
+indices are padded with zeros to the same width. For example, with the
+default `prefix = "texthash"` and a variable named `text`,
+`num_terms = 12` gives `texthash_text_01` to `texthash_text_12`, and
+`num_terms = 101` gives `texthash_text_001` to `texthash_text_101`.
 
 ## Tidying
 
@@ -157,13 +158,13 @@ This step has 2 tuning parameters:
 ## Sparse data
 
 This step produces sparse columns if `sparse = "yes"` is being set. The
-default value `"auto"` won't trigger production fo sparse columns if a
+default value `"auto"` won't trigger production of sparse columns if a
 recipe is
 [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)ed,
 but allows for a workflow to toggle to `"yes"` or `"no"` depending on
 whether the model supports
 [recipes::sparse_data](https://recipes.tidymodels.org/reference/sparse_data.html)
-and if the model is is expected to run faster with the data.
+and if the model is expected to run faster with the data.
 
 The mechanism for determining how much sparsity is produced isn't
 perfect, and there will be times when you want to manually overwrite by
@@ -233,10 +234,10 @@ tidy(tate_rec, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  value length id            
 #>   <chr>  <lgl>  <int> <chr>         
-#> 1 medium NA        NA texthash_HrCpP
+#> 1 medium NA        NA texthash_T8mzu
 tidy(tate_obj, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  value length id            
 #>   <chr>  <lgl>  <int> <chr>         
-#> 1 medium TRUE    1024 texthash_HrCpP
+#> 1 medium TRUE    1024 texthash_T8mzu
 ```

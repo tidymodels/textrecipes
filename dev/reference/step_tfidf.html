@@ -78,70 +78,75 @@ frequency-inverse document frequency of tokens.</p>
 
 
 <dl><dt id="arg-recipe">recipe<a class="anchor" aria-label="anchor" href="#arg-recipe"></a></dt>
-<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe</a> object. The step will be added to the
+<dd><p>A <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe()</a></code> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>One or more selector functions to choose which
-variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
-for more details.</p></dd>
+<dd><p>One or more selector functions to choose which variables are
+affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-role">role<a class="anchor" aria-label="anchor" href="#arg-role"></a></dt>
-<dd><p>For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.</p></dd>
+<dd><p>For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as <em>predictors</em> in a model.</p></dd>
 
 
 <dt id="arg-trained">trained<a class="anchor" aria-label="anchor" href="#arg-trained"></a></dt>
-<dd><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></dd>
+<dd><p>A logical to indicate if the quantities for preprocessing
+have been estimated.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>A character string of variable names that will
-be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
-until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+<dd><p>A character vector of the selected variable names. This is
+<code>NULL</code> until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>, and should
+not be set by hand.</p></dd>
 
 
 <dt id="arg-vocabulary">vocabulary<a class="anchor" aria-label="anchor" href="#arg-vocabulary"></a></dt>
-<dd><p>A character vector of strings to be considered.</p></dd>
+<dd><p>A character vector of the tokens to create variables for.
+If <code>NULL</code>, the default, all tokens found in the training data are used.</p></dd>
 
 
 <dt id="arg-res">res<a class="anchor" aria-label="anchor" href="#arg-res"></a></dt>
-<dd><p>The words that will be used to calculate the term frequency will
-be stored here once this preprocessing step has be trained by
-<code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+<dd><p>A named list of numeric vectors holding the IDF weight of each
+token, one element per selected variable. This is <code>NULL</code> until the step is
+trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> and should not be set by hand.</p></dd>
 
 
 <dt id="arg-smooth-idf">smooth_idf<a class="anchor" aria-label="anchor" href="#arg-smooth-idf"></a></dt>
-<dd><p>TRUE smooth IDF weights by adding one to document
-frequencies, as if an extra document was seen containing every term in the
-collection exactly once. This prevents division by zero.</p></dd>
+<dd><p>A logical. Should the IDF weights be smoothed by adding one
+to the ratio of the number of documents to the number of documents
+containing the token? This prevents tokens that appear in every document
+from getting a weight of zero. Defaults to <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-norm">norm<a class="anchor" aria-label="anchor" href="#arg-norm"></a></dt>
-<dd><p>A character, defines the type of normalization to apply to term
-vectors. "l1" by default, i.e., scale by the number of in-vocabulary
-tokens in the document. Must be one of c("l1", "l2", "none").</p></dd>
+<dd><p>A single string determining the type of normalization applied to
+the term frequencies of each document. Must be one of:</p><ul><li><p><code>"l1"</code>: scale by the sum of the term frequencies in the document.</p></li>
+<li><p><code>"l2"</code>: scale by the square root of the sum of the squared term
+frequencies in the document.</p></li>
+<li><p><code>"none"</code>: don't normalize.</p></li>
+</ul><p>Defaults to <code>"l1"</code>.</p></dd>
 
 
 <dt id="arg-sublinear-tf">sublinear_tf<a class="anchor" aria-label="anchor" href="#arg-sublinear-tf"></a></dt>
-<dd><p>A logical, apply sublinear term-frequency scaling, i.e.,
-replace the term frequency with 1 + log(TF). Defaults to FALSE.</p></dd>
+<dd><p>A logical. Should sublinear term-frequency scaling be
+applied, replacing the term frequency with <code>1 + log(TF)</code>? Defaults to
+<code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
-<dd><p>A character string that will be the prefix to the
-resulting new variables. See notes below.</p></dd>
+<dd><p>A character string that will be the prefix to the resulting
+new variables. See notes below.</p></dd>
 
 
 <dt id="arg-sparse">sparse<a class="anchor" aria-label="anchor" href="#arg-sparse"></a></dt>
-<dd><p>A single string. Should the columns produced be sparse vectors.
-Can take the values <code>"yes"</code>, <code>"no"</code>, and <code>"auto"</code>. If <code>sparse = "auto"</code>
-then workflows can determine the best option. Defaults to <code>"auto"</code>.</p></dd>
+<dd><p>A single string. Should the columns produced be sparse
+vectors? Can take the values <code>"yes"</code>, <code>"no"</code>, and <code>"auto"</code>. If
+<code>sparse = "auto"</code> then workflows can determine the best option. Defaults
+to <code>"auto"</code>.</p></dd>
 
 
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
@@ -150,11 +155,12 @@ output. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
-<dd><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
-when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+<dd><p>A logical. Should the step be skipped when the recipe is baked
+by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake()</a></code>? While all operations are baked when
+<code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using <code>skip = TRUE</code>, as it may affect the computations for
+subsequent operations.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -180,14 +186,9 @@ observation.</p>
 how common or rare the word is across all the observations. If a word appears
 in all the observations it might not give that much insight, but if it only
 appears in some it might help differentiate between observations.</p>
-<p>The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (#
-documents where the term appears))</p>
-<p>The new components will have names that begin with <code>prefix</code>, then
-the name of the variable, followed by the tokens all separated by
-<code>-</code>. The variable names are padded with zeros. For example if
-<code>prefix = "hash"</code>, and if <code>num_terms &lt; 10</code>, their names will be
-<code>hash1</code> - <code>hash9</code>. If <code>num_terms = 101</code>, their names will be
-<code>hash001</code> - <code>hash101</code>.</p>
+<p>The IDF is defined as follows when <code>smooth_idf = TRUE</code>: idf = log(1 + (#
+documents in the corpus) / (# documents where the term appears)). When
+<code>smooth_idf = FALSE</code> the <code>1 +</code> is dropped.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
@@ -206,17 +207,21 @@ columns <code>terms</code>, <code>token</code>, <code>weight</code>, and <code>i
 <dd><p>character, id of this step</p></dd>
 
 
-</dl></div>
+</dl><p>The new columns will have names that begin with <code>prefix</code>, then the name of
+the variable, then the token, all separated by <code>_</code>. For example, with the
+default <code>prefix = "tfidf"</code>, a variable named <code>text</code>, and the token <code>"word"</code>,
+the new column will be named <code>tfidf_text_word</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="sparse-data">Sparse data<a class="anchor" aria-label="anchor" href="#sparse-data"></a></h2>
 
 
 
 <p>This step produces sparse columns if <code>sparse = "yes"</code> is being set. The
-default value <code>"auto"</code> won't trigger production fo sparse columns if a recipe
+default value <code>"auto"</code> won't trigger production of sparse columns if a recipe
 is <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code>ed, but allows for a workflow to toggle to <code>"yes"</code> or
 <code>"no"</code> depending on whether the model supports <a href="https://recipes.tidymodels.org/reference/sparse_data.html" class="external-link">recipes::sparse_data</a> and if
-the model is is expected to run faster with the data.</p>
+the model is expected to run faster with the data.</p>
 <p>The mechanism for determining how much sparsity is produced isn't perfect,
 and there will be times when you want to manually overwrite by setting
 <code>sparse = "yes"</code> or <code>sparse = "no"</code>.</p>
@@ -278,21 +283,21 @@ and there will be times when you want to manually overwrite by setting
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  token weight id         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> tfidf_3X9Bs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> tfidf_yUbne</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 952 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms  token weight id         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium 1       7.26 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium 10      7.26 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium 100     7.26 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium 11      7.67 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium 12      7.67 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium 13      8.36 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium 133     8.36 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium 14      6.75 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium 15      6.57 tfidf_3X9Bs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium 151     8.36 tfidf_3X9Bs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium 1       7.26 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium 10      7.26 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium 100     7.26 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium 11      7.67 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium 12      7.67 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium 13      8.36 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium 133     8.36 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium 14      6.75 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium 15      6.57 tfidf_yUbne</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium 151     8.36 tfidf_yUbne</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 942 more rows</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

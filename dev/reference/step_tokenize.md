@@ -29,7 +29,7 @@ step_tokenize(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -51,52 +51,58 @@ step_tokenize(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - training_options:
 
   A list of options passed to the tokenizer when it is being trained.
-  Only applicable for engine == "tokenizers.bpe".
+  Only applicable when `engine = "tokenizers.bpe"`. Note that the
+  argument `x` should not be passed here. Defaults to
+  [`list()`](https://rdrr.io/r/base/list.html).
 
 - options:
 
-  A list of options passed to the tokenizer. For
-  `engine = "tokenizers.bpe"` these options only apply when the
-  tokenizer is trained (at
+  A list of options passed to the tokenizer. Note that the argument `x`
+  should not be passed here. For `engine = "tokenizers.bpe"` these
+  options only apply when the tokenizer is trained (at
   [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time);
   they have no effect on already-trained models at
   [`bake()`](https://recipes.tidymodels.org/reference/bake.html) time.
   For `engine = "spacyr"` the options are applied each time the data is
   tokenized, including at
   [`bake()`](https://recipes.tidymodels.org/reference/bake.html) time.
+  Defaults to [`list()`](https://rdrr.io/r/base/list.html).
 
 - token:
 
-  Unit for tokenizing. See details for options. Defaults to "words".
+  A single string giving the unit for tokenizing. See details for
+  options. Defaults to `"words"`.
 
 - engine:
 
-  Package that will be used for tokenization. See details for options.
-  Defaults to "tokenizers".
+  A single string giving the package that will be used for tokenization.
+  See details for options. Defaults to `"tokenizers"`.
 
 - custom_token:
 
-  User supplied tokenizer. Use of this argument will overwrite the token
-  and engine arguments. Must take a character vector as input and output
-  a list of character vectors.
+  A user supplied tokenizer function. Must take a character vector as
+  input and output a list of character vectors. If `NULL`, the default,
+  `token` and `engine` determine the tokenizer; otherwise they are
+  overwritten.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -273,12 +279,12 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium NA    tokenize_BWkYm
+#> 1 medium NA    tokenize_WI0lV
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium words tokenize_BWkYm
+#> 1 medium words tokenize_WI0lV
 
 tate_obj_chars <- recipe(~., data = tate_text) |>
   step_tokenize(medium, token = "characters") |>

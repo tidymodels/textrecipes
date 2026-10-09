@@ -30,7 +30,7 @@ step_lda(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -44,9 +44,8 @@ step_lda(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -55,25 +54,26 @@ step_lda(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - lda_models:
 
   A WarpLDA model object from
   [text2vec::LDA](https://rdrr.io/pkg/text2vec/man/LatentDirichletAllocation.html).
-  If left to NULL, the default, it will train its model based on the
-  training data. Look at the examples for how to fit a WarpLDA model.
+  If `NULL`, the default, it will train its model based on the training
+  data. Look at the examples for how to fit a WarpLDA model.
 
 - num_topics:
 
-  integer desired number of latent topics.
+  A whole number, the desired number of latent topics. Defaults to `10`.
 
 - prefix:
 
-  A prefix for generated column names, defaults to "lda".
+  A character string that will be the prefix to the resulting new
+  variables. See notes below.
 
 - keep_original_cols:
 
@@ -83,12 +83,13 @@ step_lda(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -98,6 +99,14 @@ step_lda(
 
 An updated version of `recipe` with the new step added to the sequence
 of existing steps (if any).
+
+## Details
+
+The new columns will have names that begin with `prefix`, then the name
+of the variable, then the index of the topic, all separated by `_`. For
+example, with the default `prefix = "lda"` and a variable named `text`,
+the columns will be named `lda_text_1`, `lda_text_2`, and so on up to
+`num_topics`.
 
 ## Tidying
 
@@ -175,8 +184,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 43
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990       0.0375       0.0375            0        0.162
-#> 2 20472 Mich…  1990       0.0333       0.0333            0        0    
+#> 1 21926 Prop…  1990          0              0       0             0    
+#> 2 20472 Mich…  1990          0.1            0       0.0333        0.167
 #> # ℹ 36 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,
@@ -202,8 +211,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 33
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990       0.0375          0          0.513        0    
-#> 2 20472 Mich…  1990       0.133           0.1        0            0.133
+#> 1 21926 Prop…  1990       0               0         0.0125       0.0125
+#> 2 20472 Mich…  1990       0.0333          0.1       0.0333       0.133 
 #> # ℹ 26 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,

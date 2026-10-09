@@ -77,58 +77,57 @@ take a string and do one hot encoding for each character by position.</p>
 
 
 <dl><dt id="arg-recipe">recipe<a class="anchor" aria-label="anchor" href="#arg-recipe"></a></dt>
-<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe</a> object. The step will be added to the
+<dd><p>A <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe()</a></code> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>One or more selector functions to choose which
-variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
-for more details.</p></dd>
+<dd><p>One or more selector functions to choose which variables are
+affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-role">role<a class="anchor" aria-label="anchor" href="#arg-role"></a></dt>
-<dd><p>For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.</p></dd>
+<dd><p>For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as <em>predictors</em> in a model.</p></dd>
 
 
 <dt id="arg-trained">trained<a class="anchor" aria-label="anchor" href="#arg-trained"></a></dt>
-<dd><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></dd>
+<dd><p>A logical to indicate if the quantities for preprocessing
+have been estimated.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>A character string of variable names that will
-be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
-until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+<dd><p>A character vector of the selected variable names. This is
+<code>NULL</code> until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>, and should
+not be set by hand.</p></dd>
 
 
 <dt id="arg-sequence-length">sequence_length<a class="anchor" aria-label="anchor" href="#arg-sequence-length"></a></dt>
-<dd><p>A numeric, number of characters to keep before
-discarding. Defaults to 100.</p></dd>
+<dd><p>A whole number, the number of characters to keep before
+discarding. Defaults to <code>100</code>.</p></dd>
 
 
 <dt id="arg-padding">padding<a class="anchor" aria-label="anchor" href="#arg-padding"></a></dt>
-<dd><p>'pre' or 'post', pad either before or after each sequence.
-defaults to 'pre'.</p></dd>
+<dd><p>A single string, either <code>"pre"</code> or <code>"post"</code>, determining
+whether to pad before or after each sequence. Defaults to <code>"pre"</code>.</p></dd>
 
 
 <dt id="arg-truncating">truncating<a class="anchor" aria-label="anchor" href="#arg-truncating"></a></dt>
-<dd><p>'pre' or 'post', remove values from sequences larger than
-sequence_length either in the beginning or in the end of the sequence.
-Defaults too 'pre'.</p></dd>
+<dd><p>A single string, either <code>"pre"</code> or <code>"post"</code>, determining
+whether to remove values from the beginning or the end of sequences longer
+than <code>sequence_length</code>. Defaults to <code>"pre"</code>.</p></dd>
 
 
 <dt id="arg-vocabulary">vocabulary<a class="anchor" aria-label="anchor" href="#arg-vocabulary"></a></dt>
-<dd><p>A character vector, characters to be mapped to integers.
-Characters not in the vocabulary will be encoded as 0. Defaults to
-<code>letters</code>.</p></dd>
+<dd><p>A character vector of the characters to be mapped to
+integers. Characters not in the vocabulary will be encoded as 0. If
+<code>NULL</code>, the default, all characters found in the training data are used.</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
-<dd><p>A prefix for generated column names, defaults to "seq1hot".</p></dd>
+<dd><p>A character string that will be the prefix to the resulting
+new variables. See notes below.</p></dd>
 
 
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
@@ -137,11 +136,12 @@ output. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
-<dd><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
-when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+<dd><p>A logical. Should the step be skipped when the recipe is baked
+by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake()</a></code>? While all operations are baked when
+<code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using <code>skip = TRUE</code>, as it may affect the computations for
+subsequent operations.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -159,6 +159,11 @@ to the sequence of existing steps (if any).</p>
 then sequence_length will be padded with empty characters. The encoding will
 assign an integer to each character in the vocabulary, and will encode
 accordingly. Characters not in the vocabulary will be encoded as 0.</p>
+<p>The new columns will have names that begin with <code>prefix</code>, then the name of
+the variable, then the position in the sequence, all separated by <code>_</code>. For
+example, with the default <code>prefix = "seq1hot"</code>, a variable named <code>text</code>, and
+<code>sequence_length = 3</code>, the columns will be named <code>seq1hot_text_1</code>,
+<code>seq1hot_text_2</code>, and <code>seq1hot_text_3</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
@@ -232,21 +237,21 @@ columns <code>terms</code>, <code>vocabulary</code>, <code>token</code>, and <co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  vocabulary token id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span> sequence_onehot_bn0Sc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span> sequence_onehot_UKHka</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms  vocabulary token     id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium          1 16        sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium          2 2         sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium          3 3         sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium          4 35        sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium          5 4         sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium          6 5         sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium          7 6         sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium          8 8         sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium          9 acrylic   sequence_onehot_bn0Sc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium         10 aluminium sequence_onehot_bn0Sc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> medium          1 16        sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> medium          2 2         sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> medium          3 3         sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> medium          4 35        sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> medium          5 4         sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> medium          6 5         sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> medium          7 6         sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> medium          8 8         sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> medium          9 acrylic   sequence_onehot_UKHka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> medium         10 aluminium sequence_onehot_UKHka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 90 more rows</span></span>
 </code></pre></div>
     </div>

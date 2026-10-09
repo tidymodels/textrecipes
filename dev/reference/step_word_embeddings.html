@@ -75,54 +75,53 @@ aggregating the vectors of each token from a pre-trained embedding.</p>
 
 
 <dl><dt id="arg-recipe">recipe<a class="anchor" aria-label="anchor" href="#arg-recipe"></a></dt>
-<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe</a> object. The step will be added to the
+<dd><p>A <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe()</a></code> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>One or more selector functions to choose which
-variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
-for more details.</p></dd>
+<dd><p>One or more selector functions to choose which variables are
+affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-role">role<a class="anchor" aria-label="anchor" href="#arg-role"></a></dt>
-<dd><p>For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.</p></dd>
+<dd><p>For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as <em>predictors</em> in a model.</p></dd>
 
 
 <dt id="arg-trained">trained<a class="anchor" aria-label="anchor" href="#arg-trained"></a></dt>
-<dd><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></dd>
+<dd><p>A logical to indicate if the quantities for preprocessing
+have been estimated.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>A character string of variable names that will
-be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
-until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+<dd><p>A character vector of the selected variable names. This is
+<code>NULL</code> until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>, and should
+not be set by hand.</p></dd>
 
 
 <dt id="arg-embeddings">embeddings<a class="anchor" aria-label="anchor" href="#arg-embeddings"></a></dt>
 <dd><p>A tibble of pre-trained word embeddings, such as those
-returned by the embedding_glove function from the textdata package. The
-first column should contain tokens, and additional columns should contain
-embeddings vectors.</p></dd>
+returned by <code>textdata::embedding_glove6b()</code>. The first column should
+contain tokens, and additional columns should contain embedding vectors.</p></dd>
 
 
 <dt id="arg-aggregation">aggregation<a class="anchor" aria-label="anchor" href="#arg-aggregation"></a></dt>
-<dd><p>A character giving the name of the aggregation function to
-use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".</p></dd>
+<dd><p>A single string giving the name of the aggregation
+function used to combine the embeddings of the tokens in each document.
+Must be one of <code>"sum"</code>, <code>"mean"</code>, <code>"min"</code>, or <code>"max"</code>. Defaults to
+<code>"sum"</code>.</p></dd>
 
 
 <dt id="arg-aggregation-default">aggregation_default<a class="anchor" aria-label="anchor" href="#arg-aggregation-default"></a></dt>
-<dd><p>A numeric denoting the default value for case with
-no words are matched in embedding. Defaults to 0.</p></dd>
+<dd><p>A single numeric value used for documents where
+none of the tokens are found in the embeddings. Defaults to <code>0</code>.</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
-<dd><p>A character string that will be the prefix to the
-resulting new variables. See notes below.</p></dd>
+<dd><p>A character string that will be the prefix to the resulting
+new variables. See notes below.</p></dd>
 
 
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
@@ -131,11 +130,12 @@ output. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
-<dd><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
-when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+<dd><p>A logical. Should the step be skipped when the recipe is baked
+by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake()</a></code>? While all operations are baked when
+<code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using <code>skip = TRUE</code>, as it may affect the computations for
+subsequent operations.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -237,12 +237,12 @@ columns <code>terms</code>, <code>embedding_rows</code>, <code>aggregation</code
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms embeddings_rows aggregation id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_DiMpH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_Hh0UV</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms embeddings_rows aggregation id                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_DiMpH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> text                3 sum         word_embeddings_Hh0UV</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

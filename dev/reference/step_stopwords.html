@@ -71,58 +71,61 @@ filter a <code><a href="tokenlist.html">token</a></code> variable for stop words
 
 
 <dl><dt id="arg-recipe">recipe<a class="anchor" aria-label="anchor" href="#arg-recipe"></a></dt>
-<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe</a> object. The step will be added to the
+<dd><p>A <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe()</a></code> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>One or more selector functions to choose which
-variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
-for more details.</p></dd>
+<dd><p>One or more selector functions to choose which variables are
+affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-role">role<a class="anchor" aria-label="anchor" href="#arg-role"></a></dt>
-<dd><p>Not used by this step since no new variables are
-created.</p></dd>
+<dd><p>Not used by this step since no new variables are created.</p></dd>
 
 
 <dt id="arg-trained">trained<a class="anchor" aria-label="anchor" href="#arg-trained"></a></dt>
-<dd><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></dd>
+<dd><p>A logical to indicate if the quantities for preprocessing
+have been estimated.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>A character string of variable names that will
-be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
-until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+<dd><p>A character vector of the selected variable names. This is
+<code>NULL</code> until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>, and should
+not be set by hand.</p></dd>
 
 
 <dt id="arg-language">language<a class="anchor" aria-label="anchor" href="#arg-language"></a></dt>
-<dd><p>A character to indicate the language of stop words by ISO
-639-1 coding scheme.</p></dd>
+<dd><p>A single string indicating the language of the stop words by
+ISO 639-1 coding scheme. Ignored if <code>custom_stopword_source</code> is used.
+Defaults to <code>"en"</code>.</p></dd>
 
 
 <dt id="arg-keep">keep<a class="anchor" aria-label="anchor" href="#arg-keep"></a></dt>
-<dd><p>A logical. Specifies whether to keep the stop words or discard
-them.</p></dd>
+<dd><p>A logical. Should the stop words be kept instead of discarded?
+Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-stopword-source">stopword_source<a class="anchor" aria-label="anchor" href="#arg-stopword-source"></a></dt>
-<dd><p>A character to indicate the stop words source as
-listed in <code><a href="https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html" class="external-link">stopwords::stopwords_getsources()</a></code>.</p></dd>
+<dd><p>A single string indicating the stop words source, as
+listed in <code><a href="https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html" class="external-link">stopwords::stopwords_getsources()</a></code>. Ignored if
+<code>custom_stopword_source</code> is used. Defaults to <code>"snowball"</code>.</p></dd>
 
 
 <dt id="arg-custom-stopword-source">custom_stopword_source<a class="anchor" aria-label="anchor" href="#arg-custom-stopword-source"></a></dt>
-<dd><p>A character vector to indicate a custom list of
-words that cater to the users specific problem.</p></dd>
+<dd><p>A character vector of words to use as a custom
+list of stop words, which cater to the user's specific problem. If
+<code>NULL</code>, the default, the list is taken from <code>stopword_source</code> and
+<code>language</code>. If used, <code>language</code> and <code>stopword_source</code> are ignored.</p></dd>
 
 
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
-<dd><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
-when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+<dd><p>A logical. Should the step be skipped when the recipe is baked
+by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake()</a></code>? While all operations are baked when
+<code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using <code>skip = TRUE</code>, as it may affect the computations for
+subsequent operations.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -212,12 +215,12 @@ columns <code>terms</code>, <code>value</code>, <code>keep</code>, and <code>id<
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value keep  id             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    stopwords_uNBvq</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    stopwords_NGV45</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value    keep  id             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium snowball FALSE stopwords_uNBvq</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium snowball FALSE stopwords_NGV45</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With a custom stop words list</span></span></span>
 <span class="r-in"><span></span></span>

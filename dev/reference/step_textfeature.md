@@ -25,7 +25,7 @@ step_textfeature(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -39,9 +39,8 @@ step_textfeature(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -50,19 +49,22 @@ step_textfeature(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - extract_functions:
 
-  A named list of feature extracting functions. Defaults to
-  `count_functions`. See details for more information.
+  A named list of feature extracting functions. Each function should
+  take a character vector and return a numeric vector of the same
+  length. Defaults to `count_functions`. See details for more
+  information.
 
 - prefix:
 
-  A prefix for generated column names, defaults to "textfeature".
+  A character string that will be the prefix to the resulting new
+  variables. See notes below.
 
 - keep_original_cols:
 
@@ -72,12 +74,13 @@ step_textfeature(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -97,6 +100,13 @@ columns equal to the number of functions in the list passed to the
 All the functions passed to `extract_functions` must take a character
 vector as input and return a numeric vector of the same length,
 otherwise an error will be thrown.
+
+The new columns will have names that begin with `prefix`, then the name
+of the variable, then the name of the function in `extract_functions`,
+all separated by `_`. For example, with the default
+`prefix = "textfeature"`, a variable named `text`, and the default
+`count_functions`, the columns will include `textfeature_text_n_words`
+and `textfeature_text_n_uq_words`.
 
 ## Tidying
 
@@ -366,21 +376,21 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  functions id               
 #>   <chr>  <chr>     <chr>            
-#> 1 medium NA        textfeature_ZNGqp
+#> 1 medium NA        textfeature_gKUId
 tidy(tate_obj, number = 1)
 #> # A tibble: 26 × 3
 #>    terms  functions     id               
 #>    <chr>  <chr>         <chr>            
-#>  1 medium n_words       textfeature_ZNGqp
-#>  2 medium n_uq_words    textfeature_ZNGqp
-#>  3 medium n_charS       textfeature_ZNGqp
-#>  4 medium n_uq_charS    textfeature_ZNGqp
-#>  5 medium n_digits      textfeature_ZNGqp
-#>  6 medium n_hashtags    textfeature_ZNGqp
-#>  7 medium n_uq_hashtags textfeature_ZNGqp
-#>  8 medium n_mentions    textfeature_ZNGqp
-#>  9 medium n_uq_mentions textfeature_ZNGqp
-#> 10 medium n_commas      textfeature_ZNGqp
+#>  1 medium n_words       textfeature_gKUId
+#>  2 medium n_uq_words    textfeature_gKUId
+#>  3 medium n_charS       textfeature_gKUId
+#>  4 medium n_uq_charS    textfeature_gKUId
+#>  5 medium n_digits      textfeature_gKUId
+#>  6 medium n_hashtags    textfeature_gKUId
+#>  7 medium n_uq_hashtags textfeature_gKUId
+#>  8 medium n_mentions    textfeature_gKUId
+#>  9 medium n_uq_mentions textfeature_gKUId
+#> 10 medium n_commas      textfeature_gKUId
 #> # ℹ 16 more rows
 
 # Using custom extraction functions

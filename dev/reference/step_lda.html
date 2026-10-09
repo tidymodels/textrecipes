@@ -75,46 +75,46 @@ lda dimension estimates of a text variable.</p>
 
 
 <dl><dt id="arg-recipe">recipe<a class="anchor" aria-label="anchor" href="#arg-recipe"></a></dt>
-<dd><p>A <a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe</a> object. The step will be added to the
+<dd><p>A <code><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipes::recipe()</a></code> object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>One or more selector functions to choose which
-variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code>
-for more details.</p></dd>
+<dd><p>One or more selector functions to choose which variables are
+affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-role">role<a class="anchor" aria-label="anchor" href="#arg-role"></a></dt>
-<dd><p>For model terms created by this step, what analysis
-role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be
-used as predictors in a model.</p></dd>
+<dd><p>For model terms created by this step, what analysis role should
+they be assigned? By default, the new columns created by this step from the
+original variables will be used as <em>predictors</em> in a model.</p></dd>
 
 
 <dt id="arg-trained">trained<a class="anchor" aria-label="anchor" href="#arg-trained"></a></dt>
-<dd><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></dd>
+<dd><p>A logical to indicate if the quantities for preprocessing
+have been estimated.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>A character string of variable names that will
-be populated (eventually) by the <code>terms</code> argument. This is <code>NULL</code>
-until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>.</p></dd>
+<dd><p>A character vector of the selected variable names. This is
+<code>NULL</code> until the step is trained by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code>, and should
+not be set by hand.</p></dd>
 
 
 <dt id="arg-lda-models">lda_models<a class="anchor" aria-label="anchor" href="#arg-lda-models"></a></dt>
-<dd><p>A WarpLDA model object from <a href="https://rdrr.io/pkg/text2vec/man/LatentDirichletAllocation.html" class="external-link">text2vec::LDA</a>. If left
-to NULL, the default, it will train its model based on the training data.
-Look at the examples for how to fit a WarpLDA model.</p></dd>
+<dd><p>A WarpLDA model object from <a href="https://rdrr.io/pkg/text2vec/man/LatentDirichletAllocation.html" class="external-link">text2vec::LDA</a>. If
+<code>NULL</code>, the default, it will train its model based on the training
+data. Look at the examples for how to fit a WarpLDA model.</p></dd>
 
 
 <dt id="arg-num-topics">num_topics<a class="anchor" aria-label="anchor" href="#arg-num-topics"></a></dt>
-<dd><p>integer desired number of latent topics.</p></dd>
+<dd><p>A whole number, the desired number of latent topics.
+Defaults to <code>10</code>.</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
-<dd><p>A prefix for generated column names, defaults to "lda".</p></dd>
+<dd><p>A character string that will be the prefix to the resulting
+new variables. See notes below.</p></dd>
 
 
 <dt id="arg-keep-original-cols">keep_original_cols<a class="anchor" aria-label="anchor" href="#arg-keep-original-cols"></a></dt>
@@ -123,11 +123,12 @@ output. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
-<dd><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake.recipe()</a></code>? While all operations are baked
-when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = FALSE</code>.</p></dd>
+<dd><p>A logical. Should the step be skipped when the recipe is baked
+by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">recipes::bake()</a></code>? While all operations are baked when
+<code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is run, some operations may not be able to be conducted
+on new data (e.g. processing the outcome variable(s)). Care should be
+taken when using <code>skip = TRUE</code>, as it may affect the computations for
+subsequent operations.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -138,6 +139,13 @@ Care should be taken when using <code>skip = FALSE</code>.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>An updated version of <code>recipe</code> with the new step added
 to the sequence of existing steps (if any).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The new columns will have names that begin with <code>prefix</code>, then the name of
+the variable, then the index of the topic, all separated by <code>_</code>. For example,
+with the default <code>prefix = "lda"</code> and a variable named <code>text</code>, the columns
+will be named <code>lda_text_1</code>, <code>lda_text_2</code>, and so on up to <code>num_topics</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
@@ -214,8 +222,8 @@ columns <code>terms</code>, <code>num_topics</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 43</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Prop…  <span style="text-decoration: underline;">1</span>990       0.037<span style="text-decoration: underline;">5</span>       0.037<span style="text-decoration: underline;">5</span>            0        0.162</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Mich…  <span style="text-decoration: underline;">1</span>990       0.033<span style="text-decoration: underline;">3</span>       0.033<span style="text-decoration: underline;">3</span>            0        0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Prop…  <span style="text-decoration: underline;">1</span>990          0              0       0             0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Mich…  <span style="text-decoration: underline;">1</span>990          0.1            0       0.033<span style="text-decoration: underline;">3</span>        0.167</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 36 more variables: lda_medium_5 &lt;dbl&gt;, lda_medium_6 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_7 &lt;dbl&gt;, lda_medium_8 &lt;dbl&gt;, lda_medium_9 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_10 &lt;dbl&gt;, lda_medium_11 &lt;dbl&gt;, lda_medium_12 &lt;dbl&gt;,</span></span>
@@ -241,8 +249,8 @@ columns <code>terms</code>, <code>num_topics</code>, and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 33</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Prop…  <span style="text-decoration: underline;">1</span>990       0.037<span style="text-decoration: underline;">5</span>          0          0.513        0    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Mich…  <span style="text-decoration: underline;">1</span>990       0.133           0.1        0            0.133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">21</span>926 Prop…  <span style="text-decoration: underline;">1</span>990       0               0         0.012<span style="text-decoration: underline;">5</span>       0.012<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">20</span>472 Mich…  <span style="text-decoration: underline;">1</span>990       0.033<span style="text-decoration: underline;">3</span>          0.1       0.033<span style="text-decoration: underline;">3</span>       0.133 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: lda_medium_5 &lt;dbl&gt;, lda_medium_6 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_7 &lt;dbl&gt;, lda_medium_8 &lt;dbl&gt;, lda_medium_9 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lda_medium_10 &lt;dbl&gt;, lda_medium_11 &lt;dbl&gt;, lda_medium_12 &lt;dbl&gt;,</span></span>

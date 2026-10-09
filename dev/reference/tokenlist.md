@@ -13,15 +13,17 @@ tokenlist(tokens = list(), lemma = NULL, pos = NULL)
 
 - tokens:
 
-  List of character vectors
+  A list of character vectors.
 
 - lemma:
 
-  List of character vectors, must be same size and shape as `x`.
+  A list of character vectors, must be the same size and shape as
+  `tokens`.
 
 - pos:
 
-  List of character vectors, must be same size and shape as `x`.
+  A list of character vectors, must be the same size and shape as
+  `tokens`.
 
 ## Value
 

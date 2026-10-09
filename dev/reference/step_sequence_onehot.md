@@ -33,7 +33,7 @@ step_sequence_onehot(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -47,9 +47,8 @@ step_sequence_onehot(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -58,35 +57,37 @@ step_sequence_onehot(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - sequence_length:
 
-  A numeric, number of characters to keep before discarding. Defaults to
-  100.
+  A whole number, the number of characters to keep before discarding.
+  Defaults to `100`.
 
 - padding:
 
-  'pre' or 'post', pad either before or after each sequence. defaults to
-  'pre'.
+  A single string, either `"pre"` or `"post"`, determining whether to
+  pad before or after each sequence. Defaults to `"pre"`.
 
 - truncating:
 
-  'pre' or 'post', remove values from sequences larger than
-  sequence_length either in the beginning or in the end of the sequence.
-  Defaults too 'pre'.
+  A single string, either `"pre"` or `"post"`, determining whether to
+  remove values from the beginning or the end of sequences longer than
+  `sequence_length`. Defaults to `"pre"`.
 
 - vocabulary:
 
-  A character vector, characters to be mapped to integers. Characters
-  not in the vocabulary will be encoded as 0. Defaults to `letters`.
+  A character vector of the characters to be mapped to integers.
+  Characters not in the vocabulary will be encoded as 0. If `NULL`, the
+  default, all characters found in the training data are used.
 
 - prefix:
 
-  A prefix for generated column names, defaults to "seq1hot".
+  A character string that will be the prefix to the resulting new
+  variables. See notes below.
 
 - keep_original_cols:
 
@@ -96,12 +97,13 @@ step_sequence_onehot(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -119,6 +121,12 @@ shorter then sequence_length will be padded with empty characters. The
 encoding will assign an integer to each character in the vocabulary, and
 will encode accordingly. Characters not in the vocabulary will be
 encoded as 0.
+
+The new columns will have names that begin with `prefix`, then the name
+of the variable, then the position in the sequence, all separated by
+`_`. For example, with the default `prefix = "seq1hot"`, a variable
+named `text`, and `sequence_length = 3`, the columns will be named
+`seq1hot_text_1`, `seq1hot_text_2`, and `seq1hot_text_3`.
 
 ## Tidying
 
@@ -194,20 +202,20 @@ tidy(tate_rec, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  vocabulary token id                   
 #>   <chr>  <chr>      <int> <chr>                
-#> 1 medium NA            NA sequence_onehot_bn0Sc
+#> 1 medium NA            NA sequence_onehot_UKHka
 tidy(tate_obj, number = 3)
 #> # A tibble: 100 × 4
 #>    terms  vocabulary token     id                   
 #>    <chr>       <int> <chr>     <chr>                
-#>  1 medium          1 16        sequence_onehot_bn0Sc
-#>  2 medium          2 2         sequence_onehot_bn0Sc
-#>  3 medium          3 3         sequence_onehot_bn0Sc
-#>  4 medium          4 35        sequence_onehot_bn0Sc
-#>  5 medium          5 4         sequence_onehot_bn0Sc
-#>  6 medium          6 5         sequence_onehot_bn0Sc
-#>  7 medium          7 6         sequence_onehot_bn0Sc
-#>  8 medium          8 8         sequence_onehot_bn0Sc
-#>  9 medium          9 acrylic   sequence_onehot_bn0Sc
-#> 10 medium         10 aluminium sequence_onehot_bn0Sc
+#>  1 medium          1 16        sequence_onehot_UKHka
+#>  2 medium          2 2         sequence_onehot_UKHka
+#>  3 medium          3 3         sequence_onehot_UKHka
+#>  4 medium          4 35        sequence_onehot_UKHka
+#>  5 medium          5 4         sequence_onehot_UKHka
+#>  6 medium          6 5         sequence_onehot_UKHka
+#>  7 medium          7 6         sequence_onehot_UKHka
+#>  8 medium          8 8         sequence_onehot_UKHka
+#>  9 medium          9 acrylic   sequence_onehot_UKHka
+#> 10 medium         10 aluminium sequence_onehot_UKHka
 #> # ℹ 90 more rows
 ```

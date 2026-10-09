@@ -36,6 +36,12 @@
   [`step_clean_names()`](https://textrecipes.tidymodels.org/dev/reference/step_clean_names.md).
   ([\#198](https://github.com/tidymodels/textrecipes/issues/198))
 
+- Argument documentation has been revised across all steps to follow the
+  tidyverse style guide: defaults are now stated, fixed sets of values
+  are listed, code is formatted consistently, and the descriptions of
+  `res`, `smooth_idf`, `norm`, and `vocabulary` are now accurate.
+  ([\#263](https://github.com/tidymodels/textrecipes/issues/263))
+
 - Added a vignette, “Using textrecipes as a sparse matrix engine”,
   documenting which steps produce sparse data and how to use them.
   ([\#302](https://github.com/tidymodels/textrecipes/issues/302))

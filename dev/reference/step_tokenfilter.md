@@ -30,7 +30,7 @@ step_tokenfilter(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -52,53 +52,61 @@ step_tokenfilter(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - max_times:
 
-  An integer. Maximal number of times a word can appear before getting
-  removed.
+  A number. Maximal number of times a token can appear before getting
+  removed. An integer count, or a proportion between 0 and 1 if
+  `percentage = TRUE`. Defaults to `Inf`.
 
 - min_times:
 
-  An integer. Minimum number of times a word can appear before getting
-  removed.
+  A number. Minimum number of times a token must appear to avoid getting
+  removed. An integer count, or a proportion between 0 and 1 if
+  `percentage = TRUE`. Defaults to `0`.
 
 - percentage:
 
-  A logical. Should max_times and min_times be interpreted as a
-  percentage instead of count.
+  A logical. Should `max_times` and `min_times` be interpreted as a
+  proportion of all token occurrences in the training data instead of a
+  count? For example, with `percentage = TRUE` and `min_times = 0.01`,
+  tokens that make up less than 1 percent of all tokens are removed.
+  Defaults to `FALSE`.
 
 - max_tokens:
 
-  An integer. Will only keep the top max_tokens tokens after filtering
-  done by max_times and min_times. Defaults to 100.
+  An integer. Will only keep the top `max_tokens` tokens after filtering
+  done by `max_times` and `min_times`. Defaults to `100`.
 
 - filter_fun:
 
-  A function. This function should take a vector of characters, and
-  return a logical vector of the same length. This function will be
-  applied to each observation of the data set. Defaults to `NULL`. All
-  other arguments will be ignored if this argument is used.
+  A function. This function should take a vector of characters and
+  return a logical vector of the same length. It will be applied to each
+  observation of the data set. If `NULL`, the default, tokens are
+  filtered using `max_times`, `min_times`, `percentage`, and
+  `max_tokens`, which are otherwise ignored.
 
 - res:
 
-  The words that will be keep will be stored here once this
-  preprocessing step has be trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A named list of the tokens that will be kept for each selected
+  variable. This is `NULL` until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  and should not be set by hand.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -207,10 +215,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium    NA tokenfilter_jzUHV
+#> 1 medium    NA tokenfilter_qkoWR
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium   952 tokenfilter_jzUHV
+#> 1 medium   952 tokenfilter_qkoWR
 ```

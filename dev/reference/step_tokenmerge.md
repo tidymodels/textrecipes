@@ -28,7 +28,7 @@ step_tokenmerge(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -42,9 +42,8 @@ step_tokenmerge(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -53,14 +52,15 @@ step_tokenmerge(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - prefix:
 
-  A prefix for generated column names, defaults to "tokenmerge".
+  A character string that will be the prefix to the resulting new
+  variables. See notes below.
 
 - keep_original_cols:
 
@@ -70,12 +70,13 @@ step_tokenmerge(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -85,6 +86,12 @@ step_tokenmerge(
 
 An updated version of `recipe` with the new step added to the sequence
 of existing steps (if any).
+
+## Details
+
+All the selected variables are merged into a single new variable named
+`prefix`, which is `"tokenmerge"` by default. The name of the selected
+variables is not part of the new name.
 
 ## Tidying
 
@@ -152,12 +159,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 2 × 2
 #>   terms  id              
 #>   <chr>  <chr>           
-#> 1 medium tokenmerge_qZntK
-#> 2 artist tokenmerge_qZntK
+#> 1 medium tokenmerge_cOBDq
+#> 2 artist tokenmerge_cOBDq
 tidy(tate_obj, number = 2)
 #> # A tibble: 2 × 2
 #>   terms  id              
 #>   <chr>  <chr>           
-#> 1 medium tokenmerge_qZntK
-#> 2 artist tokenmerge_qZntK
+#> 1 medium tokenmerge_cOBDq
+#> 2 artist tokenmerge_cOBDq
 ```

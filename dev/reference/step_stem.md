@@ -26,7 +26,7 @@ step_stem(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -48,29 +48,33 @@ step_stem(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - options:
 
-  A list of options passed to the stemmer function.
+  A list of options passed to the stemmer function. Note that the
+  arguments `X` and `FUN` should not be passed here. Defaults to
+  [`list()`](https://rdrr.io/r/base/list.html).
 
 - custom_stemmer:
 
-  A custom stemming function. If none is provided it will default to
-  [`SnowballC::wordStem()`](https://rdrr.io/pkg/SnowballC/man/wordStem.html).
+  A custom stemming function. If `NULL`, the default,
+  [`SnowballC::wordStem()`](https://rdrr.io/pkg/SnowballC/man/wordStem.html)
+  is used.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -162,12 +166,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_WJnb9
+#> 1 medium FALSE             stem_Wo7GU
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_WJnb9
+#> 1 medium FALSE             stem_Wo7GU
 
 # Using custom stemmer. Here a custom stemmer that removes the last letter
 # if it is a "s".

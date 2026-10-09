@@ -28,7 +28,7 @@ step_stopwords(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -50,39 +50,45 @@ step_stopwords(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - language:
 
-  A character to indicate the language of stop words by ISO 639-1 coding
-  scheme.
+  A single string indicating the language of the stop words by ISO 639-1
+  coding scheme. Ignored if `custom_stopword_source` is used. Defaults
+  to `"en"`.
 
 - keep:
 
-  A logical. Specifies whether to keep the stop words or discard them.
+  A logical. Should the stop words be kept instead of discarded?
+  Defaults to `FALSE`.
 
 - stopword_source:
 
-  A character to indicate the stop words source as listed in
+  A single string indicating the stop words source, as listed in
   [`stopwords::stopwords_getsources()`](https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html).
+  Ignored if `custom_stopword_source` is used. Defaults to `"snowball"`.
 
 - custom_stopword_source:
 
-  A character vector to indicate a custom list of words that cater to
-  the users specific problem.
+  A character vector of words to use as a custom list of stop words,
+  which cater to the user's specific problem. If `NULL`, the default,
+  the list is taken from `stopword_source` and `language`. If used,
+  `language` and `stopword_source` are ignored.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -177,12 +183,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value keep  id             
 #>   <chr>  <chr> <lgl> <chr>          
-#> 1 medium NA    NA    stopwords_uNBvq
+#> 1 medium NA    NA    stopwords_NGV45
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value    keep  id             
 #>   <chr>  <chr>    <lgl> <chr>          
-#> 1 medium snowball FALSE stopwords_uNBvq
+#> 1 medium snowball FALSE stopwords_NGV45
 
 # With a custom stop words list
 

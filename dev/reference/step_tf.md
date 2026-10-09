@@ -1,8 +1,9 @@
 # Term frequency of Tokens
 
-`sparse = "yes"` doesn't take effect when
-`weight_scheme = "double normalization"` as it doesn't produce sparse
-data.
+`step_tf()` creates a *specification* of a recipe step that will convert
+a
+[`token`](https://textrecipes.tidymodels.org/dev/reference/tokenlist.md)
+variable into multiple variables containing the token counts.
 
 ## Usage
 
@@ -30,7 +31,7 @@ step_tf(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -44,9 +45,8 @@ step_tf(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -55,32 +55,36 @@ step_tf(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - weight_scheme:
 
-  A character determining the weighting scheme for the term frequency
-  calculations. Must be one of "binary", "raw count", "term frequency",
-  "log normalization" or "double normalization". Defaults to "raw
-  count".
+  A single string determining the weighting scheme for the term
+  frequency calculations. Must be one of `"binary"`, `"raw count"`,
+  `"term frequency"`, `"log normalization"`, or
+  `"double normalization"`. See details for what each scheme does. Note
+  that `sparse = "yes"` has no effect with `"double normalization"`, as
+  it doesn't produce sparse data. Defaults to `"raw count"`.
 
 - weight:
 
-  A numeric weight used if `weight_scheme` is set to "double
-  normalization". Defaults to 0.5.
+  A single numeric weight used if `weight_scheme` is set to
+  `"double normalization"`. Defaults to `0.5`.
 
 - vocabulary:
 
-  A character vector of strings to be considered.
+  A character vector of the tokens to create variables for. If `NULL`,
+  the default, all tokens found in the training data are used.
 
 - res:
 
-  The words that will be used to calculate the term frequency will be
-  stored here once this preprocessing step has be trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A named list of the tokens used for each selected variable. This is
+  `NULL` until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  and should not be set by hand.
 
 - prefix:
 
@@ -89,7 +93,7 @@ step_tf(
 
 - sparse:
 
-  A single string. Should the columns produced be sparse vectors. Can
+  A single string. Should the columns produced be sparse vectors? Can
   take the values `"yes"`, `"no"`, and `"auto"`. If `sparse = "auto"`
   then workflows can determine the best option. Defaults to `"auto"`.
 
@@ -101,12 +105,13 @@ step_tf(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -118,11 +123,6 @@ An updated version of `recipe` with the new step added to the sequence
 of existing steps (if any).
 
 ## Details
-
-`step_tf()` creates a *specification* of a recipe step that will convert
-a
-[`token`](https://textrecipes.tidymodels.org/dev/reference/tokenlist.md)
-variable into multiple variables containing the token counts.
 
 It is strongly advised to use
 [step_tokenfilter](https://textrecipes.tidymodels.org/dev/reference/step_tokenfilter.md)
@@ -146,11 +146,10 @@ document. This is then multiplied by `weight` and `weight` is added to
 the result. This is again done to prevent a bias towards longer
 documents.
 
-The new components will have names that begin with `prefix`, then the
-name of the variable, followed by the tokens all separated by `-`. The
-variable names are padded with zeros. For example if `prefix = "hash"`,
-and if `num_terms < 10`, their names will be `hash1` - `hash9`. If
-`num_terms = 101`, their names will be `hash001` - `hash101`.
+The new columns will have names that begin with `prefix`, then the name
+of the variable, then the token, all separated by `_`. For example, with
+the default `prefix = "tf"`, a variable named `text`, and the token
+`"word"`, the new column will be named `tf_text_word`.
 
 ## Tidying
 
@@ -182,13 +181,13 @@ This step has 2 tuning parameters:
 ## Sparse data
 
 This step produces sparse columns if `sparse = "yes"` is being set. The
-default value `"auto"` won't trigger production fo sparse columns if a
+default value `"auto"` won't trigger production of sparse columns if a
 recipe is
 [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)ed,
 but allows for a workflow to toggle to `"yes"` or `"no"` depending on
 whether the model supports
 [recipes::sparse_data](https://recipes.tidymodels.org/reference/sparse_data.html)
-and if the model is is expected to run faster with the data.
+and if the model is expected to run faster with the data.
 
 The mechanism for determining how much sparsity is produced isn't
 perfect, and there will be times when you want to manually overwrite by
@@ -251,11 +250,11 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id      
 #>   <chr>  <chr> <chr>   
-#> 1 medium NA    tf_Slfwm
+#> 1 medium NA    tf_VmMDw
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value     id      
 #>   <chr>  <chr>     <chr>   
-#> 1 medium raw count tf_Slfwm
+#> 1 medium raw count tf_VmMDw
 # }
 ```

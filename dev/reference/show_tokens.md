@@ -15,15 +15,17 @@ show_tokens(rec, var, n = 6L)
 
 - rec:
 
-  A recipe object
+  A
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
+  object.
 
 - var:
 
-  name of variable
+  The name of the variable to show tokens for, as a bare name.
 
 - n:
 
-  Number of elements to return.
+  The number of elements to return.
 
 ## Value
 

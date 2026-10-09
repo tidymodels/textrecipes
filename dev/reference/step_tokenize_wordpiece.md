@@ -27,7 +27,7 @@ step_tokenize_wordpiece(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -49,33 +49,36 @@ step_tokenize_wordpiece(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - vocab:
 
-  Character of Character vector of vocabulary tokens. Defaults to
+  A character vector of vocabulary tokens. Defaults to
   [`wordpiece::wordpiece_vocab()`](https://rdrr.io/pkg/wordpiece.data/man/wordpiece_vocab.html).
 
 - unk_token:
 
-  Token to represent unknown words. Defaults to `"[UNK]"`.
+  A single string used to represent unknown words. Defaults to
+  `"[UNK]"`.
 
 - max_chars:
 
-  Integer, Maximum length of word recognized. Defaults to 100.
+  An integer, the maximum length of a word recognized. Defaults to
+  `100`.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -146,10 +149,10 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                      
 #>   <chr>  <chr>                   
-#> 1 medium tokenize_wordpiece_3klcD
+#> 1 medium tokenize_wordpiece_FNw7X
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                      
 #>   <chr>  <chr>                   
-#> 1 medium tokenize_wordpiece_3klcD
+#> 1 medium tokenize_wordpiece_FNw7X
 ```

@@ -29,7 +29,7 @@ step_ngram(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -51,34 +51,37 @@ step_ngram(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - num_tokens:
 
   The number of tokens in the n-gram. This must be an integer greater
-  than or equal to 1. Defaults to 3.
+  than or equal to 1. Defaults to `3`.
 
 - min_num_tokens:
 
   The minimum number of tokens in the n-gram. This must be an integer
-  greater than or equal to 1 and smaller than `n`. Defaults to 3.
+  greater than or equal to 1 and smaller than or equal to `num_tokens`.
+  Defaults to `3`.
 
 - delim:
 
-  The separator between words in an n-gram. Defaults to "\_".
+  A single string, the separator between words in an n-gram. Defaults to
+  `"_"`.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -169,10 +172,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 2
 #>   terms  id         
 #>   <chr>  <chr>      
-#> 1 medium ngram_HLTSN
+#> 1 medium ngram_OWlQM
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 2
 #>   terms  id         
 #>   <chr>  <chr>      
-#> 1 medium ngram_HLTSN
+#> 1 medium ngram_OWlQM
 ```

@@ -30,7 +30,7 @@ step_word_embeddings(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -44,9 +44,8 @@ step_word_embeddings(
 - role:
 
   For model terms created by this step, what analysis role should they
-  be assigned?. By default, the function assumes that the new columns
-  created by the original variables will be used as predictors in a
-  model.
+  be assigned? By default, the new columns created by this step from the
+  original variables will be used as *predictors* in a model.
 
 - trained:
 
@@ -55,27 +54,27 @@ step_word_embeddings(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - embeddings:
 
-  A tibble of pre-trained word embeddings, such as those returned by the
-  embedding_glove function from the textdata package. The first column
-  should contain tokens, and additional columns should contain
-  embeddings vectors.
+  A tibble of pre-trained word embeddings, such as those returned by
+  `textdata::embedding_glove6b()`. The first column should contain
+  tokens, and additional columns should contain embedding vectors.
 
 - aggregation:
 
-  A character giving the name of the aggregation function to use. Must
-  be one of "sum", "mean", "min", and "max". Defaults to "sum".
+  A single string giving the name of the aggregation function used to
+  combine the embeddings of the tokens in each document. Must be one of
+  `"sum"`, `"mean"`, `"min"`, or `"max"`. Defaults to `"sum"`.
 
 - aggregation_default:
 
-  A numeric denoting the default value for case with no words are
-  matched in embedding. Defaults to 0.
+  A single numeric value used for documents where none of the tokens are
+  found in the embeddings. Defaults to `0`.
 
 - prefix:
 
@@ -90,12 +89,13 @@ step_word_embeddings(
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -204,10 +204,10 @@ tidy(rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_DiMpH
+#> 1 text                3 sum         word_embeddings_Hh0UV
 tidy(obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_DiMpH
+#> 1 text                3 sum         word_embeddings_Hh0UV
 ```

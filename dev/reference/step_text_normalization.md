@@ -23,7 +23,7 @@ step_text_normalization(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -45,28 +45,29 @@ step_text_normalization(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - normalization_form:
 
-  A single character string determining the Unicode Normalization. Must
-  be one of "nfc", "nfd", "nfkd", "nfkc", or "nfkc_casefold". Defaults
-  to "nfc". See
+  A single string determining the Unicode normalization. Must be one of
+  `"nfc"`, `"nfd"`, `"nfkd"`, `"nfkc"`, or `"nfkc_casefold"`. Defaults
+  to `"nfc"`. See
   [`stringi::stri_trans_nfc()`](https://rdrr.io/pkg/stringi/man/stri_trans_nf.html)
   for more details.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -136,10 +137,10 @@ tidy(rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms normalization_form id                      
 #>   <chr> <chr>              <chr>                   
-#> 1 text  NA                 text_normalization_YAev4
+#> 1 text  NA                 text_normalization_kmfwA
 tidy(prepped, number = 1)
 #> # A tibble: 1 × 3
 #>   terms normalization_form id                      
 #>   <chr> <chr>              <chr>                   
-#> 1 text  nfc                text_normalization_YAev4
+#> 1 text  nfc                text_normalization_kmfwA
 ```

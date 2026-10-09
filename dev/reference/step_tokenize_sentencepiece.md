@@ -27,7 +27,7 @@ step_tokenize_sentencepiece(
 - recipe:
 
   A
-  [recipes::recipe](https://recipes.tidymodels.org/reference/recipe.html)
+  [`recipes::recipe()`](https://recipes.tidymodels.org/reference/recipe.html)
   object. The step will be added to the sequence of operations for this
   recipe.
 
@@ -49,15 +49,15 @@ step_tokenize_sentencepiece(
 
 - columns:
 
-  A character string of variable names that will be populated
-  (eventually) by the `terms` argument. This is `NULL` until the step is
-  trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  A character vector of the selected variable names. This is `NULL`
+  until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html),
+  and should not be set by hand.
 
 - vocabulary_size:
 
-  Integer, indicating the number of tokens in the final vocabulary.
-  Defaults to 1000. Highly encouraged to be tuned.
+  An integer, indicating the number of tokens in the final vocabulary.
+  Defaults to `1000`. Highly encouraged to be tuned.
 
 - options:
 
@@ -67,24 +67,28 @@ step_tokenize_sentencepiece(
   [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time.
   These options have no effect on already-trained models at
   [`bake()`](https://recipes.tidymodels.org/reference/bake.html) time.
+  Note that the arguments `x`, `model_dir`, and `vocab_size` should not
+  be passed here, use `vocabulary_size` instead. Defaults to
+  [`list()`](https://rdrr.io/r/base/list.html).
 
 - res:
 
   The fitted
   [`sentencepiece::sentencepiece()`](https://rdrr.io/pkg/sentencepiece/man/sentencepiece.html)
-  model tokenizer will be stored here once this preprocessing step has
-  be trained by
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html).
+  model tokenizer. This is `NULL` until the step is trained by
+  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  and should not be set by hand.
 
 - skip:
 
   A logical. Should the step be skipped when the recipe is baked by
-  [`recipes::bake.recipe()`](https://recipes.tidymodels.org/reference/bake.html)?
+  [`recipes::bake()`](https://recipes.tidymodels.org/reference/bake.html)?
   While all operations are baked when
-  [`recipes::prep.recipe()`](https://recipes.tidymodels.org/reference/prep.html)
+  [`recipes::prep()`](https://recipes.tidymodels.org/reference/prep.html)
   is run, some operations may not be able to be conducted on new data
   (e.g. processing the outcome variable(s)). Care should be taken when
-  using `skip = FALSE`.
+  using `skip = TRUE`, as it may affect the computations for subsequent
+  operations.
 
 - id:
 
@@ -161,10 +165,10 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_B7KNE
+#> 1 medium tokenize_sentencepiece_gvtOt
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_B7KNE
+#> 1 medium tokenize_sentencepiece_gvtOt
 ```
