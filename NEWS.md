@@ -12,6 +12,8 @@
 
 * Added a vignette, "Using textrecipes as a sparse matrix engine", documenting which steps produce sparse data and how to use them. (#302)
 
+* Added a vignette, "Tokenizers", giving an overview of the tokenization options in the package and how they change the resulting tokens. (#158)
+
 * The documentation for `step_tokenize()` now states that `training_options` also applies to `engine = "udpipe"`, where it must contain the loaded `model`, and includes an example. (#237)
 
 ## Bug Fixes
