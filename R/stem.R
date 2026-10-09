@@ -8,9 +8,11 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param options A list of options passed to the stemmer function.
-#' @param custom_stemmer A custom stemming function. If none is provided it will
-#'   default to [SnowballC::wordStem()].
+#' @param options A list of options passed to the stemmer function. Note that
+#'   the arguments `X` and `FUN` should not be passed here. Defaults to
+#'   `list()`.
+#' @param custom_stemmer A custom stemming function. If `NULL`, the default,
+#'   [SnowballC::wordStem()] is used.
 #' @template args-skip
 #' @template args-id
 #'

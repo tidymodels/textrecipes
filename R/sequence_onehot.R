@@ -8,17 +8,17 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param sequence_length A numeric, number of characters to keep before
-#'   discarding. Defaults to 100.
-#' @param padding 'pre' or 'post', pad either before or after each sequence.
-#'   defaults to 'pre'.
-#' @param truncating 'pre' or 'post', remove values from sequences larger than
-#'   sequence_length either in the beginning or in the end of the sequence.
-#'   Defaults too 'pre'.
-#' @param vocabulary A character vector, characters to be mapped to integers.
-#'   Characters not in the vocabulary will be encoded as 0. Defaults to
-#'   `letters`.
-#' @param prefix A prefix for generated column names, defaults to "seq1hot".
+#' @param sequence_length A whole number, the number of characters to keep before
+#'   discarding. Defaults to `100`.
+#' @param padding A single string, either `"pre"` or `"post"`, determining
+#'   whether to pad before or after each sequence. Defaults to `"pre"`.
+#' @param truncating A single string, either `"pre"` or `"post"`, determining
+#'   whether to remove values from the beginning or the end of sequences longer
+#'   than `sequence_length`. Defaults to `"pre"`.
+#' @param vocabulary A character vector of the characters to be mapped to
+#'   integers. Characters not in the vocabulary will be encoded as 0. If
+#'   `NULL`, the default, all characters found in the training data are used.
+#' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
@@ -35,6 +35,12 @@
 #' then sequence_length will be padded with empty characters. The encoding will
 #' assign an integer to each character in the vocabulary, and will encode
 #' accordingly. Characters not in the vocabulary will be encoded as 0.
+#'
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the position in the sequence, all separated by `_`. For
+#' example, with the default `prefix = "seq1hot"`, a variable named `text`, and
+#' `sequence_length = 3`, the columns will be named `seq1hot_text_1`,
+#' `seq1hot_text_2`, and `seq1hot_text_3`.
 #'
 #' # Tidying
 #'

@@ -9,14 +9,16 @@
 #' @template args-role_no-new
 #' @template args-trained
 #' @template args-columns
-#' @param vocabulary_size Integer, indicating the number of tokens in the final
-#'   vocabulary. Defaults to 1000. Highly encouraged to be tuned.
-#' @param options A list of options passed to `sentencepiece::sentencepiece()`
+#' @param vocabulary_size An integer, indicating the number of tokens in the
+#'   final vocabulary. Defaults to `1000`. Highly encouraged to be tuned.
+#' @param options A list of options passed to [sentencepiece::sentencepiece()]
 #'   when the tokenizer is trained at `prep()` time. These options have no
-#'   effect on already-trained models at `bake()` time.
-#' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer will
-#'   be stored here once this preprocessing step has be trained by
-#'   [recipes::prep.recipe()].
+#'   effect on already-trained models at `bake()` time. Note that the arguments
+#'   `x`, `model_dir`, and `vocab_size` should not be passed here, use
+#'   `vocabulary_size` instead. Defaults to `list()`.
+#' @param res The fitted [sentencepiece::sentencepiece()] model tokenizer. This
+#'   is `NULL` until the step is trained by [recipes::prep.recipe()] and should
+#'   not be set by hand.
 #' @template args-skip
 #' @template args-id
 #'

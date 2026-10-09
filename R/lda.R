@@ -8,16 +8,22 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param lda_models A WarpLDA model object from [text2vec::LDA]. If left
-#'   to NULL, the default, it will train its model based on the training data.
-#'   Look at the examples for how to fit a WarpLDA model.
-#' @param num_topics integer desired number of latent topics.
-#' @param prefix A prefix for generated column names, defaults to "lda".
+#' @param lda_models A WarpLDA model object from [text2vec::LDA]. If
+#'   `NULL`, the default, it will train its model based on the training
+#'   data. Look at the examples for how to fit a WarpLDA model.
+#' @param num_topics A whole number, the desired number of latent topics.
+#'   Defaults to `10`.
+#' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip
 #' @template args-id
 #'
 #' @details
+#'
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the index of the topic, all separated by `_`. For example,
+#' with the default `prefix = "lda"` and a variable named `text`, the columns
+#' will be named `lda_text_1`, `lda_text_2`, and so on up to `num_topics`.
 #'
 #' # Tidying
 #'

@@ -9,19 +9,23 @@
 #' @template args-trained
 #' @template args-columns
 #' @param training_options A list of options passed to the tokenizer when it is
-#'   being trained. Only applicable for engine == "tokenizers.bpe".
-#' @param options A list of options passed to the tokenizer. For
+#'   being trained. Only applicable when `engine = "tokenizers.bpe"`. Note that
+#'   the argument `x` should not be passed here. Defaults to `list()`.
+#' @param options A list of options passed to the tokenizer. Note that the
+#'   argument `x` should not be passed here. For
 #'   `engine = "tokenizers.bpe"` these options only apply when the tokenizer
 #'   is trained (at `prep()` time); they have no effect on already-trained
 #'   models at `bake()` time. For `engine = "spacyr"` the options are applied
-#'   each time the data is tokenized, including at `bake()` time.
-#' @param token Unit for tokenizing. See details for options. Defaults to
-#'   "words".
-#' @param engine Package that will be used for tokenization. See details for
-#'   options. Defaults to "tokenizers".
-#' @param custom_token User supplied tokenizer. Use of this argument will
-#'   overwrite the token and engine arguments. Must take a character vector as
-#'   input and output a list of character vectors.
+#'   each time the data is tokenized, including at `bake()` time. Defaults to
+#'   `list()`.
+#' @param token A single string giving the unit for tokenizing. See details for
+#'   options. Defaults to `"words"`.
+#' @param engine A single string giving the package that will be used for
+#'   tokenization. See details for options. Defaults to `"tokenizers"`.
+#' @param custom_token A user supplied tokenizer function. Must take a
+#'   character vector as input and output a list of character vectors. If
+#'   `NULL`, the default, `token` and `engine` determine the tokenizer;
+#'   otherwise they are overwritten.
 #' @template args-skip
 #' @template args-id
 #'

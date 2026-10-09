@@ -9,16 +9,19 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param weight_scheme A character determining the weighting scheme for the
-#'   term frequency calculations. Must be one of "binary", "raw count", "term
-#'   frequency", "log normalization" or "double normalization". Defaults to "raw
-#'   count".
-#' @param weight A numeric weight used if `weight_scheme` is set to "double
-#'   normalization". Defaults to 0.5.
-#' @param vocabulary A character vector of strings to be considered.
-#' @param res The words that will be used to calculate the term frequency will
-#'   be stored here once this preprocessing step has be trained by
-#'   [recipes::prep.recipe()].
+#' @param weight_scheme A single string determining the weighting scheme for the
+#'   term frequency calculations. Must be one of `"binary"`, `"raw count"`,
+#'   `"term frequency"`, `"log normalization"`, or `"double normalization"`.
+#'   See details for what each scheme does. Note that `sparse = "yes"` has no
+#'   effect with `"double normalization"`, as it doesn't produce sparse data.
+#'   Defaults to `"raw count"`.
+#' @param weight A single numeric weight used if `weight_scheme` is set to
+#'   `"double normalization"`. Defaults to `0.5`.
+#' @param vocabulary A character vector of the tokens to create variables for.
+#'   If `NULL`, the default, all tokens found in the training data are used.
+#' @param res A named list of the tokens used for each selected variable. This
+#'   is `NULL` until the step is trained by [recipes::prep.recipe()] and should
+#'   not be set by hand.
 #' @template args-prefix
 #' @template args-sparse
 #' @template args-keep_original_cols
@@ -49,7 +52,10 @@
 #' `weight` is added to the result. This is again done to prevent a bias towards
 #' longer documents.
 #'
-#' @template details-prefix
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the token, all separated by `_`. For example, with the
+#' default `prefix = "tf"`, a variable named `text`, and the token `"word"`, the
+#' new column will be named `tf_text_word`.
 #'
 #' @details
 #'
@@ -71,10 +77,6 @@
 #' ```
 #'
 #' @template sparse-creation
-#'
-#' @description
-#' `sparse = "yes"` doesn't take effect when
-#' `weight_scheme = "double normalization"` as it doesn't produce sparse data.
 #'
 #' @template case-weights-not-supported
 #'

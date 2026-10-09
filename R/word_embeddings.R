@@ -10,13 +10,14 @@
 #' @template args-trained
 #' @template args-columns
 #' @param embeddings A tibble of pre-trained word embeddings, such as those
-#'   returned by the embedding_glove function from the textdata package. The
-#'   first column should contain tokens, and additional columns should contain
-#'   embeddings vectors.
-#' @param aggregation A character giving the name of the aggregation function to
-#'   use. Must be one of "sum", "mean", "min", and "max". Defaults to "sum".
-#' @param aggregation_default A numeric denoting the default value for case with
-#'   no words are matched in embedding. Defaults to 0.
+#'   returned by [textdata::embedding_glove6b()]. The first column should
+#'   contain tokens, and additional columns should contain embedding vectors.
+#' @param aggregation A single string giving the name of the aggregation
+#'   function used to combine the embeddings of the tokens in each document.
+#'   Must be one of `"sum"`, `"mean"`, `"min"`, or `"max"`. Defaults to
+#'   `"sum"`.
+#' @param aggregation_default A single numeric value used for documents where
+#'   none of the tokens are found in the embeddings. Defaults to `0`.
 #' @template args-prefix
 #' @template args-keep_original_cols
 #' @template args-skip

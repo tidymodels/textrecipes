@@ -9,18 +9,26 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param vocabulary A character vector of strings to be considered.
-#' @param res The words that will be used to calculate the term frequency will
-#'   be stored here once this preprocessing step has be trained by
-#'   [recipes::prep.recipe()].
-#' @param smooth_idf TRUE smooth IDF weights by adding one to document
-#'   frequencies, as if an extra document was seen containing every term in the
-#'   collection exactly once. This prevents division by zero.
-#' @param norm A character, defines the type of normalization to apply to term
-#'   vectors. "l1" by default, i.e., scale by the number of in-vocabulary
-#'   tokens in the document. Must be one of c("l1", "l2", "none").
-#' @param sublinear_tf A logical, apply sublinear term-frequency scaling, i.e.,
-#'   replace the term frequency with 1 + log(TF). Defaults to FALSE.
+#' @param vocabulary A character vector of the tokens to create variables for.
+#'   If `NULL`, the default, all tokens found in the training data are used.
+#' @param res A named list of numeric vectors holding the IDF weight of each
+#'   token, one element per selected variable. This is `NULL` until the step is
+#'   trained by [recipes::prep.recipe()] and should not be set by hand.
+#' @param smooth_idf A logical. Should the IDF weights be smoothed by adding one
+#'   to the ratio of the number of documents to the number of documents
+#'   containing the token? This prevents tokens that appear in every document
+#'   from getting a weight of zero. Defaults to `TRUE`.
+#' @param norm A single string determining the type of normalization applied to
+#'   the term frequencies of each document. Must be one of:
+#'   * `"l1"`: scale by the sum of the term frequencies in the document.
+#'   * `"l2"`: scale by the square root of the sum of the squared term
+#'     frequencies in the document.
+#'   * `"none"`: don't normalize.
+#'
+#'   Defaults to `"l1"`.
+#' @param sublinear_tf A logical. Should sublinear term-frequency scaling be
+#'   applied, replacing the term frequency with `1 + log(TF)`? Defaults to
+#'   `FALSE`.
 #' @template args-prefix
 #' @template args-sparse
 #' @template args-keep_original_cols
@@ -47,8 +55,9 @@
 #' in all the observations it might not give that much insight, but if it only
 #' appears in some it might help differentiate between observations.
 #'
-#' The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (#
-#' documents where the term appears))
+#' The IDF is defined as follows when `smooth_idf = TRUE`: idf = log(1 + (#
+#' documents in the corpus) / (# documents where the term appears)). When
+#' `smooth_idf = FALSE` the `1 +` is dropped.
 #'
 #' # Tidying
 #'
@@ -62,7 +71,10 @@
 #'   \item{id}{character, id of this step}
 #' }
 #'
-#' @template details-prefix
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the token, all separated by `_`. For example, with the
+#' default `prefix = "tfidf"`, a variable named `text`, and the token `"word"`,
+#' the new column will be named `tfidf_text_word`.
 #'
 #' @template sparse-creation
 #'

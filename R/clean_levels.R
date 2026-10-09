@@ -8,9 +8,10 @@
 #' @template args-dots
 #' @template args-role_no-new
 #' @template args-trained
-#' @param clean A named character vector to clean and recode categorical levels.
-#'   This is `NULL` until computed by [recipes::prep.recipe()]. Note that if the
-#'   original variable is a character vector, it will be converted to a factor.
+#' @param clean A named character vector to clean and recode categorical
+#'   levels. This is `NULL` until computed by [recipes::prep.recipe()]. Note
+#'   that if the original variable is a character vector, it will be converted
+#'   to a factor.
 #' @template args-skip
 #' @template args-id
 #'

@@ -10,11 +10,12 @@
 #' @template args-trained
 #' @template args-columns
 #' @param num_tokens The number of tokens in the n-gram. This must be an integer
-#'   greater than or equal to 1. Defaults to 3.
+#'   greater than or equal to 1. Defaults to `3`.
 #' @param min_num_tokens The minimum number of tokens in the n-gram. This must
-#'   be an integer greater than or equal to 1 and smaller than `n`. Defaults to
-#'   3.
-#' @param delim The separator between words in an n-gram. Defaults to "_".
+#'   be an integer greater than or equal to 1 and smaller than or equal to
+#'   `num_tokens`. Defaults to `3`.
+#' @param delim A single string, the separator between words in an n-gram.
+#'   Defaults to `"_"`.
 #' @template args-skip
 #' @template args-id
 #'

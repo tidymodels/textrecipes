@@ -10,9 +10,9 @@
 #' @template args-trained
 #' @template args-columns
 #' @param signed A logical, indicating whether to use a signed hash-function to
-#'   reduce collisions when hashing. Defaults to TRUE.
+#'   reduce collisions when hashing. Defaults to `TRUE`.
 #' @param num_terms An integer, the number of variables to output. Defaults to
-#'   1024.
+#'   `1024`.
 #' @template args-prefix
 #' @template args-sparse
 #' @template args-keep_original_cols
@@ -34,7 +34,12 @@
 #' Since the hashing function can map two different tokens to the same index,
 #' will a higher value of `num_terms` result in a lower chance of collision.
 #'
-#' @template details-prefix
+#' The new columns will have names that begin with `prefix`, then the name of
+#' the variable, then the index of the hash, all separated by `_`. The indices
+#' are padded with zeros to the same width. For example, with the default
+#' `prefix = "texthash"` and a variable named `text`, `num_terms = 12` gives
+#' `texthash_text_01` to `texthash_text_12`, and `num_terms = 101` gives
+#' `texthash_text_001` to `texthash_text_101`.
 #'
 #' @details # Tidying
 #'

@@ -3,9 +3,11 @@
 #' A [tokenlist] object is a thin wrapper around a list of character vectors,
 #' with a few attributes.
 #'
-#' @param tokens List of character vectors
-#' @param lemma List of character vectors, must be same size and shape as `x`.
-#' @param pos List of character vectors, must be same size and shape as `x`.
+#' @param tokens A list of character vectors.
+#' @param lemma A list of character vectors, must be the same size and shape as
+#'   `tokens`.
+#' @param pos A list of character vectors, must be the same size and shape as
+#'   `tokens`.
 #'
 #' @return a [tokenlist] object.
 #'
