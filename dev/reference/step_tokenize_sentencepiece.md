@@ -61,7 +61,12 @@ step_tokenize_sentencepiece(
 
 - options:
 
-  A list of options passed to the tokenizer.
+  A list of options passed to
+  [`sentencepiece::sentencepiece()`](https://rdrr.io/pkg/sentencepiece/man/sentencepiece.html)
+  when the tokenizer is trained at
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time.
+  These options have no effect on already-trained models at
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) time.
 
 - res:
 
@@ -156,10 +161,10 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_AY5nM
+#> 1 medium tokenize_sentencepiece_B7KNE
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_AY5nM
+#> 1 medium tokenize_sentencepiece_B7KNE
 ```

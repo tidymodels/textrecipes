@@ -152,7 +152,7 @@ to the sequence of existing steps (if any).</p>
 into a new set of numerical variables. This is done by applying a hashing
 function over the tokens and using the hash values as feature indices. This
 allows for a low memory representation of the text. This implementation is
-done using the MurmurHash3 method.</p>
+done using the MurmurHash3 method via <code><a href="https://rdrr.io/pkg/text2vec/man/vectorizers.html" class="external-link">text2vec::hash_vectorizer()</a></code>.</p>
 <p>The argument <code>num_terms</code> controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
 Since the hashing function can map two different tokens to the same index,
@@ -264,12 +264,12 @@ Josh Attenberg (2009).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value length id            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> texthash_rJhBY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> texthash_HrCpP</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  value length id            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium TRUE    <span style="text-decoration: underline;">1</span>024 texthash_rJhBY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium TRUE    <span style="text-decoration: underline;">1</span>024 texthash_HrCpP</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

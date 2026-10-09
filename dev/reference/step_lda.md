@@ -62,9 +62,10 @@ step_lda(
 
 - lda_models:
 
-  A WarpLDA model object from the text2vec package. If left to NULL, the
-  default, it will train its model based on the training data. Look at
-  the examples for how to fit a WarpLDA model.
+  A WarpLDA model object from
+  [text2vec::LDA](https://rdrr.io/pkg/text2vec/man/LatentDirichletAllocation.html).
+  If left to NULL, the default, it will train its model based on the
+  training data. Look at the examples for how to fit a WarpLDA model.
 
 - num_topics:
 
@@ -174,8 +175,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 43
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990       0.112        0.0125       0.0125            0
-#> 2 20472 Mich…  1990       0.0333       0.167        0.1               0
+#> 1 21926 Prop…  1990       0.0375       0.0375            0        0.162
+#> 2 20472 Mich…  1990       0.0333       0.0333            0        0    
 #> # ℹ 36 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,
@@ -201,8 +202,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 33
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990       0.0375       0.0125       0.0125            0
-#> 2 20472 Mich…  1990       0.0333       0.133        0.133             0
+#> 1 21926 Prop…  1990       0.0375          0          0.513        0    
+#> 2 20472 Mich…  1990       0.133           0.1        0            0.133
 #> # ℹ 26 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,

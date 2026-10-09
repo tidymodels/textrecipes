@@ -68,6 +68,12 @@ step_clean_names(
 An updated version of `recipe` with the new step added to the sequence
 of existing steps (if any).
 
+## Details
+
+The variable names are cleaned with
+[`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html),
+which is the function responsible for the cleaning.
+
 ## Tidying
 
 When you

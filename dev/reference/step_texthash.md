@@ -109,7 +109,8 @@ Feature hashing, or the hashing trick, is a transformation of a text
 variable into a new set of numerical variables. This is done by applying
 a hashing function over the tokens and using the hash values as feature
 indices. This allows for a low memory representation of the text. This
-implementation is done using the MurmurHash3 method.
+implementation is done using the MurmurHash3 method via
+[`text2vec::hash_vectorizer()`](https://rdrr.io/pkg/text2vec/man/vectorizers.html).
 
 The argument `num_terms` controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this
@@ -232,10 +233,10 @@ tidy(tate_rec, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  value length id            
 #>   <chr>  <lgl>  <int> <chr>         
-#> 1 medium NA        NA texthash_rJhBY
+#> 1 medium NA        NA texthash_HrCpP
 tidy(tate_obj, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  value length id            
 #>   <chr>  <lgl>  <int> <chr>         
-#> 1 medium TRUE    1024 texthash_rJhBY
+#> 1 medium TRUE    1024 texthash_HrCpP
 ```

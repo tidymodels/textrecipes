@@ -67,7 +67,7 @@ step_stopwords(
 - stopword_source:
 
   A character to indicate the stop words source as listed in
-  [`stopwords::stopwords_getsources`](https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html).
+  [`stopwords::stopwords_getsources()`](https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html).
 
 - custom_stopword_source:
 
@@ -177,12 +177,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value keep  id             
 #>   <chr>  <chr> <lgl> <chr>          
-#> 1 medium NA    NA    stopwords_WoxyC
+#> 1 medium NA    NA    stopwords_uNBvq
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value    keep  id             
 #>   <chr>  <chr>    <lgl> <chr>          
-#> 1 medium snowball FALSE stopwords_WoxyC
+#> 1 medium snowball FALSE stopwords_uNBvq
 
 # With a custom stop words list
 

@@ -113,6 +113,11 @@ Care should be taken when using <code>skip = FALSE</code>.</p></dd>
 to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The variable names are cleaned with <code><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html" class="external-link">janitor::make_clean_names()</a></code>, which is
+the function responsible for the cleaning.</p>
+    </div>
+    <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>
     <p>When you <code><a href="https://recipes.tidymodels.org/reference/tidy.recipe.html" class="external-link">tidy()</a></code> this step, a tibble is returned with
 columns <code>terms</code>, <code>value</code>, and <code>id</code>:</p>

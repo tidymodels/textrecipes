@@ -27,6 +27,15 @@
   elements.
   ([\#291](https://github.com/tidymodels/textrecipes/issues/291))
 
+- Documentation now links to the external functions that do the
+  underlying work in several steps, such as
+  [`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html)
+  in
+  [`step_clean_levels()`](https://textrecipes.tidymodels.org/dev/reference/step_clean_levels.md)
+  and
+  [`step_clean_names()`](https://textrecipes.tidymodels.org/dev/reference/step_clean_names.md).
+  ([\#198](https://github.com/tidymodels/textrecipes/issues/198))
+
 - Added a vignette, “Using textrecipes as a sparse matrix engine”,
   documenting which steps produce sparse data and how to use them.
   ([\#302](https://github.com/tidymodels/textrecipes/issues/302))

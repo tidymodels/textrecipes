@@ -61,7 +61,12 @@ step_tokenize_bpe(
 
 - options:
 
-  A list of options passed to the tokenizer.
+  A list of options passed to
+  [`tokenizers.bpe::bpe()`](https://rdrr.io/pkg/tokenizers.bpe/man/bpe.html)
+  when the tokenizer is trained at
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time.
+  These options have no effect on already-trained models at
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) time.
 
 - res:
 
@@ -157,10 +162,10 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                
 #>   <chr>  <chr>             
-#> 1 medium tokenize_bpe_xiJST
+#> 1 medium tokenize_bpe_Lr0Eo
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                
 #>   <chr>  <chr>             
-#> 1 medium tokenize_bpe_xiJST
+#> 1 medium tokenize_bpe_Lr0Eo
 ```

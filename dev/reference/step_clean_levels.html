@@ -115,9 +115,10 @@ to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The new levels are cleaned and then reset with <code><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">dplyr::recode_factor()</a></code>. When
-data to be processed contains novel levels (i.e., not contained in the
-training set), they are converted to missing.</p>
+    <p>The levels are cleaned with <code><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html" class="external-link">janitor::make_clean_names()</a></code>, which is the
+function responsible for the cleaning, and then reset with
+<code><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">dplyr::recode_factor()</a></code>. When data to be processed contains novel levels
+(i.e., not contained in the training set), they are converted to missing.</p>
     </div>
     <div class="section level2">
     <h2 id="tidying">Tidying<a class="anchor" aria-label="anchor" href="#tidying"></a></h2>

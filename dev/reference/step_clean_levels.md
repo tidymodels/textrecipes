@@ -72,7 +72,9 @@ of existing steps (if any).
 
 ## Details
 
-The new levels are cleaned and then reset with
+The levels are cleaned with
+[`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html),
+which is the function responsible for the cleaning, and then reset with
 [`dplyr::recode_factor()`](https://dplyr.tidyverse.org/reference/recode.html).
 When data to be processed contains novel levels (i.e., not contained in
 the training set), they are converted to missing.

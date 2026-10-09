@@ -60,7 +60,7 @@ step_stem(
 - custom_stemmer:
 
   A custom stemming function. If none is provided it will default to
-  "SnowballC".
+  [`SnowballC::wordStem()`](https://rdrr.io/pkg/SnowballC/man/wordStem.html).
 
 - skip:
 
@@ -162,12 +162,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_DNY9f
+#> 1 medium FALSE             stem_WJnb9
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_DNY9f
+#> 1 medium FALSE             stem_WJnb9
 
 # Using custom stemmer. Here a custom stemmer that removes the last letter
 # if it is a "s".

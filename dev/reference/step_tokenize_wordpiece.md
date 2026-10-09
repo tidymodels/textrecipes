@@ -57,7 +57,7 @@ step_tokenize_wordpiece(
 - vocab:
 
   Character of Character vector of vocabulary tokens. Defaults to
-  `wordpiece_vocab()`.
+  [`wordpiece::wordpiece_vocab()`](https://rdrr.io/pkg/wordpiece.data/man/wordpiece_vocab.html).
 
 - unk_token:
 
@@ -146,10 +146,10 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                      
 #>   <chr>  <chr>                   
-#> 1 medium tokenize_wordpiece_JSfFS
+#> 1 medium tokenize_wordpiece_3klcD
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                      
 #>   <chr>  <chr>                   
-#> 1 medium tokenize_wordpiece_JSfFS
+#> 1 medium tokenize_wordpiece_3klcD
 ```
