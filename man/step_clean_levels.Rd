@@ -51,9 +51,10 @@ clean nominal data (character or factor) so the levels consist only of
 letters, numbers, and the underscore.
 }
 \details{
-The new levels are cleaned and then reset with \code{\link[dplyr:recode]{dplyr::recode_factor()}}. When
-data to be processed contains novel levels (i.e., not contained in the
-training set), they are converted to missing.
+The levels are cleaned with \code{\link[janitor:make_clean_names]{janitor::make_clean_names()}}, which is the
+function responsible for the cleaning, and then reset with
+\code{\link[dplyr:recode]{dplyr::recode_factor()}}. When data to be processed contains novel levels
+(i.e., not contained in the training set), they are converted to missing.
 }
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with

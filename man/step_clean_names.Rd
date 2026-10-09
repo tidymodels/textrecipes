@@ -49,6 +49,10 @@ to the sequence of existing steps (if any).
 clean variable names so the names consist only of letters, numbers, and the
 underscore.
 }
+\details{
+The variable names are cleaned with \code{\link[janitor:make_clean_names]{janitor::make_clean_names()}}, which is
+the function responsible for the cleaning.
+}
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with
 columns \code{terms}, \code{value}, and \code{id}:

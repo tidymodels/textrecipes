@@ -8,7 +8,7 @@
 #' @template args-role_predictors
 #' @template args-trained
 #' @template args-columns
-#' @param lda_models A WarpLDA model object from the text2vec package. If left
+#' @param lda_models A WarpLDA model object from [text2vec::LDA]. If left
 #'   to NULL, the default, it will train its model based on the training data.
 #'   Look at the examples for how to fit a WarpLDA model.
 #' @param num_topics integer desired number of latent topics.
