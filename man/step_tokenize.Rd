@@ -37,8 +37,10 @@ have been estimated.}
 not be set by hand.}
 
 \item{training_options}{A list of options passed to the tokenizer when it is
-being trained. Only applicable when \code{engine = "tokenizers.bpe"}. Note that
-the argument \code{x} should not be passed here. Defaults to \code{list()}.}
+being trained. Only applicable when \code{engine = "tokenizers.bpe"} or
+\code{engine = "udpipe"}. For \code{engine = "udpipe"} the list must contain \code{model},
+a loaded udpipe model as returned by \code{\link[udpipe:udpipe_load_model]{udpipe::udpipe_load_model()}}. Note
+that the argument \code{x} should not be passed here. Defaults to \code{list()}.}
 
 \item{options}{A list of options passed to the tokenizer. Note that the
 argument \code{x} should not be passed here. For
@@ -206,6 +208,21 @@ purposes.
 \itemize{
 \item "words"
 }
+
+The udpipe engine requires a pre-trained udpipe model. Load one with
+\code{\link[udpipe:udpipe_load_model]{udpipe::udpipe_load_model()}} (use \code{\link[udpipe:udpipe_download_model]{udpipe::udpipe_download_model()}} to
+download one first) and pass it as the \code{model} element of the
+\code{training_options} argument.
+
+\if{html}{\out{<div class="sourceCode {r, eval=FALSE}">}}\preformatted{model <- udpipe::udpipe_load_model("english-ewt-ud-2.5-191206.udpipe")
+
+recipe(~ text, data = text_tibble) |>
+  step_tokenize(
+    text,
+    engine = "udpipe",
+    training_options = list(model = model)
+  )
+}\if{html}{\out{</div>}}
 }
 
 \subsection{custom_token}{
