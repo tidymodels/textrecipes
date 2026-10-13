@@ -131,6 +131,7 @@ recipe(~., data = tate_text) |>
 \seealso{
 Other Steps for Numeric Variables From Characters:
 \code{\link[=step_dummy_hash]{step_dummy_hash()}},
+\code{\link[=step_sentence_embeddings]{step_sentence_embeddings()}},
 \code{\link[=step_sequence_onehot]{step_sequence_onehot()}}
 }
 \concept{Steps for Numeric Variables From Characters}

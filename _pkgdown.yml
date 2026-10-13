@@ -46,8 +46,12 @@ reference:
 - title: Step Functions - Numeric Variables From Characters
   contents:
   - step_dummy_hash
+  - step_sentence_embeddings
   - step_sequence_onehot
   - step_textfeature
+- title: Embedding Engines
+  contents:
+  - embedding_custom
 - title: Step Functions - Text Normalization
   contents:
   - step_text_normalization
