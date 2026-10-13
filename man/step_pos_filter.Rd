@@ -12,6 +12,7 @@ step_pos_filter(
   trained = FALSE,
   columns = NULL,
   keep_tags = "NOUN",
+  remove_tags = NULL,
   skip = FALSE,
   id = rand_id("pos_filter")
 )
@@ -33,7 +34,12 @@ have been estimated.}
 not be set by hand.}
 
 \item{keep_tags}{A character vector of part of speech tags to keep. See
-details for the complete list of tags. Defaults to \code{"NOUN"}.}
+details for the complete list of tags. Defaults to \code{"NOUN"}. Can't be
+used together with \code{remove_tags}.}
+
+\item{remove_tags}{A character vector of part of speech tags to remove,
+keeping all other tokens. See details for the complete list of tags.
+Defaults to \code{NULL}. Can't be used together with \code{keep_tags}.}
 
 \item{skip}{A logical. Should the step be skipped when the recipe is baked
 by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked when

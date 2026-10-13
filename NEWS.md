@@ -16,6 +16,8 @@
 
 * The documentation for `step_tokenize()` now states that `training_options` also applies to `engine = "udpipe"`, where it must contain the loaded `model`, and includes an example. (#237)
 
+* `step_pos_filter()` gained the `remove_tags` argument, which removes tokens with the given part of speech tags instead of keeping them. It can't be used together with `keep_tags`. (#218)
+
 ## Bug Fixes
 
 * All steps now work with 0 and 1 row data in `bake()`. This fixes errors in `step_texthash()`, `step_dummy_hash()`, `step_lda()`, and `step_pos_filter()` with 0 rows, and zero-length tokenlists no longer lose their lemma and pos attributes, which broke `step_lemma()`. (#290)
