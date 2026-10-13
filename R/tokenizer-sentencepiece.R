@@ -26,13 +26,13 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
 
   model <- eval(token_expr)
 
-  file_con <- file(model$model_path, "rb")
-  binary_file <- readBin(
-    file_con,
-    "raw",
-    file.info(model$model_path)$size
-  )
-  close(file_con)
+  sentencepiece_model_tokenizer(model$model_path)
+}
+
+# Builds the tokenizer function from a sentencepiece `.model` file. The model
+# is read into memory so the result does not depend on the file afterwards.
+sentencepiece_model_tokenizer <- function(model_path) {
+  binary_file <- readBin(model_path, "raw", file.size(model_path))
 
   # `...` absorbs any training-only `options` that get re-passed at bake
   # time (#319). Those options only apply when the model is trained via
@@ -40,6 +40,7 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
   # `sentencepiece_encode()`, so they are intentionally not forwarded.
   function(x, ...) {
     temp_file <- tempfile()
+    on.exit(unlink(temp_file))
 
     writeBin(binary_file, temp_file)
 
@@ -47,4 +48,19 @@ tokenizers_sentencepiece_tokens <- function(text, options = list()) {
     tokens <- sentencepiece::sentencepiece_encode(model, x)
     new_tokenlist(tokens = tokens, unique_tokens = model$vocabulary$subword)
   }
+}
+
+check_sentencepiece_model_file <- function(path, call = caller_env()) {
+  loaded <- tryCatch(
+    sentencepiece::sentencepiece_load_model(path),
+    error = function(e) NULL
+  )
+  if (is.null(loaded)) {
+    cli::cli_abort(
+      "The file {.file {path}} passed to {.arg model} is not a valid
+      sentencepiece model.",
+      call = call
+    )
+  }
+  invisible(path)
 }
