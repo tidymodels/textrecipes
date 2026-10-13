@@ -1,3 +1,20 @@
+# bad remove_tags
+
+    Code
+      prep(step_pos_filter(recipe(~text, data = data), text, remove_tags = 1))
+    Condition
+      Error in `step_pos_filter()`:
+      Caused by error in `prep()`:
+      ! `remove_tags` must be a character vector, not the number 1.
+
+# keep_tags and remove_tags can't be used together
+
+    Code
+      step_pos_filter(recipe(~., data = mtcars), keep_tags = "NOUN", remove_tags = "VERB")
+    Condition
+      Error in `step_pos_filter()`:
+      ! Only one of `keep_tags` and `remove_tags` can be specified.
+
 # lemmatization errors if lemma attribute doesn't exists
 
     Code

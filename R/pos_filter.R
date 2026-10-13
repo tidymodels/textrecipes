@@ -9,7 +9,11 @@
 #' @template args-trained
 #' @template args-columns
 #' @param keep_tags A character vector of part of speech tags to keep. See
-#'   details for the complete list of tags. Defaults to `"NOUN"`.
+#'   details for the complete list of tags. Defaults to `"NOUN"`. Can't be
+#'   used together with `remove_tags`.
+#' @param remove_tags A character vector of part of speech tags to remove,
+#'   keeping all other tokens. See details for the complete list of tags.
+#'   Defaults to `NULL`. Can't be used together with `keep_tags`.
 #' @template args-skip
 #' @template args-id
 #'
@@ -66,9 +70,19 @@ step_pos_filter <-
     trained = FALSE,
     columns = NULL,
     keep_tags = "NOUN",
+    remove_tags = NULL,
     skip = FALSE,
     id = rand_id("pos_filter")
   ) {
+    if (!is.null(remove_tags)) {
+      if (!missing(keep_tags)) {
+        cli::cli_abort(
+          "Only one of {.arg keep_tags} and {.arg remove_tags} can be specified."
+        )
+      }
+      keep_tags <- NULL
+    }
+
     add_step(
       recipe,
       step_pos_filter_new(
@@ -77,6 +91,7 @@ step_pos_filter <-
         trained = trained,
         columns = columns,
         keep_tags = keep_tags,
+        remove_tags = remove_tags,
         skip = skip,
         id = id
       )
@@ -84,7 +99,16 @@ step_pos_filter <-
   }
 
 step_pos_filter_new <-
-  function(terms, role, trained, columns, keep_tags, skip, id) {
+  function(
+    terms,
+    role,
+    trained,
+    columns,
+    keep_tags,
+    remove_tags,
+    skip,
+    id
+  ) {
     step(
       subclass = "pos_filter",
       terms = terms,
@@ -92,6 +116,7 @@ step_pos_filter_new <-
       trained = trained,
       columns = columns,
       keep_tags = keep_tags,
+      remove_tags = remove_tags,
       skip = skip,
       id = id
     )
@@ -101,7 +126,11 @@ step_pos_filter_new <-
 prep.step_pos_filter <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
 
-  check_character(x$keep_tags, arg = "keep_tags")
+  if (is.null(x$remove_tags)) {
+    check_character(x$keep_tags, arg = "keep_tags")
+  } else {
+    check_character(x$remove_tags, arg = "remove_tags")
+  }
 
   check_type(training[, col_names], types = "tokenlist")
 
@@ -111,6 +140,7 @@ prep.step_pos_filter <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     columns = col_names,
     keep_tags = x$keep_tags,
+    remove_tags = x$remove_tags,
     skip = x$skip,
     id = x$id
   )
@@ -121,18 +151,26 @@ bake.step_pos_filter <- function(object, new_data, ...) {
   col_names <- object$columns
   check_new_data(col_names, object, new_data)
 
-  new_data <- recipes_map_cols(new_data, col_names, function(variable, i, col_name) {
-    if (is.null(maybe_get_pos(variable))) {
-      cli::cli_abort(
-        c(
-          "{.arg {col_name}} doesn't have a pos attribute.",
-          "i" = "Make sure the tokenization step includes part of speech tagging."
+  new_data <- recipes_map_cols(
+    new_data,
+    col_names,
+    function(variable, i, col_name) {
+      if (is.null(maybe_get_pos(variable))) {
+        cli::cli_abort(
+          c(
+            "{.arg {col_name}} doesn't have a pos attribute.",
+            "i" = "Make sure the tokenization step includes part of speech tagging."
+          )
         )
-      )
-    }
+      }
 
-    tokenlist_pos_filter(variable, object$keep_tags)
-  })
+      if (is.null(object$remove_tags)) {
+        tokenlist_pos_filter(variable, object$keep_tags)
+      } else {
+        tokenlist_pos_filter(variable, object$remove_tags, remove = TRUE)
+      }
+    }
+  )
   new_data <- factor_to_text(new_data, col_names)
   new_data
 }

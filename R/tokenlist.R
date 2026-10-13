@@ -251,7 +251,7 @@ tokenlist_lemma <- function(x) {
   tokenlist(maybe_get_lemma(x), pos = maybe_get_pos(x))
 }
 
-tokenlist_pos_filter <- function(x, pos_tags) {
+tokenlist_pos_filter <- function(x, pos_tags, remove = FALSE) {
   check_tokenlist(x)
 
   if (is.null(maybe_get_pos(x))) {
@@ -263,7 +263,7 @@ tokenlist_pos_filter <- function(x, pos_tags) {
   i <- rep(seq_x, lengths(tokens))
   j <- match(unlist(maybe_get_pos(x)), pos_tags)
 
-  keep_id <- !is.na(j)
+  keep_id <- if (remove) is.na(j) else !is.na(j)
   split_id <- factor(i[keep_id], seq_x)
 
   # as.character() since unlist() of zero rows returns NULL
