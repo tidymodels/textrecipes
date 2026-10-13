@@ -303,3 +303,104 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+test_that("pretrained model can be used with `model` (#278)", {
+  skip_if_not_installed("sentencepiece")
+
+  model_dir <- withr::local_tempdir()
+  file <- file.path(model_dir, "text.txt")
+  writeLines(test_data$text1, file)
+  trained <- sentencepiece::sentencepiece(
+    file,
+    vocab_size = 80,
+    model_dir = model_dir
+  )
+
+  rec <- recipe(~., data = test_data) |>
+    step_tokenize_sentencepiece(all_predictors(), model = trained$model_path) |>
+    prep()
+
+  res <- bake(rec, new_data = NULL)
+
+  loaded <- sentencepiece::sentencepiece_load_model(trained$model_path)
+  expect_identical(
+    get_tokens(res$text1),
+    sentencepiece::sentencepiece_encode(loaded, test_data$text1)
+  )
+  expect_identical(
+    get_unique_tokens(res$text1),
+    get_unique_tokens(res$text2)
+  )
+
+  # model is embedded, file is no longer needed
+  unlink(model_dir, recursive = TRUE)
+  expect_identical(bake(rec, new_data = test_data), res)
+})
+
+test_that("`model` is checked (#278)", {
+  skip_if_not_installed("sentencepiece")
+
+  rec <- recipe(~., data = test_data)
+
+  expect_snapshot(
+    error = TRUE,
+    prep(step_tokenize_sentencepiece(rec, text1, model = 1))
+  )
+  expect_snapshot(
+    error = TRUE,
+    prep(step_tokenize_sentencepiece(
+      rec,
+      text1,
+      model = "does-not-exist.model"
+    ))
+  )
+
+  expect_error(
+    prep(step_tokenize_sentencepiece(rec, text1, model = tempdir())),
+    "does not exist"
+  )
+
+  bad_file <- withr::local_tempfile(fileext = ".model")
+  writeLines("not a model", bad_file)
+  expect_error(
+    prep(step_tokenize_sentencepiece(rec, text1, model = bad_file)),
+    "not a valid"
+  )
+})
+
+test_that("pretrained `model` works with factor columns and missing columns", {
+  skip_if_not_installed("sentencepiece")
+
+  model_dir <- withr::local_tempdir()
+  file <- file.path(model_dir, "text.txt")
+  writeLines(test_data$text1, file)
+  trained <- sentencepiece::sentencepiece(
+    file,
+    vocab_size = 80,
+    model_dir = model_dir
+  )
+
+  data <- test_data
+  data$text1 <- factor(data$text1)
+
+  rec <- recipe(~text1, data = data) |>
+    step_tokenize_sentencepiece(text1, model = trained$model_path) |>
+    prep()
+
+  expect_s3_class(bake(rec, new_data = NULL)$text1, "textrecipes_tokenlist")
+  expect_snapshot(error = TRUE, bake(rec, new_data = data[, 0]))
+})
+
+test_that("model argument is backwards compatible", {
+  skip_if_not_installed("sentencepiece")
+
+  rec <- recipe(~text1, data = test_data) |>
+    step_tokenize_sentencepiece(text1, vocabulary_size = 80) |>
+    prep()
+
+  exp <- bake(rec, test_data)
+
+  rec$steps[[1]]$model <- NULL
+
+  expect_identical(bake(rec, test_data), exp)
+})

@@ -4,6 +4,8 @@
 
 * Corrected the documentation for `step_tf(weight_scheme = "term frequency")` and `step_tfidf(norm = "l1")` to state that the denominator is the number of in-vocabulary tokens, not the total number of words, in the document (#326)
 
+* `step_tokenize_sentencepiece()` gained the `model` argument, which takes the path to a pretrained sentencepiece model to use instead of training a new one. (#278)
+
 * `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_stem()` now validate their `options` argument with `recipes::check_options()` and give informative errors for unnamed, non-list, or disallowed elements. (#291)
 
 * Documentation now links to the external functions that do the underlying work in several steps, such as `janitor::make_clean_names()` in `step_clean_levels()` and `step_clean_names()`. (#198)
