@@ -57,6 +57,12 @@
   includes an example.
   ([\#237](https://github.com/tidymodels/textrecipes/issues/237))
 
+- [`step_pos_filter()`](https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.md)
+  gained the `remove_tags` argument, which removes tokens with the given
+  part of speech tags instead of keeping them. It can’t be used together
+  with `keep_tags`.
+  ([\#218](https://github.com/tidymodels/textrecipes/issues/218))
+
 ### Bug Fixes
 
 - All steps now work with 0 and 1 row data in

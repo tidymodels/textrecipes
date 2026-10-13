@@ -15,6 +15,7 @@ step_pos_filter(
   trained = FALSE,
   columns = NULL,
   keep_tags = "NOUN",
+  remove_tags = NULL,
   skip = FALSE,
   id = rand_id("pos_filter")
 )
@@ -55,7 +56,14 @@ step_pos_filter(
 - keep_tags:
 
   A character vector of part of speech tags to keep. See details for the
-  complete list of tags. Defaults to `"NOUN"`.
+  complete list of tags. Defaults to `"NOUN"`. Can't be used together
+  with `remove_tags`.
+
+- remove_tags:
+
+  A character vector of part of speech tags to remove, keeping all other
+  tokens. See details for the complete list of tags. Defaults to `NULL`.
+  Can't be used together with `keep_tags`.
 
 - skip:
 

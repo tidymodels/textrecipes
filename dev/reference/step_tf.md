@@ -250,11 +250,11 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id      
 #>   <chr>  <chr> <chr>   
-#> 1 medium NA    tf_DJVx9
+#> 1 medium NA    tf_IMnmL
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value     id      
 #>   <chr>  <chr>     <chr>   
-#> 1 medium raw count tf_DJVx9
+#> 1 medium raw count tf_IMnmL
 # }
 ```
