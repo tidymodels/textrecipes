@@ -85,6 +85,65 @@ test_that("part of speech filtering works with multiple tags", {
   )
 })
 
+test_that("remove_tags removes the given tags", {
+  tokens <- tokenlist(
+    list(c("I", "eat", "eggs"), c("like", "ham")),
+    pos = list(c("PRON", "VERB", "NOUN"), c("VERB", "NOUN"))
+  )
+  data <- tibble(text = tokens)
+
+  rec <- recipe(~text, data = data) |>
+    step_pos_filter(text, remove_tags = c("VERB", "NOUN"))
+
+  prepped_data <- rec |>
+    prep() |>
+    bake(new_data = NULL)
+
+  expect_equal(
+    vctrs::field(prepped_data$text, "tokens"),
+    list("I", character())
+  )
+})
+
+test_that("remove_tags argument is backwards compatible", {
+  tokens <- tokenlist(
+    list(c("I", "eat", "eggs"), c("like", "ham")),
+    pos = list(c("PRON", "VERB", "NOUN"), c("VERB", "NOUN"))
+  )
+  data <- tibble(text = tokens)
+
+  rec <- recipe(~text, data = data) |>
+    step_pos_filter(text) |>
+    prep()
+
+  exp <- bake(rec, data)
+
+  # Simulate old recipe
+  rec$steps[[1]]$remove_tags <- NULL
+
+  expect_identical(bake(rec, data), exp)
+})
+
+test_that("bad remove_tags", {
+  tokens <- tokenlist(list("a"), pos = list("NOUN"))
+  data <- tibble(text = tokens)
+
+  expect_snapshot(
+    error = TRUE,
+    recipe(~text, data = data) |>
+      step_pos_filter(text, remove_tags = 1) |>
+      prep()
+  )
+})
+
+test_that("keep_tags and remove_tags can't be used together", {
+  expect_snapshot(
+    error = TRUE,
+    recipe(~., data = mtcars) |>
+      step_pos_filter(keep_tags = "NOUN", remove_tags = "VERB")
+  )
+})
+
 test_that("lemmatization errors if lemma attribute doesn't exists", {
   rec <- recipe(~text, data = text) |>
     step_tokenize(all_predictors()) |>
