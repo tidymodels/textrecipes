@@ -52,6 +52,7 @@ Suggests:
     text2vec,
     tokenizers.bpe,
     udpipe,
+    withr,
     wordpiece
 VignetteBuilder: 
     knitr

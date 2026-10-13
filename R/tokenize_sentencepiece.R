@@ -78,7 +78,7 @@
 #' model_dir <- tempfile()
 #' dir.create(model_dir)
 #' file <- tempfile(tmpdir = model_dir)
-#' writeLines(tate_text$medium, file)
+#' writeLines(as.character(tate_text$medium), file)
 #' trained <- sentencepiece::sentencepiece(
 #'   file,
 #'   vocab_size = 100,
