@@ -103,3 +103,30 @@
       Caused by error in `prep()`:
       ! The list passed to `options` must be named.
 
+# `model` is checked (#278)
+
+    Code
+      prep(step_tokenize_sentencepiece(rec, text1, model = 1))
+    Condition
+      Error in `step_tokenize_sentencepiece()`:
+      Caused by error in `prep()`:
+      ! `model` must be a single string, not the number 1.
+
+---
+
+    Code
+      prep(step_tokenize_sentencepiece(rec, text1, model = "does-not-exist.model"))
+    Condition
+      Error in `step_tokenize_sentencepiece()`:
+      Caused by error in `prep()`:
+      ! The file 'does-not-exist.model' passed to `model` does not exist.
+
+# pretrained `model` works with factor columns and missing columns
+
+    Code
+      bake(rec, new_data = data[, 0])
+    Condition
+      Error in `bake()`:
+      x The following required columns are missing from `new_data`: `text1`.
+      i These columns have one of the following roles, which are required at `bake()` time: `predictor`.
+
