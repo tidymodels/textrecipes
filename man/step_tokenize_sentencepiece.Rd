@@ -12,6 +12,7 @@ step_tokenize_sentencepiece(
   trained = FALSE,
   columns = NULL,
   vocabulary_size = 1000,
+  model = NULL,
   options = list(),
   res = NULL,
   skip = FALSE,
@@ -35,13 +36,22 @@ have been estimated.}
 not be set by hand.}
 
 \item{vocabulary_size}{An integer, indicating the number of tokens in the
-final vocabulary. Defaults to \code{1000}. Highly encouraged to be tuned.}
+final vocabulary. Defaults to \code{1000}. Highly encouraged to be tuned.
+Ignored when \code{model} is supplied.}
+
+\item{model}{A string giving the path to a pretrained sentencepiece model
+file, such as one downloaded with \code{\link[sentencepiece:sentencepiece_download_model]{sentencepiece::sentencepiece_download_model()}}
+or trained with \code{\link[sentencepiece:sentencepiece]{sentencepiece::sentencepiece()}}. When supplied, no model
+is trained at \code{prep()} time and the same model is used for all selected
+columns. The model is read when the step is prepped, so the file is not
+needed afterwards. Defaults to \code{NULL}, which trains a new model.}
 
 \item{options}{A list of options passed to \code{\link[sentencepiece:sentencepiece]{sentencepiece::sentencepiece()}}
 when the tokenizer is trained at \code{prep()} time. These options have no
 effect on already-trained models at \code{bake()} time. Note that the arguments
 \code{x}, \code{model_dir}, and \code{vocab_size} should not be passed here, use
-\code{vocabulary_size} instead. Defaults to \code{list()}.}
+\code{vocabulary_size} instead. Ignored when \code{model} is supplied. Defaults to
+\code{list()}.}
 
 \item{res}{The fitted \code{\link[sentencepiece:sentencepiece]{sentencepiece::sentencepiece()}} model tokenizer. This
 is \code{NULL} until the step is trained by \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} and should
@@ -107,6 +117,23 @@ bake(tate_obj, new_data = NULL) |>
 
 tidy(tate_rec, number = 1)
 tidy(tate_obj, number = 1)
+
+# Using a pretrained model
+model_dir <- tempfile()
+dir.create(model_dir)
+file <- tempfile(tmpdir = model_dir)
+writeLines(tate_text$medium, file)
+trained <- sentencepiece::sentencepiece(
+  file,
+  vocab_size = 100,
+  model_dir = model_dir
+)
+
+recipe(~., data = tate_text) |>
+  step_tokenize_sentencepiece(medium, model = trained$model_path) |>
+  prep() |>
+  bake(new_data = NULL, medium) |>
+  slice(1:2)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
