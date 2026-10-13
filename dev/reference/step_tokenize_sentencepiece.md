@@ -15,6 +15,7 @@ step_tokenize_sentencepiece(
   trained = FALSE,
   columns = NULL,
   vocabulary_size = 1000,
+  model = NULL,
   options = list(),
   res = NULL,
   skip = FALSE,
@@ -57,7 +58,21 @@ step_tokenize_sentencepiece(
 - vocabulary_size:
 
   An integer, indicating the number of tokens in the final vocabulary.
-  Defaults to `1000`. Highly encouraged to be tuned.
+  Defaults to `1000`. Highly encouraged to be tuned. Ignored when
+  `model` is supplied.
+
+- model:
+
+  A string giving the path to a pretrained sentencepiece model file,
+  such as one downloaded with
+  [`sentencepiece::sentencepiece_download_model()`](https://rdrr.io/pkg/sentencepiece/man/sentencepiece_download_model.html)
+  or trained with
+  [`sentencepiece::sentencepiece()`](https://rdrr.io/pkg/sentencepiece/man/sentencepiece.html).
+  When supplied, no model is trained at
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time
+  and the same model is used for all selected columns. The model is read
+  when the step is prepped, so the file is not needed afterwards.
+  Defaults to `NULL`, which trains a new model.
 
 - options:
 
@@ -68,8 +83,8 @@ step_tokenize_sentencepiece(
   These options have no effect on already-trained models at
   [`bake()`](https://recipes.tidymodels.org/reference/bake.html) time.
   Note that the arguments `x`, `model_dir`, and `vocab_size` should not
-  be passed here, use `vocabulary_size` instead. Defaults to
-  [`list()`](https://rdrr.io/r/base/list.html).
+  be passed here, use `vocabulary_size` instead. Ignored when `model` is
+  supplied. Defaults to [`list()`](https://rdrr.io/r/base/list.html).
 
 - res:
 
@@ -165,10 +180,32 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_6G17U
+#> 1 medium tokenize_sentencepiece_bkd6Q
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_6G17U
+#> 1 medium tokenize_sentencepiece_bkd6Q
+
+# Using a pretrained model
+model_dir <- tempfile()
+dir.create(model_dir)
+file <- tempfile(tmpdir = model_dir)
+writeLines(as.character(tate_text$medium), file)
+trained <- sentencepiece::sentencepiece(
+  file,
+  vocab_size = 100,
+  model_dir = model_dir
+)
+
+recipe(~., data = tate_text) |>
+  step_tokenize_sentencepiece(medium, model = trained$model_path) |>
+  prep() |>
+  bake(new_data = NULL, medium) |>
+  slice(1:2)
+#> # A tibble: 2 × 1
+#>        medium
+#>     <tknlist>
+#> 1 [43 tokens]
+#> 2  [3 tokens]
 ```

@@ -62,6 +62,7 @@ variable using SentencePiece tokenization.</p>
 <span>  trained <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  columns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vocabulary_size <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  res <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  skip <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -100,7 +101,17 @@ not be set by hand.</p></dd>
 
 <dt id="arg-vocabulary-size">vocabulary_size<a class="anchor" aria-label="anchor" href="#arg-vocabulary-size"></a></dt>
 <dd><p>An integer, indicating the number of tokens in the
-final vocabulary. Defaults to <code>1000</code>. Highly encouraged to be tuned.</p></dd>
+final vocabulary. Defaults to <code>1000</code>. Highly encouraged to be tuned.
+Ignored when <code>model</code> is supplied.</p></dd>
+
+
+<dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
+<dd><p>A string giving the path to a pretrained sentencepiece model
+file, such as one downloaded with <code><a href="https://rdrr.io/pkg/sentencepiece/man/sentencepiece_download_model.html" class="external-link">sentencepiece::sentencepiece_download_model()</a></code>
+or trained with <code><a href="https://rdrr.io/pkg/sentencepiece/man/sentencepiece.html" class="external-link">sentencepiece::sentencepiece()</a></code>. When supplied, no model
+is trained at <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep()</a></code> time and the same model is used for all selected
+columns. The model is read when the step is prepped, so the file is not
+needed afterwards. Defaults to <code>NULL</code>, which trains a new model.</p></dd>
 
 
 <dt id="arg-options">options<a class="anchor" aria-label="anchor" href="#arg-options"></a></dt>
@@ -108,7 +119,8 @@ final vocabulary. Defaults to <code>1000</code>. Highly encouraged to be tuned.<
 when the tokenizer is trained at <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep()</a></code> time. These options have no
 effect on already-trained models at <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake()</a></code> time. Note that the arguments
 <code>x</code>, <code>model_dir</code>, and <code>vocab_size</code> should not be passed here, use
-<code>vocabulary_size</code> instead. Defaults to <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p></dd>
+<code>vocabulary_size</code> instead. Ignored when <code>model</code> is supplied. Defaults to
+<code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p></dd>
 
 
 <dt id="arg-res">res<a class="anchor" aria-label="anchor" href="#arg-res"></a></dt>
@@ -200,12 +212,34 @@ columns <code>terms</code> and <code>id</code>:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  id                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_6G17U</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_bkd6Q</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">tate_obj</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  id                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_6G17U</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> medium tokenize_sentencepiece_bkd6Q</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Using a pretrained model</span></span></span>
+<span class="r-in"><span><span class="va">model_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">model_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>tmpdir <span class="op">=</span> <span class="va">model_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">tate_text</span><span class="op">$</span><span class="va">medium</span><span class="op">)</span>, <span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">trained</span> <span class="op">&lt;-</span> <span class="fu">sentencepiece</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sentencepiece/man/sentencepiece.html" class="external-link">sentencepiece</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">file</span>,</span></span>
+<span class="r-in"><span>  vocab_size <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  model_dir <span class="op">=</span> <span class="va">model_dir</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, data <span class="op">=</span> <span class="va">tate_text</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">step_tokenize_sentencepiece</span><span class="op">(</span><span class="va">medium</span>, model <span class="op">=</span> <span class="va">trained</span><span class="op">$</span><span class="va">model_path</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">medium</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        medium</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;tknlist&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> [43 tokens]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  [3 tokens]</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -16,6 +16,11 @@
   document
   ([\#326](https://github.com/tidymodels/textrecipes/issues/326))
 
+- [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.md)
+  gained the `model` argument, which takes the path to a pretrained
+  sentencepiece model to use instead of training a new one.
+  ([\#278](https://github.com/tidymodels/textrecipes/issues/278))
+
 - [`step_tokenize()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize.md),
   [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_bpe.md),
   [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenize_sentencepiece.md),
