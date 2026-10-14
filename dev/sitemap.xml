@@ -13,6 +13,7 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/news/index.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/all_tokenized.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/count_functions.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/reference/embedding_custom.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/emoji_samples.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/index.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/ngram.html</loc></url>
@@ -27,6 +28,7 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_lemma.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_ngram.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_stem.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_stopwords.html</loc></url>

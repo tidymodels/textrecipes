@@ -135,6 +135,7 @@ The underlying operation does not allow for case weights.
 
 Other Steps for Numeric Variables From Characters:
 [`step_dummy_hash()`](https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.md),
+[`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md),
 [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.md)
 
 ## Examples
@@ -376,21 +377,21 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  functions id               
 #>   <chr>  <chr>     <chr>            
-#> 1 medium NA        textfeature_trVTk
+#> 1 medium NA        textfeature_nnBTM
 tidy(tate_obj, number = 1)
 #> # A tibble: 26 × 3
 #>    terms  functions     id               
 #>    <chr>  <chr>         <chr>            
-#>  1 medium n_words       textfeature_trVTk
-#>  2 medium n_uq_words    textfeature_trVTk
-#>  3 medium n_charS       textfeature_trVTk
-#>  4 medium n_uq_charS    textfeature_trVTk
-#>  5 medium n_digits      textfeature_trVTk
-#>  6 medium n_hashtags    textfeature_trVTk
-#>  7 medium n_uq_hashtags textfeature_trVTk
-#>  8 medium n_mentions    textfeature_trVTk
-#>  9 medium n_uq_mentions textfeature_trVTk
-#> 10 medium n_commas      textfeature_trVTk
+#>  1 medium n_words       textfeature_nnBTM
+#>  2 medium n_uq_words    textfeature_nnBTM
+#>  3 medium n_charS       textfeature_nnBTM
+#>  4 medium n_uq_charS    textfeature_nnBTM
+#>  5 medium n_digits      textfeature_nnBTM
+#>  6 medium n_hashtags    textfeature_nnBTM
+#>  7 medium n_uq_hashtags textfeature_nnBTM
+#>  8 medium n_mentions    textfeature_nnBTM
+#>  9 medium n_uq_mentions textfeature_nnBTM
+#> 10 medium n_commas      textfeature_nnBTM
 #> # ℹ 16 more rows
 
 # Using custom extraction functions

@@ -128,12 +128,12 @@ tidy(rec, number = 1)
 #> # A tibble: 6 × 3
 #>   terms   value   id               
 #>   <chr>   <chr>   <chr>            
-#> 1 ozone   Ozone   clean_names_mb92Q
-#> 2 solar_r Solar.R clean_names_mb92Q
-#> 3 wind    Wind    clean_names_mb92Q
-#> 4 temp    Temp    clean_names_mb92Q
-#> 5 month   Month   clean_names_mb92Q
-#> 6 day     Day     clean_names_mb92Q
+#> 1 ozone   Ozone   clean_names_9QeuR
+#> 2 solar_r Solar.R clean_names_9QeuR
+#> 3 wind    Wind    clean_names_9QeuR
+#> 4 temp    Temp    clean_names_9QeuR
+#> 5 month   Month   clean_names_9QeuR
+#> 6 day     Day     clean_names_9QeuR
 
 bake(rec, air_tr)
 #> # A tibble: 100 × 6

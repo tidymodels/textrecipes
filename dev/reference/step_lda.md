@@ -158,8 +158,8 @@ bake(tate_obj, new_data = NULL) |>
 #> # A tibble: 2 × 14
 #>      id artist       title  year lda_medium_1 lda_medium_2 lda_medium_3
 #>   <dbl> <fct>        <fct> <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Absalon      Prop…  1990        0.025       0            0.0125
-#> 2 20472 Auerbach, F… Mich…  1990        0.2         0.0667       0     
+#> 1 21926 Absalon      Prop…  1990        0.05        0.0125       0.0125
+#> 2 20472 Auerbach, F… Mich…  1990        0.133       0.133        0.0667
 #> # ℹ 7 more variables: lda_medium_4 <dbl>, lda_medium_5 <dbl>,
 #> #   lda_medium_6 <dbl>, lda_medium_7 <dbl>, lda_medium_8 <dbl>,
 #> #   lda_medium_9 <dbl>, lda_medium_10 <dbl>
@@ -167,12 +167,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  num_topics id       
 #>   <chr>       <int> <chr>    
-#> 1 medium         10 lda_8HfdV
+#> 1 medium         10 lda_HIyvQ
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  num_topics id       
 #>   <chr>       <int> <chr>    
-#> 1 medium         10 lda_8HfdV
+#> 1 medium         10 lda_HIyvQ
 
 # Changing the number of topics.
 recipe(~., data = tate_text) |>
@@ -184,8 +184,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 43
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990       0.0125       0.025        0.0125          0  
-#> 2 20472 Mich…  1990       0.0667       0.0667       0.0333          0.1
+#> 1 21926 Prop…  1990       0.025        0.0625       0.0125        0.075
+#> 2 20472 Mich…  1990       0.0333       0            0.0667        0.1  
 #> # ℹ 36 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,
@@ -211,8 +211,8 @@ recipe(~., data = tate_text) |>
 #> # A tibble: 2 × 33
 #>      id title  year lda_medium_1 lda_medium_2 lda_medium_3 lda_medium_4
 #>   <dbl> <fct> <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-#> 1 21926 Prop…  1990            0       0.0375       0.0875       0.0125
-#> 2 20472 Mich…  1990            0       0.133        0.267        0.1   
+#> 1 21926 Prop…  1990       0               0            0          0.663
+#> 2 20472 Mich…  1990       0.0333          0.1          0.1        0    
 #> # ℹ 26 more variables: lda_medium_5 <dbl>, lda_medium_6 <dbl>,
 #> #   lda_medium_7 <dbl>, lda_medium_8 <dbl>, lda_medium_9 <dbl>,
 #> #   lda_medium_10 <dbl>, lda_medium_11 <dbl>, lda_medium_12 <dbl>,

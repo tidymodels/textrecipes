@@ -2,6 +2,17 @@
 
 ## textrecipes (development version)
 
+- Added
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md),
+  which converts a character column into dense embeddings from a
+  pretrained model, together with
+  [`embedding_custom()`](https://textrecipes.tidymodels.org/dev/reference/embedding_custom.md)
+  for supplying your own embedding function. The step stores a reference
+  to the model rather than the model itself, checks that the embedding
+  dimension is unchanged when baking, and caches embeddings within the R
+  session.
+  ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+
 - [`bake()`](https://recipes.tidymodels.org/reference/bake.html) methods
   for steps that transform columns in place now use
   [`recipes_map_cols()`](https://recipes.tidymodels.org/reference/recipes_map_cols.html),

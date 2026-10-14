@@ -203,6 +203,7 @@ Kuhn and Johnson (2019), Chapter 7,
 [`recipes::step_dummy()`](https://recipes.tidymodels.org/reference/step_dummy.html)
 
 Other Steps for Numeric Variables From Characters:
+[`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md),
 [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.md),
 [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md)
 
@@ -246,10 +247,10 @@ tidy(grants_rec, number = 1)
 #> # A tibble: 1 × 5
 #>   terms        value num_terms collapse id              
 #>   <chr>        <lgl>     <int> <lgl>    <chr>           
-#> 1 sponsor_code NA           NA NA       dummy_hash_9QeuR
+#> 1 sponsor_code NA           NA NA       dummy_hash_8HfdV
 tidy(grants_obj, number = 1)
 #> # A tibble: 1 × 5
 #>   terms        value num_terms collapse id              
 #>   <chr>        <lgl>     <int> <lgl>    <chr>           
-#> 1 sponsor_code TRUE         32 FALSE    dummy_hash_9QeuR
+#> 1 sponsor_code TRUE         32 FALSE    dummy_hash_8HfdV
 ```

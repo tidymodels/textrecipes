@@ -27,6 +27,9 @@ required_pkgs(x, ...)
 # S3 method for class 'step_pos_filter'
 required_pkgs(x, ...)
 
+# S3 method for class 'step_sentence_embeddings'
+required_pkgs(x, ...)
+
 # S3 method for class 'step_sequence_onehot'
 required_pkgs(x, ...)
 

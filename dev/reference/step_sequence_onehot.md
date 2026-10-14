@@ -159,6 +159,7 @@ The underlying operation does not allow for case weights.
 
 Other Steps for Numeric Variables From Characters:
 [`step_dummy_hash()`](https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.md),
+[`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md),
 [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md)
 
 ## Examples
@@ -202,20 +203,20 @@ tidy(tate_rec, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  vocabulary token id                   
 #>   <chr>  <chr>      <int> <chr>                
-#> 1 medium NA            NA sequence_onehot_uYkUI
+#> 1 medium NA            NA sequence_onehot_nK8TN
 tidy(tate_obj, number = 3)
 #> # A tibble: 100 × 4
 #>    terms  vocabulary token     id                   
 #>    <chr>       <int> <chr>     <chr>                
-#>  1 medium          1 16        sequence_onehot_uYkUI
-#>  2 medium          2 2         sequence_onehot_uYkUI
-#>  3 medium          3 3         sequence_onehot_uYkUI
-#>  4 medium          4 35        sequence_onehot_uYkUI
-#>  5 medium          5 4         sequence_onehot_uYkUI
-#>  6 medium          6 5         sequence_onehot_uYkUI
-#>  7 medium          7 6         sequence_onehot_uYkUI
-#>  8 medium          8 8         sequence_onehot_uYkUI
-#>  9 medium          9 acrylic   sequence_onehot_uYkUI
-#> 10 medium         10 aluminium sequence_onehot_uYkUI
+#>  1 medium          1 16        sequence_onehot_nK8TN
+#>  2 medium          2 2         sequence_onehot_nK8TN
+#>  3 medium          3 3         sequence_onehot_nK8TN
+#>  4 medium          4 35        sequence_onehot_nK8TN
+#>  5 medium          5 4         sequence_onehot_nK8TN
+#>  6 medium          6 5         sequence_onehot_nK8TN
+#>  7 medium          7 6         sequence_onehot_nK8TN
+#>  8 medium          8 8         sequence_onehot_nK8TN
+#>  9 medium          9 acrylic   sequence_onehot_nK8TN
+#> 10 medium         10 aluminium sequence_onehot_nK8TN
 #> # ℹ 90 more rows
 ```

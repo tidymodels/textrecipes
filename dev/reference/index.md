@@ -50,10 +50,20 @@
 
 - [`step_dummy_hash()`](https://textrecipes.tidymodels.org/dev/reference/step_dummy_hash.md)
   : Indicator Variables via Feature Hashing
+- [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
+  : Sentence Embeddings of Text
 - [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/dev/reference/step_sequence_onehot.md)
   : Positional One-Hot encoding of Tokens
 - [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md)
   : Calculate Set of Text Features
+
+## Embedding Engines
+
+- [`embedding_custom()`](https://textrecipes.tidymodels.org/dev/reference/embedding_custom.md)
+  :
+
+  Embedding Engines for
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
 
 ## Step Functions - Text Normalization
 
