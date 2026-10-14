@@ -132,6 +132,7 @@ tidy(tate_obj, number = 3)
 \seealso{
 Other Steps for Numeric Variables From Characters:
 \code{\link[=step_dummy_hash]{step_dummy_hash()}},
+\code{\link[=step_sentence_embeddings]{step_sentence_embeddings()}},
 \code{\link[=step_textfeature]{step_textfeature()}}
 }
 \concept{Steps for Numeric Variables From Characters}

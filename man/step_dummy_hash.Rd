@@ -172,6 +172,7 @@ Kuhn and Johnson (2019), Chapter 7,
 \code{\link[recipes:step_dummy]{recipes::step_dummy()}}
 
 Other Steps for Numeric Variables From Characters:
+\code{\link[=step_sentence_embeddings]{step_sentence_embeddings()}},
 \code{\link[=step_sequence_onehot]{step_sequence_onehot()}},
 \code{\link[=step_textfeature]{step_textfeature()}}
 }
