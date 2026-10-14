@@ -39,6 +39,7 @@ Suggests:
     covr,
     dials (>= 1.2.0),
     hardhat,
+    httr2 (>= 1.0.0),
     janitor,
     knitr,
     modeldata,
