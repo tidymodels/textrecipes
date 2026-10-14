@@ -46,5 +46,8 @@ embedding_custom(toy_embedder)
 }
 \seealso{
 \code{\link[=step_sentence_embeddings]{step_sentence_embeddings()}}
+
+Other Embedding Engines:
+\code{\link[=embedding_ollama]{embedding_ollama()}}
 }
 \concept{Embedding Engines}
