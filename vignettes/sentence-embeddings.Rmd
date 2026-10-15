@@ -1,0 +1,123 @@
+---
+title: "Sentence embeddings"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Sentence embeddings}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#| label: setup
+library(textrecipes)
+library(recipes)
+```
+
+`step_word_embeddings()` looks up a vector for each token in a table you supply and aggregates them. `step_sentence_embeddings()` is different: it takes a whole character column, runs each string through an embedding model, and returns one dense vector per row. This vignette covers how to use it, what the available engines are, and what to think about before putting a recipe that uses it into production.
+
+# The basics
+
+The step needs an engine, which says how strings are turned into vectors. The simplest engine, `embedding_custom()`, takes any function that maps a character vector to a numeric matrix with one row per string. Here a toy function stands in for a real model.
+
+```{r}
+toy_embedder <- function(x) {
+  cbind(
+    nchar = nchar(x),
+    vowels = nchar(gsub("[^aeiou]", "", x))
+  )
+}
+
+sample_data <- tibble::tibble(
+  text = c("The cat sat.", "A dog ran.", "Stocks fell sharply today.")
+)
+
+rec <- recipe(~text, data = sample_data) |>
+  step_sentence_embeddings(text, engine = embedding_custom(toy_embedder))
+
+rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
+
+The new columns are named from the `prefix` argument, the variable, and the position of the dimension. Missing text stays missing: a row with `NA` gets `NA` in all of its embedding columns and is never sent to the engine.
+
+# Engines
+
+`embedding_custom()` is the escape hatch. Use it for any backend that doesn't have its own engine, such as a hosted API or a model you run yourself.
+
+`embedding_ollama()` gets embeddings from a running [Ollama](https://ollama.com) server. It needs no Python environment and no API key, only the httr2 package and a server with the model pulled.
+
+To set it up:
+
+1. Install Ollama from <https://ollama.com/download>. The [Ollama documentation](https://docs.ollama.com) has instructions for each system.
+2. Make sure the server is running. The desktop apps start it when you open them. Otherwise run `ollama serve` in a terminal and leave it running.
+3. Pull the model once with `ollama pull all-minilm`. You can see which models are on the server with `ollama list`, and browse more at <https://ollama.com/library>.
+
+Then use the engine in a recipe.
+
+```{r}
+#| eval: false
+rec <- recipe(~text, data = sample_data) |>
+  step_sentence_embeddings(
+    text,
+    engine = embedding_ollama("all-minilm")
+  )
+```
+
+There is no default model, so the model is always visible in your code. `all-minilm` is one of the smallest embedding models, which makes it a good choice for trying things out. Larger models usually give better embeddings, at the cost of download size and speed.
+
+Some models expect a prefix on the text, for example `"query: "` or `"passage: "`. Use the `text_prefix` argument of the engine for this, so the prefix is visible in the recipe. Use `normalize = TRUE` to scale each embedding to unit length.
+
+# Local models and hosted services
+
+Where the model runs decides what you have to set up and what happens to your text.
+
+* A local model, such as one served by Ollama on your own machine, costs nothing per request, but needs local compute and setup, and large models can be slow without a GPU.
+* A hosted service needs no local setup, but usually costs money per request, and the text in your data is sent to a third party.
+
+`step_word_embeddings()` never had this second concern, because it only looks up vectors in a table that is already on your machine. With this step, the text in your data leaves R whenever an engine talks to a server, so check that this is acceptable for your data before using a server you don't control. The `host` argument of `embedding_ollama()` controls where the text goes.
+
+# What a recipe stores
+
+Embedding models are large, so a prepped recipe never stores the model. It stores the engine, which is a reference to the model: the model name and the server address. This keeps recipes small, but it changes what "the recipe works on another machine" means. A prepped recipe can only be baked where its engine can run.
+
+```{r}
+#| eval: false
+# Fine to save, the recipe holds the engine settings, not the model
+rec_prepped <- prep(rec)
+saveRDS(rec_prepped, "recipe.rds")
+```
+
+For `embedding_ollama()`, the machine that bakes the recipe needs:
+
+* the httr2 package,
+* an Ollama server it can reach at the same `host`,
+* the same model pulled on that server.
+
+The engine doesn't pin a model version. An Ollama model name such as `"all-minilm"` can point to a different version after the model is updated. If the new version has a different number of dimensions, `bake()` stops with an error, but if it has the same number of dimensions the change goes unnoticed, and the features will differ from the ones the downstream model was trained on. When this matters, pin the model to a specific tag, and update it deliberately.
+
+The checks that run before any text is embedded make these problems easy to find. If the server can't be reached, or the model isn't on it, `bake()` stops right away and says how to fix it, instead of failing partway through the data. If anything fails while embedding, the whole `bake()` stops, and you never get a data frame with some rows missing.
+
+For `embedding_custom()`, the function is stored in the recipe. If the function captures a live object, such as a Python model through reticulate, that object will not survive `saveRDS()`. Have the function load the model from a path or an identifier when it is called, instead of capturing it.
+
+# Speed, caching, and tuning
+
+Embedding is usually the slowest part of a recipe. To keep repeated work down, embeddings are cached within the R session, per engine and per string:
+
+* `prep()` embeds the training data, and baking the training data afterwards reuses those embeddings.
+* A string that appears more than once is only embedded once.
+* The cache is not stored in the recipe, and is gone when the R session ends.
+
+The cache doesn't help across sessions or across parallel workers. When a recipe is used in tuning, it is prepped once per resample, and each worker has its own cache and needs access to the engine. Embedding the text once before tuning, and treating the embeddings as ordinary numeric columns, is often more practical for large datasets than embedding inside the recipe.
+
+# Limitations
+
+The step doesn't batch work for datasets that don't fit in memory, and it doesn't do any fine-tuning of the model. Each selected column is embedded on its own, so features that compare two texts, such as a query and a document, are not supported.
