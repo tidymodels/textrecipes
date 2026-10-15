@@ -65,6 +65,9 @@
   Embedding Engines for
   [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
 
+- [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
+  : Ollama Embedding Engine
+
 ## Step Functions - Text Normalization
 
 - [`step_text_normalization()`](https://textrecipes.tidymodels.org/dev/reference/step_text_normalization.md)

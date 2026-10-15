@@ -5,6 +5,7 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/Working-with-n-grams.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/cookbook---using-more-complex-recipes-involving-text.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/index.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/articles/sentence-embeddings.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/sparse-matrices.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/tokenizers.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/tokenlist.html</loc></url>
@@ -14,6 +15,7 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/all_tokenized.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/count_functions.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/embedding_custom.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/emoji_samples.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/index.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/ngram.html</loc></url>

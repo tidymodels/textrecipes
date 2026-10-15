@@ -3,6 +3,14 @@
 ## textrecipes (development version)
 
 - Added
+  [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md),
+  an engine for
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
+  that gets embeddings from a running Ollama server using httr2, and a
+  vignette, “Sentence embeddings”.
+  ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+
+- Added
   [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md),
   which converts a character column into dense embeddings from a
   pretrained model, together with

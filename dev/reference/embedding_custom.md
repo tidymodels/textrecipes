@@ -44,6 +44,9 @@ capturing it.
 
 [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
 
+Other Embedding Engines:
+[`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
+
 ## Examples
 
 ``` r
