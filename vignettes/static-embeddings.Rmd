@@ -1,0 +1,147 @@
+---
+title: "Static embeddings with Model2Vec and BPEmb"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Static embeddings with Model2Vec and BPEmb}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r}
+#| label: setup
+library(textrecipes)
+library(recipes)
+```
+
+`step_word_embeddings()` looks up a vector for each token and aggregates the vectors of each document. GloVe is the classic source of such vectors, but any table of token vectors works, and more recent static embeddings are often smaller and better. This vignette shows how to use two of them, [Model2Vec](https://github.com/MinishLab/model2vec) and [BPEmb](https://bpemb.h-its.org/), with the steps textrecipes already has.
+
+Unlike `step_sentence_embeddings()`, nothing here calls a server or a Python model. The vectors are looked up in a table on your machine, so your text never leaves R. The recipe is baked like any other recipe, and the last section covers what to know when saving it.
+
+The code in this vignette downloads model files, so none of it is run when the vignette is built.
+
+The key point for both models is that the vectors belong to the tokens of one specific tokenizer. The recipe has to tokenize text in the same way the model was trained, otherwise tokens are not found in the table and are dropped without a warning.
+
+# Model2Vec
+
+Model2Vec models are distilled from a sentence embedding model into a table with one vector per token. The potion models are small, for example `potion-base-8M` is about 30 MB. Embedding a document is just averaging the vectors of its tokens and scaling the result to unit length, which is what the recipe below does.
+
+A model on the Hugging Face Hub is a folder of files. We need two of them: `model.safetensors`, which holds the vectors, and `vocab.txt`, which holds the tokens in the same order as the rows of the vectors. `download_embeddings_model2vec()` downloads both from the URL of the folder. The last part of the URL below is a commit hash, which pins the download to a specific version of the model.
+
+```{r}
+url <- paste0(
+  "https://huggingface.co/minishlab/potion-base-8M/resolve/",
+  "bf8b056651a2c21b8d2565580b8569da283cab23"
+)
+
+model_dir <- download_embeddings_model2vec(url)
+```
+
+The files are put in a temporary folder unless you give a folder with the `path` argument. `read_embeddings_model2vec()` reads the model folder into a tibble with the tokens in the first column, which is the shape `step_word_embeddings()` wants. It needs the safetensors and torch packages to read the vectors. We also keep the lines of `vocab.txt`, which the tokenizer needs.
+
+```{r}
+embeddings <- read_embeddings_model2vec(model_dir)
+vocab <- readLines(file.path(model_dir, "vocab.txt"), warn = FALSE)
+```
+
+The potion models use the WordPiece vocabulary of `bge-base-en-v1.5`, which is also what `config.json` in the model folder says. That means the text should be tokenized with `step_tokenize_wordpiece()` using the model's own `vocab.txt`. The tokens are averaged with `aggregation = "mean"`, and `step_spatialsign()` scales each row to unit length, as the model does.
+
+```{r}
+sample_data <- tibble::tibble(
+  text = c(
+    "The cat sat on the mat.",
+    "Unbelievably good tokenization!"
+  )
+)
+
+rec <- recipe(~text, data = sample_data) |>
+  step_tokenize_wordpiece(text, vocab = vocab) |>
+  step_word_embeddings(text, embeddings = embeddings, aggregation = "mean") |>
+  step_spatialsign(starts_with("wordembed_"))
+
+rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
+
+This follows the way Model2Vec builds a document embedding, but it is not guaranteed to match the Python `model2vec` package exactly. Details such as how special tokens like `[UNK]` are handled may differ, so compare a few documents against the Python package if you need identical values. Other potion models may use a different tokenizer, so check the `tokenizer_name` in the model's `config.json` before reusing this recipe. A tokenizer that textrecipes can't reproduce, such as the one used by a multilingual model, can't be used this way.
+
+# BPEmb
+
+BPEmb has vectors for subword pieces in 275 languages, in several vocabulary sizes and dimensions. Each download comes with a SentencePiece model, which `step_tokenize_sentencepiece()` can use through its `model` argument, and a text file of vectors in the word2vec text format, where the first line gives the size and each other line is a piece followed by its numbers.
+
+The files for English with 10000 pieces and 50 dimensions are below. The [BPEmb website](https://bpemb.h-its.org/) lists the files for other languages and sizes, which follow the same naming pattern.
+
+```{r}
+url <- "https://bpemb.h-its.org/en"
+
+bpemb_dir <- tempfile()
+dir.create(bpemb_dir)
+download.file(
+  file.path(url, "en.wiki.bpe.vs10000.model"),
+  file.path(bpemb_dir, "en.model"),
+  mode = "wb"
+)
+download.file(
+  file.path(url, "en.wiki.bpe.vs10000.d50.w2v.txt.tar.gz"),
+  file.path(bpemb_dir, "vectors.tar.gz"),
+  mode = "wb"
+)
+untar(file.path(bpemb_dir, "vectors.tar.gz"), exdir = bpemb_dir)
+```
+
+`read_embeddings_bpemb()` reads the unpacked vectors file into a tibble with the pieces in the first column.
+
+```{r}
+vectors_file <- list.files(
+  bpemb_dir,
+  pattern = "w2v.txt$",
+  recursive = TRUE,
+  full.names = TRUE
+)
+
+embeddings <- read_embeddings_bpemb(vectors_file)
+```
+
+BPEmb was trained on lowercased text where every digit was replaced by `0`. The vectors only cover pieces that occur in text like that, so pieces from capital letters or other digits have no vector, and are dropped without a warning. We use the regular expression `\p{Nd}` with `perl = TRUE` so digits from any script are replaced, as in the BPEmb Python package. The text has to be given the same treatment before it is tokenized, which `step_mutate()` from recipes can do.
+
+```{r}
+sample_data <- tibble::tibble(
+  text = c(
+    "The cat sat on the mat.",
+    "Unbelievably good tokenization in 2024!"
+  )
+)
+
+rec <- recipe(~text, data = sample_data) |>
+  step_mutate(text = gsub("\\p{Nd}", "0", tolower(text), perl = TRUE)) |>
+  step_tokenize_sentencepiece(text, model = file.path(bpemb_dir, "en.model")) |>
+  step_word_embeddings(text, embeddings = embeddings, aggregation = "mean")
+
+rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
+
+You can check that no pieces are lost by looking at the tokens before they are embedded. Every piece should be a value of `embeddings$token`, which the last line checks.
+
+```{r}
+tokens <- recipe(~text, data = sample_data) |>
+  step_mutate(text = gsub("\\p{Nd}", "0", tolower(text), perl = TRUE)) |>
+  step_tokenize_sentencepiece(text, model = file.path(bpemb_dir, "en.model")) |>
+  show_tokens(text, n = 2)
+
+all(unlist(tokens) %in% embeddings$token)
+```
+
+# Saving the recipe
+
+The embedding table is stored inside the prepped recipe, as it is for any use of `step_word_embeddings()`. The table of vectors is large, 29,528 rows and 256 columns for `potion-base-8M`, which is about 60 MB in memory because R stores the numbers as doubles, so a saved recipe is at least that large. The SentencePiece model and the WordPiece vocabulary are read when the recipe is prepped, so the downloaded files are not needed afterwards.
