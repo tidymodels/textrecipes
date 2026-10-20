@@ -3,6 +3,18 @@
 ## textrecipes (development version)
 
 - Added
+  [`read_embeddings_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md)
+  and
+  [`read_embeddings_bpemb()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md),
+  which read downloaded Model2Vec and BPEmb files into the tibble that
+  [`step_word_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_word_embeddings.md)
+  takes as `embeddings`,
+  [`download_embeddings_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/download_embeddings_model2vec.md)
+  for downloading a Model2Vec model, and a vignette, “Static embeddings
+  with Model2Vec and BPEmb”, showing how to use them.
+  ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+
+- Added
   [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md),
   an engine for
   [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)

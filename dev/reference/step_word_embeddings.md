@@ -125,6 +125,15 @@ embeddings from the textdata package (where the column names are `d1`,
 `d2`, etc), new columns would be `wordembed_text_d1`,
 `wordembed_text_d2`, etc.
 
+Any table of token vectors can be used, not only GloVe. See
+[`vignette("static-embeddings", package = "textrecipes")`](https://textrecipes.tidymodels.org/dev/articles/static-embeddings.md)
+for how to use the Model2Vec and BPEmb embeddings, which need the text
+to be tokenized in a specific way.
+[`read_embeddings_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md)
+and
+[`read_embeddings_bpemb()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md)
+read the downloaded files of these models into the `embeddings` tibble.
+
 ## Tidying
 
 When you
@@ -204,10 +213,10 @@ tidy(rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_Lm4pn
+#> 1 text                3 sum         word_embeddings_5SpPA
 tidy(obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_Lm4pn
+#> 1 text                3 sum         word_embeddings_5SpPA
 ```

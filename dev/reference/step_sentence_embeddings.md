@@ -217,10 +217,10 @@ tidy(rec, number = 1)
 #> # A tibble: 1 × 5
 #>   terms engine          model dimension id                       
 #>   <chr> <chr>           <chr>     <int> <chr>                    
-#> 1 text  custom function NA           NA sentence_embeddings_qBIZN
+#> 1 text  custom function NA           NA sentence_embeddings_E3MAz
 tidy(obj, number = 1)
 #> # A tibble: 1 × 5
 #>   terms engine          model dimension id                       
 #>   <chr> <chr>           <chr>     <int> <chr>                    
-#> 1 text  custom function NA            2 sentence_embeddings_qBIZN
+#> 1 text  custom function NA            2 sentence_embeddings_E3MAz
 ```

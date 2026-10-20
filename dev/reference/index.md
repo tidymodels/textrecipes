@@ -68,6 +68,14 @@
 - [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
   : Ollama Embedding Engine
 
+## Reading Static Embeddings
+
+- [`download_embeddings_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/download_embeddings_model2vec.md)
+  : Download a Pretrained Model2Vec Model
+- [`read_embeddings_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md)
+  [`read_embeddings_bpemb()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md)
+  : Read Pretrained Static Embeddings From Files
+
 ## Step Functions - Text Normalization
 
 - [`step_text_normalization()`](https://textrecipes.tidymodels.org/dev/reference/step_text_normalization.md)

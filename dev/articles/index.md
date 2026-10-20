@@ -8,6 +8,8 @@
   embeddings](https://textrecipes.tidymodels.org/dev/articles/sentence-embeddings.md):
 - [Using textrecipes as a sparse matrix
   engine](https://textrecipes.tidymodels.org/dev/articles/sparse-matrices.md):
+- [Static embeddings with Model2Vec and
+  BPEmb](https://textrecipes.tidymodels.org/dev/articles/static-embeddings.md):
 - [Tokenizers](https://textrecipes.tidymodels.org/dev/articles/tokenizers.md):
 - [Under the hood -
   tokenlist](https://textrecipes.tidymodels.org/dev/articles/tokenlist.md):

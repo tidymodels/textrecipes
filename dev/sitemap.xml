@@ -7,6 +7,7 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/index.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/sentence-embeddings.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/sparse-matrices.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/articles/static-embeddings.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/tokenizers.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/articles/tokenlist.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/authors.html</loc></url>
@@ -14,12 +15,14 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/news/index.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/all_tokenized.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/count_functions.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/reference/download_embeddings_model2vec.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/embedding_custom.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/emoji_samples.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/index.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/ngram.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/pipe.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/reexports.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/required_pkgs.step.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/show_tokens.html</loc></url>
