@@ -34,8 +34,9 @@ Imports:
     sparsevctrs (>= 0.3.0),
     tibble,
     tokenizers,
+    utils,
     vctrs
-Suggests: 
+Suggests:
     covr,
     dials (>= 1.2.0),
     hardhat,
@@ -45,6 +46,7 @@ Suggests:
     modeldata,
     reticulate,
     rmarkdown,
+    safetensors,
     sentencepiece,
     spacyr,
     stopwords,
@@ -52,6 +54,7 @@ Suggests:
     testthat (>= 3.0.0),
     text2vec,
     tokenizers.bpe,
+    torch,
     udpipe,
     withr,
     wordpiece

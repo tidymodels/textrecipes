@@ -43,6 +43,12 @@
 #' textdata package (where the column names are `d1`, `d2`, etc), new columns
 #' would be `wordembed_text_d1`, `wordembed_text_d2`, etc.
 #'
+#' Any table of token vectors can be used, not only GloVe. See
+#' `vignette("static-embeddings", package = "textrecipes")` for how to use the
+#' Model2Vec and BPEmb embeddings, which need the text to be tokenized in a
+#' specific way. [read_embeddings_model2vec()] and [read_embeddings_bpemb()]
+#' read the downloaded files of these models into the `embeddings` tibble.
+#'
 #' # Tidying
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned with

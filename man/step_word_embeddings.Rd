@@ -90,6 +90,12 @@ tibble (usually something like "d7"). For example, using the default
 "wordembed" prefix, a variable named \code{text}, and the GloVe embeddings from the
 textdata package (where the column names are \code{d1}, \code{d2}, etc), new columns
 would be \code{wordembed_text_d1}, \code{wordembed_text_d2}, etc.
+
+Any table of token vectors can be used, not only GloVe. See
+\code{vignette("static-embeddings", package = "textrecipes")} for how to use the
+Model2Vec and BPEmb embeddings, which need the text to be tokenized in a
+specific way. \code{\link[=read_embeddings_model2vec]{read_embeddings_model2vec()}} and \code{\link[=read_embeddings_bpemb]{read_embeddings_bpemb()}}
+read the downloaded files of these models into the \code{embeddings} tibble.
 }
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned with

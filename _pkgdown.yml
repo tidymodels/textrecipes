@@ -53,6 +53,10 @@ reference:
   contents:
   - embedding_custom
   - embedding_ollama
+- title: Reading Static Embeddings
+  contents:
+  - download_embeddings_model2vec
+  - read_embeddings_model2vec
 - title: Step Functions - Text Normalization
   contents:
   - step_text_normalization

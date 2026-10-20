@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Added `read_embeddings_model2vec()` and `read_embeddings_bpemb()`, which read downloaded Model2Vec and BPEmb files into the tibble that `step_word_embeddings()` takes as `embeddings`, `download_embeddings_model2vec()` for downloading a Model2Vec model, and a vignette, "Static embeddings with Model2Vec and BPEmb", showing how to use them. (#303)
+
 * Added `embedding_ollama()`, an engine for `step_sentence_embeddings()` that gets embeddings from a running Ollama server using httr2, and a vignette, "Sentence embeddings". (#303)
 
 * Added `step_sentence_embeddings()`, which converts a character column into dense embeddings from a pretrained model, together with `embedding_custom()` for supplying your own embedding function. The step stores a reference to the model rather than the model itself, checks that the embedding dimension is unchanged when baking, and caches embeddings within the R session. (#303)
