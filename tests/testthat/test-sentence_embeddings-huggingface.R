@@ -329,8 +329,10 @@ test_that("missing text isn't sent to the model", {
 
 # OpenMP on macOS --------------------------------------------------------------
 
+# Whether Python has been started depends on which test files ran before this
+# one, so every test here sets it.
 test_that("OpenMP variables are set on macOS when they are unset", {
-  local_mocked_bindings(is_macos = function() TRUE)
+  local_mocked_bindings(is_macos = function() TRUE, python_started = function() FALSE)
   withr::local_envvar(KMP_DUPLICATE_LIB_OK = NA, OMP_NUM_THREADS = NA)
 
   expect_snapshot(huggingface_avoid_openmp_conflict())
@@ -339,8 +341,19 @@ test_that("OpenMP variables are set on macOS when they are unset", {
   expect_identical(Sys.getenv("OMP_NUM_THREADS"), "1")
 })
 
+test_that("a warning is given when Python was already started", {
+  local_mocked_bindings(is_macos = function() TRUE, python_started = function() TRUE)
+  withr::local_envvar(KMP_DUPLICATE_LIB_OK = NA, OMP_NUM_THREADS = NA)
+
+  expect_snapshot(huggingface_avoid_openmp_conflict())
+
+  # The variables are still set, in case it isn't too late
+  expect_identical(Sys.getenv("KMP_DUPLICATE_LIB_OK"), "TRUE")
+  expect_identical(Sys.getenv("OMP_NUM_THREADS"), "1")
+})
+
 test_that("OpenMP variables the user has set are left alone", {
-  local_mocked_bindings(is_macos = function() TRUE)
+  local_mocked_bindings(is_macos = function() TRUE, python_started = function() FALSE)
   withr::local_envvar(KMP_DUPLICATE_LIB_OK = NA, OMP_NUM_THREADS = "4")
 
   expect_snapshot(huggingface_avoid_openmp_conflict())
@@ -376,7 +389,7 @@ test_that("embedding_huggingface() works with a real model", {
   # Starting Python is what fails on macOS, so this has to come before the first
   # reticulate call.
   withr::local_envvar(KMP_DUPLICATE_LIB_OK = NA, OMP_NUM_THREADS = NA)
-  suppressMessages(huggingface_avoid_openmp_conflict())
+  suppressWarnings(suppressMessages(huggingface_avoid_openmp_conflict()))
   skip_if_not(
     reticulate::py_module_available("sentence_transformers"),
     "sentence_transformers isn't available"

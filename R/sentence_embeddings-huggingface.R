@@ -308,6 +308,12 @@ is_macos <- function() {
   Sys.info()[["sysname"]] == "Darwin"
 }
 
+# Whether reticulate has already started Python in this R session. Doesn't start
+# it.
+python_started <- function() {
+  reticulate::py_available()
+}
+
 # On macOS, R packages such as data.table (which recipes depends on) load R's
 # OpenMP runtime, and torch loads its own. The second one aborts the R session
 # with "OMP: Error #15". Allowing the duplicate and running on one thread avoids
@@ -326,7 +332,7 @@ huggingface_avoid_openmp_conflict <- function() {
 
   do.call(Sys.setenv, as.list(wanted[unset]))
 
-  if (reticulate::py_available()) {
+  if (python_started()) {
     cli::cli_warn(
       c(
         "Python was already started in this R session, so setting

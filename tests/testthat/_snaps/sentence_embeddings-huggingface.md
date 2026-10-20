@@ -112,6 +112,15 @@
       i Set `KMP_DUPLICATE_LIB_OK` and `OMP_NUM_THREADS` to avoid a crash caused by R and PyTorch both loading an OpenMP library on macOS.
       i This runs the model on one thread. To use other values, set the variables yourself, for example in '.Renviron'.
 
+# a warning is given when Python was already started
+
+    Code
+      huggingface_avoid_openmp_conflict()
+    Condition
+      Warning:
+      Python was already started in this R session, so setting `KMP_DUPLICATE_LIB_OK` and `OMP_NUM_THREADS` now may be too late to avoid an OpenMP crash on macOS.
+      i If R aborts with "OMP: Error #15", set the variables in '.Renviron' and restart R.
+
 # OpenMP variables the user has set are left alone
 
     Code
