@@ -99,6 +99,7 @@ rec |>
 \code{\link[=step_sentence_embeddings]{step_sentence_embeddings()}}
 
 Other Embedding Engines:
-\code{\link[=embedding_custom]{embedding_custom()}}
+\code{\link[=embedding_custom]{embedding_custom()}},
+\code{\link[=embedding_huggingface]{embedding_huggingface()}}
 }
 \concept{Embedding Engines}

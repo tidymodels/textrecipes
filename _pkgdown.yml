@@ -52,6 +52,7 @@ reference:
 - title: Embedding Engines
   contents:
   - embedding_custom
+  - embedding_huggingface
   - embedding_ollama
 - title: Reading Static Embeddings
   contents:
