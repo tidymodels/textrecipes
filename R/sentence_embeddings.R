@@ -61,13 +61,15 @@
 #' # Tidying
 #'
 #' When you [`tidy()`][recipes::tidy.recipe()] this step, a tibble is returned
-#' with columns `terms`, `engine`, `model`, `dimension`, and `id`:
+#' with columns `terms`, `engine`, `model`, `revision`, `dimension`, and `id`:
 #'
 #' \describe{
 #'   \item{terms}{character, the selectors or variables selected}
 #'   \item{engine}{character, the name of the engine}
 #'   \item{model}{character, the name of the model, `NA` if the engine doesn't
 #'     have one}
+#'   \item{revision}{character, the version of the model the engine is pinned
+#'     to, `NA` if the engine can't pin one}
 #'   \item{dimension}{integer, the number of embedding dimensions, `NA` until
 #'     the recipe is prepped}
 #'   \item{id}{character, id of this step}
@@ -285,6 +287,7 @@ tidy.step_sentence_embeddings <- function(x, ...) {
     terms = terms,
     engine = rep(engine_label(x$engine), length(terms)),
     model = rep(engine_model(x$engine), length(terms)),
+    revision = rep(engine_revision(x$engine), length(terms)),
     dimension = rep(as.integer(x$dimension), length(terms))
   )
   res$id <- rep(x$id, length(terms))

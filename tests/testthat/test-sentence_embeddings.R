@@ -348,6 +348,7 @@ test_that("tidy method works", {
       terms = "text",
       engine = "custom function",
       model = NA_character_,
+      revision = NA_character_,
       dimension = NA_integer_,
       id = "test"
     )
@@ -359,6 +360,7 @@ test_that("tidy method works", {
       terms = "text",
       engine = "custom function",
       model = NA_character_,
+      revision = NA_character_,
       dimension = 3L,
       id = "test"
     )
@@ -374,6 +376,7 @@ test_that("empty selection tidy method works", {
     terms = character(),
     engine = character(),
     model = character(),
+    revision = character(),
     dimension = integer(),
     id = character()
   )

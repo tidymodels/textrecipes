@@ -118,6 +118,11 @@ engine_model.embedding_ollama <- function(engine) {
 }
 
 #' @export
+engine_revision.embedding_ollama <- function(engine) {
+  NA_character_
+}
+
+#' @export
 engine_required_pkgs.embedding_ollama <- function(engine) {
   "httr2"
 }

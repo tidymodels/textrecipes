@@ -99,6 +99,7 @@ test_that("the engine can be used from tidy()", {
       terms = "text",
       engine = "ollama",
       model = "all-minilm",
+      revision = NA_character_,
       dimension = 3L,
       id = "test"
     )
