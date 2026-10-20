@@ -180,6 +180,39 @@ speed.</p>
 <code>text_prefix</code> argument of the engine for this, so the prefix
 is visible in the recipe. Use <code>normalize = TRUE</code> to scale
 each embedding to unit length.</p>
+<p><code><a href="../reference/embedding_huggingface.html">embedding_huggingface()</a></code> runs a <a href="https://sbert.net" class="external-link">sentence-transformers</a> model from the
+Hugging Face Hub in Python, through reticulate. It gives you control
+over the device and batch size, and the model runs inside your R session
+with no server to set up. It needs Python with the
+<code>sentence_transformers</code> module, which brings in torch.
+Install it into the environment reticulate uses with
+<code>reticulate::py_install("sentence-transformers")</code>, or run
+<code>reticulate::py_require("sentence-transformers")</code> before
+Python starts in the session.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">text</span>, data <span class="op">=</span> <span class="va">sample_data</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/step_sentence_embeddings.html">step_sentence_embeddings</a></span><span class="op">(</span></span>
+<span>    <span class="va">text</span>,</span>
+<span>    engine <span class="op">=</span> <span class="fu"><a href="../reference/embedding_huggingface.html">embedding_huggingface</a></span><span class="op">(</span></span>
+<span>      <span class="st">"sentence-transformers/all-MiniLM-L6-v2"</span>,</span>
+<span>      revision <span class="op">=</span> <span class="st">"1110a243fdf4706b3f48f1d95db1a4f5529b4d41"</span>,</span>
+<span>      device <span class="op">=</span> <span class="st">"cpu"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>Both <code>model</code> and <code>revision</code> are required. The
+revision is the hash of a commit of the model repository, and it fixes
+the version of the model, so the embeddings don’t change if the model is
+updated on the Hub. You can find the hash under <em>Files and
+versions</em> on the model page. The model is downloaded the first time
+it is used, and after that your text stays on your machine. Loading a
+model takes a while, so it is kept for the rest of the R session.</p>
+<p>On macOS, loading torch in a session that has recipes loaded can
+abort R with an <code>OMP: Error #15</code> message about
+<code>libomp</code>. The engine sets the environment variables
+<code>KMP_DUPLICATE_LIB_OK</code> and <code>OMP_NUM_THREADS</code> to
+avoid this, which makes the model run on one thread, and says so when it
+does. See <code><a href="../reference/embedding_huggingface.html">?embedding_huggingface</a></code> for the details and for
+what to do if Python was already started in your session.</p>
 </div>
 <div class="section level2">
 <h2 id="local-models-and-hosted-services">Local models and hosted services<a class="anchor" aria-label="anchor" href="#local-models-and-hosted-services"></a>
@@ -208,7 +241,7 @@ model. It stores the engine, which is a reference to the model: the
 model name and the server address. This keeps recipes small, but it
 changes what “the recipe works on another machine” means. A prepped
 recipe can only be baked where its engine can run.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Fine to save, the recipe holds the engine settings, not the model</span></span>
 <span><span class="va">rec_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="va">rec</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span><span class="va">rec_prepped</span>, <span class="st">"recipe.rds"</span><span class="op">)</span></span></code></pre></div>
@@ -227,6 +260,20 @@ same number of dimensions the change goes unnoticed, and the features
 will differ from the ones the downstream model was trained on. When this
 matters, pin the model to a specific tag, and update it
 deliberately.</p>
+<p>For <code><a href="../reference/embedding_huggingface.html">embedding_huggingface()</a></code>, the machine that bakes the
+recipe needs:</p>
+<ul>
+<li>the reticulate package and a Python environment with the
+<code>sentence_transformers</code> module,</li>
+<li>the model at the pinned <code>revision</code>, which is downloaded
+from the Hub on first use, so the machine needs access to it unless the
+model is already in the Hugging Face cache,</li>
+<li>the device the engine asks for, if you set one.</li>
+</ul>
+<p>The loaded model is a reference to memory in the Python process,
+which can’t be saved, so the recipe stores only the model id, the
+revision, and the other settings. <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> shows the model
+and the revision.</p>
 <p>The checks that run before any text is embedded make these problems
 easy to find. If the server can’t be reached, or the model isn’t on it,
 <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake()</a></code> stops right away and says how to fix it, instead of

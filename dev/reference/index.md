@@ -65,6 +65,9 @@
   Embedding Engines for
   [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
 
+- [`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md)
+  : Hugging Face Embedding Engine
+
 - [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
   : Ollama Embedding Engine
 

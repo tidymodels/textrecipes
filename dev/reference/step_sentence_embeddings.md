@@ -142,7 +142,7 @@ the R session ends.
 When you
 [`tidy()`](https://recipes.tidymodels.org/reference/tidy.recipe.html)
 this step, a tibble is returned with columns `terms`, `engine`, `model`,
-`dimension`, and `id`:
+`revision`, `dimension`, and `id`:
 
 - terms:
 
@@ -155,6 +155,11 @@ this step, a tibble is returned with columns `terms`, `engine`, `model`,
 - model:
 
   character, the name of the model, `NA` if the engine doesn't have one
+
+- revision:
+
+  character, the version of the model the engine is pinned to, `NA` if
+  the engine can't pin one
 
 - dimension:
 
@@ -214,13 +219,13 @@ bake(obj, new_data = NULL)
 #> 3 long                     23                7
 
 tidy(rec, number = 1)
-#> # A tibble: 1 × 5
-#>   terms engine          model dimension id                       
-#>   <chr> <chr>           <chr>     <int> <chr>                    
-#> 1 text  custom function NA           NA sentence_embeddings_E3MAz
+#> # A tibble: 1 × 6
+#>   terms engine          model revision dimension id                    
+#>   <chr> <chr>           <chr> <chr>        <int> <chr>                 
+#> 1 text  custom function NA    NA              NA sentence_embeddings_x…
 tidy(obj, number = 1)
-#> # A tibble: 1 × 5
-#>   terms engine          model dimension id                       
-#>   <chr> <chr>           <chr>     <int> <chr>                    
-#> 1 text  custom function NA            2 sentence_embeddings_E3MAz
+#> # A tibble: 1 × 6
+#>   terms engine          model revision dimension id                    
+#>   <chr> <chr>           <chr> <chr>        <int> <chr>                 
+#> 1 text  custom function NA    NA               2 sentence_embeddings_x…
 ```

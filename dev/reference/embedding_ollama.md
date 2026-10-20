@@ -99,7 +99,8 @@ You can check which models are on the server with `ollama list`.
 [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
 
 Other Embedding Engines:
-[`embedding_custom()`](https://textrecipes.tidymodels.org/dev/reference/embedding_custom.md)
+[`embedding_custom()`](https://textrecipes.tidymodels.org/dev/reference/embedding_custom.md),
+[`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md)
 
 ## Examples
 

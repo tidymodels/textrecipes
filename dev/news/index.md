@@ -3,6 +3,19 @@
 ## textrecipes (development version)
 
 - Added
+  [`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md),
+  an engine for
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
+  that runs a sentence-transformers model from the Hugging Face Hub in
+  Python through reticulate. The model is pinned with a required
+  `revision`, and the loaded model is kept for the rest of the R session
+  but never stored in the recipe.
+  [`tidy()`](https://generics.r-lib.org/reference/tidy.html) for
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
+  gained a `revision` column.
+  ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+
+- Added
   [`read_embeddings_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md)
   and
   [`read_embeddings_bpemb()`](https://textrecipes.tidymodels.org/dev/reference/read_embeddings_model2vec.md),

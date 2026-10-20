@@ -114,6 +114,46 @@ Some models expect a prefix on the text, for example `"query: "` or
 the prefix is visible in the recipe. Use `normalize = TRUE` to scale
 each embedding to unit length.
 
+[`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md)
+runs a [sentence-transformers](https://sbert.net) model from the Hugging
+Face Hub in Python, through reticulate. It gives you control over the
+device and batch size, and the model runs inside your R session with no
+server to set up. It needs Python with the `sentence_transformers`
+module, which brings in torch. Install it into the environment
+reticulate uses with `reticulate::py_install("sentence-transformers")`,
+or run `reticulate::py_require("sentence-transformers")` before Python
+starts in the session.
+
+``` r
+
+rec <- recipe(~text, data = sample_data) |>
+  step_sentence_embeddings(
+    text,
+    engine = embedding_huggingface(
+      "sentence-transformers/all-MiniLM-L6-v2",
+      revision = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      device = "cpu"
+    )
+  )
+```
+
+Both `model` and `revision` are required. The revision is the hash of a
+commit of the model repository, and it fixes the version of the model,
+so the embeddings don’t change if the model is updated on the Hub. You
+can find the hash under *Files and versions* on the model page. The
+model is downloaded the first time it is used, and after that your text
+stays on your machine. Loading a model takes a while, so it is kept for
+the rest of the R session.
+
+On macOS, loading torch in a session that has recipes loaded can abort R
+with an `OMP: Error #15` message about `libomp`. The engine sets the
+environment variables `KMP_DUPLICATE_LIB_OK` and `OMP_NUM_THREADS` to
+avoid this, which makes the model run on one thread, and says so when it
+does. See
+[`?embedding_huggingface`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md)
+for the details and for what to do if Python was already started in your
+session.
+
 ## Local models and hosted services
 
 Where the model runs decides what you have to set up and what happens to
@@ -165,6 +205,23 @@ with an error, but if it has the same number of dimensions the change
 goes unnoticed, and the features will differ from the ones the
 downstream model was trained on. When this matters, pin the model to a
 specific tag, and update it deliberately.
+
+For
+[`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md),
+the machine that bakes the recipe needs:
+
+- the reticulate package and a Python environment with the
+  `sentence_transformers` module,
+- the model at the pinned `revision`, which is downloaded from the Hub
+  on first use, so the machine needs access to it unless the model is
+  already in the Hugging Face cache,
+- the device the engine asks for, if you set one.
+
+The loaded model is a reference to memory in the Python process, which
+can’t be saved, so the recipe stores only the model id, the revision,
+and the other settings.
+[`tidy()`](https://generics.r-lib.org/reference/tidy.html) shows the
+model and the revision.
 
 The checks that run before any text is embedded make these problems easy
 to find. If the server can’t be reached, or the model isn’t on it,
