@@ -48,6 +48,7 @@ embedding_custom(toy_embedder)
 \code{\link[=step_sentence_embeddings]{step_sentence_embeddings()}}
 
 Other Embedding Engines:
+\code{\link[=embedding_huggingface]{embedding_huggingface()}},
 \code{\link[=embedding_ollama]{embedding_ollama()}}
 }
 \concept{Embedding Engines}

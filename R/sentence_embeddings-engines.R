@@ -81,6 +81,12 @@ engine_model <- function(engine) {
   UseMethod("engine_model")
 }
 
+# Version of the model the engine is pinned to, or NA if the engine can't pin
+# one.
+engine_revision <- function(engine) {
+  UseMethod("engine_revision")
+}
+
 # Packages needed to run the engine, in addition to textrecipes.
 engine_required_pkgs <- function(engine) {
   UseMethod("engine_required_pkgs")
@@ -112,6 +118,11 @@ engine_label.embedding_custom <- function(engine) {
 
 #' @export
 engine_model.embedding_custom <- function(engine) {
+  NA_character_
+}
+
+#' @export
+engine_revision.embedding_custom <- function(engine) {
   NA_character_
 }
 

@@ -103,13 +103,15 @@ lives outside the recipe and is cleared when the R session ends.
 
 \section{Tidying}{
 When you \code{\link[recipes:tidy.recipe]{tidy()}} this step, a tibble is returned
-with columns \code{terms}, \code{engine}, \code{model}, \code{dimension}, and \code{id}:
+with columns \code{terms}, \code{engine}, \code{model}, \code{revision}, \code{dimension}, and \code{id}:
 
 \describe{
 \item{terms}{character, the selectors or variables selected}
 \item{engine}{character, the name of the engine}
 \item{model}{character, the name of the model, \code{NA} if the engine doesn't
 have one}
+\item{revision}{character, the version of the model the engine is pinned
+to, \code{NA} if the engine can't pin one}
 \item{dimension}{integer, the number of embedding dimensions, \code{NA} until
 the recipe is prepped}
 \item{id}{character, id of this step}
