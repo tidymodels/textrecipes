@@ -2,6 +2,14 @@
 
 ## textrecipes (development version)
 
+- The “Static embeddings with Model2Vec and BPEmb” vignette gained a
+  section on training your own embeddings with wordsalad’s `glove()`,
+  `word2vec()` and `fasttext()` and using them with
+  [`step_word_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_word_embeddings.md).
+  ([\#102](https://github.com/tidymodels/textrecipes/issues/102),
+  [\#103](https://github.com/tidymodels/textrecipes/issues/103),
+  [\#104](https://github.com/tidymodels/textrecipes/issues/104))
+
 - The feature counting functions in `count_functions`, used by
   [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md),
   are now faster. The word-list counts (`first_person`, `prepositions`,

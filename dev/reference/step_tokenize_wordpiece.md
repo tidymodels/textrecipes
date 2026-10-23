@@ -149,10 +149,10 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                      
 #>   <chr>  <chr>                   
-#> 1 medium tokenize_wordpiece_Neyq1
+#> 1 medium tokenize_wordpiece_ZQ9ca
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                      
 #>   <chr>  <chr>                   
-#> 1 medium tokenize_wordpiece_Neyq1
+#> 1 medium tokenize_wordpiece_ZQ9ca
 ```

@@ -95,8 +95,10 @@ already has.</p>
 server or a Python model. The vectors are looked up in a table on your
 machine, so your text never leaves R. The recipe is baked like any other
 recipe, and the last section covers what to know when saving it.</p>
-<p>The code in this vignette downloads model files, so none of it is run
-when the vignette is built.</p>
+<p>A section near the end shows how to train your own embeddings with
+wordsalad, for text where pretrained vectors do not fit.</p>
+<p>The code in this vignette downloads model files or needs extra
+packages, so none of it is run when the vignette is built.</p>
 <p>The key point for both models is that the vectors belong to the
 tokens of one specific tokenizer. The recipe has to tokenize text in the
 same way the model was trained, otherwise tokens are not found in the
@@ -238,6 +240,60 @@ they are embedded. Every piece should be a value of
 <span>  <span class="fu"><a href="../reference/show_tokens.html">show_tokens</a></span><span class="op">(</span><span class="va">text</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">tokens</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">embeddings</span><span class="op">$</span><span class="va">token</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="training-your-own-embeddings">Training your own embeddings<a class="anchor" aria-label="anchor" href="#training-your-own-embeddings"></a>
+</h2>
+<p>Pretrained vectors are the right choice for most problems. If your
+text is very specialized, such as clinical notes or source code, and you
+have a large amount of it, you can train static embeddings on that text
+instead. The <a href="https://github.com/EmilHvitfeldt/wordsalad" class="external-link">wordsalad</a> package
+provides <code>glove()</code>, <code>word2vec()</code> and
+<code>fasttext()</code>, which each return a tibble with the tokens in
+the first column, ready for <code><a href="../reference/step_word_embeddings.html">step_word_embeddings()</a></code>.</p>
+<p>Training is done once, before the recipe, and not inside it. This
+keeps the recipe fast, but it also means the embeddings are not
+re-estimated for each resample. Train only on text that is not part of
+your assessment data, otherwise information leaks from the assessment
+set into the vectors.</p>
+<p>The tokens of the embeddings have to match the tokens of the recipe,
+as with the models above. The default tokenizer of wordsalad splits on
+spaces and keeps case and punctuation, so pass
+<code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code>, which is what
+<code><a href="../reference/step_tokenize.html">step_tokenize()</a></code> uses by default. The three functions have
+different defaults, for example <code>word2vec()</code> uses 50
+dimensions and the other two use 10, so it is worth setting the main
+arguments yourself.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/wordsalad" class="external-link">wordsalad</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">embeddings</span> <span class="op">&lt;-</span> <span class="fu">word2vec</span><span class="op">(</span></span>
+<span>  <span class="va">fairy_tales</span>,</span>
+<span>  tokenizer <span class="op">=</span> <span class="fu">tokenizers</span><span class="fu">::</span><span class="va"><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenize_words</a></span>,</span>
+<span>  dim <span class="op">=</span> <span class="fl">25</span>,</span>
+<span>  min_count <span class="op">=</span> <span class="fl">5L</span>,</span>
+<span>  n_iter <span class="op">=</span> <span class="fl">10L</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"The king and the queen went to the castle."</span>,</span>
+<span>    <span class="st">"A little girl found a magic key."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="op">~</span><span class="va">text</span>, data <span class="op">=</span> <span class="va">sample_data</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/step_word_embeddings.html">step_word_embeddings</a></span><span class="op">(</span><span class="va">text</span>, embeddings <span class="op">=</span> <span class="va">embeddings</span>, aggregation <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">rec</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<p>Swap <code>word2vec()</code> for <code>glove()</code> or
+<code>fasttext()</code> to use the other methods, no other change is
+needed. Documents where none of the tokens are in the embeddings get the
+value of <code>aggregation_default</code>, which is <code>0</code>
+unless you change it.</p>
 </div>
 <div class="section level2">
 <h2 id="saving-the-recipe">Saving the recipe<a class="anchor" aria-label="anchor" href="#saving-the-recipe"></a>
