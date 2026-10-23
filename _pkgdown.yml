@@ -36,6 +36,7 @@ reference:
   - step_stopwords
   - step_tokenfilter
   - step_tokenmerge
+  - step_token_replace
 - title: Step Functions - Numeric Variables From Tokens
   contents:
   - step_lda

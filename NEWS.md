@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Added `step_token_replace()`, which replaces tokens in a token variable according to `pattern` and `replacement` vectors, matching either exactly or with regular expressions. (#134)
+
 * Added `embedding_huggingface()`, an engine for `step_sentence_embeddings()` that runs a sentence-transformers model from the Hugging Face Hub in Python through reticulate. The model is pinned with a required `revision`, and the loaded model is kept for the rest of the R session but never stored in the recipe. `tidy()` for `step_sentence_embeddings()` gained a `revision` column. (#303)
 
 * Added `read_embeddings_model2vec()` and `read_embeddings_bpemb()`, which read downloaded Model2Vec and BPEmb files into the tibble that `step_word_embeddings()` takes as `embeddings`, `download_embeddings_model2vec()` for downloading a Model2Vec model, and a vignette, "Static embeddings with Model2Vec and BPEmb", showing how to use them. (#303)

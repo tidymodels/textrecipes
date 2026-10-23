@@ -154,6 +154,7 @@ Other Steps for Token Modification:
 \code{\link[=step_pos_filter]{step_pos_filter()}},
 \code{\link[=step_stem]{step_stem()}},
 \code{\link[=step_stopwords]{step_stopwords()}},
+\code{\link[=step_token_replace]{step_token_replace()}},
 \code{\link[=step_tokenmerge]{step_tokenmerge()}}
 }
 \concept{Steps for Token Modification}
