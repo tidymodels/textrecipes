@@ -2,6 +2,13 @@
 
 ## textrecipes (development version)
 
+- The feature counting functions in `count_functions`, used by
+  [`step_textfeature()`](https://textrecipes.tidymodels.org/dev/reference/step_textfeature.md),
+  are now faster. The word-list counts (`first_person`, `prepositions`,
+  etc.) are about 2x faster, the `n_uq_*` counts are 2 to 5x faster, and
+  `n_uq_charS` uses less memory on large inputs. Results are unchanged.
+  ([\#267](https://github.com/tidymodels/textrecipes/issues/267))
+
 - Added
   [`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md),
   which replaces tokens in a token variable according to `pattern` and

@@ -180,12 +180,12 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_VB26i
+#> 1 medium tokenize_sentencepiece_dBoLo
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 2
 #>   terms  id                          
 #>   <chr>  <chr>                       
-#> 1 medium tokenize_sentencepiece_VB26i
+#> 1 medium tokenize_sentencepiece_dBoLo
 
 # Using a pretrained model
 model_dir <- tempfile()

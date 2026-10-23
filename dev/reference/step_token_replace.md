@@ -174,14 +174,14 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 2 × 4
 #>   terms  pattern replacement id                 
 #>   <chr>  <chr>   <chr>       <chr>              
-#> 1 medium paper   PAPER       token_replace_FiE0v
-#> 2 medium canvas  CANVAS      token_replace_FiE0v
+#> 1 medium paper   PAPER       token_replace_x7bBK
+#> 2 medium canvas  CANVAS      token_replace_x7bBK
 tidy(tate_obj, number = 2)
 #> # A tibble: 2 × 4
 #>   terms  pattern replacement id                 
 #>   <chr>  <chr>   <chr>       <chr>              
-#> 1 medium paper   PAPER       token_replace_FiE0v
-#> 2 medium canvas  CANVAS      token_replace_FiE0v
+#> 1 medium paper   PAPER       token_replace_x7bBK
+#> 2 medium canvas  CANVAS      token_replace_x7bBK
 
 # Using regular expressions
 tate_rec <- recipe(~., data = tate_text) |>

@@ -213,10 +213,10 @@ tidy(rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_KxPST
+#> 1 text                3 sum         word_embeddings_ndWsH
 tidy(obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms embeddings_rows aggregation id                   
 #>   <chr>           <int> <chr>       <chr>                
-#> 1 text                3 sum         word_embeddings_KxPST
+#> 1 text                3 sum         word_embeddings_ndWsH
 ```
