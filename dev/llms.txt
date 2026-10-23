@@ -155,6 +155,8 @@ By contributing to this project, you agree to abide by its terms.
   : Filter Tokens Based on Term Frequency
 - [`step_tokenmerge()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.md)
   : Combine Multiple Token Variables Into One
+- [`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md)
+  : Replace Tokens in a Token Variable
 
 ## Step Functions - Numeric Variables From Tokens
 

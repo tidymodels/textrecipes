@@ -148,6 +148,7 @@ Other Steps for Token Modification:
 [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md),
 [`step_pos_filter()`](https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.md),
 [`step_stem()`](https://textrecipes.tidymodels.org/dev/reference/step_stem.md),
+[`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md),
 [`step_tokenfilter()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenfilter.md),
 [`step_tokenmerge()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.md)
 
@@ -183,12 +184,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value keep  id             
 #>   <chr>  <chr> <lgl> <chr>          
-#> 1 medium NA    NA    stopwords_w4rDM
+#> 1 medium NA    NA    stopwords_BytC4
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 4
 #>   terms  value    keep  id             
 #>   <chr>  <chr>    <lgl> <chr>          
-#> 1 medium snowball FALSE stopwords_w4rDM
+#> 1 medium snowball FALSE stopwords_BytC4
 
 # With a custom stop words list
 

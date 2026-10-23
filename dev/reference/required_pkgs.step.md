@@ -54,6 +54,9 @@ required_pkgs(x, ...)
 # S3 method for class 'step_tfidf'
 required_pkgs(x, ...)
 
+# S3 method for class 'step_token_replace'
+required_pkgs(x, ...)
+
 # S3 method for class 'step_tokenfilter'
 required_pkgs(x, ...)
 

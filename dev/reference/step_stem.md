@@ -130,6 +130,7 @@ Other Steps for Token Modification:
 [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md),
 [`step_pos_filter()`](https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.md),
 [`step_stopwords()`](https://textrecipes.tidymodels.org/dev/reference/step_stopwords.md),
+[`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md),
 [`step_tokenfilter()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenfilter.md),
 [`step_tokenmerge()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.md)
 
@@ -166,12 +167,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_zBNTH
+#> 1 medium FALSE             stem_MS0qM
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  is_custom_stemmer id        
 #>   <chr>  <lgl>             <chr>     
-#> 1 medium FALSE             stem_zBNTH
+#> 1 medium FALSE             stem_MS0qM
 
 # Using custom stemmer. Here a custom stemmer that removes the last letter
 # if it is a "s".

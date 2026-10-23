@@ -122,6 +122,7 @@ Other Steps for Token Modification:
 [`step_ngram()`](https://textrecipes.tidymodels.org/dev/reference/step_ngram.md),
 [`step_stem()`](https://textrecipes.tidymodels.org/dev/reference/step_stem.md),
 [`step_stopwords()`](https://textrecipes.tidymodels.org/dev/reference/step_stopwords.md),
+[`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md),
 [`step_tokenfilter()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenfilter.md),
 [`step_tokenmerge()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.md)
 

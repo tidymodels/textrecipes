@@ -180,6 +180,7 @@ Other Steps for Token Modification:
 [`step_pos_filter()`](https://textrecipes.tidymodels.org/dev/reference/step_pos_filter.md),
 [`step_stem()`](https://textrecipes.tidymodels.org/dev/reference/step_stem.md),
 [`step_stopwords()`](https://textrecipes.tidymodels.org/dev/reference/step_stopwords.md),
+[`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md),
 [`step_tokenmerge()`](https://textrecipes.tidymodels.org/dev/reference/step_tokenmerge.md)
 
 ## Examples
@@ -215,10 +216,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium    NA tokenfilter_H8in8
+#> 1 medium    NA tokenfilter_Ruys9
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium   952 tokenfilter_H8in8
+#> 1 medium   952 tokenfilter_Ruys9
 ```

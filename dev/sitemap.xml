@@ -43,6 +43,7 @@
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_texthash.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_tf.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_tfidf.html</loc></url>
+<url><loc>https://textrecipes.tidymodels.org/dev/reference/step_token_replace.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenfilter.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize.html</loc></url>
 <url><loc>https://textrecipes.tidymodels.org/dev/reference/step_tokenize_bpe.html</loc></url>

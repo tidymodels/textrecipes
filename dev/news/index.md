@@ -3,6 +3,13 @@
 ## textrecipes (development version)
 
 - Added
+  [`step_token_replace()`](https://textrecipes.tidymodels.org/dev/reference/step_token_replace.md),
+  which replaces tokens in a token variable according to `pattern` and
+  `replacement` vectors, matching either exactly or with regular
+  expressions.
+  ([\#134](https://github.com/tidymodels/textrecipes/issues/134))
+
+- Added
   [`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md),
   an engine for
   [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
