@@ -4,7 +4,7 @@ n_words <- function(x) {
 
 n_uq_words <- function(x) {
   words <- stringi::stri_extract_all_words(x)
-  purrr::map2_int(x, words, n_distinct_safe)
+  n_distinct_list(x, words)
 }
 
 # Shared regexes used to detect and strip urls, hashtags, and mentions.
@@ -12,35 +12,37 @@ url_regex <- "https?://\\S+"
 hashtag_regex <- "#[[:alnum:]_]+"
 mention_regex <- "@\\S+"
 
-# NA-safe variant of dplyr::n_distinct() used when the counting is done by
-# first extracting all matches from `orig` and then counting how many
-# distinct matches there are. If `orig` is NA the result should be NA too,
-# rather than the 1 that dplyr::n_distinct(NA) would report.
-n_distinct_safe <- function(orig, extracted) {
-  if (is.na(orig)) {
-    return(NA_integer_)
-  }
-  dplyr::n_distinct(extracted)
-}
-
-n_charS <- function(x) {
+# Removes urls, hashtags, mentions and white space.
+strip_non_chars <- function(x) {
   x <- stringi::stri_replace_all_regex(x, url_regex, "")
   x <- stringi::stri_replace_all_regex(x, hashtag_regex, "")
   x <- stringi::stri_replace_all_regex(x, mention_regex, "")
-  x <- stringi::stri_replace_all_regex(x, "\\s", "")
-  nchar(x)
+  stringi::stri_replace_all_regex(x, "\\s", "")
+}
+
+# Applies `fn` to `x` in chunks of `size` elements. Used when `fn` builds a
+# large intermediate list (one element per document), so that only one chunk
+# of it is alive at a time.
+map_chunks <- function(x, fn, size = 10000L) {
+  if (length(x) <= size) {
+    return(fn(x))
+  }
+  chunks <- split(x, (seq_along(x) - 1L) %/% size)
+  unlist(lapply(chunks, fn), use.names = FALSE)
+}
+
+n_charS <- function(x) {
+  nchar(strip_non_chars(x))
 }
 
 n_uq_charS <- function(x) {
-  chars <- stringi::stri_replace_all_regex(x, url_regex, "")
-  chars <- stringi::stri_replace_all_regex(chars, hashtag_regex, "")
-  chars <- stringi::stri_replace_all_regex(chars, mention_regex, "")
-  chars <- stringi::stri_replace_all_regex(chars, "\\s", "")
-  chars <- stringi::stri_split_boundaries(
-    chars,
-    opts_brkiter = stringi::stri_opts_brkiter(type = "character")
-  )
-  purrr::map2_int(x, chars, n_distinct_safe)
+  map_chunks(x, \(.x) {
+    chars <- stringi::stri_split_boundaries(
+      strip_non_chars(.x),
+      opts_brkiter = stringi::stri_opts_brkiter(type = "character")
+    )
+    n_distinct_list(.x, chars)
+  })
 }
 
 n_digits <- function(x) {
@@ -57,7 +59,7 @@ n_uq_hashtags <- function(x) {
     hashtag_regex,
     omit_no_match = TRUE
   )
-  purrr::map2_int(x, hashtags, n_distinct_safe)
+  n_distinct_list(x, hashtags)
 }
 
 n_mentions <- function(x) {
@@ -70,7 +72,7 @@ n_uq_mentions <- function(x) {
     mention_regex,
     omit_no_match = TRUE
   )
-  purrr::map2_int(x, mentions, n_distinct_safe)
+  n_distinct_list(x, mentions)
 }
 
 n_commas <- function(x) {
@@ -103,7 +105,7 @@ n_urls <- function(x) {
 
 n_uq_urls <- function(x) {
   urls <- stringi::stri_extract_all_regex(x, url_regex, omit_no_match = TRUE)
-  purrr::map2_int(x, urls, n_distinct_safe)
+  n_distinct_list(x, urls)
 }
 
 n_nonasciis <- function(x) {
@@ -116,55 +118,50 @@ n_puncts <- function(x) {
   stringi::stri_count_regex(x, "[[:punct:]]")
 }
 
-# Tokenizes a single document into lower-cased words, so that word-list
-# membership can be tested word-by-word rather than against the whole,
-# untokenized document string. Returns NA_character_ if the document is NA,
-# so downstream `%in%` checks correctly report zero matches without needing
-# separate NA handling in each counting function... except that we still
-# want NA in -> NA out, which is handled by the caller checking is.na(.x)
-# directly.
-tokenize_words <- function(.x) {
-  tolower(stringi::stri_extract_all_words(.x)[[1]])
+# Counts, for each document, how many of its lower-cased words are in `fp`.
+# Words are extracted for all documents at once and matched in a single
+# `%in%` call. Documents without words come back as NA_character_, which
+# never matches. NA documents give NA.
+count_words_in <- function(x, fp) {
+  words <- stringi::stri_extract_all_words(x)
+  doc <- rep.int(seq_along(x), lengths(words))
+  hit <- tolower(unlist(words, use.names = FALSE)) %in% fp
+  res <- tabulate(doc[hit], nbins = length(x))
+  res[is.na(x)] <- NA_integer_
+  res
+}
+
+# Number of distinct elements in each element of the list `extracted`, which
+# was produced from `orig`. NA in `orig` gives NA.
+n_distinct_list <- function(orig, extracted) {
+  res <- vapply(
+    extracted,
+    vctrs::vec_unique_count,
+    integer(1),
+    USE.NAMES = FALSE
+  )
+  res[is.na(orig)] <- NA_integer_
+  res
 }
 
 first_person <- function(x) {
   fp <- c("i", "me", "myself", "my", "mine", "this")
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 first_personp <- function(x) {
   fp <- c("we", "us", "our", "ours", "these")
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 second_person <- function(x) {
   fp <- c("you", "yours", "your", "yourself")
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 second_personp <- function(x) {
   fp <- c("he", "she", "it", "its", "his", "hers")
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 third_person <- function(x) {
@@ -178,22 +175,12 @@ third_person <- function(x) {
     "those",
     "that"
   )
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 to_be <- function(x) {
   fp <- c("am", "is", "are", "was", "were", "being", "been", "be", "were", "be")
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 prepositions <- function(x) {
@@ -251,12 +238,7 @@ prepositions <- function(x) {
     "to",
     "for"
   )
-  purrr::map_int(x, \(.x) {
-    if (is.na(.x)) {
-      return(NA_integer_)
-    }
-    sum(tokenize_words(.x) %in% fp, na.rm = TRUE)
-  })
+  count_words_in(x, fp)
 }
 
 #' List of all feature counting functions
