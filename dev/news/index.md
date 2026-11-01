@@ -2,6 +2,15 @@
 
 ## textrecipes (development version)
 
+- Added
+  [`embedding_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/embedding_model2vec.md),
+  an engine for
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/dev/reference/step_sentence_embeddings.md)
+  that embeds text with a downloaded Model2Vec model entirely in R,
+  without Python or a server. The engine stores the path to the model
+  folder, and the model is read once per R session.
+  ([\#301](https://github.com/tidymodels/textrecipes/issues/301))
+
 - The “Static embeddings with Model2Vec and BPEmb” vignette gained a
   section on training your own embeddings with wordsalad’s `glove()`,
   `word2vec()` and `fasttext()` and using them with

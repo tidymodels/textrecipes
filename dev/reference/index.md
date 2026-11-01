@@ -70,6 +70,9 @@
 - [`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md)
   : Hugging Face Embedding Engine
 
+- [`embedding_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/embedding_model2vec.md)
+  : Model2Vec Embedding Engine
+
 - [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
   : Ollama Embedding Engine
 

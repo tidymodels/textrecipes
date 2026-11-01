@@ -100,7 +100,8 @@ You can check which models are on the server with `ollama list`.
 
 Other Embedding Engines:
 [`embedding_custom()`](https://textrecipes.tidymodels.org/dev/reference/embedding_custom.md),
-[`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md)
+[`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md),
+[`embedding_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/embedding_model2vec.md)
 
 ## Examples
 

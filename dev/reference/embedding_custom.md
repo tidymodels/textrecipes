@@ -46,6 +46,7 @@ capturing it.
 
 Other Embedding Engines:
 [`embedding_huggingface()`](https://textrecipes.tidymodels.org/dev/reference/embedding_huggingface.md),
+[`embedding_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/embedding_model2vec.md),
 [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
 
 ## Examples

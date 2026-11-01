@@ -152,6 +152,7 @@ variables in `.Renviron` in that case.
 
 Other Embedding Engines:
 [`embedding_custom()`](https://textrecipes.tidymodels.org/dev/reference/embedding_custom.md),
+[`embedding_model2vec()`](https://textrecipes.tidymodels.org/dev/reference/embedding_model2vec.md),
 [`embedding_ollama()`](https://textrecipes.tidymodels.org/dev/reference/embedding_ollama.md)
 
 ## Examples
