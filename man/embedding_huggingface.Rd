@@ -150,6 +150,7 @@ rec |>
 
 Other Embedding Engines:
 \code{\link[=embedding_custom]{embedding_custom()}},
+\code{\link[=embedding_model2vec]{embedding_model2vec()}},
 \code{\link[=embedding_ollama]{embedding_ollama()}}
 }
 \concept{Embedding Engines}

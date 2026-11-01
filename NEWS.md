@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Added `embedding_model2vec()`, an engine for `step_sentence_embeddings()` that embeds text with a downloaded Model2Vec model entirely in R, without Python or a server. The engine stores the path to the model folder, and the model is read once per R session. (#301)
+
 * Added `step_token_replace()`, which replaces tokens in a token variable according to `pattern` and `replacement` vectors, matching either exactly or with regular expressions. (#134)
 
 * Added `embedding_huggingface()`, an engine for `step_sentence_embeddings()` that runs a sentence-transformers model from the Hugging Face Hub in Python through reticulate. The model is pinned with a required `revision`, and the loaded model is kept for the rest of the R session but never stored in the recipe. `tidy()` for `step_sentence_embeddings()` gained a `revision` column. (#303)
