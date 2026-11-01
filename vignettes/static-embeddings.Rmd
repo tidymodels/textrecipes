@@ -26,7 +26,9 @@ library(recipes)
 
 Unlike `step_sentence_embeddings()`, nothing here calls a server or a Python model. The vectors are looked up in a table on your machine, so your text never leaves R. The recipe is baked like any other recipe, and the last section covers what to know when saving it.
 
-The code in this vignette downloads model files, so none of it is run when the vignette is built.
+A section near the end shows how to train your own embeddings with wordsalad, for text where pretrained vectors do not fit.
+
+The code in this vignette downloads model files or needs extra packages, so none of it is run when the vignette is built.
 
 The key point for both models is that the vectors belong to the tokens of one specific tokenizer. The recipe has to tokenize text in the same way the model was trained, otherwise tokens are not found in the table and are dropped without a warning.
 
@@ -141,6 +143,43 @@ tokens <- recipe(~text, data = sample_data) |>
 
 all(unlist(tokens) %in% embeddings$token)
 ```
+
+# Training your own embeddings
+
+Pretrained vectors are the right choice for most problems. If your text is very specialized, such as clinical notes or source code, and you have a large amount of it, you can train static embeddings on that text instead. The [wordsalad](https://github.com/EmilHvitfeldt/wordsalad) package provides `glove()`, `word2vec()` and `fasttext()`, which each return a tibble with the tokens in the first column, ready for `step_word_embeddings()`.
+
+Training is done once, before the recipe, and not inside it. This keeps the recipe fast, but it also means the embeddings are not re-estimated for each resample. Train only on text that is not part of your assessment data, otherwise information leaks from the assessment set into the vectors.
+
+The tokens of the embeddings have to match the tokens of the recipe, as with the models above. The default tokenizer of wordsalad splits on spaces and keeps case and punctuation, so pass `tokenizers::tokenize_words`, which is what `step_tokenize()` uses by default. The three functions have different defaults, for example `word2vec()` uses 50 dimensions and the other two use 10, so it is worth setting the main arguments yourself.
+
+```{r}
+library(wordsalad)
+
+embeddings <- word2vec(
+  fairy_tales,
+  tokenizer = tokenizers::tokenize_words,
+  dim = 25,
+  min_count = 5L,
+  n_iter = 10L
+)
+
+sample_data <- tibble::tibble(
+  text = c(
+    "The king and the queen went to the castle.",
+    "A little girl found a magic key."
+  )
+)
+
+rec <- recipe(~text, data = sample_data) |>
+  step_tokenize(text) |>
+  step_word_embeddings(text, embeddings = embeddings, aggregation = "mean")
+
+rec |>
+  prep() |>
+  bake(new_data = NULL)
+```
+
+Swap `word2vec()` for `glove()` or `fasttext()` to use the other methods, no other change is needed. Documents where none of the tokens are in the embeddings get the value of `aggregation_default`, which is `0` unless you change it.
 
 # Saving the recipe
 
