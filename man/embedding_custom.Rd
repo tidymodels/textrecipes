@@ -49,6 +49,7 @@ embedding_custom(toy_embedder)
 
 Other Embedding Engines:
 \code{\link[=embedding_huggingface]{embedding_huggingface()}},
+\code{\link[=embedding_model2vec]{embedding_model2vec()}},
 \code{\link[=embedding_ollama]{embedding_ollama()}}
 }
 \concept{Embedding Engines}

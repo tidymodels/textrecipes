@@ -100,6 +100,7 @@ rec |>
 
 Other Embedding Engines:
 \code{\link[=embedding_custom]{embedding_custom()}},
-\code{\link[=embedding_huggingface]{embedding_huggingface()}}
+\code{\link[=embedding_huggingface]{embedding_huggingface()}},
+\code{\link[=embedding_model2vec]{embedding_model2vec()}}
 }
 \concept{Embedding Engines}

@@ -54,6 +54,7 @@ reference:
   contents:
   - embedding_custom
   - embedding_huggingface
+  - embedding_model2vec
   - embedding_ollama
 - title: Reading Static Embeddings
   contents:

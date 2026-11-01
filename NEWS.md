@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* Added `embedding_model2vec()`, an engine for `step_sentence_embeddings()` that embeds text with a downloaded Model2Vec model entirely in R, without Python or a server. The engine stores the path to the model folder, and the model is read once per R session. (#301)
+
 * The "Static embeddings with Model2Vec and BPEmb" vignette gained a section on training your own embeddings with wordsalad's `glove()`, `word2vec()` and `fasttext()` and using them with `step_word_embeddings()`. (#102, #103, #104)
 
 * The feature counting functions in `count_functions`, used by `step_textfeature()`, are now faster. The word-list counts (`first_person`, `prepositions`, etc.) are about 2x faster, the `n_uq_*` counts are 2 to 5x faster, and `n_uq_charS` uses less memory on large inputs. Results are unchanged. (#267)

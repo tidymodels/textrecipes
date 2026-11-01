@@ -52,9 +52,16 @@
 #' @export
 read_embeddings_model2vec <- function(path) {
   check_string(path, arg = "path")
+  model <- read_model2vec_files(path)
+  embeddings_tibble(model$tokens, model$vectors)
+}
+
+# Reads the vocabulary and the matrix of vectors of a Model2Vec model folder.
+read_model2vec_files <- function(path, call = caller_env()) {
   rlang::check_installed(
     c("safetensors", "torch"),
-    reason = "to use `read_embeddings_model2vec()`."
+    reason = "to read Model2Vec files.",
+    call = call
   )
 
   model_file <- file.path(path, "model.safetensors")
@@ -62,7 +69,8 @@ read_embeddings_model2vec <- function(path) {
   for (file in c(model_file, vocab_file)) {
     if (!file.exists(file)) {
       cli::cli_abort(
-        "Can't find {.file {basename(file)}} in {.path {path}}."
+        "Can't find {.file {basename(file)}} in {.path {path}}.",
+        call = call
       )
     }
   }
@@ -75,7 +83,8 @@ read_embeddings_model2vec <- function(path) {
         {.val embeddings}.",
         i = "It contains {.val {names(tensors)}}.",
         i = "Models with quantized weights are not supported."
-      )
+      ),
+      call = call
     )
   }
   vectors <- as.matrix(tensors$embeddings)
@@ -84,11 +93,12 @@ read_embeddings_model2vec <- function(path) {
   if (length(tokens) != nrow(vectors)) {
     cli::cli_abort(
       "{.file vocab.txt} has {length(tokens)} tokens but
-      {.file model.safetensors} has {nrow(vectors)} vectors."
+      {.file model.safetensors} has {nrow(vectors)} vectors.",
+      call = call
     )
   }
 
-  embeddings_tibble(tokens, vectors)
+  list(tokens = tokens, vectors = vectors)
 }
 
 #' @rdname read_embeddings_model2vec
