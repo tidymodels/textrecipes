@@ -54,7 +54,7 @@ so on.
 # A small file in the BPEmb format
 file <- tempfile(fileext = ".w2v.txt")
 writeLines(
-  c("3 2", "<unk> 0.1 0.2", "▁the 0.3 0.4", "▁cat 0.5 0.6"),
+  c("3 2", "<unk> 0.1 0.2", "\u2581the 0.3 0.4", "\u2581cat 0.5 0.6"),
   file
 )
 

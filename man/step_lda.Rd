@@ -111,6 +111,7 @@ bake(tate_obj, new_data = NULL) |>
 tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 
+\donttest{
 # Changing the number of topics.
 recipe(~., data = tate_text) |>
   step_tokenize(medium, artist) |>
@@ -133,6 +134,7 @@ recipe(~., data = tate_text) |>
   prep() |>
   bake(new_data = NULL) |>
   slice(1:2)
+}
 \dontshow{\}) # examplesIf}
 }
 \seealso{
