@@ -44,7 +44,7 @@
 #'
 #' @family Steps for Numeric Variables From Tokens
 #'
-#' @examplesIf all(c("modeldata", "text2vec") %in% rownames(installed.packages()))
+#' @examplesIf !textrecipes:::is_cran_check() && all(c("modeldata", "text2vec") %in% rownames(installed.packages()))
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
@@ -61,7 +61,6 @@
 #' tidy(tate_rec, number = 2)
 #' tidy(tate_obj, number = 2)
 #'
-#' \donttest{
 #' # Changing the number of topics.
 #' recipe(~., data = tate_text) |>
 #'   step_tokenize(medium, artist) |>
@@ -84,7 +83,6 @@
 #'   prep() |>
 #'   bake(new_data = NULL) |>
 #'   slice(1:2)
-#' }
 #' @export
 step_lda <-
   function(

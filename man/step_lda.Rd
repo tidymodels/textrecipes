@@ -94,7 +94,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
+\dontshow{if (!textrecipes:::is_cran_check() && all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
@@ -111,7 +111,6 @@ bake(tate_obj, new_data = NULL) |>
 tidy(tate_rec, number = 2)
 tidy(tate_obj, number = 2)
 
-\donttest{
 # Changing the number of topics.
 recipe(~., data = tate_text) |>
   step_tokenize(medium, artist) |>
@@ -134,7 +133,6 @@ recipe(~., data = tate_text) |>
   prep() |>
   bake(new_data = NULL) |>
   slice(1:2)
-}
 \dontshow{\}) # examplesIf}
 }
 \seealso{
