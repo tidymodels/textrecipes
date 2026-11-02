@@ -1,82 +1,88 @@
-# textrecipes (development version)
+# textrecipes 1.2.0
 
-* Added `embedding_model2vec()`, an engine for `step_sentence_embeddings()` that embeds text with a downloaded Model2Vec model entirely in R, without Python or a server. The engine stores the path to the model folder, and the model is read once per R session. (#301)
+## New Steps
 
-* The "Static embeddings with Model2Vec and BPEmb" vignette gained a section on training your own embeddings with wordsalad's `glove()`, `word2vec()` and `fasttext()` and using them with `step_word_embeddings()`. (#102, #103, #104)
+* `step_sentence_embeddings()` converts a character column into dense embeddings from a pretrained model. The step stores a reference to the model rather than the model itself, checks that the embedding dimension is unchanged when baking, and caches embeddings within the R session. The embedding model is chosen with an engine, see the new "Sentence embeddings" vignette. (#303)
+    - `embedding_custom()` supplies your own embedding function.
+    - `embedding_ollama()` gets embeddings from a running Ollama server using httr2.
+    - `embedding_huggingface()` runs a sentence-transformers model from the Hugging Face Hub in Python through reticulate. The model is pinned with a required `revision`, and the loaded model is kept for the R session but never stored in the recipe.
+    - `embedding_model2vec()` embeds text with a downloaded Model2Vec model entirely in R, without Python or a server. The model is read once per R session. (#301)
 
-* The feature counting functions in `count_functions`, used by `step_textfeature()`, are now faster. The word-list counts (`first_person`, `prepositions`, etc.) are about 2x faster, the `n_uq_*` counts are 2 to 5x faster, and `n_uq_charS` uses less memory on large inputs. Results are unchanged. (#267)
+* `step_token_replace()` replaces tokens in a token variable according to `pattern` and `replacement` vectors, matching either exactly or with regular expressions. (#134)
 
-* Added `step_token_replace()`, which replaces tokens in a token variable according to `pattern` and `replacement` vectors, matching either exactly or with regular expressions. (#134)
-
-* Added `embedding_huggingface()`, an engine for `step_sentence_embeddings()` that runs a sentence-transformers model from the Hugging Face Hub in Python through reticulate. The model is pinned with a required `revision`, and the loaded model is kept for the rest of the R session but never stored in the recipe. `tidy()` for `step_sentence_embeddings()` gained a `revision` column. (#303)
-
-* Added `read_embeddings_model2vec()` and `read_embeddings_bpemb()`, which read downloaded Model2Vec and BPEmb files into the tibble that `step_word_embeddings()` takes as `embeddings`, `download_embeddings_model2vec()` for downloading a Model2Vec model, and a vignette, "Static embeddings with Model2Vec and BPEmb", showing how to use them. (#303)
-
-* Added `embedding_ollama()`, an engine for `step_sentence_embeddings()` that gets embeddings from a running Ollama server using httr2, and a vignette, "Sentence embeddings". (#303)
-
-* Added `step_sentence_embeddings()`, which converts a character column into dense embeddings from a pretrained model, together with `embedding_custom()` for supplying your own embedding function. The step stores a reference to the model rather than the model itself, checks that the embedding dimension is unchanged when baking, and caches embeddings within the R session. (#303)
-
-* `bake()` methods for steps that transform columns in place now use `recipes_map_cols()`, which avoids copying the data frame once per column and is much faster with many columns. Requires recipes >= 1.4.0. (#312)
-
-* Corrected the documentation for `step_tf(weight_scheme = "term frequency")` and `step_tfidf(norm = "l1")` to state that the denominator is the number of in-vocabulary tokens, not the total number of words, in the document (#326)
-
-* `step_tokenize_sentencepiece()` gained the `model` argument, which takes the path to a pretrained sentencepiece model to use instead of training a new one. (#278)
+## Improvements
 
 * `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_stem()` now validate their `options` argument with `recipes::check_options()` and give informative errors for unnamed, non-list, or disallowed elements. (#291)
 
-* Documentation now links to the external functions that do the underlying work in several steps, such as `janitor::make_clean_names()` in `step_clean_levels()` and `step_clean_names()`. (#198)
+* `step_tokenize()` documentation now states that `training_options` also applies to `engine = "udpipe"`, where it must contain the loaded `model`, and includes an example. (#237)
+
+* `step_tokenize_sentencepiece()` gains a `model` argument, which takes the path to a pretrained sentencepiece model to use instead of training a new one. (#278)
+
+* `step_pos_filter()` gains a `remove_tags` argument, which removes tokens with the given part of speech tags instead of keeping them. It can't be used together with `keep_tags`. (#218)
+
+* New `read_embeddings_model2vec()` and `read_embeddings_bpemb()` read downloaded Model2Vec and BPEmb files into the tibble that `step_word_embeddings()` takes as `embeddings`. New `download_embeddings_model2vec()` downloads a Model2Vec model. (#303)
+
+* The counting functions in `count_functions`, used by `step_textfeature()`, are now faster. The word-list counts (`first_person()`, `prepositions()`, etc.) are about 2x faster, the `n_uq_*()` counts are 2 to 5x faster, and `n_uq_charS()` uses less memory on large inputs. (#267)
 
 * Argument documentation has been revised across all steps to follow the tidyverse style guide: defaults are now stated, fixed sets of values are listed, code is formatted consistently, and the descriptions of `res`, `smooth_idf`, `norm`, and `vocabulary` are now accurate. (#263)
 
-* Added a vignette, "Using textrecipes as a sparse matrix engine", documenting which steps produce sparse data and how to use them. (#302)
+* Documentation now links to the external functions that do the underlying work in several steps, such as `janitor::make_clean_names()` in `step_clean_levels()` and `step_clean_names()`. (#198)
 
-* Added a vignette, "Tokenizers", giving an overview of the tokenization options in the package and how they change the resulting tokens. (#158)
-
-* The documentation for `step_tokenize()` now states that `training_options` also applies to `engine = "udpipe"`, where it must contain the loaded `model`, and includes an example. (#237)
-
-* `step_pos_filter()` gained the `remove_tags` argument, which removes tokens with the given part of speech tags instead of keeping them. It can't be used together with `keep_tags`. (#218)
+* New vignettes:
+    - "Tokenizers" gives an overview of the tokenization options and how they change the resulting tokens. (#158)
+    - "Using textrecipes as a sparse matrix engine" documents which steps produce sparse data and how to use them. (#302)
+    - "Sentence embeddings" shows how to use `step_sentence_embeddings()` with its engines. (#303)
+    - "Static embeddings with Model2Vec and BPEmb" shows how to use the new `read_embeddings_*()` helpers, and includes a section on training your own embeddings with wordsalad's `glove()`, `word2vec()`, and `fasttext()` for use with `step_word_embeddings()`. (#102, #103, #104, #303)
 
 ## Bug Fixes
 
 * All steps now work with 0 and 1 row data in `bake()`. This fixes errors in `step_texthash()`, `step_dummy_hash()`, `step_lda()`, and `step_pos_filter()` with 0 rows, and zero-length tokenlists no longer lose their lemma and pos attributes, which broke `step_lemma()`. (#290)
 
-* Fixed documentation for `step_word_embeddings()` to describe the actual default `prefix` and column-naming behavior. (#331)
-
-* Fixed a crash (segfault) in `step_texthash()` and `step_dummy_hash()` when `num_terms = 0` was used; this now errors cleanly during `prep()`. (#314)
-
-* Fixed a bug in `step_texthash()` where baking with `sparse = "yes"` and `signed = TRUE` (the default) could error with "values value must not be equal to the default 0" when signed hash collisions cancelled out to a true zero. (#289)
-
-* Fixed a bug in `step_dummy_hash()` where `keep_original_cols = TRUE` failed to restore the original columns when `collapse = TRUE`, and where the intermediate collapsed column could leak into the output. (#304)
-
-* Fixed a bug in `step_clean_levels()` where a backwards-compatibility shim never actually restored the trained column names, causing `bake()` to silently skip cleaning for legacy trained objects. (#321)
-
-* Fixed a bug in `step_clean_levels()` where character columns were never given a trained cleaning dictionary, causing `bake()` to clean row values inconsistently (via `janitor::make_clean_names()` applied to the batch of values being baked) instead of using a fixed lookup learned at `prep()` time. (#320)
-
-* `step_lda()` produced non-deterministic and degenerate topic features at bake time: `bake()` re-fit topic assignments instead of projecting new documents onto the fitted model, and rebuilt the vocabulary from `new_data` alone with different pruning than was used at `prep()` time. `bake()` now reuses the vocabulary learned during `prep()` and projects each document independently, so topic weights sum to ~1 and no longer depend on what else is in the same `bake()` call. (#315)
-
 * Custom tokenizer functions passed to `custom_token` are now called positionally, so functions whose first argument isn't named `x` no longer error with "unused argument" at bake time. (#248)
 
-* `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_tokenize_wordpiece()` now error informatively if a tokenizer returns a list whose length doesn't match the number of rows in the input, instead of silently recycling and duplicating rows. (#318)
+* `first_person()`, `first_personp()`, `second_person()`, `second_personp()`, `third_person()`, `to_be()`, and `prepositions()` (used by `step_textfeature()`) now tokenize the document into words and check whether it contains the word. Previously they tested whether the word matched the entire untokenized document, which almost always returned 0. (#316)
 
-* Fixed a bug where `bake()` could error with "unused argument" for `step_tokenize(engine = "spacyr")`, `step_tokenize(engine = "tokenizers.bpe")`, `step_tokenize_bpe()`, and `step_tokenize_sentencepiece()` when `options` was non-empty, because the underlying tokenizer closures didn't accept additional arguments. (#319)
+* The counting functions used by `step_textfeature()` are now more consistent (#329):
+    - `n_uq_urls()` counts distinct full urls instead of being capped at 2 distinct matches of the literal substring "http" or "https".
+    - `n_charS()` and `n_uq_charS()` now exclude urls, hashtags, and mentions from the character count, as documented.
+    - `n_extraspaces()` no longer counts a single tab or newline as extra spaces. It only counts runs of 2 or more consecutive whitespace characters.
+    - All counting functions return `NA` when given `NA` input.
 
-* `step_stem()` no longer silently drops the `lemma`/`pos` attributes carried by a tokenlist, so it can now be safely used upstream of `step_lemma()` or `step_pos_filter()` (#327).
+* `show_tokens()` now validates the upper bound of the `n` argument (`nrow(rec$template)`) and gives a clear error, instead of a confusing, unrelated one. (#322)
 
-* Fixed `first_person()`, `first_personp()`, `second_person()`, `second_personp()`, `third_person()`, `to_be()`, and `prepositions()` (used by `step_textfeature()`) which tested whether a word matched the *entire* untokenized document rather than whether the document contained that word, causing them to almost always return 0. They now tokenize the document into words before checking membership. (#316)
+* `step_clean_levels()` now restores the trained column names for legacy trained objects, so `bake()` no longer silently skips cleaning. (#321)
 
-* Fixed several inconsistencies in the counting functions used by `step_textfeature()` (#329):
-    - `n_uq_urls()` now counts distinct full urls instead of being capped at 2 distinct matches of the literal substring "http"/"https".
-    - `n_charS()` and `n_uq_charS()` now actually exclude urls, hashtags, and mentions from the character count, as documented.
-    - `n_extraspaces()` no longer counts a single tab or newline as "extra spaces"; it now only counts runs of 2 or more consecutive whitespace characters.
-    - All counting functions now consistently return `NA` when given `NA` input.
+* `step_clean_levels()` now gives character columns a cleaning dictionary at `prep()` time, so `bake()` uses a fixed lookup instead of applying `janitor::make_clean_names()` to the batch of values being baked. (#320)
 
-* Fixed `show_tokens()` so that the `n` argument's upper bound (`nrow(rec$template)`) is actually validated, instead of being silently swallowed into `check_number_whole()`'s `...` and producing a confusing, unrelated error when validation failed. Added test coverage for `show_tokens()`, which previously had none. (#322)
+* `step_dummy_hash()` now restores the original columns when `keep_original_cols = TRUE` and `collapse = TRUE`, and no longer leaks the intermediate collapsed column into the output. (#304)
 
-* `step_ngram()` and `step_sequence_onehot()` now error clearly when given `num_tokens`, `min_num_tokens`, or `sequence_length` less than 1, and `step_ngram()` now errors clearly when `min_num_tokens` is greater than `num_tokens`, instead of surfacing an unrelated low-level error. (#324)
+* `step_dummy_hash()` and `step_texthash()` no longer crash (segfault) when `num_terms = 0`. They now error cleanly during `prep()`. (#314)
+
+* `step_lda()` now produces deterministic topic features at bake time. `bake()` reuses the vocabulary learned during `prep()` and projects each document independently, so topic weights sum to about 1 and no longer depend on what else is in the same `bake()` call. (#315)
+
+* `step_ngram()` now errors clearly when `num_tokens` or `min_num_tokens` is less than 1, and when `min_num_tokens` is greater than `num_tokens`, instead of surfacing an unrelated low-level error. (#324)
 
 * `step_ngram()` no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which could cause `nchar()`, `toupper()`, and other string operations on the output to fail with encoding errors. (#323)
 
-* Fixed bug in `step_tfidf()` where `sublinear_tf = TRUE` could produce negative TF-IDF values because the sublinear transform was applied after normalization instead of before. (#317)
+* `step_sequence_onehot()` now errors clearly when `sequence_length` is less than 1. (#324)
+
+* `step_stem()` no longer drops the `lemma` and `pos` attributes carried by a tokenlist, so it can be used before `step_lemma()` or `step_pos_filter()`. (#327)
+
+* `step_texthash()` no longer errors with "values value must not be equal to the default 0" when baking with `sparse = "yes"` and `signed = TRUE` (the default) and signed hash collisions cancel out to zero. (#289)
+
+* `step_tfidf()` with `sublinear_tf = TRUE` no longer produces negative values, because the sublinear transform is now applied before normalization instead of after. (#317)
+
+* `step_tokenize()`, `step_tokenize_bpe()`, `step_tokenize_sentencepiece()`, and `step_tokenize_wordpiece()` now error informatively if a tokenizer returns a list whose length doesn't match the number of rows in the input, instead of silently recycling and duplicating rows. (#318)
+
+* `step_tokenize()` with `engine = "spacyr"` or `engine = "tokenizers.bpe"`, `step_tokenize_bpe()`, and `step_tokenize_sentencepiece()` no longer error with "unused argument" in `bake()` when `options` is non-empty. (#319)
+
+* `step_tf()` and `step_tfidf()` documentation now states that the denominator for `weight_scheme = "term frequency"` and `norm = "l1"` is the number of in-vocabulary tokens, not the total number of words. (#326)
+
+* `step_word_embeddings()` documentation now describes the actual default `prefix` and column-naming behavior. (#331)
+
+## Developer
+
+* `bake()` methods for steps that transform columns in place now use `recipes_map_cols()`, which avoids copying the data frame once per column and is much faster with many columns. This requires recipes >= 1.4.0. (#312)
 
 # textrecipes 1.1.0
 
