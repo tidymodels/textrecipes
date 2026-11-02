@@ -39,10 +39,9 @@ Model2Vec models are distilled from a sentence embedding model into a table with
 A model on the Hugging Face Hub is a folder of files. We need two of them: `model.safetensors`, which holds the vectors, and `vocab.txt`, which holds the tokens in the same order as the rows of the vectors. `download_embeddings_model2vec()` downloads both from the URL of the folder. The last part of the URL below is a commit hash, which pins the download to a specific version of the model.
 
 ```{r}
-url <- paste0(
-  "https://huggingface.co/minishlab/potion-base-8M/resolve/",
-  "bf8b056651a2c21b8d2565580b8569da283cab23"
-)
+repo <- "minishlab/potion-base-8M"
+commit <- "bf8b056651a2c21b8d2565580b8569da283cab23"
+url <- paste0("https://huggingface.co/", repo, "/resolve/", commit)
 
 model_dir <- download_embeddings_model2vec(url)
 ```
