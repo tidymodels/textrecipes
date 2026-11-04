@@ -166,7 +166,7 @@ Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola;
 Josh Attenberg (2009).
 
 Kuhn and Johnson (2019), Chapter 7,
-\url{https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html}
+\url{https://feat.engineering/}
 }
 \seealso{
 \code{\link[recipes:step_dummy]{recipes::step_dummy()}}

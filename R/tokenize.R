@@ -161,7 +161,7 @@
 #'     training_options = list(vocab_size = 22)
 #'   ) |>
 #'   show_tokens(text, n = 2) |>
-#'   lapply(function(x) gsub("▁", "_", x))
+#'   lapply(function(x) gsub("\u2581", "_", x))
 #' ```
 #'
 #' ## udpipe

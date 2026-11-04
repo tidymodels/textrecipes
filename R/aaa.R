@@ -39,3 +39,15 @@ check_sparse_arg <- function(x) {
 sparse_is_yes <- function(x) {
   !is.null(x) && x == "yes"
 }
+
+# nocov start
+# adapted from ps:::is_cran_check()
+# for use a la `@examplesIf !textrecipes:::is_cran_check()`
+is_cran_check <- function() {
+  if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+    FALSE
+  } else {
+    Sys.getenv("_R_CHECK_PACKAGE_NAME_", "") != ""
+  }
+}
+# nocov end

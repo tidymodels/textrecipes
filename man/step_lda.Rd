@@ -94,7 +94,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
+\dontshow{if (!textrecipes:::is_cran_check() && all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)

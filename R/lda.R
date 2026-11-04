@@ -44,7 +44,7 @@
 #'
 #' @family Steps for Numeric Variables From Tokens
 #'
-#' @examplesIf all(c("modeldata", "text2vec") %in% rownames(installed.packages()))
+#' @examplesIf !textrecipes:::is_cran_check() && all(c("modeldata", "text2vec") %in% rownames(installed.packages()))
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
