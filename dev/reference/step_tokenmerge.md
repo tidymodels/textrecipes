@@ -160,12 +160,12 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 2 × 2
 #>   terms  id              
 #>   <chr>  <chr>           
-#> 1 medium tokenmerge_KhT7C
-#> 2 artist tokenmerge_KhT7C
+#> 1 medium tokenmerge_69AHs
+#> 2 artist tokenmerge_69AHs
 tidy(tate_obj, number = 2)
 #> # A tibble: 2 × 2
 #>   terms  id              
 #>   <chr>  <chr>           
-#> 1 medium tokenmerge_KhT7C
-#> 2 artist tokenmerge_KhT7C
+#> 1 medium tokenmerge_69AHs
+#> 2 artist tokenmerge_69AHs
 ```

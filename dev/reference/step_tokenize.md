@@ -139,6 +139,10 @@ The choice of `engine` determines the possible choices of `token`.
 
 The following is some small example data used in the following examples
 
+    text_tibble <- tibble(
+      text = c("This is words", "They are nice!")
+    )
+
 ### tokenizers
 
 The tokenizers package is the default `engine` and it comes with the
@@ -173,16 +177,55 @@ The default tokenizer is `"word"` which splits the text into a series of
 words. By using `step_tokenize()` without setting any arguments you get
 word tokens
 
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(text) |>
+      show_tokens(text, n = 2)
+    #> [[1]]
+    #> [1] "this"  "is"    "words"
+    #>
+    #> [[2]]
+    #> [1] "they" "are"  "nice"
+
 This tokenizer has arguments that change how the tokenization occurs and
 can accessed using the `options` argument by passing a named list. Here
 we are telling
 [tokenizers::tokenize_words](https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html)
 that we don't want to turn the words to lowercase
 
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(text,
+                    options = list(lowercase = FALSE)) |>
+      show_tokens(text, n = 2)
+    #> [[1]]
+    #> [1] "This"  "is"    "words"
+    #>
+    #> [[2]]
+    #> [1] "They" "are"  "nice"
+
 We can also stop removing punctuation.
+
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(text,
+                    options = list(strip_punct = FALSE,
+                                   lowercase = FALSE)) |>
+      show_tokens(text, n = 2)
+    #> [[1]]
+    #> [1] "This"  "is"    "words"
+    #>
+    #> [[2]]
+    #> [1] "They" "are"  "nice" "!"
 
 The tokenizer can be changed by setting a different `token`. Here we
 change it to return character tokens.
+
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(text, token = "characters") |>
+      show_tokens(text, n = 2)
+    #> [[1]]
+    #>  [1] "t" "h" "i" "s" "i" "s" "w" "o" "r" "d" "s"
+    #>
+    #> [[2]]
+    #>  [1] "t" "h" "e" "y" "a" "r" "e" "n" "i" "c" "e"
 
 It is worth noting that not all these token methods are appropriate but
 are included for completeness.
@@ -205,6 +248,21 @@ number of unique tokens the tokenizer will produce. It is generally set
 to a much higher value, typically in the thousands, but is set to 22
 here for demonstration purposes.
 
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(
+        text,
+        engine = "tokenizers.bpe",
+        training_options = list(vocab_size = 22)
+      ) |>
+      show_tokens(text, n = 2)
+
+    #> [[1]]
+    #>  [1] "_Th" "is"  "_"   "is"  "_"   "w"   "o"   "r"   "d"   "s"
+    #>
+    #> [[2]]
+    #>  [1] "_Th" "e"   "y"   "_"   "a"   "r"   "e"   "_"   "n"   "i"   "c"   "e"
+    #> [13] "!"
+
 ### udpipe
 
 - "words"
@@ -216,6 +274,15 @@ The udpipe engine requires a pre-trained udpipe model. Load one with
 to download one first) and pass it as the `model` element of the
 `training_options` argument.
 
+    model <- udpipe::udpipe_load_model("english-ewt-ud-2.5-191206.udpipe")
+
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(
+        text,
+        engine = "udpipe",
+        training_options = list(model = model)
+      )
+
 ### custom_token
 
 Sometimes you need to perform tokenization that is not covered by the
@@ -224,6 +291,22 @@ to pass a function in that performs the tokenization you want.
 
 Below is an example of a very simple space tokenization. This is a very
 fast way of tokenizing.
+
+    space_tokenizer <- function(x) {
+      strsplit(x, " +")
+    }
+
+    recipe(~ text, data = text_tibble) |>
+      step_tokenize(
+        text,
+        custom_token = space_tokenizer
+      ) |>
+      show_tokens(text, n = 2)
+    #> [[1]]
+    #> [1] "This"  "is"    "words"
+    #>
+    #> [[2]]
+    #> [1] "They"  "are"   "nice!"
 
 ## Tidying
 
@@ -242,6 +325,12 @@ this step, a tibble is returned with columns `terms`, `value`, and `id`:
 - id:
 
   character, id of this step
+
+## Tuning Parameters
+
+This step has 1 tuning parameters:
+
+- `token`: Token Unit (type: character, default: words)
 
 ## Case weights
 
@@ -289,12 +378,12 @@ tidy(tate_rec, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium NA    tokenize_h4ntT
+#> 1 medium NA    tokenize_1yRCH
 tidy(tate_obj, number = 1)
 #> # A tibble: 1 × 3
 #>   terms  value id            
 #>   <chr>  <chr> <chr>         
-#> 1 medium words tokenize_h4ntT
+#> 1 medium words tokenize_1yRCH
 
 tate_obj_chars <- recipe(~., data = tate_text) |>
   step_tokenize(medium, token = "characters") |>

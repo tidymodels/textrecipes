@@ -195,8 +195,7 @@ The underlying operation does not allow for case weights.
 Kilian Weinberger; Anirban Dasgupta; John Langford; Alex Smola; Josh
 Attenberg (2009).
 
-Kuhn and Johnson (2019), Chapter 7,
-<https://bookdown.org/max/FES/encoding-predictors-with-many-categories.html>
+Kuhn and Johnson (2019), Chapter 7, <https://feat.engineering/>
 
 ## See also
 

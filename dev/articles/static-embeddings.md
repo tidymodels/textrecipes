@@ -51,10 +51,9 @@ the model.
 
 ``` r
 
-url <- paste0(
-  "https://huggingface.co/minishlab/potion-base-8M/resolve/",
-  "bf8b056651a2c21b8d2565580b8569da283cab23"
-)
+repo <- "minishlab/potion-base-8M"
+commit <- "bf8b056651a2c21b8d2565580b8569da283cab23"
+url <- paste0("https://huggingface.co/", repo, "/resolve/", commit)
 
 model_dir <- download_embeddings_model2vec(url)
 ```

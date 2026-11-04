@@ -203,20 +203,20 @@ tidy(tate_rec, number = 3)
 #> # A tibble: 1 × 4
 #>   terms  vocabulary token id                   
 #>   <chr>  <chr>      <int> <chr>                
-#> 1 medium NA            NA sequence_onehot_VfieP
+#> 1 medium NA            NA sequence_onehot_SYX9w
 tidy(tate_obj, number = 3)
 #> # A tibble: 100 × 4
 #>    terms  vocabulary token     id                   
 #>    <chr>       <int> <chr>     <chr>                
-#>  1 medium          1 16        sequence_onehot_VfieP
-#>  2 medium          2 2         sequence_onehot_VfieP
-#>  3 medium          3 3         sequence_onehot_VfieP
-#>  4 medium          4 35        sequence_onehot_VfieP
-#>  5 medium          5 4         sequence_onehot_VfieP
-#>  6 medium          6 5         sequence_onehot_VfieP
-#>  7 medium          7 6         sequence_onehot_VfieP
-#>  8 medium          8 8         sequence_onehot_VfieP
-#>  9 medium          9 acrylic   sequence_onehot_VfieP
-#> 10 medium         10 aluminium sequence_onehot_VfieP
+#>  1 medium          1 16        sequence_onehot_SYX9w
+#>  2 medium          2 2         sequence_onehot_SYX9w
+#>  3 medium          3 3         sequence_onehot_SYX9w
+#>  4 medium          4 35        sequence_onehot_SYX9w
+#>  5 medium          5 4         sequence_onehot_SYX9w
+#>  6 medium          6 5         sequence_onehot_SYX9w
+#>  7 medium          7 6         sequence_onehot_SYX9w
+#>  8 medium          8 8         sequence_onehot_SYX9w
+#>  9 medium          9 acrylic   sequence_onehot_SYX9w
+#> 10 medium         10 aluminium sequence_onehot_SYX9w
 #> # ℹ 90 more rows
 ```

@@ -216,10 +216,10 @@ tidy(tate_rec, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium    NA tokenfilter_Vvi9b
+#> 1 medium    NA tokenfilter_aaZXB
 tidy(tate_obj, number = 2)
 #> # A tibble: 1 × 3
 #>   terms  value id               
 #>   <chr>  <int> <chr>            
-#> 1 medium   952 tokenfilter_Vvi9b
+#> 1 medium   952 tokenfilter_aaZXB
 ```

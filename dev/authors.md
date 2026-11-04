@@ -18,13 +18,13 @@ Source:
 [`DESCRIPTION`](https://github.com/tidymodels/textrecipes/blob/main/DESCRIPTION)
 
 Hvitfeldt E (2026). *textrecipes: Extra 'Recipes' for Text Processing*.
-R package version 1.1.0.9000,
+R package version 1.2.0.9000,
 <https://github.com/tidymodels/textrecipes>.
 
     @Manual{,
       title = {textrecipes: Extra 'Recipes' for Text Processing},
       author = {Emil Hvitfeldt},
       year = {2026},
-      note = {R package version 1.1.0.9000},
+      note = {R package version 1.2.0.9000},
       url = {https://github.com/tidymodels/textrecipes},
     }
