@@ -1,0 +1,120 @@
+# Package index
+
+## Step Functions - Tokenization
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  : Tokenization of Character Variables
+- [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.md)
+  : BPE Tokenization of Character Variables
+- [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.md)
+  : Sentencepiece Tokenization of Character Variables
+- [`step_tokenize_wordpiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_wordpiece.md)
+  : Wordpiece Tokenization of Character Variables
+
+## Step Functions - Un-Tokenization
+
+- [`step_untokenize()`](https://textrecipes.tidymodels.org/reference/step_untokenize.md)
+  : Untokenization of Token Variables
+
+## Step Functions - Token Modification
+
+- [`step_lemma()`](https://textrecipes.tidymodels.org/reference/step_lemma.md)
+  : Lemmatization of Token Variables
+- [`step_ngram()`](https://textrecipes.tidymodels.org/reference/step_ngram.md)
+  : Generate n-grams From Token Variables
+- [`step_pos_filter()`](https://textrecipes.tidymodels.org/reference/step_pos_filter.md)
+  : Part of Speech Filtering of Token Variables
+- [`step_stem()`](https://textrecipes.tidymodels.org/reference/step_stem.md)
+  : Stemming of Token Variables
+- [`step_stopwords()`](https://textrecipes.tidymodels.org/reference/step_stopwords.md)
+  : Filtering of Stop Words for Tokens Variables
+- [`step_tokenfilter()`](https://textrecipes.tidymodels.org/reference/step_tokenfilter.md)
+  : Filter Tokens Based on Term Frequency
+- [`step_tokenmerge()`](https://textrecipes.tidymodels.org/reference/step_tokenmerge.md)
+  : Combine Multiple Token Variables Into One
+- [`step_token_replace()`](https://textrecipes.tidymodels.org/reference/step_token_replace.md)
+  : Replace Tokens in a Token Variable
+
+## Step Functions - Numeric Variables From Tokens
+
+- [`step_lda()`](https://textrecipes.tidymodels.org/reference/step_lda.md)
+  : Calculate LDA Dimension Estimates of Tokens
+- [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md)
+  : Feature Hashing of Tokens
+- [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  : Term frequency of Tokens
+- [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+  : Term Frequency-Inverse Document Frequency of Tokens
+- [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md)
+  : Pretrained Word Embeddings of Tokens
+
+## Step Functions - Numeric Variables From Characters
+
+- [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md)
+  : Indicator Variables via Feature Hashing
+- [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/reference/step_sentence_embeddings.md)
+  : Sentence Embeddings of Text
+- [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md)
+  : Positional One-Hot encoding of Tokens
+- [`step_textfeature()`](https://textrecipes.tidymodels.org/reference/step_textfeature.md)
+  : Calculate Set of Text Features
+
+## Embedding Engines
+
+- [`embedding_custom()`](https://textrecipes.tidymodels.org/reference/embedding_custom.md)
+  :
+
+  Embedding Engines for
+  [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/reference/step_sentence_embeddings.md)
+
+- [`embedding_huggingface()`](https://textrecipes.tidymodels.org/reference/embedding_huggingface.md)
+  : Hugging Face Embedding Engine
+
+- [`embedding_model2vec()`](https://textrecipes.tidymodels.org/reference/embedding_model2vec.md)
+  : Model2Vec Embedding Engine
+
+- [`embedding_ollama()`](https://textrecipes.tidymodels.org/reference/embedding_ollama.md)
+  : Ollama Embedding Engine
+
+## Reading Static Embeddings
+
+- [`download_embeddings_model2vec()`](https://textrecipes.tidymodels.org/reference/download_embeddings_model2vec.md)
+  : Download a Pretrained Model2Vec Model
+- [`read_embeddings_model2vec()`](https://textrecipes.tidymodels.org/reference/read_embeddings_model2vec.md)
+  [`read_embeddings_bpemb()`](https://textrecipes.tidymodels.org/reference/read_embeddings_model2vec.md)
+  : Read Pretrained Static Embeddings From Files
+
+## Step Functions - Text Normalization
+
+- [`step_text_normalization()`](https://textrecipes.tidymodels.org/reference/step_text_normalization.md)
+  : Normalization of Character Variables
+
+## Step Functions - Text Cleaning
+
+- [`step_clean_levels()`](https://textrecipes.tidymodels.org/reference/step_clean_levels.md)
+  : Clean Categorical Levels
+- [`step_clean_names()`](https://textrecipes.tidymodels.org/reference/step_clean_names.md)
+  : Clean Variable Names
+
+## Token Functions
+
+- [`tokenlist()`](https://textrecipes.tidymodels.org/reference/tokenlist.md)
+  : Create Token Object
+- [`show_tokens()`](https://textrecipes.tidymodels.org/reference/show_tokens.md)
+  : Show token output of recipe
+
+## Selectors
+
+- [`all_tokenized()`](https://textrecipes.tidymodels.org/reference/all_tokenized.md)
+  [`all_tokenized_predictors()`](https://textrecipes.tidymodels.org/reference/all_tokenized.md)
+  : Role Selection
+
+## Count Functions
+
+- [`count_functions`](https://textrecipes.tidymodels.org/reference/count_functions.md)
+  : List of all feature counting functions
+
+## Data Sets
+
+- [`emoji_samples`](https://textrecipes.tidymodels.org/reference/emoji_samples.md)
+  : Sample sentences with emojis

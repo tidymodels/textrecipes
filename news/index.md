@@ -1,0 +1,663 @@
+# Changelog
+
+## textrecipes 1.2.0
+
+CRAN release: 2026-11-03
+
+### New Steps
+
+- [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/reference/step_sentence_embeddings.md)
+  converts a character column into dense embeddings from a pretrained
+  model. The step stores a reference to the model rather than the model
+  itself, checks that the embedding dimension is unchanged when baking,
+  and caches embeddings within the R session. The embedding model is
+  chosen with an engine, see the new “Sentence embeddings” vignette.
+  ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+  - [`embedding_custom()`](https://textrecipes.tidymodels.org/reference/embedding_custom.md)
+    supplies your own embedding function.
+  - [`embedding_ollama()`](https://textrecipes.tidymodels.org/reference/embedding_ollama.md)
+    gets embeddings from a running Ollama server using httr2.
+  - [`embedding_huggingface()`](https://textrecipes.tidymodels.org/reference/embedding_huggingface.md)
+    runs a sentence-transformers model from the Hugging Face Hub in
+    Python through reticulate. The model is pinned with a required
+    `revision`, and the loaded model is kept for the R session but never
+    stored in the recipe.
+  - [`embedding_model2vec()`](https://textrecipes.tidymodels.org/reference/embedding_model2vec.md)
+    embeds text with a downloaded Model2Vec model entirely in R, without
+    Python or a server. The model is read once per R session.
+    ([\#301](https://github.com/tidymodels/textrecipes/issues/301))
+- [`step_token_replace()`](https://textrecipes.tidymodels.org/reference/step_token_replace.md)
+  replaces tokens in a token variable according to `pattern` and
+  `replacement` vectors, matching either exactly or with regular
+  expressions.
+  ([\#134](https://github.com/tidymodels/textrecipes/issues/134))
+
+### Improvements
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md),
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.md),
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.md),
+  and
+  [`step_stem()`](https://textrecipes.tidymodels.org/reference/step_stem.md)
+  now validate their `options` argument with
+  [`recipes::check_options()`](https://recipes.tidymodels.org/reference/check_options.html)
+  and give informative errors for unnamed, non-list, or disallowed
+  elements.
+  ([\#291](https://github.com/tidymodels/textrecipes/issues/291))
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  documentation now states that `training_options` also applies to
+  `engine = "udpipe"`, where it must contain the loaded `model`, and
+  includes an example.
+  ([\#237](https://github.com/tidymodels/textrecipes/issues/237))
+
+- [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.md)
+  gains a `model` argument, which takes the path to a pretrained
+  sentencepiece model to use instead of training a new one.
+  ([\#278](https://github.com/tidymodels/textrecipes/issues/278))
+
+- [`step_pos_filter()`](https://textrecipes.tidymodels.org/reference/step_pos_filter.md)
+  gains a `remove_tags` argument, which removes tokens with the given
+  part of speech tags instead of keeping them. It can’t be used together
+  with `keep_tags`.
+  ([\#218](https://github.com/tidymodels/textrecipes/issues/218))
+
+- New
+  [`read_embeddings_model2vec()`](https://textrecipes.tidymodels.org/reference/read_embeddings_model2vec.md)
+  and
+  [`read_embeddings_bpemb()`](https://textrecipes.tidymodels.org/reference/read_embeddings_model2vec.md)
+  read downloaded Model2Vec and BPEmb files into the tibble that
+  [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md)
+  takes as `embeddings`. New
+  [`download_embeddings_model2vec()`](https://textrecipes.tidymodels.org/reference/download_embeddings_model2vec.md)
+  downloads a Model2Vec model.
+  ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+
+- The counting functions in `count_functions`, used by
+  [`step_textfeature()`](https://textrecipes.tidymodels.org/reference/step_textfeature.md),
+  are now faster. The word-list counts (`first_person()`,
+  `prepositions()`, etc.) are about 2x faster, the `n_uq_*()` counts are
+  2 to 5x faster, and `n_uq_charS()` uses less memory on large inputs.
+  ([\#267](https://github.com/tidymodels/textrecipes/issues/267))
+
+- Argument documentation has been revised across all steps to follow the
+  tidyverse style guide: defaults are now stated, fixed sets of values
+  are listed, code is formatted consistently, and the descriptions of
+  `res`, `smooth_idf`, `norm`, and `vocabulary` are now accurate.
+  ([\#263](https://github.com/tidymodels/textrecipes/issues/263))
+
+- Documentation now links to the external functions that do the
+  underlying work in several steps, such as
+  [`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html)
+  in
+  [`step_clean_levels()`](https://textrecipes.tidymodels.org/reference/step_clean_levels.md)
+  and
+  [`step_clean_names()`](https://textrecipes.tidymodels.org/reference/step_clean_names.md).
+  ([\#198](https://github.com/tidymodels/textrecipes/issues/198))
+
+- New vignettes:
+
+  - “Tokenizers” gives an overview of the tokenization options and how
+    they change the resulting tokens.
+    ([\#158](https://github.com/tidymodels/textrecipes/issues/158))
+  - “Using textrecipes as a sparse matrix engine” documents which steps
+    produce sparse data and how to use them.
+    ([\#302](https://github.com/tidymodels/textrecipes/issues/302))
+  - “Sentence embeddings” shows how to use
+    [`step_sentence_embeddings()`](https://textrecipes.tidymodels.org/reference/step_sentence_embeddings.md)
+    with its engines.
+    ([\#303](https://github.com/tidymodels/textrecipes/issues/303))
+  - “Static embeddings with Model2Vec and BPEmb” shows how to use the
+    new `read_embeddings_*()` helpers, and includes a section on
+    training your own embeddings with wordsalad’s `glove()`,
+    `word2vec()`, and `fasttext()` for use with
+    [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md).
+    ([\#102](https://github.com/tidymodels/textrecipes/issues/102),
+    [\#103](https://github.com/tidymodels/textrecipes/issues/103),
+    [\#104](https://github.com/tidymodels/textrecipes/issues/104),
+    [\#303](https://github.com/tidymodels/textrecipes/issues/303))
+
+### Bug Fixes
+
+- All steps now work with 0 and 1 row data in
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html). This
+  fixes errors in
+  [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md),
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md),
+  [`step_lda()`](https://textrecipes.tidymodels.org/reference/step_lda.md),
+  and
+  [`step_pos_filter()`](https://textrecipes.tidymodels.org/reference/step_pos_filter.md)
+  with 0 rows, and zero-length tokenlists no longer lose their lemma and
+  pos attributes, which broke
+  [`step_lemma()`](https://textrecipes.tidymodels.org/reference/step_lemma.md).
+  ([\#290](https://github.com/tidymodels/textrecipes/issues/290))
+
+- Custom tokenizer functions passed to `custom_token` are now called
+  positionally, so functions whose first argument isn’t named `x` no
+  longer error with “unused argument” at bake time.
+  ([\#248](https://github.com/tidymodels/textrecipes/issues/248))
+
+- `first_person()`, `first_personp()`, `second_person()`,
+  `second_personp()`, `third_person()`, `to_be()`, and `prepositions()`
+  (used by
+  [`step_textfeature()`](https://textrecipes.tidymodels.org/reference/step_textfeature.md))
+  now tokenize the document into words and check whether it contains the
+  word. Previously they tested whether the word matched the entire
+  untokenized document, which almost always returned 0.
+  ([\#316](https://github.com/tidymodels/textrecipes/issues/316))
+
+- The counting functions used by
+  [`step_textfeature()`](https://textrecipes.tidymodels.org/reference/step_textfeature.md)
+  are now more consistent
+  ([\#329](https://github.com/tidymodels/textrecipes/issues/329)):
+
+  - `n_uq_urls()` counts distinct full urls instead of being capped at 2
+    distinct matches of the literal substring “http” or “https”.
+  - `n_charS()` and `n_uq_charS()` now exclude urls, hashtags, and
+    mentions from the character count, as documented.
+  - `n_extraspaces()` no longer counts a single tab or newline as extra
+    spaces. It only counts runs of 2 or more consecutive whitespace
+    characters.
+  - All counting functions return `NA` when given `NA` input.
+
+- [`show_tokens()`](https://textrecipes.tidymodels.org/reference/show_tokens.md)
+  now validates the upper bound of the `n` argument
+  (`nrow(rec$template)`) and gives a clear error, instead of a
+  confusing, unrelated one.
+  ([\#322](https://github.com/tidymodels/textrecipes/issues/322))
+
+- [`step_clean_levels()`](https://textrecipes.tidymodels.org/reference/step_clean_levels.md)
+  now restores the trained column names for legacy trained objects, so
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) no
+  longer silently skips cleaning.
+  ([\#321](https://github.com/tidymodels/textrecipes/issues/321))
+
+- [`step_clean_levels()`](https://textrecipes.tidymodels.org/reference/step_clean_levels.md)
+  now gives character columns a cleaning dictionary at
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) time,
+  so [`bake()`](https://recipes.tidymodels.org/reference/bake.html) uses
+  a fixed lookup instead of applying
+  [`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html)
+  to the batch of values being baked.
+  ([\#320](https://github.com/tidymodels/textrecipes/issues/320))
+
+- [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md)
+  now restores the original columns when `keep_original_cols = TRUE` and
+  `collapse = TRUE`, and no longer leaks the intermediate collapsed
+  column into the output.
+  ([\#304](https://github.com/tidymodels/textrecipes/issues/304))
+
+- [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md)
+  and
+  [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md)
+  no longer crash (segfault) when `num_terms = 0`. They now error
+  cleanly during
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html).
+  ([\#314](https://github.com/tidymodels/textrecipes/issues/314))
+
+- [`step_lda()`](https://textrecipes.tidymodels.org/reference/step_lda.md)
+  now produces deterministic topic features at bake time.
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) reuses
+  the vocabulary learned during
+  [`prep()`](https://recipes.tidymodels.org/reference/prep.html) and
+  projects each document independently, so topic weights sum to about 1
+  and no longer depend on what else is in the same
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) call.
+  ([\#315](https://github.com/tidymodels/textrecipes/issues/315))
+
+- [`step_ngram()`](https://textrecipes.tidymodels.org/reference/step_ngram.md)
+  now errors clearly when `num_tokens` or `min_num_tokens` is less than
+  1, and when `min_num_tokens` is greater than `num_tokens`, instead of
+  surfacing an unrelated low-level error.
+  ([\#324](https://github.com/tidymodels/textrecipes/issues/324))
+
+- [`step_ngram()`](https://textrecipes.tidymodels.org/reference/step_ngram.md)
+  no longer mislabels non-UTF-8 (e.g. latin1) input as UTF-8, which
+  could cause [`nchar()`](https://rdrr.io/r/base/nchar.html),
+  [`toupper()`](https://rdrr.io/r/base/chartr.html), and other string
+  operations on the output to fail with encoding errors.
+  ([\#323](https://github.com/tidymodels/textrecipes/issues/323))
+
+- [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md)
+  now errors clearly when `sequence_length` is less than 1.
+  ([\#324](https://github.com/tidymodels/textrecipes/issues/324))
+
+- [`step_stem()`](https://textrecipes.tidymodels.org/reference/step_stem.md)
+  no longer drops the `lemma` and `pos` attributes carried by a
+  tokenlist, so it can be used before
+  [`step_lemma()`](https://textrecipes.tidymodels.org/reference/step_lemma.md)
+  or
+  [`step_pos_filter()`](https://textrecipes.tidymodels.org/reference/step_pos_filter.md).
+  ([\#327](https://github.com/tidymodels/textrecipes/issues/327))
+
+- [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md)
+  no longer errors with “values value must not be equal to the default
+  0” when baking with `sparse = "yes"` and `signed = TRUE` (the default)
+  and signed hash collisions cancel out to zero.
+  ([\#289](https://github.com/tidymodels/textrecipes/issues/289))
+
+- [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+  with `sublinear_tf = TRUE` no longer produces negative values, because
+  the sublinear transform is now applied before normalization instead of
+  after. ([\#317](https://github.com/tidymodels/textrecipes/issues/317))
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md),
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.md),
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.md),
+  and
+  [`step_tokenize_wordpiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_wordpiece.md)
+  now error informatively if a tokenizer returns a list whose length
+  doesn’t match the number of rows in the input, instead of silently
+  recycling and duplicating rows.
+  ([\#318](https://github.com/tidymodels/textrecipes/issues/318))
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  with `engine = "spacyr"` or `engine = "tokenizers.bpe"`,
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.md),
+  and
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.md)
+  no longer error with “unused argument” in
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html) when
+  `options` is non-empty.
+  ([\#319](https://github.com/tidymodels/textrecipes/issues/319))
+
+- [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  and
+  [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+  documentation now states that the denominator for
+  `weight_scheme = "term frequency"` and `norm = "l1"` is the number of
+  in-vocabulary tokens, not the total number of words.
+  ([\#326](https://github.com/tidymodels/textrecipes/issues/326))
+
+- [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md)
+  documentation now describes the actual default `prefix` and
+  column-naming behavior.
+  ([\#331](https://github.com/tidymodels/textrecipes/issues/331))
+
+### Developer
+
+- [`bake()`](https://recipes.tidymodels.org/reference/bake.html) methods
+  for steps that transform columns in place now use
+  [`recipes_map_cols()`](https://recipes.tidymodels.org/reference/recipes_map_cols.html),
+  which avoids copying the data frame once per column and is much faster
+  with many columns. This requires recipes \>= 1.4.0.
+  ([\#312](https://github.com/tidymodels/textrecipes/issues/312))
+
+## textrecipes 1.1.0
+
+CRAN release: 2025-03-18
+
+### Improvements
+
+- The following steps has gained the argument `sparse`. When set to
+  `"yes"`, they will produce sparse vectors.
+  ([\#277](https://github.com/tidymodels/textrecipes/issues/277))
+  - [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md)
+  - [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md)
+  - [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  - [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+
+## textrecipes 1.0.7
+
+CRAN release: 2025-01-23
+
+### Improvements
+
+- Documentation for tidy methods for all steps has been improved to
+  describe the return value more accurately.
+  ([\#262](https://github.com/tidymodels/textrecipes/issues/262))
+
+- Calling `?tidy.step_*()` now sends you to the documentation for
+  `step_*()` where the outcome is documented.
+  ([\#261](https://github.com/tidymodels/textrecipes/issues/261))
+
+- `step_textfeatures()` has been made faster and more robust.
+  ([\#265](https://github.com/tidymodels/textrecipes/issues/265))
+
+### Bug Fixes
+
+- Fixed bug in
+  [`step_clean_levels()`](https://textrecipes.tidymodels.org/reference/step_clean_levels.md)
+  where it would produce NAs for character columns.
+  ([\#274](https://github.com/tidymodels/textrecipes/issues/274))
+
+## textrecipes 1.0.6
+
+CRAN release: 2023-11-15
+
+- textfeatures has been removed from Suggests.
+  ([\#255](https://github.com/tidymodels/textrecipes/issues/255))
+
+- `step_textfeatures()` no longer returns a politeness feature.
+  ([\#254](https://github.com/tidymodels/textrecipes/issues/254))
+
+## textrecipes 1.0.5
+
+CRAN release: 2023-10-20
+
+- [`step_untokenize()`](https://textrecipes.tidymodels.org/reference/step_untokenize.md)
+  and `step_normalization()` now returns factors instead of strings.
+  ([\#247](https://github.com/tidymodels/textrecipes/issues/247))
+
+## textrecipes 1.0.4
+
+CRAN release: 2023-08-17
+
+### Improvements
+
+- [`step_clean_names()`](https://textrecipes.tidymodels.org/reference/step_clean_names.md)
+  now throw an informative error if needed non-standard role columns are
+  missing during
+  [`bake()`](https://recipes.tidymodels.org/reference/bake.html).
+  ([\#235](https://github.com/tidymodels/textrecipes/issues/235))
+
+- The `keep_original_cols` argument has been added to `step_tokenmerge`.
+  This change should mean that every step that produces new columns has
+  the `keep_original_cols` argument.
+  ([\#242](https://github.com/tidymodels/textrecipes/issues/242))
+
+- Many internal changes to improve consistency and slight speed
+  increases.
+
+### Bug Fixes
+
+- Fixed bug where
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md)
+  and
+  [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md)
+  would add new columns before old columns.
+  ([\#235](https://github.com/tidymodels/textrecipes/issues/235))
+
+- Fixed bug where `vocabulary_size` wasn’t tunable in
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.md).
+  ([\#239](https://github.com/tidymodels/textrecipes/issues/239))
+
+## textrecipes 1.0.3
+
+CRAN release: 2023-04-14
+
+### Improvements
+
+- Steps with tunable arguments now have those arguments listed in the
+  documentation.
+
+- All steps that add new columns will now informatively error if name
+  collision occurs.
+
+### Bug Fixes
+
+- Fixed bug where
+  [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  wasn’t tunable for `weight` argument.
+
+## textrecipes 1.0.2
+
+CRAN release: 2022-12-21
+
+- Setting `token = "tweets"` in
+  [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  have been deprecated due to `tokenizers::tokenize_tweets()` being
+  deprecated.
+  ([\#209](https://github.com/tidymodels/textrecipes/issues/209))
+
+- [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md),
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md),
+  `step_dummy_texthash()` now return integers.
+  [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  returns integer when `weight_scheme` is `"binary"` or `"raw count"`.
+
+- All steps now have
+  [`required_pkgs()`](https://generics.r-lib.org/reference/required_pkgs.html)
+  methods.
+
+## textrecipes 1.0.1
+
+CRAN release: 2022-10-06
+
+- Examples no longer include `if (require(...))` code.
+
+## textrecipes 1.0.0
+
+CRAN release: 2022-07-02
+
+- Indicate which steps support case weights (none), to align
+  documentation with other packages.
+
+## textrecipes 0.5.2
+
+CRAN release: 2022-05-04
+
+- Remove use of okc_text in vignette
+
+- Fix bug in printing of tokenlists
+
+## textrecipes 0.5.1
+
+CRAN release: 2022-03-29
+
+- [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+  now correctly saves the idf values and applies them to the testing
+  data set.
+
+- [`tidy.step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+  now returns calculated IDF weights.
+
+## textrecipes 0.5.0
+
+CRAN release: 2022-03-20
+
+### New steps
+
+- [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md)
+  generates binary indicators (possibly signed) from simple factor or
+  character vectors.
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  has gotten a couple of cousin functions
+  [`step_tokenize_bpe()`](https://textrecipes.tidymodels.org/reference/step_tokenize_bpe.md),
+  [`step_tokenize_sentencepiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_sentencepiece.md)
+  and
+  [`step_tokenize_wordpiece()`](https://textrecipes.tidymodels.org/reference/step_tokenize_wordpiece.md)
+  which wraps {tokenizers.bpe}, {sentencepiece} and {wordpiece}
+  respectively
+  ([\#147](https://github.com/tidymodels/textrecipes/issues/147)).
+
+### Improvements and Other Changes
+
+- Added
+  [`all_tokenized()`](https://textrecipes.tidymodels.org/reference/all_tokenized.md)
+  and
+  [`all_tokenized_predictors()`](https://textrecipes.tidymodels.org/reference/all_tokenized.md)
+  to more easily select tokenized columns
+  ([\#132](https://github.com/tidymodels/textrecipes/issues/132)).
+
+- Use
+  [`show_tokens()`](https://textrecipes.tidymodels.org/reference/show_tokens.md)
+  to more easily debug a recipe involving tokenization.
+
+- Reorganize documentation for all recipe step `tidy` methods
+  ([\#126](https://github.com/tidymodels/textrecipes/issues/126)).
+
+- Steps now have a dedicated subsection detailing what happens when
+  [`tidy()`](https://generics.r-lib.org/reference/tidy.html) is applied.
+  ([\#163](https://github.com/tidymodels/textrecipes/issues/163))
+
+- All recipe steps now officially support empty selections to be more
+  aligned with dplyr and other packages that use tidyselect
+  ([\#141](https://github.com/tidymodels/textrecipes/issues/141)).
+
+- [`step_ngram()`](https://textrecipes.tidymodels.org/reference/step_ngram.md)
+  has been given a speed increase to put it in line with other packages
+  performance.
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  will now try to error if vocabulary size is too low when using
+  `engine = "tokenizers.bpe"`
+  ([\#119](https://github.com/tidymodels/textrecipes/issues/119)).
+
+- Warning given by
+  [`step_tokenfilter()`](https://textrecipes.tidymodels.org/reference/step_tokenfilter.md)
+  when filtering failed to apply now correctly refers to the right
+  argument name
+  ([\#137](https://github.com/tidymodels/textrecipes/issues/137)).
+
+- [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  now returns 0 instead of NaN when there aren’t any tokens present
+  ([\#118](https://github.com/tidymodels/textrecipes/issues/118)).
+
+- [`step_tokenfilter()`](https://textrecipes.tidymodels.org/reference/step_tokenfilter.md)
+  now has a new argument `filter_fun` will takes a function which can be
+  used to filter tokens.
+  ([\#164](https://github.com/tidymodels/textrecipes/issues/164))
+
+- [`tidy.step_stem()`](https://textrecipes.tidymodels.org/reference/step_stem.md)
+  now correctly shows if custom stemmer was used.
+
+- Added `keep_original_cols` argument to `step_lda`,
+  [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md),
+  [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md),
+  [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md),
+  [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md),
+  [`step_dummy_hash()`](https://textrecipes.tidymodels.org/reference/step_dummy_hash.md),
+  [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md),
+  and `step_textfeatures()`
+  ([\#139](https://github.com/tidymodels/textrecipes/issues/139)).
+
+### Breaking Changes
+
+- Steps with `prefix` argument now creates names according to the
+  pattern `prefix_variablename_name/number`.
+  ([\#124](https://github.com/tidymodels/textrecipes/issues/124))
+
+## textrecipes 0.4.1
+
+CRAN release: 2021-07-11
+
+### Bug fixes
+
+- Fixed a bug in
+  [`step_tokenfilter()`](https://textrecipes.tidymodels.org/reference/step_tokenfilter.md)
+  and
+  [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md)
+  that sometimes caused crashes in R 4.1.0.
+
+## textrecipes 0.4.0
+
+CRAN release: 2020-11-12
+
+### Breaking Changes
+
+- [`step_lda()`](https://textrecipes.tidymodels.org/reference/step_lda.md)
+  now takes a tokenlist instead of a character variable. See readme for
+  more detail.
+
+### New Features
+
+- [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md)
+  now takes tokenlists as input.
+- added {tokenizers.bpe} engine to
+  [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md).
+- added {udpipe} engine to
+  [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md).
+- added new steps for cleaning variable names or levels with {janitor},
+  [`step_clean_names()`](https://textrecipes.tidymodels.org/reference/step_clean_names.md)
+  and
+  [`step_clean_levels()`](https://textrecipes.tidymodels.org/reference/step_clean_levels.md).
+  ([\#101](https://github.com/tidymodels/textrecipes/issues/101))
+
+## textrecipes 0.3.0
+
+CRAN release: 2020-07-08
+
+- stopwords package have been moved from Imports to Suggests.
+- [`step_ngram()`](https://textrecipes.tidymodels.org/reference/step_ngram.md)
+  gained an argument `min_num_tokens` to be able to return multiple
+  n-grams together.
+  ([\#90](https://github.com/tidymodels/textrecipes/issues/90))
+- Adds
+  [`step_text_normalization()`](https://textrecipes.tidymodels.org/reference/step_text_normalization.md)
+  to perform unicode normalization on character vectors.
+  ([\#86](https://github.com/tidymodels/textrecipes/issues/86))
+
+## textrecipes 0.2.3
+
+CRAN release: 2020-05-22
+
+## textrecipes 0.2.2
+
+CRAN release: 2020-05-10
+
+- [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md)
+  got a argument `aggregation_default` to specify value in cases where
+  no words matches embedding.
+
+## textrecipes 0.2.1
+
+CRAN release: 2020-05-04
+
+## textrecipes 0.2.0
+
+CRAN release: 2020-04-14
+
+- [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md)
+  got an `engine` argument to specify packages other then tokenizers to
+  tokenize.
+- `spacyr` have been added as an engine to
+  [`step_tokenize()`](https://textrecipes.tidymodels.org/reference/step_tokenize.md).
+- [`step_lemma()`](https://textrecipes.tidymodels.org/reference/step_lemma.md)
+  has been added to extract lemma attribute from tokenlists.
+- [`step_pos_filter()`](https://textrecipes.tidymodels.org/reference/step_pos_filter.md)
+  has been added to allow filtering of tokens bases on their pat of
+  speech tags.
+- [`step_ngram()`](https://textrecipes.tidymodels.org/reference/step_ngram.md)
+  has been added to generate ngrams from tokenlists.
+- [`step_stem()`](https://textrecipes.tidymodels.org/reference/step_stem.md)
+  not correctly uses the options argument. (Thanks to
+  [@grayskripko](https://github.com/grayskripko) for finding bug,
+  [\#64](https://github.com/tidymodels/textrecipes/issues/64))
+
+## textrecipes 0.1.0
+
+CRAN release: 2020-03-05
+
+- `step_word2vec()` have been changed to
+  [`step_lda()`](https://textrecipes.tidymodels.org/reference/step_lda.md)
+  to reflect what is actually happening.
+- [`step_word_embeddings()`](https://textrecipes.tidymodels.org/reference/step_word_embeddings.md)
+  has been added. Allows for use of pre-trained word embeddings to
+  convert token columns to vectors in a high-dimensional “meaning”
+  space. ([@jonthegeek](https://github.com/jonthegeek),
+  [\#20](https://github.com/tidymodels/textrecipes/issues/20))
+- text2vec have been changed from Imports to Suggests.
+- textfeatures have been changed from Imports to Suggests.
+- [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md)
+  calculations are slightly changed due to flaw in original
+  implementation <https://github.com/dselivanov/text2vec/issues/280>.
+
+## textrecipes 0.0.2
+
+CRAN release: 2019-09-07
+
+- Custom stemming function can now be used in step_stem using the
+  custom_stemmer argument.
+- `step_textfeatures()` have been added, allows for multiple numerical
+  features to be pulled from text.
+- [`step_sequence_onehot()`](https://textrecipes.tidymodels.org/reference/step_sequence_onehot.md)
+  have been added, allows for one hot encoding of sequences of fixed
+  width.
+- `step_word2vec()` have been added, calculates word2vec dimensions.
+- [`step_tokenmerge()`](https://textrecipes.tidymodels.org/reference/step_tokenmerge.md)
+  have been added, combines multiple list columns into one list-columns.
+- [`step_texthash()`](https://textrecipes.tidymodels.org/reference/step_texthash.md)
+  now correctly accepts `signed` argument.
+- Documentation have been improved to showcase the importance of
+  filtering tokens before applying
+  [`step_tf()`](https://textrecipes.tidymodels.org/reference/step_tf.md)
+  and
+  [`step_tfidf()`](https://textrecipes.tidymodels.org/reference/step_tfidf.md).
+
+## textrecipes 0.0.1
+
+CRAN release: 2018-12-17
+
+First CRAN version

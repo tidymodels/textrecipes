@@ -1,0 +1,197 @@
+# Cookbook - Using more complex recipes involving text
+
+Working to get textual data converted into numerical can be done in many
+different ways. The steps included in `textrecipes` should hopefully
+give you the flexibility to perform most of your desired text
+preprocessing tasks. This vignette will showcase examples that combine
+multiple steps.
+
+This vignette will not do any modeling with the processed text as its
+purpose it to showcase flexibility and modularity. Therefore the only
+packages needed will be `recipes` and `textrecipes`. Examples will be
+performed on the `tate_text` data-set which is packaged with
+`modeldata`.
+
+``` r
+
+library(recipes)
+library(textrecipes)
+library(modeldata)
+data("tate_text")
+```
+
+## Counting select words
+
+Sometimes it is enough to know the counts of a handful of specific
+words. This can be easily achieved using the arguments
+`custom_stopword_source` and `keep = TRUE` in `step_stopwords`.
+
+``` r
+
+words <- c("or", "and", "on")
+
+okc_rec <- recipe(~., data = tate_text) |>
+  step_tokenize(medium) |>
+  step_stopwords(medium, custom_stopword_source = words, keep = TRUE) |>
+  step_tf(medium)
+
+okc_obj <- okc_rec |>
+  prep()
+
+bake(okc_obj, tate_text) |>
+  select(starts_with("tf_medium"))
+#> # A tibble: 4,284 × 3
+#>    tf_medium_and tf_medium_on tf_medium_or
+#>            <int>        <int>        <int>
+#>  1             1            0            1
+#>  2             0            1            0
+#>  3             0            1            0
+#>  4             0            1            0
+#>  5             0            1            0
+#>  6             0            1            0
+#>  7             0            1            0
+#>  8             0            1            0
+#>  9             1            1            0
+#> 10             0            1            0
+#> # ℹ 4,274 more rows
+```
+
+## Removing words in addition to the stop words list
+
+You might know of certain words you don’t want included which isn’t a
+part of the stop word list of choice. This can easily be done by
+applying the `step_stopwords` step twice, once for the stop words and
+once for your special words.
+
+``` r
+
+stopwords_list <- c(
+  "was", "she's", "who", "had", "some", "same", "you", "most",
+  "it's", "they", "for", "i'll", "which", "shan't", "we're",
+  "such", "more", "with", "there's", "each"
+)
+
+words <- c("sad", "happy")
+
+okc_rec <- recipe(~., data = tate_text) |>
+  step_tokenize(medium) |>
+  step_stopwords(medium, custom_stopword_source = stopwords_list) |>
+  step_stopwords(medium, custom_stopword_source = words) |>
+  step_tfidf(medium)
+
+okc_obj <- okc_rec |>
+  prep()
+
+bake(okc_obj, tate_text) |>
+  select(starts_with("tfidf_medium"))
+#> # A tibble: 4,284 × 951
+#>    tfidf_medium_1 tfidf_medium_10 tfidf_medium_100 tfidf_medium_11
+#>             <dbl>           <dbl>            <dbl>           <dbl>
+#>  1              0               0                0               0
+#>  2              0               0                0               0
+#>  3              0               0                0               0
+#>  4              0               0                0               0
+#>  5              0               0                0               0
+#>  6              0               0                0               0
+#>  7              0               0                0               0
+#>  8              0               0                0               0
+#>  9              0               0                0               0
+#> 10              0               0                0               0
+#> # ℹ 4,274 more rows
+#> # ℹ 947 more variables: tfidf_medium_12 <dbl>, tfidf_medium_13 <dbl>,
+#> #   tfidf_medium_133 <dbl>, tfidf_medium_14 <dbl>,
+#> #   tfidf_medium_15 <dbl>, tfidf_medium_151 <dbl>,
+#> #   tfidf_medium_16 <dbl>, tfidf_medium_160 <dbl>,
+#> #   tfidf_medium_16mm <dbl>, tfidf_medium_18 <dbl>,
+#> #   tfidf_medium_19 <dbl>, tfidf_medium_2 <dbl>, …
+```
+
+## Letter distributions
+
+Another thing one might want to look at is the use of different letters
+in a certain text. For this we can use the built-in character tokenizer
+and keep only the characters using the `step_stopwords` step.
+
+``` r
+
+okc_rec <- recipe(~., data = tate_text) |>
+  step_tokenize(medium, token = "characters") |>
+  step_stopwords(medium, custom_stopword_source = letters, keep = TRUE) |>
+  step_tf(medium)
+
+okc_obj <- okc_rec |>
+  prep()
+
+bake(okc_obj, tate_text) |>
+  select(starts_with("tf_medium"))
+#> # A tibble: 4,284 × 26
+#>    tf_medium_a tf_medium_b tf_medium_c tf_medium_d tf_medium_e
+#>          <int>       <int>       <int>       <int>       <int>
+#>  1           1           0           2           3           4
+#>  2           1           0           1           0           2
+#>  3           1           0           1           0           2
+#>  4           1           0           1           0           2
+#>  5           3           0           1           0           0
+#>  6           3           0           1           0           0
+#>  7           3           0           2           0           1
+#>  8           1           0           1           1           1
+#>  9           5           0           1           1           0
+#> 10           1           0           0           0           1
+#> # ℹ 4,274 more rows
+#> # ℹ 21 more variables: tf_medium_f <int>, tf_medium_g <int>,
+#> #   tf_medium_h <int>, tf_medium_i <int>, tf_medium_j <int>,
+#> #   tf_medium_k <int>, tf_medium_l <int>, tf_medium_m <int>,
+#> #   tf_medium_n <int>, tf_medium_o <int>, tf_medium_p <int>,
+#> #   tf_medium_q <int>, tf_medium_r <int>, tf_medium_s <int>,
+#> #   tf_medium_t <int>, tf_medium_u <int>, tf_medium_v <int>, …
+```
+
+## TF-IDF of ngrams of stemmed tokens
+
+Sometimes fairly complicated computations are needed. Here we would like
+the term frequency inverse document frequency (TF-IDF) of the most
+common 500 ngrams done on stemmed tokens. It is quite a handful and
+would seldom be included as an option in most other libraries. But the
+modularity of `textrecipes` makes this task fairly easy.
+
+First we will tokenize according to words, then stem those words. We
+will then paste together the stemmed tokens using `step_untokenize` so
+we are back at strings that we then tokenize again but this time using
+the ngram tokenizers. Lastly just filtering and tfidf as usual.
+
+``` r
+
+okc_rec <- recipe(~., data = tate_text) |>
+  step_tokenize(medium, token = "words") |>
+  step_stem(medium) |>
+  step_untokenize(medium) |>
+  step_tokenize(medium, token = "ngrams") |>
+  step_tokenfilter(medium, max_tokens = 500) |>
+  step_tfidf(medium)
+
+okc_obj <- okc_rec |>
+  prep()
+
+bake(okc_obj, tate_text) |>
+  select(starts_with("tfidf_medium"))
+#> # A tibble: 4,284 × 499
+#>    tfidf_medium_100 dig…¹ tfidf_medium_16 mm b…² tfidf_medium_16 mm p…³
+#>                     <dbl>                  <dbl>                  <dbl>
+#>  1                      0                      0                      0
+#>  2                      0                      0                      0
+#>  3                      0                      0                      0
+#>  4                      0                      0                      0
+#>  5                      0                      0                      0
+#>  6                      0                      0                      0
+#>  7                      0                      0                      0
+#>  8                      0                      0                      0
+#>  9                      0                      0                      0
+#> 10                      0                      0                      0
+#> # ℹ 4,274 more rows
+#> # ℹ abbreviated names: ¹​`tfidf_medium_100 digit print`,
+#> #   ²​`tfidf_medium_16 mm black`, ³​`tfidf_medium_16 mm project`
+#> # ℹ 496 more variables: `tfidf_medium_16 mm shown` <dbl>,
+#> #   `tfidf_medium_16mm shown a` <dbl>,
+#> #   `tfidf_medium_2 aluminium panel` <dbl>,
+#> #   `tfidf_medium_2 digit print` <dbl>, …
+```
