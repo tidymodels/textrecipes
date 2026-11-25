@@ -46,7 +46,7 @@ test_that("required packages", {
   expect_equal(required_pkgs(r07), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r08), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r09), c("recipes", "textrecipes"))
-  expect_equal(required_pkgs(r10), c("recipes", "textrecipes", "text2vec"))
+  expect_equal(required_pkgs(r10), c("recipes", "textrecipes"))
   expect_equal(required_pkgs(r11), c("recipes", "textrecipes", "SnowballC"))
   expect_equal(required_pkgs(r12), c("recipes", "textrecipes", "stopwords"))
   expect_equal(required_pkgs(r13), c("recipes", "textrecipes"))

@@ -33,7 +33,8 @@
 #' feature indices. This allows for a low memory representation of the data and
 #' can be very helpful when a qualitative predictor has many levels or is
 #' expected to have new levels during prediction. This implementation is done
-#' using the MurmurHash3 method via [text2vec::hash_vectorizer()].
+#' using the MurmurHash3 method, with the same seeds and results as
+#' [text2vec::hash_vectorizer()].
 #'
 #' The argument `num_terms` controls the number of indices that the hashing
 #' function will map to. This is the tuning parameter for this transformation.
@@ -82,7 +83,7 @@
 #' @seealso [recipes::step_dummy()]
 #' @family Steps for Numeric Variables From Characters
 #'
-#' @examplesIf all(c("modeldata", "text2vec") %in% rownames(installed.packages()))
+#' @examplesIf all(c("modeldata") %in% rownames(installed.packages()))
 #'
 #' library(recipes)
 #' library(modeldata)
@@ -195,6 +196,13 @@ prep.step_dummy_hash <- function(x, training, info = NULL, ...) {
   )
 }
 
+# Splits each string on single spaces, keeping empty pieces, as
+# text2vec::space_tokenizer() did. The appended space makes strsplit() keep a
+# trailing empty piece and return "" for "" instead of character(0).
+split_on_space <- function(x) {
+  strsplit(paste0(x, " "), " ", fixed = TRUE)
+}
+
 #' @export
 bake.step_dummy_hash <- function(object, new_data, ...) {
   if (length(object$columns) == 0L) {
@@ -228,7 +236,7 @@ bake.step_dummy_hash <- function(object, new_data, ...) {
   for (hash_col in hash_cols) {
     tf_text <-
       hashing_function(
-        as.character(new_data[[hash_col]]),
+        split_on_space(as.character(new_data[[hash_col]])),
         paste0(
           object$prefix,
           "_",
@@ -297,7 +305,7 @@ tidy.step_dummy_hash <- function(x, ...) {
 #' @keywords internal
 #' @export
 required_pkgs.step_dummy_hash <- function(x, ...) {
-  c("text2vec", "textrecipes")
+  c("textrecipes")
 }
 
 #' @rdname tunable_textrecipes
