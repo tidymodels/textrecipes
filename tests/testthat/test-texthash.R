@@ -10,7 +10,6 @@ test_data <- tibble(
 rec <- recipe(~., data = test_data)
 
 test_that("hashing gives double outputs", {
-  skip_if_not_installed("text2vec")
 
   rec <- rec |>
     step_tokenize(text) |>
@@ -32,7 +31,6 @@ test_that("hashing gives double outputs", {
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
-  skip_if_not_installed("text2vec")
 
   rec <- rec |>
     step_tokenize(text) |>
@@ -48,7 +46,6 @@ test_that("hashing output width changes accordingly with num_terms", {
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
-  skip_if_not_installed("text2vec")
 
   signed <- recipe(~., data = test_data) |>
     step_tokenize(all_predictors()) |>
@@ -69,7 +66,6 @@ test_that("hashing output width changes accordingly with num_terms", {
 })
 
 test_that("check_name() is used", {
-  skip_if_not_installed("text2vec")
 
   dat <- test_data
   dat$texthash_text_0001 <- dat$text
@@ -100,7 +96,6 @@ test_that("tunable", {
 })
 
 test_that("bad args", {
-  skip_if_not_installed("text2vec")
 
   expect_snapshot(
     error = TRUE,
@@ -123,7 +118,6 @@ test_that("bad args", {
 })
 
 test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
-  skip_if_not_installed("text2vec")
 
   expect_snapshot(
     error = TRUE,
@@ -134,7 +128,6 @@ test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
 })
 
 test_that("signed hashing with sparse = 'yes' works when values cancel to 0 (#289)", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("small_fine_foods", package = "modeldata")
@@ -152,7 +145,6 @@ test_that("signed hashing with sparse = 'yes' works when values cancel to 0 (#28
 })
 
 test_that("sparse = 'yes' works", {
-  skip_if_not_installed("text2vec")
 
   rec <- recipe(~., data = test_data)
 
@@ -174,7 +166,6 @@ test_that("sparse = 'yes' works", {
 })
 
 test_that("sparse argument is backwards compatible", {
-  skip_if_not_installed("text2vec")
 
   rec <- recipe(~., data = test_data) |>
     step_tokenize(text) |>
@@ -193,7 +184,6 @@ test_that("sparse argument is backwards compatible", {
 })
 
 test_that(".recipes_toggle_sparse_args works", {
-  skip_if_not_installed("text2vec")
 
   rec <- recipe(~., data = test_data) |>
     step_tokenize(text) |>
@@ -207,7 +197,6 @@ test_that(".recipes_toggle_sparse_args works", {
 # Infrastructure ---------------------------------------------------------------
 
 test_that("bake method errors when needed non-standard role columns are missing", {
-  skip_if_not_installed("text2vec")
 
   tokenized_test_data <- recipe(~text, data = test_data) |>
     step_tokenize(text) |>
@@ -271,7 +260,6 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("keep_original_cols works", {
-  skip_if_not_installed("text2vec")
 
   new_names <- paste0("texthash_text_", 1:5)
 
@@ -301,7 +289,6 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  skip_if_not_installed("text2vec")
 
   rec <- recipe(~text, data = test_data) |>
     step_tokenize(text) |>
@@ -319,7 +306,6 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  skip_if_not_installed("text2vec")
 
   rec <- rec |>
     step_tokenize(text) |>
@@ -345,7 +331,6 @@ test_that("tunable is setup to works with extract_parameter_set_dials", {
 })
 
 test_that("0 and 1 rows data work in bake method", {
-  skip_if_not_installed("text2vec")
   data <- tibble(
     text = c(
       "I would not eat them here or there.",
@@ -363,7 +348,6 @@ test_that("0 and 1 rows data work in bake method", {
 })
 
 test_that("unsigned hashing row sums equal the number of tokens (#328)", {
-  skip_if_not_installed("text2vec")
 
   d <- tibble(text = c("a b a c", "b", "c c c a b b"))
 
@@ -380,7 +364,6 @@ test_that("unsigned hashing row sums equal the number of tokens (#328)", {
 })
 
 test_that("identical documents hash to identical rows and unknown tokens still hash (#328)", {
-  skip_if_not_installed("text2vec")
 
   d <- tibble(text = c("a b c", "c b a"))
 

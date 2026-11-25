@@ -1,5 +1,4 @@
 test_that("hashing gives double outputs", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("grants", package = "modeldata")
@@ -27,7 +26,6 @@ test_that("hashing gives double outputs", {
 
 test_that("hashing multiple factors", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   data("grants", package = "modeldata")
 
@@ -46,7 +44,6 @@ test_that("hashing multiple factors", {
 
 test_that("hashing collapsed multiple factors", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   data("grants", package = "modeldata")
 
@@ -67,7 +64,6 @@ test_that("hashing collapsed multiple factors", {
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("grants", package = "modeldata")
@@ -88,7 +84,6 @@ test_that("hashing output width changes accordingly with num_terms", {
 })
 
 test_that("hashing output width changes accordingly with num_terms", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("grants", package = "modeldata")
@@ -125,7 +120,6 @@ test_that("hashing output width changes accordingly with num_terms", {
 })
 
 test_that("check_name() is used", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("grants", package = "modeldata")
@@ -163,7 +157,6 @@ test_that("tunable", {
 
 test_that("bad args", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   expect_snapshot(
     error = TRUE,
@@ -186,7 +179,6 @@ test_that("bad args", {
 })
 
 test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
-  skip_if_not_installed("text2vec")
 
   expect_snapshot(
     error = TRUE,
@@ -198,7 +190,6 @@ test_that("num_terms = 0 errors cleanly instead of crashing (#314)", {
 
 test_that("sparse = 'yes' works", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   data("grants", package = "modeldata")
 
@@ -224,7 +215,6 @@ test_that("sparse = 'yes' works", {
 
 test_that("sparse argument is backwards compatible", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   data("grants", package = "modeldata")
 
@@ -248,7 +238,6 @@ test_that("sparse argument is backwards compatible", {
 
 test_that(".recipes_toggle_sparse_args works", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   data("grants", package = "modeldata")
 
@@ -267,7 +256,6 @@ test_that(".recipes_toggle_sparse_args works", {
 
 test_that("bake method errors when needed non-standard role columns are missing", {
   skip_if_not_installed("modeldata")
-  skip_if_not_installed("text2vec")
 
   data("grants", package = "modeldata")
 
@@ -331,7 +319,6 @@ test_that("empty selection tidy method works", {
 })
 
 test_that("keep_original_cols works", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("grants", package = "modeldata")
@@ -365,7 +352,6 @@ test_that("keep_original_cols works", {
 })
 
 test_that("keep_original_cols works with collapse = TRUE (#304)", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("tate_text", package = "modeldata")
@@ -407,7 +393,6 @@ test_that("keep_original_cols works with collapse = TRUE (#304)", {
 })
 
 test_that("keep_original_cols - can prep recipes with it missing", {
-  skip_if_not_installed("text2vec")
   skip_if_not_installed("modeldata")
 
   data("grants", package = "modeldata")
@@ -430,7 +415,6 @@ test_that("keep_original_cols - can prep recipes with it missing", {
 })
 
 test_that("printing", {
-  skip_if_not_installed("text2vec")
 
   rec <- recipe(~., data = iris) |>
     step_dummy_hash(Species)
@@ -455,7 +439,6 @@ test_that("tunable is setup to works with extract_parameter_set_dials", {
 })
 
 test_that("0 and 1 rows data work in bake method", {
-  skip_if_not_installed("text2vec")
   data <- tibble(x = c("a", "b", "c"))
   rec <- recipe(~x, data = data) |>
     step_dummy_hash(x, num_terms = 4) |>
@@ -466,7 +449,6 @@ test_that("0 and 1 rows data work in bake method", {
 })
 
 test_that("unsigned dummy hash rows sum to the number of columns hashed (#328)", {
-  skip_if_not_installed("text2vec")
 
   d <- tibble(
     x = factor(c("a", "b", "a", "c")),
