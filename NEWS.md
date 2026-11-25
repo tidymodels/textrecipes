@@ -1,5 +1,7 @@
 # textrecipes (development version)
 
+* `step_texthash()` and `step_dummy_hash()` now do the feature hashing inside textrecipes instead of through text2vec. The results are identical, and text2vec is no longer needed for these steps.
+
 # textrecipes 1.2.0
 
 ## New Steps

@@ -78,7 +78,8 @@ Feature hashing, or the hashing trick, is a transformation of a text variable
 into a new set of numerical variables. This is done by applying a hashing
 function over the tokens and using the hash values as feature indices. This
 allows for a low memory representation of the text. This implementation is
-done using the MurmurHash3 method via \code{\link[text2vec:hash_vectorizer]{text2vec::hash_vectorizer()}}.
+done using the MurmurHash3 method, with the same seeds and results as
+\code{\link[text2vec:hash_vectorizer]{text2vec::hash_vectorizer()}}.
 
 The argument \code{num_terms} controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
@@ -133,7 +134,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
+\dontshow{if (all(c("modeldata") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 library(recipes)
 library(modeldata)
 data(tate_text)
