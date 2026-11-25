@@ -27,7 +27,8 @@
 #' into a new set of numerical variables. This is done by applying a hashing
 #' function over the tokens and using the hash values as feature indices. This
 #' allows for a low memory representation of the text. This implementation is
-#' done using the MurmurHash3 method via [text2vec::hash_vectorizer()].
+#' done using the MurmurHash3 method, with the same seeds and results as
+#' [text2vec::hash_vectorizer()].
 #'
 #' The argument `num_terms` controls the number of indices that the hashing
 #' function will map to. This is the tuning parameter for this transformation.
@@ -70,7 +71,7 @@
 #'   [step_text_normalization()] to perform text normalization.
 #' @family Steps for Numeric Variables From Tokens
 #'
-#' @examplesIf all(c("modeldata", "text2vec") %in% rownames(installed.packages()))
+#' @examplesIf all(c("modeldata") %in% rownames(installed.packages()))
 #' library(recipes)
 #' library(modeldata)
 #' data(tate_text)
@@ -278,8 +279,15 @@ create_dtm_safe <- function(tokens, vectorizer, ...) {
 
 # Takes a [tokenlist] and calculate the hashed token count matrix
 list_to_hash <- function(x, n, signed, sparse) {
-  vectorizer <- text2vec::hash_vectorizer(hash_size = n, signed_hash = signed)
-  res <- create_dtm_safe(x, vectorizer)
+  hashed <- .Call(ffi_hash_tokens, x, as.integer(n), signed)
+
+  # sparseMatrix() sums the entries that share a document and column
+  res <- Matrix::sparseMatrix(
+    i = hashed[[1]],
+    j = hashed[[2]],
+    x = hashed[[3]],
+    dims = c(length(x), n)
+  )
 
   if (sparse_is_yes(sparse)) {
     colnames(res) <- seq_len(ncol(res))
@@ -301,7 +309,7 @@ list_to_hash <- function(x, n, signed, sparse) {
 #' @keywords internal
 #' @export
 required_pkgs.step_texthash <- function(x, ...) {
-  c("text2vec", "textrecipes")
+  c("textrecipes")
 }
 
 #' @rdname tunable_textrecipes

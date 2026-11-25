@@ -86,7 +86,8 @@ function over the values of the factor levels and using the hash values as
 feature indices. This allows for a low memory representation of the data and
 can be very helpful when a qualitative predictor has many levels or is
 expected to have new levels during prediction. This implementation is done
-using the MurmurHash3 method via \code{\link[text2vec:hash_vectorizer]{text2vec::hash_vectorizer()}}.
+using the MurmurHash3 method, with the same seeds and results as
+\code{\link[text2vec:hash_vectorizer]{text2vec::hash_vectorizer()}}.
 
 The argument \code{num_terms} controls the number of indices that the hashing
 function will map to. This is the tuning parameter for this transformation.
@@ -143,7 +144,7 @@ The underlying operation does not allow for case weights.
 }
 
 \examples{
-\dontshow{if (all(c("modeldata", "text2vec") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
+\dontshow{if (all(c("modeldata") \%in\% rownames(installed.packages()))) withAutoprint(\{ # examplesIf}
 
 library(recipes)
 library(modeldata)
