@@ -1,8 +1,10 @@
 #include <Rinternals.h>
 #include "ngram.h"
+#include "murmur.h"
 
 static const R_CallMethodDef CallEntries[] = {
     {"ffi_ngram", (DL_FUNC) &ffi_ngram, 4},
+    {"ffi_hash_tokens", (DL_FUNC) &ffi_hash_tokens, 3},
 
     {NULL, NULL, 0}
 };
