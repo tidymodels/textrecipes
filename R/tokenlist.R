@@ -382,6 +382,9 @@ aggregate_embedding_extremum <- function(vals, group, aggregation) {
     function(col) tapply(vals[, col], group, fun),
     numeric(nlevels(group))
   )
+  if (!is.matrix(out)) {
+    out <- matrix(out, nrow = nlevels(group), ncol = ncol(vals))
+  }
   rownames(out) <- levels(group)
   out
 }

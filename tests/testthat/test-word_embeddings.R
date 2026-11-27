@@ -460,3 +460,56 @@ test_that("0 and 1 rows data work in bake method", {
   expect_identical(nrow(bake(rec, dplyr::slice(data, 1))), 1L)
   expect_identical(nrow(bake(rec, dplyr::slice(data, 0))), 0L)
 })
+
+test_that("step_word_embeddings() works with min/max for 1 matched doc", {
+  for (agg in c("min", "max")) {
+    rec <- rec_base |>
+      step_tokenize(text) |>
+      step_word_embeddings(
+        text,
+        embeddings = embeddings,
+        aggregation = agg,
+        aggregation_default = -1
+      ) |>
+      prep()
+
+    expected <- bake(rec, new_data = test_data)
+
+    # 1-row bake
+    expect_equal(
+      bake(rec, new_data = dplyr::slice(test_data, 1)),
+      dplyr::slice(expected, 1),
+      tolerance = eps
+    )
+
+    # multi-row bake where only 1 row has matched tokens
+    mixed <- tibble(text = c(test_data$text[[1]], "unseen_token_xyz"))
+    baked_mixed <- bake(rec, new_data = mixed)
+    expect_equal(
+      dplyr::slice(baked_mixed, 1),
+      dplyr::slice(expected, 1),
+      tolerance = eps
+    )
+    expect_equal(
+      as.numeric(dplyr::slice(baked_mixed, 2)),
+      rep(-1, ncol(embeddings) - 1L)
+    )
+
+    # 1-column embedding with 1-row bake
+    emb_1d <- embeddings[, 1:2]
+    rec_1d <- rec_base |>
+      step_tokenize(text) |>
+      step_word_embeddings(
+        text,
+        embeddings = emb_1d,
+        aggregation = agg
+      ) |>
+      prep()
+
+    expect_equal(
+      bake(rec_1d, new_data = dplyr::slice(test_data, 1)),
+      dplyr::slice(bake(rec_1d, new_data = test_data), 1),
+      tolerance = eps
+    )
+  }
+})
